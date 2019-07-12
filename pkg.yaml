@@ -1,0 +1,14 @@
+name: base
+dependencies:
+  - image: docker.io/autonomy/tools:b4e3778
+  - image: docker.io/autonomy/musl:9bc7430
+finalize:
+  - from: /toolchain
+    to: /toolchain
+variant: scratch
+shell: /toolchain/bin/bash
+steps:
+  - prepare: |
+      cp -R /toolchain/lib/gcc /lib
+      cp -R /toolchain/lib/libgcc* /lib
+      adjust.sh
