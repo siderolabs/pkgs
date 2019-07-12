@@ -1,0 +1,38 @@
+name: musl
+dependencies:
+  - image: docker.io/autonomy/tools:b4e3778
+  - image: docker.io/autonomy/ca-certificates:20f39f7
+finalize:
+  - from: /rootfs
+    to: /
+variant: scratch
+shell: /toolchain/bin/bash
+steps:
+  - sources:
+      - url: https://www.musl-libc.org/releases/musl-1.1.22.tar.gz
+        destination: musl.tar.gz
+        sha256: 8b0941a48d2f980fd7036cfbd24aa1d414f03d9a0652ecbd5ec5c7ff1bee29e3
+        sha512: 08a40d722672504427238e71c9e52a723c6a14735abe9581d6d4bb3f86662d5d51a3f32a6aed6420c1f9680e22a3a554a9b87ae342635be971e2db49cc9fdb87
+
+    prepare: |
+      export PATH=${TOOLCHAIN}/cross/bin:${PATH}
+
+      tar -xzf musl.tar.gz --strip-components=1
+
+      mkdir /bin
+      ln -sv /toolchain/bin/bash /bin/sh
+
+      mkdir build
+      cd build
+
+      ../configure \
+      --prefix=/ \
+      --syslibdir=/lib \
+
+    build: |
+      cd build
+      make -j $(nproc)
+
+    install: |
+      cd build
+      make DESTDIR=/rootfs install
