@@ -1,0 +1,40 @@
+name: dosfstools
+dependencies:
+  - image: docker.io/autonomy/base:f9a4941
+  - image: docker.io/autonomy/musl:9bc7430
+  - image: docker.io/autonomy/ca-certificates:20f39f7
+finalize:
+  - from: /rootfs
+    to: /
+variant: scratch
+shell: /toolchain/bin/bash
+steps:
+  - sources:
+      - url: https://github.com/dosfstools/dosfstools/releases/download/v4.1/dosfstools-4.1.tar.xz
+        destination: dosfstools.tar.xz
+        sha256: e6b2aca70ccc3fe3687365009dd94a2e18e82b688ed4e260e04b7412471cc173
+        sha512: e7a8aab34255d15e6865a7b031971352af1255134fab83389673bcc3cbd6ba255241bd2429070aeb4b927f8d7d73ccf1aeafe94566b133e88e7586897c317b78
+
+    prepare: |
+      tar -xJf dosfstools.tar.xz --strip-components=1
+
+      mkdir /bin
+      ln -sv /toolchain/bin/bash /bin/bash
+      ln -sv /toolchain/bin/bash /bin/sh
+      cp -R /toolchain/lib/gcc /lib
+      cp -R /toolchain/lib/libgcc* /lib
+
+      mkdir build
+      cd build
+
+      ../configure \
+      --prefix=/ \
+      --enable-compat-symlinks
+
+    build: |
+      cd build
+      make -j $(nproc)
+
+    install: |
+      cd build
+      make install DESTDIR=/rootfs
