@@ -1,0 +1,77 @@
+name: kernel
+dependencies:
+    - image: docker.io/autonomy/tools:b4e3778
+    - image: docker.io/autonomy/ca-certificates:20f39f7
+finalize:
+    - from: /rootfs
+      to: /
+variant: scratch
+shell: /toolchain/bin/bash
+steps:
+    - sources:
+          - url: https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.19.40.tar.xz
+            destination: linux.tar.xz
+            sha256: 6fd8cd4d8a15d7bfb4a7968fbe104f97f8c5ff557c752aae43fe13a6ca073fb0
+            sha512: b9f2bfd8366c7c8315ff27beffcc8e6c0b2c1a92ebc344af8eecfccec63c0fcf8243abc27a1c6297deac0ad69ab9d4ddfb312c9b58c567ff6755b487d8b13c28
+
+      prepare: |
+          tar -xJf linux.tar.xz --strip-components=1
+
+          mkdir /bin
+          ln -sv /toolchain/bin/bash /bin/bash
+          ln -sv /toolchain/bin/bash /bin/sh
+          ln -sv /toolchain/lib /lib
+          mkdir -p /usr/bin \
+              && ln -sf /toolchain/bin/env /usr/bin/env \
+              && ln -sf /toolchain/bin/true /bin/true \
+              && ln -sf /toolchain/bin/pwd /bin/pwd
+
+          case $ARCH in
+              x86_64)
+                  make mrproper
+                  cp -v /pkg/config-amd64 .config
+              ;;
+              aarch64)
+                  export ARCH=arm64
+                  make mrproper
+                  cp -v /pkg/config-arm64 .config
+              ;;
+              *)
+                  echo "unsupported arch ${ARCH}"
+                  exit 1
+              ;;
+          esac
+
+      build: |
+          case $ARCH in
+              x86_64)
+              ;;
+              aarch64)
+                  export ARCH=arm64
+              ;;
+              *)
+                  echo "unsupported arch ${ARCH}"
+                  exit 1
+              ;;
+          esac
+          make -j $(nproc)
+          make -j $(nproc) modules
+
+      install: |
+          mkdir -p /rootfs/boot
+          case $ARCH in
+              x86_64)
+                  mv arch/x86/boot/bzImage /rootfs/boot/vmlinuz
+              ;;
+              aarch64)
+                  export ARCH=arm64
+                  mv arch/arm64/boot/Image.gz /rootfs/boot/vmlinuz
+              ;;
+              *)
+                  echo "unsupported arch ${ARCH}"
+                  exit 1
+              ;;
+          esac
+          export KERNELRELEASE=$(cat include/config/kernel.release)
+          make -j $(nproc) modules_install DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs
+          depmod -b /rootfs $KERNELRELEASE
