@@ -1,0 +1,40 @@
+name: cni
+finalize:
+  - from: /rootfs
+    to: /
+steps:
+  - sources:
+      - url: https://github.com/containernetworking/cni/releases/download/v0.6.0/cni-amd64-v0.6.0.tgz
+        destination: cni-amd64-v0.6.0.tgz
+        sha256: a7f84a742c8f3a95843b3cc636444742554a4853835649ec371a07c841daebab
+        sha512: 348a11d87d869625feb41c4abc2e1ed06efd5b131183ce0039b06222910d045407b1a0de1200d123693df7a33d4cc0801ed268e608caf307303627746c0119fc
+      - url: https://github.com/containernetworking/plugins/releases/download/v0.7.4/cni-plugins-amd64-v0.7.4.tgz
+        destination: cni-plugins-amd64-v0.7.4.tgz
+        sha256: 5f30e4c9090cbb5314452f4c2bcce48907f003b1614a7fc9615ddedbde31cf00
+        sha512: e53956b8a9d2d6acfd55758e9323aae408f38f834fbf6ec789ab755e14d429c353f518bf8212338ab864a65c37c2b5abd2a7884656b44405ace2d88c21679341
+      - url: https://github.com/containernetworking/cni/releases/download/v0.6.0/cni-arm64-v0.6.0.tgz
+        destination: cni-arm64-v0.6.0.tgz
+        sha256: 2e62dc66d2f908c571ca61b600f52ff59dd1e8ac1b6bcd605ffe4e3b76b258d3
+        sha512: aa63deaa96fffff863ab41386654f2bf0f419bbe5ec43f311e39991096de7455c68af3f5bbdbeadc11fd4e93adedbd1480f43d8249964e754d8eb9cf48667a79
+      - url: https://github.com/containernetworking/plugins/releases/download/v0.7.4/cni-plugins-arm64-v0.7.4.tgz
+        destination: cni-plugins-arm64-v0.7.4.tgz
+        sha256: d85ebf5dfcd34eda7d9c9e9d4ab609e24541d0877c4bcb9d5837cfab207ab653
+        sha512: 54efa6fb3aa892cd6213a7f4efaa88adae8b851dbb53f8bd464a5050cc635153d74d7ff59b682653fa2db345b718dafd1684c91b0bd2561213b780439f951387
+
+    install: |
+      mkdir -p /rootfs/opt/cni/bin
+
+      case $ARCH in
+          x86_64)
+              tar -xzf cni-amd64-v0.6.0.tgz -C /rootfs/opt/cni/bin
+              tar -xzf cni-plugins-amd64-v0.7.4.tgz -C /rootfs/opt/cni/bin
+          ;;
+          aarch64)
+              tar -xzf cni-arm64-v0.6.0.tgz -C /rootfs/opt/cni/bin
+              tar -xzf cni-plugins-arm64-v0.7.4.tgz -C /rootfs/opt/cni/bin
+          ;;
+          *)
+              echo "unsupported arch ${ARCH}"
+              exit 1
+          ;;
+      esac
