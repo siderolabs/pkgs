@@ -1,0 +1,45 @@
+name: iptables
+dependencies:
+  - image: docker.io/autonomy/base:f9a4941
+  - image: docker.io/autonomy/musl:9bc7430
+  - image: docker.io/autonomy/ca-certificates:20f39f7
+finalize:
+  - from: /rootfs
+    to: /
+variant: scratch
+shell: /toolchain/bin/bash
+steps:
+  - sources:
+      - url: http://www.netfilter.org/projects/iptables/files/iptables-1.8.2.tar.bz2
+        destination: iptables.tar.bz2
+        sha256: a3778b50ed1a3256f9ca975de82c2204e508001fc2471238c8c97f3d1c4c12af
+        sha512: 8cf0f515764e1dc6e03284581d682d1949b33e8f25fea29c27ae856f1089fe8ca7b1814524b85f4378fd1fc7c7c7d002f06557b257ae2bbc945f8555bad0dc76
+
+    prepare: |
+      tar -xjf iptables.tar.bz2 --strip-components=1
+
+      mkdir /bin
+      ln -sv /toolchain/bin/bash /bin/bash
+      ln -sv /toolchain/bin/bash /bin/sh
+      cp -R /toolchain/lib/gcc /lib
+      cp -R /toolchain/lib/libgcc* /lib
+
+      mkdir build
+      cd build
+
+      ../configure \
+      --prefix=/usr \
+      --libexecdir=/usr/libexec \
+      --disable-static \
+      --sbindir=/sbin \
+      --disable-nftables \
+      --enable-libipq \
+      --with-xtlibdir=/lib/xtables
+
+    build: |
+      cd build
+      make -j $(nproc)
+
+    install: |
+      cd build
+      make install DESTDIR=/rootfs
