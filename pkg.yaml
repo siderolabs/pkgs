@@ -1,0 +1,36 @@
+name: socat
+dependencies:
+  - image: docker.io/autonomy/base:f9a4941
+  - image: docker.io/autonomy/musl:9bc7430
+  - image: docker.io/autonomy/ca-certificates:20f39f7
+  - image: docker.io/autonomy/libressl:3fca2cf
+finalize:
+  - from: /rootfs
+    to: /
+variant: scratch
+shell: /toolchain/bin/bash
+steps:
+  - sources:
+      - url: http://www.dest-unreach.org/socat/download/socat-1.7.3.3.tar.gz
+        destination: socat.tar.gz
+        sha256: 8cc0eaee73e646001c64adaab3e496ed20d4d729aaaf939df2a761e99c674372
+        sha512: b3ea4cb6081f7778a0281a3ec36ea7e5daf07dc19f2e0de08f767417112776e96e1bcac7962ebb6dd8b960ad91fc4a452f0da8327736d50e215e4ab43947ff78
+
+    prepare: |
+      tar -xzf socat.tar.gz --strip-components=1
+
+      mkdir /bin
+      ln -sv /toolchain/bin/bash /bin/bash
+      ln -sv /toolchain/bin/bash /bin/sh
+      cp -R /toolchain/lib/gcc /lib
+      cp -R /toolchain/lib/libgcc* /lib
+
+      ./configure \
+          --prefix=/usr \
+          LIBS="-L/usr/lib"
+
+    build: |
+      make -j $(nproc)
+
+    install: |
+      make install DESTDIR=/rootfs
