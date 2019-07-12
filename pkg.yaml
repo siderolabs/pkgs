@@ -1,0 +1,32 @@
+name: kubeadm
+finalize:
+  - from: /rootfs
+    to: /
+steps:
+  - sources:
+      - url: https://storage.googleapis.com/kubernetes-release/release/v1.15.0/bin/linux/amd64/kubeadm
+        destination: kubeadm-linux-amd64
+        sha256: fc4aa44b96dc143d7c3062124e25fed671cab884ebb8b2446edd10abb45e88c2
+        sha512: c83736095c0057adde6174e187306fcb4c5b0408a5ee4e315e4e8c30d1864feeb32473f036c4e8c48fde2a9be8253ebc1ec2cb840655003b53e2b7c23145c96a
+      - url: https://storage.googleapis.com/kubernetes-release/release/v1.15.0/bin/linux/arm64/kubeadm
+        destination: kubeadm-linux-arm64
+        sha256: fe3c79070814fe847a23209b1027672fe5c5e7e5c9611e329225058926836f96
+        sha512: 92a71545ee74269785b82b9a8425fa1baf4d28760682fdb848a469fd50f985e1510fbedc1249579cf20716aa9081fea4b297baed44f9f6e1d25741486c1e91e9
+
+    install: |
+      mkdir -p /rootfs/bin
+
+      case $ARCH in
+          x86_64)
+              cp kubeadm-linux-amd64 /rootfs/bin/kubeadm
+          ;;
+          aarch64)
+              cp kubeadm-linux-arm64 /rootfs/bin/kubeadm
+          ;;
+          *)
+              echo "unsupported arch ${ARCH}"
+              exit 1
+          ;;
+      esac
+
+      chmod +x /rootfs/bin/kubeadm
