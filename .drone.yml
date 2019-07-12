@@ -1,0 +1,80 @@
+---
+kind: pipeline
+name: default
+
+services:
+  - name: docker
+    image: docker:19.03.0-rc3-dind
+    privileged: true
+    command:
+      - --dns=8.8.8.8
+      - --dns=8.8.4.4
+      - --mtu=1440
+    volumes:
+      - name: docker-socket
+        path: /var/run
+
+steps:
+  - name: build-pull-request
+    image: autonomy/build-container:latest
+    pull: always
+    commands:
+      - docker buildx create --driver docker-container --platform linux/amd64 --name local --use
+      - bldr pack --progress=plain -o autonomy -f pkg.yaml
+    when:
+      event:
+        include:
+          - pull_request
+    volumes:
+      - name: docker-socket
+        path: /var/run
+
+  - name: build-and-publish
+    image: autonomy/build-container:latest
+    pull: always
+    environment:
+      DOCKER_USERNAME:
+        from_secret: docker_username
+      DOCKER_PASSWORD:
+        from_secret: docker_password
+    commands:
+      - docker buildx create --driver docker-container --platform linux/amd64 --name local --use
+      - docker login --username "$${DOCKER_USERNAME}" --password "$${DOCKER_PASSWORD}"
+      - bldr pack --progress=plain -o autonomy -f pkg.yaml --push=true --cache-to=autonomy/ca-certificates:cache --cache-from=autonomy/ca-certificates:cache
+    when:
+      event:
+        exclude:
+          - pull_request
+    volumes:
+      - name: docker-socket
+        path: /var/run
+
+volumes:
+  - name: docker-socket
+    temp: {}
+---
+kind: pipeline
+name: notify
+
+clone:
+  disable: true
+
+steps:
+  - name: slack
+    image: plugins/slack
+    settings:
+      webhook:
+        from_secret: slack_webhook
+      channel: proj-talos-maint
+    when:
+      status:
+        - success
+        - failure
+
+trigger:
+  status:
+    - success
+    - failure
+
+depends_on:
+  - default

@@ -1,0 +1,14 @@
+name: ca-certificates
+finalize:
+  - from: /rootfs
+    to: /
+steps:
+  - sources:
+      - url: https://curl.haxx.se/ca/cacert.pem
+        destination: cacert.pem
+        sha256: cb2eca3fbfa232c9e3874e3852d43b33589f27face98eef10242a853d83a437a
+        sha512: 6dff0130bdc7c9b211d437598d6caf1b5bb7f7268ce66713e9701890f8924c98ab5a4c0df28dac4fdfea439ad61b46861d0c5b2986ac8c8b4a47218a2b9ba02f
+
+    install: |
+      mkdir -p /rootfs/etc/ssl/certs
+      mv cacert.pem /rootfs/etc/ssl/certs/ca-certificates
