@@ -1,0 +1,40 @@
+name: libseccomp
+dependencies:
+  - image: docker.io/autonomy/base:f9a4941
+  - image: docker.io/autonomy/musl:9bc7430
+  - image: docker.io/autonomy/ca-certificates:20f39f7
+finalize:
+  - from: /rootfs
+    to: /
+variant: scratch
+shell: /toolchain/bin/bash
+steps:
+  - sources:
+      - url: https://github.com/seccomp/libseccomp/releases/download/v2.3.3/libseccomp-2.3.3.tar.gz
+        destination: libseccomp.tar.gz
+        sha256: 7fc28f4294cc72e61c529bedf97e705c3acf9c479a8f1a3028d4cd2ca9f3b155
+        sha512: 845c7e0e916b5f5ad74da446ceff3250148b745c909185f6d5059e807d1b42fa6b74f356cce2a396bff0d4c7a3120e7cdad98d490a97d549327c7693fe1918be
+
+    prepare: |
+      tar -xzf libseccomp.tar.gz --strip-components=1
+
+      mkdir /bin
+      ln -sv /toolchain/bin/bash /bin/bash
+      ln -sv /toolchain/bin/bash /bin/sh
+      cp -R /toolchain/lib/gcc /lib
+      cp -R /toolchain/lib/libgcc* /lib
+
+      mkdir build
+      cd build
+
+      ../configure \
+          --prefix=/usr \
+          --disable-static
+
+    build: |
+      cd build
+      make -j $(nproc)
+
+    install: |
+      cd build
+      make install DESTDIR=/rootfs
