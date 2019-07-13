@@ -75,3 +75,5 @@ steps:
           export KERNELRELEASE=$(cat include/config/kernel.release)
           make -j $(nproc) modules_install DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs
           depmod -b /rootfs $KERNELRELEASE
+          unlink /rootfs/lib/modules/$KERNELRELEASE/build
+          unlink /rootfs/lib/modules/$KERNELRELEASE/source
