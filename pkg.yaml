@@ -62,10 +62,12 @@ steps:
           case $ARCH in
               x86_64)
                   mv arch/x86/boot/bzImage /rootfs/boot/vmlinuz
+                  mv vmlinux /rootfs/boot/vmlinux
               ;;
               aarch64)
                   export ARCH=arm64
                   mv arch/arm64/boot/Image.gz /rootfs/boot/vmlinuz
+                  mv vmlinux /rootfs/boot/vmlinux
               ;;
               *)
                   echo "unsupported arch ${ARCH}"
