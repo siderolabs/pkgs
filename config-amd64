@@ -4111,7 +4111,7 @@ CONFIG_MISC_FILESYSTEMS=y
 # CONFIG_BFS_FS is not set
 # CONFIG_EFS_FS is not set
 # CONFIG_CRAMFS is not set
-# CONFIG_SQUASHFS is not set
+CONFIG_SQUASHFS=y
 # CONFIG_VXFS_FS is not set
 # CONFIG_MINIX_FS is not set
 # CONFIG_OMFS_FS is not set
