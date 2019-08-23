@@ -4,12 +4,15 @@ name: default
 
 services:
   - name: docker
-    image: docker:19.03.0-rc3-dind
-    privileged: true
+    image: docker:19.03-dind
+    entrypoint:
+      - dockerd
     command:
       - --dns=8.8.8.8
       - --dns=8.8.4.4
       - --mtu=1440
+      - --log-level=error
+    privileged: true
     volumes:
       - name: docker-socket
         path: /var/run
