@@ -4,14 +4,14 @@ finalize:
     to: /
 steps:
   - sources:
-      - url: https://storage.googleapis.com/kubernetes-release/release/v1.16.0-beta.1/bin/linux/amd64/kubeadm
+      - url: https://storage.googleapis.com/kubernetes-release/release/v1.16.0-beta.2/bin/linux/amd64/kubeadm
         destination: kubeadm-linux-amd64
-        sha256: 51c2074136f327bfcffdeeaa49dc74ca273f31d440050dbb603c74811d5cd380
-        sha512: ff7f36658e0f2c215b369e3d8b2614751af2d7852ebde54ed0b7d761076ea4c0b7608b855fcce0aa75d6ad3898b5b61b83d7f5871fe372857f1f18ef04d46f4e
-      - url: https://storage.googleapis.com/kubernetes-release/release/v1.16.0-beta.1/bin/linux/arm64/kubeadm
+        sha256: bba224360cfb4e6471f84523fcc954951c05c0fef0a4311a07e76f306cadebf1
+        sha512: 5e848d0c8fe84acf730d2a0e6fc39cf5637ee30e0dcacc78f267e86d7e6a3c53e363c8c12ec6b946695c6bacea526cdd2c8b5cb74b6b6337c77ba4b6b712940b
+      - url: https://storage.googleapis.com/kubernetes-release/release/v1.16.0-beta.2/bin/linux/arm64/kubeadm
         destination: kubeadm-linux-arm64
-        sha256: 5efb0efc838c002ae28914ec070e6273935bddee1137d2449aef4f6e69fed931
-        sha512: 02c7db2b9ecda1609947729a4c462038a2d478cfa122981c80ad493d351f73c82120be2f432d1cba5f879055dcd1b441c170a4323f0add286aec84d4ddcff1db
+        sha256: 0e3ae66f2f57a18eb363af1d49a22b35a24e32bf36af5ef630aa5ceeedc9feed
+        sha512: 444fa83896910d3c1c8907b8ce65fe8b58dbc0f90c03cf9a59753d57ff1ab9cfd535d2cf74a0704c02c3348a5b78c16a3e0667cd7e90680d5012546814a7e600
 
     install: |
       mkdir -p /rootfs/bin
