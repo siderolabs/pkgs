@@ -9,10 +9,10 @@ variant: scratch
 shell: /toolchain/bin/bash
 steps:
     - sources:
-          - url: https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.2.8.tar.xz
+          - url: https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.2.18.tar.xz
             destination: linux.tar.xz
-            sha256: a127cd06cc01468e5564c5242827610b679827d7b40c2a2e4d82c629dd0f6937
-            sha512: 89d1b8d5aff901ee86211e1c03adfa912fbbe221e63f54cc7894eea1ff1a10c49dc359a4f097054be43041bec01dcf119af2967cf9ac6eb2198c2af7d0d18a46
+            sha256: 6d090f866c9739403f78b08470209d1e825c44ce5dbaa237a4a2c8c6609dca60
+            sha512: 0ecec70cced35bcb6b1867848f6b59c8c92dbe42f84bf7e9cd22de1e2b0e6f18eb82704bacef0dfa9ee9ee74ad72a027ed2b5302e9acaf38530311daab51f9bd
 
       prepare: |
           tar -xJf linux.tar.xz --strip-components=1
