@@ -11,10 +11,10 @@ variant: scratch
 shell: /toolchain/bin/bash
 steps:
   - sources:
-      - url: https://github.com/containerd/containerd/archive/v1.2.8.tar.gz
+      - url: https://github.com/containerd/containerd/archive/v1.3.0.tar.gz
         destination: containerd.tar.gz
-        sha256: 6165ae2ad669d9ec6d317492d30a1511365bd31ad29efae757f19c1828bf75b3
-        sha512: 384cc0cf837986a77dee9ece36d79c9bc37078bef4217824231e7b89db62b04cacb26963dc8693ae47a1cd40f1094e5da4f86a9f8ae5b2a851f4a506b020a3fe
+        sha256: a5115a680cc02ca6ce5680b7c3f2852006b2f556b35f88872eb20311a47cb4d1
+        sha512: cff9f0189b9fdc2b5492c92129af284aa8cd099e48de94cafd90aed191e2d20060c96008111b05fe081de0d4fc41d35f8cba5a3dc2d8cc0a5c37f695fd3cedc1
 
     prepare: |
       export GOPATH=/go
@@ -37,7 +37,7 @@ steps:
       export GOPATH=/go
       export PATH=${PATH}:${TOOLCHAIN}/go/bin
       cd ${GOPATH}/src/github.com/containerd/containerd
-      make bin/containerd bin/containerd-shim BUILDTAGS='seccomp no_btrfs' VERSION=v1.2.8 REVISION=a4bc1d432a2c33aa2eed37f338dceabb93641310
+      make bin/containerd bin/containerd-shim BUILDTAGS='seccomp no_btrfs' VERSION=v1.3.0 REVISION=36cf5b690dcc00ff0f34ff7799209050c3d0c59a
 
     install: |
       mkdir -p /rootfs/bin
