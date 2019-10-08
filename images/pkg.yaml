@@ -1,0 +1,17 @@
+name: images
+install:
+- skopeo
+steps:
+- build:
+  - |
+    skopeo copy docker://k8s.gcr.io/hyperkube:v1.15.0 docker-archive:hyperkube.tar:k8s.gcr.io/hyperkube:v1.15.0
+    skopeo copy docker://k8s.gcr.io/etcd:3.3.10 docker-archive:etcd.tar:k8s.gcr.io/etcd:3.3.10
+    skopeo copy docker://k8s.gcr.io/coredns:1.3.1 docker-archive:coredns.tar:k8s.gcr.io/coredns:1.3.1
+    skopeo copy docker://k8s.gcr.io/pause:3.1 docker-archive:pause.tar:k8s.gcr.io/pause:3.1
+  install:
+  - |
+    mkdir -p /rootfs/usr/images
+    cp *.tar /rootfs/usr/images
+finalize:
+- from: /rootfs
+  to: /
