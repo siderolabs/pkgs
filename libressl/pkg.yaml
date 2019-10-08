@@ -1,0 +1,34 @@
+name: libressl
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+- stage: base
+- stage: musl
+- stage: ca-certificates
+steps:
+- sources:
+  - url: https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-2.9.0.tar.gz
+    destination: libressl.tar.gz
+    sha256: eb5f298408b723f11a0ca0192c122ecb79b4855bfdf7eea183a6264296a13cf4
+    sha512: db7fec664bef8d76204ca691c11df236abce3c85b2a51011eec5bd302e273b62fa3cfce0430980915c3f3ce34176d5ef9c187902f0b39d7fc151e69e552b499c
+  prepare:
+  - |
+    tar -xzf libressl.tar.gz --strip-components=1
+
+    mkdir /bin
+    ln -sv /toolchain/bin/bash /bin/bash
+    ln -sv /toolchain/bin/bash /bin/sh
+    cp -R /toolchain/lib/gcc /lib
+    cp -R /toolchain/lib/libgcc* /lib
+
+    ./configure \
+    --prefix=/usr
+  build:
+  - |
+    make -j $(nproc)
+  install:
+  - |
+    make install DESTDIR=/rootfs
+finalize:
+- from: /rootfs
+  to: /

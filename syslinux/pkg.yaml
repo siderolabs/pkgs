@@ -1,0 +1,44 @@
+name: syslinux
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+- stage: base
+- stage: musl
+- stage: ca-certificates
+steps:
+- sources:
+  - url: https://www.kernel.org/pub/linux/utils/boot/syslinux/syslinux-6.03.tar.xz
+    destination: syslinux.tar.xz
+    sha256: 26d3986d2bea109d5dc0e4f8c4822a459276cf021125e8c9f23c3cca5d8c850e
+    sha512: dd2b2916962b9e93bc1e714182e3ca2a727a229b8afabe913050bcfdd43ee2af51ee3acf79121d8c20caf434583efaa7f3196871e0e07c04d82191323a50fe31
+  prepare:
+  - |
+    tar -xJf syslinux.tar.xz --strip-components=1
+
+    mkdir /bin
+    ln -sv /toolchain/bin/bash /bin/bash
+    ln -sv /toolchain/bin/bash /bin/sh
+    ln -sv /toolchain/bin/pwd /bin/pwd
+    cp -R /toolchain/lib/gcc /lib
+    cp -R /toolchain/lib/libgcc* /lib
+
+    # TODO(andrewrynhard): Add a util-linux package in this repo and pull these from there.
+    cp /toolchain/lib/libuuid* /lib
+  build:
+  - |
+    make -j $(nproc) installer
+  install:
+  - |
+    mkdir -p /rootfs/bin
+    cp bios/extlinux/extlinux /rootfs/bin
+    mkdir -p /rootfs/usr/lib/syslinux
+    cp efi64/mbr/gptmbr.bin /rootfs/usr/lib/syslinux/
+    # UEFI
+    cp efi64/efi/syslinux.efi /rootfs/usr/lib/syslinux/
+    cp efi64/com32/elflink/ldlinux/ldlinux.e64 /rootfs/usr/lib/syslinux/
+    # ISO
+    cp bios/core/isolinux.bin /rootfs/usr/lib/syslinux/
+    cp bios/com32/elflink/ldlinux/ldlinux.c32 /rootfs/usr/lib/syslinux/
+finalize:
+- from: /rootfs
+  to: /
