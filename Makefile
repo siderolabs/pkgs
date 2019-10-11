@@ -91,3 +91,7 @@ $(TARGETS): buildkitd gitmeta
 		--opt target=$@ \
 		--output type=image,name=docker.io/autonomy/$@:$(TAG)$(PUSH_ARGS) \
 		$(COMMON_ARGS)
+
+.PHONY: deps.png
+deps.png:
+	bldr graph | dot -Tpng > deps.png	
