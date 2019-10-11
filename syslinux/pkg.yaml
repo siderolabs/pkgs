@@ -15,6 +15,8 @@ steps:
     prepare:
       - |
         tar -xJf syslinux.tar.xz --strip-components=1
+
+        patch -p1 </pkg/patches/sys-macros.patch
     build:
       - |
         make -j $(nproc) installer

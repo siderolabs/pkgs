@@ -2,7 +2,7 @@ name: kernel
 variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
-    - image: docker.io/autonomy/tools:b4e3778
+    - image: docker.io/autonomy/tools:7de4db2
 steps:
     - sources:
           - url: https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.3.6.tar.xz
