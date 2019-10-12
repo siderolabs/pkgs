@@ -1,0 +1,39 @@
+name: kmod
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+  - stage: musl
+  - stage: ca-certificates
+steps:
+  - sources:
+      - url: https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-25.tar.xz
+        destination: kmod.tar.xz
+        sha256: 7165e6496656159dcb909a91ed708a0fe273a4b128b4b1dc997ccb5189eef1cd
+        sha512: d579cd0cea24a06362a74927b7a3c777e9e01c990306e1032e4781cd441ffe435c70f2c2c4f6ae39eb1d857e622746411d5824d0c0d8bb79f91dc9fa51956252
+    prepare:
+      - |
+        tar -xJf kmod.tar.xz --strip-components=1
+
+        mkdir /bin
+        ln -sv /toolchain/bin/bash /bin/bash
+        ln -sv /toolchain/bin/bash /bin/sh
+        cp -R /toolchain/lib/gcc /lib
+        cp -R /toolchain/lib/libgcc* /lib
+
+        mkdir build
+        cd build
+        ../configure \
+            --prefix=${TOOLCHAIN}
+    build:
+      - |
+        cd build
+        make -j $(nproc)
+    install:
+      - |
+        cd build
+        make DESTDIR=/rootfs install
+        for target in depmod insmod modinfo modprobe rmmod; do ln -s ../bin/kmod /rootfs${TOOLCHAIN}/bin/$target; done
+finalize:
+  - from: /rootfs
+    to: /
