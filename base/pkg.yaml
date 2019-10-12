@@ -2,19 +2,20 @@ name: base
 variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
-- image: docker.io/autonomy/tools:b4e3778
-- stage: musl
+  - image: docker.io/autonomy/tools:b4e3778
+  - stage: musl
 steps:
-- prepare:
-  - |
-    cp -R /toolchain/lib/gcc /lib
-    cp -R /toolchain/lib/libgcc* /lib
+  - prepare:
+      - |
+        cp -R /toolchain/lib/gcc /lib
+        cp -R /toolchain/lib/libgcc* /lib
 
-    mkdir /bin
-    ln -sv /toolchain/bin/bash /bin/bash
-    ln -sv /toolchain/bin/bash /bin/sh
+        mkdir /bin
+        ln -sv /toolchain/bin/bash /bin/bash
+        ln -sv /toolchain/bin/bash /bin/sh
+        ln -sv /toolchain/bin/pwd /bin/pwd
 
-    adjust.sh
+        adjust.sh
 finalize:
-- from: /toolchain
-  to: /toolchain
+  - from: /
+    to: /

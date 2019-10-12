@@ -15,12 +15,6 @@ steps:
     prepare:
       - |
         tar -xJf syslinux.tar.xz --strip-components=1
-
-        ln -sv /toolchain/bin/bash /bin/bash
-        ln -sv /toolchain/bin/bash /bin/sh
-        ln -sv /toolchain/bin/pwd /bin/pwd
-        cp -R /toolchain/lib/gcc /lib
-        cp -R /toolchain/lib/libgcc* /lib
     build:
       - |
         make -j $(nproc) installer
