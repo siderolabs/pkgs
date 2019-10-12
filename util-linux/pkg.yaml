@@ -1,0 +1,44 @@
+name: util-linux
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+  - stage: musl
+  - stage: ca-certificates
+steps:
+  - sources:
+      - url: https://www.kernel.org/pub/linux/utils/util-linux/v2.32/util-linux-2.32.1.tar.xz
+        destination: util-linux.tar.xz
+        sha256: 86e6707a379c7ff5489c218cfaf1e3464b0b95acf7817db0bc5f179e356a67b2
+        sha512: 267fedae24a874ee4dc558081f6b8d07b33b955b0635f3348f021c111c17f2e95c01b2cbf909fe13c6ca448cbcf23c658c75f72f25749aa65e99f68fabb94698
+    prepare:
+      - |
+        tar -xJf util-linux.tar.xz --strip-components=1
+
+        mkdir /bin
+        ln -sv /toolchain/bin/bash /bin/bash
+        ln -sv /toolchain/bin/bash /bin/sh
+        cp -R /toolchain/lib/gcc /lib
+        cp -R /toolchain/lib/libgcc* /lib
+
+        mkdir build
+        cd build
+        ../configure \
+            --prefix=${TOOLCHAIN} \
+            --without-python \
+            --disable-makeinstall-chown \
+            --without-systemdsystemunitdir \
+            --without-ncurses \
+            PKG_CONFIG=""
+    build:
+      - |
+        cd build
+        make -j $(nproc)
+    install:
+      - |
+        cd build
+        mkdir /rootfs
+        make install DESTDIR=/rootfs
+finalize:
+  - from: /rootfs
+    to: /
