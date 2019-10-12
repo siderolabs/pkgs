@@ -2,45 +2,45 @@ name: containerd
 variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
-- stage: base
-- stage: musl
-- stage: ca-certificates
-- stage: libseccomp
+  - stage: base
+  - stage: musl
+  - stage: ca-certificates
+  - stage: libseccomp
 steps:
-- sources:
-  - url: https://github.com/containerd/containerd/archive/v1.3.0.tar.gz
-    destination: containerd.tar.gz
-    sha256: a5115a680cc02ca6ce5680b7c3f2852006b2f556b35f88872eb20311a47cb4d1
-    sha512: cff9f0189b9fdc2b5492c92129af284aa8cd099e48de94cafd90aed191e2d20060c96008111b05fe081de0d4fc41d35f8cba5a3dc2d8cc0a5c37f695fd3cedc1
-  prepare:
-  - |
-    export GOPATH=/go
-    mkdir -p ${GOPATH}/src/github.com/containerd/containerd
-    tar -xzf containerd.tar.gz --strip-components=1 -C ${GOPATH}/src/github.com/containerd/containerd
+  - sources:
+      - url: https://github.com/containerd/containerd/archive/v1.3.0.tar.gz
+        destination: containerd.tar.gz
+        sha256: a5115a680cc02ca6ce5680b7c3f2852006b2f556b35f88872eb20311a47cb4d1
+        sha512: cff9f0189b9fdc2b5492c92129af284aa8cd099e48de94cafd90aed191e2d20060c96008111b05fe081de0d4fc41d35f8cba5a3dc2d8cc0a5c37f695fd3cedc1
+    prepare:
+      - |
+        export GOPATH=/go
+        mkdir -p ${GOPATH}/src/github.com/containerd/containerd
+        tar -xzf containerd.tar.gz --strip-components=1 -C ${GOPATH}/src/github.com/containerd/containerd
 
-    mkdir /bin
-    ln -sv /toolchain/bin/bash /bin/bash
-    ln -sv /toolchain/bin/bash /bin/sh
-    cp -R /toolchain/lib/gcc /lib
-    cp -R /toolchain/lib/libgcc* /lib
-  build:
-  - |
-    export PKG_CONFIG_PATH=/usr/lib/pkgconfig
-    export CC=/toolchain/bin/cc
-    export CGO_CFLAGS="-L/usr/lib -I/usr/include"
-    export CGO_LDFLAGS="-L/usr/lib -I/usr/include"
-    # This is required due to "loadinternal: cannot find runtime/cgo".
-    export CGO_ENABLED=1
-    export GOPATH=/go
-    export PATH=${PATH}:${TOOLCHAIN}/go/bin
-    cd ${GOPATH}/src/github.com/containerd/containerd
-    make bin/containerd bin/containerd-shim BUILDTAGS='seccomp no_btrfs' VERSION=v1.3.0 REVISION=36cf5b690dcc00ff0f34ff7799209050c3d0c59a
-  install:
-  - |
-    mkdir -p /rootfs/bin
-    export GOPATH=/go
-    cp ${GOPATH}/src/github.com/containerd/containerd/bin/containerd /rootfs/bin
-    cp ${GOPATH}/src/github.com/containerd/containerd/bin/containerd-shim /rootfs/bin
+        mkdir /bin
+        ln -sv /toolchain/bin/bash /bin/bash
+        ln -sv /toolchain/bin/bash /bin/sh
+        cp -R /toolchain/lib/gcc /lib
+        cp -R /toolchain/lib/libgcc* /lib
+    build:
+      - |
+        export PKG_CONFIG_PATH=/usr/lib/pkgconfig
+        export CC=/toolchain/bin/cc
+        export CGO_CFLAGS="-L/usr/lib -I/usr/include"
+        export CGO_LDFLAGS="-L/usr/lib -I/usr/include"
+        # This is required due to "loadinternal: cannot find runtime/cgo".
+        export CGO_ENABLED=1
+        export GOPATH=/go
+        export PATH=${PATH}:${TOOLCHAIN}/go/bin
+        cd ${GOPATH}/src/github.com/containerd/containerd
+        make bin/containerd bin/containerd-shim-runc-v1 BUILDTAGS='seccomp no_btrfs' VERSION=v1.3.0 REVISION=36cf5b690dcc00ff0f34ff7799209050c3d0c59a
+    install:
+      - |
+        mkdir -p /rootfs/bin
+        export GOPATH=/go
+        cp ${GOPATH}/src/github.com/containerd/containerd/bin/containerd /rootfs/bin
+        cp ${GOPATH}/src/github.com/containerd/containerd/bin/containerd-shim-runc-v1 /rootfs/bin
 finalize:
-- from: /rootfs
-  to: /
+  - from: /rootfs
+    to: /
