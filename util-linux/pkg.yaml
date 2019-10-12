@@ -15,12 +15,6 @@ steps:
       - |
         tar -xJf util-linux.tar.xz --strip-components=1
 
-        mkdir /bin
-        ln -sv /toolchain/bin/bash /bin/bash
-        ln -sv /toolchain/bin/bash /bin/sh
-        cp -R /toolchain/lib/gcc /lib
-        cp -R /toolchain/lib/libgcc* /lib
-
         mkdir build
         cd build
         ../configure \

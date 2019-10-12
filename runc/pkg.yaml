@@ -2,49 +2,43 @@ name: runc
 variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
-- stage: base
-- stage: musl
-- stage: ca-certificates
-- stage: libseccomp
+  - stage: base
+  - stage: musl
+  - stage: ca-certificates
+  - stage: libseccomp
 steps:
-- sources:
-  - url: https://github.com/opencontainers/runc/releases/download/v1.0.0-rc8/runc.tar.xz
-    destination: runc.tar.xz
-    sha256: 5d46f01bca203ae226f107f8e3351211f492d43038af19b8337acffab6c4f576
-    sha512: 132cf58dd8533e87c31a93a68b33a2705070458504f689a52696a110091ef5e9ca0ccb6ad127239a545e8d070ebbc08507fbf4c121b2528d36d88d26a3936ded
-  prepare:
-  - |
-    mkdir /bin
-    ln -sv /toolchain/bin/bash /bin/bash
-    ln -sv /toolchain/bin/bash /bin/sh
-    cp -R /toolchain/lib/gcc /lib
-    cp -R /toolchain/lib/libgcc* /lib
+  - sources:
+      - url: https://github.com/opencontainers/runc/releases/download/v1.0.0-rc8/runc.tar.xz
+        destination: runc.tar.xz
+        sha256: 5d46f01bca203ae226f107f8e3351211f492d43038af19b8337acffab6c4f576
+        sha512: 132cf58dd8533e87c31a93a68b33a2705070458504f689a52696a110091ef5e9ca0ccb6ad127239a545e8d070ebbc08507fbf4c121b2528d36d88d26a3936ded
+    prepare:
+      - |
+        export GOPATH=/go
+        mkdir -p ${GOPATH}/src/github.com/opencontainers/runc
 
-    export GOPATH=/go
-    mkdir -p ${GOPATH}/src/github.com/opencontainers/runc
+        tar -xJf runc.tar.xz --strip-components=1 -C ${GOPATH}/src/github.com/opencontainers/runc
+    build:
+      - |
+        export GOPATH=/go
+        cd ${GOPATH}/src/github.com/opencontainers/runc
 
-    tar -xJf runc.tar.xz --strip-components=1 -C ${GOPATH}/src/github.com/opencontainers/runc
-  build:
-  - |
-    export GOPATH=/go
-    cd ${GOPATH}/src/github.com/opencontainers/runc
+        export PATH=${PATH}:/${TOOLCHAIN}/go/bin
+        export PKG_CONFIG_PATH=/usr/lib/pkgconfig
+        export CC=/toolchain/bin/cc
+        export CGO_CFLAGS="-L/usr/lib -I/usr/include"
+        export CGO_LDFLAGS="-L/usr/lib -I/usr/include"
+        # This is required due to "loadinternal: cannot find runtime/cgo".
+        export CGO_ENABLED=1
+        make EXTRA_LDFLAGS="-w -s" BUILDTAGS="seccomp" COMMIT=ccb5efd37fb7c86364786e9137e22948751de7ed runc
+    install:
+      - |
+        export GOPATH=/go
+        cd ${GOPATH}/src/github.com/opencontainers/runc
 
-    export PATH=${PATH}:/${TOOLCHAIN}/go/bin
-    export PKG_CONFIG_PATH=/usr/lib/pkgconfig
-    export CC=/toolchain/bin/cc
-    export CGO_CFLAGS="-L/usr/lib -I/usr/include"
-    export CGO_LDFLAGS="-L/usr/lib -I/usr/include"
-    # This is required due to "loadinternal: cannot find runtime/cgo".
-    export CGO_ENABLED=1
-    make EXTRA_LDFLAGS="-w -s" BUILDTAGS="seccomp" COMMIT=ccb5efd37fb7c86364786e9137e22948751de7ed runc
-  install:
-  - |
-    export GOPATH=/go
-    cd ${GOPATH}/src/github.com/opencontainers/runc
-
-    mkdir -p /rootfs/bin
-    mv runc /rootfs/bin/runc
-    chmod +x /rootfs/bin/runc
+        mkdir -p /rootfs/bin
+        mv runc /rootfs/bin/runc
+        chmod +x /rootfs/bin/runc
 finalize:
-- from: /rootfs
-  to: /
+  - from: /rootfs
+    to: /

@@ -16,11 +16,6 @@ steps:
       - |
         tar -xJf xfsprogs.tar.xz --strip-components=1
 
-        ln -sv /toolchain/bin/bash /bin/bash
-        ln -sv /toolchain/bin/bash /bin/sh
-        cp -R /toolchain/lib/gcc /lib
-        cp -R /toolchain/lib/libgcc* /lib
-
         ./configure \
         --prefix=/ \
         --enable-gettext=no
