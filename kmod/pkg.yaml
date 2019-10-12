@@ -24,7 +24,7 @@ steps:
         mkdir build
         cd build
         ../configure \
-            --prefix=${TOOLCHAIN}
+            --prefix=/
     build:
       - |
         cd build
@@ -33,7 +33,7 @@ steps:
       - |
         cd build
         make DESTDIR=/rootfs install
-        for target in depmod insmod modinfo modprobe rmmod; do ln -s ../bin/kmod /rootfs${TOOLCHAIN}/bin/$target; done
+        for target in depmod insmod modinfo modprobe rmmod; do ln -s ../bin/kmod /rootfs/bin/$target; done
 finalize:
   - from: /rootfs
     to: /

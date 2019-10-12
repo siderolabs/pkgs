@@ -24,7 +24,7 @@ steps:
         mkdir build
         cd build
         ../configure \
-            --prefix=${TOOLCHAIN} \
+            --prefix=/ \
             --without-python \
             --disable-makeinstall-chown \
             --without-systemdsystemunitdir \
