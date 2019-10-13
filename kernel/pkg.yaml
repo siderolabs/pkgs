@@ -3,13 +3,12 @@ variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
     - image: docker.io/autonomy/tools:b4e3778
-    - stage: ca-certificates
 steps:
     - sources:
-          - url: https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.2.18.tar.xz
+          - url: https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.3.6.tar.xz
             destination: linux.tar.xz
-            sha256: 6d090f866c9739403f78b08470209d1e825c44ce5dbaa237a4a2c8c6609dca60
-            sha512: 0ecec70cced35bcb6b1867848f6b59c8c92dbe42f84bf7e9cd22de1e2b0e6f18eb82704bacef0dfa9ee9ee74ad72a027ed2b5302e9acaf38530311daab51f9bd
+            sha256: e84021a94784de7bb10e4251fb1a87859a8d1c97bd78fb55ad47ab6ce475ec1f
+            sha512: 2e83065e29f2e7f3a7c8ae68e4a5497804126c9edd7e76278c3565773789f52982e16987be4f14535bc6950a20a9a3ff74523b4d8accc1db1b898a8d2c0755be
       prepare:
           - |
               tar -xJf linux.tar.xz --strip-components=1
