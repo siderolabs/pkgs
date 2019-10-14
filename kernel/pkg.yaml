@@ -22,6 +22,17 @@ steps:
                   && ln -sf /toolchain/bin/true /bin/true \
                   && ln -sf /toolchain/bin/pwd /bin/pwd
 
+              # Ensure that `make menuconfig` works.
+
+              mkdir -p /usr/lib/pkgconfig
+              ln -s /toolchain/include /usr/include
+
+              for lib in ncurses form panel menu ; do
+                  rm -vf                    /lib/lib${lib}.so
+                  echo "INPUT(-l${lib}w)" > /lib/lib${lib}.so
+                  ln -sfv ${lib}w.pc        /lib/pkgconfig/${lib}.pc
+              done
+
               case $ARCH in
                   x86_64)
                       make mrproper
