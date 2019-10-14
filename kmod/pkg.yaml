@@ -7,10 +7,10 @@ dependencies:
   - stage: ca-certificates
 steps:
   - sources:
-      - url: https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-25.tar.xz
+      - url: https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-26.tar.xz
         destination: kmod.tar.xz
-        sha256: 7165e6496656159dcb909a91ed708a0fe273a4b128b4b1dc997ccb5189eef1cd
-        sha512: d579cd0cea24a06362a74927b7a3c777e9e01c990306e1032e4781cd441ffe435c70f2c2c4f6ae39eb1d857e622746411d5824d0c0d8bb79f91dc9fa51956252
+        sha256: 57bb22c8bb56435991f6b0810a042b0a65e2f1e217551efa58235b7034cdbb9d
+        sha512: 3ca276c6fc13c2dd2220ec528b8dc4ab4edee5d2b22e16b6f945c552e51f74342c01c33a53740e6af8c893d42bd4d6f629cd8fa6e15ef8bd8da30cb003ef0865
     prepare:
       - |
         tar -xJf kmod.tar.xz --strip-components=1
