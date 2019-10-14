@@ -38,7 +38,7 @@ endif
 
 TAG ?= $(shell $(BINDIR)/gitmeta image tag)
 
-TARGETS =  ca-certificates  cni  containerd  crictl  dosfstools  eudev  fhs  images  iptables  kernel  kmod  kubeadm  libressl  libseccomp  musl  runc  socat  syslinux  util-linux  xfsprogs
+TARGETS =  ca-certificates  cni  containerd  dosfstools  eudev  fhs  iptables  kernel  kmod  libressl  libseccomp  musl  runc  socat  syslinux  util-linux  xfsprogs
 
 all: ci $(TARGETS)
 
