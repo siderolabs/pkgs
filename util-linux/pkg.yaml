@@ -3,7 +3,6 @@ variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
   - stage: base
-  - stage: musl
 steps:
   - sources:
       - url: https://www.kernel.org/pub/linux/utils/util-linux/v2.32/util-linux-2.32.1.tar.xz

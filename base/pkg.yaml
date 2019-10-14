@@ -4,6 +4,7 @@ shell: /toolchain/bin/bash
 dependencies:
   - image: docker.io/autonomy/tools:7de4db2
   - stage: musl
+    runtime: yes
 steps:
   - prepare:
       - |

@@ -3,7 +3,6 @@ variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
   - stage: base
-  - stage: musl
 steps:
   - sources:
       - url: https://dev.gentoo.org/~blueness/eudev/eudev-3.2.8.tar.gz

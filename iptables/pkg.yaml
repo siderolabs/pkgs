@@ -3,7 +3,6 @@ variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
   - stage: base
-  - stage: musl
 steps:
   - sources:
       - url: https://netfilter.org/projects/iptables/files/iptables-1.8.3.tar.bz2
