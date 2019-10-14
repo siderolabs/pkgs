@@ -2,7 +2,7 @@ name: musl
 variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
-  - image: docker.io/autonomy/tools:7de4db2
+  - image: "{{ .TOOLS_IMAGE }}"
 steps:
   - sources:
       - url: https://www.musl-libc.org/releases/musl-1.1.24.tar.gz

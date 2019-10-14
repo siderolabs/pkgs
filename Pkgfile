@@ -1,1 +1,6 @@
-# syntax = docker.io/autonomy/bldr:2b9366f-frontend
+# syntax = docker.io/autonomy/bldr:1289eba-frontend
+
+format: v1alpha2
+
+vars:
+  TOOLS_IMAGE: docker.io/autonomy/tools:7de4db2
