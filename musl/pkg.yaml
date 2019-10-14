@@ -3,7 +3,6 @@ variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
   - image: docker.io/autonomy/tools:7de4db2
-  - stage: ca-certificates
 steps:
   - sources:
       - url: https://www.musl-libc.org/releases/musl-1.1.24.tar.gz

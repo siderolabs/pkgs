@@ -4,7 +4,6 @@ shell: /toolchain/bin/bash
 dependencies:
   - stage: base
   - stage: musl
-  - stage: ca-certificates
 steps:
   - sources:
       - url: https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-26.tar.xz
