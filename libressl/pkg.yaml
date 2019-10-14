@@ -7,10 +7,10 @@ dependencies:
   - stage: ca-certificates
 steps:
   - sources:
-      - url: https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-2.9.0.tar.gz
+      - url: https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-3.0.1.tar.gz
         destination: libressl.tar.gz
-        sha256: eb5f298408b723f11a0ca0192c122ecb79b4855bfdf7eea183a6264296a13cf4
-        sha512: db7fec664bef8d76204ca691c11df236abce3c85b2a51011eec5bd302e273b62fa3cfce0430980915c3f3ce34176d5ef9c187902f0b39d7fc151e69e552b499c
+        sha256: 646adb1197fbe3a7542f18843d2b4adf857b77e50bb878b58f4e7dde5b7343cb
+        sha512: d2d665734d8aab2b998769492cbb1e7fddead52430ef503650c14786196241a6d1137f47b33ddf2037cc1ff13c240283f591dce83ec0da475619679a051d725f
     prepare:
       - |
         tar -xzf libressl.tar.gz --strip-components=1
