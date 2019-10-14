@@ -4,7 +4,6 @@ shell: /toolchain/bin/bash
 dependencies:
   - stage: base
   - stage: musl
-  - stage: ca-certificates
 steps:
   - sources:
       - url: https://github.com/dosfstools/dosfstools/releases/download/v4.1/dosfstools-4.1.tar.xz

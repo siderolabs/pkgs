@@ -4,7 +4,6 @@ shell: /toolchain/bin/bash
 dependencies:
   - stage: base
   - stage: musl
-  - stage: ca-certificates
   - stage: util-linux
 steps:
   - sources:

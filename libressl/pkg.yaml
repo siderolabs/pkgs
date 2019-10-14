@@ -4,7 +4,6 @@ shell: /toolchain/bin/bash
 dependencies:
   - stage: base
   - stage: musl
-  - stage: ca-certificates
 steps:
   - sources:
       - url: https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-3.0.1.tar.gz
