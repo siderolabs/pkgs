@@ -3,7 +3,6 @@ variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
   - stage: base
-  - stage: musl
 steps:
   - sources:
       - url: https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-3.0.1.tar.gz
