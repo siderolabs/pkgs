@@ -2,7 +2,7 @@ name: base
 variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
-  - image: docker.io/autonomy/tools:7de4db2
+  - image: "{{ .TOOLS_IMAGE }}"
   - stage: musl
     runtime: yes
 steps:
