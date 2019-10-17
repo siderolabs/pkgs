@@ -3,8 +3,8 @@ steps:
 - sources:
   - url: https://curl.haxx.se/ca/cacert.pem
     destination: cacert.pem
-    sha256: 38b6230aa4bee062cd34ee0ff6da173250899642b1937fc130896290b6bd91e3
-    sha512: 527e23d1e83381583cc2efe4625b01a00baa990afc877bb617727e8bffab17a0dc4f36b60162bad375b576ff09bc27acc7e0f095a34150f23d61825b8a7fb81f
+    sha256: 5cd8052fcf548ba7e08899d8458a32942bf70450c9af67a0850b4c711804a2e4
+    sha512: 49778472e46ce3b86b3930f4df5731ac86daf4d8602d418af1c89dc35df5f98c4557aa6c6eb280558c61139ead4b96cbb457a259f72640452f28a2fecd4ccb89
   install:
   - |
     mkdir -p /rootfs/etc/ssl/certs
