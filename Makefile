@@ -25,7 +25,6 @@ endif
 
 COMMON_ARGS = --progress=auto
 COMMON_ARGS += --frontend=dockerfile.v0
-COMMON_ARGS += --allow security.insecure
 COMMON_ARGS += --local context=.
 COMMON_ARGS += --local dockerfile=.
 COMMON_ARGS += --opt filename=Pkgfile
@@ -76,8 +75,7 @@ ifneq ($(BUILDKIT_CONTAINER_RUNNING),$(BUILDKIT_CONTAINER_NAME))
 		--privileged \
 		-p 1234:1234 \
 		$(BUILDKIT_IMAGE) \
-		--addr $(BUILDKIT_HOST) \
-		--allow-insecure-entitlement security.insecure
+		--addr $(BUILDKIT_HOST)
 	@echo "Wait for buildkitd to become available"
 	@sleep 5
 endif
