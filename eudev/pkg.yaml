@@ -3,6 +3,7 @@ variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
   - stage: base
+  - stage: util-linux
 steps:
   - sources:
       - url: https://dev.gentoo.org/~blueness/eudev/eudev-3.2.8.tar.gz
@@ -19,7 +20,6 @@ steps:
         cat > config.cache << "EOF"
         HAVE_BLKID=1
         BLKID_LIBS="-lblkid"
-        BLKID_CFLAGS="-I${TOOLCHAIN}/include"
         EOF
 
         mkdir build
