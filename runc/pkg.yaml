@@ -24,8 +24,6 @@ steps:
         export PATH=${PATH}:/${TOOLCHAIN}/go/bin
         export PKG_CONFIG_PATH=/usr/lib/pkgconfig
         export CC=/toolchain/bin/cc
-        export CGO_CFLAGS="-L/usr/lib -I/usr/include"
-        export CGO_LDFLAGS="-L/usr/lib -I/usr/include"
         # This is required due to "loadinternal: cannot find runtime/cgo".
         export CGO_ENABLED=1
         make EXTRA_LDFLAGS="-w -s" BUILDTAGS="seccomp" COMMIT=d736ef14f0288d6993a1845745d6756cfc9ddd5a runc

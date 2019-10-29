@@ -17,7 +17,7 @@ steps:
         cd build
 
         ../configure \
-        --prefix=/ \
+        --prefix=/usr \
         --enable-compat-symlinks
     build:
       - |

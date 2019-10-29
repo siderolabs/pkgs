@@ -21,9 +21,12 @@ steps:
         mkdir build
         cd build
 
+        # From https://www.musl-libc.org/doc/1.0.0/manual.html:
+        #    $(syslibdir), $(includedir), and $(libdir) refer to the paths
+        #    chosen at build time (by default, /lib, $(prefix)/include, and
+        #    $(prefix)/lib, respectively)
         ../configure \
-        --prefix=/ \
-        --syslibdir=/lib \
+        --prefix=/usr
     build:
       - |
         cd build

@@ -15,8 +15,7 @@ steps:
         tar -xzf socat.tar.gz --strip-components=1
 
         ./configure \
-            --prefix=/usr \
-            LIBS="-L/usr/lib"
+            --prefix=/usr
     build:
       - |
         make -j $(nproc)

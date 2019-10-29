@@ -16,7 +16,7 @@ steps:
         mkdir build
         cd build
         ../configure \
-            --prefix=/ \
+            --prefix=/usr \
             --without-python \
             --disable-makeinstall-chown \
             --without-systemdsystemunitdir \
