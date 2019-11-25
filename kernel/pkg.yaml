@@ -2,90 +2,90 @@ name: kernel
 variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
-    - image: "{{ .TOOLS_IMAGE }}"
+  - image: "{{ .TOOLS_IMAGE }}"
 steps:
-    - sources:
-          - url: https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.3.6.tar.xz
-            destination: linux.tar.xz
-            sha256: e84021a94784de7bb10e4251fb1a87859a8d1c97bd78fb55ad47ab6ce475ec1f
-            sha512: 2e83065e29f2e7f3a7c8ae68e4a5497804126c9edd7e76278c3565773789f52982e16987be4f14535bc6950a20a9a3ff74523b4d8accc1db1b898a8d2c0755be
-      prepare:
-          - |
-              tar -xJf linux.tar.xz --strip-components=1
+  - sources:
+      - url: https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.3.13.tar.xz
+        destination: linux.tar.xz
+        sha256: 9f04e53f03d0ead6561195fb71aac18cbee419112ed54f9d4fc1515a5fa5c92f
+        sha512: bc9e98cc666761b94bae2a13d4cd9f4a5b563526d634e1185653b936e7d53edf1d0d8545835794c2196ab7b91d03651a7035ab41a2492adaefcf307791e050b3
+    prepare:
+      - |
+        tar -xJf linux.tar.xz --strip-components=1
 
-              mkdir /bin
-              ln -sv /toolchain/bin/bash /bin/bash
-              ln -sv /toolchain/bin/bash /bin/sh
-              ln -sv /toolchain/lib /lib
-              mkdir -p /usr/bin \
-                  && ln -sf /toolchain/bin/env /usr/bin/env \
-                  && ln -sf /toolchain/bin/true /bin/true \
-                  && ln -sf /toolchain/bin/pwd /bin/pwd
+        mkdir /bin
+        ln -sv /toolchain/bin/bash /bin/bash
+        ln -sv /toolchain/bin/bash /bin/sh
+        ln -sv /toolchain/lib /lib
+        mkdir -p /usr/bin \
+            && ln -sf /toolchain/bin/env /usr/bin/env \
+            && ln -sf /toolchain/bin/true /bin/true \
+            && ln -sf /toolchain/bin/pwd /bin/pwd
 
-              # Ensure that `make menuconfig` works.
+        # Ensure that `make menuconfig` works.
 
-              mkdir -p /usr/lib/pkgconfig
-              ln -s /toolchain/include /usr/include
+        mkdir -p /usr/lib/pkgconfig
+        ln -s /toolchain/include /usr/include
 
-              for lib in ncurses form panel menu ; do
-                  rm -vf                    /lib/lib${lib}.so
-                  echo "INPUT(-l${lib}w)" > /lib/lib${lib}.so
-                  ln -sfv ${lib}w.pc        /lib/pkgconfig/${lib}.pc
-              done
+        for lib in ncurses form panel menu ; do
+            rm -vf                    /lib/lib${lib}.so
+            echo "INPUT(-l${lib}w)" > /lib/lib${lib}.so
+            ln -sfv ${lib}w.pc        /lib/pkgconfig/${lib}.pc
+        done
 
-              case $ARCH in
-                  x86_64)
-                      make mrproper
-                      cp -v /pkg/config-amd64 .config
-                  ;;
-                  aarch64)
-                      export ARCH=arm64
-                      make mrproper
-                      cp -v /pkg/config-arm64 .config
-                  ;;
-                  *)
-                      echo "unsupported arch ${ARCH}"
-                      exit 1
-                  ;;
-              esac
-      build:
-          - |
-              case $ARCH in
-                  x86_64)
-                  ;;
-                  aarch64)
-                      export ARCH=arm64
-                  ;;
-                  *)
-                      echo "unsupported arch ${ARCH}"
-                      exit 1
-                  ;;
-              esac
-              make -j $(nproc)
-              make -j $(nproc) modules
-      install:
-          - |
-              mkdir -p /rootfs/boot
-              case $ARCH in
-                  x86_64)
-                      mv arch/x86/boot/bzImage /rootfs/boot/vmlinuz
-                      mv vmlinux /rootfs/boot/vmlinux
-                  ;;
-                  aarch64)
-                      export ARCH=arm64
-                      mv arch/arm64/boot/Image.gz /rootfs/boot/vmlinuz
-                      mv vmlinux /rootfs/boot/vmlinux
-                  ;;
-                  *)
-                      echo "unsupported arch ${ARCH}"
-                      exit 1
-                  ;;
-              esac
-              export KERNELRELEASE=$(cat include/config/kernel.release)
-              make -j $(nproc) modules_install DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs
-              depmod -b /rootfs $KERNELRELEASE
-              unlink /rootfs/lib/modules/$KERNELRELEASE/build
-              unlink /rootfs/lib/modules/$KERNELRELEASE/source
+        case $ARCH in
+            x86_64)
+                make mrproper
+                cp -v /pkg/config-amd64 .config
+            ;;
+            aarch64)
+                export ARCH=arm64
+                make mrproper
+                cp -v /pkg/config-arm64 .config
+            ;;
+            *)
+                echo "unsupported arch ${ARCH}"
+                exit 1
+            ;;
+        esac
+    build:
+      - |
+        case $ARCH in
+            x86_64)
+            ;;
+            aarch64)
+                export ARCH=arm64
+            ;;
+            *)
+                echo "unsupported arch ${ARCH}"
+                exit 1
+            ;;
+        esac
+        make -j $(nproc)
+        make -j $(nproc) modules
+    install:
+      - |
+        mkdir -p /rootfs/boot
+        case $ARCH in
+            x86_64)
+                mv arch/x86/boot/bzImage /rootfs/boot/vmlinuz
+                mv vmlinux /rootfs/boot/vmlinux
+            ;;
+            aarch64)
+                export ARCH=arm64
+                mv arch/arm64/boot/Image.gz /rootfs/boot/vmlinuz
+                mv vmlinux /rootfs/boot/vmlinux
+            ;;
+            *)
+                echo "unsupported arch ${ARCH}"
+                exit 1
+            ;;
+        esac
+        export KERNELRELEASE=$(cat include/config/kernel.release)
+        make -j $(nproc) modules_install DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs
+        depmod -b /rootfs $KERNELRELEASE
+        unlink /rootfs/lib/modules/$KERNELRELEASE/build
+        unlink /rootfs/lib/modules/$KERNELRELEASE/source
 finalize:
-    - from: /rootfs
-      to: /
+  - from: /rootfs
+    to: /
