@@ -5,10 +5,10 @@ dependencies:
   - image: "{{ .TOOLS_IMAGE }}"
 steps:
   - sources:
-      - url: https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.3.13.tar.xz
+      - url: https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.3.14.tar.xz
         destination: linux.tar.xz
-        sha256: 9f04e53f03d0ead6561195fb71aac18cbee419112ed54f9d4fc1515a5fa5c92f
-        sha512: bc9e98cc666761b94bae2a13d4cd9f4a5b563526d634e1185653b936e7d53edf1d0d8545835794c2196ab7b91d03651a7035ab41a2492adaefcf307791e050b3
+        sha256: 955712688c7256675383ec5be4ee044dbb59116a9a1f24e8689d12a6f95f7932
+        sha512: 08b5fd495c89214573d7ac29df38d25b9483c830b5791d11adb9c8130f02646bd44c12890e5f6755b7d0f6a73ec410490b390dfd6edfc29738ab745c355c6e88
     prepare:
       - |
         tar -xJf linux.tar.xz --strip-components=1
