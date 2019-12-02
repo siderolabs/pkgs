@@ -1,0 +1,47 @@
+name: lvm2
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+  - stage: libaio
+  - stage: eudev
+steps:
+  - sources:
+      - url: https://mirrors.kernel.org/sourceware/lvm2/LVM2.2.03.07.tgz
+        destination: lvm2.tar.gz
+        sha256: c72f1095c82ca884c0f46c003a0da9b60b68554a8c913ca6c29d01fae04301e9
+        sha512: f1cefde32370140ccc802c467fe1e7e40b2ab99c1367fc03457e34640bdc9c0481523c2360e6ac18d6ae5ae9e80bc5dff61b3d13d20b1592bbee27e04fe1fd24
+    prepare:
+      - |
+        tar -xzf lvm2.tar.gz --strip-components=1
+
+        patch -p0 < /pkg/patches/mallinfo.patch
+        patch -p0 < /pkg/patches/fix-stdio-usage.patch
+
+        mkdir build
+        cd build
+
+        export PKG_CONFIG_PATH=/usr/lib/pkgconfig
+
+        ../configure \
+             --with-thin=none \
+             --with-cache=none \
+             --disable-udev-systemd-background-jobs \
+             --with-systemdsystemunitdir=/dev/null \
+             --disable-selinux \
+             --enable-cmdlib \
+             --enable-pkgconfig \
+             --enable-udev_sync \
+             --enable-udev_rules \
+             --with-udev-prefix=/usr
+    build:
+      - |
+        cd build
+        make -j $(nproc)
+    install:
+      - |
+        cd build
+        make DESTDIR=/rootfs install
+finalize:
+  - from: /rootfs
+    to: /
