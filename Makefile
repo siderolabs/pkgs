@@ -32,7 +32,7 @@ docker-%: ## Builds the specified target defined in the Dockerfile using the doc
 
 .PHONY: $(TARGETS)
 $(TARGETS):
-	@$(MAKE) docker-$@ TARGET_ARGS="--tag=docker.io/autonomy/$@:$(TAG) --push=$(PUSH)"
+	@$(MAKE) docker-$@ TARGET_ARGS="--tag=$(REGISTRY)/$(USERNAME)/$@:$(TAG) --push=$(PUSH)"
 
 .PHONY: deps.png
 deps.png:
