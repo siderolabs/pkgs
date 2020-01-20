@@ -1,0 +1,37 @@
+name: tz
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: https://data.iana.org/time-zones/releases/tzdata2019c.tar.gz
+        destination: tzdata.tar.gz
+        sha256: 79c7806dab09072308da0e3d22c37d3b245015a591891ea147d3b133b60ffc7c
+        sha512: 2921cbb2fd44a6b8f7f2ed42c13fbae28195aa5c2eeefa70396bc97cdbaad679c6cc3c143da82cca5b0279065c02389e9af536904288c12886bf345baa8c6565
+      - url: https://data.iana.org/time-zones/releases/tzcode2019c.tar.gz
+        destination: tzcode.tar.gz
+        sha256: f6ebd3668e02d5ed223d3b7b1947561bf2d2da2f4bd1db61efefd9e06c167ed4
+        sha512: 61ef36385f501c338c263081486de0d1fccd454b86f8777b0dbad4ea3f21bbde059d0a91c23e207b167ed013127d3db8b7528f0188814a8b44d1f946b19d9b8b
+    prepare:
+      - tar -xf tzcode.tar.gz zic.c private.h tzfile.h Makefile
+      - |
+        cat > version.h << "EOF"
+        static char const PKGVERSION[]="(tzcode) ";
+        static char const TZVERSION[]="2019c";
+        static char const REPORT_BUGS_TO[]="tz@iana.org";
+        EOF
+        cp version.h version
+        # Work around to dumb version dependencies
+        # since we externally create the version file above
+      - sed -ie 's/^VERSION_DEPS=/VERSION_DEPS?=/g' Makefile
+      - tar -xf tzdata.tar.gz etcetera
+    build:
+      - VERSION_DEPS="" make zic -j$(nproc)
+      - ./zic -d tzdata etcetera
+    install:
+      - mkdir -p /rootfs/etc
+      - mv tzdata/Etc/UTC /rootfs/etc/localtime
+finalize:
+  - from: /rootfs
+    to: /
