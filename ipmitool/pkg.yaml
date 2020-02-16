@@ -1,0 +1,49 @@
+name: ipmitool
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+  - stage: libressl
+steps:
+  - sources:
+      - url: https://github.com/ipmitool/ipmitool/releases/download/IPMITOOL_1_8_18/ipmitool-1.8.18.tar.gz
+        destination: ipmitool.tar.gz
+        sha256: e93fe5966d59e16bb4317c9c588cdf35d6100753a0ba957c493b064bcad52493
+        sha512: 970a3ea69a2a06bf4bb49b07ddea2d575d79afe163f742a53dd29331889d74411d412e7a2117f1964c416b147ad4dc4212dec1fc653521ce710ed1eb45a185a3
+    prepare:
+      - |
+        tar -xzf ipmitool.tar.gz --strip-components=1
+
+        mkdir build
+        cd build
+
+        ../configure \
+          --prefix=/usr \
+          --sysconfdir=/etc \
+          --mandir=/usr/share/man \
+          --infodir=/usr/share/info \
+          --localstatedir=/var \
+          --bindir=/usr/sbin \
+          --enable-ipmishell \
+          --enable-intf-lan \
+          --enable-intf-lanplus \
+          --enable-intf-open \
+          --disable-intf-free \
+          --disable-intf-imb \
+          --disable-intf-lipmi \
+          --disable-intf-bmc \
+          --disable-internal-md5 \
+          --disable-intf-serial \
+          --disable-ipmishell \
+          --with-kerneldir=/usr
+    build:
+      - |
+        cd build
+        make -j $(nproc)
+    install:
+      - |
+        cd build
+        make install DESTDIR=/rootfs
+finalize:
+  - from: /rootfs
+    to: /
