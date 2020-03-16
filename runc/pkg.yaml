@@ -6,10 +6,10 @@ dependencies:
   - stage: libseccomp
 steps:
   - sources:
-      - url: https://github.com/opencontainers/runc/releases/download/v1.0.0-rc9/runc.tar.xz
+      - url: https://github.com/opencontainers/runc/releases/download/v1.0.0-rc10/runc.tar.xz
         destination: runc.tar.xz
-        sha256: 2f1c7ebac67c779affe2bb4370bba44b08ed280144ba58c86219186e303832ba
-        sha512: 881135c95d8063c4a3ad23bc8f7858ba6cb864cc31484b10549e7808959d1c2405bdb09737855e870a0c656d7d1eb5756b2dec714e8877a9f201e33502589299
+        sha256: c823307ce8695af05381c5c25a92daacd6219c674d8bebaa0e1bff801c2b1f24
+        sha512: e8e897a7b4fb7be0c30350ba058f143c7f6cb703dc1803d825327fb1b1f12dc903eab5a8a466e7bbd2858b291e3e6d71d864b193f8c3117fb5e68a5c481f8eb0
     prepare:
       - |
         export GOPATH=/go
