@@ -1,0 +1,22 @@
+name: linux-firmware
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+    - image: '{{ .TOOLS_IMAGE }}'
+steps:
+    - sources:
+          - url: https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-20200316.tar.gz
+            destination: linux-firmware.tar.gz
+            sha256: b442ad49e0002c6ff8443f4745810fe10d4cd6df43a7ce5e37ac40057c75ac13
+            sha512: 2fb16fcc474753902ab0236cbb116cdd5de10080d5ad5fc19a015ad3881a203c42beeccf5745e18346fc028a5c743d3d6439f0a04b86b2e0abf9f32aa5f55bad
+      prepare:
+          - |
+              mkdir -p lib/firmware
+              tar -xzf linux-firmware.tar.gz --strip-components=1 -C lib/firmware
+      install:
+          - |
+              mkdir /rootfs
+              cp -R lib /rootfs
+finalize:
+    - from: /rootfs
+      to: /
