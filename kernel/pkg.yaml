@@ -5,10 +5,10 @@ dependencies:
     - image: '{{ .TOOLS_IMAGE }}'
 steps:
     - sources:
-          - url: https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.6.13.tar.xz
+          - url: https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.7.1.tar.xz
             destination: linux.tar.xz
-            sha256: f125d79c8f6974213638787adcad6b575bbd35a05851802fd83f622ec18ff987
-            sha512: f171638debb017ffcc5b9ce19b190cfa05638412e1f03344a5a7be45be901eb97c2df1449c9899c33a7668019f4c6d4eb1f99d864ab9a7050fbfd6b06c7aca8d
+            sha256: 40d318add8cefe3fdb26f19dac7386f5e7b63854ae021e593466902856ce9ded
+            sha512: cb10179262dbfed73bc0086ec2a6a3ea5de72aa9910b3b51a8db732e90a56b54a3492329d49c175ed1b5483e280efc72a73243dfbb272c34a7a453f6b82fbe2d
       prepare:
           - |
               tar -xJf linux.tar.xz --strip-components=1
@@ -23,6 +23,8 @@ steps:
                   && ln -sf /toolchain/bin/pwd /bin/pwd
 
               # Ensure that `make menuconfig` works.
+
+              ln -s /toolchain/bin/awk /usr/bin/awk
 
               mkdir -p /usr/lib/pkgconfig
               ln -s /toolchain/include /usr/include
