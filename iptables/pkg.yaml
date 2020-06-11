@@ -5,10 +5,10 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      - url: https://netfilter.org/projects/iptables/files/iptables-1.8.4.tar.bz2
+      - url: https://netfilter.org/projects/iptables/files/iptables-1.8.5.tar.bz2
         destination: iptables.tar.bz2
-        sha256: 993a3a5490a544c2cbf2ef15cf7e7ed21af1845baf228318d5c36ef8827e157c
-        sha512: a7faaab58608ffaa51e26e8056551c0e91a49187439d30fcf5cce2800274cc3c0515db6cfba0f4c85613fb80779cf96089b8915db0e89161e9980a6384faebdb
+        sha256: d457d74512e63aa3f50336e0597d4023c0e3c6845594d38532efb6ebcb294309
+        sha512: 6a6baa541bb7aa331b176e0a91894e0766859814b59e77c71351ac34d6ebd337487981db48c70e476a48c67bcf891cfc663221a7582feb1496ad1df56eb28da8
     prepare:
       - |
         tar -xjf iptables.tar.bz2 --strip-components=1

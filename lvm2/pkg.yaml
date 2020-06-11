@@ -7,10 +7,10 @@ dependencies:
   - stage: eudev
 steps:
   - sources:
-      - url: https://mirrors.kernel.org/sourceware/lvm2/LVM2.2.03.07.tgz
+      - url: https://mirrors.kernel.org/sourceware/lvm2/LVM2.2.03.09.tgz
         destination: lvm2.tar.gz
-        sha256: c72f1095c82ca884c0f46c003a0da9b60b68554a8c913ca6c29d01fae04301e9
-        sha512: f1cefde32370140ccc802c467fe1e7e40b2ab99c1367fc03457e34640bdc9c0481523c2360e6ac18d6ae5ae9e80bc5dff61b3d13d20b1592bbee27e04fe1fd24
+        sha256: c03a8b8d5c03ba8ac54ebddf670ae0d086edac54a6577e8c50721a8e174eb975
+        sha512: 8540e46a6025ab14b592ccd9493b3224ffc0f962739a0a8de6d7b25c65c6ad96fc83ddb0e3d877b123a5e1b104476d0c20ccee2ead6d322257ec82ad1e3362d4
     prepare:
       - |
         tar -xzf lvm2.tar.gz --strip-components=1
