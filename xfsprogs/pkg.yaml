@@ -6,10 +6,10 @@ dependencies:
   - stage: util-linux
 steps:
   - sources:
-      - url: https://www.kernel.org/pub/linux/utils/fs/xfs/xfsprogs/xfsprogs-5.5.0.tar.xz
+      - url: https://www.kernel.org/pub/linux/utils/fs/xfs/xfsprogs/xfsprogs-5.6.0.tar.xz
         destination: xfsprogs.tar.xz
-        sha256: cfbb0b136799c48cb79435facd0969c5a60a587a458e2d16f9752771027efbec
-        sha512: 1169765e9a003f9618f020eb190dc0a692e7017cf1ec2a9329a8db0f07ef6a48cb250fc326fb9168714259c8d5f2195cc6fd41e01bbbdc9a5857e53f145b6815
+        sha256: 0aba2aac5d80d07646dde868437fc337af2c7326edadcc6d6a7c0bfd3190c1e6
+        sha512: a6bee55b0a23316c73f3921234d1dbaa4cbe91c12e79264e5f9bfe1356a24baa0ab25270405a46e4613a7e48443ef21997ff4f5962663777bed373f89ca29701
     prepare:
       - |
         tar -xJf xfsprogs.tar.xz --strip-components=1

@@ -1,14 +1,14 @@
 name: cni
 steps:
   - sources:
-      - url: https://github.com/containernetworking/plugins/releases/download/v0.8.5/cni-plugins-linux-amd64-v0.8.5.tgz
+      - url: https://github.com/containernetworking/plugins/releases/download/v0.8.6/cni-plugins-linux-amd64-v0.8.6.tgz
         destination: cni-plugins-amd64.tgz
-        sha256: bd682ffcf701e8f83283cdff7281aad0c83b02a56084d6e601216210732833f9
-        sha512: 497be012e1e3c605c467752ee5729de35d88afd7a0bfa237a6cf979413d65bda34865a8dd952ca1d32581bb5669d567c2c7f2d23dd92db3ba9101204583a8482
-      - url: https://github.com/containernetworking/plugins/releases/download/v0.8.5/cni-plugins-linux-arm-v0.8.5.tgz
+        sha256: 994fbfcdbb2eedcfa87e48d8edb9bb365f4e2747a7e47658482556c12fd9b2f5
+        sha512: 76b29cc629449723fef45db6a6999b0617e6c9084678a4a3361caf3fc5e935084bc0644e47839b1891395e3cec984f7bfe581dd9455c4991ddeee1c78392e538
+      - url: https://github.com/containernetworking/plugins/releases/download/v0.8.6/cni-plugins-linux-arm-v0.8.6.tgz
         destination: cni-plugins-arm64.tgz
-        sha256: 86a868234045837cb3f5d58a0a4468ff42845d50b5e87bd128f050ef393d7495
-        sha512: 3c03b76db4ec92c0121c22f27d552fd2323c70a14f82baac1ec22392baf8c6b55c453bbcd658fbd67a8468417d672478f01c8dab7766074c2d7536c9b60a1266
+        sha256: 28e61b5847265135dc1ca397bf94322ecce4acab5c79cc7d360ca3f6a655bdb7
+        sha512: 7cb8eff0d7663b9814e400573487e87717c13aa904a9ab3f055496f3485d0eaca88236f8a806685604291110c0e8ba6311ed2ec26d71cf53e95ecfc9087ed20a
     install:
       - |
         mkdir -p /rootfs/opt/cni/bin
