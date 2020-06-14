@@ -13,7 +13,7 @@ COMMON_ARGS := --file=Pkgfile
 COMMON_ARGS += --progress=$(PROGRESS)
 COMMON_ARGS += --platform=$(PLATFORM)
 
-TARGETS =  ca-certificates  cni  containerd  dosfstools  eudev  fhs  ipmitool  iptables  kernel  kmod  libaio  libressl  libseccomp  linux-firmware lvm2  musl  runc  socat  syslinux  util-linux  xfsprogs
+TARGETS =  ca-certificates  cni  containerd  dosfstools  eudev  fhs  ipmitool  iptables  kernel  kmod  libaio  libressl  libseccomp  linux-firmware lvm2  musl  open-iscsi  open-isns  runc  socat  syslinux  util-linux  xfsprogs
 
 all: $(TARGETS) ## Builds all known pkgs.
 
