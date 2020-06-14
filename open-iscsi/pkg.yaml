@@ -1,0 +1,47 @@
+name: open-iscsi
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+  - stage: kmod
+  - stage: open-isns
+  - stage: libressl
+  - stage: util-linux
+steps:
+  - sources:
+      - url: https://github.com/open-iscsi/open-iscsi/archive/2.1.1.tar.gz
+        destination: open-iscsi.tar.gz
+        sha256: dfc1ea37f230f9d116f5b39c795b35be43002d65c81330ccd3878786532b811b
+        sha512: 88dbea433fe5266714c5c73ce4b60dfb8ddeffcaad4ff77abbdda2a865d29d4307ca51b8f45376f54542b19baed30d5f2f1836a8c136eb0af840f489f47e4fb3
+    prepare:
+      - |
+        tar -xzf open-iscsi.tar.gz --strip-components=1
+
+        # Create symlinks for binaries required by libtoolize.
+        ln -s /toolchain/bin/sed /bin/sed
+        ln -s /toolchain/bin/grep /bin/grep
+
+        # Create symlinks for files used when building.
+        mkdir -p /usr/bin
+        ln -s /toolchain/bin/pkg-config /usr/bin/pkg-config
+        ln -s /toolchain/bin/file /usr/bin/file
+
+        patch -p1 < /pkg/patches/remove-werror.patch
+        patch -p1 < /pkg/patches/libressl-compatibility.patch
+    build:
+      - |
+        export PKG_CONFIG_PATH=/usr/lib/pkgconfig
+
+        make -j $(nproc) \
+          prefix=/usr \
+          exec_prefix=/usr \
+          localstatedir=/var \
+          sysconfdir=/etc \
+          mandir=/usr/share/man \
+          OPTFLAGS="$CFLAGS -DNO_SYSTEMD"
+    install:
+      - |
+        make prefix=/usr DESTDIR=/rootfs install
+finalize:
+  - from: /rootfs
+    to: /

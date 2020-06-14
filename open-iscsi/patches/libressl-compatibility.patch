@@ -1,0 +1,81 @@
+diff -Naur open-iscsi-2.1.1.old/usr/auth.c open-iscsi-2.1.1.new/usr/auth.c
+--- open-iscsi-2.1.1.old/usr/auth.c	2020-02-26 20:07:13.000000000 +0100
++++ open-iscsi-2.1.1.new/usr/auth.c	2020-05-16 14:54:46.240945323 +0200
+@@ -182,9 +182,11 @@
+ 	case AUTH_CHAP_ALG_SHA256:
+ 		digest = EVP_sha256();
+ 		break;
++#ifndef LIBRESSL_VERSION_NUMBER
+ 	case AUTH_CHAP_ALG_SHA3_256:
+ 		digest = EVP_sha3_256();
+ 		break;
++#endif
+ 	}
+
+ 	if (*context == NULL)
+@@ -335,7 +337,9 @@
+ acl_chk_chap_alg_optn(int chap_algorithm)
+ {
+ 	if (chap_algorithm == AUTH_OPTION_NONE ||
++#ifndef LIBRESSL_VERSION_NUMBER
+ 	    chap_algorithm == AUTH_CHAP_ALG_SHA3_256 ||
++#endif
+ 	    chap_algorithm == AUTH_CHAP_ALG_SHA256 ||
+ 	    chap_algorithm == AUTH_CHAP_ALG_SHA1 ||
+ 	    chap_algorithm == AUTH_CHAP_ALG_MD5)
+@@ -748,9 +752,11 @@
+ 				case AUTH_CHAP_ALG_SHA256:
+ 					client->chap_challenge_len = AUTH_CHAP_SHA256_RSP_LEN;
+ 					break;
++#ifndef LIBRESSL_VERSION_NUMBER
+ 				case AUTH_CHAP_ALG_SHA3_256:
+ 					client->chap_challenge_len = AUTH_CHAP_SHA3_256_RSP_LEN;
+ 					break;
++#endif
+ 				}
+ 				return;
+ 			}
+@@ -899,7 +905,10 @@
+ 			client->local_state = AUTH_LOCAL_STATE_ERROR;
+ 			client->dbg_status = AUTH_DBG_STATUS_CHAP_ALG_REJECT;
+ 			break;
+-		} else if ((client->negotiated_chap_alg != AUTH_CHAP_ALG_SHA3_256) &&
++		} else if (
++#ifndef LIBRESSL_VERSION_NUMBER
++			   (client->negotiated_chap_alg != AUTH_CHAP_ALG_SHA3_256) &&
++#endif
+ 			   (client->negotiated_chap_alg != AUTH_CHAP_ALG_SHA256) &&
+ 			   (client->negotiated_chap_alg != AUTH_CHAP_ALG_SHA1) &&
+ 			   (client->negotiated_chap_alg != AUTH_CHAP_ALG_MD5)) {
+@@ -1849,6 +1858,7 @@
+ 				            "SHA256 due to crypto lib configuration");
+ 			}
+ 			break;
++#ifndef LIBRESSL_VERSION_NUMBER
+ 		case AUTH_CHAP_ALG_SHA3_256:
+ 			if (EVP_DigestInit_ex(context, EVP_sha3_256(), NULL)) {
+ 				value_list[i++] = AUTH_CHAP_ALG_SHA3_256;
+@@ -1857,6 +1867,7 @@
+ 				            "SHA3-256 due to crypto lib configuration");
+ 			}
+ 			break;
++#endif
+ 		case ~0:
+ 			/* unset value in array, just ignore */
+ 			break;
+diff -Naur open-iscsi-2.1.1.old/usr/auth.h open-iscsi-2.1.1.new/usr/auth.h
+--- open-iscsi-2.1.1.old/usr/auth.h	2020-02-26 20:07:13.000000000 +0100
++++ open-iscsi-2.1.1.new/usr/auth.h	2020-05-16 14:53:37.189272729 +0200
+@@ -67,8 +67,12 @@
+ 	AUTH_CHAP_ALG_MD5 = 5,
+ 	AUTH_CHAP_ALG_SHA1 = 6,
+ 	AUTH_CHAP_ALG_SHA256 = 7,
++#ifdef LIBRESSL_VERSION_NUMBER
++	AUTH_CHAP_ALG_MAX_COUNT = 4
++#else
+ 	AUTH_CHAP_ALG_SHA3_256 = 8,
+ 	AUTH_CHAP_ALG_MAX_COUNT = 5
++#endif
+ };
+
+ enum auth_neg_role {
