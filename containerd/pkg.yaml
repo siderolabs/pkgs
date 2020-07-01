@@ -24,7 +24,7 @@ steps:
         export GOPATH=/go
         export PATH=${PATH}:${TOOLCHAIN}/go/bin
         cd ${GOPATH}/src/github.com/containerd/containerd
-        make bin/containerd bin/containerd-shim bin/containerd-shim-runc-v2 BUILDTAGS='seccomp no_btrfs' VERSION=v1.3.3 REVISION=be75852b8d7849474a20192f9ed1bf34fdd454f1
+        make bin/containerd bin/containerd-shim bin/containerd-shim-runc-v2 BUILDTAGS='seccomp no_btrfs' VERSION=v1.3.6 REVISION=be75852b8d7849474a20192f9ed1bf34fdd454f1
     install:
       - |
         mkdir -p /rootfs/bin
