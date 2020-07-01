@@ -5,10 +5,10 @@ dependencies:
     - image: '{{ .TOOLS_IMAGE }}'
 steps:
     - sources:
-          - url: https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.7.1.tar.xz
+          - url: https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.7.7.tar.xz
             destination: linux.tar.xz
-            sha256: 40d318add8cefe3fdb26f19dac7386f5e7b63854ae021e593466902856ce9ded
-            sha512: cb10179262dbfed73bc0086ec2a6a3ea5de72aa9910b3b51a8db732e90a56b54a3492329d49c175ed1b5483e280efc72a73243dfbb272c34a7a453f6b82fbe2d
+            sha256: f840b9679283343c165516585c3070ebb277528721c890e9410a58e9d071ee7f
+            sha512: 49db85a1ce14e00411215d5d5bfda6db3d24ed2e0f2bd8e6603c18b3226614f45040856b21b4d6b525c44bb4463ab08fb594a06de6deca109d512588389cc3fd
       prepare:
           - |
               tar -xJf linux.tar.xz --strip-components=1
