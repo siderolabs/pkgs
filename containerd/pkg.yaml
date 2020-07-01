@@ -6,10 +6,10 @@ dependencies:
   - stage: libseccomp
 steps:
   - sources:
-      - url: https://github.com/containerd/containerd/archive/v1.3.3.tar.gz
+      - url: https://github.com/containerd/containerd/archive/v1.3.6.tar.gz
         destination: containerd.tar.gz
-        sha256: f5a3079210660a65a4ba36e322da03b465a83f18af563d33c4ef841ccb4411ae
-        sha512: 8ec9696388c2f21def34396f0dd2432a24d55c9c1b8624e47c51a624ed1fe51fde717015cd891705438c1c317f95c5601e58ceca8b4e5d813f55ff515eb1e269
+        sha256: 82424cb6727d2f8935eec35ad41653ca62febe3665a938f4fb25704fd20ea236
+        sha512: 2d40f925a724d87a8288060037622ba24be81df2734ba08418aa33534dac9265455e1c64244880b4de82074887cd5e19442da5abb6f1f32d1a5ad42c8f082d81
     prepare:
       - |
         export GOPATH=/go
@@ -24,7 +24,7 @@ steps:
         export GOPATH=/go
         export PATH=${PATH}:${TOOLCHAIN}/go/bin
         cd ${GOPATH}/src/github.com/containerd/containerd
-        make bin/containerd bin/containerd-shim bin/containerd-shim-runc-v2 BUILDTAGS='seccomp no_btrfs' VERSION=v1.3.3 REVISION=d76c121f76a5fc8a462dc64594aea72fe18e1178
+        make bin/containerd bin/containerd-shim bin/containerd-shim-runc-v2 BUILDTAGS='seccomp no_btrfs' VERSION=v1.3.3 REVISION=be75852b8d7849474a20192f9ed1bf34fdd454f1
     install:
       - |
         mkdir -p /rootfs/bin
