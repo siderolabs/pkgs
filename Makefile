@@ -6,7 +6,7 @@ BRANCH ?= $(shell git rev-parse --abbrev-ref HEAD)
 REGISTRY_AND_USERNAME := $(REGISTRY)/$(USERNAME)
 
 BUILD := docker buildx build
-PLATFORM ?= linux/amd64
+PLATFORM ?= linux/amd64,linux/arm64
 PROGRESS ?= auto
 PUSH ?= false
 COMMON_ARGS := --file=Pkgfile
