@@ -10,45 +10,30 @@ get:
 kind: pipeline
 name: default
 
-services:
-  - name: docker
-    image: docker:19.03.3-dind
-    entrypoint:
-      - dockerd
-    command:
-      - --dns=8.8.8.8
-      - --dns=8.8.4.4
-      - --mtu=1440
-      - --log-level=error
-    privileged: true
-    volumes:
-      - name: docker-socket
-        path: /var/run
-
 steps:
   - name: setup-ci
     image: autonomy/build-container:latest
     commands:
       - git fetch --tags
-      - apk add coreutils
-      - echo -e "$BUILDX_KUBECONFIG" > /root/.kube/config
-      - docker buildx create --driver kubernetes --driver-opt replicas=2 --driver-opt namespace=ci --driver-opt image=moby/buildkit:v0.6.2 --name ci --buildkitd-flags="--allow-insecure-entitlement security.insecure" --use
-      - docker buildx inspect --bootstrap
+      - install-ci-key
+      - setup-buildx-amd64-arm64
     environment:
-      BUILDX_KUBECONFIG:
-        from_secret: kubeconfig
-    privileged: true
+      SSH_KEY:
+        from_secret: ssh_key
+      DOCKER_CLI_EXPERIMENTAL: enabled
     volumes:
       - name: docker-socket
         path: /var/run
+      - name: ssh
+        path: /root/.ssh
       - name: docker
         path: /root/.docker/buildx
-      - name: kube
-        path: /root/.kube
 
   - name: build-pull-request
     image: autonomy/build-container:latest
     pull: always
+    environment:
+      DOCKER_CLI_EXPERIMENTAL: enabled
     commands:
       - make
     when:
@@ -58,10 +43,10 @@ steps:
     volumes:
       - name: docker-socket
         path: /var/run
+      - name: ssh
+        path: /root/.ssh
       - name: docker
         path: /root/.docker/buildx
-      - name: kube
-        path: /root/.kube
 
   - name: build-and-publish
     image: autonomy/build-container:latest
@@ -81,17 +66,18 @@ steps:
     volumes:
       - name: docker-socket
         path: /var/run
+      - name: ssh
+        path: /root/.ssh
       - name: docker
         path: /root/.docker/buildx
-      - name: kube
-        path: /root/.kube
 
 volumes:
   - name: docker-socket
-    temp: {}
+    host:
+      path: /var/ci-docker
   - name: docker
     temp: {}
-  - name: kube
+  - name: ssh
     temp: {}
 ---
 kind: pipeline
