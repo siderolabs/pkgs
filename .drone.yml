@@ -1,14 +1,6 @@
----
-kind: secret
-name: kubeconfig
-
-get:
-  path: buildx
-  name: kubeconfig
-
----
 kind: pipeline
 name: default
+type: kubernetes
 
 steps:
   - name: setup-ci
@@ -81,6 +73,7 @@ volumes:
     temp: {}
 ---
 kind: pipeline
+type: kubernetes
 name: notify
 
 clone:
