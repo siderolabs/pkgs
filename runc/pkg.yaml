@@ -8,14 +8,14 @@ steps:
   - sources:
       - url: https://github.com/opencontainers/runc/releases/download/v1.0.0-rc90/runc.tar.xz
         destination: runc.tar.xz
-        sha256: 3fdf6111bd9a56937059c994e36ae5420b57f93737f4b6bda34398f37cd82a19
-        sha512: 4121ebc470309f7313c0ab79f95bae6a12ee810fb487112114f037a3d8f5f478ec45deb12bcf203b5e380108ece6f2d19968483d9161e7003eee4e697081b9fe
+        sha256: 6e2aeba8cda186d8beb420a91f83e6a73d0753a76b4b6f087b1c01faa7e88b4e
+        sha512: 43a85c57b3714c346bc4109e8df61f4e653cd3322ab4f0b148abe1362f1bbc1080a97d95c114021bd7f10c989133a0ea2bdcfb73392dda4a2f4dac9ee5a21f26
     prepare:
       - |
         export GOPATH=/go
         mkdir -p ${GOPATH}/src/github.com/opencontainers/runc
 
-        tar -xJf runc.tar.xz --strip-components=1 -C ${GOPATH}/src/github.com/opencontainers/runc
+        tar -xJf runc.tar.xz --transform=s/runc-1.0.0-rc10// -C ${GOPATH}/src/github.com/opencontainers/runc
     build:
       - |
         export GOPATH=/go
