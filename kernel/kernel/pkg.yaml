@@ -1,0 +1,44 @@
+name: kernel
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: kernel-prepare
+steps:
+  - env:
+      ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+      CARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}amd64{{ else }}unsupported{{ end }}
+    prepare:
+      - |
+        cp -a /src/. .
+
+        cp -v /pkg/config-${CARCH} .config
+    build:
+      - |
+        make -j $(nproc)
+        make -j $(nproc) modules
+    install:
+      - |
+        mkdir -p /rootfs/boot
+        case $ARCH in
+            x86_64)
+                mv arch/x86/boot/bzImage /rootfs/boot/vmlinuz
+                mv vmlinux /rootfs/boot/vmlinux
+            ;;
+            arm64)
+                mv arch/arm64/boot/Image.gz /rootfs/boot/vmlinuz
+                mv vmlinux /rootfs/boot/vmlinux
+            ;;
+            *)
+                echo "unsupported arch ${ARCH}"
+                exit 1
+            ;;
+        esac
+
+        export KERNELRELEASE=$(cat include/config/kernel.release)
+        make -j $(nproc) modules_install DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs
+        depmod -b /rootfs $KERNELRELEASE
+        unlink /rootfs/lib/modules/$KERNELRELEASE/build
+        unlink /rootfs/lib/modules/$KERNELRELEASE/source
+finalize:
+  - from: /rootfs
+    to: /
