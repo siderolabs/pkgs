@@ -13,6 +13,10 @@ COMMON_ARGS := --file=Pkgfile
 COMMON_ARGS += --progress=$(PROGRESS)
 COMMON_ARGS += --platform=$(PLATFORM)
 
+, := ,
+space :=
+space +=
+
 TARGETS =  ca-certificates  cni  containerd  dosfstools  eudev  fhs  grub  ipmitool  iptables  kernel  kmod  libaio  libressl  libseccomp  linux-firmware lvm2  musl  open-iscsi  open-isns  runc  socat  syslinux  util-linux  xfsprogs
 
 all: $(TARGETS) ## Builds all known pkgs.
@@ -37,3 +41,10 @@ $(TARGETS):
 .PHONY: deps.png
 deps.png:
 	bldr graph | dot -Tpng > deps.png
+
+kernel-%: ## Updates the kernel configs: e.g. make kernel-olddefconfig; make kernel-menuconfig; etc.
+	for platform in $(subst $(,),$(space),$(PLATFORM)); do \
+		arch=`basename $$platform` ; \
+		$(MAKE) docker-kernel-prepare PLATFORM=$$platform TARGET_ARGS="--tag=$(REGISTRY)/$(USERNAME)/kernel:$(TAG)-$$arch --load"; \
+		docker run --rm -it --entrypoint=/toolchain/bin/bash -e PATH=/toolchain/bin:/bin -w /src -v $$PWD/kernel/kernel/config-$$arch:/src/.hostconfig $(REGISTRY)/$(USERNAME)/kernel:$(TAG)-$$arch -c 'cp .hostconfig .config && make $* && cp .config .hostconfig'; \
+	done

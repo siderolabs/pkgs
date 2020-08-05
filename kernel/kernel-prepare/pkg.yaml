@@ -1,0 +1,57 @@
+name: kernel-prepare
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - image: '{{ .TOOLS_IMAGE }}'
+steps:
+  - sources:
+      - url: https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.7.7.tar.xz
+        destination: linux.tar.xz
+        sha256: f840b9679283343c165516585c3070ebb277528721c890e9410a58e9d071ee7f
+        sha512: 49db85a1ce14e00411215d5d5bfda6db3d24ed2e0f2bd8e6603c18b3226614f45040856b21b4d6b525c44bb4463ab08fb594a06de6deca109d512588389cc3fd
+    env:
+      ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+    prepare:
+      - |
+        tar -xJf linux.tar.xz --strip-components=1
+        rm linux.tar.xz
+
+        mkdir /bin
+        ln -sv /toolchain/bin/bash /bin/bash
+        ln -sv /toolchain/bin/bash /bin/sh
+        ln -sv /toolchain/lib /lib
+        mkdir -p /usr/bin \
+            && ln -sf /toolchain/bin/env /usr/bin/env \
+            && ln -sf /toolchain/bin/true /bin/true \
+            && ln -sf /toolchain/bin/false /bin/false \
+            && ln -sf /toolchain/bin/pwd /bin/pwd
+
+        # Ensure that `make menuconfig` works.
+
+        ln -s /toolchain/bin/awk /usr/bin/awk
+
+        mkdir -p /usr/lib/pkgconfig
+        ln -s /toolchain/include /usr/include
+
+        for lib in ncurses form panel menu ; do
+            rm -vf                    /lib/lib${lib}.so
+            echo "INPUT(-l${lib}w)" > /lib/lib${lib}.so
+            ln -sfv ${lib}w.pc        /lib/pkgconfig/${lib}.pc
+        done
+
+        make mrproper
+    install:
+      - |
+        mkdir -p /src
+        cp -a . /src/
+finalize:
+  - from: /src
+    to: /src
+  - from: /toolchain
+    to: /toolchain
+  - from: /usr
+    to: /usr
+  - from: /bin
+    to: /bin
+  - from: /lib
+    to: /lib

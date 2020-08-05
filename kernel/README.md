@@ -1,32 +1,28 @@
 # Kernel
 
+## Updating kernel config
+
+When updating kernel to the new version, import proper defaults with:
+
+```sh
+make kernel-olddefconfig
+```
+
+If you want to update for a specific architecture only, use:
+
+```sh
+make kernel-olddefconfig PLATFORM=linux/arm64
+```
+
 ## Customizing the kernel
 
-High-level notes:
+Run another target to get into `menuconfig`:
 
-- In pkg.yaml, comment out the `build` and `install` steps
-- At the bottom of pkg.yaml, change the finalize step from
-
-```yaml
-finalize:
-  - from: /rootfs
-    to: /
+```sh
+make kernel-menuconfig
 ```
 
-to
+## Testing
 
-```yaml
-finalize:
-  - from: /
-    to: /
-```
-
-- Create a local image with `docker buildx build -t kernel --target kernel -f Pkgfile --load .`
-- Run the kernel image we created: `docker run --rm -it --entrypoint=/toolchain/bin/bash kernel`
-- Set path: `export PATH=/toolchain/bin:/bin`
-- Change to build dir: `cd /tmp/build/0`
-- Make changes to kernel settings with `make menuconfig` and save upon exiting
-- With the container still running, copy the config out to local disk: `docker cp $CONTAINER_ID:/tmp/build/0/.config config-amd64`
-- Revert your changes to pkg.yaml
 - Build and push a test image with `make USERNAME=rsmitty PUSH=true kernel`
 - PR upstream (when ready) and profit
