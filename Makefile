@@ -14,8 +14,8 @@ COMMON_ARGS += --progress=$(PROGRESS)
 COMMON_ARGS += --platform=$(PLATFORM)
 
 , := ,
-space :=
-space +=
+empty :=
+space = $(empty) $(empty)
 
 TARGETS =  ca-certificates  cni  containerd  dosfstools  eudev  fhs  grub  ipmitool  iptables  kernel  kmod  libaio  libressl  libseccomp  linux-firmware lvm2  musl  open-iscsi  open-isns  runc  socat  syslinux  util-linux  xfsprogs
 
