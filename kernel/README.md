@@ -5,13 +5,13 @@
 When updating kernel to the new version, import proper defaults with:
 
 ```sh
-make kernel-olddefconfig
+make kernel-olddefconfig USERNAME=rsmitty
 ```
 
 If you want to update for a specific architecture only, use:
 
 ```sh
-make kernel-olddefconfig PLATFORM=linux/arm64
+make kernel-olddefconfig USERNAME=rsmitty PLATFORM=linux/arm64
 ```
 
 ## Customizing the kernel
@@ -19,7 +19,7 @@ make kernel-olddefconfig PLATFORM=linux/arm64
 Run another target to get into `menuconfig`:
 
 ```sh
-make kernel-menuconfig
+make kernel-menuconfig USERNAME=rsmitty
 ```
 
 ## Testing
