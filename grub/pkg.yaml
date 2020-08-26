@@ -10,21 +10,55 @@ steps:
         destination: grub.tar.xz
         sha256: e5292496995ad42dabe843a0192cf2a2c502e7ffcc7479398232b10a472df77d
         sha512: 9c15c42d0cf5d61446b752194e3b628bb04be0fe6ea0240ab62b3d753784712744846e1f7c3651d8e0968d22012e6d713c38c44936d4004ded3ca4d4007babbb
+    env: # disable any optimizations, as this breaks GRUB build
+      CFLAGS: ""
+      CXXFLAGS: ""
+      LDFLAGS: ""
     prepare:
       - |
         tar -xJf grub.tar.xz --strip-components=1
 
-        ./configure --prefix=/usr \
-                    --sbindir=/sbin \
-                    --sysconfdir=/etc \
-                    --disable-efiemu \
-                    --disable-werror
+        /toolchain/bin/bash ./autogen.sh
     build:
       - |
-        make -j $(nproc)
+        case "${ARCH}" in
+        x86_64)
+          flavors="efi bios"
+          ;;
+        *)
+          flavors="efi"
+          ;;
+        esac
+
+        for flavor in $flavors; do
+          mkdir "build-${flavor}"
+          cd "build-${flavor}"
+
+          case "${flavor}" in
+            bios)
+              flags="--with-platform=pc" ;;
+            efi)
+              flags="--with-platform=efi --disable-efiemu" ;;
+          esac
+
+          ../configure --prefix=/usr \
+                    --sysconfdir=/etc \
+                    --mandir=/usr/share/man \
+                    --localstatedir=/var \
+                    ${flags} \
+                    --disable-nls \
+                    --disable-werror
+
+          make -j $(nproc)
+
+          make install-strip DESTDIR=/rootfs
+
+          cd ..
+        done
     install:
       - |
-        make install DESTDIR=/rootfs
+        rm -f /rootfs/usr/lib/charset.alias
+        mkdir -p /rootfs/usr/share/locale
         mkdir -p /rootfs/usr/share/bash-completion/completions
         mv -v /rootfs/etc/bash_completion.d/grub /rootfs/usr/share/bash-completion/completions
 finalize:

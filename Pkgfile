@@ -3,4 +3,4 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: docker.io/autonomy/tools:v0.2.0-9-g546446a
+  TOOLS_IMAGE: docker.io/autonomy/tools:v0.2.0-10-g1aba785
