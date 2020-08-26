@@ -1,0 +1,35 @@
+name: cryptsetup
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+  - stage: eudev # dependency for libdevmapper
+  - stage: lvm2 # libdevmapper
+  - stage: util-linux # libuuid
+  - stage: libpopt
+  - stage: libjson-c
+  - stage: libressl
+steps:
+  - sources:
+      - url: https://www.kernel.org/pub/linux/utils/cryptsetup/v2.3/cryptsetup-2.3.3.tar.gz
+        destination: cryptsetup.tar.gz
+        sha256: 87159ec22130b0cb1b3fd5e7754b6d731294e27c124b99fe73bd6d072641ab58
+        sha512: 0dbcc68fa72caff19082eb00815a62498caf28f37d73bafa9212125500be9386ce322c2f63cc5ff1808de7c1ca983872c9122b7a12dfe360580a6d096dcbc1ed
+    env:
+      PKG_CONFIG_PATH: /usr/lib/pkgconfig
+    prepare:
+      - |
+        tar -xzf cryptsetup.tar.gz --strip-components=1
+
+        ./configure \
+          --prefix=/usr \
+          --enable-static-cryptsetup || (cat config.log; exit 1)
+    build:
+      - |
+        make -j $(nproc)
+    install:
+      - |
+        make install DESTDIR=/rootfs
+finalize:
+  - from: /rootfs
+    to: /
