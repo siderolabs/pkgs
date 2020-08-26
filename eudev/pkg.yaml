@@ -30,8 +30,7 @@ steps:
           --libexecdir=/usr/libexec \
           --sbindir=/sbin \
           --disable-manpages \
-          --enable-hwdb \
-          --disable-static
+          --enable-hwdb
     build:
       - |
         cd build

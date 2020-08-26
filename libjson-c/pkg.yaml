@@ -1,0 +1,31 @@
+name: libjson-c
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: https://s3.amazonaws.com/json-c_releases/releases/json-c-0.15.tar.gz
+        destination: json-c.tar.gz
+        sha256: b8d80a1ddb718b3ba7492916237bbf86609e9709fb007e7f7d4322f02341a4c6
+        sha512: dc01298bcc78f0f31a34f5fcfe45c0feebfd88518e97fb4f96f1a652f71ccdd303415a4c7bf5b573bdcbcca80428281f0dfccefc6545ea3a7f18dbb819332f34
+    prepare:
+      - |
+        tar -xzf json-c.tar.gz --strip-components=1
+
+        cmake -B build \
+          -DCMAKE_INSTALL_PREFIX=/usr \
+          -DCMAKE_INSTALL_LIBDIR=lib \
+          -DBUILD_SHARED_LIBS=True \
+          -DBUILD_STATIC_LIBS=True \
+          -DCMAKE_BUILD_TYPE=None \
+         .
+    build:
+      - |
+        make -C build -j $(nproc)
+    install:
+      - |
+        make -C build DESTDIR=/rootfs install
+finalize:
+  - from: /rootfs
+    to: /

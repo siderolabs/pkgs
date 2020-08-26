@@ -1,0 +1,13 @@
+diff --git a/tools/Makefile.in b/tools/Makefile.in
+index 2620daa17..3912f2d61 100644
+--- a/tools/Makefile.in
++++ b/tools/Makefile.in
+@@ -136,7 +136,7 @@ man-generator: man-generator.o
+
+ lvm.static: $(OBJECTS) lvm-static.o $(LVMINTERNAL_LIBS)
+ 	@echo "    [CC] $@"
+-	$(Q) $(CC) $(CFLAGS) $(LDFLAGS) -static -L$(interfacebuilddir) -o $@ $+ \
++	$(Q) $(CC) $(CFLAGS) $(LDFLAGS) -static -L$(top_builddir)/libdm/ioctl -o $@ $+ \
+ 	      $(DMEVENT_LIBS) $(STATIC_LIBS) $(LVMLIBS)
+
+ liblvm2cmd.a: $(top_builddir)/lib/liblvm-internal.a $(OBJECTS) lvmcmdlib.o lvm2cmd.o
