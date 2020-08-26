@@ -19,6 +19,9 @@ steps:
         tar -xJf grub.tar.xz --strip-components=1
 
         /toolchain/bin/bash ./autogen.sh
+
+        patch -p1 < /pkg/patches/udev.patch
+
     build:
       - |
         case "${ARCH}" in
