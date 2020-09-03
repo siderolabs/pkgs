@@ -39,6 +39,8 @@ steps:
       - |
         cd build
         make install DESTDIR=/rootfs
+
+        /rootfs/usr/bin/udevadm hwdb -r /rootfs --update
 finalize:
   - from: /rootfs
     to: /
