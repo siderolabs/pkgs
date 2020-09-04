@@ -14,6 +14,8 @@ steps:
       - |
         tar -xzf ipmitool.tar.gz --strip-components=1
 
+        patch -p1 < /pkg/patches/gcc-10.patch
+
         mkdir build
         cd build
 
