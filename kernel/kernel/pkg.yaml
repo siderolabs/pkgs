@@ -25,7 +25,7 @@ steps:
                 mv vmlinux /rootfs/boot/vmlinux
             ;;
             arm64)
-                mv arch/arm64/boot/Image.gz /rootfs/boot/vmlinuz
+                mv arch/arm64/boot/Image /rootfs/boot/vmlinuz
                 mv vmlinux /rootfs/boot/vmlinux
             ;;
             *)
