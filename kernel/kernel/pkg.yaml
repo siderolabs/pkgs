@@ -12,6 +12,8 @@ steps:
         cp -a /src/. .
 
         cp -v /pkg/config-${CARCH} .config
+
+        patch -p0 < /pkg/patches/sign-file.patch
     build:
       - |
         make -j $(nproc)
