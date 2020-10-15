@@ -6,10 +6,10 @@ dependencies:
   - stage: libseccomp
 steps:
   - sources:
-      - url: https://github.com/containerd/containerd/archive/v1.4.0.tar.gz
+      - url: https://github.com/containerd/containerd/archive/v1.4.1.tar.gz
         destination: containerd.tar.gz
-        sha256: d6284c69e1933e4c05fe285feebef461efe8cd2030634dcf1cbdcde46abe86be
-        sha512: 5ac733a0823f5b680d40f76cb5a8277e84efdd6642d15c1735049f8859bf9f87b212b4075bdc13e8f09a5564b55ce74d7d1290628b0ca92d9753ef9bfa9a0e44
+        sha256: d410b8efc94e4124990f01de7107223971be8c9258fc651decf9e0ba648485b5
+        sha512: e16196db59ba71cfd7e5515b8d2bc6336503e996419182274dfc5ac9caca901cf712f465698e9ff667747959faf93cdf66fe652c47a83a6ead6f6a3a22add43b
     prepare:
       - |
         export GOPATH=/go
