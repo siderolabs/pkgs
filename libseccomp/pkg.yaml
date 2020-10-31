@@ -5,10 +5,10 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      - url: https://github.com/seccomp/libseccomp/releases/download/v2.4.3/libseccomp-2.4.3.tar.gz
+      - url: https://github.com/seccomp/libseccomp/releases/download/v2.4.4/libseccomp-2.4.4.tar.gz
         destination: libseccomp.tar.gz
-        sha256: cf15d1421997fac45b936515af61d209c4fd788af11005d212b3d0fd71e7991d
-        sha512: 7b7af2e98493243ffe1934fefff5723b24ae9b9bdc4bf039343ee8456c15acb0ea34e81ec292a41143848272aeca794ef92ad38fc3f42c77465170cb540479ef
+        sha256: 4e79738d1ef3c9b7ca9769f1f8b8d84fc17143c2c1c432e53b9c64787e0ff3eb
+        sha512: 53e5aa338a1c30ce826551e33be6ef877af43b1d8cfd2e1b6ffb70789eb2070d2610fb7cb5cec4a3a4c4a1221767f867f3d2bc07b6b1d9742719b1e053630b24
     prepare:
       - |
         tar -xzf libseccomp.tar.gz --strip-components=1
