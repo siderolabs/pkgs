@@ -5,10 +5,10 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      - url: https://www.kernel.org/pub/linux/utils/util-linux/v2.35/util-linux-2.35.1.tar.xz
+      - url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.36/util-linux-2.36.tar.xz
         destination: util-linux.tar.xz
-        sha256: d9de3edd287366cd908e77677514b9387b22bc7b88f45b83e1922c3597f1d7f9
-        sha512: 6e27e08bfc02378970f015decfea5a52d6c342c4c8f4ac48dd07d248485eb797e506d91d290dbbca344c3e5cfe1fc150db80a23d510367427232f5abeabe591a
+        sha256: 9e4b1c67eb13b9b67feb32ae1dc0d50e08ce9e5d82e1cccd0ee771ad2fa9e0b1
+        sha512: cbb4975da8d99a1edd45514171d59ea7b019ce0f77a81e88b447a733f725e91c53540d9dc78bc626dc011dca129b8b150aaf9e64ccf62a4202ae816581acf4fd
     prepare:
       - |
         tar -xJf util-linux.tar.xz --strip-components=1
