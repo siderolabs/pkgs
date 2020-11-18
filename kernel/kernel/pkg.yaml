@@ -18,6 +18,10 @@ steps:
       - |
         make -j $(nproc)
         make -j $(nproc) modules
+        if [[ "${ARCH}" == "arm64" ]]; then
+          echo "Compiling device-tree blobs"
+          make -j $(nproc) dtbs
+        fi
     install:
       - |
         mkdir -p /rootfs/boot
@@ -29,6 +33,14 @@ steps:
             arm64)
                 mv arch/arm64/boot/Image /rootfs/boot/vmlinuz
                 mv vmlinux /rootfs/boot/vmlinux
+                mkdir /rootfs/dtb
+                cd ./arch/arm64/boot/dts
+                for vendor in $(find . -not -path . -type d); do
+                  dest="/rootfs/dtb/$vendor"
+                  mkdir -v $dest
+                  find ./$vendor/* -type f -name "*.dtb" -exec cp {} $dest \;
+                done
+                cd -
             ;;
             *)
                 echo "unsupported arch ${ARCH}"
