@@ -1,0 +1,102 @@
+# References:
+#   U-Boot:
+#     - https://u-boot.readthedocs.io/en/latest
+#   Allwinner:
+#     - https://linux-sunxi.org/
+#     - https://github.com/u-boot/u-boot/blob/master/board/sunxi/README.sunxi64
+#   Rockchip:
+#     - http://opensource.rock-chips.com
+#     - https://github.com/u-boot/u-boot/blob/master/doc/board/rockchip/rockchip.rst
+name: u-boot
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: https://github.com/ARM-software/arm-trusted-firmware/archive/v2.4.tar.gz
+        destination: arm-trusted-firmware.tar.gz
+        sha256: 4bfda9fdbe5022f2e88ad3344165f7d38a8ae4a0e2d91d44d9a1603425cc642d
+        sha512: 99c5b73345e605db70941a0d44cfe3a1d3df8bbc615e4f2602ca90055cc7150a205350d9ae73dec73fcee85e6877351136428f996d421e57147c931a36f6a330
+      - url: https://ftp.denx.de/pub/u-boot/u-boot-2020.10.tar.bz2
+        destination: u-boot.tar.bz2
+        sha256: 0d481bbdc05c0ee74908ec2f56a6daa53166cc6a78a0e4fac2ac5d025770a622
+        sha512: fd26534f2d72ffc3167919c32067c550636f6a4ee5fead6937e2583ba4ff6165e88b8b50fbbddde7354a8c42701433d0cb2ce982e43c014db60b08415288baf9
+    env:
+      SUN50I_A64_ARM_TRUSTED_FIRMWARE: sun50i_a64_arm-trusted-firmware
+      RK3328_ARM_TRUSTED_FIRMWARE: rk3328_arm-trusted-firmware
+      LIBRETECH_ALL_H3_CC_H5_U_BOOT: libretech_all_h3_cc_h5_u-boot
+      EVB_RK3328_U_BOOT: evb_rk3328_u-boot
+      RPI_ARM64_U_BOOT: rpi_4_defconfig_u-boot
+    prepare:
+      - |
+        mkdir -p /usr/bin \
+          && ln -sf /toolchain/bin/env /usr/bin/env \
+      # sun50i_a64
+      - |
+        mkdir ${SUN50I_A64_ARM_TRUSTED_FIRMWARE}
+        tar -xzf arm-trusted-firmware.tar.gz --strip-components=1 -C ${SUN50I_A64_ARM_TRUSTED_FIRMWARE}
+      # rk3328
+      - |
+        mkdir ${RK3328_ARM_TRUSTED_FIRMWARE}
+        tar -xzf arm-trusted-firmware.tar.gz --strip-components=1 -C ${RK3328_ARM_TRUSTED_FIRMWARE}
+      # libretech_all_h3_cc_h5
+      - |
+        mkdir ${LIBRETECH_ALL_H3_CC_H5_U_BOOT}
+        tar -xjf u-boot.tar.bz2 --strip-components=1 -C ${LIBRETECH_ALL_H3_CC_H5_U_BOOT}
+        cd ${LIBRETECH_ALL_H3_CC_H5_U_BOOT}
+        make libretech_all_h3_cc_h5_defconfig
+      # evb-rk3328
+      - |
+        mkdir ${EVB_RK3328_U_BOOT}
+        tar -xjf u-boot.tar.bz2 --strip-components=1 -C ${EVB_RK3328_U_BOOT}
+        cd ${EVB_RK3328_U_BOOT}
+        make evb-rk3328_defconfig
+      # rpi_4_defconfig
+      - |
+        mkdir ${RPI_ARM64_U_BOOT}
+        tar -xjf u-boot.tar.bz2 --strip-components=1 -C ${RPI_ARM64_U_BOOT}
+        cd ${RPI_ARM64_U_BOOT}
+        make rpi_4_defconfig
+    build:
+      # sun50i_a64
+      - |
+        cd ${SUN50I_A64_ARM_TRUSTED_FIRMWARE}
+        make -j $(nproc) PLAT=sun50i_a64 DEBUG=0 bl31
+      # rk3328
+      - |
+        cd ${RK3328_ARM_TRUSTED_FIRMWARE}
+        make -j $(nproc) PLAT=rk3328 DEBUG=0 bl31
+      # libretech_all_h3_cc_h5
+      - |
+        export BL31=$(pwd)/${SUN50I_A64_ARM_TRUSTED_FIRMWARE}/build/sun50i_a64/release/bl31.bin
+        cd ${LIBRETECH_ALL_H3_CC_H5_U_BOOT}
+        make -j $(nproc)
+      # evb-rk3328
+      - |
+        export BL31=$(pwd)/${RK3328_ARM_TRUSTED_FIRMWARE}/build/rk3328/release/bl31/bl31.elf
+        cd ${EVB_RK3328_U_BOOT}
+        make -j $(nproc)
+      # rpi_4_defconfig
+      - |
+        cd ${RPI_ARM64_U_BOOT}
+        make -j $(nproc)
+        ls -lah
+    install:
+      # libretech_all_h3_cc_h5
+      - |
+        mkdir -p /rootfs/libretech_all_h3_cc_h5
+        cp -v ${LIBRETECH_ALL_H3_CC_H5_U_BOOT}/u-boot-sunxi-with-spl.bin /rootfs/libretech_all_h3_cc_h5
+      # evb-rk3328
+      - |
+        mkdir -p /rootfs/evb_rk3328
+        cp -v ${EVB_RK3328_U_BOOT}/idbloader.img /rootfs/evb_rk3328
+        cp -v ${EVB_RK3328_U_BOOT}/u-boot.itb /rootfs/evb_rk3328
+        cp -v ${EVB_RK3328_U_BOOT}/u-boot-rockchip.bin /rootfs/evb_rk3328
+      # rpi_4_defconfig
+      - |
+        mkdir -p /rootfs/rpi_4_defconfig
+        cp -v ${RPI_ARM64_U_BOOT}/u-boot.bin /rootfs/rpi_4_defconfig
+finalize:
+  - from: /rootfs
+    to: /

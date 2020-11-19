@@ -21,6 +21,9 @@ TARGETS =  ca-certificates  cni  containerd cryptsetup dosfstools  eudev  fhs  g
 
 all: $(TARGETS) ## Builds all known pkgs.
 
+arm64:
+	$(MAKE) TARGETS=u-boot PLATFORM=linux/arm64
+
 .PHONY: help
 help: ## This help menu.
 	@grep -E '^[a-zA-Z%_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
