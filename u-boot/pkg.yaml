@@ -27,7 +27,7 @@ steps:
       RK3328_ARM_TRUSTED_FIRMWARE: rk3328_arm-trusted-firmware
       LIBRETECH_ALL_H3_CC_H5_U_BOOT: libretech_all_h3_cc_h5_u-boot
       EVB_RK3328_U_BOOT: evb_rk3328_u-boot
-      RPI_ARM64_U_BOOT: rpi_4_defconfig_u-boot
+      RPI_ARM64_U_BOOT: rpi_4_u-boot
     prepare:
       - |
         mkdir -p /usr/bin \
@@ -52,7 +52,7 @@ steps:
         tar -xjf u-boot.tar.bz2 --strip-components=1 -C ${EVB_RK3328_U_BOOT}
         cd ${EVB_RK3328_U_BOOT}
         make evb-rk3328_defconfig
-      # rpi_4_defconfig
+      # rpi_4
       - |
         mkdir ${RPI_ARM64_U_BOOT}
         tar -xjf u-boot.tar.bz2 --strip-components=1 -C ${RPI_ARM64_U_BOOT}
@@ -77,11 +77,10 @@ steps:
         export BL31=$(pwd)/${RK3328_ARM_TRUSTED_FIRMWARE}/build/rk3328/release/bl31/bl31.elf
         cd ${EVB_RK3328_U_BOOT}
         make -j $(nproc)
-      # rpi_4_defconfig
+      # rpi_4
       - |
         cd ${RPI_ARM64_U_BOOT}
         make -j $(nproc)
-        ls -lah
     install:
       # libretech_all_h3_cc_h5
       - |
@@ -93,10 +92,10 @@ steps:
         cp -v ${EVB_RK3328_U_BOOT}/idbloader.img /rootfs/evb_rk3328
         cp -v ${EVB_RK3328_U_BOOT}/u-boot.itb /rootfs/evb_rk3328
         cp -v ${EVB_RK3328_U_BOOT}/u-boot-rockchip.bin /rootfs/evb_rk3328
-      # rpi_4_defconfig
+      # rpi_4
       - |
-        mkdir -p /rootfs/rpi_4_defconfig
-        cp -v ${RPI_ARM64_U_BOOT}/u-boot.bin /rootfs/rpi_4_defconfig
+        mkdir -p /rootfs/rpi_4
+        cp -v ${RPI_ARM64_U_BOOT}/u-boot.bin /rootfs/rpi_4
 finalize:
   - from: /rootfs
     to: /
