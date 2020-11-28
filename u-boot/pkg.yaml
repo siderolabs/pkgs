@@ -28,6 +28,7 @@ steps:
       LIBRETECH_ALL_H3_CC_H5_U_BOOT: libretech_all_h3_cc_h5_u-boot
       EVB_RK3328_U_BOOT: evb_rk3328_u-boot
       RPI_ARM64_U_BOOT: rpi_4_u-boot
+      BANANAPI_M64_U_BOOT: bananapi_m64_u-boot
     prepare:
       - |
         mkdir -p /usr/bin \
@@ -58,6 +59,12 @@ steps:
         tar -xjf u-boot.tar.bz2 --strip-components=1 -C ${RPI_ARM64_U_BOOT}
         cd ${RPI_ARM64_U_BOOT}
         make rpi_4_defconfig
+      # bananapi_m64
+      - |
+        mkdir ${BANANAPI_M64_U_BOOT}
+        tar -xjf u-boot.tar.bz2 --strip-components=1 -C ${BANANAPI_M64_U_BOOT}
+        cd ${BANANAPI_M64_U_BOOT}
+        make bananapi_m64_defconfig
     build:
       # sun50i_a64
       - |
@@ -81,6 +88,11 @@ steps:
       - |
         cd ${RPI_ARM64_U_BOOT}
         make -j $(nproc)
+      # bananapi_m64
+      - |
+        export BL31=$(pwd)/${SUN50I_A64_ARM_TRUSTED_FIRMWARE}/build/sun50i_a64/release/bl31.bin
+        cd ${BANANAPI_M64_U_BOOT}
+        make -j $(nproc)
     install:
       # libretech_all_h3_cc_h5
       - |
@@ -96,6 +108,10 @@ steps:
       - |
         mkdir -p /rootfs/rpi_4
         cp -v ${RPI_ARM64_U_BOOT}/u-boot.bin /rootfs/rpi_4
+      # bananapi_m64
+      - |
+        mkdir -p /rootfs/bananapi_m64
+        cp -v ${BANANAPI_M64_U_BOOT}/u-boot-sunxi-with-spl.bin /rootfs/bananapi_m64
 finalize:
   - from: /rootfs
     to: /
