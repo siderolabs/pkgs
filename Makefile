@@ -22,7 +22,7 @@ TARGETS =  ca-certificates  cni  containerd cryptsetup dosfstools  eudev  fhs  g
 all: $(TARGETS) ## Builds all known pkgs.
 
 arm64:
-	$(MAKE) TARGETS=u-boot PLATFORM=linux/arm64
+	$(MAKE) TARGETS="u-boot raspberrypi-firmware" PLATFORM=linux/arm64
 
 .PHONY: help
 help: ## This help menu.
