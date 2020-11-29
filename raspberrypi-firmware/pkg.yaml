@@ -1,0 +1,22 @@
+name: raspberrypi-firmware
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: https://github.com/raspberrypi/firmware/archive/1.20201022.tar.gz
+        destination: raspberrypi-firmware.tar.gz
+        sha256: 95a944d45e19403be9e54ca645d2fb439dac2d862d6d2da0485a4a03192a8d74
+        sha512: 876758179df27109984b6c3f4849fdcdc6bdcc2769495fcc83c97fc3ff4d07b9f3cd58086be877503f72c9e5417d2be6d6c33bce4cbb3b862055117c9cc26db8
+    prepare:
+      - |
+        mkdir -p raspberrypi-firmware
+        tar -xzf raspberrypi-firmware.tar.gz --strip-components=2 -C raspberrypi-firmware firmware-1.20201022/boot
+    install:
+      - |
+        mkdir -p /rootfs/boot
+        cp -av raspberrypi-firmware/* /rootfs/boot/
+finalize:
+  - from: /rootfs
+    to: /
