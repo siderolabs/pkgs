@@ -26,10 +26,12 @@ steps:
     env:
       SUN50I_A64_ARM_TRUSTED_FIRMWARE: sun50i_a64_arm-trusted-firmware
       RK3328_ARM_TRUSTED_FIRMWARE: rk3328_arm-trusted-firmware
+      RK3399_ARM_TRUSTED_FIRMWARE: rk3399_arm-trusted-firmware
       LIBRETECH_ALL_H3_CC_H5_U_BOOT: libretech_all_h3_cc_h5_u-boot
       ROCK64_RK3328_U_BOOT: rock64_rk3328_u-boot
       RPI_ARM64_U_BOOT: rpi_4_u-boot
       BANANAPI_M64_U_BOOT: bananapi_m64_u-boot
+      ROCK_PI_4_RK3399_U_BOOT: rock-pi-4-rk3399_u-boot
     prepare:
       - |
         mkdir -p /usr/bin \
@@ -42,6 +44,12 @@ steps:
       - |
         mkdir ${RK3328_ARM_TRUSTED_FIRMWARE}
         tar -xzf arm-trusted-firmware.tar.gz --strip-components=1 -C ${RK3328_ARM_TRUSTED_FIRMWARE}
+      # rk3399
+      - |
+        mkdir ${RK3399_ARM_TRUSTED_FIRMWARE}
+        tar -xzf arm-trusted-firmware.tar.gz --strip-components=1 -C ${RK3399_ARM_TRUSTED_FIRMWARE}
+        cd ${RK3399_ARM_TRUSTED_FIRMWARE}
+        patch -p0 < /pkg/rockpi4/patches/platform.mk.patch
       # libretech_all_h3_cc_h5
       - |
         mkdir ${LIBRETECH_ALL_H3_CC_H5_U_BOOT}
@@ -66,6 +74,12 @@ steps:
         tar -xjf u-boot.tar.bz2 --strip-components=1 -C ${BANANAPI_M64_U_BOOT}
         cd ${BANANAPI_M64_U_BOOT}
         make bananapi_m64_defconfig
+      # rock-pi-4-rk3399
+      - |
+        mkdir ${ROCK_PI_4_RK3399_U_BOOT}
+        tar -xjf u-boot.tar.bz2 --strip-components=1 -C ${ROCK_PI_4_RK3399_U_BOOT}
+        cd ${ROCK_PI_4_RK3399_U_BOOT}
+        make rock-pi-4-rk3399_defconfig
     build:
       # sun50i_a64
       - |
@@ -77,6 +91,13 @@ steps:
         cd ${RK3328_ARM_TRUSTED_FIRMWARE}
         make realclean
         make -j $(nproc) PLAT=rk3328 DEBUG=0 bl31
+      # rk3399
+      - |
+        cd ${RK3399_ARM_TRUSTED_FIRMWARE}
+        make realclean
+        mkdir -p $(pwd)/build/rk3399/release/
+        cp -rf /pkg/rockpi4/m0 $(pwd)/build/rk3399/release/
+        make -j $(nproc) PLAT=rk3399 DEBUG=0 bl31
       # libretech_all_h3_cc_h5
       - |
         export BL31=$(pwd)/${SUN50I_A64_ARM_TRUSTED_FIRMWARE}/build/sun50i_a64/release/bl31.bin
@@ -95,6 +116,11 @@ steps:
       - |
         export BL31=$(pwd)/${SUN50I_A64_ARM_TRUSTED_FIRMWARE}/build/sun50i_a64/release/bl31.bin
         cd ${BANANAPI_M64_U_BOOT}
+        make -j $(nproc)
+      # rock-pi-4-rk3399
+      - |
+        export BL31=$(pwd)/${RK3399_ARM_TRUSTED_FIRMWARE}/build/rk3399/release/bl31/bl31.elf
+        cd ${ROCK_PI_4_RK3399_U_BOOT}
         make -j $(nproc)
     install:
       # libretech_all_h3_cc_h5
@@ -115,6 +141,12 @@ steps:
       - |
         mkdir -p /rootfs/bananapi_m64
         cp -v ${BANANAPI_M64_U_BOOT}/u-boot-sunxi-with-spl.bin /rootfs/bananapi_m64
+      # rock-pi-4-rk3399
+      - |
+        mkdir -p /rootfs/rockpi_4
+        cp -v ${ROCK_PI_4_RK3399_U_BOOT}/u-boot-rockchip.bin /rootfs/rockpi_4
+        cp -v ${ROCK_PI_4_RK3399_U_BOOT}/idbloader.img /rootfs/rockpi_4
+        cp -v ${ROCK_PI_4_RK3399_U_BOOT}/u-boot.itb /rootfs/rockpi_4
 # {{ else }}
   - install:
       - |
