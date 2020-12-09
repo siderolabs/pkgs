@@ -17,12 +17,9 @@ COMMON_ARGS += --platform=$(PLATFORM)
 empty :=
 space = $(empty) $(empty)
 
-TARGETS =  ca-certificates  cni  containerd cryptsetup dosfstools  eudev  fhs  grub ipmitool  iptables  kernel  kmod  libaio  libressl  libseccomp  linux-firmware lvm2  musl  open-iscsi  open-isns  runc  socat  syslinux  util-linux  xfsprogs
+TARGETS =  ca-certificates  cni  containerd cryptsetup dosfstools  eudev  fhs  grub ipmitool  iptables  kernel  kmod  libaio  libressl  libseccomp  linux-firmware lvm2  musl  open-iscsi  open-isns raspberrypi-firmware runc  socat  syslinux u-boot  util-linux  xfsprogs
 
 all: $(TARGETS) ## Builds all known pkgs.
-
-arm64:
-	$(MAKE) TARGETS="u-boot raspberrypi-firmware" PLATFORM=linux/arm64
 
 .PHONY: help
 help: ## This help menu.
