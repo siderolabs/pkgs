@@ -7,6 +7,7 @@ steps:
   - env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
       CARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}amd64{{ else }}unsupported{{ end }}
+      KARCH: {{ if eq .ARCH "aarch64"}}ARM64{{ else if eq .ARCH "x86_64" }}X86_64{{ else }}unsupported{{ end }}
     prepare:
       - |
         cp -a /src/. .
@@ -14,6 +15,8 @@ steps:
         cp -v /pkg/config-${CARCH} .config
 
         patch -p0 < /pkg/patches/sign-file.patch
+      - |
+        python3 /toolchain/kconfig-hardened-check/bin/kconfig-hardened-check -c .config -p ${KARCH} -m json | python3 /pkg/scripts/filter-hardened-check.py
     build:
       - |
         make -j $(nproc)

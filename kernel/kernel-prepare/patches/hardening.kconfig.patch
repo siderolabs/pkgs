@@ -1,0 +1,55 @@
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 7101ac64bb20..e2c8cff3f791 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -41,7 +41,7 @@ config FORCE_DYNAMIC_FTRACE
+ 	 in order to test the non static function tracing in the
+ 	 generic code, as other architectures still use it. But we
+ 	 only need to keep it around for x86_64. No need to keep it
+-	 for x86_32. For x86_32, force DYNAMIC_FTRACE. 
++	 for x86_32. For x86_32, force DYNAMIC_FTRACE.
+ #
+ # Arch settings
+ #
+@@ -1191,7 +1191,6 @@ config VM86
+ 
+ config X86_16BIT
+ 	bool "Enable support for 16-bit segments" if EXPERT
+-	default y
+ 	depends on MODIFY_LDT_SYSCALL
+ 	help
+ 	  This option is required by programs like Wine to run 16-bit
+@@ -1204,7 +1203,7 @@ config X86_ESPFIX32
+ 	depends on X86_16BIT && X86_32
+ 
+ config X86_ESPFIX64
+-	def_bool y
++	bool "Foo"
+ 	depends on X86_16BIT && X86_64
+ 
+ config X86_VSYSCALL_EMULATION
+@@ -2405,7 +2404,6 @@ config CMDLINE_OVERRIDE
+ 
+ config MODIFY_LDT_SYSCALL
+ 	bool "Enable the LDT (local descriptor table)" if EXPERT
+-	default y
+ 	help
+ 	  Linux can allow user programs to install a per-process x86
+ 	  Local Descriptor Table (LDT) using the modify_ldt(2) system
+diff --git a/security/Kconfig b/security/Kconfig
+index 7561f6f99f1d..7bf554bc0906 100644
+--- a/security/Kconfig
++++ b/security/Kconfig
+@@ -166,7 +166,6 @@ config HARDENED_USERCOPY
+ config HARDENED_USERCOPY_FALLBACK
+ 	bool "Allow usercopy whitelist violations to fallback to object size"
+ 	depends on HARDENED_USERCOPY
+-	default y
+ 	help
+ 	  This is a temporary option that allows missing usercopy whitelists
+ 	  to be discovered via a WARN() to the kernel log, instead of
+@@ -292,4 +291,3 @@ config LSM
+ source "security/Kconfig.hardening"
+ 
+ endmenu
+-
