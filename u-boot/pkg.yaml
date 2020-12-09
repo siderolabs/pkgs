@@ -10,6 +10,7 @@
 name: u-boot
 variant: scratch
 shell: /toolchain/bin/bash
+# {{ if eq .ARCH "aarch64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr restricting build to arm64 only
 dependencies:
   - stage: base
 steps:
@@ -117,3 +118,4 @@ steps:
 finalize:
   - from: /rootfs
     to: /
+# {{ end }}
