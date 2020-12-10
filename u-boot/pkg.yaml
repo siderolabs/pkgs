@@ -10,10 +10,10 @@
 name: u-boot
 variant: scratch
 shell: /toolchain/bin/bash
-# {{ if eq .ARCH "aarch64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr restricting build to arm64 only
 dependencies:
   - stage: base
 steps:
+# {{ if eq .ARCH "aarch64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr restricting build to arm64 only
   - sources:
       - url: https://github.com/ARM-software/arm-trusted-firmware/archive/v2.4.tar.gz
         destination: arm-trusted-firmware.tar.gz
@@ -115,7 +115,11 @@ steps:
       - |
         mkdir -p /rootfs/bananapi_m64
         cp -v ${BANANAPI_M64_U_BOOT}/u-boot-sunxi-with-spl.bin /rootfs/bananapi_m64
+# {{ else }}
+  - install:
+      - |
+        mkdir -p /rootfs
+# {{ end }}
 finalize:
   - from: /rootfs
     to: /
-# {{ end }}
