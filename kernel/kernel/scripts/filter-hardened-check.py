@@ -16,6 +16,7 @@ Names of violations we ignore for a good reason.
 IGNORE_VIOLATIONS = {
     'CONFIG_MODULES', # enabled for backwards compat, modules require signing key which is thrown away
     'CONFIG_IA32_EMULATION', # see https://github.com/talos-systems/pkgs/pull/125
+    'CONFIG_HARDEN_BRANCH_PREDICTOR', # looks like a bug in kconfig-hardened-check, default in 5.9, but not enabled in 5.10
 }
 
 def main():
