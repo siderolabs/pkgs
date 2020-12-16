@@ -15,8 +15,6 @@ steps:
         cp -v /pkg/config-${CARCH} .config
 
         patch -p0 < /pkg/patches/sign-file.patch
-      - |
-        python3 /toolchain/kconfig-hardened-check/bin/kconfig-hardened-check -c .config -p ${KARCH} -m json | python3 /pkg/scripts/filter-hardened-check.py
     build:
       - |
         make -j $(nproc)
