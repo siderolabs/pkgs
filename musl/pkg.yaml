@@ -5,10 +5,10 @@ dependencies:
   - image: "{{ .TOOLS_IMAGE }}"
 steps:
   - sources:
-      - url: https://www.musl-libc.org/releases/musl-1.2.1.tar.gz
+      - url: https://www.musl-libc.org/releases/musl-1.2.2.tar.gz
         destination: musl.tar.gz
-        sha256: 68af6e18539f646f9c41a3a2bb25be4a5cfa5a8f65f0bb647fd2bbfdf877e84b
-        sha512: 455464ef47108a78457291bda2b1ea574987a1787f6001e9376956f20521593a4816bc215dab41c1a80292ae7ebd315accb4d4fa6a1210ff77d9a4d68239e960
+        sha256: 9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd
+        sha512: 5344b581bd6463d71af8c13e91792fa51f25a96a1ecbea81e42664b63d90b325aeb421dfbc8c22e187397ca08e84d9296a0c0c299ba04fa2b751d6864914bd82
     prepare:
       - |
         export PATH=${TOOLCHAIN}/cross/bin:${PATH}
