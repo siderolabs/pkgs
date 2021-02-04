@@ -1,30 +1,31 @@
 name: cni
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
 steps:
   - sources:
-      - url: https://github.com/containernetworking/plugins/releases/download/v0.8.7/cni-plugins-linux-amd64-v0.8.7.tgz
-        destination: cni-plugins-amd64.tgz
-        sha256: 977824932d5667c7a37aa6a3cbba40100a6873e7bd97e83e8be837e3e7afd0a8
-        sha512: 8f2cbee3b5f94d59f919054dccfe99a8e3db5473b553d91da8af4763e811138533e05df4dbeab16b3f774852b4184a7994968f5e036a3f531ad1ac4620d10ede
-      - url: https://github.com/containernetworking/plugins/releases/download/v0.8.7/cni-plugins-linux-arm64-v0.8.7.tgz
-        destination: cni-plugins-arm64.tgz
-        sha256: ae13d7b5c05bd180ea9b5b68f44bdaa7bfb41034a2ef1d68fd8e1259797d642f
-        sha512: d1fcb37c727c6aa328e1f51d2a06c93a43dbdee2b7f495e12725e6d60db664d6068a1e6e26025df6c4996d9431921855c71df60c227e62bacbf5c9d213a21f8d
+      # see https://github.com/containernetworking/plugins/commit/23a1d90e0b2f1457bf842a9619e57a618ef3f9f2
+      - url: https://github.com/containernetworking/plugins/archive/74a6b28a2c2796a2638ba61a85bb620640bfeb31.tar.gz
+        destination: cni-plugins.tar.gz
+        sha256: 5008e544c39072d4c6dad4dfe5bdbc3c78d2c76e71ba3c8bfe1a4d7908baebfa
+        sha512: f5faf5c7c12bba3c84e38133d167f2120910fb3f6c4d2afae4984f0e22969a1afcf49c85943be39ac9db1fd00533efbe3cec32a1c18472367590f6b942d78a4c
+    env:
+      GOPATH: /go
+    prepare:
+      - |
+        mkdir -p ${GOPATH}/src/
+        tar -xzf cni-plugins.tar.gz --strip-components=1 -C ${GOPATH}/src/
+    build:
+      - |
+        export PATH=${PATH}:${TOOLCHAIN}/go/bin
+        cd ${GOPATH}/src/
+        /toolchain/bin/bash ./build_linux.sh
     install:
       - |
         mkdir -p /rootfs/opt/cni/bin
 
-        case $ARCH in
-            x86_64)
-                tar -xzf cni-plugins-amd64.tgz -C /rootfs/opt/cni/bin
-            ;;
-            aarch64)
-                tar -xzf cni-plugins-arm64.tgz -C /rootfs/opt/cni/bin
-            ;;
-            *)
-                echo "unsupported arch ${ARCH}"
-                exit 1
-            ;;
-        esac
+        mv ${GOPATH}/src/bin/* /rootfs/opt/cni/bin
 finalize:
   - from: /rootfs
     to: /
