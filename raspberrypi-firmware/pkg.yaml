@@ -6,18 +6,17 @@ dependencies:
 steps:
 # {{ if eq .ARCH "aarch64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr restricting build to arm64 only
   - sources:
-      - url: https://github.com/raspberrypi/firmware/archive/1.20201022.tar.gz
+      - url: https://github.com/raspberrypi/firmware/archive/1.20210201.tar.gz
         destination: raspberrypi-firmware.tar.gz
-        sha256: 95a944d45e19403be9e54ca645d2fb439dac2d862d6d2da0485a4a03192a8d74
-        sha512: 876758179df27109984b6c3f4849fdcdc6bdcc2769495fcc83c97fc3ff4d07b9f3cd58086be877503f72c9e5417d2be6d6c33bce4cbb3b862055117c9cc26db8
+        sha256: 07cea77d530f6d1750d4b208016cd92002acc025fc2a9aac47a8c5dbab3e1f7c
+        sha512: 13d899a103e8d3deb98a6fcca661f712b085935336fc31156e0b8ec5e3c71b373d3394777895ee1907cad9a2ca3efd1a66995ff6df3429c732b002d9ad603414
     prepare:
       - |
-        mkdir -p raspberrypi-firmware
-        tar -xzf raspberrypi-firmware.tar.gz --strip-components=2 -C raspberrypi-firmware firmware-1.20201022/boot
+        tar -xzf raspberrypi-firmware.tar.gz --strip-components=1
     install:
       - |
         mkdir -p /rootfs/boot
-        cp -av raspberrypi-firmware/* /rootfs/boot/
+        cp -av boot/* /rootfs/boot/
 # {{ else }}
   - install:
       - |
