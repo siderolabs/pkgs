@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 5.10.7 Kernel Configuration
+# Linux/x86 5.10.14 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="gcc (GCC) 10.2.0"
 CONFIG_CC_IS_GCC=y
@@ -5134,7 +5134,7 @@ CONFIG_CRYPTO_XTS=y
 # CONFIG_CRYPTO_NHPOLY1305_SSE2 is not set
 # CONFIG_CRYPTO_NHPOLY1305_AVX2 is not set
 # CONFIG_CRYPTO_ADIANTUM is not set
-# CONFIG_CRYPTO_ESSIV is not set
+CONFIG_CRYPTO_ESSIV=y
 
 #
 # Hash modes
