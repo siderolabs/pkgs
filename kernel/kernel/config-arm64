@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 5.10.14 Kernel Configuration
+# Linux/arm64 5.10.17 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="gcc (GCC) 10.2.0"
 CONFIG_CC_IS_GCC=y
@@ -7596,7 +7596,7 @@ CONFIG_STACKLEAK_TRACK_MIN_SIZE=100
 # CONFIG_STACKLEAK_METRICS is not set
 # CONFIG_STACKLEAK_RUNTIME_DISABLE is not set
 CONFIG_INIT_ON_ALLOC_DEFAULT_ON=y
-CONFIG_INIT_ON_FREE_DEFAULT_ON=y
+# CONFIG_INIT_ON_FREE_DEFAULT_ON is not set
 # end of Memory initialization
 # end of Kernel hardening options
 # end of Security options
