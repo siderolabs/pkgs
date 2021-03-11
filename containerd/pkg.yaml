@@ -10,6 +10,8 @@ steps:
         destination: containerd.tar.gz
         sha256: ac62c64664bf62fd44df0891c896eecdb6d93def3438271d7892dca75bc069d1
         sha512: f09930d19f53381d86cf522954458ecc949f15a0c6a49f990bdb61fe19afee075356338998ed84bd756f16ba85211f55f9c638de8b7083d71e24d8e87335e070
+    env:
+      GO111MODULE: off
     prepare:
       - |
         export GOPATH=/go
