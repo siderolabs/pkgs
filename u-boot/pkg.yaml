@@ -13,16 +13,16 @@ shell: /toolchain/bin/bash
 dependencies:
   - stage: base
 steps:
-# {{ if eq .ARCH "aarch64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr restricting build to arm64 only
+  # {{ if eq .ARCH "aarch64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr restricting build to arm64 only
   - sources:
       - url: https://github.com/ARM-software/arm-trusted-firmware/archive/v2.4.tar.gz
         destination: arm-trusted-firmware.tar.gz
         sha256: 4bfda9fdbe5022f2e88ad3344165f7d38a8ae4a0e2d91d44d9a1603425cc642d
         sha512: 99c5b73345e605db70941a0d44cfe3a1d3df8bbc615e4f2602ca90055cc7150a205350d9ae73dec73fcee85e6877351136428f996d421e57147c931a36f6a330
-      - url: https://ftp.denx.de/pub/u-boot/u-boot-2021.04-rc3.tar.bz2
+      - url: https://ftp.denx.de/pub/u-boot/u-boot-2021.04.tar.bz2
         destination: u-boot.tar.bz2
-        sha256: 7c418e07f6065c8761eb2df890bb524d7109864325d8850ddb0c93eb345734f9
-        sha512: 0d6b46b791475ce21320fbc2b361235d09588a5b912d40b32a11d937adc7c0e7b75b893ba4e8dc55156cfd99f684fc56839c17d0b9c021f5cfaaf5e5997f93ba
+        sha256: 0d438b1bb5cceb57a18ea2de4a0d51f7be5b05b98717df05938636e0aadfe11a
+        sha512: c24835a520bfd528032614576ca552e55e6de129372e72e22e80e0d45dc5c1c75aa4aad80e856d5bbd7146ec092cac52a6f352253cf3fdf9fe536f5e87782803
     env:
       SUN50I_A64_ARM_TRUSTED_FIRMWARE: sun50i_a64_arm-trusted-firmware
       RK3328_ARM_TRUSTED_FIRMWARE: rk3328_arm-trusted-firmware
@@ -147,7 +147,7 @@ steps:
         cp -v ${ROCK_PI_4_RK3399_U_BOOT}/u-boot-rockchip.bin /rootfs/rockpi_4
         cp -v ${ROCK_PI_4_RK3399_U_BOOT}/idbloader.img /rootfs/rockpi_4
         cp -v ${ROCK_PI_4_RK3399_U_BOOT}/u-boot.itb /rootfs/rockpi_4
-# {{ else }}
+  # {{ else }}
   - install:
       - |
         mkdir -p /rootfs
