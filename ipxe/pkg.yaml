@@ -1,0 +1,47 @@
+name: ipxe
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+  - stage: liblzma
+steps:
+  - sources:
+      - url: https://github.com/ipxe/ipxe/archive/refs/tags/v1.21.1.tar.gz
+        destination: ipxe.tar.gz
+        sha256: 16e8d51c48d8a120332cf0dc32b473acc5d179e3975ced208eb21caf3b6528dc
+        sha512: 47400975110ed4ab95835aa1b7c8d5a6917c19c5713c6ab88bc0741a3adcd62245a9c4251d1f46fffc45289c6b18bf893f86dbc3b67d3189c41b7f198367ecaa
+    prepare:
+      - |
+        tar -xzf ipxe.tar.gz --strip-components=1
+
+        patch -p 1 < /pkg/patches/https.patch
+    build:
+      - |
+        cd src/
+
+        {{ if eq .ARCH "aarch64" }}
+        ARCH= make -j $(nproc) bin-arm64-efi/ipxe.efi EMBED=/pkg/files/ipxe.script
+        {{ else }}
+        ARCH= make -j $(nproc) bin/undionly.kpxe bin-x86_64-efi/ipxe.efi EMBED=/pkg/files/ipxe.script
+        ARCH= make bin/undionly.kpxe.bin bin/undionly.kpxe.zinfo EMBED=/pkg/files/ipxe.script
+        {{ end }}
+    install:
+      - |
+        cd src/
+
+        mkdir -p /rootfs/{usr/libexec,usr/libexec/zbin}
+
+        {{ if eq .ARCH "aarch64" }}
+        cp -p bin-arm64-efi/ipxe.efi /rootfs/usr/libexec
+        {{ else }}
+        cp -p bin/undionly.kpxe bin-x86_64-efi/ipxe.efi /rootfs/usr/libexec
+        cp -p bin/undionly.kpxe.bin bin/undionly.kpxe.zinfo util/zbin /rootfs/usr/libexec/zbin
+        {{ end }}
+finalize:
+  - from: /rootfs
+    to: /
+# Generating .kpxe via zbin:
+#   [ZBIN] bin/undionly.kpxe.zbin
+#    ./util/zbin bin/undionly.kpxe.bin bin/undionly.kpxe.zinfo > bin/undionly.kpxe.zbin
+#  [FINISH] bin/undionly.kpxe
+#    cp bin/undionly.kpxe.zbin bin/undionly.kpxe
