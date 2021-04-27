@@ -1,0 +1,13 @@
+diff --git a/src/config/general.h b/src/config/general.h
+index 9b21f127..46e753ae 100644
+--- a/src/config/general.h
++++ b/src/config/general.h
+@@ -55,7 +55,7 @@ FILE_LICENCE ( GPL2_OR_LATER_OR_UBDL );
+ 
+ #define	DOWNLOAD_PROTO_TFTP	/* Trivial File Transfer Protocol */
+ #define	DOWNLOAD_PROTO_HTTP	/* Hypertext Transfer Protocol */
+-#undef	DOWNLOAD_PROTO_HTTPS	/* Secure Hypertext Transfer Protocol */
++#define	DOWNLOAD_PROTO_HTTPS /* Secure Hypertext Transfer Protocol */
+ #undef	DOWNLOAD_PROTO_FTP	/* File Transfer Protocol */
+ #undef	DOWNLOAD_PROTO_SLAM	/* Scalable Local Area Multicast */
+ #undef	DOWNLOAD_PROTO_NFS	/* Network File System Protocol */

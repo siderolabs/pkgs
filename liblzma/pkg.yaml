@@ -1,0 +1,36 @@
+name: liblzma
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: http://deb.debian.org/debian/pool/main/x/xz-utils/xz-utils_5.2.4.orig.tar.xz
+        destination: xz.tar.xz
+        sha256: 9717ae363760dedf573dad241420c5fea86256b65bc21d2cf71b2b12f0544f4b
+        sha512: 00db7dd31a61541b1ce6946e0f21106f418dd1ac3f27cdb8682979cbc3bd777cd6dd1f04f9ba257a0a7e24041e15ca40d0dd5c130380dce62280af67a0beb97f
+    prepare:
+      - |
+        tar -xJf xz.tar.xz --strip-components=1
+
+        ./configure \
+          --prefix=/usr \
+          --disable-rpath \
+          --disable-werror \
+          --disable-doc \
+          --disable-xz \
+          --disable-xzdec \
+          --disable-lzmadec \
+          --disable-lzmainfo \
+          --disable-lzma-links \
+          --disable-scripts \
+          --disable-static
+    build:
+      - |
+        make -j $(nproc)
+    install:
+      - |
+        make install DESTDIR=/rootfs
+finalize:
+  - from: /rootfs
+    to: /
