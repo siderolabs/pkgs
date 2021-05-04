@@ -21,6 +21,7 @@ steps:
 
         {{ if eq .ARCH "aarch64" }}
         ARCH= make -j $(nproc) bin-arm64-efi/ipxe.efi EMBED=/pkg/files/ipxe.script
+        gcc ./util/zbin.c -llzma -o util/zbin
         {{ else }}
         ARCH= make -j $(nproc) bin/undionly.kpxe bin-x86_64-efi/ipxe.efi EMBED=/pkg/files/ipxe.script
         ARCH= make bin/undionly.kpxe.bin bin/undionly.kpxe.zinfo EMBED=/pkg/files/ipxe.script
@@ -29,14 +30,15 @@ steps:
       - |
         cd src/
 
-        mkdir -p /rootfs/{usr/libexec,usr/libexec/zbin}
+        mkdir -p /rootfs/{usr/libexec,usr/libexec/kpxe}
 
         {{ if eq .ARCH "aarch64" }}
         cp -p bin-arm64-efi/ipxe.efi /rootfs/usr/libexec
         {{ else }}
         cp -p bin/undionly.kpxe bin-x86_64-efi/ipxe.efi /rootfs/usr/libexec
-        cp -p bin/undionly.kpxe.bin bin/undionly.kpxe.zinfo util/zbin /rootfs/usr/libexec/zbin
+        cp -p bin/undionly.kpxe.bin bin/undionly.kpxe.zinfo /rootfs/usr/libexec/kpxe
         {{ end }}
+        cp -p util/zbin /rootfs/usr/libexec
 finalize:
   - from: /rootfs
     to: /
