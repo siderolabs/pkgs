@@ -6,34 +6,25 @@ dependencies:
   - stage: libseccomp
 steps:
   - sources:
-      - url: https://github.com/containerd/containerd/archive/v1.4.4.tar.gz
+      - url: https://github.com/containerd/containerd/archive/v1.5.0.tar.gz
         destination: containerd.tar.gz
-        sha256: ac62c64664bf62fd44df0891c896eecdb6d93def3438271d7892dca75bc069d1
-        sha512: f09930d19f53381d86cf522954458ecc949f15a0c6a49f990bdb61fe19afee075356338998ed84bd756f16ba85211f55f9c638de8b7083d71e24d8e87335e070
-    env:
-      GO111MODULE: off
+        sha256: e1e443c6b4afe2e30b541eb9420edc8d525e0be51a900c4d7fb61365ee4a3fee
+        sha512: 8af31eaa3d49a9026893e62c1115b3558b6b44736692f326382ab00e51c2f8f79a92580b1c791d6b5dd71e95531c2e7c65625d18ed19a8b7ab2348597a1d97e2
     prepare:
       - |
-        export GOPATH=/go
-        mkdir -p ${GOPATH}/src/github.com/containerd/containerd
-        tar -xzf containerd.tar.gz --strip-components=1 -C ${GOPATH}/src/github.com/containerd/containerd
+        tar -xzf containerd.tar.gz --strip-components=1
     build:
       - |
         export PKG_CONFIG_PATH=/usr/lib/pkgconfig
         export CC=/toolchain/bin/cc
         # This is required due to "loadinternal: cannot find runtime/cgo".
         export CGO_ENABLED=1
-        export GOPATH=/go
         export PATH=${PATH}:${TOOLCHAIN}/go/bin
-        cd ${GOPATH}/src/github.com/containerd/containerd
-        make bin/containerd bin/containerd-shim bin/containerd-shim-runc-v2 BUILDTAGS='seccomp no_btrfs' VERSION=v1.4.4 REVISION=05f951a3781f4f2c1911b05e61c160e9c30eaa8e
+        make bin/containerd bin/containerd-shim bin/containerd-shim-runc-v2 BUILDTAGS='seccomp no_btrfs' VERSION=v1.5.0 REVISION=8c906ff108ac28da23f69cc7b74f8e7a470d1df0
     install:
       - |
         mkdir -p /rootfs/bin
-        export GOPATH=/go
-        cp ${GOPATH}/src/github.com/containerd/containerd/bin/containerd /rootfs/bin
-        cp ${GOPATH}/src/github.com/containerd/containerd/bin/containerd-shim /rootfs/bin
-        cp ${GOPATH}/src/github.com/containerd/containerd/bin/containerd-shim-runc-v2 /rootfs/bin
+        cp bin/{containerd,containerd-shim,containerd-shim-runc-v2} /rootfs/bin
 finalize:
   - from: /rootfs
     to: /
