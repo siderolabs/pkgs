@@ -6,10 +6,10 @@ dependencies:
   - stage: libseccomp
 steps:
   - sources:
-      - url: https://github.com/containerd/containerd/archive/v1.5.0.tar.gz
+      - url: https://github.com/containerd/containerd/archive/v1.5.1.tar.gz
         destination: containerd.tar.gz
-        sha256: e1e443c6b4afe2e30b541eb9420edc8d525e0be51a900c4d7fb61365ee4a3fee
-        sha512: 8af31eaa3d49a9026893e62c1115b3558b6b44736692f326382ab00e51c2f8f79a92580b1c791d6b5dd71e95531c2e7c65625d18ed19a8b7ab2348597a1d97e2
+        sha256: 61272db3070d80cfc8ad6f3e6aadb9c2c9a7f64940b4a9097f79d35e213cd376
+        sha512: 8ba67a0e00eb6d63f1ecc8cf9d20f0beae86a816a837c99f24cafbb8ebabe32ce91c8d96c4240da34edbade7cd2020327a1d33a1d8e57fb216f764d44910b999
     prepare:
       - |
         tar -xzf containerd.tar.gz --strip-components=1
@@ -20,7 +20,7 @@ steps:
         # This is required due to "loadinternal: cannot find runtime/cgo".
         export CGO_ENABLED=1
         export PATH=${PATH}:${TOOLCHAIN}/go/bin
-        make bin/containerd bin/containerd-shim bin/containerd-shim-runc-v2 BUILDTAGS='seccomp no_btrfs' VERSION=v1.5.0 REVISION=8c906ff108ac28da23f69cc7b74f8e7a470d1df0
+        make bin/containerd bin/containerd-shim bin/containerd-shim-runc-v2 BUILDTAGS='seccomp no_btrfs' VERSION=v1.5.1 REVISION=12dca9790f4cb6b18a6a7a027ce420145cb98ee7
     install:
       - |
         mkdir -p /rootfs/bin
