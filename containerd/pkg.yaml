@@ -8,8 +8,8 @@ steps:
   - sources:
       - url: https://github.com/containerd/containerd/archive/v1.5.1.tar.gz
         destination: containerd.tar.gz
-        sha256: 61272db3070d80cfc8ad6f3e6aadb9c2c9a7f64940b4a9097f79d35e213cd376
-        sha512: 8ba67a0e00eb6d63f1ecc8cf9d20f0beae86a816a837c99f24cafbb8ebabe32ce91c8d96c4240da34edbade7cd2020327a1d33a1d8e57fb216f764d44910b999
+        sha256: e381c5133feacf7a9d6991c3535103f3c1f7a86b5b8ce2df226c5abde77fb5d8
+        sha512: 457e3059638af7479aebc88bb8aea148d93b0a42de3b3ea78b7ee81e9af8132bedaeb53a1cc06763a13158d0cacf2a1f788820b49d899d5f0eed7ed3a65dc271
     prepare:
       - |
         tar -xzf containerd.tar.gz --strip-components=1
