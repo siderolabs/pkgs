@@ -6,10 +6,10 @@ dependencies:
   - stage: libressl
 steps:
   - sources:
-      - url: https://github.com/open-iscsi/open-isns/archive/v0.100.tar.gz
+      - url: https://github.com/open-iscsi/open-isns/archive/refs/tags/v0.101.tar.gz
         destination: open-isns.tar.gz
-        sha256: b011edbb0f31690aaca902a8ecf4e1f17b01d6c9e9afc51909d26b0993b4328f
-        sha512: ccf49ba1c60d46ae49b75424a966abc1f7e104c8ffa13013951a58a8f0ccaa1cf550f24fd2743fcaba1211a0ec8033c5df5249b7a108ae5974d4f1144dd3b169
+        sha256: f672ec86b6c9e984843a7a28d76f07e26393499c486f86034b8b18caa8deb556
+        sha512: e5a392127b0d85f36e9e4aa963c0c502af8c5aea0aba6d12abb4425649969dcc20ba6e87a99083626d981438439b17b71a86320f816042d82ed5dbe7e7a63e77
     prepare:
       - |
         tar -xzf open-isns.tar.gz --strip-components=1
