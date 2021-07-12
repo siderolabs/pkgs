@@ -9,10 +9,10 @@ dependencies:
   - stage: util-linux
 steps:
   - sources:
-      - url: https://github.com/open-iscsi/open-iscsi/archive/2.1.2.tar.gz
+      - url: https://github.com/open-iscsi/open-iscsi/archive/refs/tags/2.1.4.tar.gz
         destination: open-iscsi.tar.gz
-        sha256: ba5125b5803aeac7de36b2cd777abc1b63d194983ede8b34fa82de8a5a1aa19c
-        sha512: a0b1fc4aa2acadbf3a69fa636a47fec527fff75748fccfa83c9540f3ac05c71835a406503b15480ed25fe4fb780e58e0dd21760cccc7f7ef07128d1aef8ee2e3
+        sha256: a5a73f7c795d1dc214100b1eb70647d6c2ceccf8973e584f50ee7f92c40d2a8a
+        sha512: ae0663a964d86e6a4c19203598b859173c93ecce550f9bc9855ff735dd51a3c45822f2bc1cc99e6891c56ef1d16c42223803f07a961558fe6e38ead2164faef3
     prepare:
       - |
         tar -xzf open-iscsi.tar.gz --strip-components=1
