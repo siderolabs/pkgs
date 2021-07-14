@@ -6,10 +6,11 @@ dependencies:
   - stage: libseccomp
 steps:
   - sources:
-      - url: https://github.com/opencontainers/runc/releases/download/v1.0.0-rc95/runc.tar.xz
+      # sync with commit in build
+      - url: https://github.com/opencontainers/runc/releases/download/v1.0.0/runc.tar.xz
         destination: runc.tar.xz
-        sha256: 8304b161e1c0ec2cee969b25671a147cd56cb99e6aa534371b2cfb3ec13db2c4
-        sha512: e2f30a4da4a56b1e017a2c3d0dc2df4b719e118f91ba051b29bca5e5cd9c99a07aa0da35c86a1f5748ea1392c951e33bfb4c55d2aef46264dfabf134d7f27e12
+        sha256: ccdf1ac45cb1bb36eb1810457c6b1a513666958d83a96e01fff6085ba179c9f1
+        sha512: 6fd964a2b7c7b5d46f4a634f259c1566d66a638aafbccd62b66d9b876d2c2efca6680fe216b39f2bdb9f3977a192e0e1d0f742adc71e9d977d33df634b8b07ec
     prepare:
       - |
         export GOPATH=/go
@@ -26,7 +27,7 @@ steps:
         export CC=/toolchain/bin/cc
         # This is required due to "loadinternal: cannot find runtime/cgo".
         export CGO_ENABLED=1
-        make EXTRA_LDFLAGS="-w -s" BUILDTAGS="seccomp" COMMIT=b9ee9c6314599f1b4a7f497e1f1f856fe433d3b7 runc
+        make EXTRA_LDFLAGS="-w -s" BUILDTAGS="seccomp" COMMIT=84113eef6fc27af1b01b3181f31bbaf708715301 runc
     install:
       - |
         export GOPATH=/go
