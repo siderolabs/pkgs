@@ -21,7 +21,7 @@ steps:
         # This is required due to "loadinternal: cannot find runtime/cgo".
         export CGO_ENABLED=1
         export PATH=${PATH}:${TOOLCHAIN}/go/bin
-        export BUILDTAGS='seccomp no_btrfs'
+        export BUILDTAGS='seccomp no_aufs no_btrfs no_devmapper no_zfs'
         make bin/containerd bin/containerd-shim bin/containerd-shim-runc-v2 VERSION=v1.5.3 REVISION=0e8719f54c6dc6571fc1170da75a85e86c17636b
     install:
       - |
