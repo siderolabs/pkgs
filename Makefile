@@ -19,7 +19,7 @@ COMMON_ARGS += --build-arg=https_proxy=$(https_proxy)
 empty :=
 space = $(empty) $(empty)
 
-TARGETS =  ca-certificates  cni  containerd cryptsetup dosfstools  eudev  fhs  grub ipmitool  iptables ipxe kernel  kmod  libaio libjson-c liblzma libpopt libressl  libseccomp  linux-firmware lvm2  musl  open-iscsi  open-isns raspberrypi-firmware runc  socat  syslinux u-boot  util-linux  xfsprogs
+TARGETS =  ca-certificates  cni  containerd imgcrypt  cryptsetup dosfstools  eudev  fhs  grub ipmitool  iptables ipxe kernel  kmod  libaio libjson-c liblzma libpopt libressl  libseccomp  linux-firmware lvm2  musl  open-iscsi  open-isns raspberrypi-firmware runc  socat  syslinux u-boot  util-linux  xfsprogs
 
 all: $(TARGETS) ## Builds all known pkgs.
 
