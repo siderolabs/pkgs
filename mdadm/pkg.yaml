@@ -1,0 +1,28 @@
+name: mdadm
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+  - stage: eudev
+steps:
+  - sources:
+      - url: http://www.kernel.org/pub/linux/utils/raid/mdadm/mdadm-4.2-rc3.tar.gz
+        destination: mdadm.tar.gz
+        sha256: 65e26e4c7a45c8dbfbeaa2230181a4226483c4ce0579bb6d2bb25a3bf4656e2b
+        sha512: d0eb0dd151120c8860def555200a07f6cdf9396bf7e21a8545fae25d1d7d52ffe3ebc7798ab717a554932cb2e553c1483c5db31e99633adfd3211736c891f717
+    prepare:
+      - |
+        tar -xzf mdadm.tar.gz --strip-components=1
+    build:
+      - |
+        mkdir -p /run/mdadm
+        make -j $(nproc) mdadm
+    install:
+      - |
+        mkdir -p /rootfs/sbin /rootfs/usr/lib/udev/rules.d
+        cp mdadm /rootfs/sbin
+        cp /pkg/files/udev-md-raid-arrays.rules   /rootfs/usr/lib/udev/rules.d/63-md-raid-arrays.rules
+        cp /pkg/files/udev-md-raid-assembly.rules /rootfs/usr/lib/udev/rules.d/64-md-raid-assembly.rules
+finalize:
+  - from: /rootfs
+    to: /
