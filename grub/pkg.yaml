@@ -21,6 +21,7 @@ steps:
         /toolchain/bin/bash ./autogen.sh
 
         patch -p1 < /pkg/patches/udev.patch
+        patch -p1 < /pkg/patches/efi-fat-serial-number.patch
 
     build:
       - |
