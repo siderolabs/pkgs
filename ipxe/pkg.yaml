@@ -10,6 +10,8 @@ steps:
         destination: ipxe.tar.gz
         sha256: 16e8d51c48d8a120332cf0dc32b473acc5d179e3975ced208eb21caf3b6528dc
         sha512: 47400975110ed4ab95835aa1b7c8d5a6917c19c5713c6ab88bc0741a3adcd62245a9c4251d1f46fffc45289c6b18bf893f86dbc3b67d3189c41b7f198367ecaa
+    env:
+      IPXE_VERSION: 1.21.1+sidero
     prepare:
       - |
         tar -xzf ipxe.tar.gz --strip-components=1
@@ -20,11 +22,11 @@ steps:
         cd src/
 
         {{ if eq .ARCH "aarch64" }}
-        ARCH= make -j $(nproc) bin-arm64-efi/ipxe.efi EMBED=/pkg/files/ipxe.script
+        ARCH= make -j $(nproc) bin-arm64-efi/ipxe.efi EMBED=/pkg/files/ipxe.script VERSION=${IPXE_VERSION}
         gcc ./util/zbin.c -llzma -o util/zbin
         {{ else }}
-        ARCH= make -j $(nproc) bin/undionly.kpxe bin-x86_64-efi/ipxe.efi EMBED=/pkg/files/ipxe.script
-        ARCH= make bin/undionly.kpxe.bin bin/undionly.kpxe.zinfo EMBED=/pkg/files/ipxe.script
+        ARCH= make -j $(nproc) bin/undionly.kpxe bin-x86_64-efi/ipxe.efi EMBED=/pkg/files/ipxe.script VERSION=${IPXE_VERSION}
+        ARCH= make bin/undionly.kpxe.bin bin/undionly.kpxe.zinfo EMBED=/pkg/files/ipxe.script VERSION=${IPXE_VERSION}
         {{ end }}
     install:
       - |
