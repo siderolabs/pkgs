@@ -5,10 +5,10 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      - url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.36/util-linux-2.36.tar.xz
+      - url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.37/util-linux-2.37.tar.xz
         destination: util-linux.tar.xz
-        sha256: 9e4b1c67eb13b9b67feb32ae1dc0d50e08ce9e5d82e1cccd0ee771ad2fa9e0b1
-        sha512: cbb4975da8d99a1edd45514171d59ea7b019ce0f77a81e88b447a733f725e91c53540d9dc78bc626dc011dca129b8b150aaf9e64ccf62a4202ae816581acf4fd
+        sha256: bd07b7e98839e0359842110525a3032fdb8eaf3a90bedde3dd1652d32d15cce5
+        sha512: 84cf1df46165f286caa1a1204b335dc1fc826a8e1d52a817c28eb80ef19734eccd6efdfb078e87ade9e4381a9102e59d4df83e9bb100e4c73aff2aa4bfb85615
     prepare:
       - |
         tar -xJf util-linux.tar.xz --strip-components=1
