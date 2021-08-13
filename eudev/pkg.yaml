@@ -6,16 +6,18 @@ dependencies:
   - stage: util-linux
 steps:
   - sources:
-      - url: https://dev.gentoo.org/~blueness/eudev/eudev-3.2.9.tar.gz
+      - url: https://github.com/gentoo/eudev/archive/refs/tags/v3.2.10.tar.gz
         destination: eudev.tar.gz
-        sha256: 89618619084a19e1451d373c43f141b469c9fd09767973d73dd268b92074d4fc
-        sha512: 09e49fff9848e72507ef14b9d4cfab2d1443f16d5b3d54d2b0e4f6b04c471ca41f09200cb8772e9f850f0dc4a574a7ec7eede7ce11cbabda65e210a89287531f
+        sha256: 6492629da4024d2d21bb1a79d724e013d4152956099a5c63b09c8ee4da7f9b2b
+        sha512: 37fc5e7f960a843fa68269697882123af4515555788a9e856474f51dd8c330a4c8e52e7c897aeb5d3eb36c6ad66cc99f5a38a284a75620b7e6c275c703e25d42
     prepare:
       - |
         tar -xzf eudev.tar.gz --strip-components=1
 
         # Required by gperf.
         cp /toolchain/lib/libstdc++* /lib
+
+        autoreconf -f -i -s
 
         cat > config.cache << "EOF"
         HAVE_BLKID=1
