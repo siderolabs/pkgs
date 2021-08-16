@@ -6,10 +6,10 @@ dependencies:
 steps:
 # {{ if eq .ARCH "aarch64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr restricting build to arm64 only
   - sources:
-      - url: https://github.com/raspberrypi/firmware/archive/1.20210201.tar.gz
+      - url: https://github.com/raspberrypi/firmware/archive/1.20210805.tar.gz
         destination: raspberrypi-firmware.tar.gz
-        sha256: 07cea77d530f6d1750d4b208016cd92002acc025fc2a9aac47a8c5dbab3e1f7c
-        sha512: 13d899a103e8d3deb98a6fcca661f712b085935336fc31156e0b8ec5e3c71b373d3394777895ee1907cad9a2ca3efd1a66995ff6df3429c732b002d9ad603414
+        sha256: b7feefd3a477787228b82df72dce52e6b91c1a37da6795779c0473bc78b20419
+        sha512: 522f3ca12f6d168066358950da5a3e03697ef526958727ec68ddd8259e68e84c10fbbc29ca151b1e7b14ef0ec0dcd5b0f69149635b56af4abf0dfc23a9406ccf
     prepare:
       - |
         tar -xzf raspberrypi-firmware.tar.gz --strip-components=1
