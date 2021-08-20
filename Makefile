@@ -12,6 +12,8 @@ PUSH ?= false
 COMMON_ARGS := --file=Pkgfile
 COMMON_ARGS += --progress=$(PROGRESS)
 COMMON_ARGS += --platform=$(PLATFORM)
+COMMON_ARGS += --build-arg=http_proxy=$(http_proxy)
+COMMON_ARGS += --build-arg=https_proxy=$(https_proxy)
 
 , := ,
 empty :=

@@ -1,4 +1,4 @@
-# syntax = ghcr.io/talos-systems/bldr:v0.2.0-alpha.5-frontend
+# syntax = ghcr.io/talos-systems/bldr:v0.2.0-alpha.6-frontend
 
 format: v1alpha2
 
