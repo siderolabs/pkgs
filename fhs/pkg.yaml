@@ -4,7 +4,7 @@ steps:
   - |
     PREFIX=/rootfs
     mkdir -pv ${PREFIX}/{dev,lib,proc,sys,bin,sbin,etc,opt,run}
-    mkdir -pv ${PREFIX}/usr/{bin,sbin,lib,var,include}
+    mkdir -pv ${PREFIX}/usr/{bin,sbin,lib,var,include,src}
     mkdir -pv ${PREFIX}/usr/local/{bin,sbin,lib,include}
     mkdir -pv ${PREFIX}/var/{log,run,mail,spool}
     install -dv -m 0750 ${PREFIX}/root
