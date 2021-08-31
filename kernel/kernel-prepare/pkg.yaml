@@ -16,6 +16,8 @@ steps:
         tar -xJf linux.tar.xz --strip-components=1
         rm linux.tar.xz
 
+        patch -p1 < /pkg/patches/gcc-plugins.patch
+
         mkdir /bin
         ln -sv /toolchain/bin/bash /bin/bash
         ln -sv /toolchain/bin/bash /bin/sh

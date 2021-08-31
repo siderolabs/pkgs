@@ -1,0 +1,12 @@
+diff --git a/plat/rockchip/rk3399/drivers/dram/dram.h b/plat/rockchip/rk3399/drivers/dram/dram.h
+index 0eb12cf..5572b16 100644
+--- a/plat/rockchip/rk3399/drivers/dram/dram.h
++++ b/plat/rockchip/rk3399/drivers/dram/dram.h
+@@ -149,7 +149,7 @@
+ 	uint32_t rx_cal_dqs[2][4];
+ };
+
+-extern __sramdata struct rk3399_sdram_params sdram_config;
++extern struct rk3399_sdram_params sdram_config;
+
+ void dram_init(void);

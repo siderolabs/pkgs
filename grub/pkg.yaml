@@ -18,7 +18,7 @@ steps:
       - |
         tar -xJf grub.tar.xz --strip-components=1
 
-        /toolchain/bin/bash ./autogen.sh
+        PYTHON=python3 /toolchain/bin/bash ./autogen.sh
 
         patch -p1 < /pkg/patches/udev.patch
         patch -p1 < /pkg/patches/efi-fat-serial-number.patch
