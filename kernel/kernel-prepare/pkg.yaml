@@ -5,18 +5,16 @@ dependencies:
   - image: '{{ .TOOLS_IMAGE }}'
 steps:
   - sources:
-      - url: https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.10.75.tar.xz
+      - url: https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.15.1.tar.xz
         destination: linux.tar.xz
-        sha256: 0a2b2f5fefb90773190aaef4726ac363e03992aedc424b0a57eca092d084304b
-        sha512: 93ebdccc6ce0ede721b67d5f13d6efb80eb5444c5a57b509c24df2bb92ca9afd7662735b1e009ad24d6d93531a9e614e8f5ba14e96d5e4f1d041a5be826d1975
+        sha256: 32fdcd33c8ac571b9a7a297f33860f6171327961f2a2ea6bd54bf82275b614c8
+        sha512: bfa8f7a4a742038ebf8f9a5b151554e268545543abca1ea1817fffcf388d6a5f3af3dce1c8279824af3938a9155f5a0d547edad334486d0fe78b7bdf3aef78f0
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
     prepare:
       - |
         tar -xJf linux.tar.xz --strip-components=1
         rm linux.tar.xz
-
-        patch -p1 < /pkg/patches/gcc-plugins.patch
 
         mkdir /bin
         ln -sv /toolchain/bin/bash /bin/bash
