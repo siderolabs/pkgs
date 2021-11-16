@@ -1,0 +1,31 @@
+name: imgcrypt
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+  - stage: ca-certificates
+steps:
+  - sources:
+        # sync with version and revision in build
+      - url: https://github.com/containerd/imgcrypt/archive/refs/tags/v1.1.2.tar.gz
+        destination: imgcrypt.tar.gz
+        sha256: 0be667c07f3e1f5a52be841e667ffb8ad80b289ce9115795affbefa6c6dcf261
+        sha512: 35d50a02ddad63444465f9279af24115027dc6c5f409a411d4fc26d0cd6a0dc57e26314e7f7fa8ce57eee2057a79b1d2001aa156a7b671bf4848667f70eb63c3
+    env:
+      GOPATH: /go
+    prepare:
+      - |
+        mkdir -p ${GOPATH}/src/
+        tar -xzf imgcrypt.tar.gz --strip-components=1 -C ${GOPATH}/src/
+    build:
+      - |
+        export PATH=${PATH}:${TOOLCHAIN}/go/bin
+        cd ${GOPATH}/src/
+        make bin/ctd-decoder VERSION=v1.1.1
+    install:
+      - |
+        mkdir -p /rootfs/bin
+        mv ${GOPATH}/src/bin/ctd-decoder /rootfs/bin
+finalize:
+  - from: /rootfs
+    to: /
