@@ -7,10 +7,10 @@ dependencies:
 steps:
   - sources:
         # sync with version and revision in build
-      - url: https://github.com/containerd/containerd/archive/refs/tags/v1.5.7.tar.gz
+      - url: https://github.com/containerd/containerd/archive/refs/tags/v1.5.8.tar.gz
         destination: containerd.tar.gz
-        sha256: 09be0cedea77568029aa0c7be9a323b89fa6886b402b5d223780a05b8c7cd45a
-        sha512: 9b24a7021cdcbcb84b9455432561077ad07d3ef0346a5e6c2dbd0d998a85fbbaa0331bfcc861673a8c488d5073aae1636317b8f025e9049669a42cd00b511b0d
+        sha256: a41ab8d39393c9456941b477c33bb1b221a29b635f1c9a99523aab2f5e74f790
+        sha512: c769506ff6d98689c46ffee94d70ae00ef2f32e0daac1e631cbe8a587f67c7e4f83eb3895707362bdf46198b61823c99df1d8ca61095ab1415de5596f106fd07
     prepare:
       - |
         tar -xzf containerd.tar.gz --strip-components=1
@@ -22,7 +22,7 @@ steps:
         export CGO_ENABLED=1
         export PATH=${PATH}:${TOOLCHAIN}/go/bin
         export BUILDTAGS='seccomp no_aufs no_btrfs no_devmapper no_zfs'
-        make bin/containerd bin/containerd-shim bin/containerd-shim-runc-v2 VERSION=v1.5.7 REVISION=8686ededfc90076914c5238eb96c883ea093a8ba
+        make bin/containerd bin/containerd-shim bin/containerd-shim-runc-v2 VERSION=v1.5.8 REVISION=1e5ef943eb76627a6d3b6de8cd1ef6537f393a71
     install:
       - |
         mkdir -p /rootfs/bin
