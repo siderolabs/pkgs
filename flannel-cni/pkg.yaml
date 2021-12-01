@@ -1,0 +1,47 @@
+name: flannel-cni
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: https://github.com/flannel-io/cni-plugin/archive/refs/tags/v1.0.0.tar.gz
+        destination: flannel-cni.tar.gz
+        sha256: b7657d40ed28749c26c81df5c95015b9811bee853a08b9becaf7df718ebeed14
+        sha512: 4b75cfe2af334b974093e520657a92f69e2d20b43319d8425d7f024aef0ed5b923908a55fe146a561a5e3e83be9fda218e4317b29d9e58c2f414402c58f0fea6
+    env:
+      GOPATH: /go
+    prepare:
+      - |
+        mkdir -p ${GOPATH}/src/
+        tar -xzf flannel-cni.tar.gz --strip-components=1 -C ${GOPATH}/src/
+
+        mkdir -p /etc/ssl/certs/
+        ln -s /toolchain/etc/ssl/certs/ca-certificates /etc/ssl/certs/ca-certificates
+    build:
+      - |
+        export PATH=${PATH}:${TOOLCHAIN}/go/bin
+        cd ${GOPATH}/src/
+
+        export GOARCH=$(go env GOARCH)
+        export VERSION=v1.0.0
+        export TAG=${VERSION}
+
+        {{ if eq .ARCH "x86_64" }}
+        export CGO_ENABLED=1
+        {{ end }}
+
+        go mod vendor
+
+        /toolchain/bin/bash scripts/build_flannel.sh
+    install:
+      - |
+        mkdir -p /rootfs/opt/cni/bin
+
+        export PATH=${PATH}:${TOOLCHAIN}/go/bin
+        export GOARCH=$(go env GOARCH)
+
+        mv ${GOPATH}/src/dist/flannel-${GOARCH} /rootfs/opt/cni/bin/flannel
+finalize:
+  - from: /rootfs
+    to: /
