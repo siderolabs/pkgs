@@ -1,0 +1,53 @@
+name: nonfree-kmod-nvidia
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: kernel-build
+steps:
+  # driver sources: https://www.nvidia.com/en-us/drivers/unix/
+  # {{ if eq .ARCH "aarch64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
+  #
+  # build on ARM fails at the moment, not sure what is the reason, it feels like it tries to use x86 function
+  # for the PoC, we'll leave nvidia module x86-only
+  #
+  # - url: https://us.download.nvidia.com/XFree86/aarch64/470.94/NVIDIA-Linux-aarch64-470.94.run
+  #   destination: nvidia.run
+  #   sha256: a1c991051c6cbd3fa69d9768fa7cd0084bfa6d4c384cc6a6e3ab88b5b51e57c8
+  #   sha512: e27b04ec5025b5ce1d6cd78306f55f5699032fc350f78fb7a731a82ec4691ba0764fd3e36d8738d38f17cafd93988c7542d55c370e219bdbab6d0e7eb2f9a5fd
+  - install:
+      - |
+        mkdir -p /rootfs
+  # {{ else }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
+  - sources:
+      - url: https://us.download.nvidia.com/XFree86/Linux-x86_64/470.94/NVIDIA-Linux-x86_64-470.94.run
+        destination: nvidia.run
+        sha256: 9585aa29330ebad9bdf22ce3ca2bac2026c85a9a32f03d7c59f714a7798500eb
+        sha512: b70542af04691da623b494d49fcbd58c58b83388fdb1c7ea6dcc779755b595444a324f613840ccbba0d9029456668376fe6049a3e4496c6054efbbf1e0a59c0f
+    env:
+      ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+    prepare:
+      - |
+        export PATH=/toolchain/bin:$PATH
+        export GUESS_MD5_PATH=/toolchain/bin
+
+        rm -f /dev/tty && ln -s /dev/stdout /dev/tty
+        ln -s /toolchain/bin/echo /toolchain/bin/which
+
+        /toolchain/bin/bash nvidia.run --extract-only
+    build:
+      - |
+        cd NVIDIA-Linux-*/kernel
+
+        make -j $(nproc) SYSSRC=/src
+    install:
+      - |
+        cd NVIDIA-Linux-*/kernel
+
+        mkdir -p /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        touch /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/modules.builtin
+
+        make -j $(nproc) modules_install SYSSRC=/src DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs
+  # {{ end }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
+finalize:
+  - from: /rootfs
+    to: /

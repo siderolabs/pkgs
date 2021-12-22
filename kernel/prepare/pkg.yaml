@@ -44,6 +44,7 @@ steps:
         cd /toolchain && git clone https://github.com/a13xp0p0v/kconfig-hardened-check.git
       - |
         patch -p1 < /pkg/patches/hardening.kconfig.patch
+        patch -p0 < /pkg/patches/sign-file.patch
     install:
       - |
         mkdir -p /src

@@ -2,31 +2,14 @@ name: kernel
 variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
-  - stage: kernel-prepare
+  - stage: kernel-build
 steps:
   - env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
-      CARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}amd64{{ else }}unsupported{{ end }}
-      KARCH: {{ if eq .ARCH "aarch64"}}ARM64{{ else if eq .ARCH "x86_64" }}X86_64{{ else }}unsupported{{ end }}
-    prepare:
-      - |
-        cp -a /src/. .
-
-        cp -v /pkg/config-${CARCH} .config
-
-        patch -p0 < /pkg/patches/sign-file.patch
-      - |
-        python3 /toolchain/kconfig-hardened-check/bin/kconfig-hardened-check -c .config -p ${KARCH} -m json | python3 /pkg/scripts/filter-hardened-check.py
-    build:
-      - |
-        make -j $(nproc)
-        make -j $(nproc) modules
-        if [[ "${ARCH}" == "arm64" ]]; then
-          echo "Compiling device-tree blobs"
-          make -j $(nproc) dtbs
-        fi
     install:
       - |
+        cd /src
+
         mkdir -p /rootfs/boot
         mkdir -p /rootfs/dtb
         case $ARCH in

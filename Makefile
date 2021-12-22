@@ -20,8 +20,11 @@ empty :=
 space = $(empty) $(empty)
 
 TARGETS =  ca-certificates  cni  containerd cryptsetup dosfstools  eudev  fhs flannel-cni grub ipmitool  iptables ipxe kernel  kmod  libaio libjson-c liblzma libpopt libressl  libseccomp  linux-firmware lvm2  musl  open-iscsi  open-isns raspberrypi-firmware runc  socat  syslinux u-boot  util-linux  xfsprogs
+NONFREE_TARGETS = nonfree-kmod-nvidia
 
 all: $(TARGETS) ## Builds all known pkgs.
+
+nonfree: $(NONFREE_TARGETS) ## Builds all known non-free pkgs.
 
 .PHONY: help
 help: ## This help menu.
@@ -36,8 +39,8 @@ target-%: ## Builds the specified target defined in the Dockerfile. The build re
 docker-%: ## Builds the specified target defined in the Dockerfile using the docker output type. The build result will be loaded into docker.
 	@$(MAKE) target-$* TARGET_ARGS="$(TARGET_ARGS)"
 
-.PHONY: $(TARGETS)
-$(TARGETS):
+.PHONY: $(TARGETS) $(NONFREE_TARGETS)
+$(TARGETS) $(NONFREE_TARGETS):
 	@$(MAKE) docker-$@ TARGET_ARGS="--tag=$(REGISTRY)/$(USERNAME)/$@:$(TAG) --push=$(PUSH)"
 
 .PHONY: deps.png
@@ -48,7 +51,7 @@ kernel-%: ## Updates the kernel configs: e.g. make kernel-olddefconfig; make ker
 	for platform in $(subst $(,),$(space),$(PLATFORM)); do \
 		arch=`basename $$platform` ; \
 		$(MAKE) docker-kernel-prepare PLATFORM=$$platform TARGET_ARGS="--tag=$(REGISTRY)/$(USERNAME)/kernel:$(TAG)-$$arch --load"; \
-		docker run --rm -it --entrypoint=/toolchain/bin/bash -e PATH=/toolchain/bin:/bin -w /src -v $$PWD/kernel/kernel/config-$$arch:/host/.hostconfig $(REGISTRY)/$(USERNAME)/kernel:$(TAG)-$$arch -c 'cp /host/.hostconfig .config && make $* && cp .config /host/.hostconfig'; \
+		docker run --rm -it --entrypoint=/toolchain/bin/bash -e PATH=/toolchain/bin:/bin -w /src -v $$PWD/kernel/build/config-$$arch:/host/.hostconfig $(REGISTRY)/$(USERNAME)/kernel:$(TAG)-$$arch -c 'cp /host/.hostconfig .config && make $* && cp .config /host/.hostconfig'; \
 	done
 
 # Utilities
