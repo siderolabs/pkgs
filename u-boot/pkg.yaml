@@ -16,16 +16,17 @@ dependencies:
 steps:
   # {{ if eq .ARCH "aarch64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr restricting build to arm64 only
   - sources:
-      - url: https://github.com/ARM-software/arm-trusted-firmware/archive/v2.4.tar.gz
+      - url: https://github.com/ARM-software/arm-trusted-firmware/archive/v2.6.tar.gz
         destination: arm-trusted-firmware.tar.gz
-        sha256: 4bfda9fdbe5022f2e88ad3344165f7d38a8ae4a0e2d91d44d9a1603425cc642d
-        sha512: 99c5b73345e605db70941a0d44cfe3a1d3df8bbc615e4f2602ca90055cc7150a205350d9ae73dec73fcee85e6877351136428f996d421e57147c931a36f6a330
+        sha256: 3905a6d6affa84fb629d1565a4e4bdc82812bba49a457b8249ab445eeb28011b
+        sha512: 8b20964b1b672898268e27424984af0ef9e95b38f426370ed4b802f67fc204db5f467886707dce77e4560548e01777a6c36d4eb801842c7d1f2ff6ca5d9b7dd1
       - url: https://ftp.denx.de/pub/u-boot/u-boot-2021.10.tar.bz2
         destination: u-boot.tar.bz2
         sha256: cde723e19262e646f2670d25e5ec4b1b368490de950d4e26275a988c36df0bd4
         sha512: be5be1c9a54b270307a04177d5577a21c57a02b307bf8b63d0fa2655d1f025c7ce010dca6a1f7f60d4e639c2e6fb6f0a292a2e5d190f1fad478eb12dd786c9da
     env:
       SUN50I_A64_ARM_TRUSTED_FIRMWARE: sun50i_a64_arm-trusted-firmware
+      RPI_4_A64_ARM_TRUSTED_FIRMWARE: rpi_4_a64_arm-trusted-firmware
       RK3328_ARM_TRUSTED_FIRMWARE: rk3328_arm-trusted-firmware
       RK3399_ARM_TRUSTED_FIRMWARE: rk3399_arm-trusted-firmware
       LIBRETECH_ALL_H3_CC_H5_U_BOOT: libretech_all_h3_cc_h5_u-boot
@@ -52,7 +53,6 @@ steps:
         tar -xzf arm-trusted-firmware.tar.gz --strip-components=1 -C ${RK3399_ARM_TRUSTED_FIRMWARE}
         cd ${RK3399_ARM_TRUSTED_FIRMWARE}
         patch -p0 < /pkg/rockpi4/patches/platform.mk.patch
-        patch -p1 < /pkg/rockpi4/patches/sram.patch
       # libretech_all_h3_cc_h5
       - |
         mkdir ${LIBRETECH_ALL_H3_CC_H5_U_BOOT}
@@ -67,6 +67,10 @@ steps:
         cd ${ROCK64_RK3328_U_BOOT}
         make rock64-rk3328_defconfig
         sed -i "s/CONFIG_TOOLS_LIBCRYPTO=y/# CONFIG_TOOLS_LIBCRYPTO is not set/" .config
+      # rpi_4_arm-trusted-firmware
+      - |
+        mkdir ${RPI_4_A64_ARM_TRUSTED_FIRMWARE}
+        tar -xzf arm-trusted-firmware.tar.gz --strip-components=1 -C ${RPI_4_A64_ARM_TRUSTED_FIRMWARE}
       # rpi_4
       - |
         mkdir ${RPI_ARM64_U_BOOT}
@@ -123,9 +127,15 @@ steps:
         export BL31=$(pwd)/${RK3328_ARM_TRUSTED_FIRMWARE}/build/rk3328/release/bl31/bl31.elf
         cd ${ROCK64_RK3328_U_BOOT}
         make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto"
+      # rpi_4_arm-trusted-firmware
+      - |
+        cd ${RPI_4_A64_ARM_TRUSTED_FIRMWARE}
+        make realclean
+        make -j $(nproc) PLAT=rpi4 DEBUG=0 bl31
       # rpi_4
       - |
         cd ${RPI_ARM64_U_BOOT}
+        export BL31=$(pwd)/${RPI_4_A64_ARM_TRUSTED_FIRMWARE}/build/rpi4/release/bl31.bin
         make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto"
       # bananapi_m64
       - |
@@ -157,6 +167,7 @@ steps:
       - |
         mkdir -p /rootfs/rpi_4
         cp -v ${RPI_ARM64_U_BOOT}/u-boot.bin /rootfs/rpi_4
+        cp $(pwd)/${RPI_4_A64_ARM_TRUSTED_FIRMWARE}/build/rpi4/release/bl31.bin /rootfs/rpi_4
       # bananapi_m64
       - |
         mkdir -p /rootfs/bananapi_m64
