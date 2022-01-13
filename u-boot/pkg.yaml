@@ -24,6 +24,10 @@ steps:
         destination: u-boot.tar.bz2
         sha256: 81b4543227db228c03f8a1bf5ddbc813b0bb8f6555ce46064ef721a6fc680413
         sha512: d83c62bd8f0f51664d2aca329a3ce1379cfd1dfff439dccd6cfc2cb33cfef89a2b01855c97716f591b5550bfdf99e2f3aef7efa33f2e7834c820648f9eef3825
+      - url: https://nv-tegra.nvidia.com/r/gitweb?p=3rdparty/u-boot.git;a=snapshot;h=refs/tags/tegra-l4t-r32.6.1;sf=tgz
+        destination: u-boot-tegra.tar.gz
+        sha256: 99d20c4e461f8c4f95ad9ac0e994d2fce073aadb1ba380b973cc33fe7e326059
+        sha512: 49c9e65d24afac705a69c8c792bfe39cf387c7a4e7ecbca20d90c1badad0544d4d95a220d566ed4255ae294119feea157c3809c28c1ca64c7a650b0a4f3b9fc8
     env:
       SUN50I_A64_ARM_TRUSTED_FIRMWARE: sun50i_a64_arm-trusted-firmware
       RPI_4_A64_ARM_TRUSTED_FIRMWARE: rpi_4_a64_arm-trusted-firmware
@@ -35,6 +39,7 @@ steps:
       BANANAPI_M64_U_BOOT: bananapi_m64_u-boot
       PINE64_U_BOOT: pine64_u-boot
       ROCK_PI_4_RK3399_U_BOOT: rock-pi-4-rk3399_u-boot
+      JETSON_NANO_U_BOOT: jetson-nano_u-boot
     prepare:
       - |
         mkdir -p /usr/bin \
@@ -99,6 +104,15 @@ steps:
         cd ${ROCK_PI_4_RK3399_U_BOOT}
         make rock-pi-4-rk3399_defconfig
         sed -i "s/CONFIG_TOOLS_LIBCRYPTO=y/# CONFIG_TOOLS_LIBCRYPTO is not set/" .config
+      # jetson nano
+      - |
+        mkdir ${JETSON_NANO_U_BOOT}
+        tar -xzf u-boot-tegra.tar.gz --strip-components=1 -C ${JETSON_NANO_U_BOOT}
+        cd ${JETSON_NANO_U_BOOT}
+        patch -p0 < /pkg/jetson_nano/patches/tegra-common.h.patch
+        patch -p0 < /pkg/jetson_nano/patches/tegra210-common.h.patch
+        make p3450-0000_defconfig
+        sed -i "s/CONFIG_TOOLS_LIBCRYPTO=y/# CONFIG_TOOLS_LIBCRYPTO is not set/" .config
     build:
       # sun50i_a64
       - |
@@ -152,6 +166,10 @@ steps:
         export BL31=$(pwd)/${RK3399_ARM_TRUSTED_FIRMWARE}/build/rk3399/release/bl31/bl31.elf
         cd ${ROCK_PI_4_RK3399_U_BOOT}
         make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto"
+      # jetson nano
+      - |
+        cd ${JETSON_NANO_U_BOOT}
+        make -j $(nproc) DTC="/toolchain/bin/dtc" HOSTLDLIBS_mkimage="-lssl -lcrypto"
     install:
       # libretech_all_h3_cc_h5
       - |
@@ -182,6 +200,10 @@ steps:
         cp -v ${ROCK_PI_4_RK3399_U_BOOT}/u-boot-rockchip.bin /rootfs/rockpi_4
         cp -v ${ROCK_PI_4_RK3399_U_BOOT}/idbloader.img /rootfs/rockpi_4
         cp -v ${ROCK_PI_4_RK3399_U_BOOT}/u-boot.itb /rootfs/rockpi_4
+      # jetson nano
+      - |
+        mkdir -p /rootfs/jetson_nano
+        cp -v ${JETSON_NANO_U_BOOT}/u-boot.bin /rootfs/jetson_nano
   # {{ else }}
   - install:
       - |
