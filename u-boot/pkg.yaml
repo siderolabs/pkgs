@@ -20,10 +20,10 @@ steps:
         destination: arm-trusted-firmware.tar.gz
         sha256: 3905a6d6affa84fb629d1565a4e4bdc82812bba49a457b8249ab445eeb28011b
         sha512: 8b20964b1b672898268e27424984af0ef9e95b38f426370ed4b802f67fc204db5f467886707dce77e4560548e01777a6c36d4eb801842c7d1f2ff6ca5d9b7dd1
-      - url: https://ftp.denx.de/pub/u-boot/u-boot-2021.10.tar.bz2
+      - url: https://ftp.denx.de/pub/u-boot/u-boot-2022.01.tar.bz2
         destination: u-boot.tar.bz2
-        sha256: cde723e19262e646f2670d25e5ec4b1b368490de950d4e26275a988c36df0bd4
-        sha512: be5be1c9a54b270307a04177d5577a21c57a02b307bf8b63d0fa2655d1f025c7ce010dca6a1f7f60d4e639c2e6fb6f0a292a2e5d190f1fad478eb12dd786c9da
+        sha256: 81b4543227db228c03f8a1bf5ddbc813b0bb8f6555ce46064ef721a6fc680413
+        sha512: d83c62bd8f0f51664d2aca329a3ce1379cfd1dfff439dccd6cfc2cb33cfef89a2b01855c97716f591b5550bfdf99e2f3aef7efa33f2e7834c820648f9eef3825
     env:
       SUN50I_A64_ARM_TRUSTED_FIRMWARE: sun50i_a64_arm-trusted-firmware
       RPI_4_A64_ARM_TRUSTED_FIRMWARE: rpi_4_a64_arm-trusted-firmware
