@@ -9,8 +9,8 @@ steps:
         # sync with version and revision in build
       - url: https://github.com/containerd/containerd/archive/refs/tags/v1.5.6.tar.gz
         destination: containerd.tar.gz
-        sha256: 144612f9400c2fc52b2abc7b1ef33bf708d322dad9b3afdc1ae9d02fa034753b
-        sha512: 5898bd13baec52730acaab4f9091c0fb64e4f8e5fe8d96cc1fc31f082bb876fccb862164c0e2d82e13a4dac959f6040aa6c9d01ca7671a2b75d0d384f84b86ef
+        sha256: beec632089243c1d7ae03bb83d0c46de8e3b0e55a236994e2a7ab1d4119aa8f5
+        sha512: c4fd3e7f5c8a2a241f3fd6e6a37b6f3cf49a9a63d02b6bcee6ac446f6c51efc1f4840b39d515a26dbad34b41469b24e31ccabb46ae9e363f05eda36670aac705
     prepare:
       - |
         tar -xzf containerd.tar.gz --strip-components=1

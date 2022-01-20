@@ -20,6 +20,7 @@ IGNORE_VIOLATIONS = {
     'CONFIG_INIT_ON_FREE_DEFAULT_ON', # disabled init_on_free=1 due to performance
     'CONFIG_ARM64_EPAN', # not available in 5.10, first introduced in 5.13
     'CONFIG_RANDOMIZE_KSTACK_OFFSET_DEFAULT', # not available in 5.10, first introduced in 5.13
+    'CONFIG_ARM64_PTR_AUTH_KERNEL', # not available in 5.10, first introduced in 5.14
 }
 
 def main():
