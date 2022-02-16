@@ -1,0 +1,51 @@
+name: libinih
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: https://github.com/benhoyt/inih/archive/refs/tags/r53.tar.gz
+        destination: inih.tar.gz
+        sha256: 01b0366fdfdf6363efc070c2f856f1afa33e7a6546548bada5456ad94a516241
+        sha512: 99bc40c294b521e9973184bfb30d60c129735991f33b387b3d023827a34672b0489eadf91e38895ea725168dbc7b27bb02c1975debe7573b4b209d0e947b2100
+    prepare:
+      - |
+        tar -xzf inih.tar.gz --strip-components=1
+
+        LD_LIBRARY_PATH=/toolchain/lib pip3 install ninja
+
+        meson \
+        --prefix=/usr \
+        --libdir=/usr/lib \
+        --libexecdir=/usr/libexec \
+        --bindir=/usr/bin \
+        --sbindir=/usr/sbin \
+        --includedir=/usr/include \
+        --datadir=/usr/share \
+        --mandir=/usr/share/man \
+        --infodir=/usr/share/info \
+        --localedir=/usr/share/locale \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --sharedstatedir=/var/lib \
+        --buildtype=plain \
+        --auto-features=auto \
+        --wrap-mode=nodownload \
+        -Ddefault_library=both \
+        -Ddistro_install=true \
+        -Dwith_INIReader=false \
+        -Dmulti-line_entries=true \
+        -Dutf-8_bom=true \
+        -Dinline_comments=true \
+        -Duse_heap=false \
+        . output
+    build:
+      - |
+        meson compile -j 1 -C output
+    install:
+      - |
+        DESTDIR="/rootfs" meson install --no-rebuild -C output
+finalize:
+  - from: /rootfs
+    to: /
