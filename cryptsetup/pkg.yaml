@@ -8,7 +8,7 @@ dependencies:
   - stage: util-linux # libuuid
   - stage: libpopt
   - stage: libjson-c
-  - stage: libressl
+  - stage: openssl
 steps:
   - sources:
       - url: https://www.kernel.org/pub/linux/utils/cryptsetup/v2.3/cryptsetup-2.3.4.tar.gz

@@ -3,7 +3,7 @@ variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
   - stage: base
-  - stage: libressl
+  - stage: openssl
 steps:
   - sources:
       - url: https://github.com/open-iscsi/open-isns/archive/refs/tags/v0.101.tar.gz
