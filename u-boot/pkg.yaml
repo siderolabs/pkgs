@@ -24,10 +24,10 @@ steps:
         destination: u-boot.tar.bz2
         sha256: 81b4543227db228c03f8a1bf5ddbc813b0bb8f6555ce46064ef721a6fc680413
         sha512: d83c62bd8f0f51664d2aca329a3ce1379cfd1dfff439dccd6cfc2cb33cfef89a2b01855c97716f591b5550bfdf99e2f3aef7efa33f2e7834c820648f9eef3825
-      - url: https://nv-tegra.nvidia.com/r/gitweb?p=3rdparty/u-boot.git;a=snapshot;h=refs/tags/tegra-l4t-r32.6.1;sf=tgz
+      - url: https://github.com/OE4T/u-boot-tegra/archive/refs/tags/tegra-l4t-r32.6.1.tar.gz
         destination: u-boot-tegra.tar.gz
-        sha256: 99d20c4e461f8c4f95ad9ac0e994d2fce073aadb1ba380b973cc33fe7e326059
-        sha512: 49c9e65d24afac705a69c8c792bfe39cf387c7a4e7ecbca20d90c1badad0544d4d95a220d566ed4255ae294119feea157c3809c28c1ca64c7a650b0a4f3b9fc8
+        sha256: c8737dc20d29586c2c3e6b0232d8c807b3220a22d3f63094c49691b1919636f7
+        sha512: 71e96bb84e8265355735d2e43296ba872de9d641dad92ea6e0a3ec4af2ba283243c3a9fa6bdbb9f028d57e5fb878b356b467ae1fd9a477062efecdb368d1d471
     env:
       SUN50I_A64_ARM_TRUSTED_FIRMWARE: sun50i_a64_arm-trusted-firmware
       RPI_4_A64_ARM_TRUSTED_FIRMWARE: rpi_4_a64_arm-trusted-firmware

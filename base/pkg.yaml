@@ -4,7 +4,6 @@ shell: /toolchain/bin/bash
 dependencies:
   - image: "{{ .TOOLS_IMAGE }}"
   - stage: musl
-    runtime: yes
 steps:
   - prepare:
       - |
