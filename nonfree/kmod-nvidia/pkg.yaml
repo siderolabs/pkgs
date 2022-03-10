@@ -19,10 +19,10 @@ steps:
         mkdir -p /rootfs
   # {{ else }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
   - sources:
-      - url: https://us.download.nvidia.com/XFree86/Linux-x86_64/470.94/NVIDIA-Linux-x86_64-470.94.run
+      - url: https://download.nvidia.com/XFree86/Linux-x86_64/510.54/NVIDIA-Linux-x86_64-510.54.run
         destination: nvidia.run
-        sha256: 9585aa29330ebad9bdf22ce3ca2bac2026c85a9a32f03d7c59f714a7798500eb
-        sha512: b70542af04691da623b494d49fcbd58c58b83388fdb1c7ea6dcc779755b595444a324f613840ccbba0d9029456668376fe6049a3e4496c6054efbbf1e0a59c0f
+        sha256: 4c20deccae3fe347adfd0e6989a306f9024fdadf831adc1e8e60855675335161
+        sha512: 1e65e96c1ae1cccd5cd483f2b65927e3594d28f3774459dfd094530f445f4b0f5368a3b7eebf4970bd2632438cca2cbb93af50a59a3a87a2c13d08ed5155164c
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
     prepare:
