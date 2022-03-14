@@ -4,25 +4,18 @@ shell: /toolchain/bin/bash
 dependencies:
   - stage: kernel-build
 steps:
-  # driver sources: https://www.nvidia.com/en-us/drivers/unix/
-  # {{ if eq .ARCH "aarch64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
-  #
-  # build on ARM fails at the moment, not sure what is the reason, it feels like it tries to use x86 function
-  # for the PoC, we'll leave nvidia module x86-only
-  #
-  # - url: https://us.download.nvidia.com/XFree86/aarch64/470.94/NVIDIA-Linux-aarch64-470.94.run
-  #   destination: nvidia.run
-  #   sha256: a1c991051c6cbd3fa69d9768fa7cd0084bfa6d4c384cc6a6e3ab88b5b51e57c8
-  #   sha512: e27b04ec5025b5ce1d6cd78306f55f5699032fc350f78fb7a731a82ec4691ba0764fd3e36d8738d38f17cafd93988c7542d55c370e219bdbab6d0e7eb2f9a5fd
-  - install:
-      - |
-        mkdir -p /rootfs
-  # {{ else }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
   - sources:
+    # {{ if eq .ARCH "aarch64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
+      - url: https://download.nvidia.com/XFree86/Linux-aarch64/510.54/NVIDIA-Linux-aarch64-510.54.run
+        destination: nvidia.run
+        sha256: bff7a5640445b3e38b35d9d589b52c7353bb473703b7a5d050aa96aaa35ca896
+        sha512: 9d872748dc0957c0754561582a1984a8f912c345a5e616116edfd86d629efb5674c29723c80ae47d458b23aaec6fc5a71724441dd7e11ba4f5b94f8b04591f81
+    # {{ else }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
       - url: https://download.nvidia.com/XFree86/Linux-x86_64/510.54/NVIDIA-Linux-x86_64-510.54.run
         destination: nvidia.run
         sha256: 4c20deccae3fe347adfd0e6989a306f9024fdadf831adc1e8e60855675335161
         sha512: 1e65e96c1ae1cccd5cd483f2b65927e3594d28f3774459dfd094530f445f4b0f5368a3b7eebf4970bd2632438cca2cbb93af50a59a3a87a2c13d08ed5155164c
+    # {{ end }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
     prepare:
@@ -47,7 +40,6 @@ steps:
         touch /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/modules.builtin
 
         make -j $(nproc) modules_install SYSSRC=/src DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs
-  # {{ end }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
 finalize:
   - from: /rootfs
     to: /
