@@ -5,10 +5,10 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      - url: https://github.com/flannel-io/cni-plugin/archive/refs/tags/v1.0.0.tar.gz
+      - url: https://github.com/flannel-io/cni-plugin/archive/refs/tags/v1.0.1.tar.gz
         destination: flannel-cni.tar.gz
-        sha256: b7657d40ed28749c26c81df5c95015b9811bee853a08b9becaf7df718ebeed14
-        sha512: 4b75cfe2af334b974093e520657a92f69e2d20b43319d8425d7f024aef0ed5b923908a55fe146a561a5e3e83be9fda218e4317b29d9e58c2f414402c58f0fea6
+        sha256: 8f7ad32355bc54b3c736c15f66613b6a1eb87a5b8d1bdd201f7b6a1cd68a7442
+        sha512: 88e8b6a0c57815af37528f80474e93302274d2d4731e6f52f2f7fff142e13c8f4dfe425424f9869ecf54687f3daf750dcf194d550fc938dd4ae74b0d94cb224d
     env:
       GOPATH: /go
     prepare:
@@ -41,7 +41,7 @@ steps:
         export PATH=${PATH}:${TOOLCHAIN}/go/bin
         export GOARCH=$(go env GOARCH)
 
-        mv ${GOPATH}/src/dist/flannel-${GOARCH} /rootfs/opt/cni/bin/flannel
+        mv ${GOPATH}/src/github.com/flannel-io/cni-plugin/dist/flannel-${GOARCH} /rootfs/opt/cni/bin/flannel
 finalize:
   - from: /rootfs
     to: /
