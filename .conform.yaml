@@ -1,7 +1,3 @@
-# THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
-#
-# Generated on 2020-09-08T22:09:46Z by kres latest.
-
 policies:
 - type: commit
   spec:
@@ -9,7 +5,7 @@ policies:
     gpg:
       required: true
       identity:
-        gitHubOrganization: talos-systems
+        gitHubOrganization: siderolabs
     spellcheck:
       locale: US
     maximumOfOneCommit: true

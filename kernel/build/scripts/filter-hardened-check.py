@@ -15,7 +15,7 @@ Names of violations we ignore for a good reason.
 """
 IGNORE_VIOLATIONS = {
     'CONFIG_MODULES', # enabled for backwards compat, modules require signing key which is thrown away
-    'CONFIG_IA32_EMULATION', # see https://github.com/talos-systems/pkgs/pull/125
+    'CONFIG_IA32_EMULATION', # see https://github.com/siderolabs/pkgs/pull/125
     'CONFIG_HARDEN_BRANCH_PREDICTOR', # looks like a bug in kconfig-hardened-check, default in 5.9, but not enabled in 5.10
     'CONFIG_INIT_ON_FREE_DEFAULT_ON', # disabled init_on_free=1 due to performance
 }
