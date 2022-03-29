@@ -24,10 +24,6 @@ steps:
         destination: u-boot.tar.bz2
         sha256: 81b4543227db228c03f8a1bf5ddbc813b0bb8f6555ce46064ef721a6fc680413
         sha512: d83c62bd8f0f51664d2aca329a3ce1379cfd1dfff439dccd6cfc2cb33cfef89a2b01855c97716f591b5550bfdf99e2f3aef7efa33f2e7834c820648f9eef3825
-      - url: https://github.com/OE4T/u-boot-tegra/archive/refs/tags/tegra-l4t-r32.6.1.tar.gz
-        destination: u-boot-tegra.tar.gz
-        sha256: c8737dc20d29586c2c3e6b0232d8c807b3220a22d3f63094c49691b1919636f7
-        sha512: 71e96bb84e8265355735d2e43296ba872de9d641dad92ea6e0a3ec4af2ba283243c3a9fa6bdbb9f028d57e5fb878b356b467ae1fd9a477062efecdb368d1d471
     env:
       SUN50I_A64_ARM_TRUSTED_FIRMWARE: sun50i_a64_arm-trusted-firmware
       RPI_4_A64_ARM_TRUSTED_FIRMWARE: rpi_4_a64_arm-trusted-firmware
@@ -107,10 +103,9 @@ steps:
       # jetson nano
       - |
         mkdir ${JETSON_NANO_U_BOOT}
-        tar -xzf u-boot-tegra.tar.gz --strip-components=1 -C ${JETSON_NANO_U_BOOT}
+        tar -xjf u-boot.tar.bz2 --strip-components=1 -C ${JETSON_NANO_U_BOOT}
         cd ${JETSON_NANO_U_BOOT}
-        patch -p0 < /pkg/jetson_nano/patches/tegra-common.h.patch
-        patch -p0 < /pkg/jetson_nano/patches/tegra210-common.h.patch
+        patch -p0 < /pkg/jetson_nano/patches/tegra.patch
         make p3450-0000_defconfig
         sed -i "s/CONFIG_TOOLS_LIBCRYPTO=y/# CONFIG_TOOLS_LIBCRYPTO is not set/" .config
     build:
@@ -169,7 +164,7 @@ steps:
       # jetson nano
       - |
         cd ${JETSON_NANO_U_BOOT}
-        make -j $(nproc) DTC="/toolchain/bin/dtc" HOSTLDLIBS_mkimage="-lssl -lcrypto"
+        make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto"
     install:
       # libretech_all_h3_cc_h5
       - |
