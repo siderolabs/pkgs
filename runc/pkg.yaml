@@ -7,10 +7,10 @@ dependencies:
 steps:
   - sources:
       # sync with commit in build
-      - url: https://github.com/opencontainers/runc/releases/download/v1.1.0/runc.tar.xz
+      - url: https://github.com/opencontainers/runc/releases/download/v1.1.1/runc.tar.xz
         destination: runc.tar.xz
-        sha256: 152e8975793aa45a6717e367bd1652f8147728d25adad339d2f70c4fd2ddc623
-        sha512: fddd9d7f874e21a718c734c85cafc0c917ba90a38a478df42c4cd4a4bc57cdce2de6462ab8f71fe39f3e926777d0e43793db841579f884076d3178e3313c4774
+        sha256: 75c1f0bb19b209412c52599e24b33ac306cf7caf772c97577b7ebe964837a54b
+        sha512: 05a0b277f7695173a82714daea3fd5a2ffe14408ac0adb408638b3348a44ba4742fd30d4792e66c2d64031c32a7e328a5e7079fccf0ed3dc0369f3d53c5b5f58
     prepare:
       - |
         export GOPATH=/go
@@ -27,7 +27,7 @@ steps:
         export CC=/toolchain/bin/cc
         # This is required due to "loadinternal: cannot find runtime/cgo".
         export CGO_ENABLED=1
-        make EXTRA_LDFLAGS="-w -s" BUILDTAGS="seccomp" COMMIT=067aaf8548d78269dcb2c13b856775e27c410f9c runc
+        make EXTRA_LDFLAGS="-w -s" BUILDTAGS="seccomp" COMMIT=52de29d7e0f8c0899bd7efb8810dd07f0073fa87 runc
     install:
       - |
         export GOPATH=/go
