@@ -17,6 +17,14 @@ steps:
         tar -xzf ipxe.tar.gz --strip-components=1
 
         patch -p1 < /pkg/patches/https.patch
+
+        # ref: https://github.com/siderolabs/sidero/issues/806
+        {{ if eq .ARCH "aarch64" }}
+        cat <<EOF > src/config/local/nap.h
+        #undef NAP_EFIARM
+        #define NAP_NULL
+        EOF
+        {{ end }}
     build:
       - |
         cd src/
