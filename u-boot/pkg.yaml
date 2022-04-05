@@ -7,6 +7,7 @@
 #   Rockchip:
 #     - http://opensource.rock-chips.com
 #     - https://github.com/u-boot/u-boot/blob/master/doc/board/rockchip/rockchip.rst
+#     - https://u-boot.readthedocs.io/en/latest/board/rockchip/rockchip.html
 name: u-boot
 variant: scratch
 shell: /toolchain/bin/bash
@@ -98,6 +99,9 @@ steps:
         mkdir ${ROCK_PI_4_RK3399_U_BOOT}
         tar -xjf u-boot.tar.bz2 --strip-components=1 -C ${ROCK_PI_4_RK3399_U_BOOT}
         cd ${ROCK_PI_4_RK3399_U_BOOT}
+        patch -p1 < /pkg/rockpi4/patches/board-rock-pi-4-enable-spi-flash.patch
+        patch -p1 < /pkg/rockpi4/patches/general-add-xtx-spi-nor-chips.patch
+        patch -p1 < /pkg/rockpi4/patches/enable-boot-from-spi-flash.patch
         make rock-pi-4-rk3399_defconfig
         sed -i "s/CONFIG_TOOLS_LIBCRYPTO=y/# CONFIG_TOOLS_LIBCRYPTO is not set/" .config
       # jetson nano
@@ -161,6 +165,13 @@ steps:
         export BL31=$(pwd)/${RK3399_ARM_TRUSTED_FIRMWARE}/build/rk3399/release/bl31/bl31.elf
         cd ${ROCK_PI_4_RK3399_U_BOOT}
         make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto"
+
+        # create spi image
+        # https://github.com/armbian/build/blob/09e416e31cc01ece4533a65f02a470a4c21b90ea/config/sources/families/include/rockchip64_common.inc#L173-L178
+        tools/mkimage -n rk3399 -T rkspi -d tpl/u-boot-tpl.bin:spl/u-boot-spl.bin rkspi_tpl_spl.img
+        dd if=/dev/zero of=rkspi_loader.img count=8128 status=none
+        dd if=rkspi_tpl_spl.img of=rkspi_loader.img conv=notrunc status=none
+        dd if=u-boot.itb of=rkspi_loader.img seek=768 conv=notrunc status=none
       # jetson nano
       - |
         cd ${JETSON_NANO_U_BOOT}
@@ -173,8 +184,6 @@ steps:
       # rock64-rk3328
       - |
         mkdir -p /rootfs/rock64
-        cp -v ${ROCK64_RK3328_U_BOOT}/idbloader.img /rootfs/rock64
-        cp -v ${ROCK64_RK3328_U_BOOT}/u-boot.itb /rootfs/rock64
         cp -v ${ROCK64_RK3328_U_BOOT}/u-boot-rockchip.bin /rootfs/rock64
       # rpi_4
       - |
@@ -193,8 +202,9 @@ steps:
       - |
         mkdir -p /rootfs/rockpi_4
         cp -v ${ROCK_PI_4_RK3399_U_BOOT}/u-boot-rockchip.bin /rootfs/rockpi_4
-        cp -v ${ROCK_PI_4_RK3399_U_BOOT}/idbloader.img /rootfs/rockpi_4
-        cp -v ${ROCK_PI_4_RK3399_U_BOOT}/u-boot.itb /rootfs/rockpi_4
+
+        # cp spi image
+        cp -v ${ROCK_PI_4_RK3399_U_BOOT}/rkspi_loader.img /rootfs/rockpi_4
       # jetson nano
       - |
         mkdir -p /rootfs/jetson_nano
