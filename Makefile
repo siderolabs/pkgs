@@ -68,6 +68,10 @@ nonfree: $(NONFREE_TARGETS) ## Builds all known non-free pkgs.
 help: ## This help menu.
 	@grep -E '^[a-zA-Z%_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
+local-%: ## Builds the specified target defined in the Dockerfile using the local output type. The build result will be output to the specified local destination.
+	@$(MAKE) target-$* TARGET_ARGS="--output=type=local,dest=$(DEST) $(TARGET_ARGS)"
+	@PLATFORM=$(PLATFORM)
+
 target-%: ## Builds the specified target defined in the Dockerfile. The build result will only remain in the build cache.
 	@$(BUILD) \
 		--target=$* \

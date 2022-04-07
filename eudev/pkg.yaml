@@ -6,10 +6,10 @@ dependencies:
   - stage: util-linux
 steps:
   - sources:
-      - url: https://github.com/gentoo/eudev/archive/refs/tags/v3.2.10.tar.gz
+      - url: https://github.com/gentoo/eudev/archive/refs/tags/v3.2.11.tar.gz
         destination: eudev.tar.gz
-        sha256: 6492629da4024d2d21bb1a79d724e013d4152956099a5c63b09c8ee4da7f9b2b
-        sha512: 37fc5e7f960a843fa68269697882123af4515555788a9e856474f51dd8c330a4c8e52e7c897aeb5d3eb36c6ad66cc99f5a38a284a75620b7e6c275c703e25d42
+        sha256: dcfc482099f3fdfcfdb9aeabbc4d609877cf4d2d0407f50ab0c59d43fff44f92
+        sha512: 17b328365913af3e434abe667dd0498c3702a41c6cb66f3793ca2c195b05ac06397b0a401077f81df7dd25193e4eeea13657a221ca6cb3d237c4d91e31e30b33
     prepare:
       - |
         tar -xzf eudev.tar.gz --strip-components=1
@@ -41,6 +41,9 @@ steps:
       - |
         cd build
         make install DESTDIR=/rootfs
+
+        # cleanup non-relevant rules
+        rm -f /rootfs/usr/lib/udev/rules.d/{60-cdrom_id.rules,60-persistent-alsa.rules,60-persistent-v4l.rules,64-btrfs.rules,70-joystick.rules,70-mouse.rules,70-touchpad.rules,78-sound-card.rules,80-net-name-slot.rules}
 finalize:
   - from: /rootfs
     to: /
