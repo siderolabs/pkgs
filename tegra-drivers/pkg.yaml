@@ -1,0 +1,55 @@
+name: tegra-drivers
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: kernel-build
+steps:
+  # {{ if eq .ARCH "aarch64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
+  - sources:
+      - url: https://developer.nvidia.com/embedded/l4t/r34_release_v1.0/sources/public_sources.tbz2
+        destination: public_sources.tbz2
+        sha256: fe2d0ce56682c825347a899763c3d38772667c954480f00b6d4d74f276e1eff1
+        sha512: 41614094420cbfb8a9584789566cd967fe599d41740a3866ef4760679245c7fe2f7f0528a222768b2ffa7d26f5de03a385d0fba93155ef04baffcf4c9309b4be
+    env:
+      ARCH: arm64
+      TARGET_ARCH: aarch64
+    prepare:
+      - |
+        export PATH=/toolchain/bin:$PATH
+        export GUESS_MD5_PATH=/toolchain/bin
+
+        rm -f /dev/tty && ln -s /dev/stdout /dev/tty
+        ln -s /toolchain/bin/echo /toolchain/bin/which
+
+        tar xf public_sources.tbz2 
+
+        cd Linux_for_Tegra/source/public
+        tar xf nvidia_kernel_display_driver_source.tbz2
+    build:
+      - |
+        # unset the variables bldr sets by default
+        unset CXXFLAGS
+        unset LDFLAGS
+        unset CFLAGS
+        unset TARGET
+        unset HOST
+
+        cd Linux_for_Tegra/source/public/NVIDIA-kernel-module-source-*
+
+        make -j $(nproc) SYSSRC=/src
+    install:
+      - |
+        cd Linux_for_Tegra/source/public/NVIDIA-kernel-module-source-*
+
+        mkdir -p /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        touch /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/modules.builtin
+
+        make -j $(nproc) modules_install SYSSRC=/src DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs
+  # {{ else }}
+  - install:
+      - |
+        mkdir -p /rootfs
+  # {{ end }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
+finalize:
+  - from: /rootfs
+    to: /
