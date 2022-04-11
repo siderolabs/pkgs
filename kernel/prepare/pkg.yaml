@@ -5,10 +5,10 @@ dependencies:
   - image: '{{ .TOOLS_IMAGE }}'
 steps:
   - sources:
-      - url: https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.15.32.tar.xz
+      - url: https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.15.33.tar.xz
         destination: linux.tar.xz
-        sha256: 1463cdfa223088610dd65d3eadeffa44ec49746091b8ae8ddac6f3070d17df86
-        sha512: 6d8955a6b71be155b153db0a43f75822f1f30f339445958828e1611648c8c6e0001cb118e9016a7119de80c28286b3e060da675aa73174a7a262fc8b537aacaf
+        sha256: c30a17e6090f9ebf2d8ff58cd6c92c7324b1f4a8b3aa6a7f68850310af05a9c4
+        sha512: cc70547b90417a11cdd580aecbf703541871e744d9df7547bd155ada8c3023be2bea4671771d40efe71e5476a195a4e1942efe53222016409e4a72ba1cf10e02
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
     prepare:
