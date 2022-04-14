@@ -1755,7 +1755,7 @@ index 0000000000..c3149026a5
 +	return 0;
 +}
 diff --git boot/pxe_utils.c boot/pxe_utils.c
-index a7a84f26c1..b7375c5d4f 100644
+index 0c24becae3..85ec21394d 100644
 --- boot/pxe_utils.c
 +++ boot/pxe_utils.c
 @@ -1,7 +1,7 @@
@@ -1767,7 +1767,7 @@ index a7a84f26c1..b7375c5d4f 100644
   */
  
  #include <common.h>
-@@ -25,6 +25,9 @@
+@@ -30,6 +30,9 @@
  
  #include "menu.h"
  #include "cli.h"
@@ -1777,7 +1777,7 @@ index a7a84f26c1..b7375c5d4f 100644
  
  #include "pxe_utils.h"
  
-@@ -319,17 +322,16 @@ static int label_localboot(struct pxe_label *label)
+@@ -385,17 +388,16 @@ err:
   */
  #ifdef CONFIG_OF_LIBFDT_OVERLAY
  static void label_boot_fdtoverlay(struct pxe_context *ctx,
@@ -1797,7 +1797,7 @@ index a7a84f26c1..b7375c5d4f 100644
  	working_fdt = map_sysmem(fdt_addr, 0);
  	err = fdt_check_header(working_fdt);
  	if (err)
-@@ -437,7 +439,9 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
+@@ -503,7 +505,9 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
  	int len = 0;
  	ulong kernel_addr_r;
  	void *buf;
@@ -1808,7 +1808,7 @@ index a7a84f26c1..b7375c5d4f 100644
  	label_print(label);
  
  	label->attempted = 1;
-@@ -455,13 +459,11 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
+@@ -521,13 +525,11 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
  	}
  
  	if (label->initrd) {
@@ -1824,7 +1824,7 @@ index a7a84f26c1..b7375c5d4f 100644
  		}
  
  		initrd_addr_str = env_get("ramdisk_addr_r");
-@@ -499,6 +501,10 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
+@@ -565,6 +567,10 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
  	if ((label->ipappend & 0x3) || label->append) {
  		char bootargs[CONFIG_SYS_CBSIZE] = "";
  		char finalbootargs[CONFIG_SYS_CBSIZE];
@@ -1835,7 +1835,7 @@ index a7a84f26c1..b7375c5d4f 100644
  
  		if (strlen(label->append ?: "") +
  		    strlen(ip_str) + strlen(mac_str) + 1 > sizeof(bootargs)) {
-@@ -515,10 +521,34 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
+@@ -581,10 +587,34 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
  		strcat(bootargs, ip_str);
  		strcat(bootargs, mac_str);
  
@@ -1862,36 +1862,16 @@ index a7a84f26c1..b7375c5d4f 100644
  		env_set("bootargs", finalbootargs);
  		printf("append: %s\n", finalbootargs);
 +#ifdef CONFIG_HUSH_PARSER
-+		if (hush_bootpart && !distro_bootpart)
-+			env_set("distro_bootpart", NULL);
-+		if (hush_devnum && !env_devnum)
-+			env_set("devnum", NULL);
++	if (hush_bootpart && !distro_bootpart)
++		env_set("distro_bootpart", NULL);
++	if (hush_devnum && !env_devnum)
++		env_set("devnum", NULL);
 +#endif
  	}
  
  	kernel_addr = env_get("kernel_addr_r");
-@@ -541,8 +571,8 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
- 	 * It handles the following scenarios.
- 	 *
- 	 * Scenario 1: If fdt_addr_r specified and "fdt" or "fdtdir" label is
--	 * defined in pxe file, retrieve fdt blob from server. Pass fdt_addr_r to
--	 * bootm, and adjust argc appropriately.
-+	 * defined in pxe file, retrieve fdt blob from server. Pass fdt_addr_r
-+	 * to bootm, and adjust argc appropriately.
- 	 *
- 	 * If retrieve fails and no exact fdt blob is specified in pxe file with
- 	 * "fdt" label, try Scenario 2.
-@@ -550,7 +580,7 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
- 	 * Scenario 2: If there is an fdt_addr specified, pass it along to
- 	 * bootm, and adjust argc appropriately.
- 	 *
--	 * Scenario 3: fdt blob is not available.
-+	 * Scenario 3: fdt blob is not available, boot without it.
- 	 */
- 	bootm_argv[3] = env_get("fdt_addr_r");
- 
-@@ -629,8 +659,9 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
- 			}
+@@ -701,8 +731,9 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
+ 			label_boot_kaslrseed();
  
  #ifdef CONFIG_OF_LIBFDT_OVERLAY
 +			fdt_addr = (ulong)simple_strtol(bootm_argv[3], NULL, 16);
@@ -1901,21 +1881,21 @@ index a7a84f26c1..b7375c5d4f 100644
  #endif
  		} else {
  			bootm_argv[3] = NULL;
-@@ -652,9 +683,15 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
+@@ -727,9 +758,15 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
  	if (!bootm_argv[3])
  		bootm_argv[3] = env_get("fdt_addr");
  
 -	if (bootm_argv[3]) {
-+	if (bootm_argv[3]) {			/* fdt_addr exists */
++	if (bootm_argv[3]) {            /* fdt_addr exists */
 +#ifdef CONFIG_OF_LIBFDT_OVERLAY
-+		fdt_addr = (ulong)simple_strtol(bootm_argv[3], NULL, 16);
-+		/* apply any FDT overlays to in-RAM DTB (@ fdt_addr) */
-+		if (label->fdtoverlays)
-+			label_boot_fdtoverlay(ctx, label, fdt_addr);
++	fdt_addr = (ulong)simple_strtol(bootm_argv[3], NULL, 16);
++	/* apply any FDT overlays to in-RAM DTB (@ fdt_addr) */
++	if (label->fdtoverlays)
++		label_boot_fdtoverlay(ctx, label, fdt_addr);
 +#endif
  		if (!bootm_argv[2])
 -			bootm_argv[2] = "-";
-+			bootm_argv[2] = "-";	/* skip initrd */
++			bootm_argv[2] = "-";    /* skip initrd */
  		bootm_argc = 4;
  	}
  
@@ -3984,18 +3964,18 @@ index 4c3da224c6..b17d674845 100644
  
  /* Crystal is 38.4MHz. clk_m runs at half that rate */
 diff --git include/configs/p3450-0000.h include/configs/p3450-0000.h
-index 7f05bebbcd..0e08181fb3 100644
+index b03d3a433b..be0736c0c3 100644
 --- include/configs/p3450-0000.h
 +++ include/configs/p3450-0000.h
 @@ -1,6 +1,6 @@
  /* SPDX-License-Identifier: GPL-2.0+ */
  /*
 - * (C) Copyright 2018-2019 NVIDIA Corporation.
-+ * (C) Copyright 2018-2020 NVIDIA Corporation.
++ * (C)  * (C) Copyright 2018-2019 NVIDIA Corporation.
   */
  
  #ifndef _P3450_0000_H
-@@ -10,16 +10,29 @@
+@@ -10,27 +10,66 @@
  
  #include "tegra210-common.h"
  
@@ -4006,19 +3986,20 @@ index 7f05bebbcd..0e08181fb3 100644
  #define CONFIG_TEGRA_ENABLE_UARTA
  
 +#ifdef CONFIG_P3450_EMMC
-+#define CONFIG_TEGRA_BOARD_STRING	"NVIDIA P3450-0002"
++#define CONFIG_TEGRA_BOARD_STRING  "NVIDIA P3450-0002"
 +#define BOOT_TARGET_DEVICES(func) \
 +	func(MMC, mmc, 0) \
 +	func(USB, usb, 0) \
 +	func(NVME, nvme, 0) \
 +	func(PXE, pxe, na) \
 +	func(DHCP, dhcp, na)
-+#define CONFIG_SYS_MMC_ENV_DEV		0
-+#define CONFIG_SYS_MMC_ENV_PART		2
-+#define DEFAULT_MMC_DEV			"0"
++#define CONFIG_SYS_MMC_ENV_DEV     0
++#define CONFIG_SYS_MMC_ENV_PART        2
++#define DEFAULT_MMC_DEV            "0"
 +#else
 +/* High-level configuration options */
-+#define CONFIG_TEGRA_BOARD_STRING	"NVIDIA P3450-0000"
++#define CONFIG_TEGRA_BOARD_STRING  "NVIDIA P3450-0000"
++
 +
  /* Only MMC/PXE/DHCP for now, add USB back in later when supported */
  #define BOOT_TARGET_DEVICES(func) \
@@ -4029,15 +4010,11 @@ index 7f05bebbcd..0e08181fb3 100644
  	func(PXE, pxe, na) \
  	func(DHCP, dhcp, na)
  
-@@ -27,14 +40,39 @@
- #define CONFIG_ENV_SPI_MAX_HZ		48000000
- #define CONFIG_ENV_SPI_MODE		SPI_MODE_0
+ /* Environment at end of QSPI, in the VER partition */
  #define CONFIG_SPI_FLASH_SIZE		(4 << 20)
-+#define DEFAULT_MMC_DEV			"1"
++#define DEFAULT_MMC_DEV            "1"
 +#endif
- 
- #define CONFIG_PREBOOT
- 
++
 +#ifdef CONFIG_FIT
 +#undef CONFIG_BOOTCOMMAND
 +/* FIT Image environment settings */
@@ -4059,7 +4036,7 @@ index 7f05bebbcd..0e08181fb3 100644
 +#else
 +#define FITIMAGE_ENV_SETTINGS
 +#endif /* CONFIG_FIT */
-+
+ 
  #define BOARD_EXTRA_ENV_SETTINGS \
 -	"preboot=if test -e mmc 1:1 /u-boot-preboot.scr; then " \
 -		"load mmc 1:1 ${scriptaddr} /u-boot-preboot.scr; " \
@@ -4072,6 +4049,7 @@ index 7f05bebbcd..0e08181fb3 100644
  
  /* General networking support */
  #include "tegra-common-usb-gadget.h"
+
 diff --git include/configs/p3541-0000.h include/configs/p3541-0000.h
 new file mode 100644
 index 0000000000..193b7da1b7
