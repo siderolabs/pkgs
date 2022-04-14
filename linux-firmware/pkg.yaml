@@ -5,10 +5,10 @@ dependencies:
     - image: '{{ .TOOLS_IMAGE }}'
 steps:
     - sources:
-          - url: https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-20220310.tar.gz
+          - url: https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-20220411.tar.gz
             destination: linux-firmware.tar.gz
-            sha256: f4c34a7ba8144b52fd7f6dd0b1dea2998f140ab1139372f8fbdb76f4557ff228
-            sha512: b9818f8364e2b706714af3dc48b13993ed869add32e3442f1ce317b0176a5bda4854ee6d1c8cd3ccad66c7c0b8b645621dfcc413aec8a273086e8f5a1ecb4230
+            sha256: 533ae621b3eacf6a4696dab52a9dbc5727403a175c413b1682ab3f9cfb37872f
+            sha512: 385d74206b5ab312bc787a460e77d908a383963bec407c2f144f83c6b5a813b2c1de9e6250ffb57aa80e0c328d1fbde96ead79f6da73eb84347660873c05ffe6
       prepare:
           - |
               mkdir -p lib/firmware
