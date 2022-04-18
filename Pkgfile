@@ -1,9 +1,9 @@
-# syntax = ghcr.io/siderolabs/bldr:v0.2.0-alpha.7-1-g9d49478-frontend
+# syntax = ghcr.io/siderolabs/bldr:v0.2.0-alpha.8-frontend
 
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.1.0-alpha.0-9-g533d5c9
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.1.0-alpha.0-10-g8c1f801
 
 labels:
   org.opencontainers.image.source: https://github.com/siderolabs/pkgs
