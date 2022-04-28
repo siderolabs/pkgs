@@ -5,10 +5,10 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      - url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.37/util-linux-2.37.tar.xz
+      - url: https://www.kernel.org/pub/linux/utils/util-linux/v2.38/util-linux-2.38.tar.xz
         destination: util-linux.tar.xz
-        sha256: bd07b7e98839e0359842110525a3032fdb8eaf3a90bedde3dd1652d32d15cce5
-        sha512: 84cf1df46165f286caa1a1204b335dc1fc826a8e1d52a817c28eb80ef19734eccd6efdfb078e87ade9e4381a9102e59d4df83e9bb100e4c73aff2aa4bfb85615
+        sha256: 6d111cbe4d55b336db2f1fbeffbc65b89908704c01136371d32aa9bec373eb64
+        sha512: d0f7888f457592067938e216695871ce6475a45d83a092cc3fd72b8cf8fca145ca5f3a99122f1744ef60b4f773055cf4e178dc6c59cd30837172aee0b5597e8c
     prepare:
       - |
         tar -xJf util-linux.tar.xz --strip-components=1
@@ -18,7 +18,10 @@ steps:
         ../configure \
             --prefix=/usr \
             --without-python \
+            --disable-bash-completion \
+            --disable-asciidoc \
             --disable-makeinstall-chown \
+            --without-systemd \
             --without-systemdsystemunitdir \
             --disable-all-programs \
             --enable-libmount \
