@@ -1,10 +1,10 @@
 name: ca-certificates
 steps:
   - sources:
-      - url: https://curl.se/ca/cacert-2022-02-01.pem
+      - url: https://curl.se/ca/cacert-2022-04-26.pem
         destination: cacert.pem
-        sha256: 1d9195b76d2ea25c2b5ae9bee52d05075244d78fcd9c58ee0b6fac47d395a5eb
-        sha512: 75f5222c23d14d194856d3fa58eb605a6400cbf0068e208e1bc75a4821f841c39a95dde161b904db54ce922efa384796ad5f2e2b6ef75327475f711e72652388
+        sha256: 08df40e8f528ed283b0e480ba4bcdbfdd2fdcf695a7ada1668243072d80f8b6f
+        sha512: 91266bcf97d879828c26beba82e15ff73aa676d800e11401da22b0a565e980912222e02e9a9cc7daff7ceddf78309d8fb0adef6a4eaff9cefa73b72a97281bc2
     install:
       - |
         mkdir -p /rootfs/etc/ssl/certs
