@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.0.0-3-ga8fb702
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.0.0-4-g943b5d0
 
 labels:
   org.opencontainers.image.source: https://github.com/siderolabs/pkgs
