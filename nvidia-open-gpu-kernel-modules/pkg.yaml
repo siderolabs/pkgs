@@ -1,0 +1,34 @@
+name: nvidia-open-gpu-kernel-modules
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: kernel-build
+steps:
+  - sources:
+      - url: https://github.com/NVIDIA/open-gpu-kernel-modules/archive/refs/tags/515.65.01.tar.gz
+        destination: open-gpu-kernel-modules.tar.gz
+        sha256: 4eb71b093cdc5875242ddc6bb1858f619d257389a8f459762e51a0cf923374ee
+        sha512: c2ff6fd02272b6981a65e7e14c6b636f0113e21da910898c27682f58e60fa8e6deea3670081c57e4961fb5e7794eef8eddb90d134ba1892536a8468c5dc9d669
+    env:
+      ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+    prepare:
+      - |
+        export PATH=/toolchain/bin:$PATH
+        export GUESS_MD5_PATH=/toolchain/bin
+
+        rm -f /dev/tty && ln -s /dev/stdout /dev/tty
+        ln -s /toolchain/bin/echo /toolchain/bin/which
+
+        tar xf open-gpu-kernel-modules.tar.gz --strip-components=1
+    build:
+      - |
+        make -j $(nproc) SYSSRC=/src
+    install:
+      - |
+        mkdir -p /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        touch /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/modules.builtin
+
+        make -j $(nproc) modules_install SYSSRC=/src DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs
+finalize:
+  - from: /rootfs
+    to: /

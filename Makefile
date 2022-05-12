@@ -50,6 +50,7 @@ TARGETS = \
 	linux-firmware \
 	lvm2 \
 	musl \
+	nvidia-open-gpu-kernel-modules \
 	open-iscsi \
 	open-isns \
 	openssl \
