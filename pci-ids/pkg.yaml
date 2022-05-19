@@ -1,0 +1,23 @@
+name: pci-ids
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      # see http://pci-ids.ucw.cz/ for information on the database
+      # we download the snapshot here to make sure that the build is reproducible, repository is updated every ~week,
+      # so we should bump the commit hash periodically
+      - url: https://github.com/pciutils/pciids/raw/5ebf136cb26f6922ce3fbd607d7fb9835043747e/pci.ids
+        destination: pci.ids
+        sha256: 749243aba9ec6fb6140fdf28b46ff7ab023ea76f02a6217fdb83e930fcff8527
+        sha512: 15cf3cf680268cd67904d4fafb0d3c7c0b26d3f18d80f6b4804efe5e1dd9f75b100b9dee9d42ee5a6e550a2afa2e41a26d3125b9981b3ad3b97f119651a05593
+    install:
+      - |
+        mkdir -p /rootfs/usr/share/misc
+        mv pci.ids /rootfs/usr/share/misc/
+        touch /rootfs/usr/share/misc/pci.ids
+        gzip -9 /rootfs/usr/share/misc/pci.ids
+finalize:
+  - from: /rootfs
+    to: /

@@ -50,6 +50,7 @@ TARGETS = \
 	open-iscsi \
 	open-isns \
 	openssl \
+	pci-ids \
 	raspberrypi-firmware \
 	runc \
 	socat \
