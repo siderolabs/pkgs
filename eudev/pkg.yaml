@@ -44,6 +44,9 @@ steps:
 
         # cleanup non-relevant rules
         rm -f /rootfs/usr/lib/udev/rules.d/{60-cdrom_id.rules,60-persistent-alsa.rules,60-persistent-v4l.rules,64-btrfs.rules,70-joystick.rules,70-mouse.rules,70-touchpad.rules,78-sound-card.rules,80-net-name-slot.rules}
+
+        # Azure csi support
+        cp /pkg/files/66-azure.rules /rootfs/usr/lib/udev/rules.d/66-azure.rules
 finalize:
   - from: /rootfs
     to: /

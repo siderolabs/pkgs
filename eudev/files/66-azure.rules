@@ -1,0 +1,28 @@
+# Original file https://github.com/canonical/cloud-init/blob/main/udev/66-azure-ephemeral.rules
+# Skip all partitions symlinks. It uses by cloud-init (fstab mount paths) only.
+#
+# Azure specific rules
+ACTION=="add|change", SUBSYSTEM=="block", ENV{ID_VENDOR}=="Msft", ENV{ID_MODEL}=="Virtual_Disk", GOTO="azure_disk"
+GOTO="azure_end"
+
+LABEL="azure_disk"
+# Root has a GUID of 0000 as the second value on Gen1 instances
+# The resource/resource has GUID of 0001 as the second value
+ATTRS{device_id}=="?00000000-0000-*", ENV{fabric_name}="root", GOTO="azure_names"
+ATTRS{device_id}=="?00000000-0001-*", ENV{fabric_name}="resource", GOTO="azure_names"
+ATTRS{device_id}=="?00000001-0001-*", ENV{fabric_name}="BEK", GOTO="azure_names"
+
+# Azure well known SCSI controllers on Gen2 instances
+ATTRS{device_id}=="{f8b3781a-1e82-4818-a1c3-63d806ec15bb}", ENV{fabric_scsi_controller}="scsi0", GOTO="azure_datadisk"
+GOTO="azure_end"
+
+# Map scsi#/lun# fabric_name to azure_root|resource on Gen2 instances
+LABEL="azure_datadisk"
+ENV{DEVTYPE}=="disk", ENV{fabric_name}="$env{fabric_scsi_controller}/$env{ID_PATH}", GOTO="azure_names"
+GOTO="azure_end"
+
+# Create the symlinks
+LABEL="azure_names"
+ENV{DEVTYPE}=="disk", SYMLINK+="disk/azure/$env{fabric_name}"
+
+LABEL="azure_end"
