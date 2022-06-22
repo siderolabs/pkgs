@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 5.15.48 Kernel Configuration
+# Linux/x86 5.15.49 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="gcc (GCC) 11.2.0"
 CONFIG_CC_IS_GCC=y
@@ -3081,7 +3081,7 @@ CONFIG_TCG_CRB=y
 # CONFIG_XILLYBUS is not set
 # CONFIG_XILLYUSB is not set
 CONFIG_RANDOM_TRUST_CPU=y
-# CONFIG_RANDOM_TRUST_BOOTLOADER is not set
+CONFIG_RANDOM_TRUST_BOOTLOADER=y
 # end of Character devices
 
 #
@@ -5379,6 +5379,7 @@ CONFIG_CRYPTO_LIB_CHACHA20POLY1305=y
 CONFIG_CRYPTO_LIB_SHA256=y
 # end of Crypto library routines
 
+CONFIG_LIB_MEMNEQ=y
 CONFIG_CRC_CCITT=y
 CONFIG_CRC16=y
 # CONFIG_CRC_T10DIF is not set
