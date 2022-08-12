@@ -6,15 +6,15 @@ dependencies:
 steps:
   - sources:
     # {{ if eq .ARCH "aarch64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
-      - url: https://download.nvidia.com/XFree86/Linux-aarch64/515.48.07/NVIDIA-Linux-aarch64-515.48.07.run
+      - url: https://download.nvidia.com/XFree86/Linux-aarch64/515.65.01/NVIDIA-Linux-aarch64-515.65.01.run
         destination: nvidia.run
-        sha256: a4e071055a5f6c110fd49264d76c57a07f3fbd37b8ee2f9eb90c25f51fa59ef5
-        sha512: 6676ada7c2597ce0c5108aaa2b99a06ca4306b5afde33b4c9d2f7a6a720b6aa7555f9ac219726d06ec6b770b54a36f5590a1dbd5cb247290f9f1103d92378c45
+        sha256: 0d2ac6c6ca144c8c7bbf1a62034998463b21f2660a793607d88c031650d93e93
+        sha512: 31ec7ba727bf14263eeadc3880bd8f2aaa0fe8c144aa216bb8af06a154dd1aa5f4a787fe386b20f5d739a49c80435bca5f6deba3010c593e1e54ecd29b4ab1b0
     # {{ else }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
-      - url: https://download.nvidia.com/XFree86/Linux-x86_64/515.48.07/NVIDIA-Linux-x86_64-515.48.07.run
+      - url: https://download.nvidia.com/XFree86/Linux-x86_64/515.65.01/NVIDIA-Linux-x86_64-515.65.01.run
         destination: nvidia.run
-        sha256: e28764cc5b13c32e76370513daeafc05c289b77ee0511552450f1a00e31ae1e3
-        sha512: a8129334ce02e5decccc6b1c336723b58e0883f58ca1cef56288144278af996594dfa141882613453452cc8a0ed7d76839d6d1ecd30d11c73eacf21450524286
+        sha256: 0492ddc5b5e65aa00cbc762e8d6680205c8d08e103b7131087a15126aee495e9
+        sha512: 5221a4ac071eb39a37a841f19cfe4983286dc35e918956b40604404ef36c122612475df7b9a391a9a70bd60f44e598c8a0e5ec54ccc3e90d51f01e1b2fbe5e33
     # {{ end }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
