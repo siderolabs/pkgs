@@ -38,6 +38,7 @@ steps:
       ROCK_PI_4_RK3399_U_BOOT: rock-pi-4-rk3399_u-boot
       ROCK_PI_4C_RK3399_U_BOOT: rock-pi-4c-rk3399_u-boot
       JETSON_NANO_U_BOOT: jetson-nano_u-boot
+      NANOPI_R4S_U_BOOT: nanopi-r4s_u-boot
     prepare:
       - |
         mkdir -p /usr/bin \
@@ -123,6 +124,13 @@ steps:
         patch -p0 < /pkg/jetson_nano/patches/tegra.patch
         make p3450-0000_defconfig
         sed -i "s/CONFIG_TOOLS_LIBCRYPTO=y/# CONFIG_TOOLS_LIBCRYPTO is not set/" .config
+      # nanopi-r4s
+      - |
+        mkdir ${NANOPI_R4S_U_BOOT}
+        tar -xjf u-boot.tar.bz2 --strip-components=1 -C ${NANOPI_R4S_U_BOOT}
+        cd ${NANOPI_R4S_U_BOOT}
+        make nanopi-r4s-rk3399_defconfig
+        sed -i "s/CONFIG_TOOLS_LIBCRYPTO=y/# CONFIG_TOOLS_LIBCRYPTO is not set/" .config
     build:
       # sun50i_a64
       - |
@@ -199,6 +207,11 @@ steps:
       - |
         cd ${JETSON_NANO_U_BOOT}
         make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto"
+      # nanopi-r4s
+      - |
+        export BL31=$(pwd)/${RK3399_ARM_TRUSTED_FIRMWARE}/build/rk3399/release/bl31/bl31.elf
+        cd ${NANOPI_R4S_U_BOOT}
+        make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto"
     install:
       # libretech_all_h3_cc_h5
       - |
@@ -239,6 +252,10 @@ steps:
       - |
         mkdir -p /rootfs/jetson_nano
         cp -v ${JETSON_NANO_U_BOOT}/u-boot.bin /rootfs/jetson_nano
+      # nanopi-r4s
+      - |
+        mkdir -p /rootfs/nanopi_r4s
+        cp -v ${NANOPI_R4S_U_BOOT}/u-boot-rockchip.bin /rootfs/nanopi_r4s
   # {{ else }}
   - install:
       - |
