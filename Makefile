@@ -47,6 +47,7 @@ TARGETS = \
 	libpopt \
 	libseccomp \
 	liburcu \
+	libusb \
 	linux-firmware \
 	lvm2 \
 	musl \
