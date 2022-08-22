@@ -1,4 +1,4 @@
-name: nvidia-open-gpu-kernel-modules
+name: nvidia-open-gpu-kernel-modules-pkg
 variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
