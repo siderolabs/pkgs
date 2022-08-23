@@ -6,17 +6,20 @@ dependencies:
   - stage: liblzma
 steps:
   - sources:
-      - url: https://github.com/ipxe/ipxe/archive/9062544f6a0c69c249b90d21a08d05518aafc2ec.tar.gz
+      - url: https://github.com/ipxe/ipxe/archive/c5af41a6f5b5f4a420b3e539f9e3a8dc9f8dd03e.tar.gz
         destination: ipxe.tar.gz
-        sha256: f27c02b9e9a4b2af521fd62e7d47bee3433c8edb75b4b2d0ddcd55848e353b96
-        sha512: 87aa803dbe8265bd5b5be989e32ffef50032c3e4783ca4d3f95dfaa707d8bdecab723e0b582ab6fa7e2cd8d40b55be67ecbddadd8d0f752c143bc8be3e658fcb
+        sha256: 370ef608f6314fe53bef52f780288364aa446428eb774c1cd55c656b81fe23b8
+        sha512: 4aa202b8b9489b217c8ef66b8cb3a8179689e98f2807024246d022eadc311f842855d19f20430bdbeb2358aca6ee7c9533d3f60456ba3b1681a8a22f31c2aa50
     env:
-      IPXE_VERSION: 1.21.1+git+9062544+sidero
+      IPXE_VERSION: 1.21.1+git+c5af41a+sidero
     prepare:
       - |
+        ln -s /toolchain/bin/echo /bin/echo
         tar -xzf ipxe.tar.gz --strip-components=1
 
         patch -p1 < /pkg/patches/https.patch
+        # TODO: remove once ipxe release compiles file on gcc-12
+        patch -p3 < /pkg/patches/silence-gcc-12-spurious-warnings.patch
 
         # ref: https://github.com/siderolabs/sidero/issues/806
         {{ if eq .ARCH "aarch64" }}
