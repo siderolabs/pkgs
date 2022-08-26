@@ -5,10 +5,10 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      - url: https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-27.tar.xz
+      - url: https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-{{.kmod_version }}.tar.xz
         destination: kmod.tar.xz
-        sha256: c1d3fbf16ca24b95f334c1de1b46f17bbe5a10b0e81e72668bdc922ebffbbc0c
-        sha512: e0513094935333fca1fb4c3e3493b232507a579ab00a6457cc9ed3e928363d05aad80634fb65a8287a336bf9895194c7be8ddc41bb088a6c2cca44fc1bfbdb6c
+        sha256: "{{ .kmod_sha256 }}"
+        sha512: "{{ .kmod_sha512 }}"
     prepare:
       - |
         tar -xJf kmod.tar.xz --strip-components=1

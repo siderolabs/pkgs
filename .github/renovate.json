@@ -1,0 +1,38 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "regexManagers": [
+        {
+            "fileMatch": [
+                "Pkgfile"
+            ],
+            "matchStrings": [
+                "# renovate: datasource=(?<datasource>.*?)(?:\\s+extractVersion=(?<extractVersion>.+?))?(?:\\s+versioning=(?<versioning>.+?))?\\s+depName=(?<depName>.+?)?\\s(?:\\s+.*_(?:version|VERSION):\\s+(?<currentValue>.*))?(?:\\s.*_(?:ref|REF):\\s+(?<currentDigest>.*))?"
+            ],
+            "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}"
+        },
+        {
+            "fileMatch": [
+                "Pkgfile",
+                "Makefile"
+            ],
+            "matchStrings": [
+                "(?<depName>ghcr.io\\/siderolabs\\/bldr):(?<currentValue>v.*-frontend)"
+            ],
+            "datasourceTemplate": "docker",
+            "versioningTemplate": "semver"
+        }
+    ],
+    "packageRules": [
+        {
+            "matchPackageNames": [
+                "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
+            ],
+            "allowedVersions": "<= 5.15"
+        }
+    ],
+    "schedule": [
+        "on monday at 1am"
+    ],
+    "timezone": "Etc/UTC",
+    "dependencyDashboard": true
+}

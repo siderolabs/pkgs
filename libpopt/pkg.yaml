@@ -5,10 +5,10 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      - url: http://ftp.rpm.org/popt/releases/popt-1.x/popt-1.18.tar.gz
+      - url: http://ftp.rpm.org/popt/releases/popt-1.x/popt-{{ .libpopt_version }}.tar.gz
         destination: popt.tar.gz
-        sha256: 5159bc03a20b28ce363aa96765f37df99ea4d8850b1ece17d1e6ad5c24fdc5d1
-        sha512: 86422e8762adda3d02d46c20ac74ffe389d4f991d552b6fea729f007345b6426cbeb71160284e2deaa2ce44ce754a9e6cf6ccbd64bff9bc2253df40cdc2f79a5
+        sha256: "{{ .libpopt_sha256 }}"
+        sha512: "{{ .libpopt_sha512 }}"
     prepare:
       - |
         tar -xzf popt.tar.gz --strip-components=1

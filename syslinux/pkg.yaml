@@ -6,10 +6,10 @@ dependencies:
   - stage: util-linux
 steps:
   - sources:
-      - url: https://www.kernel.org/pub/linux/utils/boot/syslinux/syslinux-6.03.tar.xz
+      - url: https://www.kernel.org/pub/linux/utils/boot/syslinux/syslinux-{{ .syslinux_version }}.tar.xz
         destination: syslinux.tar.xz
-        sha256: 26d3986d2bea109d5dc0e4f8c4822a459276cf021125e8c9f23c3cca5d8c850e
-        sha512: dd2b2916962b9e93bc1e714182e3ca2a727a229b8afabe913050bcfdd43ee2af51ee3acf79121d8c20caf434583efaa7f3196871e0e07c04d82191323a50fe31
+        sha256: "{{ .syslinux_sha256 }}"
+        sha512: "{{ .syslinux_sha512 }}"
     prepare:
       - |
         tar -xJf syslinux.tar.xz --strip-components=1

@@ -17,14 +17,14 @@ dependencies:
 steps:
   # {{ if eq .ARCH "aarch64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr restricting build to arm64 only
   - sources:
-      - url: https://github.com/ARM-software/arm-trusted-firmware/archive/v2.7.tar.gz
+      - url: https://github.com/ARM-software/arm-trusted-firmware/archive/{{ .arm_trusted_firmware_version }}.tar.gz
         destination: arm-trusted-firmware.tar.gz
-        sha256: 327c65b1bc231608a7a808b068b00c1a22310e9fc86158813cd10a9711d5725e
-        sha512: ff9bd87bf74653275ef9abdf2079974c214e13bd1861bdb3dc4240bdf7e972f3a91c8c6ef86e26afcffe51b29b856c8cf6ffb3d4150d7ccd6a4d3b696bb6f55f
-      - url: https://ftp.denx.de/pub/u-boot/u-boot-2022.04.tar.bz2
+        sha256: "{{ .arm_trusted_firmware_sha256 }}"
+        sha512: "{{ .arm_trusted_firmware_sha512 }}"
+      - url: https://ftp.denx.de/pub/u-boot/u-boot-{{ .uboot_version }}.tar.bz2
         destination: u-boot.tar.bz2
-        sha256: 68e065413926778e276ec3abd28bb32fa82abaa4a6898d570c1f48fbdb08bcd0
-        sha512: 113056e542db049eea3b1d1ccbbe52c79539a2f9bb6129d284ec9200dcffec7bd5969821913a9899631575b80991c84ad01bc845b4bba614e42e54466d9f0d64
+        sha256: "{{ .uboot_sha256 }}"
+        sha512: "{{ .uboot_sha512 }}"
     env:
       SUN50I_A64_ARM_TRUSTED_FIRMWARE: sun50i_a64_arm-trusted-firmware
       RPI_4_A64_ARM_TRUSTED_FIRMWARE: rpi_4_a64_arm-trusted-firmware

@@ -5,10 +5,10 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      - url: https://www.openssl.org/source/openssl-1.1.1q.tar.gz
+      - url: https://www.openssl.org/source/openssl-{{ .openssl_version | replace "_" "." }}.tar.gz
         destination: openssl.tar.gz
-        sha256: d7939ce614029cdff0b6c20f0e2e5703158a489a72b2507b8bd51bf8c8fd10ca
-        sha512: cb9f184ec4974a3423ef59c8ec86b6bf523d5b887da2087ae58c217249da3246896fdd6966ee9c13aea9e6306783365239197e9f742c508a0e35e5744e3e085f
+        sha256: "{{ .openssl_sha256 }}"
+        sha512: "{{ .openssl_sha512 }}"
     env:
       SOURCE_DATE_EPOCH: "1"
     prepare:

@@ -5,10 +5,10 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      - url: https://github.com/containernetworking/plugins/archive/refs/tags/v1.1.0.tar.gz
+      - url: https://github.com/containernetworking/plugins/archive/refs/tags/{{ .cni_version }}.tar.gz
         destination: cni-plugins.tar.gz
-        sha256: c256b996fd5a1a2aea0e46a1f322be01afae0899015f65d77863693feccd32a4
-        sha512: 43cfcb0225cbc85cc75205cefac75f852fccce1a71b0384fe1f989e64c37508fc3b87cbc05c6dac679aea8950c3cd4d328a616fa79b52474561c624164da0206
+        sha256: "{{ .cni_sha256 }}"
+        sha512: "{{ .cni_sha512 }}"
     env:
       GOPATH: /go
     prepare:

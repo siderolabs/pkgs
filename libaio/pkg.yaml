@@ -5,10 +5,10 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      - url: https://releases.pagure.org/libaio/libaio-0.3.112.tar.gz
+      - url: https://releases.pagure.org/libaio/libaio-{{ .libaio_version }}.tar.gz
         destination: libaio.tar.gz
-        sha256: ab0462f2c9d546683e5147b1ce9c195fe95d07fac5bf362f6c01637955c3b492
-        sha512: 5f984529c9f747a6c82f1e4457fc0832bb1fc299ae6e700f2ac5a8ea7b9bfc6ea1e75809728cc115a020cff6685ed1f4e38c6aeacc1ea98dfccce04dd19dafaa
+        sha256: "{{ .libaio_sha256 }}"
+        sha512: "{{ .libaio_sha512 }}"
     prepare:
       - |
         tar -xzf libaio.tar.gz --strip-components=1

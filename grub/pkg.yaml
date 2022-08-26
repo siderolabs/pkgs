@@ -6,10 +6,10 @@ dependencies:
   - stage: util-linux
 steps:
   - sources:
-      - url: https://ftp.gnu.org/gnu/grub/grub-2.06.tar.xz
+      - url: https://ftp.gnu.org/gnu/grub/grub-{{ .grub_version }}.tar.xz
         destination: grub.tar.xz
-        sha256: b79ea44af91b93d17cd3fe80bdae6ed43770678a9a5ae192ccea803ebb657ee1
-        sha512: 4f11c648f3078567e53fc0c74d5026fdc6da4be27d188975e79d9a4df817ade0fe5ad2ddd694238a07edc45adfa02943d83c57767dd51548102b375e529e8efe
+        sha256: "{{ .grub_sha256 }}"
+        sha512: "{{ .grub_sha512 }}"
     env: # disable any optimizations, as this breaks GRUB build
       CFLAGS: ""
       CXXFLAGS: ""

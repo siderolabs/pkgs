@@ -5,10 +5,10 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      - url: https://github.com/flannel-io/cni-plugin/archive/refs/tags/v1.1.0.tar.gz
+      - url: https://github.com/flannel-io/cni-plugin/archive/refs/tags/{{ .flannel_cni_version }}.tar.gz
         destination: flannel-cni.tar.gz
-        sha256: 2bd79d899e8a8b3f96bf267ed2d7d5a0da3df45d8581cbf8d9e8433692375ae7
-        sha512: e026bed01f8ac64b584d8c438ccc048df607b2e4832493335b2e266166acebf32f2b58c353bc2ecd3750d920e65a79afef7b28bf4a6405e2f461ab2c8cd953a7
+        sha256: "{{ .flannel_cni_sha256 }}"
+        sha512: "{{ .flannel_cni_sha512 }}"
     env:
       GOPATH: /go
     prepare:

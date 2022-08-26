@@ -11,10 +11,10 @@ dependencies:
   - stage: openssl
 steps:
   - sources:
-      - url: https://www.kernel.org/pub/linux/utils/cryptsetup/v2.3/cryptsetup-2.3.4.tar.gz
+      - url: https://www.kernel.org/pub/linux/utils/cryptsetup/v{{ regexReplaceAll ".\\d+$" .cryptsetup_version "${1}" }}/cryptsetup-{{ .cryptsetup_version }}.tar.gz
         destination: cryptsetup.tar.gz
-        sha256: 8bc16c0b1c987867f13f0f2114fc4182d92bc866d1f84bb725c2cb9bcc55bf93
-        sha512: a0a4981ca7294d6f0568bc9465e78ee1781ad73fe77e8daa0bbe67693534f02d3510e6fba9f76749b90ce7533bc9ac96dd27b73d733f8051e9560a3b4196ca3c
+        sha256: "{{ .cryptsetup_sha256 }}"
+        sha512: "{{ .cryptsetup_sha512 }}"
     env:
       PKG_CONFIG_PATH: /usr/lib/pkgconfig
     prepare:

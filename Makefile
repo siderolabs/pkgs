@@ -9,6 +9,10 @@ REGISTRY_AND_USERNAME := $(REGISTRY)/$(USERNAME)
 # git log ad5ad0a513b775e597c818b25476fc59ba3e4a8c --pretty=%ct
 SOURCE_DATE_EPOCH ?= "1559424892"
 
+# Sync bldr image with Pkgfile
+BLDR ?= docker run --rm --volume $(PWD):/tools --entrypoint=/bldr \
+	ghcr.io/siderolabs/bldr:v0.2.0-alpha.8-frontend graph --root=/tools
+
 BUILD := docker buildx build
 PLATFORM ?= linux/amd64,linux/arm64
 PROGRESS ?= auto
@@ -91,7 +95,7 @@ $(TARGETS) $(NONFREE_TARGETS):
 
 .PHONY: deps.png
 deps.png:
-	bldr graph | dot -Tpng > deps.png
+	@$(BLDR) graph | dot -Tpng > deps.png
 
 kernel-%: ## Updates the kernel configs: e.g. make kernel-olddefconfig; make kernel-menuconfig; etc.
 	for platform in $(subst $(,),$(space),$(PLATFORM)); do \

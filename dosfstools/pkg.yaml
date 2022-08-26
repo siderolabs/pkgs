@@ -5,10 +5,10 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      - url: https://github.com/dosfstools/dosfstools/releases/download/v4.2/dosfstools-4.2.tar.gz
+      - url: https://github.com/dosfstools/dosfstools/releases/download/v{{ .dosfstools_version }}/dosfstools-{{ .dosfstools_version }}.tar.gz
         destination: dosfstools.tar.gz
-        sha256: 64926eebf90092dca21b14259a5301b7b98e7b1943e8a201c7d726084809b527
-        sha512: 3cc0808edb4432428df8a67da4bb314fd1f27adc4a05754c1a492091741a7b6875ebd9f6a509cc4c5ad85643fc40395b6e0cadee548b25cc439cc9b725980156
+        sha256: "{{ .dosfstools_sha256 }}"
+        sha512: "{{ .dosfstools_sha512 }}"
     prepare:
       - |
         tar -xzf dosfstools.tar.gz --strip-components=1

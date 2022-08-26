@@ -8,10 +8,10 @@ dependencies:
   - stage: util-linux
 steps:
   - sources:
-      - url: https://mirrors.kernel.org/sourceware/lvm2/LVM2.2.03.10.tgz
+      - url: https://mirrors.kernel.org/sourceware/lvm2/LVM2.{{ .lvm2_version | replace "_" "." }}.tgz
         destination: lvm2.tar.gz
-        sha256: 5ad1645a480440892e35f31616682acba0dc204ed049635d2df3e5a5929d0ed0
-        sha512: 8678ae2f99739ccad0250f6f4b4b8e84520f2053835985a1ea9c80196a64df31a48858aebf983170c3dfcafecea83f2c6aa630ef73fd31dd84cf1627a1b421e4
+        sha256: "{{ .lvm2_sha256 }}"
+        sha512: "{{ .lvm2_sha512 }}"
     prepare:
       - |
         tar -xzf lvm2.tar.gz --strip-components=1
