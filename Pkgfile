@@ -41,7 +41,7 @@ vars:
   grub_sha256: b79ea44af91b93d17cd3fe80bdae6ed43770678a9a5ae192ccea803ebb657ee1
   grub_sha512: 4f11c648f3078567e53fc0c74d5026fdc6da4be27d188975e79d9a4df817ade0fe5ad2ddd694238a07edc45adfa02943d83c57767dd51548102b375e529e8efe
 
-  # renovate: datasource=github-releases extractVersion=^IPMITOOL_(?<version>.*)$ versioning=loose depName=ipmitool/ipmitool
+  # renovate: datasource=github-releases extractVersion=^IPMITOOL_(?<version>.*)$ depName=ipmitool/ipmitool
   ipmitool_version: 1_8_18
   ipmitool_sha256: 2bd79d899e8a8b3f96bf267ed2d7d5a0da3df45d8581cbf8d9e8433692375ae7
   ipmitool_sha512: e026bed01f8ac64b584d8c438ccc048df607b2e4832493335b2e266166acebf32f2b58c353bc2ecd3750d920e65a79afef7b28bf4a6405e2f461ab2c8cd953a7
@@ -53,6 +53,8 @@ vars:
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
   ipxe_ref: c5af41a6f5b5f4a420b3e539f9e3a8dc9f8dd03e
+  ipxe_sha256: 370ef608f6314fe53bef52f780288364aa446428eb774c1cd55c656b81fe23b8
+  ipxe_sha512: 4aa202b8b9489b217c8ef66b8cb3a8179689e98f2807024246d022eadc311f842855d19f20430bdbeb2358aca6ee7c9533d3f60456ba3b1681a8a22f31c2aa50
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
   linux_version: 5.15.63
@@ -104,7 +106,7 @@ vars:
   linux_firmware_sha256: 533ae621b3eacf6a4696dab52a9dbc5727403a175c413b1682ab3f9cfb37872f
   linux_firmware_sha512: 385d74206b5ab312bc787a460e77d908a383963bec407c2f144f83c6b5a813b2c1de9e6250ffb57aa80e0c328d1fbde96ead79f6da73eb84347660873c05ffe6
 
-  # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ versioning=loose depName=git://sourceware.org/git/lvm2.git
+  # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
   lvm2_version: 2_03_10
   lvm2_sha256: 5ad1645a480440892e35f31616682acba0dc204ed049635d2df3e5a5929d0ed0
   lvm2_sha512: 8678ae2f99739ccad0250f6f4b4b8e84520f2053835985a1ea9c80196a64df31a48858aebf983170c3dfcafecea83f2c6aa630ef73fd31dd84cf1627a1b421e4
@@ -145,12 +147,12 @@ vars:
   runc_sha256: 9f5972715dffb0b2371e4d678c1206cc8c4ec5eb80f2d48755d150bac49be35b
   runc_sha512: 73f7b266a2aaabf180bf99d04e96a171ef12cc3c3ff43189caff324f1e4ac127a646c3c15489801d48291d997de4c88384ae957a8af4a96b3e779bcb09bc58ac
 
-  # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ versioning=loose depName=git://repo.or.cz/socat.git
+  # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
   socat_version: 1.7.3.4
   socat_sha256: d9ed2075abed7b3ec9730ed729b4c8e287c502181c806d4487020418a6e2fc36
   socat_sha512: c5699fd1a703e90927076599d02323b85722d49e86bc2f627b4301a41d3df72c634af629f378425ff201cde78343da5cd0cad1044bf857665176c91357401fdd
 
-  # renovate: datasource=git-tags extractVersion=^syslinux-(?<version>.*)$ versioning=loose depName=git://git.kernel.org/pub/scm/boot/syslinux/syslinux.git
+  # renovate: datasource=git-tags extractVersion=^syslinux-(?<version>.*)$ depName=git://git.kernel.org/pub/scm/boot/syslinux/syslinux.git
   syslinux_version: 6.03
   syslinux_sha256: 26d3986d2bea109d5dc0e4f8c4822a459276cf021125e8c9f23c3cca5d8c850e
   syslinux_sha512: dd2b2916962b9e93bc1e714182e3ca2a727a229b8afabe913050bcfdd43ee2af51ee3acf79121d8c20caf434583efaa7f3196871e0e07c04d82191323a50fe31
@@ -160,7 +162,7 @@ vars:
   arm_trusted_firmware_sha256: 327c65b1bc231608a7a808b068b00c1a22310e9fc86158813cd10a9711d5725e
   arm_trusted_firmware_sha512: ff9bd87bf74653275ef9abdf2079974c214e13bd1861bdb3dc4240bdf7e972f3a91c8c6ef86e26afcffe51b29b856c8cf6ffb3d4150d7ccd6a4d3b696bb6f55f
 
-  # renovate: datasource=github-tags versioning=loose depName=u-boot/u-boot
+  # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=u-boot/u-boot
   uboot_version: 2022.04
   uboot_sha256: 68e065413926778e276ec3abd28bb32fa82abaa4a6898d570c1f48fbdb08bcd0
   uboot_sha512: 113056e542db049eea3b1d1ccbbe52c79539a2f9bb6129d284ec9200dcffec7bd5969821913a9899631575b80991c84ad01bc845b4bba614e42e54466d9f0d64

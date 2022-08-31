@@ -8,8 +8,8 @@ steps:
   - sources:
       - url: https://github.com/ipxe/ipxe/archive/{{ .ipxe_ref }}.tar.gz
         destination: ipxe.tar.gz
-        sha256: 370ef608f6314fe53bef52f780288364aa446428eb774c1cd55c656b81fe23b8
-        sha512: 4aa202b8b9489b217c8ef66b8cb3a8179689e98f2807024246d022eadc311f842855d19f20430bdbeb2358aca6ee7c9533d3f60456ba3b1681a8a22f31c2aa50
+        sha256: "{{ .ipxe_sha256 }}"
+        sha512: "{{ .ipxe_sha512 }}"
     env:
       IPXE_VERSION: 1.21.1+git+{{ substr 0 7 .ipxe_ref }}+sidero
     prepare:

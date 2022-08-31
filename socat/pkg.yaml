@@ -6,10 +6,10 @@ dependencies:
   - stage: openssl
 steps:
   - sources:
-      - url: http://www.dest-unreach.org/socat/download/socat-1.7.3.4.tar.gz
+      - url: http://www.dest-unreach.org/socat/download/socat-{{ .socat_version }}.tar.gz
         destination: socat.tar.gz
-        sha256: d9ed2075abed7b3ec9730ed729b4c8e287c502181c806d4487020418a6e2fc36
-        sha512: c5699fd1a703e90927076599d02323b85722d49e86bc2f627b4301a41d3df72c634af629f378425ff201cde78343da5cd0cad1044bf857665176c91357401fdd
+        sha256: "{{ .socat_sha256 }}"
+        sha512: "{{ .socat_sha512 }}"
     prepare:
       - |
         tar -xzf socat.tar.gz --strip-components=1
