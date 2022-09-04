@@ -38,6 +38,7 @@ TARGETS = \
 	eudev \
 	fhs \
 	flannel-cni \
+	gasket-driver-pkg \
 	grub \
 	ipmitool \
 	iptables \

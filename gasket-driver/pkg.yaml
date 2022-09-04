@@ -1,0 +1,37 @@
+name: gasket-driver-pkg
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: kernel-build
+steps:
+  - sources:
+      - url: https://github.com/google/gasket-driver/archive/{{ .gasket_driver_ref }}.tar.gz
+        destination: gasket-driver.tar.gz
+        sha256: "{{ .gasket_driver_sha256 }}"
+        sha512: "{{ .gasket_driver_sha512 }}"
+    env:
+      ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+    prepare:
+      - |
+        tar xf gasket-driver.tar.gz --strip-components=1
+    build:
+      - |
+        cd src
+        sed -i 's|/lib/modules/$(KVERSION)/build|/src|' ./Makefile
+        make all
+
+    install:
+      - |
+        mkdir -p /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+
+        # create these so we don't get warnings when depmod runs
+        touch /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/modules.builtin
+
+        make -C /src M=$(pwd)/src modules_install INSTALL_MOD_PATH=/rootfs
+    test:
+      - |
+        # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
+        find /rootfs/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
+finalize:
+  - from: /rootfs
+    to: /
