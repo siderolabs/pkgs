@@ -5,13 +5,14 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      - url: https://github.com/xz-mirror/xz/archive/refs/tags/{{ .xz_version }}.tar.gz
+      # redirect url of https://tukaani.org/xz/xz-{{ .xz_version }}.tar.xz
+      - url: https://onboardcloud.dl.sourceforge.net/project/lzmautils/xz-{{ .xz_version }}.tar.xz
         destination: xz.tar.xz
         sha256: "{{ .xz_sha256 }}"
         sha512: "{{ .xz_sha512 }}"
     prepare:
       - |
-        tar -xJf xz.tar.xz --strip-components=1
+        tar -xf xz.tar.xz --strip-components=1
 
         ./configure \
           --prefix=/usr \

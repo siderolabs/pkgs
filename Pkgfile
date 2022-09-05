@@ -81,10 +81,10 @@ vars:
   libjson_c_sha256: b8d80a1ddb718b3ba7492916237bbf86609e9709fb007e7f7d4322f02341a4c6
   libjson_c_sha512: dc01298bcc78f0f31a34f5fcfe45c0feebfd88518e97fb4f96f1a652f71ccdd303415a4c7bf5b573bdcbcca80428281f0dfccefc6545ea3a7f18dbb819332f34
 
-  # renovate: datasource=git-tags depName=https://git.tukaani.org/xz.git
-  xz_version: v5.2.4
-  xz_sha256: 9717ae363760dedf573dad241420c5fea86256b65bc21d2cf71b2b12f0544f4b
-  xz_sha512: 00db7dd31a61541b1ce6946e0f21106f418dd1ac3f27cdb8682979cbc3bd777cd6dd1f04f9ba257a0a7e24041e15ca40d0dd5c130380dce62280af67a0beb97f
+  # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://git.tukaani.org/xz.git
+  xz_version: 5.2.5
+  xz_sha256: 3e1e518ffc912f86608a8cb35e4bd41ad1aec210df2a47aaa1f95e7f5576ef56
+  xz_sha512: 59266068a51cb616eb31b67cd8f07ffeb2288d1391c61665ae2ec6814465afac80fec69248f6a2f2db45b44475af001296a99af6a32287226a9c41419173ccbb
 
   # renovate: datasource=github-releases extractVersion=^popt-(?<version>.*)-release$ versioning=loose depName=rpm-software-management/popt
   libpopt_version: 1.18
