@@ -17,6 +17,9 @@ steps:
         # Required by gperf.
         cp /toolchain/lib/libstdc++* /lib
 
+        mkdir -p /usr/bin \
+            && ln -sf /toolchain/bin/env /usr/bin/env
+
         autoreconf -f -i -s
 
         cat > config.cache << "EOF"

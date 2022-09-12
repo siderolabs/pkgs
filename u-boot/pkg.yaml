@@ -101,9 +101,9 @@ steps:
         mkdir ${ROCK_PI_4_RK3399_U_BOOT}
         tar -xjf u-boot.tar.bz2 --strip-components=1 -C ${ROCK_PI_4_RK3399_U_BOOT}
         cd ${ROCK_PI_4_RK3399_U_BOOT}
-        patch -p1 < /pkg/rockpi4/patches/board-rock-pi-4-enable-spi-flash.patch
-        patch -p1 < /pkg/rockpi4/patches/general-add-xtx-spi-nor-chips.patch
-        patch -p1 < /pkg/rockpi4/patches/enable-boot-from-spi-flash.patch
+        patch -p0 < /pkg/rockpi4/patches/board-rock-pi-4-enable-spi-flash.patch
+        patch -p0 < /pkg/rockpi4/patches/general-add-xtx-spi-nor-chips.patch
+        patch -p0 < /pkg/rockpi4/patches/enable-boot-from-spi-flash.patch
         make rock-pi-4-rk3399_defconfig
         sed -i "s/CONFIG_TOOLS_LIBCRYPTO=y/# CONFIG_TOOLS_LIBCRYPTO is not set/" .config
       # rock-pi-4c-rk3399
@@ -111,9 +111,9 @@ steps:
         mkdir ${ROCK_PI_4C_RK3399_U_BOOT}
         tar -xjf u-boot.tar.bz2 --strip-components=1 -C ${ROCK_PI_4C_RK3399_U_BOOT}
         cd ${ROCK_PI_4C_RK3399_U_BOOT}
-        patch -p1 < /pkg/rockpi4/patches/board-rock-pi-4-enable-spi-flash.patch
-        patch -p1 < /pkg/rockpi4/patches/general-add-xtx-spi-nor-chips.patch
-        patch -p1 < /pkg/rockpi4/patches/enable-boot-from-spi-flash.patch
+        patch -p0 < /pkg/rockpi4/patches/board-rock-pi-4-enable-spi-flash.patch
+        patch -p0 < /pkg/rockpi4/patches/general-add-xtx-spi-nor-chips.patch
+        patch -p0 < /pkg/rockpi4/patches/enable-boot-from-spi-flash.patch
         make rock-pi-4c-rk3399_defconfig
         sed -i "s/CONFIG_TOOLS_LIBCRYPTO=y/# CONFIG_TOOLS_LIBCRYPTO is not set/" .config
       # jetson nano
@@ -136,19 +136,28 @@ steps:
       - |
         cd ${SUN50I_A64_ARM_TRUSTED_FIRMWARE}
         make realclean
-        make -j $(nproc) PLAT=sun50i_a64 DEBUG=0 bl31
+        # https://salsa.debian.org/debian/arm-trusted-firmware/-/commit/6424a59e08585af7f8a56f1e16ecc6a6b9e4ad7a
+        # https://salsa.debian.org/debian/arm-trusted-firmware/-/commit/6ed8f61df3b07bb22a68a0fc189ec3b3f7b00dbd
+        # https://developer.trustedfirmware.org/T996
+        TF_LDFLAGS=--no-warn-rwx-segments CFLAGS=--param=min-pagesize=0 make -j PLAT=sun50i_a64 DEBUG=0 bl31
       # rk3328
       - |
         cd ${RK3328_ARM_TRUSTED_FIRMWARE}
         make realclean
-        make -j $(nproc) PLAT=rk3328 DEBUG=0 bl31
+        # https://salsa.debian.org/debian/arm-trusted-firmware/-/commit/6424a59e08585af7f8a56f1e16ecc6a6b9e4ad7a
+        # https://salsa.debian.org/debian/arm-trusted-firmware/-/commit/6ed8f61df3b07bb22a68a0fc189ec3b3f7b00dbd
+        # https://developer.trustedfirmware.org/T996
+        TF_LDFLAGS=--no-warn-rwx-segments CFLAGS=--param=min-pagesize=0 make -j $(nproc) PLAT=rk3328 DEBUG=0 bl31
       # rk3399
       - |
         cd ${RK3399_ARM_TRUSTED_FIRMWARE}
         make realclean
         mkdir -p $(pwd)/build/rk3399/release/
         cp -rf /pkg/rockpi4/m0 $(pwd)/build/rk3399/release/
-        make -j $(nproc) PLAT=rk3399 DEBUG=0 bl31
+        # https://salsa.debian.org/debian/arm-trusted-firmware/-/commit/6424a59e08585af7f8a56f1e16ecc6a6b9e4ad7a
+        # https://salsa.debian.org/debian/arm-trusted-firmware/-/commit/6ed8f61df3b07bb22a68a0fc189ec3b3f7b00dbd
+        # https://developer.trustedfirmware.org/T996
+        TF_LDFLAGS=--no-warn-rwx-segments CFLAGS=--param=min-pagesize=0 make -j $(nproc) PLAT=rk3399 DEBUG=0 bl31
       # libretech_all_h3_cc_h5
       - |
         export BL31=$(pwd)/${SUN50I_A64_ARM_TRUSTED_FIRMWARE}/build/sun50i_a64/release/bl31.bin
@@ -162,10 +171,11 @@ steps:
       # rpi_4_arm-trusted-firmware
       - |
         cd ${RPI_4_A64_ARM_TRUSTED_FIRMWARE}
-        # TODO: remove once ATF compiles fine on gcc 12
-        patch -p0 < /pkg/arm-trusted-firmware/patches/gcc-12-build-fix.patch
         make realclean
-        make -j $(nproc) PLAT=rpi4 DEBUG=0 bl31
+        # https://salsa.debian.org/debian/arm-trusted-firmware/-/commit/6424a59e08585af7f8a56f1e16ecc6a6b9e4ad7a
+        # https://salsa.debian.org/debian/arm-trusted-firmware/-/commit/6ed8f61df3b07bb22a68a0fc189ec3b3f7b00dbd
+        # https://developer.trustedfirmware.org/T996
+        TF_LDFLAGS=--no-warn-rwx-segments CFLAGS=--param=min-pagesize=0 make -j $(nproc) PLAT=rpi4 DEBUG=0 bl31
       # rpi_4
       - |
         cd ${RPI_ARM64_U_BOOT}

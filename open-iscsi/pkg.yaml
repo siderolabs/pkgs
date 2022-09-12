@@ -15,6 +15,11 @@ steps:
         sha512: "{{ .open_iscsi_sha512 }}"
     prepare:
       - |
+        mkdir -p /usr/bin \
+            && ln -sf /toolchain/bin/env /usr/bin/env \
+            && ln -sf /toolchain/bin/install /usr/bin/install \
+            && ln -sf /toolchain/bin/sed /usr/bin/sed
+
         tar -xzf open-iscsi.tar.gz --strip-components=1
 
         # Create symlinks for binaries required by libtoolize.

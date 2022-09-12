@@ -29,6 +29,10 @@ steps:
         touch /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/modules.builtin
 
         make -j $(nproc) modules_install SYSSRC=/src DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs
+    test:
+      - |
+        # https://askubuntu.com/questions/923620/how-to-list-drivers-kernel-modules-affected-by-secureboot verify modules are signed
+        find /rootfs/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
 finalize:
   - from: /rootfs
     to: /

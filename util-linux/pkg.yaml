@@ -5,7 +5,7 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      - url: https://www.kernel.org/pub/linux/utils/util-linux/v{{ .util_linux_version }}/util-linux-{{ .util_linux_version }}.tar.xz
+      - url: https://www.kernel.org/pub/linux/utils/util-linux/v{{ regexReplaceAll ".\\d+$" .util_linux_version "${1}" }}/util-linux-{{ .util_linux_version }}.tar.xz
         destination: util-linux.tar.xz
         sha256: "{{ .util_linux_sha256 }}"
         sha512: "{{ .util_linux_sha512 }}"

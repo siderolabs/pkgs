@@ -1,17 +1,21 @@
---- ./conf/example.conf.in.orig
-+++ ./conf/example.conf.in
-@@ -1352,7 +1352,7 @@
- 	# Use the old behavior of mlockall to pin all memory.
+diff --git conf/example.conf.in conf/example.conf.in
+index 94f7a23fd..eeb495763 100644
+--- conf/example.conf.in
++++ conf/example.conf.in
+@@ -1779,7 +1779,7 @@ activation {
  	# Prior to version 2.02.62, LVM used mlockall() to pin the whole
  	# process's memory while activating devices.
--	use_mlockall = 0
+ 	# This configuration option has an automatic default value.
+-	# use_mlockall = 0
 +	use_mlockall = 1
- 
+
  	# Configuration option activation/monitoring.
  	# Monitor LVs that are activated.
---- ./lib/config/defaults.h.orig
-+++ ./lib/config/defaults.h
-@@ -55,7 +55,7 @@
+diff --git lib/config/defaults.h lib/config/defaults.h
+index 3308b1ea6..8619b9b6b 100644
+--- lib/config/defaults.h
++++ lib/config/defaults.h
+@@ -66,7 +66,7 @@
  #define DEFAULT_LVMLOCKD_LOCK_RETRIES 3
  #define DEFAULT_LVMETAD_UPDATE_WAIT_TIME 10
  #define DEFAULT_PRIORITISE_WRITE_LOCKS 1

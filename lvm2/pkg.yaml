@@ -19,8 +19,6 @@ steps:
         patch -p0 < /pkg/patches/mallinfo.patch
         patch -p0 < /pkg/patches/fix-stdio-usage.patch
         patch -p0 < /pkg/patches/mlockall-default-config.patch
-        patch -p1 < /pkg/patches/disable-create_toolcontext-buffering.patch
-        patch -p1 < /pkg/patches/static-build.patch
 
         mkdir build
         cd build

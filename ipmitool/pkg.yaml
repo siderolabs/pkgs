@@ -6,17 +6,18 @@ dependencies:
   - stage: openssl
 steps:
   - sources:
-      - url: https://github.com/ipmitool/ipmitool/releases/download/IPMITOOL_{{ .ipmitool_version }}/ipmitool-{{ .ipmitool_version | replace "_" "." }}.tar.gz
+      - url: https://github.com/ipmitool/ipmitool/archive/refs/tags/IPMITOOL_{{ .ipmitool_version }}.tar.gz
         destination: ipmitool.tar.gz
-        sha256: e93fe5966d59e16bb4317c9c588cdf35d6100753a0ba957c493b064bcad52493
-        sha512: 970a3ea69a2a06bf4bb49b07ddea2d575d79afe163f742a53dd29331889d74411d412e7a2117f1964c416b147ad4dc4212dec1fc653521ce710ed1eb45a185a3
+        sha256: "{{ .ipmitool_sha256 }}"
+        sha512: "{{ .ipmitool_sha512 }}"
     prepare:
       - |
         tar -xzf ipmitool.tar.gz --strip-components=1
 
-        patch -p1 -i /pkg/patches/openssl-1.1.patch
-        patch -p1 -i /pkg/patches/7ccea283dd62a05a320c1921e3d8d71a87772637.patch
-        patch -p1 -i /pkg/patches/gcc-10.patch
+        mkdir -p /usr/bin \
+            && ln -sf /toolchain/bin/env /usr/bin/env
+
+        ./bootstrap
 
         mkdir build
         cd build

@@ -13,10 +13,12 @@ steps:
       - |
         tar -xjf iptables.tar.bz2 --strip-components=1
 
-        mkdir build
-        cd build
+        # iptables out of tree built needs more patches and running ./autogen.sh
+        # https://www.spinics.net/lists/netfilter-devel/msg76456.html
+        patch -p1 < /pkg/patches/fix-xtables.patch
+        patch -p1 < /pkg/patches/fix-u_int16_t.patch
 
-        ../configure \
+        ./configure \
         --prefix=/usr \
         --libexecdir=/usr/libexec \
         --disable-static \
@@ -26,11 +28,9 @@ steps:
         --with-xtlibdir=/lib/xtables
     build:
       - |
-        cd build
         make -j $(nproc)
     install:
       - |
-        cd build
         make install DESTDIR=/rootfs
 finalize:
   - from: /rootfs

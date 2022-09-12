@@ -23,6 +23,8 @@ steps:
 
         ./configure \
           --prefix=/usr \
+          --disable-asciidoc \
+          --disable-ssh-token \
           --enable-static-cryptsetup || (cat config.log; exit 1)
     build:
       - |

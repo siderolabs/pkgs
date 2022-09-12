@@ -11,7 +11,7 @@ SOURCE_DATE_EPOCH ?= "1559424892"
 
 # Sync bldr image with Pkgfile
 BLDR ?= docker run --rm --volume $(PWD):/tools --entrypoint=/bldr \
-	ghcr.io/siderolabs/bldr:v0.2.0-alpha.8-frontend graph --root=/tools
+	ghcr.io/siderolabs/bldr:v0.2.0-alpha.10 graph --root=/tools
 
 BUILD := docker buildx build
 PLATFORM ?= linux/amd64,linux/arm64
