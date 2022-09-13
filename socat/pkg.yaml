@@ -10,6 +10,8 @@ steps:
         destination: socat.tar.gz
         sha256: "{{ .socat_sha256 }}"
         sha512: "{{ .socat_sha512 }}"
+    env:
+      BUILD_DATE: "1"
     prepare:
       - |
         tar -xzf socat.tar.gz --strip-components=1

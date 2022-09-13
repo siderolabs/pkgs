@@ -33,6 +33,7 @@ vars:
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
   flannel_cni_version: v1.1.0
+  flannel_cni_ref: 6e8bb11373c7743a00571a52d4f27ce7c07256a1
   flannel_cni_sha256: 2bd79d899e8a8b3f96bf267ed2d7d5a0da3df45d8581cbf8d9e8433692375ae7
   flannel_cni_sha512: e026bed01f8ac64b584d8c438ccc048df607b2e4832493335b2e266166acebf32f2b58c353bc2ecd3750d920e65a79afef7b28bf4a6405e2f461ab2c8cd953a7
 
@@ -52,9 +53,9 @@ vars:
   iptables_sha512: f21df23279a77531a23f3fcb1b8f0f8ec0c726bda236dd0e33af74b06753baff6ce3f26fb9fcceb6fada560656ba901e68fc6452eb840ac1b206bc4654950f59
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: bc19aeca5f6c695ad3db0196057d155e4f64584e
-  ipxe_sha256: bbc951518c4eb3a35c07b09b6c029eeb6b2a110ae39e894511c0b78dd89700e7
-  ipxe_sha512: 8f2de95733b222a2192e35f9a4370ec094f814d9d2b6cf2bcd7db0241533ed20decf643f2711f57a6341fcb92a507b62cfd911e53c7725d746f8dabae54d89ef
+  ipxe_ref: 8f5fc161436a020ba65d07f91f62d34f4c22db61
+  ipxe_sha256: d98fd8fc997637b2b7292df00e73240a63693851fdaf95811c094c4b295bde20
+  ipxe_sha512: 8e1ef8948a1b0337fecd64bf73b06c012cf51fc6cf7f32ee39fc0f2671130e18ebee66271bc1c4451a201d1c931a2dc345172a6ce98e94151cf01fccd0115d71
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
   linux_version: 5.15.67
@@ -67,9 +68,9 @@ vars:
   kmod_sha512: e2cd34e600a72e44710760dfda9364b790b8352a99eafbd43e683e4a06f37e6b5c0b5d14e7c28070e30fc5fc6ceddedf7b97f3b6c2c5c2d91204fefd630b9a3e
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ versioning=loose depName=https://pagure.io/libaio.git
-  libaio_version: 0.3.112
-  libaio_sha256: ab0462f2c9d546683e5147b1ce9c195fe95d07fac5bf362f6c01637955c3b492
-  libaio_sha512: 5f984529c9f747a6c82f1e4457fc0832bb1fc299ae6e700f2ac5a8ea7b9bfc6ea1e75809728cc115a020cff6685ed1f4e38c6aeacc1ea98dfccce04dd19dafaa
+  libaio_version: 0.3.113
+  libaio_sha256: 2c44d1c5fd0d43752287c9ae1eb9c023f04ef848ea8d4aafa46e9aedb678200b
+  libaio_sha512: 65c30a102433bf8386581b03fc706d84bd341be249fbdee11a032b237a7b239e8c27413504fef15e2797b1acd67f752526637005889590ecb380e2e120ab0b71
 
   # renovate: datasource=github-releases extractVersion=^r(?<version>.*)$ versioning=loose depName=benhoyt/inih
   libinih_version: 56
@@ -102,9 +103,9 @@ vars:
   liburcu_sha512: e5097a7f653f51b3a47a09f79e7a153aab8fd22c0504a1127a9b33d093a9ae6a941b97c0fe175ee168e2976097aefdcdf8d5ce030afbe565c1b72f64d6f5b60a
 
   # renovate: datasource=git-tags versioning=loose depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20220815
-  linux_firmware_sha256: 5b053102645d23e5f070f0d3f3b1a538eb26b14778564c42dc6112e419233d2b
-  linux_firmware_sha512: 7d43482adfee0eec790e543a5401c256f06101a92cf50c16f0e895794ee4fffd0b094a1f8bff228ca872780c22a2b6c95e7df6e25f5e2a2e5aded622d04c5405
+  linux_firmware_version: 20220913
+  linux_firmware_sha256: 9cdc48bd2763f1a2d908a2860670658cf669544a270cb0928d6f9a6201584617
+  linux_firmware_sha512: 7e51ecf97319cd291609d7d8e741044359c4edeb40090796cd69a625bfee11a5e78f50352c698e47ca26ca998c57ed5400e0936429e9e6f7705c6886909b4385
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
   lvm2_version: 2_03_16
@@ -120,16 +121,6 @@ vars:
   nvidia_driver_version: 515.65.01
   nvidia_driver_sha256: 4eb71b093cdc5875242ddc6bb1858f619d257389a8f459762e51a0cf923374ee
   nvidia_driver_sha512: c2ff6fd02272b6981a65e7e14c6b636f0113e21da910898c27682f58e60fa8e6deea3670081c57e4961fb5e7794eef8eddb90d134ba1892536a8468c5dc9d669
-
-  # renovate: datasource=github-releases depName=open-iscsi/open-iscsi
-  open_iscsi_version: 2.1.7
-  open_iscsi_sha256: d96761e47a69f8214c5fbd251d844f37961b14c3e437b63a15cc64f5b8cba2f0
-  open_iscsi_sha512: 619c57b988c6972da09428b3a84ca375ca46653fbfca9cb61389c70a95871b665f93b75b8e6ff2aa993bdb89e2a078a188c0a7b45c3bf9c15a16b496e9ebc892
-
-  # renovate: datasource=github-releases versioning=loose depName=open-iscsi/open-isns
-  open_isns_version: v0.102
-  open_isns_sha256: 9611344733c0cdf14395f60880950ea4c3c7d6b765565b6493ad3e1afbe216de
-  open_isns_sha512: f5ae8af89b85565181c2f6def9834d9dab0a15d5d9b28721cce116c5580173ed9adba219e1ede48988cb57f047578db4ece458c4a7db598412c7583e56393d2b
 
   # renovate: datasource=git-tags extractVersion=^OpenSSL_(?<version>.*)$ versioning=loose depName=git://git.openssl.org/openssl.git
   openssl_version: 1_1_1q

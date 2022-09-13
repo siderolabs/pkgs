@@ -14,24 +14,23 @@ steps:
     prepare:
       - |
         export GOPATH=/go
-        mkdir -p ${GOPATH}/src/github.com/opencontainers/runc
+        mkdir -p runc
 
-        tar -xJf runc.tar.xz --strip-components=1 -C ${GOPATH}/src/github.com/opencontainers/runc
+        tar -xJf runc.tar.xz --strip-components=1 -C runc
     build:
       - |
         export GOPATH=/go
-        cd ${GOPATH}/src/github.com/opencontainers/runc
+        cd runc
 
         export PATH=${PATH}:/${TOOLCHAIN}/go/bin
         export PKG_CONFIG_PATH=/usr/lib/pkgconfig
         export CC=/toolchain/bin/cc
         # This is required due to "loadinternal: cannot find runtime/cgo".
         export CGO_ENABLED=1
-        make EXTRA_LDFLAGS="-w -s" BUILDTAGS="seccomp" COMMIT={{ .runc_ref }} runc
+        make EXTRA_LDFLAGS="-w -s -buildid=''" BUILDTAGS="seccomp" COMMIT={{ .runc_ref }} runc
     install:
       - |
-        export GOPATH=/go
-        cd ${GOPATH}/src/github.com/opencontainers/runc
+        cd runc
 
         mkdir -p /rootfs/bin
         mv runc /rootfs/bin/runc

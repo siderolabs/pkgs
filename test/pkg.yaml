@@ -1,0 +1,41 @@
+name: test
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+  - stage: ca-certificates
+  - stage: cni
+  - stage: containerd
+  - stage: cryptsetup
+  - stage: dosfstools
+  - stage: eudev
+  - stage: fhs
+  - stage: flannel-cni
+  - stage: grub
+  - stage: ipmitool
+  - stage: iptables
+  - stage: ipxe
+  # - stage: kernel
+  - stage: kmod
+  - stage: libaio
+  - stage: libinih
+  - stage: libjson-c
+  - stage: liblzma
+  - stage: libpopt
+  - stage: libseccomp
+  - stage: liburcu
+  - stage: linux-firmware
+  - stage: lvm2
+  - stage: musl
+  # - stage: nvidia-open-gpu-kernel-modules-pkg
+  - stage: openssl
+  - stage: raspberrypi-firmware
+  - stage: runc
+  - stage: socat
+  - stage: syslinux
+  - stage: u-boot
+  - stage: util-linux
+  - stage: xfsprogs
+finalize:
+  - from: /
+    to: /

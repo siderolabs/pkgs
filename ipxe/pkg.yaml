@@ -11,6 +11,7 @@ steps:
         sha256: "{{ .ipxe_sha256 }}"
         sha512: "{{ .ipxe_sha512 }}"
     env:
+      SOURCE_DATE_EPOCH: "1"
       IPXE_VERSION: 1.21.1+git+{{ substr 0 7 .ipxe_ref }}+sidero
     prepare:
       - |
