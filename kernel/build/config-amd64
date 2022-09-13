@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 5.15.67 Kernel Configuration
+# Linux/x86 5.15.68 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="gcc (GCC) 11.2.0"
 CONFIG_CC_IS_GCC=y
@@ -2426,7 +2426,7 @@ CONFIG_I40E=y
 # CONFIG_I40E_DCB is not set
 CONFIG_IAVF=y
 CONFIG_I40EVF=y
-# CONFIG_ICE is not set
+CONFIG_ICE=y
 # CONFIG_FM10K is not set
 CONFIG_IGC=y
 # CONFIG_JME is not set
@@ -4286,6 +4286,7 @@ CONFIG_INFINIBAND=y
 CONFIG_INFINIBAND_ADDR_TRANS=y
 CONFIG_INFINIBAND_VIRT_DMA=y
 # CONFIG_INFINIBAND_MTHCA is not set
+# CONFIG_INFINIBAND_IRDMA is not set
 # CONFIG_MLX4_INFINIBAND is not set
 # CONFIG_MLX5_INFINIBAND is not set
 # CONFIG_INFINIBAND_OCRDMA is not set
@@ -5465,6 +5466,8 @@ CONFIG_SBITMAP=y
 CONFIG_PARMAN=y
 CONFIG_OBJAGG=y
 # end of Library routines
+
+CONFIG_PLDMFW=y
 
 #
 # Kernel hacking
