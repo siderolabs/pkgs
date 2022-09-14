@@ -169,8 +169,8 @@ vars:
   util_linux_sha512: 07f11147f67dfc6c8bc766dfc83266054e6ede776feada0566b447d13276b6882ee85c6fe53e8d94a17c03332106fc0549deca3cf5f2e92dda554e9bc0551957
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
-  xfsprogs_version: 5.19.0
-  xfsprogs_sha256: 4b6c6c98c036a37f6d90c82cb7fe9405d3b5856d9345662032d01ff4b140592c
-  xfsprogs_sha512: 0b069cd44eb87052ee55ebffcce736ef103adeda539e854bd86d53942f541c07d74cc174f06a2221230eaa82b21d43327833492cd0ded577d442e1935a0abe7d
+  xfsprogs_version: 5.18.0
+  xfsprogs_sha256: 1e8d8801bdec8cd4cad360ce3bbd12c35a97f2bc8f7c8c9580d1903b0e8cc35b
+  xfsprogs_sha512: 47d035a33367edae7357e34c70bdb0fe9219231153fb4c4f418ed1462d137dd77338c12a199eb71cd70e88903e5fc11e1e4fb595c622183786e87346e2f65739
 labels:
   org.opencontainers.image.source: https://github.com/siderolabs/pkgs

@@ -38,6 +38,12 @@
         },
         {
             "matchPackageNames": [
+                "git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git"
+            ],
+            "allowedVersions": "< 5.19.0"
+        },
+        {
+            "matchPackageNames": [
                 "ipmitool/ipmitool",
                 "git://sourceware.org/git/lvm2.git"
             ],
