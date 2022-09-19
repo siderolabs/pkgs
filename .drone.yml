@@ -121,9 +121,10 @@ steps:
         - failure
 
 trigger:
-  status:
-    - success
-    - failure
+  branch:
+    exclude:
+      - renovate/*
+      - dependabot/*
 
 depends_on:
   - default
