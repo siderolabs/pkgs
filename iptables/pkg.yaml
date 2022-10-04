@@ -5,7 +5,7 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      - url: https://www.netfilter.org/pub/iptables/iptables-{{ .iptables_version }}.tar.bz2
+      - url: https://deb.debian.org/debian/pool/main/i/iptables/iptables_{{ .iptables_version }}.orig.tar.bz2
         destination: iptables.tar.bz2
         sha256: "{{ .iptables_sha256 }}"
         sha512: "{{ .iptables_sha512 }}"
