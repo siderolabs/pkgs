@@ -1,0 +1,44 @@
+Randstruct by default randomizes structures that consist entirely of
+function pointers, even if they are not explicitly labeled for
+randomization. efi_rng_protocol contains an anonymous structure that is
+affected by this implicit selection process. Randomization of this
+structure causes a data layout inconsistency between the kernel and the
+EFI. In this scenario the Arm64 boot process fails with the following
+output:
+    EFI stub: Booting Linux Kernel...
+    EFI stub: ERROR: efi_get_random_bytes() failed (0x8000000000000002)
+    EFI stub: Using DTB from configuration table
+    EFI stub: Loaded initrd from LINUX_EFI_INITRD_MEDIA_GUID device path
+    Synchronous Exception at 0x0000000081310C90
+    Synchronous Exception at 0x0000000081310C90
+
+efi_get_random_bytes() fails in handle_kernel_image (arm64-stub.c)
+because it uses an incorrect structure layout for efi_call_proto. Add
+the __no_randomize_layout annotation to the anonymous structure within
+efi_rng_protocol to prevent its randomization and resolve this issue.
+
+This patch was tested for the Arm64 architecture using QEMU. In
+addition to the current next branch of this subsystem, also minor
+versions 4.16 to 5.1, 5.5 and 5.6 were tested successfully with a
+(backported) version of this patch.
+
+Signed-off-by: Daniel Marth <daniel.marth@inso.tuwien.ac.at>
+---
+ drivers/firmware/efi/libstub/random.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/firmware/efi/libstub/random.c b/drivers/firmware/efi/libstub/random.c
+index 24aa37535372..54fa980cf1af 100644
+--- a/drivers/firmware/efi/libstub/random.c
++++ b/drivers/firmware/efi/libstub/random.c
+@@ -18,7 +18,7 @@ union efi_rng_protocol {
+ 		efi_status_t (__efiapi *get_rng)(efi_rng_protocol_t *,
+ 						 efi_guid_t *, unsigned long,
+ 						 u8 *out);
+-	};
++	} __no_randomize_layout;
+ 	struct {
+ 		u32 get_info;
+ 		u32 get_rng;
+--
+2.37.2
