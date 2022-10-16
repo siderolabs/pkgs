@@ -35,6 +35,7 @@ TARGETS = \
 	containerd \
 	cryptsetup \
 	dosfstools \
+	drbd \
 	eudev \
 	fhs \
 	flannel-cni \
