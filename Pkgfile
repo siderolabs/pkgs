@@ -113,7 +113,7 @@ vars:
   liburcu_sha512: e5097a7f653f51b3a47a09f79e7a153aab8fd22c0504a1127a9b33d093a9ae6a941b97c0fe175ee168e2976097aefdcdf8d5ce030afbe565c1b72f64d6f5b60a
 
   # renovate: datasource=git-tags versioning=loose depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20220913
+  linux_firmware_version: 20221012
   linux_firmware_sha256: 9cdc48bd2763f1a2d908a2860670658cf669544a270cb0928d6f9a6201584617
   linux_firmware_sha512: 7e51ecf97319cd291609d7d8e741044359c4edeb40090796cd69a625bfee11a5e78f50352c698e47ca26ca998c57ed5400e0936429e9e6f7705c6886909b4385
 
