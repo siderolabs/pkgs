@@ -1,4 +1,4 @@
-name: drbd
+name: drbd-pkg
 variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
