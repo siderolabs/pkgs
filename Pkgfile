@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.3.0-alpha.0-19-g6402b99
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.3.0-alpha.0-20-g3b5f89a
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.1.1
@@ -68,9 +68,9 @@ vars:
   ipxe_sha512: ae66af9680e6e129b5596423adef91df1365c873702c222f5c3c26704c88f0d4500d32fb34d16757fdb12e4b9ecc414fc2252a5e3f0be7bda234cea61921ce45
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 5.15.73
-  linux_sha256: a822f09525ae8803453939a91e73f18097a3ba2aec73be4fe9ab314a0131715d
-  linux_sha512: d32f8503c676c713211c5818eccceaf37e6f78ca0bf6269b194eafcf515b2fa6238656165d165946a758ca86d9e60c389c23d05e3c85fd6716003e5f19d05f6d
+  linux_version: 5.15.74
+  linux_sha256: 2c1539a2f85b835c36c4a07c8270b52b0bec38fdda7339477d07f0c3af8c4265
+  linux_sha512: fe65228eacf7ed9ccbcd96c84a11d5f9c62aee9eefaf7cdbc05bac2d700a4356a8a856d4d756358c28068505903ea419fc03a12a5add1a5890c9adf61fe80b80
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ versioning=loose depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 30
@@ -113,9 +113,9 @@ vars:
   liburcu_sha512: e5097a7f653f51b3a47a09f79e7a153aab8fd22c0504a1127a9b33d093a9ae6a941b97c0fe175ee168e2976097aefdcdf8d5ce030afbe565c1b72f64d6f5b60a
 
   # renovate: datasource=git-tags versioning=loose depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20220913
-  linux_firmware_sha256: 9cdc48bd2763f1a2d908a2860670658cf669544a270cb0928d6f9a6201584617
-  linux_firmware_sha512: 7e51ecf97319cd291609d7d8e741044359c4edeb40090796cd69a625bfee11a5e78f50352c698e47ca26ca998c57ed5400e0936429e9e6f7705c6886909b4385
+  linux_firmware_version: 20221012
+  linux_firmware_sha256: dacb1ba79754c1804feb862c4a012a7a33d419f92d4a80e4b5cafee9301a732a
+  linux_firmware_sha512: b13810115bfcd28ecbebb0356d448eba0cbc0d5056554987fc3ba47608afdb5a7732dd5c1b83c48df25fb0353e828a52468ed043e87e8a74fe06c6e9c3307bd7
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
   lvm2_version: 2_03_16
@@ -133,9 +133,9 @@ vars:
   nvidia_driver_sha512: c2ff6fd02272b6981a65e7e14c6b636f0113e21da910898c27682f58e60fa8e6deea3670081c57e4961fb5e7794eef8eddb90d134ba1892536a8468c5dc9d669
 
   # renovate: datasource=git-tags extractVersion=^OpenSSL_(?<version>.*)$ versioning=loose depName=git://git.openssl.org/openssl.git
-  openssl_version: 1_1_1r
-  openssl_sha256: e389352ae3d5ae4d38597bf8a54f1dcb6fb3c8b50f4fe58a94bb1bf7f85d82a0
-  openssl_sha512: 73577707f7846af3c53606cb7590872306ba2bce331dc64692acb6d998a95982221dd39948f5f4ef7430897c0430bc61410983c5bac0f8dd88f2d9dbbc305fae
+  openssl_version: 1_1_1q
+  openssl_sha256: d7939ce614029cdff0b6c20f0e2e5703158a489a72b2507b8bd51bf8c8fd10ca
+  openssl_sha512: cb9f184ec4974a3423ef59c8ec86b6bf523d5b887da2087ae58c217249da3246896fdd6966ee9c13aea9e6306783365239197e9f742c508a0e35e5744e3e085f
 
   # renovate: datasource=github-tags versioning=loose depName=raspberrypi/firmware
   raspberrypi_firmware_version: 1.20220830
