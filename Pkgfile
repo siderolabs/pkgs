@@ -11,10 +11,10 @@ vars:
   cni_sha512: 03da31caee5f9595abf65d4a551984b995bc18c5e97409549f08997c5a6a2b41a8950144f8a5b4f810cb401ddbe312232d2be76ec977acf8108eb490786b1817
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v1.6.8
-  containerd_ref: 9cd3357b7fd7218e4aec3eae239db1f68a5a6ec6
-  containerd_sha256: f5f938513c28377f64f85e84f2750d39f26b01262f3a062b7e8ce35b560ca407
-  containerd_sha512: c204c028cdfd76537d1da01c66526fc85b29b02d2412569bb9b265375603614b037356c61846025a72281398f0f46df326a5ea3df97f57901cce85f2f728f0ba
+  containerd_version: v1.6.9
+  containerd_ref: 1c90a442489720eec95342e1789ee8a5e1b9536f
+  containerd_sha256: a034b2273533207d5d96bef8bd3fce1efff85139815efb756d90c705ae1a05ce
+  containerd_sha512: fabe29103c431fb02ba55342e7cd3d41865803389b941fca9fea4449180d4dbc8eafafd6a8a1174997a7cd3bc2b6111960ccf51042792809b145ea500a534f53
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
   cryptsetup_version: 2.5.0
@@ -27,9 +27,9 @@ vars:
   dosfstools_sha512: 3cc0808edb4432428df8a67da4bb314fd1f27adc4a05754c1a492091741a7b6875ebd9f6a509cc4c5ad85643fc40395b6e0cadee548b25cc439cc9b725980156
 
   # renovate: datasource=github-tags extractVersion=^drbd-(?<version>.*)$ depName=LINBIT/drbd
-  drbd_version: 9.1.8
-  drbd_sha256: 6742fbcedac0c75d84a4bcea3832723c98e7d515824a431108ec9d82d58cdee3
-  drbd_sha512: da5aed1ab98b819cc0cf8b4e27be93fedfc91d06eb43e968ca317f3460d2a51a9a8c64b86b326fe090cc65a4347fbfbdd7f498fcecc1db3a92fdf828b4086242
+  drbd_version: 9.2.0
+  drbd_sha256: ad7fbaf9a5b9bebd3501e526c1304e18a47c57c946de2b7af663b82122a101ca
+  drbd_sha512: e53bd3001bf77ad81626694f6137c4748cb5467edd1e77889f04b949ae7318c8c966e4fcfce759e99f44ce23b09e2dfda45516a28a3f8663a925643729eb4954
 
   # renovate: datasource=github-releases depName=eudev-project/eudev
   eudev_version: v3.2.11
@@ -63,9 +63,9 @@ vars:
   iptables_sha512: f21df23279a77531a23f3fcb1b8f0f8ec0c726bda236dd0e33af74b06753baff6ce3f26fb9fcceb6fada560656ba901e68fc6452eb840ac1b206bc4654950f59
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 6b2c94d3a7d93a8fc47fcb0b895477d4dafca5f0
-  ipxe_sha256: b148fb1e24cc0174dd0610e7962ce7152ed5005d4bd0d98807b4053e5b640e56
-  ipxe_sha512: ae66af9680e6e129b5596423adef91df1365c873702c222f5c3c26704c88f0d4500d32fb34d16757fdb12e4b9ecc414fc2252a5e3f0be7bda234cea61921ce45
+  ipxe_ref: 2c78242732765be200f81a84cc95037ba2924e42
+  ipxe_sha256: 4064c18514c1a80727b0a7c99a80b4242015225564880ebec1001fcff7b66040
+  ipxe_sha512: d41b3e9c5edf21d262b078376afcd8370807cb3ff9ebdd8d0ff8f017cc2c6659d932b1c91b306e51b21428c71d42a72a80cc9f22a4493cdb0eca914f69fec2ae
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
   linux_version: 5.15.74
