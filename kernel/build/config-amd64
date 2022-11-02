@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 5.15.74 Kernel Configuration
+# Linux/x86 5.15.76 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="gcc (GCC) 12.2.0"
 CONFIG_CC_IS_GCC=y
@@ -5125,6 +5125,7 @@ CONFIG_GCC_PLUGIN_STRUCTLEAK=y
 # Memory initialization
 #
 CONFIG_CC_HAS_AUTO_VAR_INIT_PATTERN=y
+CONFIG_CC_HAS_AUTO_VAR_INIT_ZERO_BARE=y
 CONFIG_CC_HAS_AUTO_VAR_INIT_ZERO=y
 # CONFIG_INIT_STACK_NONE is not set
 # CONFIG_GCC_PLUGIN_STRUCTLEAK_USER is not set
@@ -5504,6 +5505,8 @@ CONFIG_MESSAGE_LOGLEVEL_DEFAULT=4
 CONFIG_SYMBOLIC_ERRNAME=y
 CONFIG_DEBUG_BUGVERBOSE=y
 # end of printk and dmesg options
+
+CONFIG_AS_HAS_NON_CONST_LEB128=y
 
 #
 # Compile-time checks and compiler options

@@ -16,9 +16,8 @@ steps:
       - |
         tar -xzf socat.tar.gz --strip-components=1
 
-        # Just like Solaris, musl doesn't have getprotobynumber_r.
-        # Setting the configure variable to 2 ensures it isn't used.
-        sc_cv_getprotobynumber_r=2 \
+        patch -p1 < /pkg/patches/use-linux-headers.patch
+
         ./configure \
             --prefix=/usr
     build:

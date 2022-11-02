@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.3.0-alpha.0-20-g3b5f89a
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.3.0-alpha.0-21-ge8f92b3
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.1.1
@@ -37,10 +37,10 @@ vars:
   eudev_sha512: 17b328365913af3e434abe667dd0498c3702a41c6cb66f3793ca2c195b05ac06397b0a401077f81df7dd25193e4eeea13657a221ca6cb3d237c4d91e31e30b33
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
-  flannel_cni_version: v1.1.0
-  flannel_cni_ref: 6e8bb11373c7743a00571a52d4f27ce7c07256a1
-  flannel_cni_sha256: 2bd79d899e8a8b3f96bf267ed2d7d5a0da3df45d8581cbf8d9e8433692375ae7
-  flannel_cni_sha512: e026bed01f8ac64b584d8c438ccc048df607b2e4832493335b2e266166acebf32f2b58c353bc2ecd3750d920e65a79afef7b28bf4a6405e2f461ab2c8cd953a7
+  flannel_cni_version: v1.2.0
+  flannel_cni_ref: 81fe81e1fd8faf6315033ee9a44137afabbd2ad7
+  flannel_cni_sha256: 99c0879c741df266122b822fc3559430cb326ac875a4267857304bba11ec3c20
+  flannel_cni_sha512: d810df3ca0b5c4dba4de7b00c256bb285fcf97302664155bb179ef5a33f34906ad58c9abcd7238dee94abf213959d1c76ed7e878204af27f82dc7c48cf3a2412
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/google/gasket-driver.git
   gasket_driver_ref: 97aeba584efd18983850c36dcf7384b0185284b3
@@ -63,14 +63,14 @@ vars:
   iptables_sha512: f21df23279a77531a23f3fcb1b8f0f8ec0c726bda236dd0e33af74b06753baff6ce3f26fb9fcceb6fada560656ba901e68fc6452eb840ac1b206bc4654950f59
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 2c78242732765be200f81a84cc95037ba2924e42
-  ipxe_sha256: 4064c18514c1a80727b0a7c99a80b4242015225564880ebec1001fcff7b66040
-  ipxe_sha512: d41b3e9c5edf21d262b078376afcd8370807cb3ff9ebdd8d0ff8f017cc2c6659d932b1c91b306e51b21428c71d42a72a80cc9f22a4493cdb0eca914f69fec2ae
+  ipxe_ref: f48b01cb016921cf0f58bd6be676c17042923719
+  ipxe_sha256: f81d6380422b1a64084b4149f1d6e97c75edd541af90fa1063baa505dcf73106
+  ipxe_sha512: 53aa4c5c8db5a7b83ba6b2f965d98706900f520748cb53b4f260e25425ce50b6fb8e0fa81c3468db792455edd10205bd4573982cec75e9e8e5108f22c9664259
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 5.15.74
-  linux_sha256: 2c1539a2f85b835c36c4a07c8270b52b0bec38fdda7339477d07f0c3af8c4265
-  linux_sha512: fe65228eacf7ed9ccbcd96c84a11d5f9c62aee9eefaf7cdbc05bac2d700a4356a8a856d4d756358c28068505903ea419fc03a12a5add1a5890c9adf61fe80b80
+  linux_version: 5.15.76
+  linux_sha256: 9007a020c419e3625b980e361be09f70ebd99e156ccb66129a981483d065d57f
+  linux_sha512: de8466371030827acbe44d8e62b0322f86cbcf13ea90f9540439798ad8bc730f2bd63f62b031eec2002401c81756d6e0a83070e079285e89d416a9360eb328b1
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ versioning=loose depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 30
@@ -133,14 +133,14 @@ vars:
   nvidia_driver_sha512: c2ff6fd02272b6981a65e7e14c6b636f0113e21da910898c27682f58e60fa8e6deea3670081c57e4961fb5e7794eef8eddb90d134ba1892536a8468c5dc9d669
 
   # renovate: datasource=git-tags extractVersion=^OpenSSL_(?<version>.*)$ versioning=loose depName=git://git.openssl.org/openssl.git
-  openssl_version: 1_1_1q
-  openssl_sha256: d7939ce614029cdff0b6c20f0e2e5703158a489a72b2507b8bd51bf8c8fd10ca
-  openssl_sha512: cb9f184ec4974a3423ef59c8ec86b6bf523d5b887da2087ae58c217249da3246896fdd6966ee9c13aea9e6306783365239197e9f742c508a0e35e5744e3e085f
+  openssl_version: 1_1_1s
+  openssl_sha256: c5ac01e760ee6ff0dab61d6b2bbd30146724d063eb322180c6f18a6f74e4b6aa
+  openssl_sha512: 2ef983f166b5e1bf456ca37938e7e39d58d4cd85e9fc4b5174a05f5c37cc5ad89c3a9af97a6919bcaab128a8a92e4bdc8a045e5d9156d90768da8f73ac67c5b9
 
   # renovate: datasource=github-tags versioning=loose depName=raspberrypi/firmware
-  raspberrypi_firmware_version: 1.20220830
-  raspberrypi_firmware_sha256: fcfa24ce0ea26c60d1a140d4220cb803269c38235a08e2b004f458d4692cb97f
-  raspberrypi_firmware_sha512: 9f5682254bf2596556b8759dd7b6ab1292ba6a28bf582f100682a1f14a03b43ac6ece654392e7a17f27db3940e8073b9e8645bd66aba8504a820fc29a3a1c500
+  raspberrypi_firmware_version: 1.20221028
+  raspberrypi_firmware_sha256: d9c345269de950e0ebad945af0065269bd3ce7ea1998730d6b7d3b647444764e
+  raspberrypi_firmware_sha512: fe98c3094e4ca78f6dc4c37c0a39ec597ca86b7706b63865123b67fd71ffefe3646e35b509b93339afa90e8ae75fbc94ccfe19ef433ddb151385804105bb9dbd
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.1.4
@@ -149,9 +149,9 @@ vars:
   runc_sha512: 73f7b266a2aaabf180bf99d04e96a171ef12cc3c3ff43189caff324f1e4ac127a646c3c15489801d48291d997de4c88384ae957a8af4a96b3e779bcb09bc58ac
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
-  socat_version: 1.7.4.3
-  socat_sha256: d697245144731423ddbbceacabbd29447089ea223e9a439b28f9ff90d0dd216e
-  socat_sha512: 81cb34c245052b6a0ae38a711591358460b6070957af4a9eeb11a3cadb4aff184eeaedabbc7ecdc7fdf21a6126c06f90f19b24a87ce74b30bfd60a3879181046
+  socat_version: 1.7.4.4
+  socat_sha256: 0f8f4b9d5c60b8c53d17b60d79ababc4a0f51b3bb6d2bd3ae8a6a4b9d68f195e
+  socat_sha512: 709fd393642d4249152d75add4d489ea76e6118c9e6740e796f029e8c5ddd4f5c9218d587977fc57ada640f635a996cbbe4055275236a169881bb2be1d3e5df9
 
   # renovate: datasource=git-tags extractVersion=^syslinux-(?<version>.*)$ depName=git://git.kernel.org/pub/scm/boot/syslinux/syslinux.git
   syslinux_version: 6.03
