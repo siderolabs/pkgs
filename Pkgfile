@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.3.0-alpha.0-22-g5776dd8
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.3.0-alpha.0-23-gdf6813e
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.1.1
@@ -11,10 +11,10 @@ vars:
   cni_sha512: 03da31caee5f9595abf65d4a551984b995bc18c5e97409549f08997c5a6a2b41a8950144f8a5b4f810cb401ddbe312232d2be76ec977acf8108eb490786b1817
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v1.6.9
-  containerd_ref: 1c90a442489720eec95342e1789ee8a5e1b9536f
-  containerd_sha256: a034b2273533207d5d96bef8bd3fce1efff85139815efb756d90c705ae1a05ce
-  containerd_sha512: fabe29103c431fb02ba55342e7cd3d41865803389b941fca9fea4449180d4dbc8eafafd6a8a1174997a7cd3bc2b6111960ccf51042792809b145ea500a534f53
+  containerd_version: v1.6.10
+  containerd_ref: 770bd0108c32f3fb5c73ae1264f7e503fe7b2661
+  containerd_sha256: 57be0d7b448abc83f2d1e0045864ffec83e6afa0c7e54548b50d67152686745e
+  containerd_sha512: 02312a8d127b523944e9583433ec87cdc1fc30988b107a8d83438985a010b06c57e93017adb4fcf9db6ec80c1e28327101d7496d63d3832ea9cbfe54d17e3a6c
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
   cryptsetup_version: 2.5.0
@@ -63,14 +63,14 @@ vars:
   iptables_sha512: f21df23279a77531a23f3fcb1b8f0f8ec0c726bda236dd0e33af74b06753baff6ce3f26fb9fcceb6fada560656ba901e68fc6452eb840ac1b206bc4654950f59
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: f48b01cb016921cf0f58bd6be676c17042923719
-  ipxe_sha256: f81d6380422b1a64084b4149f1d6e97c75edd541af90fa1063baa505dcf73106
-  ipxe_sha512: 53aa4c5c8db5a7b83ba6b2f965d98706900f520748cb53b4f260e25425ce50b6fb8e0fa81c3468db792455edd10205bd4573982cec75e9e8e5108f22c9664259
+  ipxe_ref: 563bff472276b25a6788abc3c916cda65e7ceead
+  ipxe_sha256: 7d8b70b1400589bec84bccba82b51d70b2136e0c5f2463304f076ccf56a346d9
+  ipxe_sha512: 2ab64a3f61ef65f7f202751f2c2bb3cf4c335ff4ce9336b5317f4d19e6e8367c1da3703e18f65307fecbf602b5351a39de5b231f6a414c657458f49234da8160
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 5.15.77
-  linux_sha256: 142f841f33796a84c62fae2f2b96d2120bd8bbf9e0aac4ce157692cdb0afe9f9
-  linux_sha512: 3b557ad399606deb2e00077da7c57af534ff5bd395297db534a9c643ff6e95b29b315d15bcb453255875785264347949a7e52ef3a676b7dd12db10764a6a5646
+  linux_version: 5.15.79
+  linux_sha256: cba39031dbc0eed0785b8afdc8c58cf23df83e47001b2354fa44486ae699c154
+  linux_sha512: 5583f5fda70b2abe42212b254fe069f645845a0d664a806435acb898f87470ed25f6591810a406840a5a85479061aea6ed991cdfed29ca540b567d025e5d1326
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ versioning=loose depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 30
@@ -93,9 +93,9 @@ vars:
   libjson_c_sha512: 255cff99033340b2c2678255d41dae7808f83ed0c102e693d2d9e186bd1f21dd1385fcaa360c0fc087a00965a9567fbda733370e6b518a9be2f1bb0a80439151
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://git.tukaani.org/xz.git
-  xz_version: 5.2.7
-  xz_sha256: 8712e9acb0b6b49a97d443458a3067dc5c08a025e02dc5f773176c51dd7cfc69
-  xz_sha512: 81955e136832a21fdbde2158a36a0c3c0db413ddf9b4b69bab9c58e7a500dc426c99799a2563e1412c287a392d8f9cb1e58595ad5c2d3731519c3f91688b65a1
+  xz_version: v5.2.8
+  xz_sha256: ec5cda9f0b91336ab1b881d3d144e8203fcca604e607caca8ae678ddbc29207d
+  xz_sha512: aaba9e4dfabc1ccb66b92f5930ca07219089c7c02396be80bd727073f90c824d2698f7aaaf156b881fdc6750da993e8a6289929d71225df8327bc3beed5cdee1
 
   # renovate: datasource=github-releases extractVersion=^popt-(?<version>.*)-release$ versioning=loose depName=rpm-software-management/popt
   libpopt_version: 1.19
@@ -113,14 +113,14 @@ vars:
   liburcu_sha512: e5097a7f653f51b3a47a09f79e7a153aab8fd22c0504a1127a9b33d093a9ae6a941b97c0fe175ee168e2976097aefdcdf8d5ce030afbe565c1b72f64d6f5b60a
 
   # renovate: datasource=git-tags versioning=loose depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20221012
-  linux_firmware_sha256: dacb1ba79754c1804feb862c4a012a7a33d419f92d4a80e4b5cafee9301a732a
-  linux_firmware_sha512: b13810115bfcd28ecbebb0356d448eba0cbc0d5056554987fc3ba47608afdb5a7732dd5c1b83c48df25fb0353e828a52468ed043e87e8a74fe06c6e9c3307bd7
+  linux_firmware_version: 20221109
+  linux_firmware_sha256: c23299426d190986ba6eb52a3b22c4e4383b3a055903ff3967fb17afad3edb9b
+  linux_firmware_sha512: 5cd690b06f052c1c7ae235fdf0d20d59fb6f663a723d0b11ef40e7ebfb1b3eba6146e028301700151281f15921b65f986c1ea5145772b8facab34d1bdaa18dce
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
-  lvm2_version: 2_03_16
-  lvm2_sha256: e661ece15b5d88d8abe39a4c1e1db2f43e1896f019948bb98b0e15d777680786
-  lvm2_sha512: 084ba4080537359458db936637fc7f83bb9bfcf2de9f3660882551b5c31c7e9900c7d381b238ce1bb7629942c740c121f0dea5e404c302d31ed028b5c65efaa5
+  lvm2_version: 2_03_17
+  lvm2_sha256: 7286cfa9651828c589389509546333b8da965dfa84a1a4c8ab3e681a47fabae7
+  lvm2_sha512: ce9f4c10a7e89b397fa021098976117c062227da4f25996296dd3678c0aeb826edf9b7e4f5d3992f42156865ae47cb98671ec37a26868710174a473b42cc70a9
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.musl-libc.org/musl
   musl_version: 1.2.3
@@ -138,9 +138,9 @@ vars:
   openssl_sha512: 2ef983f166b5e1bf456ca37938e7e39d58d4cd85e9fc4b5174a05f5c37cc5ad89c3a9af97a6919bcaab128a8a92e4bdc8a045e5d9156d90768da8f73ac67c5b9
 
   # renovate: datasource=github-tags versioning=loose depName=raspberrypi/firmware
-  raspberrypi_firmware_version: 1.20221028
-  raspberrypi_firmware_sha256: d9c345269de950e0ebad945af0065269bd3ce7ea1998730d6b7d3b647444764e
-  raspberrypi_firmware_sha512: fe98c3094e4ca78f6dc4c37c0a39ec597ca86b7706b63865123b67fd71ffefe3646e35b509b93339afa90e8ae75fbc94ccfe19ef433ddb151385804105bb9dbd
+  raspberrypi_firmware_version: 1.20221104
+  raspberrypi_firmware_sha256: b6759e64fc9d7bd386e161970df2da294fe356864a2ade497d67a207d7933f05
+  raspberrypi_firmware_sha512: 6662f3fdeffbf98819dd57d1c3d8571d7c8bd7d69a8eb5e38823e4ef2857ebfa4e550735f9488e10719a261a0cdcb99cb7f3fb765d674459d42737f4e2cfd357
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.1.4

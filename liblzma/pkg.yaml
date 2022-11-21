@@ -6,7 +6,7 @@ dependencies:
 steps:
   - sources:
       # redirect url of https://tukaani.org/xz/xz-{{ .xz_version }}.tar.xz
-      - url: https://onboardcloud.dl.sourceforge.net/project/lzmautils/xz-{{ .xz_version }}.tar.xz
+      - url: https://tukaani.org/xz/xz-{{ .xz_version | replace "v" "" }}.tar.gz
         destination: xz.tar.xz
         sha256: "{{ .xz_sha256 }}"
         sha512: "{{ .xz_sha512 }}"

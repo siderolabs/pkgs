@@ -16,16 +16,13 @@ steps:
       - |
         tar -xzf lvm2.tar.gz --strip-components=1
 
-        patch -p0 < /pkg/patches/mallinfo.patch
+        patch -p1 < /pkg/patches/includes.patch
         patch -p0 < /pkg/patches/fix-stdio-usage.patch
         patch -p0 < /pkg/patches/mlockall-default-config.patch
 
-        mkdir build
-        cd build
-
         export PKG_CONFIG_PATH=/usr/lib/pkgconfig
 
-        ../configure \
+        ./configure \
              --with-thin=none \
              --with-cache=none \
              --disable-udev-systemd-background-jobs \
@@ -42,11 +39,9 @@ steps:
              --with-udev-prefix=/usr
     build:
       - |
-        cd build
         make -j $(nproc)
     install:
       - |
-        cd build
         make DESTDIR=/rootfs install
 finalize:
   - from: /rootfs
