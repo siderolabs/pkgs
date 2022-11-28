@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.3.0-alpha.0-23-gdf6813e
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.3.0
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.1.1
@@ -68,9 +68,9 @@ vars:
   ipxe_sha512: 2ab64a3f61ef65f7f202751f2c2bb3cf4c335ff4ce9336b5317f4d19e6e8367c1da3703e18f65307fecbf602b5351a39de5b231f6a414c657458f49234da8160
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 5.15.79
-  linux_sha256: cba39031dbc0eed0785b8afdc8c58cf23df83e47001b2354fa44486ae699c154
-  linux_sha512: 5583f5fda70b2abe42212b254fe069f645845a0d664a806435acb898f87470ed25f6591810a406840a5a85479061aea6ed991cdfed29ca540b567d025e5d1326
+  linux_version: 5.15.80
+  linux_sha256: 3b321a6466d2021f60ed8d4e33bba21db2f23efc2ddd2d9fb775393d9afdfd4d
+  linux_sha512: 6434e6010678dd3c15b201ad9dd12a2a6d8293522038052259fb9957346296b156aa8ef29b6b7207de3ce4ffdb3af41bbef4255a9f73971eb15a2513c9901fb3
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ versioning=loose depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 30
@@ -159,9 +159,9 @@ vars:
   syslinux_sha512: dd2b2916962b9e93bc1e714182e3ca2a727a229b8afabe913050bcfdd43ee2af51ee3acf79121d8c20caf434583efaa7f3196871e0e07c04d82191323a50fe31
 
   # renovate: datasource=github-tags versioning=loose depName=ARM-software/arm-trusted-firmware
-  arm_trusted_firmware_version: v2.7.0
-  arm_trusted_firmware_sha256: 99a37f5ab682415be80f20bb18acdc1a45eda9f2a7de67eb3dc798faa70f66e6
-  arm_trusted_firmware_sha512: 3e1e09bcc69a0f080f91b94d9c8da6dd0b27b86292599c280438d7b6f594017a896af7cfc58d9d22053f77b5daa2faecd51a59505c755eac8493e4e0fd1e9203
+  arm_trusted_firmware_version: v2.8.0
+  arm_trusted_firmware_sha256: 60fad60eeb6840097f8e64f16093c06ddb2ef269c7a22affed02beaa6cefe466
+  arm_trusted_firmware_sha512: 958cf8f9e258638e59d0fbd8b053fce7d8a9ea2fc922686c9d20ea16f79f55219ac18a12ab240c528ee98e49c2e0eef4c963fdb255cc14b92437a5b3cffc8640
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=u-boot/u-boot
   uboot_version: 2022.07
