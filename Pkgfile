@@ -1,9 +1,9 @@
-# syntax = ghcr.io/siderolabs/bldr:v0.2.0-alpha.10
+# syntax = ghcr.io/siderolabs/bldr:v0.2.0-alpha.11
 
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.3.0
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.3.0-3-g1a75d0f
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.1.1
@@ -11,15 +11,15 @@ vars:
   cni_sha512: 03da31caee5f9595abf65d4a551984b995bc18c5e97409549f08997c5a6a2b41a8950144f8a5b4f810cb401ddbe312232d2be76ec977acf8108eb490786b1817
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v1.6.10
-  containerd_ref: 770bd0108c32f3fb5c73ae1264f7e503fe7b2661
-  containerd_sha256: 57be0d7b448abc83f2d1e0045864ffec83e6afa0c7e54548b50d67152686745e
-  containerd_sha512: 02312a8d127b523944e9583433ec87cdc1fc30988b107a8d83438985a010b06c57e93017adb4fcf9db6ec80c1e28327101d7496d63d3832ea9cbfe54d17e3a6c
+  containerd_version: v1.6.11
+  containerd_ref: d986545181c905378b0f90faa9c5eae3cbfa3755
+  containerd_sha256: 96d9e94ad060eeefc4d44410bdf01ba5707b4801edd0ebfc794459fe47e4388e
+  containerd_sha512: 1b9e0785f714829e3e49073ad873d4ba9281e6f944c569114ca474664d59b0a416a5601a14e3c6abd0685cd18774ab4b293a01d93c5d99f4fad382f619ebea97
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
-  cryptsetup_version: 2.5.0
-  cryptsetup_sha256: f8dacf7e29773b667b1d20ca5c3def2c3bde2dd0a673f6ab7bbaa66d76413263
-  cryptsetup_sha512: f457168292ae9fadc34d709494818aee3f18b56bdf5fcff0b2a5ae0b554031ce888d01cd126ca7aa915fcdcb00de6afed2fdb25bbbd690aa8bfcaafa516ade93
+  cryptsetup_version: 2.6.0
+  cryptsetup_sha256: d7eddacf714212fa92e397d9459535d030738e57fdd82152a647a0d23c1cf202
+  cryptsetup_sha512: 6c08234af0520281c694445c30e61c8566e8314a1bb098e5a03fd10723f16370ad822b505dc7d74cf3465197fabb7983bc898adfd6fe00ccbf777fee66fc66a3
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ versioning=loose depName=dosfstools/dosfstools
   dosfstools_version: 4.2
@@ -38,9 +38,9 @@ vars:
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
   flannel_cni_version: v1.2.0
-  flannel_cni_ref: 81fe81e1fd8faf6315033ee9a44137afabbd2ad7
-  flannel_cni_sha256: 99c0879c741df266122b822fc3559430cb326ac875a4267857304bba11ec3c20
-  flannel_cni_sha512: d810df3ca0b5c4dba4de7b00c256bb285fcf97302664155bb179ef5a33f34906ad58c9abcd7238dee94abf213959d1c76ed7e878204af27f82dc7c48cf3a2412
+  flannel_cni_ref: 18a3027e7d03feeb6ecdfdbc3bf254a8c8b38b04
+  flannel_cni_sha256: 5034306c59e97c0b64ecdf41ec6f7fe1fef0d902a867ad0537d0b1c919e05d6d 
+  flannel_cni_sha512: 798912548646c5cd5aebf43f3a7479cad082997cf22711a005f5b82ae3c5001bb5dfa09a9eb4f6a896e3026e307a64256f197cc215cb29b484db46964d94d26d
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/google/gasket-driver.git
   gasket_driver_ref: 97aeba584efd18983850c36dcf7384b0185284b3
@@ -68,9 +68,9 @@ vars:
   ipxe_sha512: 2ab64a3f61ef65f7f202751f2c2bb3cf4c335ff4ce9336b5317f4d19e6e8367c1da3703e18f65307fecbf602b5351a39de5b231f6a414c657458f49234da8160
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 5.15.81
-  linux_sha256: 8f885cdebd754d6e63b920cf6c3e5713e91bbf5f52e9d99eb0054ef7e8f096ab
-  linux_sha512: 5a4cae2ee07ce73518b2f66bfb1b1f9f9aa5442ab5c5714c9bbe531cd721717810f3a0fe2a2cbbb033981bc535802fb07bd935682bfd6cae71349178a77b8319
+  linux_version: 5.15.82
+  linux_sha256: fceef6bb79bac494663ccde34453521fc616cd94272fd30564752b3742381b65
+  linux_sha512: b0deb17077d9254e9a6eef853cdbcb7cbdde74cafef214d25961929d02a42fd61d306e3358b17a145999a0df3565c985de6149bd078330c63508ce8ce6fb4938
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ versioning=loose depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 30
@@ -93,9 +93,9 @@ vars:
   libjson_c_sha512: 255cff99033340b2c2678255d41dae7808f83ed0c102e693d2d9e186bd1f21dd1385fcaa360c0fc087a00965a9567fbda733370e6b518a9be2f1bb0a80439151
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://git.tukaani.org/xz.git
-  xz_version: v5.2.8
-  xz_sha256: 2424b2711b1d40d2129645d550363896c6853c97528f085f7765092fe68679d4
-  xz_sha512: 21a28d05d7e2d47f310b30cb33436f5099f61df436fdacd1110e0f90870f3b74d035cb1f78e312104ff0c7c150e0cb474bf004ec06671b894491cde6eee31b69
+  xz_version: v5.2.9
+  xz_sha256: 287ef163e7e57561e9de590b2a9037457af24f03a46bbd12bf84f3263679e8d2
+  xz_sha512: fa844d63ceedf3b35c38f82532dc3b847543ac37b9e56db774c234af73d1385a300ba1033154689059031f18793d791c8cdb65bbeb031691d837f76e673372a7
 
   # renovate: datasource=github-releases extractVersion=^popt-(?<version>.*)-release$ versioning=loose depName=rpm-software-management/popt
   libpopt_version: 1.19
