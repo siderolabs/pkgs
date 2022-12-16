@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 5.15.81 Kernel Configuration
+# Linux/arm64 5.15.82 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="gcc (GCC) 12.2.0"
 CONFIG_CC_IS_GCC=y
@@ -5258,8 +5258,8 @@ CONFIG_USB_ISP1760_DUAL_ROLE=y
 # USB port drivers
 #
 CONFIG_USB_SERIAL=y
-# CONFIG_USB_SERIAL_CONSOLE is not set
-# CONFIG_USB_SERIAL_GENERIC is not set
+CONFIG_USB_SERIAL_CONSOLE=y
+CONFIG_USB_SERIAL_GENERIC=y
 # CONFIG_USB_SERIAL_SIMPLE is not set
 # CONFIG_USB_SERIAL_AIRCABLE is not set
 # CONFIG_USB_SERIAL_ARK3116 is not set
