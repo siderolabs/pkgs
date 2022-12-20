@@ -22,7 +22,7 @@ steps:
         export CGO_ENABLED=1
         export PATH=${PATH}:${TOOLCHAIN}/go/bin
         export BUILDTAGS='seccomp no_aufs no_btrfs no_devmapper no_zfs'
-        make bin/containerd bin/containerd-shim bin/containerd-shim-runc-v2 VERSION=v1.6.8 REVISION=a05d175400b1145e5e6a735a6710579d181e7fb0
+        make bin/containerd bin/containerd-shim bin/containerd-shim-runc-v2 VERSION=v1.6.12 REVISION=a05d175400b1145e5e6a735a6710579d181e7fb0
     install:
       - |
         mkdir -p /rootfs/bin
