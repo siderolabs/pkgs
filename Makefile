@@ -55,6 +55,7 @@ TARGETS = \
 	liburcu \
 	linux-firmware \
 	lvm2 \
+	mellanox-ofed-pkg \
 	musl \
 	nvidia-open-gpu-kernel-modules-pkg \
 	openssl \

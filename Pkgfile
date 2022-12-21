@@ -122,6 +122,10 @@ vars:
   lvm2_sha256: 7286cfa9651828c589389509546333b8da965dfa84a1a4c8ab3e681a47fabae7
   lvm2_sha512: ce9f4c10a7e89b397fa021098976117c062227da4f25996296dd3678c0aeb826edf9b7e4f5d3992f42156865ae47cb98671ec37a26868710174a473b42cc70a9
 
+  mellanox_ofed_version: 5.8-1.1.2.1
+  mellanox_ofed_sha256: 0ac9b9f400f8d6ce7cb99bb990ede7084885f88336a5fae6048dbcb3d3877087
+  mellanox_ofed_sha512: c9f98ec0fda7a6eb20e85a76e01fec2b53c65a15af7614e613d104f849f117ecb2230b9fece0dff198eeef36f1a40debda1493ac4913c8cb21f484cf84eaa258
+
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.musl-libc.org/musl
   musl_version: 1.2.3
   musl_sha256: 7d5b0b6062521e4627e099e4c9dc8248d32a30285e959b7eecaa780cf8cfd4a4
