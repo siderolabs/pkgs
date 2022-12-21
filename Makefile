@@ -68,6 +68,7 @@ TARGETS = \
 
 # Temporarily disabled until DRBD releases a version compatible with Linux 6.1
 # drbd-pkg \
+# mellanox-ofed-pkg \
 
 NONFREE_TARGETS = nonfree-kmod-nvidia
 

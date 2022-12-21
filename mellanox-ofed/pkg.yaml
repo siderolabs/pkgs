@@ -1,0 +1,55 @@
+name: mellanox-ofed-pkg
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: kernel-build
+steps:
+  - sources:
+      - url: https://www.mellanox.com/downloads/ofed/MLNX_OFED-{{ .mellanox_ofed_version }}/MLNX_OFED_SRC-debian-{{ .mellanox_ofed_version }}.tgz
+        destination: mellanox_ofed.tgz
+        sha256: "{{ .mellanox_ofed_sha256 }}"
+        sha512: "{{ .mellanox_ofed_sha512 }}"
+    env:
+      ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+    prepare:
+      - |
+        tar -xzf mellanox_ofed.tgz --strip-components=1
+
+        cd SOURCES
+        tar xf mlnx-ofed-kernel_5.8.orig.tar.gz
+    build:
+      - |
+        cd SOURCES/mlnx-ofed-kernel-5.8
+
+        ./configure --with-core-mod \
+          --with-user_mad-mod \
+          --with-user_access-mod \
+          --with-addr_trans-mod \
+          --with-mlx4-mod \
+          --with-mlx4_en-mod \
+          --with-mlx5-mod \
+          --with-ipoib-mod \
+          --with-srp-mod \
+          --with-rds-mod \
+          --with-iser-mod \
+          --kernel-sources=/src \
+          -j $(nproc)
+
+        make kernel -j $(nproc)
+    install:
+      - |
+        cd SOURCES/mlnx-ofed-kernel-5.8
+
+        mkdir -p /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin.modinfo /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+
+        make install_modules DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs INSTALL_MOD_DIR=extras
+    test:
+      - |
+        # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
+        find /rootfs/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
+finalize:
+  - from: /rootfs
+    to: /
