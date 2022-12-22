@@ -34,7 +34,7 @@
             "matchPackageNames": [
                 "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
             ],
-            "allowedVersions": "<= 5.15"
+            "allowedVersions": "<= 6.1"
         },
         {
             "matchPackageNames": [

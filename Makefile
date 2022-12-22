@@ -35,7 +35,6 @@ TARGETS = \
 	containerd \
 	cryptsetup \
 	dosfstools \
-	drbd-pkg \
 	eudev \
 	fhs \
 	flannel-cni \
@@ -65,6 +64,9 @@ TARGETS = \
 	u-boot \
 	util-linux \
 	xfsprogs
+
+# Temporarily disabled until DRBD releases a version compatible with Linux 6.1
+# drbd-pkg \
 
 NONFREE_TARGETS = nonfree-kmod-nvidia
 
