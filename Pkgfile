@@ -11,10 +11,10 @@ vars:
   cni_sha512: 03da31caee5f9595abf65d4a551984b995bc18c5e97409549f08997c5a6a2b41a8950144f8a5b4f810cb401ddbe312232d2be76ec977acf8108eb490786b1817
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v1.6.12
-  containerd_ref: a05d175400b1145e5e6a735a6710579d181e7fb0
-  containerd_sha256: b86e5c42f58b8348422c972513ff49783c0d505ed84e498d0d0245c5992e4320
-  containerd_sha512: adec6b28bfeea591af8204341dbdf1477f878be28c318745cacdf1b8de2831e3b4d832ad2026fbd9800d6452b5eb186bd94fe78d4dfed163b1cb32e9a92f38fa
+  containerd_version: v1.6.14
+  containerd_ref: 9ba4b250366a5ddde94bb7c9d1def331423aa323
+  containerd_sha256: 158dd5aa5c6c4aa1f118baee3e30aaaf200b274b9eecfeb75297679a1609bfb7
+  containerd_sha512: d29e2fb4a43f12d7e196f95b59b2c55793a1848177fb64b8bd9a4fd299fe54680a26f8a809b1d63f653ed9f0b30c209fc39d46b78ac0914d3253a10e5d3b015b
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
   cryptsetup_version: 2.5.0
@@ -68,9 +68,9 @@ vars:
   ipxe_sha512: 2ab64a3f61ef65f7f202751f2c2bb3cf4c335ff4ce9336b5317f4d19e6e8367c1da3703e18f65307fecbf602b5351a39de5b231f6a414c657458f49234da8160
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 5.15.83
-  linux_sha256: 40590843c04c85789105157f69efbd71a4efe87ae2568e40d1b7258c3f747ff3
-  linux_sha512: 61b12dcdecc96b4fff3cb2596a3da345efb8c6930ffba7ed73930e6c15b1519d8d44a4e86cf281b41c81d993f7f7ba0fe7b6513863fea298039d63cc819ef4e6
+  linux_version: 5.15.85
+  linux_sha256: 2c0bae29fac98e0a9408914a4551b2971365ac0000351cb255d6bd9aa0849808
+  linux_sha512: 8cc19124c82f14e09b5ff8d2e343cd41cdfced74e5c0c501abd258555d9dbaa79e79cb23256a474cd59311ae8626b0457c2117263bd64a206151c09b54f3ff46
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ versioning=loose depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 30
