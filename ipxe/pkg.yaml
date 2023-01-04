@@ -15,7 +15,6 @@ steps:
       IPXE_VERSION: 1.21.1+git+{{ substr 0 7 .ipxe_ref }}+sidero
     prepare:
       - |
-        ln -s /toolchain/bin/echo /bin/echo
         tar -xzf ipxe.tar.gz --strip-components=1
 
         patch -p1 < /pkg/patches/https.patch

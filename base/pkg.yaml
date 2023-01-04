@@ -12,9 +12,8 @@ steps:
         cp -R /toolchain/lib/libz* /lib
 
         mkdir /bin
-        ln -sv /toolchain/bin/bash /bin/bash
+        find /toolchain/bin -type f -executable -printf "%f\n" | xargs -I {} ln -s /toolchain/bin/{} /bin/{}
         ln -sv /toolchain/bin/bash /bin/sh
-        ln -sv /toolchain/bin/pwd /bin/pwd
 
         adjust.sh
 finalize:
