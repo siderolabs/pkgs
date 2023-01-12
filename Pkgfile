@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.4.0-alpha.0-3-ge2a8692
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.4.0-alpha.0-5-g763c1d9
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.1.1
