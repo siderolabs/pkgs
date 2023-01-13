@@ -158,6 +158,7 @@ steps:
       # libretech_all_h3_cc_h5
       - |
         export BL31=$(pwd)/${SUN50I_A64_ARM_TRUSTED_FIRMWARE}/build/sun50i_a64/release/bl31.bin
+        export SCP=/dev/null
         cd ${LIBRETECH_ALL_H3_CC_H5_U_BOOT}
         make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto"
       # rock64-rk3328
@@ -172,11 +173,13 @@ steps:
       # bananapi_m64
       - |
         export BL31=$(pwd)/${SUN50I_A64_ARM_TRUSTED_FIRMWARE}/build/sun50i_a64/release/bl31.bin
+        export SCP=/dev/null
         cd ${BANANAPI_M64_U_BOOT}
         make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto"
       # pine64
       - |
         export BL31=$(pwd)/${SUN50I_A64_ARM_TRUSTED_FIRMWARE}/build/sun50i_a64/release/bl31.bin
+        export SCP=/dev/null
         cd ${PINE64_U_BOOT}
         make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto"
       # rock-pi-4-rk3399

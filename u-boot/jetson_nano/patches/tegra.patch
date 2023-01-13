@@ -1,18 +1,21 @@
 diff --git arch/arm/dts/Makefile arch/arm/dts/Makefile
-index a7e0d9f6c0..3d7e49f3df 100644
+index 43951a7731..8ab8ffe96f 100644
 --- arch/arm/dts/Makefile
 +++ arch/arm/dts/Makefile
-@@ -230,7 +230,9 @@ dtb-$(CONFIG_ARCH_TEGRA) += tegra20-harmony.dtb \
+@@ -227,10 +227,12 @@ dtb-$(CONFIG_ARCH_TEGRA) += tegra20-harmony.dtb \
+ 	tegra124-venice2.dtb \
+ 	tegra186-p2771-0000-000.dtb \
+ 	tegra186-p2771-0000-500.dtb \
++	tegra186-p3636-0001.dtb \
  	tegra210-p2371-0000.dtb \
  	tegra210-p2371-2180.dtb \
  	tegra210-p2571.dtb \
 -	tegra210-p3450-0000.dtb
 +	tegra210-p3450-0000.dtb \
-+	tegra210-p3541-0000.dtb \
-+	tegra186-p3636-0001.dtb
-
- dtb-$(CONFIG_ARCH_MVEBU) +=			\
- 	armada-3720-db.dtb			\
++	tegra210-p3541-0000.dtb
+ 
+ ifdef CONFIG_ARMADA_32BIT
+ ifdef CONFIG_ARMADA_375
 diff --git arch/arm/dts/tegra186-p3636-0001.dts arch/arm/dts/tegra186-p3636-0001.dts
 new file mode 100644
 index 0000000000..a9a4cf788a
@@ -151,12 +154,12 @@ index 649c163152..fc749e388b 100644
  		usb0 = "/usb@7d000000";
 +		usb1 = "/xusb@70090000";
  	};
-
+ 
  	memory {
 @@ -108,6 +109,11 @@
  		nvidia,vbus-gpio = <&gpio TEGRA_GPIO(CC, 4) GPIO_ACTIVE_HIGH>;
  	};
-
+ 
 +	xusb@70090000 {
 +		status = "okay";
 +		nvidia,vbus-gpio = <&gpio TEGRA_GPIO(CC, 5) GPIO_ACTIVE_HIGH>;
@@ -175,7 +178,7 @@ index 9ef744ac8b..119e7e8d7b 100644
  		usb0 = "/usb@7d000000";
 +		usb1 = "/xusb@70090000";
  	};
-
+ 
  	memory {
 @@ -125,6 +126,14 @@
  	spi@70410000 {
@@ -190,12 +193,12 @@ index 9ef744ac8b..119e7e8d7b 100644
 +			spi-max-frequency = <80000000>;
 +		};
  	};
-
+ 
  	usb@7d000000 {
 @@ -132,6 +141,11 @@
  		dr_mode = "peripheral";
  	};
-
+ 
 +	xusb@70090000 {
 +		status = "okay";
 +		nvidia,vbus-gpio = <&gpio TEGRA_GPIO(A, 6) GPIO_ACTIVE_HIGH>;
@@ -360,21 +363,23 @@ index 0000000000..e14d14cad5
 +	};
 +};
 diff --git arch/arm/dts/tegra210.dtsi arch/arm/dts/tegra210.dtsi
-index a521a43d6c..d1b5fbdfc4 100644
+index a521a43d6c..c08a5cf89e 100644
 --- arch/arm/dts/tegra210.dtsi
 +++ arch/arm/dts/tegra210.dtsi
-@@ -884,4 +884,11 @@
- 				(GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>;
+@@ -285,6 +285,13 @@
  		interrupt-parent = <&gic>;
  	};
-+
+ 
 +	xusb@70090000 {
 +		compatible = "nvidia,tegra210-xhci";
 +		reg = <0x0 0x70090000 0x0 0x4000>;
 +		#extcon-cells = <1>;
 +		status = "okay";
 +	};
- };
++
+ 	gpu@57000000 {
+ 		compatible = "nvidia,gm20b";
+ 		reg = <0x0 0x57000000 0x0 0x01000000>,
 diff --git arch/arm/include/asm/arch-tegra/clock.h arch/arm/include/asm/arch-tegra/clock.h
 index 6586015fd2..36c6cfa7d7 100644
 --- arch/arm/include/asm/arch-tegra/clock.h
@@ -382,7 +387,7 @@ index 6586015fd2..36c6cfa7d7 100644
 @@ -372,6 +372,19 @@ enum periph_id clk_id_to_periph_id(int clk_id);
   */
  int clock_set_rate(enum clock_id clkid, u32 n, u32 m, u32 p, u32 cpcon);
-
+ 
 +/**
 + * Adjust peripheral PLL to use the given divider and source.
 + *
@@ -409,7 +414,7 @@ index c6d7487e62..4149242a9f 100644
  	PERIPH_ID_XUSB_PADCTL,
 -	PERIPH_ID_W_RESERVED15,
 +	PERIPH_ID_XUSB,
-
+ 
  	/* 144 */
  	PERIPH_ID_W_RESERVED16,
 @@ -321,7 +321,7 @@ enum periph_id {
@@ -427,7 +432,7 @@ index 7165d70a60..4c107ec150 100644
 +++ arch/arm/mach-tegra/Makefile
 @@ -21,6 +21,7 @@ obj-$(CONFIG_TEGRA_PMC) += powergate.o
  obj-y += xusb-padctl-dummy.o
-
+ 
  obj-$(CONFIG_ARM64) += arm64-mmu.o cboot.o
 +obj-y += dt-edit.o
  obj-y += dt-setup.o
@@ -444,16 +449,16 @@ index 532730fe72..45544e96f1 100644
 + * (C) Copyright 2010-2015,2021
   * NVIDIA Corporation <www.nvidia.com>
   */
-
+ 
 @@ -151,8 +151,7 @@ static u32 get_odmdata(void)
-
+ 
  static void init_pmc_scratch(void)
  {
 -	struct pmc_ctlr *const pmc = (struct pmc_ctlr *)NV_PA_PMC_BASE;
 -	u32 odmdata;
 +	u32 odmdata, ofs;
  	int i;
-
+ 
  	/* SCRATCH0 is initialized by the boot ROM and shouldn't be cleared */
 @@ -160,13 +159,15 @@ static void init_pmc_scratch(void)
  	if (!tegra_cpu_is_non_secure())
@@ -464,21 +469,21 @@ index 532730fe72..45544e96f1 100644
 -			writel(0, &pmc->pmc_scratch1 + i);
 +			tegra_pmc_writel(0, ofs + (i * 4));
  	}
-
+ 
  	/* ODMDATA is for kernel use to determine RAM size, LP config, etc. */
  	odmdata = get_odmdata();
 -	writel(odmdata, &pmc->pmc_scratch20);
 +	ofs = offsetof(struct pmc_ctlr, pmc_scratch20);
 +	tegra_pmc_writel(odmdata, ofs);
  }
-
+ 
  #ifdef CONFIG_ARMV7_SECURE_RESERVE_SIZE
 diff --git arch/arm/mach-tegra/cboot.c arch/arm/mach-tegra/cboot.c
-index 55eb819860..55c880a966 100644
+index 55eb819860..6a3754a463 100644
 --- arch/arm/mach-tegra/cboot.c
 +++ arch/arm/mach-tegra/cboot.c
 @@ -5,6 +5,9 @@
-
+ 
  #include <common.h>
  #include <env.h>
 +#ifdef CONFIG_TEGRA210
@@ -487,10 +492,10 @@ index 55eb819860..55c880a966 100644
  #include <fdt_support.h>
  #include <fdtdec.h>
  #include <hang.h>
-@@ -592,6 +595,139 @@ static char *cboot_get_bootargs(const void *fdt)
+@@ -592,6 +595,140 @@ static char *cboot_get_bootargs(const void *fdt)
  	return strip(args);
  }
-
+ 
 +#if defined(CONFIG_TEGRA210)
 +static enum env_location parse_env_drv_from_ids(const void *fdt, int offset)
 +{
@@ -624,19 +629,21 @@ index 55eb819860..55c880a966 100644
 +#endif	/* CBOOT_RP4_LOAD */
 +#endif	/* T210 */
 +
++
  int cboot_late_init(void)
  {
  	const void *fdt = (const void *)cboot_boot_x0;
-@@ -622,5 +758,11 @@ int cboot_late_init(void)
+@@ -622,5 +759,12 @@ int cboot_late_init(void)
  		free(bootargs);
  	}
-
+ 
 +#if defined(CBOOT_RP4_LOAD)
 +	/* T210 XUSB ONLY: get XUSB FW load address from CBoot */
 +	if (cboot_get_xusb_fw_addr())
 +		printf("%s: Failed to get XUSB FW address! err: %d\n",
 +		       __func__, err);
 +#endif
++
  	return 0;
  }
 diff --git arch/arm/mach-tegra/clock.c arch/arm/mach-tegra/clock.c
@@ -1071,20 +1078,20 @@ index c11494722b..e389f06e76 100644
 - * Copyright (c) 2010-2016, NVIDIA CORPORATION.
 + * Copyright (c) 2010-2019, NVIDIA CORPORATION.
   */
-
+ 
  #include <common.h>
 @@ -8,6 +8,7 @@
  #include <stdlib.h>
  #include <asm/arch-tegra/cboot.h>
  #include <asm/arch-tegra/gpu.h>
 +#include "dt-edit.h"
-
+ 
  /*
   * This function is called right before the kernel is booted. "blob" is the
 @@ -32,6 +33,11 @@ int ft_system_setup(void *blob, struct bd_info *bd)
  			return ret;
  	}
-
+ 
 +	fdt_del_env_nodelist(blob);
 +	fdt_del_env_proplist(blob);
 +	fdt_copy_env_nodelist(blob);
@@ -1092,7 +1099,7 @@ index c11494722b..e389f06e76 100644
 +
  	return 0;
  }
-
+ 
 diff --git arch/arm/mach-tegra/tegra186/Kconfig arch/arm/mach-tegra/tegra186/Kconfig
 index b2e53b58ca..2639120959 100644
 --- arch/arm/mach-tegra/tegra186/Kconfig
@@ -1102,11 +1109,11 @@ index b2e53b58ca..2639120959 100644
 +# Copyright (c) 2016-2020, NVIDIA CORPORATION.
  #
  # SPDX-License-Identifier: GPL-2.0
-
+ 
 @@ -16,11 +16,21 @@ config TARGET_P2771_0000
  	  micro-B port, Ethernet, USB3 host port, SATA, PCIe, and two GPIO
  	  expansion headers.
-
+ 
 +config TARGET_P3636_0001
 +	bool "NVIDIA Tegra186 P3636-0001 board"
 +	select BOARD_LATE_INIT
@@ -1117,13 +1124,13 @@ index b2e53b58ca..2639120959 100644
 +	  expansion header.
 +
  endchoice
-
+ 
  config SYS_SOC
  	default "tegra186"
-
+ 
  source "board/nvidia/p2771-0000/Kconfig"
 +source "board/nvidia/p3636-0001/Kconfig"
-
+ 
  endif
 diff --git arch/arm/mach-tegra/tegra210/Kconfig arch/arm/mach-tegra/tegra210/Kconfig
 index 17f18cbf30..b6c53f5d3b 100644
@@ -1132,7 +1139,7 @@ index 17f18cbf30..b6c53f5d3b 100644
 @@ -33,6 +33,12 @@ config TARGET_P3450_0000
  	help
  	  P3450-0000 is a P3448 CPU board married to a P3449 I/O board.
-
+ 
 +config TARGET_P3541_0000
 +	bool "NVIDIA Jetson Nano 2GB Developer Kit"
 +	select BOARD_LATE_INIT
@@ -1140,14 +1147,14 @@ index 17f18cbf30..b6c53f5d3b 100644
 +	  P3541-0000 is a P3448 SKU3 CVM module married to a P3542 SKU0 CVB carrier.
 +
  endchoice
-
+ 
  config SYS_SOC
 @@ -42,5 +48,6 @@ source "board/nvidia/p2371-0000/Kconfig"
  source "board/nvidia/p2371-2180/Kconfig"
  source "board/nvidia/p2571/Kconfig"
  source "board/nvidia/p3450-0000/Kconfig"
 +source "board/nvidia/p3541-0000/Kconfig"
-
+ 
  endif
 diff --git arch/arm/mach-tegra/tegra210/Makefile arch/arm/mach-tegra/tegra210/Makefile
 index cfcba5b68f..e6d2bd4db5 100644
@@ -1161,7 +1168,7 @@ index cfcba5b68f..e6d2bd4db5 100644
  #
  # SPDX-License-Identifier:     GPL-2.0+
 @@ -7,5 +7,6 @@
-
+ 
  obj-y	+= clock.o
  obj-y	+= funcmux.o
 +obj-y	+= rp4_support.o
@@ -1173,7 +1180,7 @@ index 10c2478df7..dc6d378fd5 100644
 +++ arch/arm/mach-tegra/tegra210/clock.c
 @@ -283,7 +283,7 @@ static enum clock_type_id clock_periph_type[PERIPHC_COUNT] = {
  	TYPE(PERIPHC_5fh,	CLOCK_TYPE_NONE),
-
+ 
  	/* 0x60 */
 -	TYPE(PERIPHC_XUSB_CORE_HOST, CLOCK_TYPE_NONE),
 +	TYPE(PERIPHC_XUSB_CORE_HOST, CLOCK_TYPE_NONE),	/* start with 0x600 */
@@ -1186,7 +1193,7 @@ index 10c2478df7..dc6d378fd5 100644
  	NONE(XUSB_PADCTL),
 -	NONE(W_RESERVED15),
 +	NONE(XUSB),
-
+ 
  	/* 144 */
  	NONE(W_RESERVED16),
 @@ -548,13 +548,19 @@ static s8 periph_id_to_internal_id[PERIPH_ID_COUNT] = {
@@ -1199,7 +1206,7 @@ index 10c2478df7..dc6d378fd5 100644
 +	 * but don't really correspond to any clock reset/enable bits.
 +	 * We should rework this odd relationship at some point.
 +	 */
-
+ 
  	/* 152 */
 -	NONE(W_RESERVED24),
 -	NONE(W_RESERVED25),
@@ -1223,7 +1230,7 @@ index 10c2478df7..dc6d378fd5 100644
  	case PERIPH_ID_W_RESERVED18:
 @@ -1244,10 +1249,10 @@ int tegra_plle_enable(void)
  }
-
+ 
  struct periph_clk_init periph_clk_init_table[] = {
 -	{ PERIPH_ID_SBC1, CLOCK_ID_PERIPH },
 -	{ PERIPH_ID_SBC2, CLOCK_ID_PERIPH },
@@ -1378,18 +1385,18 @@ index 0000000000..d2c6d50c24
 +#define PROBE_BUF_SIZE 32768
 +
 diff --git arch/arm/mach-tegra/xusb-padctl-common.c arch/arm/mach-tegra/xusb-padctl-common.c
-index 8bdd44ad7a..7fd308a705 100644
+index 388ec49968..16b91a2436 100644
 --- arch/arm/mach-tegra/xusb-padctl-common.c
 +++ arch/arm/mach-tegra/xusb-padctl-common.c
 @@ -157,14 +157,14 @@ tegra_xusb_padctl_group_apply(struct tegra_xusb_padctl *padctl,
-
+ 
  		lane = tegra_xusb_padctl_find_lane(padctl, group->pins[i]);
  		if (!lane) {
 -			pr_err("no lane for pin %s", group->pins[i]);
 +			pr_err("no lane for pin %s\n", group->pins[i]);
  			continue;
  		}
-
+ 
  		func = tegra_xusb_padctl_lane_find_function(padctl, lane,
  							    group->func);
  		if (func < 0) {
@@ -1399,7 +1406,7 @@ index 8bdd44ad7a..7fd308a705 100644
  			continue;
  		}
 @@ -206,7 +206,7 @@ tegra_xusb_padctl_config_apply(struct tegra_xusb_padctl *padctl,
-
+ 
  		err = tegra_xusb_padctl_group_apply(padctl, group);
  		if (err < 0) {
 -			pr_err("failed to apply group %s: %d",
@@ -1408,23 +1415,23 @@ index 8bdd44ad7a..7fd308a705 100644
  			continue;
  		}
 @@ -250,7 +250,7 @@ static int tegra_xusb_padctl_parse_dt(struct tegra_xusb_padctl *padctl,
-
+ 
  	err = ofnode_read_resource(node, 0, &padctl->regs);
  	if (err < 0) {
 -		pr_err("registers not found");
 +		pr_err("registers not found\n");
  		return err;
  	}
-
+ 
 @@ -298,7 +298,7 @@ int tegra_xusb_process_nodes(ofnode nodes[], unsigned int count,
-
+ 
  		err = tegra_xusb_padctl_config_apply(&padctl, &padctl.config);
  		if (err < 0) {
 -			pr_err("failed to apply pinmux: %d", err);
 +			pr_err("failed to apply pinmux: %d\n", err);
  			continue;
  		}
-
+ 
 diff --git board/nvidia/p3450-0000/Kconfig board/nvidia/p3450-0000/Kconfig
 index 7a08cd8867..033718d232 100644
 --- board/nvidia/p3450-0000/Kconfig
@@ -1432,7 +1439,7 @@ index 7a08cd8867..033718d232 100644
 @@ -9,4 +9,7 @@ config SYS_VENDOR
  config SYS_CONFIG_NAME
  	default "p3450-0000"
-
+ 
 +config P3450_EMMC
 +	bool "SKU 2 module with eMMC"
 +
@@ -1716,7 +1723,7 @@ index 0000000000..c3149026a5
 +	return 0;
 +}
 diff --git boot/pxe_utils.c boot/pxe_utils.c
-index b08aee9896..eab1166ca6 100644
+index 099aa2f4bc..b8cef99ed5 100644
 --- boot/pxe_utils.c
 +++ boot/pxe_utils.c
 @@ -1,7 +1,7 @@
@@ -1726,18 +1733,18 @@ index b08aee9896..eab1166ca6 100644
 - * Copyright (c) 2014, NVIDIA CORPORATION.  All rights reserved.
 + * Copyright (c) 2014-2021, NVIDIA CORPORATION.  All rights reserved.
   */
-
+ 
  #include <common.h>
-@@ -31,6 +31,9 @@
-
+@@ -30,6 +30,9 @@
+ 
  #include "menu.h"
  #include "cli.h"
 +#ifdef CONFIG_HUSH_PARSER
 +#include "cli_hush.h"
 +#endif
-
+ 
  #include "pxe_utils.h"
-
+ 
 @@ -386,17 +389,16 @@ err:
   */
  #ifdef CONFIG_OF_LIBFDT_OVERLAY
@@ -1752,7 +1759,7 @@ index b08aee9896..eab1166ca6 100644
  	ulong fdtoverlay_addr;
 -	ulong fdt_addr;
  	int err;
-
+ 
  	/* Get the main fdt and map it */
 -	fdt_addr = hextoul(env_get("fdt_addr_r"), NULL);
  	working_fdt = map_sysmem(fdt_addr, 0);
@@ -1767,15 +1774,15 @@ index b08aee9896..eab1166ca6 100644
 +	ulong fdt_addr;
 +#endif
  	label_print(label);
-
+ 
  	label->attempted = 1;
 @@ -522,13 +526,11 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
  	}
-
+ 
  	if (label->initrd) {
 -		ulong size;
 +		ulong size = 0;
-
+ 
  		if (get_relfile_envaddr(ctx, label->initrd, "ramdisk_addr_r",
  					&size) < 0) {
 -			printf("Skipping %s for failure retrieving initrd\n",
@@ -1783,9 +1790,9 @@ index b08aee9896..eab1166ca6 100644
 -			return 1;
 +			printf("initrd not found or zero, skipping ...\n");
  		}
-
+ 
  		initrd_addr_str = env_get("ramdisk_addr_r");
-@@ -566,6 +568,10 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
+@@ -565,6 +567,10 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
  	if ((label->ipappend & 0x3) || label->append) {
  		char bootargs[CONFIG_SYS_CBSIZE] = "";
  		char finalbootargs[CONFIG_SYS_CBSIZE];
@@ -1793,13 +1800,13 @@ index b08aee9896..eab1166ca6 100644
 +		char *distro_bootpart, *hush_bootpart;
 +		char *env_devnum, *hush_devnum;
 +#endif
-
+ 
  		if (strlen(label->append ?: "") +
  		    strlen(ip_str) + strlen(mac_str) + 1 > sizeof(bootargs)) {
-@@ -582,10 +588,34 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
+@@ -581,10 +587,34 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
  		strcat(bootargs, ip_str);
  		strcat(bootargs, mac_str);
-
+ 
 +#ifdef CONFIG_HUSH_PARSER
 +		env_devnum = env_get("devnum");
 +		hush_devnum = get_local_var("devnum");
@@ -1829,9 +1836,9 @@ index b08aee9896..eab1166ca6 100644
 +			env_set("devnum", NULL);
 +#endif
  	}
-
+ 
  	kernel_addr = env_get("kernel_addr_r");
-@@ -608,8 +638,8 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
+@@ -607,8 +637,8 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
  	 * It handles the following scenarios.
  	 *
  	 * Scenario 1: If fdt_addr_r specified and "fdt" or "fdtdir" label is
@@ -1842,9 +1849,9 @@ index b08aee9896..eab1166ca6 100644
  	 *
  	 * If retrieve fails and no exact fdt blob is specified in pxe file with
  	 * "fdt" label, try Scenario 2.
-@@ -702,8 +732,9 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
+@@ -701,8 +731,9 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
  			label_boot_kaslrseed();
-
+ 
  #ifdef CONFIG_OF_LIBFDT_OVERLAY
 +			fdt_addr = (ulong)simple_strtol(bootm_argv[3], NULL, 16);
  			if (label->fdtoverlays)
@@ -1853,9 +1860,9 @@ index b08aee9896..eab1166ca6 100644
  #endif
  		} else {
  			bootm_argv[3] = NULL;
-@@ -729,8 +760,14 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
+@@ -731,8 +762,14 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
  		bootm_argv[3] = env_get("fdtcontroladdr");
-
+ 
  	if (bootm_argv[3]) {
 +#ifdef CONFIG_OF_LIBFDT_OVERLAY
 +		fdt_addr = (ulong)simple_strtol(bootm_argv[3], NULL, 16);
@@ -1868,27 +1875,27 @@ index b08aee9896..eab1166ca6 100644
 +			bootm_argv[2] = "-";	/* skip initrd */
  		bootm_argc = 4;
  	}
-
+ 
 diff --git cmd/mmc.c cmd/mmc.c
-index 63bf69b0bd..8309253f50 100644
+index c79d940798..a4f82750a6 100644
 --- cmd/mmc.c
 +++ cmd/mmc.c
-@@ -159,7 +159,7 @@ static struct mmc *__init_mmc_device(int dev, bool force_init,
+@@ -160,7 +160,7 @@ static struct mmc *__init_mmc_device(int dev, bool force_init,
  	return mmc;
  }
-
+ 
 -static struct mmc *init_mmc_device(int dev, bool force_init)
 +struct mmc *init_mmc_device(int dev, bool force_init)
  {
  	return __init_mmc_device(dev, force_init, MMC_MODES_END);
  }
 diff --git configs/p2371-0000_defconfig configs/p2371-0000_defconfig
-index b335d851bf..7968ff6916 100644
+index e8074914c8..21d133e6c1 100644
 --- configs/p2371-0000_defconfig
 +++ configs/p2371-0000_defconfig
-@@ -3,12 +3,12 @@ CONFIG_SYS_L2CACHE_OFF=y
+@@ -3,14 +3,14 @@ CONFIG_SYS_L2CACHE_OFF=y
  CONFIG_ARCH_TEGRA=y
- CONFIG_SYS_TEXT_BASE=0x80080000
+ CONFIG_TEXT_BASE=0x80080000
  CONFIG_SYS_MALLOC_LEN=0x2500000
 -CONFIG_NR_DRAM_BANKS=2
 +CONFIG_NR_DRAM_BANKS=16
@@ -1896,24 +1903,26 @@ index b335d851bf..7968ff6916 100644
 -CONFIG_ENV_OFFSET=0xFFFFE000
 +CONFIG_ENV_OFFSET=0xFFFD8000
  CONFIG_DEFAULT_DEVICE_TREE="tegra210-p2371-0000"
+ CONFIG_SYS_PROMPT="Tegra210 (P2371-0000) # "
  CONFIG_TEGRA210=y
+ CONFIG_TEGRA_GPU=y
 -CONFIG_SYS_LOAD_ADDR=0x80080000
 +CONFIG_SYS_LOAD_ADDR=0x84000000
  CONFIG_OF_SYSTEM_SETUP=y
  CONFIG_CONSOLE_MUX=y
  CONFIG_SYS_STDIO_DEREGISTER=y
-@@ -49,3 +49,4 @@ CONFIG_USB_GADGET_VENDOR_NUM=0x0955
+@@ -53,3 +53,4 @@ CONFIG_USB_GADGET_VENDOR_NUM=0x0955
  CONFIG_USB_GADGET_PRODUCT_NUM=0x701a
  CONFIG_CI_UDC=y
  CONFIG_USB_GADGET_DOWNLOAD=y
 +CONFIG_OF_LIBFDT_OVERLAY=y
 diff --git configs/p2371-2180_defconfig configs/p2371-2180_defconfig
-index 5977325973..e0074418d9 100644
+index ea62e18f73..4bc966d75e 100644
 --- configs/p2371-2180_defconfig
 +++ configs/p2371-2180_defconfig
-@@ -4,13 +4,13 @@ CONFIG_SYS_L2CACHE_OFF=y
+@@ -5,15 +5,15 @@ CONFIG_SYS_L2CACHE_OFF=y
  CONFIG_ARCH_TEGRA=y
- CONFIG_SYS_TEXT_BASE=0x80080000
+ CONFIG_TEXT_BASE=0x80080000
  CONFIG_SYS_MALLOC_LEN=0x2500000
 -CONFIG_NR_DRAM_BANKS=2
 -CONFIG_ENV_SIZE=0x2000
@@ -1922,14 +1931,16 @@ index 5977325973..e0074418d9 100644
 +CONFIG_ENV_SIZE=0x8000
 +CONFIG_ENV_OFFSET=0x3D8000
  CONFIG_DEFAULT_DEVICE_TREE="tegra210-p2371-2180"
+ CONFIG_SYS_PROMPT="Tegra210 (P2371-2180) # "
  CONFIG_TEGRA210=y
  CONFIG_TARGET_P2371_2180=y
+ CONFIG_TEGRA_GPU=y
 -CONFIG_SYS_LOAD_ADDR=0x80080000
 +CONFIG_SYS_LOAD_ADDR=0x84000000
  CONFIG_OF_BOARD_SETUP=y
  CONFIG_OF_SYSTEM_SETUP=y
  CONFIG_CONSOLE_MUX=y
-@@ -57,3 +57,10 @@ CONFIG_USB_GADGET_VENDOR_NUM=0x0955
+@@ -62,3 +62,10 @@ CONFIG_USB_GADGET_VENDOR_NUM=0x0955
  CONFIG_USB_GADGET_PRODUCT_NUM=0x701a
  CONFIG_CI_UDC=y
  CONFIG_USB_GADGET_DOWNLOAD=y
@@ -1941,12 +1952,12 @@ index 5977325973..e0074418d9 100644
 +CONFIG_CMD_CACHE=y
 +CONFIG_OF_LIBFDT_OVERLAY=y
 diff --git configs/p2571_defconfig configs/p2571_defconfig
-index d3f169ae24..e28f451de0 100644
+index bc3fb3e5ae..801e5d2ff9 100644
 --- configs/p2571_defconfig
 +++ configs/p2571_defconfig
 @@ -3,9 +3,9 @@ CONFIG_SYS_L2CACHE_OFF=y
  CONFIG_ARCH_TEGRA=y
- CONFIG_SYS_TEXT_BASE=0x80080000
+ CONFIG_TEXT_BASE=0x80080000
  CONFIG_SYS_MALLOC_LEN=0x2500000
 -CONFIG_NR_DRAM_BANKS=2
 +CONFIG_NR_DRAM_BANKS=16
@@ -1954,31 +1965,31 @@ index d3f169ae24..e28f451de0 100644
 -CONFIG_ENV_OFFSET=0xFFFFE000
 +CONFIG_ENV_OFFSET=0xFFFD8000
  CONFIG_DEFAULT_DEVICE_TREE="tegra210-p2571"
+ CONFIG_SYS_PROMPT="Tegra210 (P2571) # "
  CONFIG_TEGRA210=y
- CONFIG_TARGET_P2571=y
-@@ -50,3 +50,4 @@ CONFIG_USB_GADGET_VENDOR_NUM=0x0955
+@@ -54,3 +54,4 @@ CONFIG_USB_GADGET_VENDOR_NUM=0x0955
  CONFIG_USB_GADGET_PRODUCT_NUM=0x701a
  CONFIG_CI_UDC=y
  CONFIG_USB_GADGET_DOWNLOAD=y
 +CONFIG_OF_LIBFDT_OVERLAY=y
 diff --git configs/p2771-0000-000_defconfig configs/p2771-0000-000_defconfig
-index 47be8a1c28..e836d0f606 100644
+index 682be7d602..bd27ca78d8 100644
 --- configs/p2771-0000-000_defconfig
 +++ configs/p2771-0000-000_defconfig
-@@ -3,9 +3,9 @@ CONFIG_COUNTER_FREQUENCY=19200000
+@@ -4,9 +4,9 @@ CONFIG_COUNTER_FREQUENCY=19200000
  CONFIG_SYS_L2CACHE_OFF=y
  CONFIG_ARCH_TEGRA=y
- CONFIG_SYS_TEXT_BASE=0x80080000
+ CONFIG_TEXT_BASE=0x80080000
 -CONFIG_NR_DRAM_BANKS=1026
 -CONFIG_ENV_SIZE=0x2000
 -CONFIG_ENV_OFFSET=0xFFFFE000
++CONFIG_NR_DRAM_BANKS=1043
 +CONFIG_ENV_SIZE=0x8000
 +CONFIG_ENV_OFFSET=0x3D8000
-+CONFIG_NR_DRAM_BANKS=1043
  CONFIG_DEFAULT_DEVICE_TREE="tegra186-p2771-0000-000"
+ CONFIG_SYS_PROMPT="Tegra186 (P2771-0000-000) # "
  CONFIG_TEGRA186=y
- CONFIG_SYS_LOAD_ADDR=0x80080000
-@@ -37,4 +37,6 @@ CONFIG_PCI_TEGRA=y
+@@ -41,4 +41,6 @@ CONFIG_PCI_TEGRA=y
  CONFIG_POWER_DOMAIN=y
  CONFIG_TEGRA186_POWER_DOMAIN=y
  CONFIG_SYS_NS16550=y
@@ -1987,23 +1998,23 @@ index 47be8a1c28..e836d0f606 100644
 +CONFIG_NVME_PCI=y
 +CONFIG_OF_LIBFDT_OVERLAY=y
 diff --git configs/p2771-0000-500_defconfig configs/p2771-0000-500_defconfig
-index 94866cd769..47f7b9dd0c 100644
+index c5925b18c9..7f60bd8b5b 100644
 --- configs/p2771-0000-500_defconfig
 +++ configs/p2771-0000-500_defconfig
-@@ -3,9 +3,9 @@ CONFIG_COUNTER_FREQUENCY=19200000
+@@ -4,9 +4,9 @@ CONFIG_COUNTER_FREQUENCY=19200000
  CONFIG_SYS_L2CACHE_OFF=y
  CONFIG_ARCH_TEGRA=y
- CONFIG_SYS_TEXT_BASE=0x80080000
+ CONFIG_TEXT_BASE=0x80080000
 -CONFIG_NR_DRAM_BANKS=1026
 -CONFIG_ENV_SIZE=0x2000
 -CONFIG_ENV_OFFSET=0xFFFFE000
++CONFIG_NR_DRAM_BANKS=1043
 +CONFIG_ENV_SIZE=0x8000
 +CONFIG_ENV_OFFSET=0x3D8000
-+CONFIG_NR_DRAM_BANKS=1043
  CONFIG_DEFAULT_DEVICE_TREE="tegra186-p2771-0000-500"
+ CONFIG_SYS_PROMPT="Tegra186 (P2771-0000-500) # "
  CONFIG_TEGRA186=y
- CONFIG_SYS_LOAD_ADDR=0x80080000
-@@ -37,4 +37,6 @@ CONFIG_PCI_TEGRA=y
+@@ -41,4 +41,6 @@ CONFIG_PCI_TEGRA=y
  CONFIG_POWER_DOMAIN=y
  CONFIG_TEGRA186_POWER_DOMAIN=y
  CONFIG_SYS_NS16550=y
@@ -2012,12 +2023,12 @@ index 94866cd769..47f7b9dd0c 100644
 +CONFIG_NVME_PCI=y
 +CONFIG_OF_LIBFDT_OVERLAY=y
 diff --git configs/p3450-0000_defconfig configs/p3450-0000_defconfig
-index ec813dd7a5..25bb3c4a98 100644
+index 8e16afde91..ab8577ee57 100644
 --- configs/p3450-0000_defconfig
 +++ configs/p3450-0000_defconfig
-@@ -4,14 +4,14 @@ CONFIG_SYS_L2CACHE_OFF=y
+@@ -5,16 +5,16 @@ CONFIG_SYS_L2CACHE_OFF=y
  CONFIG_ARCH_TEGRA=y
- CONFIG_SYS_TEXT_BASE=0x80080000
+ CONFIG_TEXT_BASE=0x80080000
  CONFIG_SYS_MALLOC_LEN=0x2500000
 -CONFIG_NR_DRAM_BANKS=2
 -CONFIG_ENV_SIZE=0x2000
@@ -2027,14 +2038,16 @@ index ec813dd7a5..25bb3c4a98 100644
 +CONFIG_ENV_OFFSET=0x3D8000
  CONFIG_ENV_SECT_SIZE=0x1000
  CONFIG_DEFAULT_DEVICE_TREE="tegra210-p3450-0000"
+ CONFIG_SYS_PROMPT="Tegra210 (P3450-0000) # "
  CONFIG_TEGRA210=y
  CONFIG_TARGET_P3450_0000=y
+ CONFIG_TEGRA_GPU=y
 -CONFIG_SYS_LOAD_ADDR=0x80080000
 +CONFIG_SYS_LOAD_ADDR=0x84000000
  CONFIG_OF_BOARD_SETUP=y
  CONFIG_OF_SYSTEM_SETUP=y
  CONFIG_CONSOLE_MUX=y
-@@ -61,3 +61,9 @@ CONFIG_USB_GADGET_VENDOR_NUM=0x0955
+@@ -66,3 +66,9 @@ CONFIG_USB_GADGET_VENDOR_NUM=0x0955
  CONFIG_USB_GADGET_PRODUCT_NUM=0x701a
  CONFIG_CI_UDC=y
  CONFIG_USB_GADGET_DOWNLOAD=y
@@ -2242,10 +2255,10 @@ index 0000000000..127670e65d
 +CONFIG_NVME_PCI=y
 +CONFIG_OF_LIBFDT_OVERLAY=y
 diff --git disk/part_efi.c disk/part_efi.c
-index 5090efd119..1af7f33fd5 100644
+index 18f7e58405..b142d8d903 100644
 --- disk/part_efi.c
 +++ disk/part_efi.c
-@@ -57,11 +57,11 @@ static int is_gpt_valid(struct blk_desc *dev_desc, u64 lba,
+@@ -55,11 +55,11 @@ static int is_gpt_valid(struct blk_desc *dev_desc, u64 lba,
  				gpt_header *pgpt_head, gpt_entry **pgpt_pte);
  static gpt_entry *alloc_read_gpt_entries(struct blk_desc *dev_desc,
  					 gpt_header *pgpt_head);
@@ -2254,13 +2267,13 @@ index 5090efd119..1af7f33fd5 100644
 +int is_pte_valid(gpt_entry * pte);
 +int find_valid_gpt(struct blk_desc *dev_desc, gpt_header *gpt_head,
  			  gpt_entry **pgpt_pte);
-
+ 
 -static char *print_efiname(gpt_entry *pte)
 +char *print_efiname(gpt_entry *pte)
  {
  	static char name[PARTNAME_SZ + 1];
  	int i;
-@@ -1082,7 +1082,7 @@ static int is_gpt_valid(struct blk_desc *dev_desc, u64 lba,
+@@ -1075,7 +1075,7 @@ static int is_gpt_valid(struct blk_desc *dev_desc, u64 lba,
   * Description: returns 1 if found a valid gpt,  0 on error.
   * If valid, returns pointers to PTEs.
   */
@@ -2269,7 +2282,7 @@ index 5090efd119..1af7f33fd5 100644
  			  gpt_entry **pgpt_pte)
  {
  	int r;
-@@ -1165,7 +1165,7 @@ static gpt_entry *alloc_read_gpt_entries(struct blk_desc *dev_desc,
+@@ -1156,7 +1156,7 @@ static gpt_entry *alloc_read_gpt_entries(struct blk_desc *dev_desc,
   *
   * Description: returns 1 if valid,  0 on error.
   */
@@ -2277,7 +2290,7 @@ index 5090efd119..1af7f33fd5 100644
 +int is_pte_valid(gpt_entry * pte)
  {
  	efi_guid_t unused_guid;
-
+ 
 diff --git drivers/spi/tegra210_qspi.c drivers/spi/tegra210_qspi.c
 index 5c8c1859cc..d9dacdf5aa 100644
 --- drivers/spi/tegra210_qspi.c
@@ -2289,7 +2302,7 @@ index 5c8c1859cc..d9dacdf5aa 100644
 -		for (tm = 0; tm < QSPI_TIMEOUT; ++tm) {
 +		for (tm = 0; tm <= QSPI_TIMEOUT; ++tm) {
  			u32 fifo_status, xfer_status;
-
+ 
  			xfer_status = readl(&regs->xfer_status);
 -			if (!(xfer_status & QSPI_XFER_STS_RDY))
 -				continue;
@@ -2304,7 +2317,7 @@ index 5c8c1859cc..d9dacdf5aa 100644
 +					continue;
 +				}
 +			}
-
+ 
  			fifo_status = readl(&regs->fifo_status);
  			if (fifo_status & QSPI_FIFO_STS_ERR) {
 @@ -363,7 +372,7 @@ static int tegra210_qspi_xfer(struct udevice *dev, unsigned int bitlen,
@@ -2315,10 +2328,10 @@ index 5c8c1859cc..d9dacdf5aa 100644
 +done:
  	if (flags & SPI_XFER_END)
  		spi_cs_deactivate(dev);
-
+ 
 @@ -371,7 +380,7 @@ static int tegra210_qspi_xfer(struct udevice *dev, unsigned int bitlen,
  	      __func__, tmpdin, readl(&regs->fifo_status));
-
+ 
  	if (ret) {
 -		printf("%s: timeout during SPI transfer, tm %d\n",
 +		debug("%s: timeout during SPI transfer, tm %d\n",
@@ -2326,32 +2339,33 @@ index 5c8c1859cc..d9dacdf5aa 100644
  		return -1;
  	}
 diff --git drivers/usb/host/Kconfig drivers/usb/host/Kconfig
-index 8f77412cc7..e8eee364ac 100644
+index 6213b3c95f..2b98629904 100644
 --- drivers/usb/host/Kconfig
 +++ drivers/usb/host/Kconfig
-@@ -114,6 +114,12 @@ config USB_XHCI_BRCM
+@@ -122,6 +122,13 @@ config USB_XHCI_BRCM
  	  USB controller based on the Broadcom USB3 IP Core.
  	  Supports USB2/3 functionality.
-
+ 
 +config USB_XHCI_TEGRA
 +        bool "Support for NVIDIA Tegra T210 on-chip XHCI USB controller"
 +        depends on ARCH_TEGRA
 +        help
 +          Enable support for TegraT210 on-chip XHCI USB controller
 +
++
  endif # USB_XHCI_HCD
-
- config USB_EHCI_HCD
+ 
+ config EHCI_DESC_BIG_ENDIAN
 diff --git drivers/usb/host/Makefile drivers/usb/host/Makefile
-index 7785b3744e..b5965d2df6 100644
+index ddc3663206..95c63663b9 100644
 --- drivers/usb/host/Makefile
 +++ drivers/usb/host/Makefile
-@@ -59,6 +59,7 @@ obj-$(CONFIG_USB_XHCI_PCI) += xhci-pci.o
+@@ -60,6 +60,7 @@ obj-$(CONFIG_USB_XHCI_PCI) += xhci-pci.o
  obj-$(CONFIG_USB_XHCI_RCAR) += xhci-rcar.o
  obj-$(CONFIG_USB_XHCI_STI) += dwc3-sti-glue.o
  obj-$(CONFIG_USB_XHCI_OCTEON) += dwc3-octeon-glue.o
 +obj-$(CONFIG_USB_XHCI_TEGRA) += xhci-tegra.o xhci-tegra-padctl.o tegra_xhci_fw.o
-
+ 
  # designware
  obj-$(CONFIG_USB_DWC2) += dwc2.o
 diff --git drivers/usb/host/tegra_xhci.h drivers/usb/host/tegra_xhci.h
@@ -2744,7 +2758,7 @@ index 0000000000..a439fd9ccb
 +
 +#endif	/* __TEGRA_XHCI_FW_H__ */
 diff --git drivers/usb/host/xhci-mem.c drivers/usb/host/xhci-mem.c
-index 21cd03b662..a66a6cb12f 100644
+index 21cd03b662..dd696dc46f 100644
 --- drivers/usb/host/xhci-mem.c
 +++ drivers/usb/host/xhci-mem.c
 @@ -66,7 +66,10 @@ void xhci_inval_cache(uintptr_t addr, u32 len)
@@ -2756,11 +2770,11 @@ index 21cd03b662..a66a6cb12f 100644
  	free(seg->trbs);
 +#endif
  	seg->trbs = NULL;
-
+ 
  	free(seg);
 @@ -111,7 +114,10 @@ static void xhci_scratchpad_free(struct xhci_ctrl *ctrl)
  	ctrl->dcbaa->dev_context_ptrs[0] = 0;
-
+ 
  	free(xhci_bus_to_virt(ctrl, le64_to_cpu(ctrl->scratchpad->sp_array[0])));
 +#ifdef CONFIG_SYS_NONCACHED_MEMORY
 +#else
@@ -2779,7 +2793,7 @@ index 21cd03b662..a66a6cb12f 100644
 +#endif
  	free(ctx);
  }
-
+ 
 @@ -178,8 +187,12 @@ void xhci_cleanup(struct xhci_ctrl *ctrl)
  	xhci_ring_free(ctrl->cmd_ring);
  	xhci_scratchpad_free(ctrl);
@@ -2792,23 +2806,23 @@ index 21cd03b662..a66a6cb12f 100644
 +#endif
  	memset(ctrl, '\0', sizeof(struct xhci_ctrl));
  }
-
+ 
 @@ -194,7 +207,12 @@ static void *xhci_malloc(unsigned int size)
  	void *ptr;
  	size_t cacheline_size = max(XHCI_ALIGNMENT, CACHELINE_SIZE);
-
+ 
 +#ifdef CONFIG_SYS_NONCACHED_MEMORY
 +	ptr = (void *)noncached_alloc(ALIGN(size, cacheline_size),
-+				      cacheline_size);
++			              cacheline_size);
 +#else
  	ptr = memalign(cacheline_size, ALIGN(size, cacheline_size));
 +#endif
  	BUG_ON(!ptr);
  	memset(ptr, '\0', size);
-
+ 
 @@ -404,8 +422,10 @@ static int xhci_scratchpad_alloc(struct xhci_ctrl *ctrl)
  	return 0;
-
+ 
  fail_sp3:
 +#ifdef CONFIG_SYS_NONCACHED_MEMORY
 +#else
@@ -3625,10 +3639,10 @@ index 0000000000..78903fb90b
 +	.flags	= DM_FLAG_ALLOC_PRIV_DMA,
 +};
 diff --git drivers/usb/host/xhci.c drivers/usb/host/xhci.c
-index ad73ba12e2..edc2bf88ef 100644
+index dbeb88afe3..027f2c33c6 100644
 --- drivers/usb/host/xhci.c
 +++ drivers/usb/host/xhci.c
-@@ -679,6 +679,10 @@ static int xhci_address_device(struct usb_device *udev, int root_portnr)
+@@ -667,6 +667,10 @@ static int xhci_address_device(struct usb_device *udev, int root_portnr)
  		debug("Successful Address Device command\n");
  		udev->status = 0;
  		break;
@@ -3803,10 +3817,10 @@ index 0000000000..50c9f6950e
 +
 +#endif /* __XUSB_MACROS_H__ */
 diff --git include/config_distro_bootcmd.h include/config_distro_bootcmd.h
-index c55023889c..3ee4732f61 100644
+index c3a2414b91..9e10e2656c 100644
 --- include/config_distro_bootcmd.h
 +++ include/config_distro_bootcmd.h
-@@ -201,6 +201,7 @@
+@@ -210,6 +210,7 @@
  	\
  	"nvme_boot=" \
  		BOOTENV_RUN_PCI_ENUM \
@@ -3814,10 +3828,10 @@ index c55023889c..3ee4732f61 100644
  		BOOTENV_RUN_NVME_INIT \
  		BOOTENV_SHARED_BLKDEV_BODY(nvme)
  #define BOOTENV_DEV_NVME	BOOTENV_DEV_BLKDEV
-@@ -266,6 +267,15 @@
+@@ -275,6 +276,15 @@
  	BOOT_TARGET_DEVICES_references_IDE_without_CONFIG_IDE
  #endif
-
+ 
 +#ifdef CONFIG_CMD_CACHE
 +#define BOOTENV_RUN_DCACHE_OFF "run boot_dcache_off; "
 +#define BOOTENV_SHARED_DCACHE \
@@ -3830,7 +3844,7 @@ index c55023889c..3ee4732f61 100644
  #if defined(CONFIG_PCI)
  #define BOOTENV_RUN_PCI_ENUM "run boot_pci_enum; "
  #define BOOTENV_SHARED_PCI \
-@@ -280,6 +290,7 @@
+@@ -289,6 +299,7 @@
  #define BOOTENV_SHARED_USB \
  	"boot_net_usb_start=usb start\0" \
  	"usb_boot=" \
@@ -3838,7 +3852,7 @@ index c55023889c..3ee4732f61 100644
  		"usb start; " \
  		BOOTENV_SHARED_BLKDEV_BODY(usb)
  #define BOOTENV_DEV_USB		BOOTENV_DEV_BLKDEV
-@@ -425,6 +436,7 @@
+@@ -462,6 +473,7 @@
  	BOOTENV_SHARED_USB \
  	BOOTENV_SHARED_SATA \
  	BOOTENV_SHARED_SCSI \
@@ -3857,11 +3871,11 @@ index 7f942888e7..c68c5dfb1a 100644
 + * (C) Copyright 2013-2020
   * NVIDIA Corporation <www.nvidia.com>
   */
-
+ 
 @@ -17,6 +17,15 @@
  /* Board-specific serial config */
  #define CONFIG_TEGRA_ENABLE_UARTA
-
+ 
 +/* SD, eMMC, USB, NVME, PXE, DHCP */
 +#define BOOT_TARGET_DEVICES(func) \
 +	func(MMC, mmc, 1) \
@@ -3872,7 +3886,7 @@ index 7f942888e7..c68c5dfb1a 100644
 +	func(DHCP, dhcp, na)
 +
  /* Environment in eMMC, at the end of 2nd "boot sector" */
-
+ 
  /* SPI */
 diff --git include/configs/p2771-0000.h include/configs/p2771-0000.h
 index 84cdd57196..2e09b4dff1 100644
@@ -3884,12 +3898,12 @@ index 84cdd57196..2e09b4dff1 100644
 - * Copyright (c) 2013-2016, NVIDIA CORPORATION.
 + * Copyright (c) 2013-2020, NVIDIA CORPORATION.
   */
-
+ 
  #ifndef _P2771_0000_H
 @@ -15,12 +15,20 @@
-
+ 
  /* Environment in eMMC, at the end of 2nd "boot sector" */
-
+ 
 +/* SD, eMMC, NVME, PXE, DHCP */
 +#define BOOT_TARGET_DEVICES(func) \
 +	func(MMC, mmc, 1) \
@@ -3911,7 +3925,7 @@ index 84cdd57196..2e09b4dff1 100644
 @@ -35,6 +43,30 @@
  	"ramdisk_addr_r_offset=00000000\0" \
  	"ramdisk_addr_r_size=02000000\0"
-
+ 
 +#ifdef CONFIG_FIT
 +#undef CONFIG_BOOTCOMMAND
 +#undef BOARD_EXTRA_ENV_SETTINGS
@@ -3937,7 +3951,7 @@ index 84cdd57196..2e09b4dff1 100644
 +#endif /* CONFIG_FIT */
 +
  #include "tegra-common-post.h"
-
+ 
  #endif
 diff --git include/configs/p3450-0000.h include/configs/p3450-0000.h
 index ec1a8634e7..d032bd850b 100644
@@ -3949,18 +3963,18 @@ index ec1a8634e7..d032bd850b 100644
 - * (C) Copyright 2018-2019 NVIDIA Corporation.
 + * (C) Copyright 2018-2020 NVIDIA Corporation.
   */
-
+ 
  #ifndef _P3450_0000_H
 @@ -10,27 +10,67 @@
-
+ 
  #include "tegra210-common.h"
-
+ 
 -/* High-level configuration options */
 -#define CONFIG_TEGRA_BOARD_STRING	"NVIDIA P3450-0000"
 -
  /* Board-specific serial config */
  #define CONFIG_TEGRA_ENABLE_UARTA
-
+ 
 +#ifdef CONFIG_P3450_EMMC
 +#define CONFIG_TEGRA_BOARD_STRING	"NVIDIA P3450-0002"
 +#define BOOT_TARGET_DEVICES(func) \
@@ -3984,7 +3998,7 @@ index ec1a8634e7..d032bd850b 100644
 +	func(NVME, nvme, 0) \
  	func(PXE, pxe, na) \
  	func(DHCP, dhcp, na)
-
+ 
  /* Environment at end of QSPI, in the VER partition */
  #define CONFIG_SPI_FLASH_SIZE		(4 << 20)
 +#define DEFAULT_MMC_DEV			"1"
@@ -4013,7 +4027,7 @@ index ec1a8634e7..d032bd850b 100644
 +#else
 +#define FITIMAGE_ENV_SETTINGS
 +#endif /* CONFIG_FIT */
-
+ 
  #define BOARD_EXTRA_ENV_SETTINGS \
 -	"preboot=if test -e mmc 1:1 /u-boot-preboot.scr; then " \
 -		"load mmc 1:1 ${scriptaddr} /u-boot-preboot.scr; " \
@@ -4023,7 +4037,7 @@ index ec1a8634e7..d032bd850b 100644
 -	"fi\0"
 +	"fi\0" \
 +	FITIMAGE_ENV_SETTINGS
-
+ 
  /* General networking support */
  #include "tegra-common-post.h"
 diff --git include/configs/p3541-0000.h include/configs/p3541-0000.h
@@ -4138,7 +4152,7 @@ index 968501602a..c787f80988 100644
 - * Copyright 2013-2016, NVIDIA CORPORATION.
 + * Copyright 2013-2021, NVIDIA CORPORATION.
   */
-
+ 
  #ifndef _TEGRA186_COMMON_H_
 @@ -44,14 +44,44 @@
   * fdt_addr_r simply shouldn't overlap anything else. Choosing 32M allows for
@@ -4184,10 +4198,10 @@ index 968501602a..c787f80988 100644
 +		"/trusty/status\0"
 +
 +#define CONFIG_SYS_BOOTM_LEN   (64 << 20)      /* Increase max gunzip size */
-
+ 
  #endif
 diff --git include/configs/tegra210-common.h include/configs/tegra210-common.h
-index 3ba12bec0e..0cb3442f71 100644
+index 7f361d874a..ec7db31b5b 100644
 --- include/configs/tegra210-common.h
 +++ include/configs/tegra210-common.h
 @@ -1,7 +1,6 @@
@@ -4197,9 +4211,9 @@ index 3ba12bec0e..0cb3442f71 100644
 - * NVIDIA Corporation <www.nvidia.com>
 + *  Copyright (c) 2013-2021, NVIDIA CORPORATION. All rights reserved.
   */
-
+ 
  #ifndef _TEGRA210_COMMON_H_
-@@ -35,16 +34,46 @@
+@@ -35,15 +34,45 @@
   * fdt_addr_r simply shouldn't overlap anything else. Choosing 32M allows for
   *   the compressed kernel to be up to 16M too.
   *
@@ -4244,15 +4258,7 @@ index 3ba12bec0e..0cb3442f71 100644
 +		"/chosen/linux,initrd-end:" \
 +		"/serial-number:" \
 +		"/psci/nvidia,system-lp0-disable\0"
-
- /* For USB EHCI controller */
- #define CONFIG_USB_EHCI_TXFIFO_THRESH	0x10
-@@ -52,4 +81,6 @@
- /* GPU needs setup */
- #define CONFIG_TEGRA_GPU
-
-+#define CONFIG_SYS_BOOTM_LEN   (64 << 20)      /* Increase max gunzip size */
-+
+ 
  #endif /* _TEGRA210_COMMON_H_ */
 diff --git scripts/dtc-version.sh scripts/dtc-version.sh
 index bfb514e179..4c74cb77e7 100755
@@ -4261,11 +4267,12 @@ index bfb514e179..4c74cb77e7 100755
 @@ -20,8 +20,8 @@ if ! which $dtc >/dev/null ; then
  	exit 1
  fi
-
+ 
 -MAJOR=$($dtc -v | head -1 | awk '{print $NF}' | cut -d . -f 1)
 +MAJOR=$($dtc -v | head -1 | awk '{print $NF}' | cut -d . -f 1 | tr -d v)
  MINOR=$($dtc -v | head -1 | awk '{print $NF}' | cut -d . -f 2)
 -PATCH=$($dtc -v | head -1 | awk '{print $NF}' | cut -d . -f 3 | cut -d - -f 1)
 +PATCH=$($dtc -v | head -1 | awk '{print $NF}' | cut -d . -f 3 | cut -d - -f 1 | cut -d '+' -f 1)
-
+ 
  printf "%02d%02d%02d\\n" $MAJOR $MINOR $PATCH
+

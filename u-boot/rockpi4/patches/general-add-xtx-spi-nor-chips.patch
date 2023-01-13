@@ -1,5 +1,5 @@
 # copied from https://github.com/armbian/build/blob/09e416e31cc01ece4533a65f02a470a4c21b90ea/patch/u-boot/u-boot-rockchip64/general-add-xtx-spi-nor-chips.patch
-# and modified for u-boot v2022.07
+# and modified for u-boot v2023.01
 diff --git drivers/mtd/spi/spi-nor-ids.c drivers/mtd/spi/spi-nor-ids.c
 index 7050ddc397..1d982c8994 100644
 --- drivers/mtd/spi/spi-nor-ids.c
