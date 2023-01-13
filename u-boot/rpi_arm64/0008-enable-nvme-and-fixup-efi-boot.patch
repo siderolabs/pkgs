@@ -1,0 +1,24 @@
+diff --git a/configs/rpi_arm64_defconfig b/configs/rpi_arm64_defconfig
+index 031ed69ff0..f41d367238 100644
+--- a/configs/rpi_arm64_defconfig
++++ b/configs/rpi_arm64_defconfig
+@@ -57,3 +57,19 @@ CONFIG_VIDEO_BCM2835=y
+ CONFIG_CONSOLE_SCROLL_LINES=10
+ CONFIG_PHYS_TO_BUS=y
+ CONFIG_OF_LIBFDT_OVERLAY=y
++# Enable NVME
++CONFIG_NVME_PCI=y
++CONFIG_CMD_NVME=y
++CONFIG_NVME=y
++# USB mass storage support
++CONFIG_CMD_USB_MASS_STORAGE=y
++# Boot config
++CONFIG_BOOTSTD=y
++CONFIG_BOOTMETH_DISTRO=n
++CONFIG_BOOTMETH_DISTRO_PXE=n
++CONFIG_BOOTMETH_EFILOADER=y
++CONFIG_BOOTMETH_GLOBAL=n
++CONFIG_BOOTMETH_SCRIPT=n
++CONFIG_PXE_UTILS=n
++# Disable EFI bootmanager (reserves memory on 0x00080000 -> prevents continuing after being successful)
++CONFIG_CMD_BOOTEFI_BOOTMGR=n

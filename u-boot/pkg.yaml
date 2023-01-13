@@ -77,6 +77,13 @@ steps:
         mkdir ${RPI_ARM64_GENERIC_U_BOOT}
         tar -xjf u-boot.tar.bz2 --strip-components=1 -C ${RPI_ARM64_GENERIC_U_BOOT}
         cd ${RPI_ARM64_GENERIC_U_BOOT}
+        patch -p1 < /pkg/rpi_arm64/0002-rpi-add-NVMe-to-boot-order.patch
+        patch -p1 < /pkg/rpi_arm64/0003-Revert-nvme-Correct-the-prps-per-page-calculation-me.patch
+        patch -p1 < /pkg/rpi_arm64/0004-usb-xhci-brcm-Make-driver-compatible-with-downstream.patch
+        patch -p1 < /pkg/rpi_arm64/0005-nvme-improve-readability-of-nvme_setup_prps.patch
+        patch -p1 < /pkg/rpi_arm64/0006-nvme-Use-pointer-for-CPU-addressed-buffers.patch
+        patch -p1 < /pkg/rpi_arm64/0007-nvme-translate-virtual-addresses-into-the-bus-s-addr.patch
+        patch -p1 < /pkg/rpi_arm64/0008-enable-nvme-and-fixup-efi-boot.patch
         make rpi_arm64_defconfig
         sed -i "s/CONFIG_TOOLS_LIBCRYPTO=y/# CONFIG_TOOLS_LIBCRYPTO is not set/" .config
       # bananapi_m64
