@@ -1,14 +1,14 @@
-# syntax = ghcr.io/siderolabs/bldr:v0.2.0-alpha.11
+# syntax = ghcr.io/siderolabs/bldr:v0.2.0-alpha.12
 
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.4.0-alpha.0-7-gd0e6bd0
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.4.0-alpha.0-10-ge130fd5
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
-  cni_version: v1.1.1
-  cni_sha256: c86c44877c47f69cd23611e22029ab26b613f620195b76b3ec20f589367a7962
-  cni_sha512: 03da31caee5f9595abf65d4a551984b995bc18c5e97409549f08997c5a6a2b41a8950144f8a5b4f810cb401ddbe312232d2be76ec977acf8108eb490786b1817
+  cni_version: v1.2.0
+  cni_sha256: f3496ddda9c7770a0b695b67ae7ee80a4ee331ac2745af4830054b81627f79b7 
+  cni_sha512: fb6fb4f46ac1610b3721f5f3a6ddfb096cbf2e5d5b792306edca5351a3944d2f802170d83e5adec01420395bf64fc8a174ede61ac9b93b5ac6b938a4b48651e6
 
   # renovate: datasource=github-tags depName=containerd/containerd
   containerd_version: v1.6.15
@@ -58,19 +58,19 @@ vars:
   ipmitool_sha512: 2d91706e9feba4b2ce4808eca087b81b842c4292a5840830001919c06ec8babd8f8761b74bb9dcf8fbc7765f028a5b1a192a3c1b643f2adaa157fed6fb0d1ee3
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.netfilter.org/iptables
-  iptables_version: 1.8.8
-  iptables_sha256: 71c75889dc710676631553eb1511da0177bbaaf1b551265b912d236c3f51859f
-  iptables_sha512: f21df23279a77531a23f3fcb1b8f0f8ec0c726bda236dd0e33af74b06753baff6ce3f26fb9fcceb6fada560656ba901e68fc6452eb840ac1b206bc4654950f59
+  iptables_version: 1.8.9
+  iptables_sha256: ef6639a43be8325a4f8ea68123ffac236cb696e8c78501b64e8106afb008c87f
+  iptables_sha512: e367bf286135e39b7401e852de25c1ed06d44befdffd92ed1566eb2ae9704b48ac9196cb971f43c6c83c6ad4d910443d32064bcdf618cfcef6bcab113e31ff70
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: ab19546386b13d6c54aea1647fac06960c544efc
-  ipxe_sha256: b61964de4f771884c823b16fe9b8b42403edc7d09a51e1b18a3f6e53f8266bfa
-  ipxe_sha512: d9123ec10746c6e0a94ec6c68002a7c73e0cac5ab513cf956288dd84853b9e4aa8262fb7fd28fd30383b06bb0c8a6b49abea653d779fa92eba193eca73abcf6c
+  ipxe_ref: 08740220baba87cbc6acb1c00cd5b492ac0c5a08
+  ipxe_sha256: 805a9ff31c1ae1144ff7607e0f1a4ac1ecad41b50e8f9fb079caad52cfbdb46a
+  ipxe_sha512: 4fd9ff063b143bf96b41749bc3c01d5ed7ad162325639bc5df974f0bbd2cd3eb2ac67eee60a02b9bd13ab58589c6a5a4b15500abfe86f1dcad1339737bd657e5
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.1.5
-  linux_sha256: bc7f6d9a8a8bbe9a723e82346bba94b58d926f78bfba106b21e041e0290076fc
-  linux_sha512: f359a8ff3d2d4f1e95bd90431209fa17b7b37029a246b4fbadd618afb734f2e0385a21ebdc21c9fe6b5cc84876b34a59d7ae582c97c34cf29238231db4161275
+  linux_version: 6.1.7
+  linux_sha256: 4ab048bad2e7380d3b827f1fad5ad2d2fc4f2e80e1c604d85d1f8781debe600f
+  linux_sha512: 8b9bb3fbbea2d61314145cf6e4e1140372821a1e9ff79c4da363039c54fe73481106a5a85df0141dd449f4a21e946093a7430b14896b601c5a8b1f776107b35c
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ versioning=loose depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 30

@@ -5,18 +5,13 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      - url: https://deb.debian.org/debian/pool/main/i/iptables/iptables_{{ .iptables_version }}.orig.tar.bz2
-        destination: iptables.tar.bz2
+      - url: https://ftp.debian.org/debian/pool/main/i/iptables/iptables_{{ .iptables_version }}.orig.tar.xz
+        destination: iptables.tar.xz
         sha256: "{{ .iptables_sha256 }}"
         sha512: "{{ .iptables_sha512 }}"
     prepare:
       - |
-        tar -xjf iptables.tar.bz2 --strip-components=1
-
-        # iptables out of tree built needs more patches and running ./autogen.sh
-        # https://www.spinics.net/lists/netfilter-devel/msg76456.html
-        patch -p1 < /pkg/patches/fix-xtables.patch
-        patch -p1 < /pkg/patches/fix-u_int16_t.patch
+        tar -xf iptables.tar.xz --strip-components=1
 
         ./configure \
         --prefix=/usr \
