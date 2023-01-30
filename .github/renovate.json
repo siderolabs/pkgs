@@ -23,7 +23,7 @@
                 "Makefile"
             ],
             "matchStrings": [
-                "(?<depName>ghcr.io\\/siderolabs\\/bldr):(?<currentValue>v.*-frontend)"
+                "(?<depName>ghcr.io\\/siderolabs\\/bldr):(?<currentValue>v.*)"
             ],
             "datasourceTemplate": "docker",
             "versioningTemplate": "semver"
