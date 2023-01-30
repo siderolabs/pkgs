@@ -23,11 +23,11 @@ steps:
     install:
       - |
         mkdir -p /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin.modinfo /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
 
-        # create these so we don't get warnings when depmod runs
-        touch /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/modules.builtin
-
-        make -C /src M=$(pwd)/src modules_install INSTALL_MOD_PATH=/rootfs
+        make -C /src M=$(pwd)/src modules_install INSTALL_MOD_PATH=/rootfs INSTALL_MOD_DIR=extras
     test:
       - |
         # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping

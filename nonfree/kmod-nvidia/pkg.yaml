@@ -37,9 +37,11 @@ steps:
         cd NVIDIA-Linux-*/kernel
 
         mkdir -p /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
-        touch /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/modules.builtin
+        cp /src/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin.modinfo /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
 
-        make -j $(nproc) modules_install SYSSRC=/src DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs
+        make -j $(nproc) modules_install SYSSRC=/src DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs INSTALL_MOD_DIR=extras
 finalize:
   - from: /rootfs
     to: /
