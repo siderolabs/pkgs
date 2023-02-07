@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.4.0-alpha.0-10-ge130fd5
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.4.0-alpha.0-13-g8c36dbd
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.2.0
@@ -27,9 +27,9 @@ vars:
   dosfstools_sha512: 3cc0808edb4432428df8a67da4bb314fd1f27adc4a05754c1a492091741a7b6875ebd9f6a509cc4c5ad85643fc40395b6e0cadee548b25cc439cc9b725980156
 
   # renovate: datasource=github-tags extractVersion=^drbd-(?<version>.*)$ depName=LINBIT/drbd
-  drbd_version: 9.2.1
-  drbd_sha256: f59ee795188f21d4a62c5319c371ebad65ab3fb9b55e5212c3f1dd558978a843
-  drbd_sha512: 7f916263868b79ec18768a76eaa167ee0061de10b6b417a6d2a6841277361a9201e29ccafd1eb7fde280d35f86a9ef8ee6cf5f64f3c7382265fda220f34f2f15
+  drbd_version: 9.2.2
+  drbd_sha256: 5651dcd32104f33c6de0945b6a404a1a853c94763e9b858be5b2f2ec2ee11018
+  drbd_sha512: 293d1e19324121c642953eed3b60179d36f852f8d3fa9f448dae82d41441d2b8431f2c94d487d5cb0de4feb23ab83f91f6a500ab1c7ce0e9d21ea0dabf739965
 
   # renovate: datasource=github-releases depName=eudev-project/eudev
   eudev_version: v3.2.11
@@ -37,10 +37,10 @@ vars:
   eudev_sha512: 17b328365913af3e434abe667dd0498c3702a41c6cb66f3793ca2c195b05ac06397b0a401077f81df7dd25193e4eeea13657a221ca6cb3d237c4d91e31e30b33
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
-  flannel_cni_version: v1.2.0
+  flannel_cni_version: v1.1.2
   flannel_cni_ref: 18a3027e7d03feeb6ecdfdbc3bf254a8c8b38b04
-  flannel_cni_sha256: 5034306c59e97c0b64ecdf41ec6f7fe1fef0d902a867ad0537d0b1c919e05d6d
-  flannel_cni_sha512: 798912548646c5cd5aebf43f3a7479cad082997cf22711a005f5b82ae3c5001bb5dfa09a9eb4f6a896e3026e307a64256f197cc215cb29b484db46964d94d26d
+  flannel_cni_sha256: 14223278f08af51a9f6039630d730c6abe9a963eda2fc53e845ad4b067c9fc5b
+  flannel_cni_sha512: 09c98a1bbc499bedb75cb01192ad3c631df066aae5164f3de31be146ce7afa7bdd327dc7dc3314adf944fb9e27999792f55af811cbe8f0eadc3c0ba329ff48c9
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/google/gasket-driver.git
   gasket_driver_ref: 97aeba584efd18983850c36dcf7384b0185284b3
@@ -63,14 +63,14 @@ vars:
   iptables_sha512: e367bf286135e39b7401e852de25c1ed06d44befdffd92ed1566eb2ae9704b48ac9196cb971f43c6c83c6ad4d910443d32064bcdf618cfcef6bcab113e31ff70
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 4bb521a8c4b324902651714915dfe6fd4a5c36af
-  ipxe_sha256: 2cc46d59b2e75e5d0ae0f615a4cbbebb3098cef3306d0155c56e6bc39f8e1d2a
-  ipxe_sha512: 2cd8640d8e218232e6a57e600dc1091e8489c7cd167c80d2d8512ec60cd95563340c53350be1743881da7c31bed737558b80fe0e413ba334c52151ab84a4bcc5
+  ipxe_ref: 62a1d5c0f5bc52227ba43ccb7924694d661449a2
+  ipxe_sha256: eb11a434720e686c51777fb033ade5d48a0f3aa583b035a09a4479ba7f8eba02
+  ipxe_sha512: d0d02d9dc253ad84973f0d227758afc12c50228e4bcc77c641bc09d9c034783211775aba170bbc46bfaf43601ebae14cf744b837d763fba4882e3a2eb61a1f40
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.1.8
-  linux_sha256: b60bb53ab8ba370a270454b11e93d41af29126fc72bd6ede517673e2e57b816d
-  linux_sha512: c5af551e441f7f987419833a15d5b2191e13d1c321a022aef6b12227017a3f295e42e79cc6b8a05f41f7374ef11c8aa0d75bb8b1c157aaa072e8b8681364e783
+  linux_version: 6.1.10
+  linux_sha256: 0be2919ba91cf5873a4cb4d429de78aad0469120d624e333a43b4b011d74d19d
+  linux_sha512: 7bec1d76ecafd89fdb13bc7c9c69b4f378e41b29aed33c302b235540f40f1d5e6b3c653d2dea83c2d03408e324ffa73ff3dcc7c47c685572719d62bc66a06a1d
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ versioning=loose depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 30
