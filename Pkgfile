@@ -108,9 +108,9 @@ vars:
   libseccomp_sha512: 92650bd7d1d48b383f402a536b97a017fd0f6ad1234daf4b938d01c92e8d134a01d2f2dd45fd9e2d025d7556bd1386ec360402145a87f20580c85949d62cea0e
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ versioning=loose depName=git://git.liburcu.org/userspace-rcu.git
-  liburcu_version: 0.13.2
-  liburcu_sha256: 1213fd9f1b0b74da7de2bb74335b76098db9738fec5d3cdc07c0c524f34fc032
-  liburcu_sha512: e5097a7f653f51b3a47a09f79e7a153aab8fd22c0504a1127a9b33d093a9ae6a941b97c0fe175ee168e2976097aefdcdf8d5ce030afbe565c1b72f64d6f5b60a
+  liburcu_version: 0.14.0
+  liburcu_sha256: ca43bf261d4d392cff20dfae440836603bf009fce24fdc9b2697d837a2239d4f
+  liburcu_sha512: 7297e51012f4c44ee27c0e18ed9d87bf24be34db68a5398394c1e683a045bb561cf74aa913398404c0ed5cb8011af728ea12947717fa5f27627e5ca78e63a40f
 
   # renovate: datasource=git-tags versioning=loose depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
   linux_firmware_version: 20230210
