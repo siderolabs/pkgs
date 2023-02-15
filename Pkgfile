@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.4.0-alpha.0-15-g15748aa
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.4.0-alpha.0-17-gcd9687b
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.2.0
@@ -68,9 +68,9 @@ vars:
   ipxe_sha512: 82fcb0350b784ec5232ba4c47e8ad2af2d3c31f22486ffd49d7ee88075d461374b63b470f2ee53cc6185ffe3c86e49c9a98ae2df87227bd12b8b745ea9817849
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.1.11
-  linux_sha256: 581b0560077863c5116512c0b5fd93b97814092c80e6ebebabe88101949af7a1
-  linux_sha512: 5a2a61fa9f624fc9db70545c0e6f36ba714ce09e627f05bc0147c31d229e6308f6977d298271f38ece6e6099b99e3a25a7762a767c2123b83ec205574207a726
+  linux_version: 6.1.12
+  linux_sha256: d47aa675170904dcc93eeaa7c96db54d476a11c5d3e8cf3d3b96e364e2a0edea
+  linux_sha512: e870aa9038f0508c50af5329721a5649c3537deb333d18f006bbf6d3c310b64262630eed5682022b7eceece9ef0956d2c110555cc9257591b7a221d063976735
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ versioning=loose depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 30
@@ -108,9 +108,9 @@ vars:
   libseccomp_sha512: 92650bd7d1d48b383f402a536b97a017fd0f6ad1234daf4b938d01c92e8d134a01d2f2dd45fd9e2d025d7556bd1386ec360402145a87f20580c85949d62cea0e
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ versioning=loose depName=git://git.liburcu.org/userspace-rcu.git
-  liburcu_version: 0.13.2
-  liburcu_sha256: 1213fd9f1b0b74da7de2bb74335b76098db9738fec5d3cdc07c0c524f34fc032
-  liburcu_sha512: e5097a7f653f51b3a47a09f79e7a153aab8fd22c0504a1127a9b33d093a9ae6a941b97c0fe175ee168e2976097aefdcdf8d5ce030afbe565c1b72f64d6f5b60a
+  liburcu_version: 0.14.0
+  liburcu_sha256: ca43bf261d4d392cff20dfae440836603bf009fce24fdc9b2697d837a2239d4f
+  liburcu_sha512: 7297e51012f4c44ee27c0e18ed9d87bf24be34db68a5398394c1e683a045bb561cf74aa913398404c0ed5cb8011af728ea12947717fa5f27627e5ca78e63a40f
 
   # renovate: datasource=git-tags versioning=loose depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
   linux_firmware_version: 20230210
