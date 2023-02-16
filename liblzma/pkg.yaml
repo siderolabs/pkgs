@@ -5,8 +5,7 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      # redirect url of https://tukaani.org/xz/xz-{{ .xz_version }}.tar.xz
-      - url: https://udomain.dl.sourceforge.net/project/lzmautils/xz-{{ .xz_version | replace "v" "" }}.tar.xz
+      - url: https://github.com/tukaani-project/xz/releases/download/{{ .xz_version }}/xz-{{ .xz_version | replace "v" "" }}.tar.xz
         destination: xz.tar.xz
         sha256: "{{ .xz_sha256 }}"
         sha512: "{{ .xz_sha512 }}"
