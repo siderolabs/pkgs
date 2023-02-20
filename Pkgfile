@@ -92,8 +92,8 @@ vars:
   libjson_c_sha256: 8e45ac8f96ec7791eaf3bb7ee50e9c2100bbbc87b8d0f1d030c5ba8a0288d96b
   libjson_c_sha512: 255cff99033340b2c2678255d41dae7808f83ed0c102e693d2d9e186bd1f21dd1385fcaa360c0fc087a00965a9567fbda733370e6b518a9be2f1bb0a80439151
 
-  # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://git.tukaani.org/xz.git
-  xz_version: 5.4.1
+  # renovate: datasource=github-releases depName=tukaani-project/xz
+  xz_version: v5.4.1
   xz_sha256: 5d9827aa1875b21c288f78864bb26d2650b436ea8d2cad364e4921eb6266a5a5
   xz_sha512: f890ee5207799fbc7bb9ae031f444d39d82275b0e1b8cc7f01fdb9270050e38849bd1269db2a2f12fe87b5e23e03f9e809a5c3456d066c0a56e6f98d728553ea
 
