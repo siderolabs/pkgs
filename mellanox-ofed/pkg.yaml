@@ -16,21 +16,18 @@ steps:
         tar -xzf mellanox_ofed.tgz --strip-components=1
 
         cd SOURCES
-        tar xf mlnx-ofed-kernel_5.8.orig.tar.gz
+        tar xf mlnx-ofed-kernel_5.9.orig.tar.gz
     build:
       - |
-        cd SOURCES/mlnx-ofed-kernel-5.8
+        cd SOURCES/mlnx-ofed-kernel-5.9
 
         ./configure --with-core-mod \
           --with-user_mad-mod \
           --with-user_access-mod \
           --with-addr_trans-mod \
-          --with-mlx4-mod \
-          --with-mlx4_en-mod \
           --with-mlx5-mod \
           --with-ipoib-mod \
           --with-srp-mod \
-          --with-rds-mod \
           --with-iser-mod \
           --kernel-sources=/src \
           -j $(nproc)
@@ -38,7 +35,7 @@ steps:
         make kernel -j $(nproc)
     install:
       - |
-        cd SOURCES/mlnx-ofed-kernel-5.8
+        cd SOURCES/mlnx-ofed-kernel-5.9
 
         mkdir -p /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
         cp /src/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/

@@ -37,6 +37,7 @@ TARGETS = \
 	containerd \
 	cryptsetup \
 	dosfstools \
+	drbd-pkg \
 	eudev \
 	fhs \
 	flannel-cni \
@@ -67,8 +68,7 @@ TARGETS = \
 	util-linux \
 	xfsprogs
 
-# Temporarily disabled until DRBD releases a version compatible with Linux 6.1
-# drbd-pkg \
+# Temporarily disabled until mellanox builds with Linux 6.1
 # mellanox-ofed-pkg \
 
 NONFREE_TARGETS = nonfree-kmod-nvidia

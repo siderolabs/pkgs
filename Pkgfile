@@ -122,9 +122,9 @@ vars:
   lvm2_sha256: 9f683e2980d95c0dcebbd25c7c177032c5615d7267bfc885eabfce59280f4769
   lvm2_sha512: 58043bdcad882065f15d772401d29fc7fb2d0a6b6b75063915dc38bb11cd847517dd18ae7e2acb3935e6c32ef620a275c2b2b9c307434f7457ea3203b87254c1
 
-  mellanox_ofed_version: 5.8-1.1.2.1
-  mellanox_ofed_sha256: 0ac9b9f400f8d6ce7cb99bb990ede7084885f88336a5fae6048dbcb3d3877087
-  mellanox_ofed_sha512: c9f98ec0fda7a6eb20e85a76e01fec2b53c65a15af7614e613d104f849f117ecb2230b9fece0dff198eeef36f1a40debda1493ac4913c8cb21f484cf84eaa258
+  mellanox_ofed_version: 5.9-0.5.6.0
+  mellanox_ofed_sha256: 4503258cbe92b00c734e612c3a7ad1d71e023fdffae2a2c119f7b537505e499c
+  mellanox_ofed_sha512: 58604ea89aa8351727532c48f0c59b4e533ba8bfcef9533f45d94e15ffdcf3a5c464398706cad14ebf3826b132972bd044fadbf7f047e60bdb0c2a454c96acd7
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.musl-libc.org/musl
   musl_version: 1.2.3
