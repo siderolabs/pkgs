@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.4.0-alpha.0-19-ga8440a9
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.4.0-alpha.0-21-gca67d0b
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.2.0
@@ -11,10 +11,10 @@ vars:
   cni_sha512: fb6fb4f46ac1610b3721f5f3a6ddfb096cbf2e5d5b792306edca5351a3944d2f802170d83e5adec01420395bf64fc8a174ede61ac9b93b5ac6b938a4b48651e6
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v1.6.18
-  containerd_ref: 2456e983eb9e37e47538f59ea18f2043c9a73640
-  containerd_sha256: e9b84d52da7743000c1e8dae0175dda16d558a44cf80a5ae2556862205361a64
-  containerd_sha512: 3a8d1a4f892d251fde7098f99c3dc620d7eb077d64e8f98fe82ec4dd8c88067a9a5e13e9ec6b38abdf624e67dbf53a1d24fe50f64065a742d2276becc789fdc8
+  containerd_version: v1.6.19
+  containerd_ref: 1e1ea6e986c6c86565bc33d52e34b81b3e2bc71f
+  containerd_sha256: 7a90dc72f44e230eb5228ebac23b37e91f7d26d175d563099a8e1c0592047a28
+  containerd_sha512: dca78d472dfbc6fc4d9b0b3a0d0a131d3575163c52e4fe18ea2c6147868b8822c54046c0709974e9b90472b882ba3890ada7f0fcbf31549efffba0d91531886c
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
   cryptsetup_version: 2.6.1
@@ -63,14 +63,14 @@ vars:
   iptables_sha512: e367bf286135e39b7401e852de25c1ed06d44befdffd92ed1566eb2ae9704b48ac9196cb971f43c6c83c6ad4d910443d32064bcdf618cfcef6bcab113e31ff70
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 76a286530a8b5bdbab81c3851b851dea2da32114
-  ipxe_sha256: be163f831be6c419e7bdc5cfa38d3e769489c66088eb4dbee9629e8e677bdaf8
-  ipxe_sha512: 82fcb0350b784ec5232ba4c47e8ad2af2d3c31f22486ffd49d7ee88075d461374b63b470f2ee53cc6185ffe3c86e49c9a98ae2df87227bd12b8b745ea9817849
+  ipxe_ref: 96bb6ba441653a30729ade38dc6c23bc9e2d2339
+  ipxe_sha256: add0b56ba85ed575b3dd41dd9c747d18409506862bc2378df3447266411e8b79
+  ipxe_sha512: 6194191e17b66fc47254df8cb6f6d527cf17871c647e00a31b047ce3e342f01ed39c9052b799d79fa3b7b1b35d4ab7465d947b0d310a225672d8a974f25d5aa8
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.1.12
-  linux_sha256: d47aa675170904dcc93eeaa7c96db54d476a11c5d3e8cf3d3b96e364e2a0edea
-  linux_sha512: e870aa9038f0508c50af5329721a5649c3537deb333d18f006bbf6d3c310b64262630eed5682022b7eceece9ef0956d2c110555cc9257591b7a221d063976735
+  linux_version: 6.1.14
+  linux_sha256: a27076011efec7ad11e9ed0644f512c34cab4c5ed5ba42cfe71c83fabebe810d
+  linux_sha512: 55f57edf9cbb1076f887f061898639b6a977c1a5f80e0bee1d4d2aed22a7831609eb13cab3f5653802f1a97333976e409db18d0757b98979e3df632b576f991e
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ versioning=loose depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 30
@@ -118,9 +118,9 @@ vars:
   linux_firmware_sha512: 7aa9001d11353fed2b967fd4d7ef093212682fab9a8c319be1c77eb20cd4a713008527bcffbca6bcbc8ac389b406e4f2ec3edef5d04b30921acd1d34376c750f
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
-  lvm2_version: 2_03_18
-  lvm2_sha256: 9f683e2980d95c0dcebbd25c7c177032c5615d7267bfc885eabfce59280f4769
-  lvm2_sha512: 58043bdcad882065f15d772401d29fc7fb2d0a6b6b75063915dc38bb11cd847517dd18ae7e2acb3935e6c32ef620a275c2b2b9c307434f7457ea3203b87254c1
+  lvm2_version: 2_03_19
+  lvm2_sha256: ec9ff9f1d998ce2b05f1ad22ddcf9401d202d0215811dc468d78cba6b0b26879
+  lvm2_sha512: a40691f6f4c9300c95784be0fcb055a2b8e07bfdc87f000f2357ccb54fdb814a679fb79f5c9790a7440ef538e9997e46d56e539814bfdf138b4e76603aeb2994
 
   mellanox_ofed_version: 5.9-0.5.6.0
   mellanox_ofed_sha256: 4503258cbe92b00c734e612c3a7ad1d71e023fdffae2a2c119f7b537505e499c
