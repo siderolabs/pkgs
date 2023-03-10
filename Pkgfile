@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.3.0-2-g5cc0a25
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.3.0-3-ge225a7e
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.1.1
@@ -58,9 +58,9 @@ vars:
   ipmitool_sha512: 2d91706e9feba4b2ce4808eca087b81b842c4292a5840830001919c06ec8babd8f8761b74bb9dcf8fbc7765f028a5b1a192a3c1b643f2adaa157fed6fb0d1ee3
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.netfilter.org/iptables
-  iptables_version: 1.8.8
-  iptables_sha256: 71c75889dc710676631553eb1511da0177bbaaf1b551265b912d236c3f51859f
-  iptables_sha512: f21df23279a77531a23f3fcb1b8f0f8ec0c726bda236dd0e33af74b06753baff6ce3f26fb9fcceb6fada560656ba901e68fc6452eb840ac1b206bc4654950f59
+  iptables_version: 1.8.9
+  iptables_sha256: ef6639a43be8325a4f8ea68123ffac236cb696e8c78501b64e8106afb008c87f
+  iptables_sha512: e367bf286135e39b7401e852de25c1ed06d44befdffd92ed1566eb2ae9704b48ac9196cb971f43c6c83c6ad4d910443d32064bcdf618cfcef6bcab113e31ff70
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
   ipxe_ref: 563bff472276b25a6788abc3c916cda65e7ceead
@@ -68,9 +68,9 @@ vars:
   ipxe_sha512: 2ab64a3f61ef65f7f202751f2c2bb3cf4c335ff4ce9336b5317f4d19e6e8367c1da3703e18f65307fecbf602b5351a39de5b231f6a414c657458f49234da8160
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 5.15.94
-  linux_sha256: da9270dbe64ddf1db13c70470957ff6796eb996d867bb4aed7d14a70e1c65a72
-  linux_sha512: 7ced15a23345dbf17f51a8ccaca78559acfd907b9fe811bb44a9930ae2f64c528db61cc1276fc0e44ba1c76b4f5223145d3ba7fc01924f38b629eb868492b6a9
+  linux_version: 5.15.98
+  linux_sha256: 7dc62cd3a45f95c9b60316a5886ea9406aee256308869dac1e4ec088fbb37787
+  linux_sha512: 07639fb015b061c28705266d3e8f6450dec358c450d65706e31db6a6674c7de5223b01a057bec0a4329da7a89e7f6b65a35e74c3f9abf7d942fde9b438a5fbd7
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ versioning=loose depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 30
