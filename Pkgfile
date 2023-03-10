@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.4.0-alpha.0-21-gca67d0b
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.4.0-alpha.0-22-g601e347
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.2.0
@@ -63,14 +63,14 @@ vars:
   iptables_sha512: e367bf286135e39b7401e852de25c1ed06d44befdffd92ed1566eb2ae9704b48ac9196cb971f43c6c83c6ad4d910443d32064bcdf618cfcef6bcab113e31ff70
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 96bb6ba441653a30729ade38dc6c23bc9e2d2339
-  ipxe_sha256: add0b56ba85ed575b3dd41dd9c747d18409506862bc2378df3447266411e8b79
-  ipxe_sha512: 6194191e17b66fc47254df8cb6f6d527cf17871c647e00a31b047ce3e342f01ed39c9052b799d79fa3b7b1b35d4ab7465d947b0d310a225672d8a974f25d5aa8
+  ipxe_ref: 9e1f7a3659071004f4b8c76f2593da6287f0d575
+  ipxe_sha256: 98bbb4460a86d723fcf1ca862fea025a2f5f9d3cae58e21631d3efa622ee2cd3
+  ipxe_sha512: 7ad9fe123bf7904b53ab9bdb7754226b1336d5dd5fc6a07a55d95cf3e0e6293c970b00b97a6f173db043c301ee2d9ba50b52b2082fbfe90b35d7314af91c345c
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.1.14
-  linux_sha256: a27076011efec7ad11e9ed0644f512c34cab4c5ed5ba42cfe71c83fabebe810d
-  linux_sha512: 55f57edf9cbb1076f887f061898639b6a977c1a5f80e0bee1d4d2aed22a7831609eb13cab3f5653802f1a97333976e409db18d0757b98979e3df632b576f991e
+  linux_version: 6.1.15
+  linux_sha256: 2c16dfe2168a2e64ac0d55a12d625ebfb963818bb48b60c1868c7c460644c4fd
+  linux_sha512: 0f98aee21ba902254881317148a78dcc3bc2dc3b6a8651bc0c35e8d63850ed1a9ac4271d5f74ed0ec110c219c80674d26abf9ffdd2631278cf1c7c85d6cc209e
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ versioning=loose depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 30
@@ -132,9 +132,9 @@ vars:
   musl_sha512: 9332f713d3eb7de4369bc0327d99252275ee52abf523ee34b894b24a387f67579787f7c72a46cf652e090cffdb0bc3719a4e7b84dca66890b6a37f12e8ad089c
 
   # renovate: datasource=github-releases depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_version: 525.89.02
-  nvidia_driver_sha256: 94cb615c82c120ab1e4f9be799d3a2234802fbed9340241d524665bc91de43a1
-  nvidia_driver_sha512: 335f5f43eccc25b6b390bef18237cc9042f3c4edf2b759d3b99319c974bec4c4bfd360bed7b4ab2bbf7b48ce2769eb390c96f9ee5b5a7e91035cac56708ae339
+  nvidia_driver_version: 530.30.02
+  nvidia_driver_sha256: ed4732226a2f0002dcebc49532b25b859b95f8e236782c539499ebb039afd9f2
+  nvidia_driver_sha512: 4d3a8988fdff723bd872f64f97146ff18d608c7ea1af834e8b1d254a8be007aa8f0184b9572cab051921084dd7af13cbd298a91c854efec93160e3832591ca58
 
   # renovate: datasource=git-tags extractVersion=^OpenSSL_(?<version>.*)$ versioning=loose depName=git://git.openssl.org/openssl.git
   openssl_version: 1_1_1t
@@ -142,9 +142,9 @@ vars:
   openssl_sha512: 628676c9c3bc1cf46083d64f61943079f97f0eefd0264042e40a85dbbd988f271bfe01cd1135d22cc3f67a298f1d078041f8f2e97b0da0d93fe172da573da18c
 
   # renovate: datasource=github-tags versioning=loose depName=raspberrypi/firmware
-  raspberrypi_firmware_version: 1.20230106
-  raspberrypi_firmware_sha256: 2bc420459c309e2c1339d9dad20fd49cd0ef2505f48b4fe45af8c7841f95be82
-  raspberrypi_firmware_sha512: 41492a90da91d29e1025deeaad452c6b485f5412ff375b2fc144c2630afcdfef99ecbf701ca5e1afc5bb41bd6f2413b239257f1734dfe17084210e96b28eda7a
+  raspberrypi_firmware_version: 1.20230306
+  raspberrypi_firmware_sha256: f34f3591b6e32c12a4f654dca53c897f3a97db056aff182125e89a0965b123b1
+  raspberrypi_firmware_sha512: 065ec218f52097eb72cc74143990b8552849e5a352ddfc7f536d58e2c8df81da667b37fbae80f9cff61d61438a9bddb65030074fa0e2ee25338bbfced4a301bd
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.1.4
