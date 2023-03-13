@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 5.15.98 Kernel Configuration
+# Linux/arm64 5.15.102 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="gcc (GCC) 12.2.0"
 CONFIG_CC_IS_GCC=y
@@ -1641,7 +1641,6 @@ CONFIG_DEFAULT_NET_SCH="pfifo_fast"
 #
 CONFIG_NET_CLS=y
 CONFIG_NET_CLS_BASIC=y
-CONFIG_NET_CLS_TCINDEX=y
 CONFIG_NET_CLS_ROUTE4=y
 CONFIG_NET_CLS_FW=y
 CONFIG_NET_CLS_U32=y
