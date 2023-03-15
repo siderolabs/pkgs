@@ -54,6 +54,7 @@
             "matchPackageNames": [
                 "u-boot/u-boot",
                 "git://git.kernel.org/pub/scm/boot/syslinux/syslinux.git",
+                "git://git.kernel.org/pub/scm/utils/util-linux/util-linux.git",
                 "nvidia/open-gpu-kernel-modules"
             ],
             "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.?(?<patch>\\d+)?$"
