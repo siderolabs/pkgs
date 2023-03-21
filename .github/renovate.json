@@ -52,16 +52,42 @@
         },
         {
             "matchPackageNames": [
+                "git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git"
+            ],
+            "versioning": "regex:^(?<major>\\d{4})(?<minor>\\d{2})(?<patch>\\d{2})\\.?(?<build>\\d+)?$"
+        },
+        {
+            "matchPackageNames": [
+                "raspberrypi/firmware"
+            ],
+            "versioning": "regex:^\\d+\\.(?<major>\\d{4})(?<minor>\\d{2})(?<patch>\\d{2})$"
+        },
+        {
+            "matchPackageNames": [
                 "u-boot/u-boot",
                 "git://git.kernel.org/pub/scm/boot/syslinux/syslinux.git",
                 "git://git.kernel.org/pub/scm/utils/util-linux/util-linux.git",
-                "nvidia/open-gpu-kernel-modules"
+                "nvidia/open-gpu-kernel-modules",
+                "dosfstools/dosfstools",
+                "git://git.savannah.gnu.org/grub.git",
+                "https://pagure.io/libaio.git",
+                "rpm-software-management/popt",
+                "git://git.liburcu.org/userspace-rcu.git",
+                "ARM-software/arm-trusted-firmware"
             ],
             "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.?(?<patch>\\d+)?$"
         },
         {
             "matchPackageNames": [
-                "git://repo.or.cz/socat.git"
+                "git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git",
+                "benhoyt/inih"
+            ],
+            "versioning": "regex:^(?<major>\\d+)\\.?(?<minor>\\d+)?\\.?(?<patch>\\d+)?$"
+        },
+        {
+            "matchPackageNames": [
+                "git://repo.or.cz/socat.git",
+                "json-c/json-c"
             ],
             "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.?(?<patch>\\d+)?\\.?(?<build>\\d+)?$"
         },
