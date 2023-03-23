@@ -41,7 +41,7 @@ steps:
         cp /src/modules.builtin /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
         cp /src/modules.builtin.modinfo /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
 
-        make -j $(nproc) modules_install SYSSRC=/src DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs INSTALL_MOD_DIR=extras
+        make -j $(nproc) modules_install SYSSRC=/src DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1
 finalize:
   - from: /rootfs
     to: /
