@@ -18,8 +18,8 @@ steps:
 
         rm -f /dev/tty && ln -s /dev/stdout /dev/tty
         ln -s /toolchain/bin/echo /toolchain/bin/which
-
         tar xf open-gpu-kernel-modules.tar.gz --strip-components=1
+        patch --directory=. --strip=1 < /pkg/patches/enable_unsupported_gpus.patch
     build:
       - |
         make -j $(nproc) SYSSRC=/src
