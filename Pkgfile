@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.4.0-alpha.0-26-g2d710f9
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.4.0
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.2.0
@@ -68,9 +68,9 @@ vars:
   ipxe_sha512: b241fd32d9a2100f99334d9d09e2736af0ea724923f66693e574e480a616fed2cd127f6851bea1c80fd35792048700afcb18e42eb3c3d2b35816d3917cbfb0c2
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.1.20
-  linux_sha256: 76322de8c01a3c63b42c4d1e9b9e7d1897ddb91276e10d73d1f9df3562f031f0
-  linux_sha512: 1b2660fa5464410649b2d78d08cc060de4eb38bcb158154e74fee3383cae3ff4cc373235e874eceeac3abfda9689571f3b3aed8ad2ac82ec2975e21688458a9b
+  linux_version: 6.1.22
+  linux_sha256: 2be89141cef74d0e5a55540d203eb8010dfddb3c82d617e66b058f20b19cfda8
+  linux_sha512: 9db5360c85a2e8c7d1a3a37e0d79dafe3561566e098394a15e8cb48929a7afa74b203d3d67c286a8ddb4359a0ba8d45f33678219f9ccb8f728d1c4d4455fd27f
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 30
@@ -118,9 +118,9 @@ vars:
   linux_firmware_sha512: a5655744892d7ebe341c6612a2f34f9f8b29af70b0c5795c5170b79517a88e75a518843278cb3b66e462be2905995ffd4f15373292e42ea387df6fd693333e89
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
-  lvm2_version: 2_03_19
-  lvm2_sha256: ec9ff9f1d998ce2b05f1ad22ddcf9401d202d0215811dc468d78cba6b0b26879
-  lvm2_sha512: a40691f6f4c9300c95784be0fcb055a2b8e07bfdc87f000f2357ccb54fdb814a679fb79f5c9790a7440ef538e9997e46d56e539814bfdf138b4e76603aeb2994
+  lvm2_version: 2_03_20
+  lvm2_sha256: 90a1879b3675aea9784543581ccd2128c265ec67ac046b1856e706fc0af5c3c7
+  lvm2_sha512: 202ff19f6ab1e1ecdf448beec6c7db1a80885efda1a6eeabf44cd2cea40577405c388eabd86f59f34c6e9e400188050bc6d1a5d5daf02f2beda87eee73cd1a2d
 
   mellanox_ofed_version: 5.9-0.5.6.0
   mellanox_ofed_sha256: 4503258cbe92b00c734e612c3a7ad1d71e023fdffae2a2c119f7b537505e499c
@@ -132,9 +132,9 @@ vars:
   musl_sha512: 9332f713d3eb7de4369bc0327d99252275ee52abf523ee34b894b24a387f67579787f7c72a46cf652e090cffdb0bc3719a4e7b84dca66890b6a37f12e8ad089c
 
   # renovate: datasource=github-releases depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_version: 530.30.02
-  nvidia_driver_sha256: ed4732226a2f0002dcebc49532b25b859b95f8e236782c539499ebb039afd9f2
-  nvidia_driver_sha512: 4d3a8988fdff723bd872f64f97146ff18d608c7ea1af834e8b1d254a8be007aa8f0184b9572cab051921084dd7af13cbd298a91c854efec93160e3832591ca58
+  nvidia_driver_version: 530.41.03
+  nvidia_driver_sha256: 4bc52b21858e02bea1e0eb3c60d3cfb7a64c68c0dab9d5f39baf3396b509b245
+  nvidia_driver_sha512: 159f913ec6c46ec29f8b9ba7858965f7f4ff34cf5ea5fdf2e48a59b2145a1e113330f574148213a98b475113db920ecde4d5059a31a251c204ee838c662e854e
 
   # renovate: datasource=git-tags extractVersion=^OpenSSL_(?<version>.*)$ versioning=loose depName=git://git.openssl.org/openssl.git
   openssl_version: 1_1_1t
@@ -147,10 +147,10 @@ vars:
   raspberrypi_firmware_sha512: 959c939be6e9b15656be51e5cd5b4beedf85882a75bcfa34391edfc22cfb95d3dd954a8683a18fc4e800812f67aabb4ce9d0009b1eb209609c13b8090dd579d6
 
   # renovate: datasource=github-tags depName=opencontainers/runc
-  runc_version: v1.1.4
-  runc_ref: 5fd4c4d144137e991c4acebb2146ab1483a97925
-  runc_sha256: 9f5972715dffb0b2371e4d678c1206cc8c4ec5eb80f2d48755d150bac49be35b
-  runc_sha512: 73f7b266a2aaabf180bf99d04e96a171ef12cc3c3ff43189caff324f1e4ac127a646c3c15489801d48291d997de4c88384ae957a8af4a96b3e779bcb09bc58ac
+  runc_version: v1.1.5
+  runc_ref: f19387a6bec4944c770f7668ab51c4348d9c2f38
+  runc_sha256: bed3a10df91a161dea38115a955b9b68f9130d8ea24071b12cdf657929d9cfb4
+  runc_sha512: 7b10c0d6739e7fe3c718b3219bdb2437ae3ed8d1995b88136b9a0e8b4e909adbe8b6af6634a751b507bf793d0d5e924f5c85525d8fd46c3daf72c664dc25ab04
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
   socat_version: 1.7.4.4
