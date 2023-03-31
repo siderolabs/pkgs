@@ -7,15 +7,17 @@ steps:
   - env:
       CARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}amd64{{ else }}unsupported{{ end }}
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+      KBUILD_OUTPUT: /src/build
+    cache: /src/build
     prepare:
       - |
         cd /src
-        cp -v /pkg/config-${CARCH} .config
+        cp -v /pkg/config-${CARCH} ${KBUILD_OUTPUT}/.config
         cp -v /pkg/certs/* certs/
     build:
       - |
         cd /src
-        python3 /toolchain/kconfig-hardened-check/bin/kconfig-hardened-check -c .config -m json | python3 /pkg/scripts/filter-hardened-check.py
+        python3 /toolchain/kconfig-hardened-check/bin/kconfig-hardened-check -c ${KBUILD_OUTPUT}/.config -m json | python3 /pkg/scripts/filter-hardened-check.py
       - |
         cd /src
 

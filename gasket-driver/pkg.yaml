@@ -11,23 +11,24 @@ steps:
         sha512: "{{ .gasket_driver_sha512 }}"
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+    cache: /src/build
     prepare:
       - |
         tar xf gasket-driver.tar.gz --strip-components=1
     build:
       - |
         cd src
-        sed -i 's|/lib/modules/$(KVERSION)/build|/src|' ./Makefile
-        make all
+        sed -i 's|/lib/modules/$(KVERSION)/build|/src/build|' ./Makefile
+        make -j $(nproc) all
 
     install:
       - |
-        mkdir -p /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
-        cp /src/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
-        cp /src/modules.builtin /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
-        cp /src/modules.builtin.modinfo /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        mkdir -p /rootfs/lib/modules/$(cat /src/build/include/config/kernel.release)/
+        cp /src/build/modules.order /rootfs/lib/modules/$(cat /src/build/include/config/kernel.release)/
+        cp /src/build/modules.builtin /rootfs/lib/modules/$(cat /src/build/include/config/kernel.release)/
+        cp /src/build/modules.builtin.modinfo /rootfs/lib/modules/$(cat /src/build/include/config/kernel.release)/
 
-        make -C /src M=$(pwd)/src modules_install INSTALL_MOD_PATH=/rootfs INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1
+        make -j $(nproc) -C /src/build M=$(pwd)/src modules_install INSTALL_MOD_PATH=/rootfs INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1
     test:
       - |
         # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping

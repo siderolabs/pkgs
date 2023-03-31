@@ -9,6 +9,7 @@ steps:
         destination: open-gpu-kernel-modules.tar.gz
         sha256: "{{ .nvidia_driver_sha256 }}"
         sha512: "{{ .nvidia_driver_sha512 }}"
+    cache: /src/build
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
     prepare:
@@ -22,15 +23,15 @@ steps:
         tar xf open-gpu-kernel-modules.tar.gz --strip-components=1
     build:
       - |
-        make -j $(nproc) SYSSRC=/src
+        make -j $(nproc) SYSSRC=/src SYSOUT=/src/build
     install:
       - |
-        mkdir -p /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
-        cp /src/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
-        cp /src/modules.builtin /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
-        cp /src/modules.builtin.modinfo /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        mkdir -p /rootfs/lib/modules/$(cat /src/build/include/config/kernel.release)/
+        cp /src/build/modules.order /rootfs/lib/modules/$(cat /src/build/include/config/kernel.release)/
+        cp /src/build/modules.builtin /rootfs/lib/modules/$(cat /src/build/include/config/kernel.release)/
+        cp /src/build/modules.builtin.modinfo /rootfs/lib/modules/$(cat /src/build/include/config/kernel.release)/
 
-        make -j $(nproc) modules_install SYSSRC=/src DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs INSTALL_MOD_STRIP=1
+        make -j $(nproc) modules_install SYSSRC=/src SYSOUT=/src/build DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs INSTALL_MOD_STRIP=1
     test:
       - |
         # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
