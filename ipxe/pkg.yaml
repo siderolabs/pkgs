@@ -33,10 +33,10 @@ steps:
         cd src/
 
         {{ if eq .ARCH "aarch64" }}
-        ARCH= make -j $(nproc) bin-arm64-efi/ipxe.efi EMBED=/pkg/files/ipxe.script VERSION=${IPXE_VERSION}
+        ARCH= make -j $(nproc) bin-arm64-efi/ipxe.efi bin-arm64-efi/snp.efi EMBED=/pkg/files/ipxe.script VERSION=${IPXE_VERSION}
         gcc ./util/zbin.c -llzma -o util/zbin
         {{ else }}
-        ARCH= make -j $(nproc) bin/undionly.kpxe bin-x86_64-efi/ipxe.efi EMBED=/pkg/files/ipxe.script VERSION=${IPXE_VERSION}
+        ARCH= make -j $(nproc) bin/undionly.kpxe bin-x86_64-efi/ipxe.efi bin-x86_64-efi/snp.efi EMBED=/pkg/files/ipxe.script VERSION=${IPXE_VERSION}
         ARCH= make bin/undionly.kpxe.bin bin/undionly.kpxe.zinfo EMBED=/pkg/files/ipxe.script VERSION=${IPXE_VERSION}
         {{ end }}
     install:
@@ -46,9 +46,9 @@ steps:
         mkdir -p /rootfs/{usr/libexec,usr/libexec/kpxe}
 
         {{ if eq .ARCH "aarch64" }}
-        cp -p bin-arm64-efi/ipxe.efi /rootfs/usr/libexec
+        cp -p bin-arm64-efi/ipxe.efi bin-arm64-efi/snp.efi /rootfs/usr/libexec
         {{ else }}
-        cp -p bin/undionly.kpxe bin-x86_64-efi/ipxe.efi /rootfs/usr/libexec
+        cp -p bin/undionly.kpxe bin-x86_64-efi/ipxe.efi bin-x86_64-efi/snp.efi /rootfs/usr/libexec
         cp -p bin/undionly.kpxe.bin bin/undionly.kpxe.zinfo /rootfs/usr/libexec/kpxe
         {{ end }}
         cp -p util/zbin /rootfs/usr/libexec
