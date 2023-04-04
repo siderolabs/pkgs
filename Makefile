@@ -30,6 +30,8 @@ COMMON_ARGS += --build-arg=SOURCE_DATE_EPOCH=$(SOURCE_DATE_EPOCH)
 empty :=
 space = $(empty) $(empty)
 
+# TARGETS are split into two groups:
+# - non-related to the kernel, in alphabetical order
 TARGETS = \
 	base \
 	ca-certificates \
@@ -37,16 +39,13 @@ TARGETS = \
 	containerd \
 	cryptsetup \
 	dosfstools \
-	drbd-pkg \
 	eudev \
 	fhs \
 	flannel-cni \
-	gasket-driver-pkg \
 	grub \
 	ipmitool \
 	iptables \
 	ipxe \
-	kernel \
 	kmod \
 	libaio \
 	libinih \
@@ -58,7 +57,6 @@ TARGETS = \
 	linux-firmware \
 	lvm2 \
 	musl \
-	nvidia-open-gpu-kernel-modules-pkg \
 	openssl \
 	raspberrypi-firmware \
 	runc \
@@ -67,6 +65,14 @@ TARGETS = \
 	u-boot \
 	util-linux \
 	xfsprogs
+
+# - kernel & dependent packages (out of tree kernel modules)
+#   kernel first, then packages in alphabetical order
+TARGETS += \
+	kernel \
+	drbd-pkg \
+	gasket-driver-pkg \
+	nvidia-open-gpu-kernel-modules-pkg \
 
 # Temporarily disabled until mellanox builds with Linux 6.1
 # mellanox-ofed-pkg \
