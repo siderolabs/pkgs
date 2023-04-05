@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.3.0-3-ge225a7e
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.3.0-4-g9a1d3ec
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.1.1
@@ -68,9 +68,9 @@ vars:
   ipxe_sha512: 2ab64a3f61ef65f7f202751f2c2bb3cf4c335ff4ce9336b5317f4d19e6e8367c1da3703e18f65307fecbf602b5351a39de5b231f6a414c657458f49234da8160
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 5.15.105
-  linux_sha256: 01b537650332d2852722a626169cf7e5e798d11f9b578171b477868555f5e44f
-  linux_sha512: f133d664431b82d995442878a155d77c624de0ccc02704198b5db27e170d55c3759f88091279cf9d91f717326b5304e0cfe0aa8253ac5d89bdeb7d6ab344b3e2
+  linux_version: 5.15.106
+  linux_sha256: 84e6934f828033570966e2a56fe8b72dc6e1409be296c66f4bf3c8ca6e3c8fe4
+  linux_sha512: 4cc6ce0edfcf319091fa271b0e9f484bad5e46d6981abc0b691ff85c63577497b6f7048309e082966eebea1db2a2e7fcd7a538e8e93d1a37a9dbf533514d5077
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ versioning=loose depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 30
