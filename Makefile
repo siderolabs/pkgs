@@ -72,6 +72,7 @@ TARGETS += \
 	kernel \
 	drbd-pkg \
 	gasket-driver-pkg \
+	nfsd-pkg \
 	nvidia-open-gpu-kernel-modules-pkg \
 
 # Temporarily disabled until mellanox builds with Linux 6.1
