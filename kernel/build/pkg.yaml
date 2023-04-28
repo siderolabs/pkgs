@@ -20,7 +20,11 @@ steps:
         cd /src
 
         make -j $(nproc)
-        make -j $(nproc) modules
+        {{ if eq .ARCH "aarch64"}}
+        make -j $(nproc) M=drivers/net/ethernet/mellanox
+        {{ else }}
+        make -j $(nproc) M=drivers/virtio M=drivers/net/ethernet/mellanox
+        {{ end }}
 
         if [[ "${ARCH}" == "arm64" ]]; then
           echo "Compiling device-tree blobs"
