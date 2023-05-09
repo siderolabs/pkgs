@@ -60,6 +60,8 @@ TARGETS = \
 	openssl \
 	raspberrypi-firmware \
 	runc \
+	sd-boot \
+	sd-stub \
 	socat \
 	syslinux \
 	u-boot \

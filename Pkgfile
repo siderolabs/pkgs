@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.5.0-alpha.0-2-g47b0fd3
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.5.0-alpha.0-3-g81b09a5
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.2.0
@@ -161,6 +161,11 @@ vars:
   syslinux_version: 6.03
   syslinux_sha256: 26d3986d2bea109d5dc0e4f8c4822a459276cf021125e8c9f23c3cca5d8c850e
   syslinux_sha512: dd2b2916962b9e93bc1e714182e3ca2a727a229b8afabe913050bcfdd43ee2af51ee3acf79121d8c20caf434583efaa7f3196871e0e07c04d82191323a50fe31
+
+  # renovate: datasource=github-releases depName=systemd/systemd
+  systemd_version: 253
+  systemd_sha256: acbd86d42ebc2b443722cb469ad215a140f504689c7a9133ecf91b235275a491
+  systemd_sha512: 3bbc431a292ab590b70d3b490a528f71d30ccf478ddfa66d1c210f40c260ef49ac30651c19f2d073acf38d68398a4a6fbf95391f0e3ea0333d94b9d4e81d514f
 
   # renovate: datasource=github-tags depName=ARM-software/arm-trusted-firmware
   arm_trusted_firmware_version: v2.8.0
