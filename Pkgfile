@@ -3,12 +3,12 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.5.0-alpha.0-3-g81b09a5
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.5.0-alpha.0-4-geedc294
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
-  cni_version: v1.2.0
-  cni_sha256: f3496ddda9c7770a0b695b67ae7ee80a4ee331ac2745af4830054b81627f79b7
-  cni_sha512: fb6fb4f46ac1610b3721f5f3a6ddfb096cbf2e5d5b792306edca5351a3944d2f802170d83e5adec01420395bf64fc8a174ede61ac9b93b5ac6b938a4b48651e6
+  cni_version: v1.3.0
+  cni_sha256: f9871b9f6ccb51d2b264532e96521e44f926928f91434b56ce135c95becf2901
+  cni_sha512: 87e186b3cd64f66280f5b2293dcdd1fc22cb8f51a248124fb622adc48a893348419ba4c29c4769dede4d9e60f2e9fea5d4198f10badb4ecd20a1551e0b344e10
 
   # renovate: datasource=github-tags depName=containerd/containerd
   containerd_version: v1.6.21
@@ -63,9 +63,9 @@ vars:
   iptables_sha512: e367bf286135e39b7401e852de25c1ed06d44befdffd92ed1566eb2ae9704b48ac9196cb971f43c6c83c6ad4d910443d32064bcdf618cfcef6bcab113e31ff70
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: bd13697446e758d5fed6afcba8f3e9883b2e2de7
-  ipxe_sha256: 0b701fcbc0bf217b13c1f81889021eb0386b91c7c44f5cef6295fbb9000cccbc
-  ipxe_sha512: d28f88df86a71869d44c32bb3005062de3b41d5565a10364e4d39038674c8709ad491c6f06b1551fb3153aa636a23afcf48a941b0caa44f7271464a3b555db42
+  ipxe_ref: 03eea19c19b52851002654c2818b765d4aa42894
+  ipxe_sha256: 456abaef4699eb9e4d1cb4ba653497bfa675e8de5ad5602493dbba761a83aa3e
+  ipxe_sha512: 8f2463be62d6ce3b87dffe0b95b31db7245d43a6fdd476c19441ce50026c77d54b43dc264ea9c9df7086cdd984e6237cd11766b7815bc71b275ded2e0136cb1d
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
   linux_version: 6.1.27
@@ -93,9 +93,9 @@ vars:
   libjson_c_sha512: 255cff99033340b2c2678255d41dae7808f83ed0c102e693d2d9e186bd1f21dd1385fcaa360c0fc087a00965a9567fbda733370e6b518a9be2f1bb0a80439151
 
   # renovate: datasource=github-releases depName=tukaani-project/xz
-  xz_version: v5.4.2
-  xz_sha256: 3ee13d0f40148625306b90f9622f8c9660b8082884051b0cfe46f18492f88955
-  xz_sha512: 39163ee327743111968c4231fccc4ebbc1c77c96acf19afa8b1ca4153826a2c0d83b43111fa22b56139c03fc19c621d365fa0f80be1f3c3784fe7dd6f8fcfb68
+  xz_version: v5.4.3
+  xz_sha256: 92177bef62c3824b4badc524f8abcce54a20b7dbcfb84cde0a2eb8b49159518c
+  xz_sha512: 7252191339afb97fc6a00616b1a8b9f24247d3539e7dbffca2045954593ae3e20d59e34f24c03b1954c96fbfa9cc8a7fea2a6e501e837872f90e8cd8bb307bb5
 
   # renovate: datasource=github-releases extractVersion=^popt-(?<version>.*)-release$ depName=rpm-software-management/popt
   libpopt_version: 1.19
@@ -127,9 +127,9 @@ vars:
   mellanox_ofed_sha512: 58604ea89aa8351727532c48f0c59b4e533ba8bfcef9533f45d94e15ffdcf3a5c464398706cad14ebf3826b132972bd044fadbf7f047e60bdb0c2a454c96acd7
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.musl-libc.org/musl
-  musl_version: 1.2.3
-  musl_sha256: 7d5b0b6062521e4627e099e4c9dc8248d32a30285e959b7eecaa780cf8cfd4a4
-  musl_sha512: 9332f713d3eb7de4369bc0327d99252275ee52abf523ee34b894b24a387f67579787f7c72a46cf652e090cffdb0bc3719a4e7b84dca66890b6a37f12e8ad089c
+  musl_version: 1.2.4
+  musl_sha256: 7a35eae33d5372a7c0da1188de798726f68825513b7ae3ebe97aaaa52114f039
+  musl_sha512: 498ec5d7941194a8806f4d42f0f6d218c862996ef1398b737d0d06995e0b7a6574b240a48088f6b84016b14b2776fe463f829dcb11149cdfc1023d496b235c55
 
   # renovate: datasource=github-releases depName=nvidia/open-gpu-kernel-modules
   nvidia_driver_version: 530.41.03
@@ -183,8 +183,8 @@ vars:
   util_linux_sha512: 07f11147f67dfc6c8bc766dfc83266054e6ede776feada0566b447d13276b6882ee85c6fe53e8d94a17c03332106fc0549deca3cf5f2e92dda554e9bc0551957
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
-  xfsprogs_version: 5.18.0
-  xfsprogs_sha256: 1e8d8801bdec8cd4cad360ce3bbd12c35a97f2bc8f7c8c9580d1903b0e8cc35b
-  xfsprogs_sha512: 47d035a33367edae7357e34c70bdb0fe9219231153fb4c4f418ed1462d137dd77338c12a199eb71cd70e88903e5fc11e1e4fb595c622183786e87346e2f65739
+  xfsprogs_version: 6.2.0
+  xfsprogs_sha256: d67dcba5a28e0904b60886b6e5f752bc7c9c3a5c7096153855b5adca9db86c51
+  xfsprogs_sha512: 71c04f744af9f4f3197a9c6eb468574d984c1532753f83f0bcd583cf737b89fab034442c072794975c813ea168572b39ae43f28d9a0428204be2fb7f1e141fc5
 labels:
   org.opencontainers.image.source: https://github.com/siderolabs/pkgs

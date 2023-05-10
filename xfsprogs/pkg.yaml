@@ -14,6 +14,11 @@ steps:
         sha512: "{{ .xfsprogs_sha512 }}"
     env:
       DEBUG: "-DNDEBUG"
+      # musl >=1.2.4 requires _LARGEFILE64_SOURCE for LFS64 interfaces support:
+      # https://www.openwall.com/lists/musl/2023/05/02/1
+      CFLAGS: "-D_LARGEFILE64_SOURCE"
+      CPPFLAGS: "-D_LARGEFILE64_SOURCE"
+      CXXFLAGS: "-D_LARGEFILE64_SOURCE"
     prepare:
       - |
         tar -xJf xfsprogs.tar.xz --strip-components=1
