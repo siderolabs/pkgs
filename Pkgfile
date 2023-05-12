@@ -182,9 +182,10 @@ vars:
   util_linux_sha256: 60492a19b44e6cf9a3ddff68325b333b8b52b6c59ce3ebd6a0ecaa4c5117e84f
   util_linux_sha512: 07f11147f67dfc6c8bc766dfc83266054e6ede776feada0566b447d13276b6882ee85c6fe53e8d94a17c03332106fc0549deca3cf5f2e92dda554e9bc0551957
 
+  # DO NOT bump above 5.18.*, as in newer versions filesystems smaller than 300MB are not supported (i.e. Talos STATE partition).
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
-  xfsprogs_version: 6.2.0
-  xfsprogs_sha256: d67dcba5a28e0904b60886b6e5f752bc7c9c3a5c7096153855b5adca9db86c51
-  xfsprogs_sha512: 71c04f744af9f4f3197a9c6eb468574d984c1532753f83f0bcd583cf737b89fab034442c072794975c813ea168572b39ae43f28d9a0428204be2fb7f1e141fc5
+  xfsprogs_version: 5.18.0
+  xfsprogs_sha256: 1e8d8801bdec8cd4cad360ce3bbd12c35a97f2bc8f7c8c9580d1903b0e8cc35b
+  xfsprogs_sha512: 47d035a33367edae7357e34c70bdb0fe9219231153fb4c4f418ed1462d137dd77338c12a199eb71cd70e88903e5fc11e1e4fb595c622183786e87346e2f65739
 labels:
   org.opencontainers.image.source: https://github.com/siderolabs/pkgs
