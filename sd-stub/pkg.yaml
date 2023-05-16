@@ -3,47 +3,13 @@ variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
   - stage: base
+  - image: "{{ .TOOLS_IMAGE }}"
 steps:
-  - sources:
-      - url: https://github.com/systemd/systemd/archive/refs/tags/v{{ .systemd_version }}.tar.gz
-        destination: systemd.tar.gz
-        sha256: "{{ .systemd_sha256 }}"
-        sha512: "{{ .systemd_sha512 }}"
-    env:
-      LD_LIBRARY_PATH: /toolchain/lib
-    prepare:
-      - |
-        tar -xzf systemd.tar.gz --strip-components=1
-
-        ln -s /toolchain/bin/echo /toolchain/bin/getent
-        mkdir -p /usr/bin
-        ln -sf /toolchain/bin/env /usr/bin/env
-        ln -sf /toolchain/bin/python3 /toolchain/bin/python
-
-        pip3 install jinja2 ninja
-
-        patch -p1 < /pkg/patches/musl.patch
-
-        meson setup build \
-          --buildtype=release \
-          -Dmode=release \
-          -Dsbat-distro=talos \
-          -Dsbat-distro-summary="Talos Linux" \
-          -Dsbat-distro-url=https://github.com/siderolabs/pkgs/issues \
-          -Dman=false \
-          -Defi=true \
-          -Dgnu-efi=true \
-          -Defi-libdir=/toolchain/lib \
-          -Defi-includedir=/toolchain/include/efi \
-          -Dtests=false
-    build:
-      - |
-        ninja -j $(nproc) -C build systemd-stub
-    install:
+  - install:
       - |
         mkdir -p /rootfs
 
-        cp build/src/boot/efi/*.efi.stub /rootfs
+        cp /toolchain/lib/systemd/boot/efi/*.efi.stub /rootfs
 finalize:
   - from: /rootfs
     to: /
