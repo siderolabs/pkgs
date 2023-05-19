@@ -10,7 +10,7 @@ steps:
         sha256: "{{ .openssl_sha256 }}"
         sha512: "{{ .openssl_sha512 }}"
     env:
-      SOURCE_DATE_EPOCH: "1"
+      SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
     prepare:
       - |
         mkdir openssl
@@ -39,12 +39,11 @@ steps:
           no-seed \
           no-weak-ssl-ciphers
 
-        make
+        make -j $(nproc)
     install:
       - |
         cd openssl
-        make DESTDIR=/rootfs install
-        rm -rf /rootfs/usr/share
+        make DESTDIR=/rootfs install_sw
 finalize:
   - from: /rootfs
     to: /

@@ -1,6 +1,7 @@
+---
 kind: pipeline
-name: default
 type: kubernetes
+name: default
 
 steps:
   - name: setup-ci
@@ -12,7 +13,6 @@ steps:
     environment:
       SSH_KEY:
         from_secret: ssh_key
-      DOCKER_CLI_EXPERIMENTAL: enabled
     resources:
       requests:
         cpu: 24000
@@ -26,10 +26,10 @@ steps:
         path: /root/.docker/buildx
 
   - name: build-pull-request
+    depends_on:
+      - setup-ci
     image: autonomy/build-container:latest
     pull: always
-    environment:
-      DOCKER_CLI_EXPERIMENTAL: enabled
     commands:
       - make
     when:
@@ -45,10 +45,10 @@ steps:
         path: /root/.docker/buildx
 
   - name: build-nonfree-pull-request
+    depends_on:
+      - setup-ci
     image: autonomy/build-container:latest
     pull: always
-    environment:
-      DOCKER_CLI_EXPERIMENTAL: enabled
     commands:
       - make nonfree
     when:
@@ -63,7 +63,54 @@ steps:
       - name: docker
         path: /root/.docker/buildx
 
+  - name: reproducibility-test
+    depends_on:
+      - setup-ci
+    image: autonomy/build-container:latest
+    pull: always
+    commands:
+      - make reproducibility-test
+    when:
+      target:
+        include:
+          - integration-reproducibility
+      event:
+        exclude:
+          - pull_request
+          - tag
+    volumes:
+      - name: docker-socket
+        path: /var/run
+      - name: ssh
+        path: /root/.ssh
+      - name: docker
+        path: /root/.docker/buildx
+
+  - name: reproducibility-test-cron
+    depends_on:
+      - setup-ci
+    image: autonomy/build-container:latest
+    pull: always
+    commands:
+      - make reproducibility-test
+    when:
+      cron:
+        - weekly
+      event:
+        exclude:
+          - pull_request
+          - tag
+    volumes:
+      - name: docker-socket
+        path: /var/run
+      - name: ssh
+        path: /root/.ssh
+      - name: docker
+        path: /root/.docker/buildx
+
   - name: build-and-publish
+    depends_on:
+      - setup-ci
     image: autonomy/build-container:latest
     pull: always
     environment:
@@ -78,6 +125,8 @@ steps:
       event:
         exclude:
           - pull_request
+          - promote
+          - cron
     volumes:
       - name: docker-socket
         path: /var/run

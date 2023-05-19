@@ -1,0 +1,44 @@
+name: reproducibility
+variant: scratch
+dependencies:
+  # base is not needed since it's toolchain modified with a local musl build, we're only interested in the reproducibility of files that go into talos
+  # - stage: base
+  # ca-certificates can be ignored from reproducibility test since it's a file downloaded and extracted (no build happens)
+  # - stage: ca-certificates
+  - stage: cni
+  - stage: containerd
+  - stage: cryptsetup
+  - stage: dosfstools
+  - stage: eudev
+  - stage: fhs
+  - stage: flannel-cni
+  - stage: grub
+  - stage: ipmitool
+  - stage: iptables
+  - stage: ipxe
+  - stage: kmod
+  - stage: libaio
+  - stage: libinih
+  - stage: libjson-c
+  - stage: liblzma
+  - stage: libpopt
+  - stage: libseccomp
+  - stage: liburcu
+  # linux-firmware can be ignored from reproducibility test since it's a tarball downloaded and extracted (no build happens)
+  # - stage: linux-firmware
+  - stage: lvm2
+  - stage: musl
+  - stage: openssl
+  # raspberrypi-firmware can be ignored from reproducibility test since it's a tarball downloaded and extracted (no build happens)
+  # - stage: raspberrypi-firmware
+  - stage: runc
+  - stage: sd-boot
+  - stage: sd-stub
+  - stage: socat
+  - stage: syslinux
+  - stage: u-boot
+  - stage: util-linux
+  - stage: xfsprogs
+finalize:
+  - from: /
+    to: /

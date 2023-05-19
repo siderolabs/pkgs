@@ -1,9 +1,9 @@
-# syntax = ghcr.io/siderolabs/bldr:v0.2.0-alpha.12-4-g857d0d8
+# syntax = ghcr.io/siderolabs/bldr:v0.2.0
 
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.5.0-alpha.0-7-gd2dde48
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.5.0-alpha.0-10-g4c5d7fe
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.3.0
