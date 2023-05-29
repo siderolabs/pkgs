@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 6.1.28 Kernel Configuration
+# Linux/x86 6.1.30 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="gcc (GCC) 12.3.0"
 CONFIG_CC_IS_GCC=y
@@ -2422,7 +2422,7 @@ CONFIG_NET_VENDOR_CHELSIO=y
 # CONFIG_CHELSIO_T4 is not set
 # CONFIG_CHELSIO_T4VF is not set
 CONFIG_NET_VENDOR_CISCO=y
-# CONFIG_ENIC is not set
+CONFIG_ENIC=y
 CONFIG_NET_VENDOR_CORTINA=y
 CONFIG_NET_VENDOR_DAVICOM=y
 # CONFIG_DNET is not set
@@ -4607,9 +4607,8 @@ CONFIG_EEEPC_LAPTOP=y
 # CONFIG_FUJITSU_LAPTOP is not set
 # CONFIG_FUJITSU_TABLET is not set
 # CONFIG_GPD_POCKET_FAN is not set
-# CONFIG_HP_ACCEL is not set
+# CONFIG_X86_PLATFORM_DRIVERS_HP is not set
 # CONFIG_WIRELESS_HOTKEY is not set
-# CONFIG_HP_WMI is not set
 # CONFIG_IBM_RTL is not set
 # CONFIG_SENSORS_HDAPS is not set
 # CONFIG_THINKPAD_ACPI is not set
