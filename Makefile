@@ -65,6 +65,7 @@ TARGETS = \
 	socat \
 	syslinux \
 	u-boot \
+	usb-modem-drivers-pkg \
 	util-linux \
 	xfsprogs
 
