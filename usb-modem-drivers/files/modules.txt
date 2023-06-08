@@ -1,3 +1,6 @@
+modules.order
+modules.builtin
+modules.builtin.modinfo
 kernel/drivers/net/usb/dm9601.ko
 kernel/drivers/net/usb/rndis_host.ko
 kernel/drivers/net/usb/smsc75xx.ko
