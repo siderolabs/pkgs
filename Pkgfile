@@ -27,9 +27,9 @@ vars:
   dosfstools_sha512: 3cc0808edb4432428df8a67da4bb314fd1f27adc4a05754c1a492091741a7b6875ebd9f6a509cc4c5ad85643fc40395b6e0cadee548b25cc439cc9b725980156
 
   # renovate: datasource=github-tags extractVersion=^drbd-(?<version>.*)$ depName=LINBIT/drbd
-  drbd_version: 9.2.3
-  drbd_sha256: f6cb3d8435dcced8138ba327d3cab414f4ea9c4b41f466cdbc01d36504bc01a1
-  drbd_sha512: 3f491c1e9ca0dd5d0ea3e29e2a47879dadb3152e5fa36e7534cc4f9a821e34c523e01f262a633e8167c4f805a5ca5a9618eacc868310e07fcb8183f7af46eeff
+  drbd_version: 9.2.4
+  drbd_sha256: 969054de7a89bc3f052a7d768d7c704476349bbfc29ff9142da5a04b46079265
+  drbd_sha512: 7b62709fa672b0f6e0bf7ccd42dee14235772888f6b93252d18417e13f5ac469df908b950d80ef348ef2a7c2beebc5220cf31a1d7ad9592c0187c1f3eccfb321
 
   # renovate: datasource=github-releases depName=eudev-project/eudev
   eudev_version: v3.2.12
