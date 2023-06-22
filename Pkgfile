@@ -63,14 +63,14 @@ vars:
   iptables_sha512: e367bf286135e39b7401e852de25c1ed06d44befdffd92ed1566eb2ae9704b48ac9196cb971f43c6c83c6ad4d910443d32064bcdf618cfcef6bcab113e31ff70
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: b0093571f8bc0207673bb6a6ad5081263e7863b6
-  ipxe_sha256: 1cf18b7ab1e8f0ca141d0d76d41bc66692da263824671b47e4caa60b81e7efb2
-  ipxe_sha512: 256cc7b37bbe421b34c7668bead8564da531f275d8e00b79163817fb5f0a8d7f35c41d6f26267e7528ea016f21a16392319d97f19416b4c8443c27fcf04c1f8b
+  ipxe_ref: 2689a6e77668bc7bd0cf486fa7e4d733c5069bd9
+  ipxe_sha256: 468058218120eedaf4dfa4414ef48f7f2c1cc72bdedd8706975cb9a4b52a4c05
+  ipxe_sha512: 43c5a76cc66a1f5bce0d7a5267d74deb072a3ff3fabc5892d269edd0b7bc99d052e78b7e7d8e58f6382bafb27f54ae5db1c60d2ca698e6ae7727c639950f3262
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.1.32
-  linux_sha256: 7c88b7a09ba2b9e47b78eba2b32b1db6a4d89636f7ddd586545f9671a2521a6c
-  linux_sha512: 91ffc55e9f6d4bc4daf600fc751a1dfba8d81132b3184de6b340fb871e28305de8ad2e0293b53c03b062fbdcd9a1774a9b74e301477cd1b1c6eac27c42d15867
+  linux_version: 6.1.35
+  linux_sha256: be368143bc5d0dc73dd3e8c6191630c1620520379baf6f47c16116b2c0bc26ac
+  linux_sha512: 7945932912c955825f66ec72adf1ad9ff685a966e82d8a91e22919e8794b3d560c96aa0bba5376cf4b99690b4419e86ae2a7d5e52e056b858fde57a277417b33
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 30
@@ -178,9 +178,9 @@ vars:
   uboot_sha512: 417a28267eb7875820d08fafc7316f164663609378637539e71648b0b9b7d28796b6c381717f31b0ab6472805fefd32628ef7d1b2e7b9f3c51c8ad122993f679
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/util-linux/util-linux.git
-  util_linux_version: 2.38.1
-  util_linux_sha256: 60492a19b44e6cf9a3ddff68325b333b8b52b6c59ce3ebd6a0ecaa4c5117e84f
-  util_linux_sha512: 07f11147f67dfc6c8bc766dfc83266054e6ede776feada0566b447d13276b6882ee85c6fe53e8d94a17c03332106fc0549deca3cf5f2e92dda554e9bc0551957
+  util_linux_version: 2.39
+  util_linux_sha256: 32b30a336cda903182ed61feb3e9b908b762a5e66fe14e43efb88d37162075cb
+  util_linux_sha512: 3d59a0f114c06be19ef7f86fca37ba5b9073823d011b3fc37997ddb00124b4505ea32903b78798a64dffbccf0ba645a692678ee845cc65a5b321824448a82a94
 
   # DO NOT bump above 5.18.*, as in newer versions filesystems smaller than 300MB are not supported (i.e. Talos STATE partition).
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
