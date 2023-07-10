@@ -33,7 +33,6 @@ dependencies:
   # - stage: raspberrypi-firmware
   - stage: runc
   - stage: sd-boot
-  - stage: sd-stub
   - stage: socat
   - stage: syslinux
   - stage: u-boot

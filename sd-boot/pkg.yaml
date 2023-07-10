@@ -10,6 +10,7 @@ steps:
         mkdir -p /rootfs
 
         cp /toolchain/lib/systemd/boot/efi/*.efi /rootfs
+        cp /toolchain/lib/systemd/boot/efi/*.efi.stub /rootfs
 finalize:
   - from: /rootfs
     to: /
