@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.5.0-alpha.0-18-ge27c249
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.5.0-alpha.0-19-gdc7dd9e
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.3.0
@@ -68,9 +68,9 @@ vars:
   ipxe_sha512: af42980f09ffa5ed5dd71b1071b576b934da72e9b980a7d85c14ab12b99e0635b9edcac3af048e7af7079c70009b821b270dd390a652e1c5c3688bcf9c6c02b2
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.1.37
-  linux_sha256: 46cad712d261a23c8e483a3b79b6a84b9a5f731a8921c9127df35ae35cef1e80
-  linux_sha512: c0abb4548a6cae8eafce7ca60845d03ab30c03a8656e8ebfb5d7a56506b0fdd6300594554eeaef5cfcd5b0e570a2af1dee1deff1b9931972a14a480dbe0e7f37
+  linux_version: 6.1.39
+  linux_sha256: 4cddee22fdf657138a06af653492f67cd3a4762c04a34725534bd200d99085b8
+  linux_sha512: 20d468ae89b57dda82d7c7b814c3d8b1b510e1623775b09a8a0b0a8a0431461e0a1d2df2bfa01f3102932c8eef91405546898b50ec3e6f30015098bb39722b41
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 30
@@ -147,10 +147,10 @@ vars:
   raspberrypi_firmware_sha512: ddc9baeba4e2e442bfe41e427c7ecdd38ee6d44ac4e7c297ae7d5a6c64b0aa1a81206929baeb9aceb74de6f96707b30040e82450ef4f01a78b958299c72e3857
 
   # renovate: datasource=github-tags depName=opencontainers/runc
-  runc_version: v1.1.7
-  runc_ref: 860f061b76bb4fc671f0f9e900f7d80ff93d4eb7
-  runc_sha256: 86444cc07461b81bbcb8d15c5fc2cad20afc64a70be0fc623073538aa91bafdd
-  runc_sha512: adce90df0892f3cf00dee4bc02dfa87d022b3ddc2a8117a6eb0ce8c1e21d30518c3e46db628ce30e303c3d4acda487c92d78725718a2a486275648dc75ed8385
+  runc_version: v1.1.8
+  runc_ref: 82f18fe0e44a59034f3e1f45e475fa5636e539aa
+  runc_sha256: fac4b055f56a326bb422f6397ef27b109b87e2063c54c158766f82a5f315cdf0
+  runc_sha512: 4cd088a854804612d6a89f425070110fd16a107084e203662a72f9363ea335ca46a46aa22db360bcda747f5ac38ee3297295dd69b6cda8642f0360aa985f23b0
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
   socat_version: 1.7.4.4
