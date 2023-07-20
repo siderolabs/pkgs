@@ -46,7 +46,7 @@ steps:
 
   - name: build-nonfree-pull-request
     depends_on:
-      - setup-ci
+      - build-pull-request
     image: autonomy/build-container:latest
     pull: always
     commands:
