@@ -75,6 +75,7 @@ TARGETS += \
 	drbd-pkg \
 	gasket-driver-pkg \
 	nvidia-open-gpu-kernel-modules-pkg \
+	thunderbolt-pkg \
 	zfs-pkg \
 
 # Temporarily disabled until mellanox builds with Linux 6.1
