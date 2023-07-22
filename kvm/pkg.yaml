@@ -1,0 +1,27 @@
+name: kvm-pkg
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: kernel-build
+steps:
+  - env:
+      ARCH: '{{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}'
+    prepare:
+      - |
+        cd /src
+    build:
+      - |
+        cd /src
+        make olddefconfig
+        make scripts
+    install:
+      - |
+        cd /src
+        make -j $(nproc) -C /src M=virt/kvm modules_install DESTDIR=/rootfs INSTALL_MOD_PATH=/rootfs INSTALL_MOD_STRIP=1 CONFIG_MODULE_SIG_ALL=y
+    test:
+      - |
+        # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
+        find /rootfs/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
+finalize:
+  - from: /rootfs
+    to: /

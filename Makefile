@@ -47,6 +47,7 @@ TARGETS = \
 	iptables \
 	ipxe \
 	kmod \
+	kvm-pkg \
 	libaio \
 	libinih \
 	libjson-c \
