@@ -1,0 +1,38 @@
+name: zfs-pkg
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: kernel-build
+steps:
+  - sources:
+      - url: https://github.com/openzfs/zfs/releases/download/zfs-{{ .zfs_version }}/zfs-{{ .zfs_version }}.tar.gz
+        destination: zfs.tar.gz
+        sha256: "{{ .zfs_sha256 }}"
+        sha512: "{{ .zfs_sha512 }}"
+    env:
+      ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+    prepare:
+      - |
+        tar -xzf zfs.tar.gz --strip-components=1
+        ./autogen.sh
+        ./configure --with-config=kernel --with-linux=/src
+    build:
+      - |
+        make -j $(nproc)
+    install:
+      - |
+        mkdir -p /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin.modinfo /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+
+        for i in $(find $(pwd)/module/ -mindepth 1 -maxdepth 1 -type d); do
+          make -j $(nproc) -C /src M="$i" modules_install DESTDIR=/rootfs INSTALL_MOD_PATH=/rootfs INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1 CONFIG_MODULE_SIG_ALL=y
+        done
+    test:
+      - |
+        # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
+        find /rootfs/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
+finalize:
+  - from: /rootfs
+    to: /

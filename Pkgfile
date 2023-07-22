@@ -187,5 +187,10 @@ vars:
   xfsprogs_version: 5.18.0
   xfsprogs_sha256: 1e8d8801bdec8cd4cad360ce3bbd12c35a97f2bc8f7c8c9580d1903b0e8cc35b
   xfsprogs_sha512: 47d035a33367edae7357e34c70bdb0fe9219231153fb4c4f418ed1462d137dd77338c12a199eb71cd70e88903e5fc11e1e4fb595c622183786e87346e2f65739
+
+  # renovate: datasource=github-tags extractVersion=^zfs-(?<version>.*)$ depName=openzfs/zfs
+  zfs_version: 2.1.12
+  zfs_sha256: 64daa26aed3e12c931f6f4413d7527c4ebdb8da35416b356152b5f9fdd4c6e6d
+  zfs_sha512: f48493a21883e441cda705fb085353bed033f1620a1d0f93069c345c76cf2c0759a2e6f7a80c47c9398e9878abfe1d90d931fe5ceaf2588770a71491a434631e
 labels:
   org.opencontainers.image.source: https://github.com/siderolabs/pkgs
