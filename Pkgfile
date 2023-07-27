@@ -83,7 +83,7 @@ vars:
   libaio_sha512: 65c30a102433bf8386581b03fc706d84bd341be249fbdee11a032b237a7b239e8c27413504fef15e2797b1acd67f752526637005889590ecb380e2e120ab0b71
 
   # renovate: datasource=github-releases extractVersion=^r(?<version>.*)$ depName=benhoyt/inih
-  libinih_version: 56
+  libinih_version: 57
   libinih_sha256: 4f2ba6bd122d30281a8c7a4d5723b7af90b56aa828c0e88256d7fceda03a491a
   libinih_sha512: ff3e0910990f73e5b21fddc84737ab346279f201c86c7ad864c6cad9de5bde57c3e0a433b9b8f3585b7d86feaae2ea074185f92891dcadc98c274c1c0745d2d2
 
@@ -132,7 +132,7 @@ vars:
   musl_sha512: 498ec5d7941194a8806f4d42f0f6d218c862996ef1398b737d0d06995e0b7a6574b240a48088f6b84016b14b2776fe463f829dcb11149cdfc1023d496b235c55
 
   # renovate: datasource=github-releases depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_version: 530.41.03
+  nvidia_driver_version: 535.86.05
   nvidia_driver_sha256: 4bc52b21858e02bea1e0eb3c60d3cfb7a64c68c0dab9d5f39baf3396b509b245
   nvidia_driver_sha512: 159f913ec6c46ec29f8b9ba7858965f7f4ff34cf5ea5fdf2e48a59b2145a1e113330f574148213a98b475113db920ecde4d5059a31a251c204ee838c662e854e
 
