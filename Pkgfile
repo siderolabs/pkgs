@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.5.0-alpha.0-19-gdc7dd9e
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.5.0-alpha.0-21-gfd42f4b
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.3.0
@@ -11,10 +11,10 @@ vars:
   cni_sha512: 87e186b3cd64f66280f5b2293dcdd1fc22cb8f51a248124fb622adc48a893348419ba4c29c4769dede4d9e60f2e9fea5d4198f10badb4ecd20a1551e0b344e10
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v1.6.21
-  containerd_ref: 3dce8eb055cbb6872793272b4f20ed16117344f8
-  containerd_sha256: 9452e95455d03a00d78ae0587595d0c18555bae7912068269efa25a724efe713
-  containerd_sha512: a94ed8b8b9e153c9dc370228b659fcba1b03b3c47c8b5fcb001bb1b4b158ea048159f5d8d8c5294e7da3444edd76fbd903d7b7faa84e3382807a583d757325e1
+  containerd_version: v1.6.22
+  containerd_ref: 8165feabfdfe38c65b599c4993d227328c231fca
+  containerd_sha256: b109aceacc814d7a637ed94ba5ade829cd2642841d03e06971ef124fa3b86899
+  containerd_sha512: 93b49cf15cf8da969bee995db6d1332123b52009aa98e36324e4d0fa8a2ed14908a41486196a4a81c28909b39a317c65fd1ee2efdf57ab42508227744d40fb15
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
   cryptsetup_version: 2.6.1
@@ -37,10 +37,10 @@ vars:
   eudev_sha512: f0d3d6871d53a84ce91ed9354110d876bd1c370aa9b524c9b0419d466f935d673710cbc296a20f78bef342ab222a3d5ee1d9968545eb388e83ed84910fe4b200
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
-  flannel_cni_version: v1.1.2
-  flannel_cni_ref: 18a3027e7d03feeb6ecdfdbc3bf254a8c8b38b04
-  flannel_cni_sha256: 14223278f08af51a9f6039630d730c6abe9a963eda2fc53e845ad4b067c9fc5b
-  flannel_cni_sha512: 09c98a1bbc499bedb75cb01192ad3c631df066aae5164f3de31be146ce7afa7bdd327dc7dc3314adf944fb9e27999792f55af811cbe8f0eadc3c0ba329ff48c9
+  flannel_cni_version: v1.2.0
+  flannel_cni_ref: 6464faacf5c00e25321573225d74638455ef03a0
+  flannel_cni_sha256: 98c68a0a595b4420a01055735a823f84cc5ba0eb2d351ba73f384a7cd95b9db6
+  flannel_cni_sha512: cf2eb35bea94c1fe123d9f9871bb83ffe863c8375b10a8cffdb1c289b42296fdbb07fcb1e192ba7ed02930dc1163425883238b62a882836327adca9837438c19
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/google/gasket-driver.git
   gasket_driver_ref: 97aeba584efd18983850c36dcf7384b0185284b3
@@ -63,14 +63,14 @@ vars:
   iptables_sha512: e367bf286135e39b7401e852de25c1ed06d44befdffd92ed1566eb2ae9704b48ac9196cb971f43c6c83c6ad4d910443d32064bcdf618cfcef6bcab113e31ff70
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: e17568ad0642490143d0c6b154c874b9b9e285bf
-  ipxe_sha256: d0c6b4e8b376e8e2a4ccd49decdce2b9f9cba4567a6b64ff314bf6104f9b8b41
-  ipxe_sha512: af42980f09ffa5ed5dd71b1071b576b934da72e9b980a7d85c14ab12b99e0635b9edcac3af048e7af7079c70009b821b270dd390a652e1c5c3688bcf9c6c02b2
+  ipxe_ref: c1834f323f4f6b9b46cd5895b1457a117381363f
+  ipxe_sha256: 2c04764c3a72eb02041a46535805a2dbecc948ecfaa18e79a80cca15b952044f
+  ipxe_sha512: 6ae707f53a657b7c7974cf4b3f9cba576147c2ec54d780484b18f053bdaa70cede45d01e667733b4a23c8661aa536f56da257fddac0212ef9a0f5ec52c54e0fd
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.1.41
-  linux_sha256: 312809a78eea052a08a6580f47b2ed8dd28e5633461d6731febaf3cb1e570bb7
-  linux_sha512: 82101034257f746e1b6717d374a7960c1a83f93e8c2912e159c6eda6ea7605ff3c8505d37cc55ee0aadaddc964475c7ece4c26ed60407877d6eeaa7938de7c91
+  linux_version: 6.1.42
+  linux_sha256: aaf8261b551c8b76b81eab8780b446e88cea4d551ae517ac3a9b2dbdbd381ed3
+  linux_sha512: b3a0c682bb2234c3ec36f6302f4b39dfd501e667c39d10e2f0994b3d3dfbdc461728686d4d451b798173a76fe2ae24d8a6ab43bf869e9291d1111975405db22c
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 30
@@ -83,9 +83,9 @@ vars:
   libaio_sha512: 65c30a102433bf8386581b03fc706d84bd341be249fbdee11a032b237a7b239e8c27413504fef15e2797b1acd67f752526637005889590ecb380e2e120ab0b71
 
   # renovate: datasource=github-releases extractVersion=^r(?<version>.*)$ depName=benhoyt/inih
-  libinih_version: 56
-  libinih_sha256: 4f2ba6bd122d30281a8c7a4d5723b7af90b56aa828c0e88256d7fceda03a491a
-  libinih_sha512: ff3e0910990f73e5b21fddc84737ab346279f201c86c7ad864c6cad9de5bde57c3e0a433b9b8f3585b7d86feaae2ea074185f92891dcadc98c274c1c0745d2d2
+  libinih_version: 57
+  libinih_sha256: f03f98ca35c3adb56b2358573c8d3eda319ccd5287243d691e724b7eafa970b3
+  libinih_sha512: 9f758df876df54ed7e228fd82044f184eefbe47e806cd1e6d62e1b0ea28e2c08e67fa743042d73b4baef0b882480e6afe2e72878b175822eb2bdbb6d89c0e411
 
   # renovate: datasource=github-tags extractVersion=^json-c-(?<version>.*)-.*$ depName=json-c/json-c
   libjson_c_version: 0.16
@@ -132,9 +132,9 @@ vars:
   musl_sha512: 498ec5d7941194a8806f4d42f0f6d218c862996ef1398b737d0d06995e0b7a6574b240a48088f6b84016b14b2776fe463f829dcb11149cdfc1023d496b235c55
 
   # renovate: datasource=github-releases depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_version: 530.41.03
-  nvidia_driver_sha256: 4bc52b21858e02bea1e0eb3c60d3cfb7a64c68c0dab9d5f39baf3396b509b245
-  nvidia_driver_sha512: 159f913ec6c46ec29f8b9ba7858965f7f4ff34cf5ea5fdf2e48a59b2145a1e113330f574148213a98b475113db920ecde4d5059a31a251c204ee838c662e854e
+  nvidia_driver_version: 535.54.03
+  nvidia_driver_sha256: 49ed408fc8bad50990fcc094fe3808975edd81490ac3c36be17a987c7cea4ee7
+  nvidia_driver_sha512: 23fbaaa671f6f4bd92147c1ec0099cd006efc73297211ffba74d78310c14364de726f84e388c397716c42c854a302948f5bcf9e9bac65ae41f54d34e814cfb60
 
   # renovate: datasource=git-tags extractVersion=^OpenSSL_(?<version>.*)$ versioning=loose depName=git://git.openssl.org/openssl.git
   openssl_version: 1_1_1u

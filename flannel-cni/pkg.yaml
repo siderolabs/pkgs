@@ -24,7 +24,7 @@ steps:
         cd ${GOPATH}/src/
 
         export GOARCH=$(go env GOARCH)
-        export VERSION=v1.0.0
+        export VERSION={{ .flannel_cni_version }}
         export TAG=${VERSION}
 
         {{ if eq .ARCH "x86_64" }}
@@ -44,7 +44,7 @@ steps:
         export PATH=${PATH}:${TOOLCHAIN}/go/bin
         export GOARCH=$(go env GOARCH)
 
-        mv ${GOPATH}/src/github.com/flannel-io/cni-plugin/dist/flannel-${GOARCH} /rootfs/opt/cni/bin/flannel
+        mv ${GOPATH}/src/dist/flannel-${GOARCH} /rootfs/opt/cni/bin/flannel
 finalize:
   - from: /rootfs
     to: /
