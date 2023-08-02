@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.5.0-alpha.0-21-gfd42f4b
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.5.0
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.3.0
@@ -137,9 +137,9 @@ vars:
   nvidia_driver_sha512: 23fbaaa671f6f4bd92147c1ec0099cd006efc73297211ffba74d78310c14364de726f84e388c397716c42c854a302948f5bcf9e9bac65ae41f54d34e814cfb60
 
   # renovate: datasource=git-tags extractVersion=^OpenSSL_(?<version>.*)$ versioning=loose depName=git://git.openssl.org/openssl.git
-  openssl_version: 1_1_1u
-  openssl_sha256: e2f8d84b523eecd06c7be7626830370300fbcc15386bf5142d72758f6963ebc6
-  openssl_sha512: d00aeb0b4c4676deff06ff95af7ac33dd683b92f972b4a8ae55cf384bb37c7ec30ab83c6c0745daf87cf1743a745fced6a347fd11fed4c548aa0953610ed4919
+  openssl_version: 1_1_1v
+  openssl_sha256: d6697e2871e77238460402e9362d47d18382b15ef9f246aba6c7bd780d38a6b0
+  openssl_sha512: 1a67340d99026aa62bf50ff89165d9f77fe4a6690fe30d1751b5021dd3f238391afd581b41724687c322c4e3af1770c44a63766a06e9b8cab6425101153e0c7e
 
   # renovate: datasource=github-tags depName=raspberrypi/firmware
   raspberrypi_firmware_version: 1.20230405
