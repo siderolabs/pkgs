@@ -27,9 +27,9 @@ vars:
   dosfstools_sha512: 3cc0808edb4432428df8a67da4bb314fd1f27adc4a05754c1a492091741a7b6875ebd9f6a509cc4c5ad85643fc40395b6e0cadee548b25cc439cc9b725980156
 
   # renovate: datasource=github-tags extractVersion=^drbd-(?<version>.*)$ depName=LINBIT/drbd
-  drbd_version: 9.2.4
-  drbd_sha256: 969054de7a89bc3f052a7d768d7c704476349bbfc29ff9142da5a04b46079265
-  drbd_sha512: 7b62709fa672b0f6e0bf7ccd42dee14235772888f6b93252d18417e13f5ac469df908b950d80ef348ef2a7c2beebc5220cf31a1d7ad9592c0187c1f3eccfb321
+  drbd_version: 9.2.5
+  drbd_sha256: 8dcbda41f3975e7c5f84648c3c31995cc0429eb0e4cf17bfa13f76c0345badce
+  drbd_sha512: 874118af547b6ca3bd771becb091ee8a027d27c273ad6c0f0428f426f8a81b3a276d7e26adefd6bac1bfc2cfd807366559356f0970fdbf6e822af177330c527b
 
   # renovate: datasource=github-releases depName=eudev-project/eudev
   eudev_version: v3.2.12
@@ -68,9 +68,9 @@ vars:
   ipxe_sha512: 6ae707f53a657b7c7974cf4b3f9cba576147c2ec54d780484b18f053bdaa70cede45d01e667733b4a23c8661aa536f56da257fddac0212ef9a0f5ec52c54e0fd
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.1.44
-  linux_sha256: 2e51d41fe11d082ae167cee05772bb07ca7f19448d2b46772d8ca2db7673a1a5
-  linux_sha512: c1c29b785ada9c34e7ca1b11ece4568953d636d097590c9b62d49762d60a9c2b430749c323bcd016e1759259267196cfe0f87322e3c748cf0b1d2e31b94da979
+  linux_version: 6.1.45
+  linux_sha256: bd2343396e7ddad8974f3689a5a067ec931f4ade793e72b1070a85cd19f1f192
+  linux_sha512: 9a30afa4dbbf899aab8722574a3b914b2547beb0b36a7d80bd45f694f1649e974c6769700d3b5494bbd71964ba4f6b1ab430588266a08a38bc940871bb963e81
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 30
@@ -88,14 +88,14 @@ vars:
   libinih_sha512: 9f758df876df54ed7e228fd82044f184eefbe47e806cd1e6d62e1b0ea28e2c08e67fa743042d73b4baef0b882480e6afe2e72878b175822eb2bdbb6d89c0e411
 
   # renovate: datasource=github-tags extractVersion=^json-c-(?<version>.*)-.*$ depName=json-c/json-c
-  libjson_c_version: 0.16
-  libjson_c_sha256: 8e45ac8f96ec7791eaf3bb7ee50e9c2100bbbc87b8d0f1d030c5ba8a0288d96b
-  libjson_c_sha512: 255cff99033340b2c2678255d41dae7808f83ed0c102e693d2d9e186bd1f21dd1385fcaa360c0fc087a00965a9567fbda733370e6b518a9be2f1bb0a80439151
+  libjson_c_version: 0.17
+  libjson_c_sha256: 7550914d58fb63b2c3546f3ccfbe11f1c094147bd31a69dcd23714d7956159e6
+  libjson_c_sha512: 4cbedd559502bf9014cfcd1d0bb8bb80d2abac4e969d95d4170123cd9cbafb0756b913fdbb83f666d14f674d6539a60ed1c5d0eb03c36b8037a2e00dc1636e19
 
   # renovate: datasource=github-releases depName=tukaani-project/xz
-  xz_version: v5.4.3
-  xz_sha256: 92177bef62c3824b4badc524f8abcce54a20b7dbcfb84cde0a2eb8b49159518c
-  xz_sha512: 7252191339afb97fc6a00616b1a8b9f24247d3539e7dbffca2045954593ae3e20d59e34f24c03b1954c96fbfa9cc8a7fea2a6e501e837872f90e8cd8bb307bb5
+  xz_version: v5.4.4
+  xz_sha256: 705d0d96e94e1840e64dec75fc8d5832d34f6649833bec1ced9c3e08cf88132e
+  xz_sha512: 2b233a924b82190ff15e970c5a4a59f1c53a0b39a96bde228c9dfc9b103b4a3e5888f5024da4834e180f6010620ff23caf9f7135a38724eb2c8d01bff7a9a9e1
 
   # renovate: datasource=github-releases extractVersion=^popt-(?<version>.*)-release$ depName=rpm-software-management/popt
   libpopt_version: 1.19
@@ -118,9 +118,9 @@ vars:
   linux_firmware_sha512: 79044fa88887f7cc648ab7f2a77a032cc4f20c21a09ba0e8c1ce2785cafc8eff69517ac21e710100a42d0e5e1a98bda6e357acd3b0edbf56f5e3b944df22d01e
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
-  lvm2_version: 2_03_21
-  lvm2_sha256: 1e261921d621998adc37960c615de784c6145c7f737a80b781f3108fbec67a7e
-  lvm2_sha512: 6024811c3fa92afd2fc13a10d1c3542352aa9a016f40c3ef588bd2f5f3e41245fed4b36c8a87d9f7f8dddc6e13b7253396f5c811f99665df27751676dc7b5bde
+  lvm2_version: 2_03_22
+  lvm2_sha256: 4c5a6923bd1ace7ce04474608a84937ce053ba91b1ace9f0b0017268e732dc7c
+  lvm2_sha512: 17cd24ceee8026481566824b688dafd03ec816201d5cb3549cb7fc8a36f4cdaa982faaef4dcd26debfe775dea5ffa2744798164314ea6dc99a84f8ccccfc33ff
 
   mellanox_ofed_version: 5.9-0.5.6.0
   mellanox_ofed_sha256: 4503258cbe92b00c734e612c3a7ad1d71e023fdffae2a2c119f7b537505e499c
