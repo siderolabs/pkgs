@@ -72,6 +72,7 @@ TARGETS = \
 #   kernel first, then packages in alphabetical order
 TARGETS += \
 	kernel \
+	btrfs-pkg \
 	drbd-pkg \
 	gasket-driver-pkg \
 	nvidia-open-gpu-kernel-modules-pkg \
@@ -81,7 +82,7 @@ TARGETS += \
 # Temporarily disabled until mellanox builds with Linux 6.1
 # mellanox-ofed-pkg \
 
-NONFREE_TARGETS = nonfree-kmod-nvidia
+NONFREE_TARGETS = nonfree-kmod-nvidia-pkg
 
 all: $(TARGETS) ## Builds all known pkgs.
 

@@ -1,4 +1,4 @@
-name: nonfree-kmod-nvidia
+name: nonfree-kmod-nvidia-pkg
 variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
