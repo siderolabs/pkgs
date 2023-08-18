@@ -72,6 +72,7 @@ TARGETS = \
 #   kernel first, then packages in alphabetical order
 TARGETS += \
 	kernel \
+	applesmc-pkg \
 	btrfs-pkg \
 	drbd-pkg \
 	gasket-driver-pkg \

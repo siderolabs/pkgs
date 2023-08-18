@@ -1,0 +1,47 @@
+name: applesmc-pkg
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: kernel-build
+steps:
+# {{ if eq .ARCH "x86_64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr restricting build to amd64 only
+  - sources:
+      - url: https://github.com/t2linux/linux-t2-patches/archive/{{ .linux_t2_patches_ref }}.tar.gz
+        destination: patches.tar.gz
+        sha256: "{{ .linux_t2_patches_sha256 }}"
+        sha512: "{{ .linux_t2_patches_sha512 }}"
+    env:
+      ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+    prepare:
+      - |
+        mkdir -p /pkg/patches
+        tar xf patches.tar.gz --strip-components=1 -C /pkg/patches
+      - |
+        cd /src
+        while IFS= read -r file; do
+          echo "==> Adding $file"
+          patch -p1 < "$file"
+        done < <(find "/pkg/patches/" -type f -name "3***.patch" | sort)
+    build:
+      - |
+        make -j $(nproc) -C /src M=drivers/hwmon modules CONFIG_SENSORS_APPLESMC=m
+    install:
+      - |
+        mkdir -p /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin.modinfo /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+
+        make -j $(nproc) -C /src M=drivers/hwmon modules_install INSTALL_MOD_PATH=/rootfs INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1 CONFIG_MODULE_SIG_ALL=y
+    test:
+      - |
+        # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
+        find /rootfs/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
+# {{ else }}
+  - install:
+      - |
+        mkdir -p /rootfs
+# {{ end }}
+finalize:
+  - from: /rootfs
+    to: /
