@@ -73,6 +73,7 @@ TARGETS = \
 TARGETS += \
 	kernel \
 	btrfs-pkg \
+	coretemp-pkg \
 	drbd-pkg \
 	gasket-driver-pkg \
 	nvidia-open-gpu-kernel-modules-pkg \
