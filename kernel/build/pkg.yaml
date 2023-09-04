@@ -13,6 +13,12 @@ steps:
         cp -v /pkg/config-${CARCH} .config
         cp -v /pkg/certs/* certs/
     build:
+      {{ if .BUILD_ARG_KERNEL_TARGET }}
+      - |
+        cd /src
+
+        make {{ .BUILD_ARG_KERNEL_TARGET }}
+      {{ else }}
       - |
         cd /src
         python3 /toolchain/kconfig-hardened-check/bin/kconfig-hardened-check -c .config -m json | python3 /pkg/scripts/filter-hardened-check.py
@@ -26,7 +32,12 @@ steps:
           echo "Compiling device-tree blobs"
           make -j $(nproc) dtbs
         fi
+      {{ end }}
 finalize:
+  {{ if .BUILD_ARG_KERNEL_TARGET }}
+  - from: /src/.config
+    to: config-{{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}amd64{{ else }}unsupported{{ end }}
+  {{ else }}
   - from: /src
     to: /src
   - from: /toolchain
@@ -37,3 +48,4 @@ finalize:
     to: /bin
   - from: /lib
     to: /lib
+  {{ end }}

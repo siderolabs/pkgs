@@ -43,9 +43,9 @@ vars:
   flannel_cni_sha512: cf2eb35bea94c1fe123d9f9871bb83ffe863c8375b10a8cffdb1c289b42296fdbb07fcb1e192ba7ed02930dc1163425883238b62a882836327adca9837438c19
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/google/gasket-driver.git
-  gasket_driver_ref: 97aeba584efd18983850c36dcf7384b0185284b3
-  gasket_driver_sha256: df60528df13fbbc01a52d4bb10248ce262bc531484df42aa070b464b566081cb
-  gasket_driver_sha512: 059185a7e1fe7674027d0fd1a9fd3b6390e814382be4ae5d7b4c4c71b0d0e37551b20a8c633b1cf532b0a09197685538dcfc08d08fed867b9d1b314b1bdd1b60
+  gasket_driver_ref: 8aca235839fb5ba4d5ef6cfbe783837667e381f1
+  gasket_driver_sha256: 608d465d78f1532c29e910f71e777dbfc845b974ec0162be55af21315de9573f
+  gasket_driver_sha512: f296d23723ac578d3224344a1ac2e8ed0cdecc0e506f507e56f30eb3dd5b77c739e757ce8e195527f4ef45e38f7e589ea0df5f59bc1f519f033c19d374b69e67
 
   # renovate: datasource=git-tags extractVersion=^grub-(?<version>.*)$ depName=git://git.savannah.gnu.org/grub.git
   grub_version: 2.06
@@ -63,14 +63,14 @@ vars:
   iptables_sha512: e367bf286135e39b7401e852de25c1ed06d44befdffd92ed1566eb2ae9704b48ac9196cb971f43c6c83c6ad4d910443d32064bcdf618cfcef6bcab113e31ff70
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: c1834f323f4f6b9b46cd5895b1457a117381363f
-  ipxe_sha256: 2c04764c3a72eb02041a46535805a2dbecc948ecfaa18e79a80cca15b952044f
-  ipxe_sha512: 6ae707f53a657b7c7974cf4b3f9cba576147c2ec54d780484b18f053bdaa70cede45d01e667733b4a23c8661aa536f56da257fddac0212ef9a0f5ec52c54e0fd
+  ipxe_ref: 9e99a55b317f5da66f5110891b154084b337a031
+  ipxe_sha256: 244580fc8ac988b308abf5b6d9be3f2dbfef90a6419b30d4550dff7fdfa342c7
+  ipxe_sha512: 01bf9590ab4d62dcc8d89e71402ef7b97fcf62ffafa89d4ff300128c966d4d9418ead822c70ef7e8bedc707d1d3c1bf5891d6677e21b09fcfb1bfc010538a48f
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.1.46
-  linux_sha256: f5f67bcfccd47f8d9db2d5ba24e33af7778f40a777577d1fba424f4a1712a296
-  linux_sha512: 677d524974f76aeaaddab158e13df7c820e92f6e3c74683f5cd3dc9923859982079cd1da3fb41d3e87f96d72fb0abbc92d662122898e0a79adc7c8eebf005bd5
+  linux_version: 6.1.51
+  linux_sha256: 58b0446d8ea4bc0b26a35e2e3509bd53efcdeb295c9e4f48d33a23b1cdaa103b
+  linux_sha512: 82404e9e4ab7d12b83241433c02a0be4ad4c7e9c1452e5783956eb44e8a99ab140d78eeb294743a6023b24b5ddc23a7b3ed7765ca0dffabe9f3802bb896fab8a
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 30
@@ -178,9 +178,9 @@ vars:
   uboot_sha512: 417a28267eb7875820d08fafc7316f164663609378637539e71648b0b9b7d28796b6c381717f31b0ab6472805fefd32628ef7d1b2e7b9f3c51c8ad122993f679
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/util-linux/util-linux.git
-  util_linux_version: 2.39.1
-  util_linux_sha256: 890ae8ff810247bd19e274df76e8371d202cda01ad277681b0ea88eeaa00286b
-  util_linux_sha512: 8fe2c9014f6161330610f7470b870855cecbd3fab9c187b75d8f22e16573c82516050479be39cfb9f7dd6d7ef1cc298d31d839b194dda5ec4daf0d1197ac71e9
+  util_linux_version: 2.39.2
+  util_linux_sha256: 87abdfaa8e490f8be6dde976f7c80b9b5ff9f301e1b67e3899e1f05a59a1531f
+  util_linux_sha512: cebecdd62749d0aeea2c4faf7ad1606426eff03ef3b15cd9c2df1126f216a4ed546d8fc3218c649fa95944eb87a98bb6a7cdd0bea31057c481c5cf608ffc19a3
 
   # DO NOT bump above 5.18.*, as in newer versions filesystems smaller than 300MB are not supported (i.e. Talos STATE partition).
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git

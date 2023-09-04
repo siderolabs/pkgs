@@ -123,6 +123,10 @@ $(TARGETS) $(NONFREE_TARGETS):
 deps.png:
 	@$(BLDR) graph | dot -Tpng > deps.png
 
+kernel-olddefconfig:
+	@$(MAKE) local-kernel-build TARGET_ARGS="--build-arg=KERNEL_TARGET=olddefconfig" PLATFORM=linux/amd64 DEST="kernel/build"
+	@$(MAKE) local-kernel-build TARGET_ARGS="--build-arg=KERNEL_TARGET=olddefconfig" PLATFORM=linux/arm64 DEST="kernel/build"
+
 kernel-%: ## Updates the kernel configs: e.g. make kernel-olddefconfig; make kernel-menuconfig; etc.
 	for platform in $(subst $(,),$(space),$(PLATFORM)); do \
 		arch=`basename $$platform` ; \
