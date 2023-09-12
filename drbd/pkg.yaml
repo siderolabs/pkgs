@@ -5,26 +5,27 @@ dependencies:
   - stage: kernel-build
 steps:
   - sources:
-      - url: https://pkg.linbit.com//downloads/drbd/{{ regexReplaceAll ".\\d+\\.\\d+$" .drbd_version "${1}" }}/drbd-{{ .drbd_version }}.tar.gz
+      - url: https://pkg.linbit.com/downloads/drbd/{{ regexReplaceAll ".\\d+\\.\\d+$" .drbd_version "${1}" }}/drbd-{{ .drbd_version }}.tar.gz
         destination: drbd.tar.gz
         sha256: "{{ .drbd_sha256 }}"
         sha512: "{{ .drbd_sha512 }}"
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+    cache: /src/build
     prepare:
       - |
         tar -xzf drbd.tar.gz --strip-components=1
     build:
       - |
-        make -j $(nproc) -C drbd KERNEL_SOURCES=/src MODVERSIONS=detect KDIR=/src
+        make -j $(nproc) -C drbd KERNEL_SOURCES=/src MODVERSIONS=detect KDIR=/src/build
     install:
       - |
-        mkdir -p /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
-        cp /src/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
-        cp /src/modules.builtin /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
-        cp /src/modules.builtin.modinfo /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        mkdir -p /rootfs/lib/modules/$(cat /src/build/include/config/kernel.release)/
+        cp /src/build/modules.order /rootfs/lib/modules/$(cat /src/build/include/config/kernel.release)/
+        cp /src/build/modules.builtin /rootfs/lib/modules/$(cat /src/build/include/config/kernel.release)/
+        cp /src/build/modules.builtin.modinfo /rootfs/lib/modules/$(cat /src/build/include/config/kernel.release)/
 
-        make -j $(nproc) -C /src M=$(pwd)/drbd modules_install DESTDIR=/rootfs INSTALL_MOD_PATH=/rootfs INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1 CONFIG_MODULE_SIG_ALL=y
+        make -j $(nproc) -C /src/build M=$(pwd)/drbd modules_install DESTDIR=/rootfs INSTALL_MOD_PATH=/rootfs INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1 CONFIG_MODULE_SIG_ALL=y
     test:
       - |
         # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping

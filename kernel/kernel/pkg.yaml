@@ -6,9 +6,10 @@ dependencies:
 steps:
   - env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+    cache: /src/build
     install:
       - |
-        cd /src
+        cd /src/build
 
         mkdir -p /rootfs/boot
         mkdir -p /rootfs/dtb
@@ -16,10 +17,10 @@ steps:
         cp /src/certs/signing_key.x509 /rootfs/certs/signing_key.x509
         case $ARCH in
             x86_64)
-                mv arch/x86/boot/bzImage /rootfs/boot/vmlinuz
+                cp arch/x86/boot/bzImage /rootfs/boot/vmlinuz
             ;;
             arm64)
-                mv arch/arm64/boot/Image /rootfs/boot/vmlinuz
+                cp arch/arm64/boot/Image /rootfs/boot/vmlinuz
                 cd ./arch/arm64/boot/dts
                 for vendor in $(find . -not -path . -type d); do
                   dest="/rootfs/dtb/$vendor"

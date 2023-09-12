@@ -18,6 +18,7 @@ steps:
     # {{ end }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+    cache: /src/build
     prepare:
       - |
         export PATH=/toolchain/bin:$PATH
@@ -31,17 +32,17 @@ steps:
       - |
         cd NVIDIA-Linux-*/kernel
 
-        make -j $(nproc) SYSSRC=/src
+        make -j $(nproc) SYSSRC=/src SYSOUT=/src/build
     install:
       - |
         cd NVIDIA-Linux-*/kernel
 
-        mkdir -p /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
-        cp /src/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
-        cp /src/modules.builtin /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
-        cp /src/modules.builtin.modinfo /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        mkdir -p /rootfs/lib/modules/$(cat /src/build/include/config/kernel.release)/
+        cp /src/build/modules.order /rootfs/lib/modules/$(cat /src/build/include/config/kernel.release)/
+        cp /src/build/modules.builtin /rootfs/lib/modules/$(cat /src/build/include/config/kernel.release)/
+        cp /src/build/modules.builtin.modinfo /rootfs/lib/modules/$(cat /src/build/include/config/kernel.release)/
 
-        make -j $(nproc) modules_install SYSSRC=/src DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1
+        make -j $(nproc) modules_install SYSSRC=/src SYSOUT=/src/build DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1
 finalize:
   - from: /rootfs
     to: /
