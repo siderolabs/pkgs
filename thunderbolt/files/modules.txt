@@ -1,5 +1,0 @@
-modules.order
-modules.builtin
-modules.builtin.modinfo
-kernel/drivers/thunderbolt/thunderbolt.ko
-kernel/drivers/net/thunderbolt-net.ko

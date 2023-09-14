@@ -64,7 +64,6 @@ TARGETS = \
 	socat \
 	syslinux \
 	u-boot \
-	usb-modem-drivers-pkg \
 	util-linux \
 	xfsprogs
 
@@ -72,11 +71,9 @@ TARGETS = \
 #   kernel first, then packages in alphabetical order
 TARGETS += \
 	kernel \
-	btrfs-pkg \
 	drbd-pkg \
 	gasket-driver-pkg \
 	nvidia-open-gpu-kernel-modules-pkg \
-	thunderbolt-pkg \
 	zfs-pkg \
 
 # Temporarily disabled until mellanox builds with Linux 6.1
