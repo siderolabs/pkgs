@@ -15,7 +15,7 @@ steps:
     build:
       - |
         cd /src
-        python3 /toolchain/kconfig-hardened-check/bin/kconfig-hardened-check -c .config -m json | python3 /pkg/scripts/filter-hardened-check.py
+        python3 /toolchain/kernel-hardening-checker/bin/kernel-hardening-checker -c .config -m json | python3 /pkg/scripts/filter-hardened-check.py
       - |
         cd /src
 
