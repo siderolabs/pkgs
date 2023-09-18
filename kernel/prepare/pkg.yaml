@@ -41,7 +41,7 @@ steps:
 
         make mrproper
       - |
-        cd /toolchain && git clone https://github.com/a13xp0p0v/kconfig-hardened-check.git
+        cd /toolchain && git clone https://github.com/a13xp0p0v/kernel-hardening-checker.git
     install:
       - |
         mkdir -p /src
