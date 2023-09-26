@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.1.54 Kernel Configuration
+# Linux/arm64 6.1.55 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="gcc (GCC) 12.3.0"
 CONFIG_CC_IS_GCC=y
@@ -1683,8 +1683,6 @@ CONFIG_NET_CLS_FW=y
 CONFIG_NET_CLS_U32=y
 # CONFIG_CLS_U32_PERF is not set
 # CONFIG_CLS_U32_MARK is not set
-CONFIG_NET_CLS_RSVP=y
-CONFIG_NET_CLS_RSVP6=y
 CONFIG_NET_CLS_FLOW=y
 CONFIG_NET_CLS_CGROUP=y
 CONFIG_NET_CLS_BPF=y

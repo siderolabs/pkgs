@@ -23,7 +23,7 @@ steps:
           linux-${ARCH} \
           --prefix=/usr \
           --libdir=lib \
-          --openssldir=/etc/ssl1.1 \
+          --openssldir=/etc/ssl3.1 \
           shared \
           no-zlib \
           no-async \
@@ -34,12 +34,11 @@ steps:
           no-ec2m \
           no-sm2 \
           no-sm4 \
-          no-ssl2 \
           no-ssl3 \
           no-seed \
           no-weak-ssl-ciphers
 
-        make -j $(nproc)
+        make -j $(nproc) build_sw
     install:
       - |
         cd openssl
