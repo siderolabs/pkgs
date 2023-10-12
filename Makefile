@@ -73,6 +73,7 @@ TARGETS += \
 	kernel \
 	drbd-pkg \
 	gasket-driver-pkg \
+	nfsd-pkg \
 	nvidia-open-gpu-kernel-modules-pkg \
 	zfs-pkg \
 
