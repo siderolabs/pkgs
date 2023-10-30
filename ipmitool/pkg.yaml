@@ -10,6 +10,8 @@ steps:
         destination: ipmitool.tar.gz
         sha256: "{{ .ipmitool_sha256 }}"
         sha512: "{{ .ipmitool_sha512 }}"
+    env:
+      SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
     prepare:
       - |
         tar -xzf ipmitool.tar.gz --strip-components=1
@@ -52,6 +54,8 @@ steps:
       - |
         cd build
         make install DESTDIR=/rootfs
+        # ipmitool downloads this file, so set a static timestamp
+        touch -ch -t $(date -d @${SOURCE_DATE_EPOCH} +%Y%m%d0000) /rootfs/usr/share/misc/enterprise-numbers
 finalize:
   - from: /rootfs
     to: /
