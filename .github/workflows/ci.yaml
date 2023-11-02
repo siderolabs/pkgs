@@ -1,8 +1,12 @@
+# THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
+#
+# Generated on 2023-11-02T16:03:57Z by kres 32170a7-dirty.
+
 name: default
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
-on:
+"on":
   push:
     branches:
       - main
@@ -15,20 +19,23 @@ on:
       - release-*
 jobs:
   default:
-    if: (!startsWith(github.head_ref, 'renovate/') && !startsWith(github.head_ref, 'dependabot/'))
     permissions:
+      actions: read
+      contents: write
       packages: write
+      pull-requests: read
     runs-on:
       - self-hosted
       - pkgs
+    if: (!startsWith(github.head_ref, 'renovate/') && !startsWith(github.head_ref, 'dependabot/'))
     outputs:
       labels: ${{ steps.workflow-run-info.outputs.pullRequestLabels }}
     services:
       buildkitd:
-        image: moby/buildkit:buildx-stable-1
+        image: moby/buildkit:v0.12.2
+        options: --privileged
         ports:
           - 1234:1234
-        options: --privileged
         volumes:
           - /var/lib/buildkit/${{ github.repository }}:/var/lib/buildkit
           - /usr/etc/buildkit/buildkitd.toml:/etc/buildkit/buildkitd.toml
@@ -41,15 +48,15 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         with:
-          driver: remote
-          endpoint: tcp://localhost:1234
           append: |
             - endpoint: tcp://buildkit-arm64.ci.svc.cluster.local:1234
               platforms: linux/arm64
-      - name: build
+          driver: remote
+          endpoint: tcp://localhost:1234
+      - name: Build
         run: |
           make
-      - name: build nonfree
+      - name: Build nonfree
         run: |
           make nonfree
       - name: Login to registry
@@ -62,13 +69,26 @@ jobs:
       - name: Push to registry
         if: github.event_name != 'pull_request'
         run: |
-          make PUSH=true
+          make  PUSH=true
+      - name: Push nonfree
+        if: github.event_name != 'pull_request'
+        run: |
           make nonfree PUSH=true
       - name: Retrieve workflow info
         id: workflow-run-info
         uses: potiuk/get-workflow-origin@v1_5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+      - name: release-notes
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          make release-notes
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: crazy-max/ghaction-github-release@v2
+        with:
+          body_path: _out/RELEASE_NOTES.md
+          draft: "true"
   reproducibility:
     runs-on:
       - self-hosted
@@ -78,10 +98,10 @@ jobs:
       - default
     services:
       buildkitd:
-        image: moby/buildkit:buildx-stable-1
+        image: moby/buildkit:v0.12.2
+        options: --privileged
         ports:
           - 1234:1234
-        options: --privileged
         volumes:
           - /var/lib/buildkit/${{ github.repository }}:/var/lib/buildkit
           - /usr/etc/buildkit/buildkitd.toml:/etc/buildkit/buildkitd.toml
@@ -94,11 +114,11 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         with:
-          driver: remote
-          endpoint: tcp://localhost:1234
           append: |
             - endpoint: tcp://buildkit-arm64.ci.svc.cluster.local:1234
               platforms: linux/arm64
-      - name: reproducibility
+          driver: remote
+          endpoint: tcp://localhost:1234
+      - name: reproducibility-test
         run: |
           make reproducibility-test

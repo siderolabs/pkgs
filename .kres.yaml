@@ -1,0 +1,80 @@
+---
+kind: pkgfile.Build
+spec:
+  targets:
+    # - non-related to the kernel, in alphabetical order
+    - base
+    - ca-certificates
+    - cni
+    - containerd
+    - cryptsetup
+    - dosfstools
+    - eudev
+    - fhs
+    - flannel-cni
+    - grub
+    - ipmitool
+    - iptables
+    - ipxe
+    - kmod
+    - libaio
+    - libinih
+    - libjson-c
+    - liblzma
+    - libpopt
+    - libseccomp
+    - liburcu
+    - linux-firmware
+    - lvm2
+    - musl
+    - openssl
+    - raspberrypi-firmware
+    - runc
+    - sd-boot
+    - socat
+    - syslinux
+    - u-boot
+    - util-linux
+    - xfsprogs
+    # - kernel & dependent packages (out of tree kernel modules)
+    #   kernel first, then packages in alphabetical order
+    - kernel
+    - drbd-pkg
+    - gasket-driver-pkg
+    - nvidia-open-gpu-kernel-modules-pkg
+    - zfs-pkg
+  additionalTargets:
+    nonfree:
+      - nonfree-kmod-nvidia-pkg
+  reproducibleTargetName: reproducibility
+---
+kind: auto.CustomSteps
+spec:
+  steps:
+    - name: kernel-olddefconfig
+      toplevel: true
+    - name: kernel-%
+      toplevel: true
+---
+kind: custom.Step
+name: kernel-olddefconfig
+spec:
+  makefile:
+    enabled: true
+    script:
+      - |
+        @$(MAKE) local-kernel-build TARGET_ARGS="--build-arg=KERNEL_TARGET=olddefconfig" PLATFORM=linux/amd64 DEST="kernel/build"
+        @$(MAKE) local-kernel-build TARGET_ARGS="--build-arg=KERNEL_TARGET=olddefconfig" PLATFORM=linux/arm64 DEST="kernel/build"
+---
+kind: custom.Step
+name: kernel-%
+spec:
+  makefile:
+    enabled: true
+    script:
+      - |
+        for platform in linux/amd64 linux/arm64; do \
+          arch=`basename $$platform` ; \
+          $(MAKE) docker-kernel-prepare PLATFORM=$$platform TARGET_ARGS="--tag=$(REGISTRY)/$(USERNAME)/kernel:$(TAG)-$$arch --load"; \
+          docker run --rm -it --entrypoint=/toolchain/bin/bash -e PATH=/toolchain/bin:/bin -w /src -v $$PWD/kernel/build/config-$$arch:/host/.hostconfig $(REGISTRY)/$(USERNAME)/kernel:$(TAG)-$$arch -c 'cp /host/.hostconfig .config && make $* && cp .config /host/.hostconfig'; \
+        done

@@ -1,3 +1,7 @@
+# THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
+#
+# Generated on 2023-11-02T09:53:23Z by kres 3a2980e-dirty.
+
 name: slack-notify
 "on":
   workflow_run:
@@ -10,6 +14,7 @@ jobs:
   slack-notify:
     runs-on:
       - self-hosted
+      - generic
     if: ${{ github.event.workflow_run.conclusion != 'skipped' }}
     steps:
       - name: Retrieve Workflow Run Info
@@ -34,7 +39,7 @@ jobs:
                                 "fields": [
                                     {
                                         "type": "mrkdwn",
-                                        "text": "${{ github.event.workflow_run.event == 'pull_request' && format('*Pull Request:* {0} (`{1}`)\n<{2}/pull/{3}|{4}>', github.repository, github.ref_name, github.event.repository.html_url, steps.retrieve-workflow-run-info.outputs.pullRequestNumber, github.event.workflow_run.display_title) || format('*Build:* {0}#{1} (`{2}`)', github.repository, github.sha, github.ref_name) }}"
+                                        "text": "${{ github.event.workflow_run.event == 'pull_request' && format('*Pull Request:* {0} (`{1}`)\n<{2}/pull/{3}|{4}>', github.repository, github.ref_name, github.event.repository.html_url, steps.retrieve-workflow-run-info.outputs.pullRequestNumber, github.event.workflow_run.display_title) || format('*Build:* {0} (`{1}`)\n<{2}/commit/{3}|{4}>', github.repository, github.ref_name, github.event.repository.html_url, github.sha, github.event.workflow_run.display_title) }}"
                                     },
                                     {
                                         "type": "mrkdwn",
