@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2023-11-02T18:46:07Z by kres 70e6597-dirty.
+# Generated on 2023-11-03T10:10:36Z by kres latest.
 
 # common variables
 
@@ -164,7 +164,7 @@ kernel-olddefconfig:
 	@$(MAKE) local-kernel-build TARGET_ARGS="--build-arg=KERNEL_TARGET=olddefconfig" PLATFORM=linux/arm64 DEST="kernel/build"
 
 kernel-%:
-	for platform in linux/amd64 linux/arm64; do \
+	for platform in $(shell echo $(PLATFORM) | tr "," " "); do \
 	  arch=`basename $$platform` ; \
 	  $(MAKE) docker-kernel-prepare PLATFORM=$$platform TARGET_ARGS="--tag=$(REGISTRY)/$(USERNAME)/kernel:$(TAG)-$$arch --load"; \
 	  docker run --rm -it --entrypoint=/toolchain/bin/bash -e PATH=/toolchain/bin:/bin -w /src -v $$PWD/kernel/build/config-$$arch:/host/.hostconfig $(REGISTRY)/$(USERNAME)/kernel:$(TAG)-$$arch -c 'cp /host/.hostconfig .config && make $* && cp .config /host/.hostconfig'; \
