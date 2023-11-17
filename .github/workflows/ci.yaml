@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2023-11-08T10:54:12Z by kres latest.
+# Generated on 2023-11-20T10:44:06Z by kres latest.
 
 name: default
 concurrency:
@@ -54,17 +54,6 @@ jobs:
               platforms: linux/arm64
           driver: remote
           endpoint: tcp://localhost:1234
-      - name: Save PR number
-        if: github.event_name == 'pull_request' && always()
-        run: |
-          echo ${{ github.event.number }} > pr-number.txt
-      - name: Upload PR number
-        if: github.event_name == 'pull_request' && always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: pr-number
-          path: pr-number.txt
-          retention-days: "1"
       - name: Build
         run: |
           make
@@ -99,7 +88,7 @@ jobs:
                 repo: context.repo.repo,
             })
 
-            return resp.data.labels
+            return resp.data.labels.map(label => label.name)
       - name: release-notes
         if: startsWith(github.ref, 'refs/tags/')
         run: |
@@ -114,7 +103,7 @@ jobs:
     runs-on:
       - self-hosted
       - pkgs
-    if: contains(needs.default.outputs.labels, 'integration/reproducibility')
+    if: contains(fromJSON(needs.default.outputs.labels), 'integration/reproducibility')
     needs:
       - default
     services:
