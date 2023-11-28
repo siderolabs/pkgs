@@ -48,9 +48,9 @@ vars:
   gasket_driver_sha512: 1a8862610acb1246bcb7e86a9516bf3254f2b3a796dddbcc1666e31207bf629214172d049a9171343417442a02b76070bbaa802ee02128a7f9ab7f4a54a04676
 
   # renovate: datasource=git-tags extractVersion=^grub-(?<version>.*)$ depName=git://git.savannah.gnu.org/grub.git
-  grub_version: 2.06
-  grub_sha256: b79ea44af91b93d17cd3fe80bdae6ed43770678a9a5ae192ccea803ebb657ee1
-  grub_sha512: 4f11c648f3078567e53fc0c74d5026fdc6da4be27d188975e79d9a4df817ade0fe5ad2ddd694238a07edc45adfa02943d83c57767dd51548102b375e529e8efe
+  grub_version: 2.12~rc1
+  grub_sha256: 7a60c08b0ff1bac630cae6293b73871a541610a7fb1a7337aeb5e96f359cd650
+  grub_sha512: 6f1fbce004b6dccf58e203bf6a6eeb771bac5ecc54b503265e56a97e9adce0221677bb3e64328144ec921f327a099f0345e7a9952be41cd8808f7635cded52cb
 
   # renovate: datasource=github-releases extractVersion=^IPMITOOL_(?<version>.*)$ depName=ipmitool/ipmitool
   ipmitool_version: 1_8_19
