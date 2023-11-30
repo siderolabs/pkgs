@@ -11,10 +11,10 @@ vars:
   cni_sha512: 87e186b3cd64f66280f5b2293dcdd1fc22cb8f51a248124fb622adc48a893348419ba4c29c4769dede4d9e60f2e9fea5d4198f10badb4ecd20a1551e0b344e10
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v1.7.9
-  containerd_ref: 4f03e100cb967922bec7459a78d16ccbac9bb81d
-  containerd_sha256: e41eba6bb45ea76b85cc8794e4c3b351016e499a36a56b9d43eea66035db42ae
-  containerd_sha512: 47bafd0359167c6b7afb54d482ba7084deba4dbae9fad9059764bebe5fcd90b0d2fd4c6e06cea05a5f0f1dfaa300a4f3e4c51d2763f13429a147a5fe717ee21c
+  containerd_version: v1.7.10
+  containerd_ref: 4e1fe7492b9df85914c389d1f15a3ceedbb280ac
+  containerd_sha256: dd43e4c1d7b1909a530e044af90697317c64fadbcbdf86fafc607dc723597dbd
+  containerd_sha512: b3e9f13ad981b7a9226c23dda3f6bfdc2267c78d549d033d1cab8c4b94c2e6d62025259e80bad23cacbe1a06b39c098d6d4d48414180c85ef61bbb46b9b261d0
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
   cryptsetup_version: 2.6.1
@@ -68,9 +68,9 @@ vars:
   ipxe_sha512: 00dc6f925e3b3f6a92b7b6fc1733a3c022b3af7c11b1c0dd8a36fb383a912fc3f7861fcafbaf385ef8f2bc41da147252ac329faf9c88bdc67d770446fc9bae99
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.1.63
-  linux_sha256: c29d043b01dd4fcc61a24fd027c5c7912b15b1f10d8e3c83a0cb935885f0758d
-  linux_sha512: cd80dd1218c6365e0fd424ac399c113d652795c0e0bd7d7b7235ecbebf5d184c3ebd2010732d2b8f05c04392519ba74627629c6ee247fc35b4c61934274b9780
+  linux_version: 6.1.64
+  linux_sha256: 629daa38f3ea67f29610bfbd53f9f38f46834d3654451e9474100490c66dc7e7
+  linux_sha512: 84ea64fab869ce3929b90862094d9ca762c3c1cec1ae8c3f7191d33efc4f1ad5ab4f89d2b69b142d5893f17475099e7e4b7f124edf7c0eee2638fa6202fb3d6d
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 31
