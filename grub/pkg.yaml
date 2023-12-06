@@ -6,8 +6,7 @@ dependencies:
   - stage: util-linux
 steps:
   - sources:
-      #- url: https://ftp.gnu.org/gnu/grub/grub-{{ .grub_version }}.tar.xz
-      - url: https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/grub2/2.12~rc1-12ubuntu2/grub2_{{ .grub_version }}.orig.tar.xz
+      - url: https://ftp.gnu.org/gnu/grub/grub-{{ .grub_version }}.tar.xz
         destination: grub.tar.xz
         sha256: "{{ .grub_sha256 }}"
         sha512: "{{ .grub_sha512 }}"
@@ -21,7 +20,7 @@ steps:
 
         PYTHON=python3 /toolchain/bin/bash ./autogen.sh
 
-        #patch -p1 < /pkg/patches/udev.patch
+        patch -p1 < /pkg/patches/udev.patch
         patch -p1 < /pkg/patches/efi-fat-serial-number.patch
 
     build:
