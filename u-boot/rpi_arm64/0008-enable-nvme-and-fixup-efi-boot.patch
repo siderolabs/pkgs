@@ -1,11 +1,21 @@
+From 04c8073b1ead282eac7b90432f39f104b006f824 Mon Sep 17 00:00:00 2001
+From: Tom Plant <tom@tplant.com.au>
+Date: Sun, 3 Dec 2023 09:33:24 +0000
+Subject: [PATCH] rpi: enable NVMe and fixup EFI boot
+
+Signed-off-by: Tom Plant <tom@tplant.com.au>
+---
+ configs/rpi_arm64_defconfig | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
 diff --git a/configs/rpi_arm64_defconfig b/configs/rpi_arm64_defconfig
-index 031ed69ff0..f41d367238 100644
+index f9dade18f6..f2394e4a52 100644
 --- a/configs/rpi_arm64_defconfig
 +++ b/configs/rpi_arm64_defconfig
-@@ -57,3 +57,19 @@ CONFIG_VIDEO_BCM2835=y
+@@ -57,3 +57,19 @@ CONFIG_SYS_WHITE_ON_BLACK=y
+ CONFIG_VIDEO_BCM2835=y
  CONFIG_CONSOLE_SCROLL_LINES=10
  CONFIG_PHYS_TO_BUS=y
- CONFIG_OF_LIBFDT_OVERLAY=y
 +# Enable NVME
 +CONFIG_NVME_PCI=y
 +CONFIG_CMD_NVME=y
@@ -22,3 +32,5 @@ index 031ed69ff0..f41d367238 100644
 +CONFIG_PXE_UTILS=n
 +# Disable EFI bootmanager (reserves memory on 0x00080000 -> prevents continuing after being successful)
 +CONFIG_CMD_BOOTEFI_BOOTMGR=n
+-- 
+2.39.2

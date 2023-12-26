@@ -1,16 +1,31 @@
-# copied from https://github.com/armbian/build/blob/09e416e31cc01ece4533a65f02a470a4c21b90ea/patch/u-boot/u-boot-rockchip64/board-rock-pi-4-enable-spi-flash.patch
-# and modified for u-boot v2023.01
-diff --git arch/arm/dts/rk3399-rock-pi-4-u-boot.dtsi arch/arm/dts/rk3399-rock-pi-4-u-boot.dtsi
-index c17e769f64..bd8c60b4cd 100644
---- arch/arm/dts/rk3399-rock-pi-4-u-boot.dtsi
-+++ arch/arm/dts/rk3399-rock-pi-4-u-boot.dtsi
-@@ -8,7 +8,27 @@
+From 3f4704407817429014b9993e9e1b6d97ae8b0370 Mon Sep 17 00:00:00 2001
+From: Tom Plant <tom@tplant.com.au>
+Date: Sun, 3 Dec 2023 09:50:38 +0000
+Subject: [PATCH] rock-pi-4: enable SPI flash
 
+copied from https://github.com/armbian/build/blob/09e416e31cc01ece4533a65f02a470a4c21b90ea/patch/u-boot/u-boot-rockchip64/board-rock-pi-4-enable-spi-flash.patch
+and modified for u-boot v2024.01
+
+Signed-off-by: Tom Plant <tom@tplant.com.au>
+---
+ arch/arm/dts/rk3399-rock-pi-4-u-boot.dtsi | 24 +++++++++++++++++++++--
+ configs/rock-pi-4-rk3399_defconfig        | 13 +++++++++++-
+ configs/rock-pi-4c-rk3399_defconfig       | 13 +++++++++++-
+ 3 files changed, 46 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm/dts/rk3399-rock-pi-4-u-boot.dtsi b/arch/arm/dts/rk3399-rock-pi-4-u-boot.dtsi
+index 60122f3bcd..f6624fa296 100644
+--- a/arch/arm/dts/rk3399-rock-pi-4-u-boot.dtsi
++++ b/arch/arm/dts/rk3399-rock-pi-4-u-boot.dtsi
+@@ -7,9 +7,29 @@
+ #include "rk3399-sdram-lpddr4-100.dtsi"
+ 
  / {
- 	chosen {
+-	chosen {
 -		u-boot,spl-boot-order = "same-as-spl", &sdhci, &sdmmc;
++ 	chosen {
 +		u-boot,spl-boot-order = "same-as-spl", &spi_flash, &sdmmc, &sdhci;
-+	};
+ 	};
 +
 +	config {
 +		u-boot,spl-payload-offset = <0x60000>; /* @ 384KB */
@@ -30,39 +45,42 @@ index c17e769f64..bd8c60b4cd 100644
 +&spi1 {
 +	spi_flash: flash@0 {
 +		u-boot,dm-pre-reloc;
- 	};
++ 	};
  };
-
-diff --git configs/rock-pi-4-rk3399_defconfig configs/rock-pi-4-rk3399_defconfig
-index 91ecb6d9f1..2e9b92614c 100644
---- configs/rock-pi-4-rk3399_defconfig
-+++ configs/rock-pi-4-rk3399_defconfig
-@@ -4,12 +4,16 @@ CONFIG_COUNTER_FREQUENCY=24000000
- CONFIG_ARCH_ROCKCHIP=y
- CONFIG_TEXT_BASE=0x00200000
+ 
+ &sdhci {
+diff --git a/configs/rock-pi-4-rk3399_defconfig b/configs/rock-pi-4-rk3399_defconfig
+index 84e0dcf028..8866e89d38 100644
+--- a/configs/rock-pi-4-rk3399_defconfig
++++ b/configs/rock-pi-4-rk3399_defconfig
+@@ -6,7 +6,9 @@ CONFIG_TEXT_BASE=0x00200000
  CONFIG_NR_DRAM_BANKS=1
+ CONFIG_HAS_CUSTOM_SYS_INIT_SP_ADDR=y
+ CONFIG_CUSTOM_SYS_INIT_SP_ADDR=0x300000
 +CONFIG_ENV_SIZE=0x6000
  CONFIG_ENV_OFFSET=0x3F8000
 +CONFIG_ENV_SECT_SIZE=0x1000
- CONFIG_DEFAULT_DEVICE_TREE="rk3399-rock-pi-4b"
- CONFIG_ROCKCHIP_RK3399=y
- CONFIG_TARGET_EVB_RK3399=y
+ CONFIG_DEFAULT_DEVICE_TREE="rk3399-rock-pi-4a"
+ CONFIG_OF_LIBFDT_OVERLAY=y
+ CONFIG_DM_RESET=y
+@@ -15,6 +17,8 @@ CONFIG_TARGET_EVB_RK3399=y
+ CONFIG_SPL_STACK=0x400000
  CONFIG_DEBUG_UART_BASE=0xFF1A0000
  CONFIG_DEBUG_UART_CLOCK=24000000
 +CONFIG_SPL_SPI_FLASH_SUPPORT=y
 +CONFIG_SPL_SPI_SUPPORT=y
  CONFIG_SYS_LOAD_ADDR=0x800800
+ CONFIG_PCI=y
  CONFIG_DEBUG_UART=y
- CONFIG_HAS_CUSTOM_SYS_INIT_SP_ADDR=y
-@@ -28,6 +32,7 @@ CONFIG_SPL_BSS_MAX_SIZE=0x2000
- CONFIG_SPL_STACK=0x400000
+@@ -33,6 +37,7 @@ CONFIG_SPL_BSS_MAX_SIZE=0x2000
+ # CONFIG_SPL_SHARES_INIT_SP_ADDR is not set
  CONFIG_SPL_STACK_R=y
  CONFIG_SPL_STACK_R_MALLOC_SIMPLE_LEN=0x10000
 +CONFIG_SPL_SPI_LOAD=y
+ CONFIG_SPL_ATF_NO_PLATFORM_PARAM=y
  CONFIG_TPL=y
  CONFIG_CMD_BOOTZ=y
- CONFIG_CMD_NVEDIT_EFI=y
-@@ -43,8 +48,9 @@ CONFIG_CMD_EFIDEBUG=y
+@@ -49,8 +54,9 @@ CONFIG_CMD_EFIDEBUG=y
  CONFIG_CMD_TIME=y
  CONFIG_SPL_OF_CONTROL=y
  CONFIG_OF_SPL_REMOVE_PROPS="pinctrl-0 pinctrl-names clock-names interrupt-parent assigned-clocks assigned-clock-rates assigned-clock-parents"
@@ -73,9 +91,9 @@ index 91ecb6d9f1..2e9b92614c 100644
  CONFIG_DFU_MMC=y
  CONFIG_ROCKCHIP_GPIO=y
  CONFIG_SYS_I2C_ROCKCHIP=y
-@@ -54,6 +60,10 @@ CONFIG_MMC_DW=y
- CONFIG_MMC_DW_ROCKCHIP=y
+@@ -61,6 +67,10 @@ CONFIG_MMC_DW_ROCKCHIP=y
  CONFIG_MMC_SDHCI=y
+ CONFIG_MMC_SDHCI_SDMA=y
  CONFIG_MMC_SDHCI_ROCKCHIP=y
 +CONFIG_SF_DEFAULT_BUS=1
 +CONFIG_SPI_FLASH_GIGADEVICE=y
@@ -84,44 +102,46 @@ index 91ecb6d9f1..2e9b92614c 100644
  CONFIG_ETH_DESIGNWARE=y
  CONFIG_GMAC_ROCKCHIP=y
  CONFIG_NVME_PCI=y
-@@ -68,6 +78,7 @@ CONFIG_RAM_RK3399_LPDDR4=y
- CONFIG_DM_RESET=y
+@@ -73,6 +83,7 @@ CONFIG_PWM_ROCKCHIP=y
+ CONFIG_RAM_ROCKCHIP_LPDDR4=y
  CONFIG_BAUDRATE=1500000
  CONFIG_DEBUG_UART_SHIFT=2
 +CONFIG_ROCKCHIP_SPI=y
+ CONFIG_SYS_NS16550_MEM32=y
  CONFIG_SYSRESET=y
  CONFIG_USB=y
- CONFIG_USB_XHCI_HCD=y
-diff --git configs/rock-pi-4c-rk3399_defconfig configs/rock-pi-4c-rk3399_defconfig
-index bd21a4c8b6..ffcb5d4b67 100644
---- configs/rock-pi-4c-rk3399_defconfig
-+++ configs/rock-pi-4c-rk3399_defconfig
-@@ -4,12 +4,16 @@ CONFIG_COUNTER_FREQUENCY=24000000
- CONFIG_ARCH_ROCKCHIP=y
- CONFIG_TEXT_BASE=0x00200000
+diff --git a/configs/rock-pi-4c-rk3399_defconfig b/configs/rock-pi-4c-rk3399_defconfig
+index 5c9fb14787..8f08f33fdb 100644
+--- a/configs/rock-pi-4c-rk3399_defconfig
++++ b/configs/rock-pi-4c-rk3399_defconfig
+@@ -6,7 +6,9 @@ CONFIG_TEXT_BASE=0x00200000
  CONFIG_NR_DRAM_BANKS=1
+ CONFIG_HAS_CUSTOM_SYS_INIT_SP_ADDR=y
+ CONFIG_CUSTOM_SYS_INIT_SP_ADDR=0x300000
 +CONFIG_ENV_SIZE=0x6000
  CONFIG_ENV_OFFSET=0x3F8000
 +CONFIG_ENV_SECT_SIZE=0x1000
  CONFIG_DEFAULT_DEVICE_TREE="rk3399-rock-pi-4c"
- CONFIG_ROCKCHIP_RK3399=y
- CONFIG_TARGET_EVB_RK3399=y
+ CONFIG_OF_LIBFDT_OVERLAY=y
+ CONFIG_DM_RESET=y
+@@ -15,6 +17,8 @@ CONFIG_TARGET_EVB_RK3399=y
+ CONFIG_SPL_STACK=0x400000
  CONFIG_DEBUG_UART_BASE=0xFF1A0000
  CONFIG_DEBUG_UART_CLOCK=24000000
 +CONFIG_SPL_SPI_FLASH_SUPPORT=y
 +CONFIG_SPL_SPI_SUPPORT=y
  CONFIG_SYS_LOAD_ADDR=0x800800
+ CONFIG_PCI=y
  CONFIG_DEBUG_UART=y
- CONFIG_HAS_CUSTOM_SYS_INIT_SP_ADDR=y
-@@ -28,6 +32,7 @@ CONFIG_SPL_BSS_MAX_SIZE=0x2000
- CONFIG_SPL_STACK=0x400000
+@@ -31,6 +35,7 @@ CONFIG_SPL_BSS_MAX_SIZE=0x2000
+ # CONFIG_SPL_SHARES_INIT_SP_ADDR is not set
  CONFIG_SPL_STACK_R=y
  CONFIG_SPL_STACK_R_MALLOC_SIMPLE_LEN=0x10000
 +CONFIG_SPL_SPI_LOAD=y
+ CONFIG_SPL_ATF_NO_PLATFORM_PARAM=y
  CONFIG_TPL=y
  CONFIG_CMD_BOOTZ=y
- CONFIG_CMD_NVEDIT_EFI=y
-@@ -43,8 +48,9 @@ CONFIG_CMD_EFIDEBUG=y
+@@ -47,8 +52,9 @@ CONFIG_CMD_EFIDEBUG=y
  CONFIG_CMD_TIME=y
  CONFIG_SPL_OF_CONTROL=y
  CONFIG_OF_SPL_REMOVE_PROPS="pinctrl-0 pinctrl-names clock-names interrupt-parent assigned-clocks assigned-clock-rates assigned-clock-parents"
@@ -132,7 +152,7 @@ index bd21a4c8b6..ffcb5d4b67 100644
  CONFIG_DFU_MMC=y
  CONFIG_ROCKCHIP_GPIO=y
  CONFIG_SYS_I2C_ROCKCHIP=y
-@@ -54,6 +60,10 @@ CONFIG_MMC_DW=y
+@@ -58,6 +64,10 @@ CONFIG_MMC_DW=y
  CONFIG_MMC_DW_ROCKCHIP=y
  CONFIG_MMC_SDHCI=y
  CONFIG_MMC_SDHCI_ROCKCHIP=y
@@ -143,11 +163,13 @@ index bd21a4c8b6..ffcb5d4b67 100644
  CONFIG_ETH_DESIGNWARE=y
  CONFIG_GMAC_ROCKCHIP=y
  CONFIG_NVME_PCI=y
-@@ -68,6 +78,7 @@ CONFIG_RAM_RK3399_LPDDR4=y
- CONFIG_DM_RESET=y
+@@ -70,6 +80,7 @@ CONFIG_PWM_ROCKCHIP=y
+ CONFIG_RAM_ROCKCHIP_LPDDR4=y
  CONFIG_BAUDRATE=1500000
  CONFIG_DEBUG_UART_SHIFT=2
 +CONFIG_ROCKCHIP_SPI=y
+ CONFIG_SYS_NS16550_MEM32=y
  CONFIG_SYSRESET=y
  CONFIG_USB=y
- CONFIG_USB_XHCI_HCD=y
+-- 
+2.39.2

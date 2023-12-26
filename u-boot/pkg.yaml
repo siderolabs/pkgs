@@ -23,28 +23,42 @@ steps:
         destination: arm-trusted-firmware.tar.gz
         sha256: "{{ .arm_trusted_firmware_sha256 }}"
         sha512: "{{ .arm_trusted_firmware_sha512 }}"
+      # download commit until it's merged
+      # https://review.trustedfirmware.org/c/TF-A/trusted-firmware-a/+/16952
+      - url: https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot/{{ .arm_trusted_firmware_rk3568_ref }}.tar.gz
+        destination: arm-trusted-firmware-rk3568.tar.gz
+        sha256: "{{ .arm_trusted_firmware_rk3568_sha256 }}"
+        sha512: "{{ .arm_trusted_firmware_rk3568_sha512 }}"
       - url: https://ftp.denx.de/pub/u-boot/u-boot-{{ .uboot_version }}.tar.bz2
         destination: u-boot.tar.bz2
         sha256: "{{ .uboot_sha256 }}"
         sha512: "{{ .uboot_sha512 }}"
+      - url: https://raw.githubusercontent.com/rockchip-linux/rkbin/master/bin/rk35/rk3566_ddr_1056MHz_v{{ .rockchip_rk3566_ddr_version }}.bin
+        destination: rockchip_rk3566_ddr.bin
+        sha256: "{{ .rockchip_rk3566_ddr_sha256 }}"
+        sha512: "{{ .rockchip_rk3566_ddr_sha512 }}"
     env:
       SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
       SUN50I_A64_ARM_TRUSTED_FIRMWARE: sun50i_a64_arm-trusted-firmware
       RK3328_ARM_TRUSTED_FIRMWARE: rk3328_arm-trusted-firmware
       RK3399_ARM_TRUSTED_FIRMWARE: rk3399_arm-trusted-firmware
+      RK3568_ARM_TRUSTED_FIRMWARE: rk3568_arm-trusted-firmware
       LIBRETECH_ALL_H3_CC_H5_U_BOOT: libretech_all_h3_cc_h5_u-boot
       ROCK64_RK3328_U_BOOT: rock64_rk3328_u-boot
       RPI_ARM64_GENERIC_U_BOOT: rpi_generic_u-boot
       BANANAPI_M64_U_BOOT: bananapi_m64_u-boot
       PINE64_U_BOOT: pine64_u-boot
+      SOQUARTZ_CM4_U_BOOT: soquartz_cm4_u-boot
       ROCK_PI_4_RK3399_U_BOOT: rock-pi-4-rk3399_u-boot
       ROCK_PI_4C_RK3399_U_BOOT: rock-pi-4c-rk3399_u-boot
       JETSON_NANO_U_BOOT: jetson-nano_u-boot
       NANOPI_R4S_U_BOOT: nanopi-r4s_u-boot
     prepare:
       - |
-        mkdir -p /usr/bin \
-          && ln -sf /toolchain/bin/env /usr/bin/env \
+        mkdir -p /usr/bin
+        ln -sf /toolchain/bin/env /usr/bin/env
+        ln -sf /toolchain/bin/python3 /toolchain/bin/python
+        pip3 install pyelftools
       # sun50i_a64
       - |
         mkdir ${SUN50I_A64_ARM_TRUSTED_FIRMWARE}
@@ -59,6 +73,10 @@ steps:
         tar -xzf arm-trusted-firmware.tar.gz --strip-components=1 -C ${RK3399_ARM_TRUSTED_FIRMWARE}
         cd ${RK3399_ARM_TRUSTED_FIRMWARE}
         patch -p0 < /pkg/rockpi4/patches/platform.mk.patch
+      # rk3568
+      - |
+        mkdir ${RK3568_ARM_TRUSTED_FIRMWARE}
+        tar -xzf arm-trusted-firmware-rk3568.tar.gz --strip-components=1 -C ${RK3568_ARM_TRUSTED_FIRMWARE}
       # libretech_all_h3_cc_h5
       - |
         mkdir ${LIBRETECH_ALL_H3_CC_H5_U_BOOT}
@@ -101,32 +119,35 @@ steps:
         cd ${PINE64_U_BOOT}
         make pine64_plus_defconfig
         sed -i "s/CONFIG_TOOLS_LIBCRYPTO=y/# CONFIG_TOOLS_LIBCRYPTO is not set/" .config
+      # soquartz_cm4
+      # if CONFIG_TOOLS_LIBCRYPTO not set, build fails with undefined references eg image_get_checksum_algo
+      - |
+        mkdir ${SOQUARTZ_CM4_U_BOOT}
+        tar -xjf u-boot.tar.bz2 --strip-components=1 -C ${SOQUARTZ_CM4_U_BOOT}
+        mv rockchip_rk3566_ddr.bin ${SOQUARTZ_CM4_U_BOOT}
+        cd ${SOQUARTZ_CM4_U_BOOT}
+        make soquartz-cm4-rk3566_defconfig
       # rock-pi-4-rk3399
       - |
         mkdir ${ROCK_PI_4_RK3399_U_BOOT}
         tar -xjf u-boot.tar.bz2 --strip-components=1 -C ${ROCK_PI_4_RK3399_U_BOOT}
         cd ${ROCK_PI_4_RK3399_U_BOOT}
-        patch -p0 < /pkg/rockpi4/patches/board-rock-pi-4-enable-spi-flash.patch
-        patch -p0 < /pkg/rockpi4/patches/general-add-xtx-spi-nor-chips.patch
-        patch -p0 < /pkg/rockpi4/patches/enable-boot-from-spi-flash.patch
+        patch -p1 < /pkg/rockpi4/patches/board-rock-pi-4-enable-spi-flash.patch
+        patch -p1 < /pkg/rockpi4/patches/enable-boot-from-spi-flash.patch
         make rock-pi-4-rk3399_defconfig
-        sed -i "s/CONFIG_TOOLS_LIBCRYPTO=y/# CONFIG_TOOLS_LIBCRYPTO is not set/" .config
       # rock-pi-4c-rk3399
       - |
         mkdir ${ROCK_PI_4C_RK3399_U_BOOT}
         tar -xjf u-boot.tar.bz2 --strip-components=1 -C ${ROCK_PI_4C_RK3399_U_BOOT}
         cd ${ROCK_PI_4C_RK3399_U_BOOT}
-        patch -p0 < /pkg/rockpi4/patches/board-rock-pi-4-enable-spi-flash.patch
-        patch -p0 < /pkg/rockpi4/patches/general-add-xtx-spi-nor-chips.patch
-        patch -p0 < /pkg/rockpi4/patches/enable-boot-from-spi-flash.patch
+        patch -p1 < /pkg/rockpi4/patches/board-rock-pi-4-enable-spi-flash.patch
+        patch -p1 < /pkg/rockpi4/patches/enable-boot-from-spi-flash.patch
         make rock-pi-4c-rk3399_defconfig
-        sed -i "s/CONFIG_TOOLS_LIBCRYPTO=y/# CONFIG_TOOLS_LIBCRYPTO is not set/" .config
       # jetson nano
       - |
         mkdir ${JETSON_NANO_U_BOOT}
         tar -xjf u-boot.tar.bz2 --strip-components=1 -C ${JETSON_NANO_U_BOOT}
         cd ${JETSON_NANO_U_BOOT}
-        patch -p0 < /pkg/jetson_nano/patches/tegra.patch
         make p3450-0000_defconfig
         sed -i "s/CONFIG_TOOLS_LIBCRYPTO=y/# CONFIG_TOOLS_LIBCRYPTO is not set/" .config
       # nanopi-r4s
@@ -163,6 +184,11 @@ steps:
         # https://salsa.debian.org/debian/arm-trusted-firmware/-/commit/6ed8f61df3b07bb22a68a0fc189ec3b3f7b00dbd
         # https://developer.trustedfirmware.org/T996
         TF_LDFLAGS=--no-warn-rwx-segments CFLAGS=--param=min-pagesize=0 make -j $(nproc) PLAT=rk3399 DEBUG=0 bl31
+      # rk3568
+      - |
+        cd ${RK3568_ARM_TRUSTED_FIRMWARE}
+        make realclean
+        TF_LDFLAGS=--no-warn-rwx-segments CFLAGS=--param=min-pagesize=0 make -j $(nproc) PLAT=rk3568 DEBUG=0 bl31
       # libretech_all_h3_cc_h5
       - |
         export BL31=$(pwd)/${SUN50I_A64_ARM_TRUSTED_FIRMWARE}/build/sun50i_a64/release/bl31.bin
@@ -189,6 +215,13 @@ steps:
         export BL31=$(pwd)/${SUN50I_A64_ARM_TRUSTED_FIRMWARE}/build/sun50i_a64/release/bl31.bin
         export SCP=/dev/null
         cd ${PINE64_U_BOOT}
+        make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto"
+      # soquartz_cm4
+      - |
+        export ROCKCHIP_TPL=rockchip_rk3566_ddr.bin
+        export BL31=$(pwd)/${RK3568_ARM_TRUSTED_FIRMWARE}/build/rk3568/release/bl31/bl31.elf
+        export SCP=/dev/null
+        cd ${SOQUARTZ_CM4_U_BOOT}
         make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto"
       # rock-pi-4-rk3399
       - |
@@ -244,6 +277,10 @@ steps:
       - |
         mkdir -p /rootfs/pine64
         cp -v ${PINE64_U_BOOT}/u-boot-sunxi-with-spl.bin /rootfs/pine64
+      # soquartz_cm4
+      - |
+        mkdir -p /rootfs/soquartz_cm4
+        cp -v ${SOQUARTZ_CM4_U_BOOT}/u-boot-rockchip.bin /rootfs/soquartz_cm4
       # rock-pi-4-rk3399
       - |
         mkdir -p /rootfs/rockpi_4

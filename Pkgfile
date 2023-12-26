@@ -146,6 +146,10 @@ vars:
   raspberrypi_firmware_sha256: c64a119620cf367ae4ff124961dd5783f71aa005999a2b9213a7730207806874
   raspberrypi_firmware_sha512: 34e8f032dde782f7fa8344e3d39db3e681b62450102c8775d4e0f1c3b072df98133bedeac52b8a95cec0f5dc4f62b3ea4fae66e26834bd9ce2023a59bf137cc0
 
+  rockchip_rk3566_ddr_version: 1.18
+  rockchip_rk3566_ddr_sha256: dc006356ae0d1d1f66858a3762e6f5a5294caee1ca173ee5b0c4531bd4208d4f
+  rockchip_rk3566_ddr_sha512: 4d3af4dc0f96e4dfeacb29dd68a3497be5a7e59f0d9a4bd373b4c8b9c331b026e29431e8aa4b8b79170595ac9c159dcf2124f84ff22d0177e2d29ccc66874714
+
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.1.11
   runc_ref: 4bccb38cc9cf198d52bebf2b3a90cd14e7af8c06
@@ -172,10 +176,14 @@ vars:
   arm_trusted_firmware_sha256: 60fad60eeb6840097f8e64f16093c06ddb2ef269c7a22affed02beaa6cefe466
   arm_trusted_firmware_sha512: 958cf8f9e258638e59d0fbd8b053fce7d8a9ea2fc922686c9d20ea16f79f55219ac18a12ab240c528ee98e49c2e0eef4c963fdb255cc14b92437a5b3cffc8640
 
+  arm_trusted_firmware_rk3568_ref: 0ac3577101f7119b84f2e1fa2e88ea3f977d7480
+  arm_trusted_firmware_rk3568_sha256: 4119352190d8466d8826b5bc904d05566dab7a95a11aadbf8dafa0ff1e9f267a
+  arm_trusted_firmware_rk3568_sha512: a556e89bae69f5ba167b9b53594f4413707594ae04220bd6f6b68440486b043c5d36e48ee9e8311562ab2f9cf5b8c0b83302b9f1071628d3b79a26990dc78748
+
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=u-boot/u-boot
-  uboot_version: 2023.01
-  uboot_sha256: 69423bad380f89a0916636e89e6dcbd2e4512d584308d922d1039d1e4331950f
-  uboot_sha512: 417a28267eb7875820d08fafc7316f164663609378637539e71648b0b9b7d28796b6c381717f31b0ab6472805fefd32628ef7d1b2e7b9f3c51c8ad122993f679
+  uboot_version: 2024.01-rc5
+  uboot_sha256: 5fc8ec286587118ac2a8e9ea12f5e19f8105847052428a551af1be772e17b1cd
+  uboot_sha512: 6bd072ff5812f0201d03180b2b6d3b589434b6d7b388d515aa4eda81c86c7914b58835383911d871af94fd5a655d3fbd2a64bd8965705d8557eb2d9025037f2d
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/util-linux/util-linux.git
   util_linux_version: 2.39.3
