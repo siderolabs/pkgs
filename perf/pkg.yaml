@@ -1,0 +1,21 @@
+name: perf
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: kernel-prepare
+steps:
+  - build:
+      - |
+        cd /src
+        make -C tools/perf
+    install:
+      - |
+        mkdir /rootfs
+        cd /src
+        make -C tools/perf install DESTDIR=/rootfs
+    test:
+      - |
+        ls -l /rootfs/bin/perf
+finalize:
+  - from: /rootfs
+    to: /

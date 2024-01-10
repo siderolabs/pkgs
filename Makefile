@@ -72,6 +72,7 @@ TARGETS += linux-firmware
 TARGETS += lvm2
 TARGETS += musl
 TARGETS += openssl
+TARGETS += perf
 TARGETS += raspberrypi-firmware
 TARGETS += runc
 TARGETS += sd-boot
