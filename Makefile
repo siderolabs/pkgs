@@ -47,7 +47,8 @@ COMMON_ARGS += --build-arg=SOURCE_DATE_EPOCH=$(SOURCE_DATE_EPOCH)
 
 # targets defines all the available targets
 
-TARGETS = base
+TARGETS = applesmc-t2-pkg
+TARGETS += base
 TARGETS += ca-certificates
 TARGETS += cni
 TARGETS += containerd

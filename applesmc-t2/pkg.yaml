@@ -1,0 +1,47 @@
+name: applesmc-t2-pkg
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: kernel-build
+steps:
+  - env:
+      ARCH: {{ if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+    build:
+      - |
+        {{ if ne .ARCH "x86_64" }}
+        echo "{{.ARCH}} not supported, skipping..."
+        exit 0
+        {{ end }}
+        export CONFIG_SENSORS_APPLESMC=m
+        export KERNELRELEASE=$(cat /src/include/config/kernel.release)
+        cd /pkg/files/
+        make -j $(nproc)
+        
+    install:
+      - |
+        cd /pkg/files/
+        export CONFIG_SENSORS_APPLESMC=m
+        export KERNELRELEASE=$(cat /src/include/config/kernel.release)
+
+        mkdir -p /rootfs/lib/modules/$KERNELRELEASE/
+        cp /src/modules.order /rootfs/lib/modules/$KERNELRELEASE/
+        cp /src/modules.builtin /rootfs/lib/modules/$KERNELRELEASE/
+        cp /src/modules.builtin.modinfo /rootfs/lib/modules/$KERNELRELEASE/
+
+        {{ if ne .ARCH "x86_64" }}
+        echo "{{.ARCH}} not supported, skipping..."
+        exit 0
+        {{ end }}
+        make install M=$PWD DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs INSTALL_MOD_DIR=kernel/drivers/hwmon INSTALL_MOD_STRIP=1 CONFIG_MODULE_SIG_ALL=y
+        depmod -b /rootfs $KERNELRELEASE
+    test:
+      - |
+        {{ if ne .ARCH "x86_64" }}
+        echo "{{.ARCH}} not supported, skipping..."
+        exit 0
+        {{ end }}
+        # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
+        find /rootfs/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
+finalize:
+  - from: /rootfs
+    to: /
