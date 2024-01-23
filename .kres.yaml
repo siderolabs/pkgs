@@ -39,10 +39,12 @@ spec:
     # - kernel & dependent packages (out of tree kernel modules)
     #   kernel first, then packages in alphabetical order
     - kernel
-    - drbd-pkg
+    # disabled with Linux 6.6 - problem with missing spatch/cached patches
+    # - drbd-pkg
     - gasket-driver-pkg
     - nvidia-open-gpu-kernel-modules-pkg
-    - zfs-pkg
+    # disabled with Linux 6.6, should be fixed in zfs 2.2.3
+    # - zfs-pkg
   additionalTargets:
     nonfree:
       - nonfree-kmod-nvidia-pkg

@@ -38,7 +38,6 @@ steps:
         make -j $(nproc) modules_install DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs INSTALL_MOD_STRIP=1
         depmod -b /rootfs $KERNELRELEASE
         unlink /rootfs/lib/modules/$KERNELRELEASE/build
-        unlink /rootfs/lib/modules/$KERNELRELEASE/source
 finalize:
   - from: /rootfs
     to: /
