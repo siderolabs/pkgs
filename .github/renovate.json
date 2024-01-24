@@ -58,12 +58,6 @@
         },
         {
             "matchPackageNames": [
-                "raspberrypi/firmware"
-            ],
-            "versioning": "regex:^\\d+\\.(?<major>\\d{4})(?<minor>\\d{2})(?<patch>\\d{2})$"
-        },
-        {
-            "matchPackageNames": [
                 "u-boot/u-boot",
                 "git://git.kernel.org/pub/scm/boot/syslinux/syslinux.git",
                 "git://git.kernel.org/pub/scm/utils/util-linux/util-linux.git",

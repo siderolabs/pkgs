@@ -141,10 +141,10 @@ vars:
   openssl_sha256: 14c826f07c7e433706fb5c69fa9e25dab95684844b4c962a2cf1bf183eb4690e
   openssl_sha512: ba3ac38365fd0c50f1eaf1693b6200a0d66f01ff53c2d3bb0358643cd83fc0c61fc3b84c0658cf74b6ae91d7d8a9da7291697bd9be3063ada8a9df879e58ed52
 
-  # renovate: datasource=github-tags depName=raspberrypi/firmware
-  raspberrypi_firmware_version: 1.20230405
-  raspberrypi_firmware_sha256: 08b208bf715d0379a93d38f20aed409cbe2e12c1dc27e3a3794416faefde1aa9
-  raspberrypi_firmware_sha512: ddc9baeba4e2e442bfe41e427c7ecdd38ee6d44ac4e7c297ae7d5a6c64b0aa1a81206929baeb9aceb74de6f96707b30040e82450ef4f01a78b958299c72e3857
+  # renovate: datasource=git-refs versioning=git depName=https://github.com/raspberrypi/firmware.git
+  raspberrypi_firmware_ref: 5f795d147fb21ecb0cf2e6d42929130b6b049de0
+  raspberrypi_firmware_sha256: c64a119620cf367ae4ff124961dd5783f71aa005999a2b9213a7730207806874
+  raspberrypi_firmware_sha512: 34e8f032dde782f7fa8344e3d39db3e681b62450102c8775d4e0f1c3b072df98133bedeac52b8a95cec0f5dc4f62b3ea4fae66e26834bd9ce2023a59bf137cc0
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.1.11
