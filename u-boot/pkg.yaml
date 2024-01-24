@@ -10,6 +10,8 @@
 #     - https://u-boot.readthedocs.io/en/latest/board/rockchip/rockchip.html
 #   Broadcom/RaspberryPi
 #     - https://github.com/u-boot/u-boot/blob/master/doc/board/broadcom/raspberrypi.rst
+#   ODroid HC4
+#     - https://u-boot.readthedocs.io/en/latest/board/amlogic/odroid-c4.html
 name: u-boot
 variant: scratch
 shell: /toolchain/bin/bash
@@ -23,6 +25,10 @@ steps:
         destination: arm-trusted-firmware.tar.gz
         sha256: "{{ .arm_trusted_firmware_sha256 }}"
         sha512: "{{ .arm_trusted_firmware_sha512 }}"
+      - url: https://github.com/LibreELEC/amlogic-boot-fip/archive/{{ .amlogic_boot_fip_ref }}.tar.gz
+        destination: amlogic-boot-fip.tar.gz
+        sha256: "{{ .amlogic_boot_fip_sha256 }}"
+        sha512: "{{ .amlogic_boot_fip_sha512 }}"
       - url: https://ftp.denx.de/pub/u-boot/u-boot-{{ .uboot_version }}.tar.bz2
         destination: u-boot.tar.bz2
         sha256: "{{ .uboot_sha256 }}"
@@ -41,6 +47,8 @@ steps:
       ROCK_PI_4C_RK3399_U_BOOT: rock-pi-4c-rk3399_u-boot
       JETSON_NANO_U_BOOT: jetson-nano_u-boot
       NANOPI_R4S_U_BOOT: nanopi-r4s_u-boot
+      ODROID_HC4_AMLOGIC_BOOT_FIP: odroid-hc4_amlogic-boot-fip
+      ODROID_HC4_U_BOOT: odroid-hc4_u-boot
     prepare:
       - |
         mkdir -p /usr/bin \
@@ -136,6 +144,15 @@ steps:
         cd ${NANOPI_R4S_U_BOOT}
         make nanopi-r4s-rk3399_defconfig
         sed -i "s/CONFIG_TOOLS_LIBCRYPTO=y/# CONFIG_TOOLS_LIBCRYPTO is not set/" .config
+      # odroid-hc4
+      - |
+        mkdir ${ODROID_HC4_U_BOOT}
+        tar -xjf u-boot.tar.bz2 --strip-components=1 -C ${ODROID_HC4_U_BOOT}
+        cd ${ODROID_HC4_U_BOOT}
+        echo Applying fixup patch for USB boot
+        patch -p1 < /pkg/odroid_hc4/patches/fixup-usb-boot.patch
+        make odroid-hc4_defconfig
+        sed -i "s/CONFIG_TOOLS_LIBCRYPTO=y/# CONFIG_TOOLS_LIBCRYPTO is not set/" .config
     build:
       # sun50i_a64
       - |
@@ -223,6 +240,11 @@ steps:
         export BL31=$(pwd)/${RK3399_ARM_TRUSTED_FIRMWARE}/build/rk3399/release/bl31/bl31.elf
         cd ${NANOPI_R4S_U_BOOT}
         make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto"
+      # odroid-hc4
+      - |
+        mkdir ${ODROID_HC4_AMLOGIC_BOOT_FIP}
+        cd ${ODROID_HC4_U_BOOT}
+        make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto"
     install:
       # libretech_all_h3_cc_h5
       - |
@@ -266,6 +288,14 @@ steps:
       - |
         mkdir -p /rootfs/nanopi_r4s
         cp -v ${NANOPI_R4S_U_BOOT}/u-boot-rockchip.bin /rootfs/nanopi_r4s
+      # odroid-hc4
+      - |
+        mkdir -p /rootfs/odroid_hc4
+        export U_BOOT_BIN=$(pwd)/${ODROID_HC4_U_BOOT}/u-boot.bin
+        tar -xf amlogic-boot-fip.tar.gz --strip-components=1 -C ${ODROID_HC4_AMLOGIC_BOOT_FIP}
+        cd ${ODROID_HC4_AMLOGIC_BOOT_FIP}
+        ./build-fip.sh odroid-hc4 ${U_BOOT_BIN} /rootfs/odroid_hc4
+        
   # {{ else }}
   - install:
       - |

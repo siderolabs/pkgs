@@ -172,6 +172,11 @@ vars:
   arm_trusted_firmware_sha256: 60fad60eeb6840097f8e64f16093c06ddb2ef269c7a22affed02beaa6cefe466
   arm_trusted_firmware_sha512: 958cf8f9e258638e59d0fbd8b053fce7d8a9ea2fc922686c9d20ea16f79f55219ac18a12ab240c528ee98e49c2e0eef4c963fdb255cc14b92437a5b3cffc8640
 
+  # renovate: datasource=git-refs versioning=git depName=LibreELEC/amlogic-boot-fip.git
+  amlogic_boot_fip_ref: 36f258b88ca019be511d315e58dfbb3a964d5b78
+  amlogic_boot_fip_sha256: 655e5b2a1451e7e404783dd481e6655e198adef4f1471f0ecc1fb54a3ec44896
+  amlogic_boot_fip_sha512: 947dcefdc0487e918a16712ceeb353a0e6aaded1f7bef4d39ef19d0d058f9dd3a0ed6afb1f0f7061e3bedb7401332f395b108be003374227416c62e2680d007b
+
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=u-boot/u-boot
   uboot_version: 2023.01
   uboot_sha256: 69423bad380f89a0916636e89e6dcbd2e4512d584308d922d1039d1e4331950f

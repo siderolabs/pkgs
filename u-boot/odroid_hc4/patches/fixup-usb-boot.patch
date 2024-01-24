@@ -1,0 +1,14 @@
+# We need to enumerate PCI devices in order to be able to detect USB devices and boot from them
+# TODO Remove this patch once fixed upstream
+diff --git a/include/config_distro_bootcmd.h b/include/config_distro_bootcmd.h
+index c3a2414b91..95b7eb5675 100644
+--- a/include/config_distro_bootcmd.h
++++ b/include/config_distro_bootcmd.h
+@@ -289,6 +289,7 @@
+ #define BOOTENV_SHARED_USB \
+ 	"boot_net_usb_start=usb start\0" \
+ 	"usb_boot=" \
++		BOOTENV_RUN_PCI_ENUM \
+ 		"usb start; " \
+ 		BOOTENV_SHARED_BLKDEV_BODY(usb)
+ #define BOOTENV_DEV_USB		BOOTENV_DEV_BLKDEV
