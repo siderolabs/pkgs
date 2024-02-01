@@ -11,10 +11,10 @@ vars:
   cni_sha512: 87e186b3cd64f66280f5b2293dcdd1fc22cb8f51a248124fb622adc48a893348419ba4c29c4769dede4d9e60f2e9fea5d4198f10badb4ecd20a1551e0b344e10
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v1.6.23
-  containerd_ref: b69f1ad231b6d87eeb30504398075a92d615e83e
-  containerd_sha256: baca7a206e7b48e54c70b5aceafe0109d5b5a31dbc7602626afbbb705442c66f
-  containerd_sha512: 576ab87c07700054918ac8fa8e6c1f1ba971722ac7cad8f3d8ecccdb8cb162103fa826fa815f58f5f63d061b2a8dce8f2fbbee3def85cd4a4f8dbee124d2596a
+  containerd_version: v1.6.28
+  containerd_ref: ae07eda36dd25f8a1b98dfbf587313b99c0190bb
+  containerd_sha256: 1200db62194c4eaff03a5d0a09b683a649444bd1b63041b01dfb61b9cff19e81
+  containerd_sha512: 8d7f289aa1dd55868612654e60ddb95573149b2b40ba925910a0ad75ec5de1acd916ecaaf7571f4f24ec0fb6db3ec23ef1efbe6bf4960c410f46f7b15531a301
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
   cryptsetup_version: 2.6.1
@@ -68,9 +68,9 @@ vars:
   ipxe_sha512: 6ae707f53a657b7c7974cf4b3f9cba576147c2ec54d780484b18f053bdaa70cede45d01e667733b4a23c8661aa536f56da257fddac0212ef9a0f5ec52c54e0fd
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.1.61
-  linux_sha256: ad2c9d12fc36e2dde4796a3eec8f4ddca2e278098f4e555b6e6f5f03ef6964ce
-  linux_sha512: cc4bc51abca165701ad0a5a13e2b4b0fe7f55a3ea1d0d709b714d490b1952058ed1ed3934554827b6edbaedf9609bc0e1aaa0bb238672e040ed47c34d3723b97
+  linux_version: 6.1.74
+  linux_sha256: b7fbd1d79faed2ce3570ef79dc1223e4e19c868b86326b14a435db56ebbb2022
+  linux_sha512: 470a821e04c3d1c64b22ebd132df869758c9999633d67c89cceee8aa494b0b46d4ba57d260e20367a06f49807bc37f191450134117e7ca924ba4d2a471b8cf4b
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 30
@@ -113,9 +113,9 @@ vars:
   liburcu_sha512: 7297e51012f4c44ee27c0e18ed9d87bf24be34db68a5398394c1e683a045bb561cf74aa913398404c0ed5cb8011af728ea12947717fa5f27627e5ca78e63a40f
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20230804
-  linux_firmware_sha256: c09913f675bea9623798eebf8b238cda49b62dfa1729cc7c2c17193b0ab22ff7
-  linux_firmware_sha512: 79044fa88887f7cc648ab7f2a77a032cc4f20c21a09ba0e8c1ce2785cafc8eff69517ac21e710100a42d0e5e1a98bda6e357acd3b0edbf56f5e3b944df22d01e
+  linux_firmware_version: 20240115
+  linux_firmware_sha256: 86c2799516c9dc24e73214bd58ccd8297356186e97c5458baf4eb7cc8dbfea0a
+  linux_firmware_sha512: 0a57cc19b8a98a399857008520a89c46f93a64c3ea20f53ecb84a49c2c127d408ffbc641a81eb440545d4dcfd38175006aa0404e0dddd80e4bace4cc118f5fcd
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
   lvm2_version: 2_03_21
@@ -147,10 +147,10 @@ vars:
   raspberrypi_firmware_sha512: ddc9baeba4e2e442bfe41e427c7ecdd38ee6d44ac4e7c297ae7d5a6c64b0aa1a81206929baeb9aceb74de6f96707b30040e82450ef4f01a78b958299c72e3857
 
   # renovate: datasource=github-tags depName=opencontainers/runc
-  runc_version: v1.1.9
-  runc_ref: ccaecfcbc907d70a7aa870a6650887b901b25b82
-  runc_sha256: 7695febe134e17559b26224821a2a123bc9e9a637ad4a8c47e99ae0a1ec71dc2
-  runc_sha512: e6fd1e7414929436f996358389eeb968db1304358029f0b845eb7d4afac4fa0d637e06ab0e564d680b825e2edb97b55cc154f32e4912d56697bbaf0923c1ec0d
+  runc_version: v1.1.12
+  runc_ref: 51d5e94601ceffbbd85688df1c928ecccbfa4685
+  runc_sha256: 47d9e34500e478d860512b3b646724ee4b9e638692122ddaa82af417668ca4d7
+  runc_sha512: 61afae94dc78253c2f6b305b48ddf76c71813f5735e69fde7f3ae6f51539f10131a37a0917cbcb23b303490c62ac78dafd79eb2a6f2849ec17638f3bd5833136
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
   socat_version: 1.7.4.4
