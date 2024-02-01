@@ -11,15 +11,15 @@ vars:
   cni_sha512: d812663fb58cfa2bfe35dd70940586d47f11feddd35a86ea7639197b022f9c0e0f487679e2e968eebf1f80b8b1d9cfbd0fe99d80590ae60a8128fa393d713e0b
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v1.7.12
-  containerd_ref: 71909c1814c544ac47ab91d2e8b84718e517bb99
-  containerd_sha256: bf523aa866d1152403807708b1239ee9b992c1afd526df0a83e744ce67a1f98e
-  containerd_sha512: 7315bd666fb4863420a9c1e15452bf841c25602aeba276b4d06c1cf0ac38020d86601f5abcaf239552699ee4409587a200e4a8c8ca29cc31ab6e87ddd62df533
+  containerd_version: v1.7.13
+  containerd_ref: 7c3aca7a610df76212171d200ca3811ff6096eb8
+  containerd_sha256: ae2b914bff0ddbb9b29d5fc689a51e1ce89ea4edfc4df9ae10517c6f5d2d5aaf
+  containerd_sha512: b2932387ea14b8fb76e2583b862ec6495b2e08a8fd7cdf169978d554e8b352b44bb27585c9de1e4e3bb3984d0050d0f3de9bc7a559205d3130c2fe40f961feb4
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
-  cryptsetup_version: 2.6.1
-  cryptsetup_sha256: da1769da8fa1682f03773e50e75d9d1c4f7464cb660200c00bf5e4586be83308
-  cryptsetup_sha512: 91f4570e7398f3aa68d4f029d734731867530f839634a1a8b23b3722b32ecfd41266e2da0404360881557022b092857eed761840f233ce9676348d426b3682a0
+  cryptsetup_version: 2.7.0
+  cryptsetup_sha256: 29de708b97092dc3d75276a6169afe970e8e4f2b0ca8658c963e11d103996780
+  cryptsetup_sha512: 18895487581f93975eaad3889ae279efb591ed860ab66932810351866400bdf4903b6ffd24dd36bc645a4ab7b4978de76462d1f1d62a456c24a4828871d91432
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=dosfstools/dosfstools
   dosfstools_version: 4.2
@@ -63,9 +63,9 @@ vars:
   iptables_sha512: 71e6ed2260859157d61981a4fe5039dc9e8d7da885a626a4b5dae8164c509a9d9f874286b9468bb6a462d6e259d4d32d5967777ecefdd8a293011ae80c00f153
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: c3dd3168c916f624af1b843515c1305387060611
-  ipxe_sha256: 6c975a482e0095be69eb51f2ec4a546d1f7ac046b2208a07bf9c974843f58ed9
-  ipxe_sha512: 00dc6f925e3b3f6a92b7b6fc1733a3c022b3af7c11b1c0dd8a36fb383a912fc3f7861fcafbaf385ef8f2bc41da147252ac329faf9c88bdc67d770446fc9bae99
+  ipxe_ref: 0cc0f47443ef9711775a748c2b0fb40e38643733
+  ipxe_sha256: f2614c571ae437e81ec8b8a3f7c0e85560c945ae45a76adfb3d819b73f6713c3
+  ipxe_sha512: d3abf08808a67990856876a18d54d9b2ea866bb8c9a020b1b72251cc017bc9d5df6f1c5e8ff4230716e7c277aeae1c91a7f3e7ad4c8e68b35a8e7659fcfcf3e4
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
   linux_version: 6.6.14
@@ -83,9 +83,9 @@ vars:
   libaio_sha512: 65c30a102433bf8386581b03fc706d84bd341be249fbdee11a032b237a7b239e8c27413504fef15e2797b1acd67f752526637005889590ecb380e2e120ab0b71
 
   # renovate: datasource=github-releases extractVersion=^r(?<version>.*)$ depName=benhoyt/inih
-  libinih_version: 57
-  libinih_sha256: f03f98ca35c3adb56b2358573c8d3eda319ccd5287243d691e724b7eafa970b3
-  libinih_sha512: 9f758df876df54ed7e228fd82044f184eefbe47e806cd1e6d62e1b0ea28e2c08e67fa743042d73b4baef0b882480e6afe2e72878b175822eb2bdbb6d89c0e411
+  libinih_version: 58
+  libinih_sha256: e79216260d5dffe809bda840be48ab0eec7737b2bb9f02d2275c1b46344ea7b7
+  libinih_sha512: d69f488299c1896e87ddd3dd20cd9db5848da7afa4c6159b8a99ba9a5d33f35cadfdb9f65d6f2fe31decdbadb8b43bf610ff2699df475e1f9ff045e343ac26ae
 
   # renovate: datasource=github-tags extractVersion=^json-c-(?<version>.*)-.*$ depName=json-c/json-c
   libjson_c_version: 0.17
@@ -93,9 +93,9 @@ vars:
   libjson_c_sha512: 4cbedd559502bf9014cfcd1d0bb8bb80d2abac4e969d95d4170123cd9cbafb0756b913fdbb83f666d14f674d6539a60ed1c5d0eb03c36b8037a2e00dc1636e19
 
   # renovate: datasource=github-releases depName=tukaani-project/xz
-  xz_version: v5.4.5
-  xz_sha256: da9dec6c12cf2ecf269c31ab65b5de18e8e52b96f35d5bcd08c12b43e6878803
-  xz_sha512: 5cbc3b5bb35a9f5773ad657788fe77013471e3b621c5a8149deb7389d48535926e5bed103456fcfe5ecb044b236b1055b03938a6cc877cfc749372b899fc79e5
+  xz_version: v5.4.6
+  xz_sha256: b92d4e3a438affcf13362a1305cd9d94ed47ddda22e456a42791e630a5644f5c
+  xz_sha512: 495cc890d25c075c927c907b77e60d86dd8a4c377cea5b1172c8e916984149a7bb5fb32db25091f7219346b83155b47e4bc0404cc8529d992014cd7ed0c278b7
 
   # renovate: datasource=github-releases extractVersion=^popt-(?<version>.*)-release$ depName=rpm-software-management/popt
   libpopt_version: 1.19
@@ -137,9 +137,9 @@ vars:
   nvidia_driver_sha512: c8104103f34365b7a20dcebb64e1eb2e64a7b056b44329fa305f81e267759f2b1bb1c09923e617d4f5f4af3be01c3b8e2e6d739f03d4d0f129b31331fec3a4d8
 
   # renovate: datasource=git-tags extractVersion=^openssl-(?<version>.*)$ depName=git://git.openssl.org/openssl.git
-  openssl_version: 3.2.0
-  openssl_sha256: 14c826f07c7e433706fb5c69fa9e25dab95684844b4c962a2cf1bf183eb4690e
-  openssl_sha512: ba3ac38365fd0c50f1eaf1693b6200a0d66f01ff53c2d3bb0358643cd83fc0c61fc3b84c0658cf74b6ae91d7d8a9da7291697bd9be3063ada8a9df879e58ed52
+  openssl_version: 3.2.1
+  openssl_sha256: 83c7329fe52c850677d75e5d0b0ca245309b97e8ecbcfdc1dfdc4ab9fac35b39
+  openssl_sha512: bab2b2419319f1feffaba4692f03edbf13b44d1090c6e075a2d69dad67a2d51e64e6edbf83456a26c83900a726d20d2c4ee4ead9c94b322fd0b536f3b5a863c4
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/raspberrypi/firmware.git
   raspberrypi_firmware_ref: 5f795d147fb21ecb0cf2e6d42929130b6b049de0
@@ -147,10 +147,10 @@ vars:
   raspberrypi_firmware_sha512: 34e8f032dde782f7fa8344e3d39db3e681b62450102c8775d4e0f1c3b072df98133bedeac52b8a95cec0f5dc4f62b3ea4fae66e26834bd9ce2023a59bf137cc0
 
   # renovate: datasource=github-tags depName=opencontainers/runc
-  runc_version: v1.1.11
-  runc_ref: 4bccb38cc9cf198d52bebf2b3a90cd14e7af8c06
-  runc_sha256: 90a9f8a0093f9e06900e393c11c6b61c597eaf7f9e149aa3aad743961ed25478
-  runc_sha512: f88a0076f34ffd8394e85196ba602e9def11638e46dce74b50325b0dbbad82cbfdadf32753234848b4d8958c80d71fcf43663401f8eaedc75519f8e3693a7c16
+  runc_version: v1.1.12
+  runc_ref: 51d5e94601ceffbbd85688df1c928ecccbfa4685
+  runc_sha256: 47d9e34500e478d860512b3b646724ee4b9e638692122ddaa82af417668ca4d7
+  runc_sha512: 61afae94dc78253c2f6b305b48ddf76c71813f5735e69fde7f3ae6f51539f10131a37a0917cbcb23b303490c62ac78dafd79eb2a6f2849ec17638f3bd5833136
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
   socat_version: 1.8.0.0
