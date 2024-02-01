@@ -11,10 +11,10 @@ vars:
   cni_sha512: 87e186b3cd64f66280f5b2293dcdd1fc22cb8f51a248124fb622adc48a893348419ba4c29c4769dede4d9e60f2e9fea5d4198f10badb4ecd20a1551e0b344e10
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v1.7.11
-  containerd_ref: 64b8a811b07ba6288238eefc14d898ee0b5b99ba
-  containerd_sha256: 1f3ca2a15bedcaada4a7c3cde6126fb553226944b599f98bd71d616dfd02861a
-  containerd_sha512: f621243dc86208e814942dbcf33484c3c897b01c6d538703d0b8c0c57c8950168ced59980dbaa46b87d66b67200fc37b171a83ea89962d6696eafbf8bff3a0bc
+  containerd_version: v1.7.13
+  containerd_ref: 7c3aca7a610df76212171d200ca3811ff6096eb8
+  containerd_sha256: ae2b914bff0ddbb9b29d5fc689a51e1ce89ea4edfc4df9ae10517c6f5d2d5aaf
+  containerd_sha512: b2932387ea14b8fb76e2583b862ec6495b2e08a8fd7cdf169978d554e8b352b44bb27585c9de1e4e3bb3984d0050d0f3de9bc7a559205d3130c2fe40f961feb4
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
   cryptsetup_version: 2.6.1
@@ -147,10 +147,10 @@ vars:
   raspberrypi_firmware_sha512: ddc9baeba4e2e442bfe41e427c7ecdd38ee6d44ac4e7c297ae7d5a6c64b0aa1a81206929baeb9aceb74de6f96707b30040e82450ef4f01a78b958299c72e3857
 
   # renovate: datasource=github-tags depName=opencontainers/runc
-  runc_version: v1.1.10
-  runc_ref: 18a0cb0f32bcac2ecc9a10f327d282759c144dab
-  runc_sha256: bd3e89ae89319ef344e7e26f392b40e344bcd5bbdea84ca459a43189451615bf
-  runc_sha512: bf25d5222b560428daab58d887fd867a7e4c5703004eae9dbc1a082d55ac5db961ed8e5a2ff5dafe6d6350e59afd1053b98a6fc0e8a281758b706cf9144860d3
+  runc_version: v1.1.12
+  runc_ref: 51d5e94601ceffbbd85688df1c928ecccbfa4685
+  runc_sha256: 47d9e34500e478d860512b3b646724ee4b9e638692122ddaa82af417668ca4d7
+  runc_sha512: 61afae94dc78253c2f6b305b48ddf76c71813f5735e69fde7f3ae6f51539f10131a37a0917cbcb23b303490c62ac78dafd79eb2a6f2849ec17638f3bd5833136
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
   socat_version: 1.8.0.0
