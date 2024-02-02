@@ -22,7 +22,8 @@ steps:
         --enable-libipq \
         --with-xtlibdir=/lib/xtables
 
-        rm -f /sbin/iptables-apply
+        rm -f /sbin/iptables-apply \
+              /sbin/ip6tables-apply
     build:
       - |
         make -j $(nproc)
