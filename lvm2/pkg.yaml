@@ -37,6 +37,12 @@ steps:
              --enable-udev_rules \
              --enable-static_link \
              --with-udev-prefix=/usr
+
+        rm -f /sbin/blkdeactivate \
+              /sbin/fsadm \
+              /sbin/lvm_import_vdo \
+              /sbin/lvmdump \
+              /sbin/fsck.xfs
     build:
       - |
         make -j $(nproc)

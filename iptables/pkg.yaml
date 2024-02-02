@@ -21,6 +21,9 @@ steps:
         --disable-nftables \
         --enable-libipq \
         --with-xtlibdir=/lib/xtables
+
+        rm -f /sbin/iptables-save \
+              /sbin/ip6tables-save
     build:
       - |
         make -j $(nproc)
