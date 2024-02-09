@@ -42,7 +42,8 @@ steps:
               /sbin/fsadm \
               /sbin/lvm_import_vdo \
               /sbin/lvmdump \
-              /sbin/fsck.xfs
+              /sbin/fsck.xfs \
+              /sbin/vgs
     build:
       - |
         make -j $(nproc)
