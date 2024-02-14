@@ -3777,7 +3777,7 @@ CONFIG_DRM_AMD_DC_DCN=y
 # CONFIG_DRM_AMD_SECURE_DISPLAY is not set
 # end of Display Engine Configuration
 
-# CONFIG_HSA_AMD is not set
+CONFIG_HSA_AMD=y
 # CONFIG_DRM_NOUVEAU is not set
 CONFIG_DRM_I915=y
 CONFIG_DRM_I915_FORCE_PROBE=""
