@@ -63,9 +63,9 @@ vars:
   iptables_sha512: 71e6ed2260859157d61981a4fe5039dc9e8d7da885a626a4b5dae8164c509a9d9f874286b9468bb6a462d6e259d4d32d5967777ecefdd8a293011ae80c00f153
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: c3dd3168c916f624af1b843515c1305387060611
-  ipxe_sha256: 6c975a482e0095be69eb51f2ec4a546d1f7ac046b2208a07bf9c974843f58ed9
-  ipxe_sha512: 00dc6f925e3b3f6a92b7b6fc1733a3c022b3af7c11b1c0dd8a36fb383a912fc3f7861fcafbaf385ef8f2bc41da147252ac329faf9c88bdc67d770446fc9bae99
+  ipxe_ref: 0cc0f47443ef9711775a748c2b0fb40e38643733
+  ipxe_sha256: f2614c571ae437e81ec8b8a3f7c0e85560c945ae45a76adfb3d819b73f6713c3
+  ipxe_sha512: d3abf08808a67990856876a18d54d9b2ea866bb8c9a020b1b72251cc017bc9d5df6f1c5e8ff4230716e7c277aeae1c91a7f3e7ad4c8e68b35a8e7659fcfcf3e4
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
   linux_version: 6.1.77
