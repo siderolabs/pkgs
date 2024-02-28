@@ -43,8 +43,7 @@ spec:
     # - drbd-pkg
     - gasket-driver-pkg
     - nvidia-open-gpu-kernel-modules-pkg
-    # disabled with Linux 6.6, should be fixed in zfs 2.2.3
-    # - zfs-pkg
+    - zfs-pkg
   additionalTargets:
     nonfree:
       - nonfree-kmod-nvidia-pkg
