@@ -39,6 +39,7 @@ steps:
       PINE64_U_BOOT: pine64_u-boot
       ROCK_PI_4_RK3399_U_BOOT: rock-pi-4-rk3399_u-boot
       ROCK_PI_4C_RK3399_U_BOOT: rock-pi-4c-rk3399_u-boot
+      ROCK_4C_PLUS_RK3399_U_BOOT: rock-4c-plus-rk3399_u-boot
       JETSON_NANO_U_BOOT: jetson-nano_u-boot
       NANOPI_R4S_U_BOOT: nanopi-r4s_u-boot
     prepare:
@@ -121,6 +122,13 @@ steps:
         patch -p0 < /pkg/rockpi4/patches/enable-boot-from-spi-flash.patch
         make rock-pi-4c-rk3399_defconfig
         sed -i "s/CONFIG_TOOLS_LIBCRYPTO=y/# CONFIG_TOOLS_LIBCRYPTO is not set/" .config
+      # rock-4c-plus-rk3399
+      - |
+        mkdir ${ROCK_4C_PLUS_RK3399_U_BOOT}
+        tar -xjf u-boot.tar.bz2 --strip-components=1 -C ${ROCK_4C_PLUS_RK3399_U_BOOT}
+        cd ${ROCK_4C_PLUS_RK3399_U_BOOT}
+        make rock-4c-plus-rk3399_defconfig
+        sed -i "s/CONFIG_TOOLS_LIBCRYPTO=y/# CONFIG_TOOLS_LIBCRYPTO is not set/" .config
       # jetson nano
       - |
         mkdir ${JETSON_NANO_U_BOOT}
@@ -202,7 +210,7 @@ steps:
         dd if=/dev/zero of=rkspi_loader.img count=8128 status=none
         dd if=rkspi_tpl_spl.img of=rkspi_loader.img conv=notrunc status=none
         dd if=u-boot.itb of=rkspi_loader.img seek=768 conv=notrunc status=none
-       # rock-pi-4c-rk3399
+      # rock-pi-4c-rk3399
       - |
         export BL31=$(pwd)/${RK3399_ARM_TRUSTED_FIRMWARE}/build/rk3399/release/bl31/bl31.elf
         cd ${ROCK_PI_4C_RK3399_U_BOOT}
@@ -214,6 +222,11 @@ steps:
         dd if=/dev/zero of=rkspi_loader.img count=8128 status=none
         dd if=rkspi_tpl_spl.img of=rkspi_loader.img conv=notrunc status=none
         dd if=u-boot.itb of=rkspi_loader.img seek=768 conv=notrunc status=none
+      # rock-4c-plus-rk3399
+      - |
+        export BL31=$(pwd)/${RK3399_ARM_TRUSTED_FIRMWARE}/build/rk3399/release/bl31/bl31.elf
+        cd ${ROCK_4C_PLUS_RK3399_U_BOOT}
+        make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto"
       # jetson nano
       - |
         cd ${JETSON_NANO_U_BOOT}
@@ -258,6 +271,10 @@ steps:
 
         # cp spi image
         cp -v ${ROCK_PI_4C_RK3399_U_BOOT}/rkspi_loader.img /rootfs/rockpi_4c
+      # rock-4c-plus-rk3399
+      - |
+        mkdir -p /rootfs/rock_4c_plus
+        cp -v ${ROCK_4C_PLUS_RK3399_U_BOOT}/u-boot-rockchip.bin /rootfs/rock_4c_plus
       # jetson nano
       - |
         mkdir -p /rootfs/jetson_nano
