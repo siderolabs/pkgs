@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2024-02-21T08:54:33Z by kres latest.
+# Generated on 2024-03-06T10:06:35Z by kres latest.
 
 # common variables
 
@@ -44,6 +44,9 @@ COMMON_ARGS += --provenance=false
 COMMON_ARGS += --progress=$(PROGRESS)
 COMMON_ARGS += --platform=$(PLATFORM)
 COMMON_ARGS += --build-arg=SOURCE_DATE_EPOCH=$(SOURCE_DATE_EPOCH)
+
+# extra variables
+
 
 # targets defines all the available targets
 
