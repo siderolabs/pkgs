@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.7.0-alpha.0-6-gb6b4d9e
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.7.0-alpha.0-10-g14bf457
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.4.0
@@ -27,9 +27,9 @@ vars:
   dosfstools_sha512: 3cc0808edb4432428df8a67da4bb314fd1f27adc4a05754c1a492091741a7b6875ebd9f6a509cc4c5ad85643fc40395b6e0cadee548b25cc439cc9b725980156
 
   # renovate: datasource=github-tags extractVersion=^drbd-(?<version>.*)$ depName=LINBIT/drbd
-  drbd_version: 9.2.7
-  drbd_sha256: a6c03a2c4a478fac2a6593f87fac7814c900bcc309b8db347ed2810f82b6a58c
-  drbd_sha512: dd91f2ac5987026094a79c2526f469032010a18d0c88ac4c0591641554c9f8424b7caf836817728d62950068c6c14f0de4f5b3fe4ad94ae295b74e6ee5ea647f
+  drbd_version: 9.2.8
+  drbd_sha256: 2ea2b594fb9c69bef02af701e1528676f048abe2bd5edb8eda6d033f95ed2b73
+  drbd_sha512: 8da9986eab61cf9a16a67f29a93ba146592bfdac7bc370e70d4dcae37919bc4fb691a77ea4a2395cbb9bfacfce0a97e0a22ea5b13394d5f66e322f51f77368ef
 
   # renovate: datasource=github-releases depName=eudev-project/eudev
   eudev_version: v3.2.14
@@ -68,9 +68,9 @@ vars:
   ipxe_sha512: e41713e441b3e463ee05f0b4ea73575052ca6eb07a81dc92b15fb61e1d766082b1be24f39236614a7c166e9a6b19870c918c85f1cda88e822ee2b2203aeae14c
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.6.18
-  linux_sha256: 4e43d8c5fba14f7c82597838011648056487b7550fd83276ad534559e8499b1d
-  linux_sha512: 7453d9ae753345e9312ad01da7805f68c1fb04f33aaec58ac3ba08e4b7af132c19e1822d8635fb747eb2d72cc8d89c89f3e5b7ff2e2207903cb2eb8b7dc5e884
+  linux_version: 6.6.20
+  linux_sha256: e2f6c7f39b304248193370f8c5755553ab73ad5672e92dae994a344084d8dd22
+  linux_sha512: c11a0e7c07f085a7dff334cf6ce9a4f6720b9b832d7cd1bc802b2e14bb82f1e455040292b0289d2d0f91242ba27333442cf3f0bdd41b802ccd177d16379d4e25
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 31
@@ -93,9 +93,9 @@ vars:
   libjson_c_sha512: 4cbedd559502bf9014cfcd1d0bb8bb80d2abac4e969d95d4170123cd9cbafb0756b913fdbb83f666d14f674d6539a60ed1c5d0eb03c36b8037a2e00dc1636e19
 
   # renovate: datasource=github-releases depName=tukaani-project/xz
-  xz_version: v5.4.6
-  xz_sha256: b92d4e3a438affcf13362a1305cd9d94ed47ddda22e456a42791e630a5644f5c
-  xz_sha512: 495cc890d25c075c927c907b77e60d86dd8a4c377cea5b1172c8e916984149a7bb5fb32db25091f7219346b83155b47e4bc0404cc8529d992014cd7ed0c278b7
+  xz_version: v5.6.0
+  xz_sha256: cdafe1632f139c82937cc1ed824f7a60b7b0a0619dfbbd681dcac02b1ac28f5b
+  xz_sha512: 2158a1e426066a2355f0810f2d65ceb9a7ec47f7e2e4b79c81d08b52f202ca80fb024b819dc4ca8631730248b9a6d431297fdd71e7e1d108eebcb94777e3a80d
 
   # renovate: datasource=github-releases extractVersion=^popt-(?<version>.*)-release$ depName=rpm-software-management/popt
   libpopt_version: 1.19
@@ -113,9 +113,9 @@ vars:
   liburcu_sha512: 7297e51012f4c44ee27c0e18ed9d87bf24be34db68a5398394c1e683a045bb561cf74aa913398404c0ed5cb8011af728ea12947717fa5f27627e5ca78e63a40f
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20240115
-  linux_firmware_sha256: 86c2799516c9dc24e73214bd58ccd8297356186e97c5458baf4eb7cc8dbfea0a
-  linux_firmware_sha512: 0a57cc19b8a98a399857008520a89c46f93a64c3ea20f53ecb84a49c2c127d408ffbc641a81eb440545d4dcfd38175006aa0404e0dddd80e4bace4cc118f5fcd
+  linux_firmware_version: 20240220
+  linux_firmware_sha256: e03f906bb5386fef16eaa45e592046cbf12f9d4e89f5f527282a6b78fe39460d
+  linux_firmware_sha512: 921ab79e4a2c70784cb48e491bc75e861eaeeeed859becc86a61b1100e838e0ce35b16d2d34943976925db538d4d44ae4dcc2aa711569f140dc9838fb9039e2e
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
   lvm2_version: 2_03_22
