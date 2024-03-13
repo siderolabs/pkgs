@@ -1,25 +1,25 @@
-# syntax = ghcr.io/siderolabs/bldr:v0.2.3
+# syntax = ghcr.io/siderolabs/bldr:v0.3.0
 
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.7.0-alpha.0-10-g14bf457
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.7.0-alpha.0-11-gcb5fd56
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
-  cni_version: v1.4.0
-  cni_sha256: 890e00a8ffc71c860e4f09ab4e1c452d85ec18cc4ac8ee3da11bbfc113355f5e
-  cni_sha512: d812663fb58cfa2bfe35dd70940586d47f11feddd35a86ea7639197b022f9c0e0f487679e2e968eebf1f80b8b1d9cfbd0fe99d80590ae60a8128fa393d713e0b
+  cni_version: v1.4.1
+  cni_sha256: f8e7055bc77bbd1e978157c2dcb53836f5f4d9d582f7bc2dffdd78997a267f96
+  cni_sha512: 349e0b2fa55856774f7f04d0f6f87ea393e6efd37fd0b6a1e9305ab973a0b3dec77bac25770667d4f81d55459650439600ea353ba6069d7d9e8078a9dac2fc6e
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v1.7.13
-  containerd_ref: 7c3aca7a610df76212171d200ca3811ff6096eb8
-  containerd_sha256: ae2b914bff0ddbb9b29d5fc689a51e1ce89ea4edfc4df9ae10517c6f5d2d5aaf
-  containerd_sha512: b2932387ea14b8fb76e2583b862ec6495b2e08a8fd7cdf169978d554e8b352b44bb27585c9de1e4e3bb3984d0050d0f3de9bc7a559205d3130c2fe40f961feb4
+  containerd_version: v1.7.14
+  containerd_ref: dcf2847247e18caba8dce86522029642f60fe96b
+  containerd_sha256: ae55b25fb04b45dfbbde8280b034783a48ae7c40350d17fd272be5cbf0284cf1
+  containerd_sha512: c80ad36027407b2e06fdff76280750f84de8d7300ef8be275976766f2a0a04dec1f0f850c8efcceaa7f6163f43922b427d7ae1fcdeabfaf531f487c25c461dc8
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
-  cryptsetup_version: 2.7.0
-  cryptsetup_sha256: 29de708b97092dc3d75276a6169afe970e8e4f2b0ca8658c963e11d103996780
-  cryptsetup_sha512: 18895487581f93975eaad3889ae279efb591ed860ab66932810351866400bdf4903b6ffd24dd36bc645a4ab7b4978de76462d1f1d62a456c24a4828871d91432
+  cryptsetup_version: 2.7.1
+  cryptsetup_sha256: bb3f2ce037500563b376d9e5ca7c5f45780ea828ce3dcf2ae765bcb8df9f15d9
+  cryptsetup_sha512: b4c37fbb485f2cac634c919974969b3e1d3e07597f8c42d569b5c6b55b7f9f74b11a7a6748ebb907a3becacc73d13eb4470422283def09f26aa0fe2aacb4ad5d
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=dosfstools/dosfstools
   dosfstools_version: 4.2
@@ -68,14 +68,14 @@ vars:
   ipxe_sha512: e41713e441b3e463ee05f0b4ea73575052ca6eb07a81dc92b15fb61e1d766082b1be24f39236614a7c166e9a6b19870c918c85f1cda88e822ee2b2203aeae14c
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.6.20
-  linux_sha256: e2f6c7f39b304248193370f8c5755553ab73ad5672e92dae994a344084d8dd22
-  linux_sha512: c11a0e7c07f085a7dff334cf6ce9a4f6720b9b832d7cd1bc802b2e14bb82f1e455040292b0289d2d0f91242ba27333442cf3f0bdd41b802ccd177d16379d4e25
+  linux_version: 6.6.21
+  linux_sha256: ee0b430148da94d2b13608b8d80b007b7d281dc90e3f19b63cf9a9943810e457
+  linux_sha512: e5faa4b32cb1dac14d551a40e460c3b54c021cbe184bb35b0b823539516008e5f50eedbbdb7532e17fc38f41840c397e334f6b5d990176939f13c4397cf28996
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
-  kmod_version: 31
-  kmod_sha256: f5a6949043cc72c001b728d8c218609c5a15f3c33d75614b78c79418fcf00d80
-  kmod_sha512: 05ca70381808bec5f262b94db625662c385408988178a35e4aaf4960ee0716dc0cbfc327160ea4b61098d0c2130ab1b5142ea8156bea8e06ded7f4d288b6d085
+  kmod_version: 32
+  kmod_sha256: 630ed0d92275a88cb9a7bf68f5700e911fdadaf02e051cf2e4680ff8480bd492
+  kmod_sha512: 29162135aabd025dff178a4147a754b5da5964855dbeee65ca867dec3b84437f35c1c97f0f027e974a021d3ee9a4940309a716859cc3cfe93c7ed0aada338f24
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
@@ -93,9 +93,9 @@ vars:
   libjson_c_sha512: 4cbedd559502bf9014cfcd1d0bb8bb80d2abac4e969d95d4170123cd9cbafb0756b913fdbb83f666d14f674d6539a60ed1c5d0eb03c36b8037a2e00dc1636e19
 
   # renovate: datasource=github-releases depName=tukaani-project/xz
-  xz_version: v5.6.0
-  xz_sha256: cdafe1632f139c82937cc1ed824f7a60b7b0a0619dfbbd681dcac02b1ac28f5b
-  xz_sha512: 2158a1e426066a2355f0810f2d65ceb9a7ec47f7e2e4b79c81d08b52f202ca80fb024b819dc4ca8631730248b9a6d431297fdd71e7e1d108eebcb94777e3a80d
+  xz_version: v5.6.1
+  xz_sha256: f334777310ca3ae9ba07206d78ed286a655aa3f44eec27854f740c26b2cd2ed0
+  xz_sha512: a8b6d2e58eb61609a64b182e868c47aaf722d34f87bad3a9598c94ad96fb3357477959a95bb215c1dac59b8c84453cf00dc23669d13358f4aeb5123526f741f2
 
   # renovate: datasource=github-releases extractVersion=^popt-(?<version>.*)-release$ depName=rpm-software-management/popt
   libpopt_version: 1.19
@@ -113,9 +113,9 @@ vars:
   liburcu_sha512: 7297e51012f4c44ee27c0e18ed9d87bf24be34db68a5398394c1e683a045bb561cf74aa913398404c0ed5cb8011af728ea12947717fa5f27627e5ca78e63a40f
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20240220
-  linux_firmware_sha256: e03f906bb5386fef16eaa45e592046cbf12f9d4e89f5f527282a6b78fe39460d
-  linux_firmware_sha512: 921ab79e4a2c70784cb48e491bc75e861eaeeeed859becc86a61b1100e838e0ce35b16d2d34943976925db538d4d44ae4dcc2aa711569f140dc9838fb9039e2e
+  linux_firmware_version: 20240312
+  linux_firmware_sha256: 89cbac35d1bd21ebf64936d764ccd01d4e0b6cde973e3b940f8ad2bac9086ec8
+  linux_firmware_sha512: da151677939aa5edb2456dd6cf492abe74a40ba0e4b9bc0a2c3eab279cd1e8f70c6976adb5af37cf707af73bf3e28949433fb59bd16ea23e883c00a2f6e2b4ed
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
   lvm2_version: 2_03_22

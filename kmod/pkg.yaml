@@ -25,7 +25,6 @@ steps:
       - |
         cd build
         make DESTDIR=/rootfs install
-        for target in depmod insmod modinfo modprobe rmmod; do ln -s ../usr/bin/kmod /rootfs/usr/bin/$target; done
 finalize:
   - from: /rootfs
     to: /
