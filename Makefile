@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2024-03-13T17:21:50Z by kres latest.
+# Generated on 2024-03-14T16:31:04Z by kres latest.
 
 # common variables
 
@@ -81,6 +81,7 @@ TARGETS += u-boot
 TARGETS += util-linux
 TARGETS += xfsprogs
 TARGETS += kernel
+TARGETS += drbd-pkg
 TARGETS += gasket-driver-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-pkg
 TARGETS += zfs-pkg
