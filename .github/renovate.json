@@ -74,8 +74,7 @@
         {
             "matchPackageNames": [
                 "git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git",
-                "benhoyt/inih",
-                "systemd/systemd"
+                "benhoyt/inih"
             ],
             "versioning": "regex:^(?<major>\\d+)\\.?(?<minor>\\d+)?\\.?(?<patch>\\d+)?$"
         },
