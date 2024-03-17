@@ -29,13 +29,10 @@ dependencies:
   - stage: lvm2
   - stage: musl
   - stage: openssl
-  # raspberrypi-firmware can be ignored from reproducibility test since it's a tarball downloaded and extracted (no build happens)
-  # - stage: raspberrypi-firmware
   - stage: runc
   - stage: sd-boot
   - stage: socat
   - stage: syslinux
-  - stage: u-boot
   - stage: util-linux
   - stage: xfsprogs
 finalize:

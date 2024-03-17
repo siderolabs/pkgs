@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2024-03-14T16:31:04Z by kres latest.
+# Generated on 2024-03-17T15:33:52Z by kres latest.
 
 # common variables
 
@@ -72,12 +72,10 @@ TARGETS += linux-firmware
 TARGETS += lvm2
 TARGETS += musl
 TARGETS += openssl
-TARGETS += raspberrypi-firmware
 TARGETS += runc
 TARGETS += sd-boot
 TARGETS += socat
 TARGETS += syslinux
-TARGETS += u-boot
 TARGETS += util-linux
 TARGETS += xfsprogs
 TARGETS += kernel

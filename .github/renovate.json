@@ -58,7 +58,6 @@
         },
         {
             "matchPackageNames": [
-                "u-boot/u-boot",
                 "git://git.kernel.org/pub/scm/boot/syslinux/syslinux.git",
                 "git://git.kernel.org/pub/scm/utils/util-linux/util-linux.git",
                 "nvidia/open-gpu-kernel-modules",
@@ -66,8 +65,7 @@
                 "git://git.savannah.gnu.org/grub.git",
                 "https://pagure.io/libaio.git",
                 "rpm-software-management/popt",
-                "git://git.liburcu.org/userspace-rcu.git",
-                "ARM-software/arm-trusted-firmware"
+                "git://git.liburcu.org/userspace-rcu.git"
             ],
             "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.?(?<patch>\\d+)?$"
         },

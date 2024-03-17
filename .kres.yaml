@@ -28,12 +28,10 @@ spec:
     - lvm2
     - musl
     - openssl
-    - raspberrypi-firmware
     - runc
     - sd-boot
     - socat
     - syslinux
-    - u-boot
     - util-linux
     - xfsprogs
     # - kernel & dependent packages (out of tree kernel modules)
