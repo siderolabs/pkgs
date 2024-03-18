@@ -27,7 +27,6 @@ steps:
             && ln -sf /toolchain/bin/pwd /bin/pwd
 
         # Ensure that `make menuconfig` works.
-
         ln -s /toolchain/bin/awk /usr/bin/awk
 
         mkdir -p /usr/lib/pkgconfig
