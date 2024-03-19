@@ -27,9 +27,9 @@ vars:
   dosfstools_sha512: 3cc0808edb4432428df8a67da4bb314fd1f27adc4a05754c1a492091741a7b6875ebd9f6a509cc4c5ad85643fc40395b6e0cadee548b25cc439cc9b725980156
 
   # renovate: datasource=github-tags extractVersion=^drbd-(?<version>.*)$ depName=LINBIT/drbd
-  drbd_version: 9.2.6
-  drbd_sha256: 25e843e561e0af01a503d91657cea4109cc7e10b422129eeb1d4ba926255a9b4
-  drbd_sha512: 53a4b0ddee9b9097c03e15e3a9e48e7898b7bc0226af216eb47d2f081cde26b038d7536197c7ec8e5473643919dede8a928f4f03cc5ad8c1ab625524cb62bc05
+  drbd_version: 9.2.8
+  drbd_sha256: 2ea2b594fb9c69bef02af701e1528676f048abe2bd5edb8eda6d033f95ed2b73
+  drbd_sha512: 8da9986eab61cf9a16a67f29a93ba146592bfdac7bc370e70d4dcae37919bc4fb691a77ea4a2395cbb9bfacfce0a97e0a22ea5b13394d5f66e322f51f77368ef
 
   # renovate: datasource=github-releases depName=eudev-project/eudev
   eudev_version: v3.2.14
@@ -68,9 +68,9 @@ vars:
   ipxe_sha512: d3abf08808a67990856876a18d54d9b2ea866bb8c9a020b1b72251cc017bc9d5df6f1c5e8ff4230716e7c277aeae1c91a7f3e7ad4c8e68b35a8e7659fcfcf3e4
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.1.80
-  linux_sha256: 568ecaaebb8b87c7c8246bba67bc83402972bf34f5811651a2d3cd548ff7b671
-  linux_sha512: 6ffb13221e64810a5d0aaa073b440ceac58a6aa2d93a3f9c5f92220288f3eb1edba8c5ffe7173b91d66028bdb1b1e2648f3123e5d0d536a116aefa3d65e9fe0b
+  linux_version: 6.1.82
+  linux_sha256: d150d2d9d416877668d8b56f75759f166168d192419eefaa942ed67225cbec06
+  linux_sha512: b77ef041a504548d988d1335bb28390a8a829cd62f5d852159222de8aa14a2d8bd9cf60e06a57353ed4ef761d3d251efc65b118c78092fd6c5e4eb5f619362c8
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 31
@@ -113,9 +113,9 @@ vars:
   liburcu_sha512: 7297e51012f4c44ee27c0e18ed9d87bf24be34db68a5398394c1e683a045bb561cf74aa913398404c0ed5cb8011af728ea12947717fa5f27627e5ca78e63a40f
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20240220
-  linux_firmware_sha256: e03f906bb5386fef16eaa45e592046cbf12f9d4e89f5f527282a6b78fe39460d
-  linux_firmware_sha512: 921ab79e4a2c70784cb48e491bc75e861eaeeeed859becc86a61b1100e838e0ce35b16d2d34943976925db538d4d44ae4dcc2aa711569f140dc9838fb9039e2e
+  linux_firmware_version: 20240312
+  linux_firmware_sha256: 89cbac35d1bd21ebf64936d764ccd01d4e0b6cde973e3b940f8ad2bac9086ec8
+  linux_firmware_sha512: da151677939aa5edb2456dd6cf492abe74a40ba0e4b9bc0a2c3eab279cd1e8f70c6976adb5af37cf707af73bf3e28949433fb59bd16ea23e883c00a2f6e2b4ed
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
   lvm2_version: 2_03_22
