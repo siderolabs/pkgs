@@ -27,11 +27,28 @@ IGNORE_VIOLATIONS = {
     'CONFIG_RANDSTRUCT_PERFORMANCE', # disabled due to performance reasons
     'CONFIG_UBSAN_TRAP', # disabled due to performance reasons
     'CONFIG_CFI_CLANG', # SideroLabs toolchain uses gcc, investigae more, see https://github.com/siderolabs/pkgs/issues/918
-    'CONFIG_CFI_PERMISSIVE', # SideroLabs toolchain uses gcc, investigae more, see https://github.com/siderolabs/pkgs/issues/918
-    'CONFIG_ARM64_BTI_KERNEL', # can't seem to enable this, probably because we're using gcc, see https://github.com/siderolabs/pkgs/issues/918
+    'CONFIG_CFI_PERMISSIVE', # SideroLabs toolchain uses gcc, investigae more, see https://github.com/siderolabs/pkgs/issues/91
+}
+
+"""
+Names of violations per arch we ignore for a good reason.
+"""
+IGNORE_VIOLATIONS_BY_ARCH = {
+    'arm64': {
+        'CONFIG_ARM64_BTI_KERNEL', # can't seem to enable this, probably because we're using gcc, see https://github.com/siderolabs/pkgs/issues/918
+        'CONFIG_EFI_DISABLE_PCI_DMA', # for arm64, enabling this breaks boot with no visible error messages to debug.
+    },
+    'amd64': {},
 }
 
 def main():
+    if len(sys.argv) != 2:
+        print("Usage: {} <arch>".format(sys.argv[0]))
+
+        sys.exit(1)
+
+    arch = sys.argv[1]
+
     violations = json.load(sys.stdin)
 
     # filter out non-failures
@@ -39,6 +56,9 @@ def main():
 
     # filter only failures in the groups we're interested in
     violations = [item for item in violations if item["decision"] in GROUPS]
+
+    # add violations we ignore per arch
+    IGNORE_VIOLATIONS.update(IGNORE_VIOLATIONS_BY_ARCH[arch])
 
     # filter out violations we ignore
     violations = [item for item in violations if item["option_name"] not in IGNORE_VIOLATIONS]
