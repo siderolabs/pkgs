@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.7.0-alpha.0-12-gdfee984
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.7.0-alpha.0-14-g7e1b2d8
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.4.1
@@ -63,14 +63,14 @@ vars:
   iptables_sha512: 71e6ed2260859157d61981a4fe5039dc9e8d7da885a626a4b5dae8164c509a9d9f874286b9468bb6a462d6e259d4d32d5967777ecefdd8a293011ae80c00f153
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 182ee909313fc60875d3f1741cd4a0bb7dfd15e1
-  ipxe_sha256: ed51605411e8830375e4a24dd420d2a95e60ae6adbbfc71aa7c998da2ec87b77
-  ipxe_sha512: e41713e441b3e463ee05f0b4ea73575052ca6eb07a81dc92b15fb61e1d766082b1be24f39236614a7c166e9a6b19870c918c85f1cda88e822ee2b2203aeae14c
+  ipxe_ref: 9bbe77669c6e2b71826449d854f5aa0e2cee7767
+  ipxe_sha256: badc4ef23811ca22340afae02082813acb533d8bff1457f4a064892fd74d8253
+  ipxe_sha512: 770263648ee411a7bc05bedbb477622c16a3f4a6990fdb36cd39173186aa252267ab44ebc7f629c04b8af41c25e419de8e8ec75c2953e5891d03544dd7bd34bb
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.6.21
-  linux_sha256: ee0b430148da94d2b13608b8d80b007b7d281dc90e3f19b63cf9a9943810e457
-  linux_sha512: e5faa4b32cb1dac14d551a40e460c3b54c021cbe184bb35b0b823539516008e5f50eedbbdb7532e17fc38f41840c397e334f6b5d990176939f13c4397cf28996
+  linux_version: 6.6.23
+  linux_sha256: 200fd119cb9ef06bcedcdb52be00ba443163eab154295c5831fed9a12211a8b9
+  linux_sha512: 63ecf84a6598378a8a49e0711128d4f6ec24dc641a0faa5ffdb8c16f6dfa31e6a208d4259e15fda991ff82ac2ce9db68358cfac1a80ebec4161fe2fc719eda85
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 32
@@ -127,9 +127,9 @@ vars:
   mellanox_ofed_sha512: 58604ea89aa8351727532c48f0c59b4e533ba8bfcef9533f45d94e15ffdcf3a5c464398706cad14ebf3826b132972bd044fadbf7f047e60bdb0c2a454c96acd7
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.musl-libc.org/musl
-  musl_version: 1.2.4
-  musl_sha256: 7a35eae33d5372a7c0da1188de798726f68825513b7ae3ebe97aaaa52114f039
-  musl_sha512: 498ec5d7941194a8806f4d42f0f6d218c862996ef1398b737d0d06995e0b7a6574b240a48088f6b84016b14b2776fe463f829dcb11149cdfc1023d496b235c55
+  musl_version: 1.2.5
+  musl_sha256: a9a118bbe84d8764da0ea0d28b3ab3fae8477fc7e4085d90102b8596fc7c75e4
+  musl_sha512: 7bb7f7833923cd69c7a1a9b8a5f1784bfd5289663eb6061dcd43d583e45987df8a68a1be05d75cc1c88a3f5b610653d1a70f4a9cff4d8f7fd41ae73ee058c17c
 
   # renovate: datasource=github-releases depName=nvidia/open-gpu-kernel-modules
   nvidia_driver_version: 535.129.03
