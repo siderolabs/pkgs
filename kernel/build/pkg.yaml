@@ -12,6 +12,8 @@ steps:
         cd /src
         cp -v /pkg/config-${CARCH} .config
         cp -v /pkg/certs/* certs/
+
+        patch -p1 < /pkg/patches/btf_ids.patch
     build:
       {{ if .BUILD_ARG_KERNEL_TARGET }}
       - |
