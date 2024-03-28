@@ -63,12 +63,12 @@ vars:
   iptables_sha512: 71e6ed2260859157d61981a4fe5039dc9e8d7da885a626a4b5dae8164c509a9d9f874286b9468bb6a462d6e259d4d32d5967777ecefdd8a293011ae80c00f153
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 182ee909313fc60875d3f1741cd4a0bb7dfd15e1
+  ipxe_ref: 9bbe77669c6e2b71826449d854f5aa0e2cee7767
   ipxe_sha256: ed51605411e8830375e4a24dd420d2a95e60ae6adbbfc71aa7c998da2ec87b77
   ipxe_sha512: e41713e441b3e463ee05f0b4ea73575052ca6eb07a81dc92b15fb61e1d766082b1be24f39236614a7c166e9a6b19870c918c85f1cda88e822ee2b2203aeae14c
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.6.21
+  linux_version: 6.6.23
   linux_sha256: ee0b430148da94d2b13608b8d80b007b7d281dc90e3f19b63cf9a9943810e457
   linux_sha512: e5faa4b32cb1dac14d551a40e460c3b54c021cbe184bb35b0b823539516008e5f50eedbbdb7532e17fc38f41840c397e334f6b5d990176939f13c4397cf28996
 
@@ -127,12 +127,12 @@ vars:
   mellanox_ofed_sha512: 58604ea89aa8351727532c48f0c59b4e533ba8bfcef9533f45d94e15ffdcf3a5c464398706cad14ebf3826b132972bd044fadbf7f047e60bdb0c2a454c96acd7
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.musl-libc.org/musl
-  musl_version: 1.2.4
+  musl_version: 1.2.5
   musl_sha256: 7a35eae33d5372a7c0da1188de798726f68825513b7ae3ebe97aaaa52114f039
   musl_sha512: 498ec5d7941194a8806f4d42f0f6d218c862996ef1398b737d0d06995e0b7a6574b240a48088f6b84016b14b2776fe463f829dcb11149cdfc1023d496b235c55
 
   # renovate: datasource=github-releases depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_version: 535.129.03
+  nvidia_driver_version: 535.171.04
   nvidia_driver_sha256: 170ee91b6cd6c801bba0de91e0d62af8e574adde38120bc762784755b5a9821d
   nvidia_driver_sha512: c8104103f34365b7a20dcebb64e1eb2e64a7b056b44329fa305f81e267759f2b1bb1c09923e617d4f5f4af3be01c3b8e2e6d739f03d4d0f129b31331fec3a4d8
 
@@ -158,7 +158,7 @@ vars:
   syslinux_sha512: dd2b2916962b9e93bc1e714182e3ca2a727a229b8afabe913050bcfdd43ee2af51ee3acf79121d8c20caf434583efaa7f3196871e0e07c04d82191323a50fe31
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/util-linux/util-linux.git
-  util_linux_version: 2.39.3
+  util_linux_version: 2.40
   util_linux_sha256: 7b6605e48d1a49f43cc4b4cfc59f313d0dd5402fa40b96810bd572e167dfed0f
   util_linux_sha512: a2de1672f06ca5d2d431db1265a8499808770c3781019ec4a3a40170df4685826d8e3ca120841dcc5df4681ca8c935a993317bd0dc70465b21bf8e0efef65afa
 
