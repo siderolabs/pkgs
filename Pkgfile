@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.7.0-alpha.0-14-g7e1b2d8
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.7.0
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.4.1
@@ -93,9 +93,10 @@ vars:
   libjson_c_sha512: 4cbedd559502bf9014cfcd1d0bb8bb80d2abac4e969d95d4170123cd9cbafb0756b913fdbb83f666d14f674d6539a60ed1c5d0eb03c36b8037a2e00dc1636e19
 
   # renovate: datasource=github-releases depName=tukaani-project/xz
-  xz_version: v5.6.1
-  xz_sha256: f334777310ca3ae9ba07206d78ed286a655aa3f44eec27854f740c26b2cd2ed0
-  xz_sha512: a8b6d2e58eb61609a64b182e868c47aaf722d34f87bad3a9598c94ad96fb3357477959a95bb215c1dac59b8c84453cf00dc23669d13358f4aeb5123526f741f2
+  # NOTE: using 5.4.5 the version debian downgraded to. Ref: https://www.openwall.com/lists/oss-security/2024/03/29/4
+  xz_version: v5.4.5
+  xz_sha256: da9dec6c12cf2ecf269c31ab65b5de18e8e52b96f35d5bcd08c12b43e6878803
+  xz_sha512: 5cbc3b5bb35a9f5773ad657788fe77013471e3b621c5a8149deb7389d48535926e5bed103456fcfe5ecb044b236b1055b03938a6cc877cfc749372b899fc79e5
 
   # renovate: datasource=github-releases extractVersion=^popt-(?<version>.*)-release$ depName=rpm-software-management/popt
   libpopt_version: 1.19
