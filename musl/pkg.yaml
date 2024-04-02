@@ -15,7 +15,7 @@ steps:
 
         tar -xzf musl.tar.gz --strip-components=1
 
-        patch -p1 < /pkg/patches/handle-aux-at-base.patch
+        patch -p1 < /pkg/patches/elf.h-add-typedefs.patch
 
         mkdir /bin
         ln -sv /toolchain/bin/bash /bin/sh
