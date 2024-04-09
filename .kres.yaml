@@ -43,6 +43,7 @@ spec:
     - gasket-driver-pkg
     - nvidia-open-gpu-kernel-modules-pkg
     - zfs-pkg
+    - quectel
   additionalTargets:
     nonfree:
       - nonfree-kmod-nvidia-pkg

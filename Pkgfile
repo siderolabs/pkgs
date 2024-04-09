@@ -192,5 +192,9 @@ vars:
   zfs_version: 2.1.14
   zfs_sha256: 509fed100e73477621bfb56c58346a3306727dbb6f7e017ba714101babb6ea3f
   zfs_sha512: 4a65c8b7d5576fa2dcc14e7ccaa93191c1d3791479cf89bd02c2bd04434ff5e93709b328796d4f9ba93da19f12772e359df373f40919350a3e1e4c52758b47c8
+
+  quectel_version: 1
+  quectel_sha256: 357601c82da31478110c36077dae223cf792d35bd0e81fb30a9ae42b152fe753
+  quectel_sha512: 8a227fb5889750f0229187db0212ee5b5c8e7c14b5215541865ceaa8c36cf916ad1bd502f4fe86b87a4bc17fefaaf4fc131f066f7d6c4f7011d01d7bcf4a223e
 labels:
   org.opencontainers.image.source: https://github.com/siderolabs/pkgs

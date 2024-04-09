@@ -1,0 +1,37 @@
+name: quectel-pkg
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: kernel-build
+steps:
+  - sources:
+      - url: https://github.com/roeeklinger/quectel-drivers/releases/download/src/quectel.tar.gz
+        destination: quectel.tar.gz
+        sha256: "{{ .quectel_sha256 }}"
+        sha512: "{{ .quectel_sha512 }}"
+    env:
+      ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+    prepare:
+      - |
+        tar -xzf quectel.tar.gz --strip-components=1
+    build:
+      - |
+        make -j $(nproc) CONFIG_MODULE_SIG_ALL=y
+    install:
+      - |
+        mkdir -p /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/extras
+        cp /src/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+
+        make -j $(nproc) CONFIG_MODULE_SIG_ALL=y
+
+        cp $(pwd)/drivers/usb/serial/qcserial.ko /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/extras
+        cp $(pwd)/drivers/usb/serial/option.ko /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/extras
+        cp $(pwd)/drivers/usb/serial/usb_wwan.ko /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/extras
+        
+    test:
+      - |
+        # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
+        find /rootfs/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
+finalize:
+  - from: /rootfs
+    to: /
