@@ -19,7 +19,7 @@ steps:
                 mv arch/x86/boot/bzImage /rootfs/boot/vmlinuz
             ;;
             arm64)
-                mv arch/arm64/boot/Image /rootfs/boot/vmlinuz
+                mv arch/arm64/boot/vmlinuz.efi /rootfs/boot/vmlinuz
                 cd ./arch/arm64/boot/dts
                 for vendor in $(find . -not -path . -type d); do
                   dest="/rootfs/dtb/$vendor"
