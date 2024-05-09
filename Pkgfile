@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.8.0-alpha.0-2-gc34ec5b
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.8.0-alpha.0-3-g7e5a248
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.4.1
@@ -17,9 +17,9 @@ vars:
   containerd_sha512: 2d6aa4b11d75c1e94de90737cfb16cd34b5c802f5de6f10786856f5c57b69f70ebf6402ac935293cb977da76b142bca4bf5630658c2ee375947db72f14847a35
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
-  cryptsetup_version: 2.7.1
-  cryptsetup_sha256: bb3f2ce037500563b376d9e5ca7c5f45780ea828ce3dcf2ae765bcb8df9f15d9
-  cryptsetup_sha512: b4c37fbb485f2cac634c919974969b3e1d3e07597f8c42d569b5c6b55b7f9f74b11a7a6748ebb907a3becacc73d13eb4470422283def09f26aa0fe2aacb4ad5d
+  cryptsetup_version: 2.7.2
+  cryptsetup_sha256: 7a06c99fd902e857f96aa8313c4d347bd6c194db9cf229264ffe7793c0c5bfd7
+  cryptsetup_sha512: ba8f4aeda997242372e3e2eb4527babfd0ebf31fd28a2e894d7648d37b9a7a1845fb286f2769b3b3741340d68cdd7877d2f9be743bb3e4db9c053accf4640093
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=dosfstools/dosfstools
   dosfstools_version: 4.2
@@ -27,9 +27,9 @@ vars:
   dosfstools_sha512: 3cc0808edb4432428df8a67da4bb314fd1f27adc4a05754c1a492091741a7b6875ebd9f6a509cc4c5ad85643fc40395b6e0cadee548b25cc439cc9b725980156
 
   # renovate: datasource=github-tags extractVersion=^drbd-(?<version>.*)$ depName=LINBIT/drbd
-  drbd_version: 9.2.8
-  drbd_sha256: 2ea2b594fb9c69bef02af701e1528676f048abe2bd5edb8eda6d033f95ed2b73
-  drbd_sha512: 8da9986eab61cf9a16a67f29a93ba146592bfdac7bc370e70d4dcae37919bc4fb691a77ea4a2395cbb9bfacfce0a97e0a22ea5b13394d5f66e322f51f77368ef
+  drbd_version: 9.2.9
+  drbd_sha256: 30b1b4846bc08e390dc61b336e99dbf1f933594402d733e191e39a534579c778
+  drbd_sha512: 8c395fd4795112e4307115ebd5a158dc43709b78687858a07b7a5402223dbc537b923fce0abdf7fd16440ae12e2d4d6d449ebf45acc361d470ae130fbd073942
 
   # renovate: datasource=github-releases depName=eudev-project/eudev
   eudev_version: v3.2.14
@@ -43,9 +43,9 @@ vars:
   flannel_cni_sha512: cf2eb35bea94c1fe123d9f9871bb83ffe863c8375b10a8cffdb1c289b42296fdbb07fcb1e192ba7ed02930dc1163425883238b62a882836327adca9837438c19
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/google/gasket-driver.git
-  gasket_driver_ref: 09385d485812088e04a98a6e1227bf92663e0b59
-  gasket_driver_sha256: ccff41f1c344e6f6ff2f1961b580010c316043a6249f5b0572150031e0da0fa2
-  gasket_driver_sha512: 1a8862610acb1246bcb7e86a9516bf3254f2b3a796dddbcc1666e31207bf629214172d049a9171343417442a02b76070bbaa802ee02128a7f9ab7f4a54a04676
+  gasket_driver_ref: 5815ee3908a46a415aac616ac7b9aedcb98a504c
+  gasket_driver_sha256: 90cb41d10df702ec63b86968e1e7123abef6df1fdef5e7e2138d57618efbffde
+  gasket_driver_sha512: e981c8e7dd72efa0ba5cb03f9b851949d0241cb8c438a93a07ba78aad44ad4103caad9075f0b0f4caa3c742de67be1e667a881f08f542d615dd3af57a0cac562
 
   # renovate: datasource=git-tags extractVersion=^grub-(?<version>.*)$ depName=git://git.savannah.gnu.org/grub.git
   grub_version: 2.12
@@ -63,14 +63,14 @@ vars:
   iptables_sha512: 71e6ed2260859157d61981a4fe5039dc9e8d7da885a626a4b5dae8164c509a9d9f874286b9468bb6a462d6e259d4d32d5967777ecefdd8a293011ae80c00f153
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 9bbe77669c6e2b71826449d854f5aa0e2cee7767
-  ipxe_sha256: badc4ef23811ca22340afae02082813acb533d8bff1457f4a064892fd74d8253
-  ipxe_sha512: 770263648ee411a7bc05bedbb477622c16a3f4a6990fdb36cd39173186aa252267ab44ebc7f629c04b8af41c25e419de8e8ec75c2953e5891d03544dd7bd34bb
+  ipxe_ref: d7e58c5a812988c341ec4ad19f79faf067388d58
+  ipxe_sha256: 3fbf3a77ace0b86e06a12aae9e83b833ea0ac4114b457bc2388620d9c822374f
+  ipxe_sha512: 7f1d3d532d73b0acb11cedc3c3dc030cc819ffc613bc082ea3a952ad37155dc16e2cb3a2e1af71419f0cb65b531db319851791eaaed5626ead59ad545155b67d
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.6.29
-  linux_sha256: 7f26f74c08082c86b1daf866e4d49c5d8276cc1906a89d0e367e457ec167cbd0
-  linux_sha512: d5ab8b7650fd9c449bb75fcbc2cb876d03829545c3b0c88ba5f980c33ab2a7c09ea09f7826ca457a64b33910d655e6c3a5e7c99e009ed5abe1c02b83fd528740
+  linux_version: 6.6.30
+  linux_sha256: b66a5b863b0f8669448b74ca83bd641a856f164b29956e539bbcb5fdeeab9cc6
+  linux_sha512: 1c1cb9449686fc334385e9997073503ac6312d6855e8ef26bb1e73267447cce14f1f0a22b5c585a0a3c6c8dd1ed0e3c246671773ab8990fdf3c2f081219a9212
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 32
@@ -128,9 +128,9 @@ vars:
   mellanox_ofed_sha512: 58604ea89aa8351727532c48f0c59b4e533ba8bfcef9533f45d94e15ffdcf3a5c464398706cad14ebf3826b132972bd044fadbf7f047e60bdb0c2a454c96acd7
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.musl-libc.org/musl
-  musl_version: 1.2.4
-  musl_sha256: 7a35eae33d5372a7c0da1188de798726f68825513b7ae3ebe97aaaa52114f039
-  musl_sha512: 498ec5d7941194a8806f4d42f0f6d218c862996ef1398b737d0d06995e0b7a6574b240a48088f6b84016b14b2776fe463f829dcb11149cdfc1023d496b235c55
+  musl_version: 1.2.5
+  musl_sha256: a9a118bbe84d8764da0ea0d28b3ab3fae8477fc7e4085d90102b8596fc7c75e4
+  musl_sha512: 7bb7f7833923cd69c7a1a9b8a5f1784bfd5289663eb6061dcd43d583e45987df8a68a1be05d75cc1c88a3f5b610653d1a70f4a9cff4d8f7fd41ae73ee058c17c
 
   # renovate: datasource=github-releases depName=nvidia/open-gpu-kernel-modules
   nvidia_driver_version: 535.129.03
@@ -138,9 +138,9 @@ vars:
   nvidia_driver_sha512: c8104103f34365b7a20dcebb64e1eb2e64a7b056b44329fa305f81e267759f2b1bb1c09923e617d4f5f4af3be01c3b8e2e6d739f03d4d0f129b31331fec3a4d8
 
   # renovate: datasource=git-tags extractVersion=^openssl-(?<version>.*)$ depName=git://git.openssl.org/openssl.git
-  openssl_version: 3.2.1
-  openssl_sha256: 83c7329fe52c850677d75e5d0b0ca245309b97e8ecbcfdc1dfdc4ab9fac35b39
-  openssl_sha512: bab2b2419319f1feffaba4692f03edbf13b44d1090c6e075a2d69dad67a2d51e64e6edbf83456a26c83900a726d20d2c4ee4ead9c94b322fd0b536f3b5a863c4
+  openssl_version: 3.3.0
+  openssl_sha256: 53e66b043322a606abf0087e7699a0e033a37fa13feb9742df35c3a33b18fb02
+  openssl_sha512: 1f9daeee6542e1b831c65f1f87befaef98ccedc3abc958c9d17f064ef771924c30849e3ff880f94eed4aaa9d81ea105e3bc8815e6d2e4d6b60b5e890f14fc5da
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.1.12
@@ -159,9 +159,9 @@ vars:
   syslinux_sha512: dd2b2916962b9e93bc1e714182e3ca2a727a229b8afabe913050bcfdd43ee2af51ee3acf79121d8c20caf434583efaa7f3196871e0e07c04d82191323a50fe31
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/util-linux/util-linux.git
-  util_linux_version: 2.39.3
-  util_linux_sha256: 7b6605e48d1a49f43cc4b4cfc59f313d0dd5402fa40b96810bd572e167dfed0f
-  util_linux_sha512: a2de1672f06ca5d2d431db1265a8499808770c3781019ec4a3a40170df4685826d8e3ca120841dcc5df4681ca8c935a993317bd0dc70465b21bf8e0efef65afa
+  util_linux_version: 2.40.1
+  util_linux_sha256: 59e676aa53ccb44b6c39f0ffe01a8fa274891c91bef1474752fad92461def24f
+  util_linux_sha512: 58ec6eb41d4b6bfc544a80e95c71b5f3798ab4d2a9435d3ee9e5edd56f9b3f09bcb154bdd70e002dc018938937e2e946ae731dcda0f86b362fc43423689e41fc
 
   # DO NOT bump above 5.18.*, as in newer versions filesystems smaller than 300MB are not supported (i.e. Talos STATE partition).
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git

@@ -13,6 +13,9 @@ steps:
       - |
         tar -xJf kmod.tar.xz --strip-components=1
 
+        patch -p1 < /pkg/patches/portable-basename.patch
+        patch -p1 < /pkg/patches/strndupa.patch
+
         mkdir build
         cd build
         ../configure \
