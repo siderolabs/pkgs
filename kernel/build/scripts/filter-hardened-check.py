@@ -29,6 +29,7 @@ IGNORE_VIOLATIONS = {
     'CONFIG_CFI_CLANG', # SideroLabs toolchain uses gcc, investigae more, see https://github.com/siderolabs/pkgs/issues/918
     'CONFIG_CFI_PERMISSIVE', # SideroLabs toolchain uses gcc, investigae more, see https://github.com/siderolabs/pkgs/issues/91
     'CONFIG_SPECULATION_MITIGATIONS', # Renamed in the kernel to 'CONFIG_CPU_MITIGATIONS'
+    'CONFIG_EFI_DISABLE_PCI_DMA', # enabling this breaks boot with no visible error messages to debug (https://github.com/siderolabs/talos/issues/8743)
 }
 
 """
@@ -37,7 +38,6 @@ Names of violations per arch we ignore for a good reason.
 IGNORE_VIOLATIONS_BY_ARCH = {
     'arm64': {
         'CONFIG_ARM64_BTI_KERNEL', # can't seem to enable this, probably because we're using gcc, see https://github.com/siderolabs/pkgs/issues/918
-        'CONFIG_EFI_DISABLE_PCI_DMA', # for arm64, enabling this breaks boot with no visible error messages to debug.
     },
     'amd64': {},
 }
