@@ -11,22 +11,23 @@ steps:
         destination: containerd.tar.gz
         sha256: "{{ .containerd_sha256 }}"
         sha512: "{{ .containerd_sha512 }}"
+    env:
+      PKG_CONFIG_PATH: /usr/lib/pkgconfig
+      CC: /toolchain/bin/gcc
+      PATH: /toolchain/go/bin:/toolchain/bin:{{ .PATH }}
+      BUILDTAGS: 'seccomp no_aufs no_btrfs no_devmapper no_systemd no_zfs'
     prepare:
       - |
         tar -xzf containerd.tar.gz --strip-components=1
     build:
       - |
-        export PKG_CONFIG_PATH=/usr/lib/pkgconfig
-        export CC=/toolchain/bin/cc
-        # This is required due to "loadinternal: cannot find runtime/cgo".
-        export CGO_ENABLED=1
-        export PATH=${PATH}:${TOOLCHAIN}/go/bin
-        export BUILDTAGS='seccomp no_aufs no_btrfs no_devmapper no_zfs'
-        make bin/containerd bin/containerd-shim bin/containerd-shim-runc-v2 VERSION={{ .containerd_version }} REVISION={{ .containerd_ref}}
+        make VERSION={{ .containerd_version }} REVISION={{ .containerd_ref }}
     install:
       - |
         mkdir -p /rootfs/bin
-        cp bin/{containerd,containerd-shim,containerd-shim-runc-v2} /rootfs/bin
+        make install PREFIX=/ DESTDIR=/rootfs
+
+        rm /rootfs/bin/{containerd-stress,ctr}
 finalize:
   - from: /rootfs
     to: /

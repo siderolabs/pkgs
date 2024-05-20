@@ -17,8 +17,7 @@ steps:
         cd build
 
         ../configure \
-            --prefix=/usr \
-            --disable-static
+            --prefix=/usr
     build:
       - |
         cd build

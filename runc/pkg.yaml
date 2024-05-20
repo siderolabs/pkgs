@@ -11,23 +11,25 @@ steps:
         destination: runc.tar.xz
         sha256: "{{ .runc_sha256 }}"
         sha512: "{{ .runc_sha512 }}"
+    env:
+      GOPATH: /go
+      GO: /toolchain/go/bin/go
+      PKG_CONFIG_PATH: /usr/lib/pkgconfig
+      CC: /toolchain/bin/cc
+      VERSION: {{ .runc_version }}
+      PATH: /toolchain/go/bin:/toolchain/bin:/bin
     prepare:
       - |
-        export GOPATH=/go
         mkdir -p runc
 
         tar -xJf runc.tar.xz --strip-components=1 -C runc
     build:
       - |
-        export GOPATH=/go
         cd runc
 
-        export PATH=${PATH}:/${TOOLCHAIN}/go/bin
-        export PKG_CONFIG_PATH=/usr/lib/pkgconfig
-        export CC=/toolchain/bin/cc
-        # This is required due to "loadinternal: cannot find runtime/cgo".
-        export CGO_ENABLED=1
-        make EXTRA_LDFLAGS="-w -s -buildid=''" BUILDTAGS="seccomp" COMMIT={{ .runc_ref }} runc
+        ldflags="-w -s -buildid="
+
+        make COMMIT_NO= COMMIT={{ .runc_ref }} EXTRA_FLAGS="-a" EXTRA_LDFLAGS="${ldflags}" static
     install:
       - |
         cd runc
