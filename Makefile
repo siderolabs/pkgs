@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2024-04-11T11:08:50Z by kres e4c6337-dirty.
+# Generated on 2024-05-23T13:25:21Z by kres 2688b70.
 
 # common variables
 
@@ -11,11 +11,7 @@ BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 ARTIFACTS := _out
 IMAGE_TAG ?= $(TAG)
 OPERATING_SYSTEM := $(shell uname -s | tr '[:upper:]' '[:lower:]')
-GOARCH := $(shell uname -m | tr '[:upper:]' '[:lower:]')
-
-ifeq ($(GOARCH),x86_64)
-  GOARCH := amd64
-endif
+GOARCH := $(shell uname -m | sed 's/x86_64/amd64/' | sed 's/aarch64/arm64/')
 REGISTRY ?= ghcr.io
 USERNAME ?= siderolabs
 REGISTRY_AND_USERNAME ?= $(REGISTRY)/$(USERNAME)
@@ -138,12 +134,12 @@ endef
 
 all: $(TARGETS)  ## Builds all targets defined.
 
+$(ARTIFACTS):  ## Creates artifacts directory.
+	@mkdir -p $(ARTIFACTS)
+
 .PHONY: clean
 clean:  ## Cleans up all artifacts.
 	@rm -rf $(ARTIFACTS)
-
-$(ARTIFACTS):  ## Creates artifacts directory.
-	@mkdir -p $(ARTIFACTS)
 
 target-%:  ## Builds the specified target defined in the Pkgfile. The build result will only remain in the build cache.
 	@$(BUILD) --target=$* $(COMMON_ARGS) $(TARGET_ARGS) $(CI_ARGS) .
@@ -197,8 +193,7 @@ help:  ## This help menu.
 	@grep -E '^[a-zA-Z%_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: release-notes
-release-notes:
-	mkdir -p $(ARTIFACTS)
+release-notes: $(ARTIFACTS)
 	@ARTIFACTS=$(ARTIFACTS) ./hack/release.sh $@ $(ARTIFACTS)/RELEASE_NOTES.md $(TAG)
 
 .PHONY: conformance
