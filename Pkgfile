@@ -1,14 +1,14 @@
-# syntax = ghcr.io/siderolabs/bldr:v0.3.0
+# syntax = ghcr.io/siderolabs/bldr:v0.3.1
 
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.8.0-alpha.0-4-g06ba64e
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.8.0-alpha.0-5-gd2746e5
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
-  cni_version: v1.4.1
-  cni_sha256: f8e7055bc77bbd1e978157c2dcb53836f5f4d9d582f7bc2dffdd78997a267f96
-  cni_sha512: 349e0b2fa55856774f7f04d0f6f87ea393e6efd37fd0b6a1e9305ab973a0b3dec77bac25770667d4f81d55459650439600ea353ba6069d7d9e8078a9dac2fc6e
+  cni_version: v1.5.0
+  cni_sha256: 16754edd9d795aef56962b13db991addbb7669dab0a85adc5c7cbbf9c174e2e4
+  cni_sha512: cbe5ed422c9992261299d9b012d42402f0e824e39a867a88cf02df5b24de4339325b4c9ae152ae047712a71e08e1ae6b85491e3d4594a647fd8f46c1816ec9e7
 
   # renovate: datasource=github-tags depName=containerd/containerd
   containerd_version: v2.0.0-rc.2
@@ -63,9 +63,9 @@ vars:
   iptables_sha512: 71e6ed2260859157d61981a4fe5039dc9e8d7da885a626a4b5dae8164c509a9d9f874286b9468bb6a462d6e259d4d32d5967777ecefdd8a293011ae80c00f153
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: dc118c53696af6a0b1a8ee78fc9a4d28a217fb21
-  ipxe_sha256: 0422ee489089fec7117def6524a467f6d1a1cec2bcf6950ec0e486280f40bf90
-  ipxe_sha512: f83d49da507db7810affb5a39abae732e7cd856b55c167522d4354a9ef5844e2dfef0e57d2304d139144d0b4773bf12ac5aeee8b9d2ab219d6b5da6757ba745b
+  ipxe_ref: e965f179e1654103eca33feed7a9cc4c51d91be6
+  ipxe_sha256: 9f27554b8e177ec5789721c280b8074fdac7edaa5d6e6fc905980943c84c86b6
+  ipxe_sha512: 563f99dc8af0181875aa69a64eba99458186ae4c0f2216827d19830670f9a08a243aeda0a3a03df87613d33f764157d9a7a8f0f4e0e6808f895a3b1e5381c221
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
   linux_version: 6.6.32
