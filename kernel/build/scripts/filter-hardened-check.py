@@ -39,6 +39,7 @@ Names of violations per arch we ignore for a good reason.
 IGNORE_VIOLATIONS_BY_ARCH = {
     'arm64': {
         'CONFIG_ARM64_BTI_KERNEL', # can't seem to enable this, probably because we're using gcc, see https://github.com/siderolabs/pkgs/issues/918
+        'CONFIG_UNWIND_PATCH_PAC_INTO_SCS', # this is a Clang feature, we use gcc
     },
     'amd64': {},
 }
