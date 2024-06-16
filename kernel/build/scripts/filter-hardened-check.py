@@ -30,6 +30,10 @@ IGNORE_VIOLATIONS = {
     'CONFIG_CFI_PERMISSIVE', # SideroLabs toolchain uses gcc, investigae more, see https://github.com/siderolabs/pkgs/issues/91
     'CONFIG_SPECULATION_MITIGATIONS', # Renamed in the kernel to 'CONFIG_CPU_MITIGATIONS'
     'CONFIG_EFI_DISABLE_PCI_DMA', # enabling this breaks boot with no visible error messages to debug (https://github.com/siderolabs/talos/issues/8743)
+    'CONFIG_RANDOM_KMALLOC_CACHES', # fixed in main, backwards compat in release-1.7
+    'CONFIG_SLAB_MERGE_DEFAULT', # fixed in main, backwards compat in release-1.7
+    'CONFIG_PAGE_TABLE_CHECK', # fixed in main, backwards compat in release-1.7
+    'CONFIG_PAGE_TABLE_CHECK_ENFORCED', # fixed in main, backwards compat in release-1.7
 }
 
 """
@@ -38,8 +42,11 @@ Names of violations per arch we ignore for a good reason.
 IGNORE_VIOLATIONS_BY_ARCH = {
     'arm64': {
         'CONFIG_ARM64_BTI_KERNEL', # can't seem to enable this, probably because we're using gcc, see https://github.com/siderolabs/pkgs/issues/918
+        'CONFIG_UNWIND_PATCH_PAC_INTO_SCS', # this is a Clang feature, we use gcc
     },
-    'amd64': {},
+    'amd64': {
+        'CONFIG_X86_USER_SHADOW_STACK', # fixed in main, backwards compat in release-1.7
+    },
 }
 
 def main():
