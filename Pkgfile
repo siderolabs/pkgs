@@ -173,5 +173,10 @@ vars:
   zfs_version: 2.2.4
   zfs_sha256: 9790905f7683d41759418e1ef3432828c31116654ff040e91356ff1c21c31ec0
   zfs_sha512: 1d17e30573d594fb5c9ea77cde104616dca362fed7530296816d1b55173594f66170fcfb23ab57c27074f85b79d3eb557b4ee9a1c420e507b2434a7902d8dcc1
+
+  # renovate: datasource=git-tags depName=https://gitlab.com/apparmor/apparmor.git
+  apparmor_version: v3.1.7
+  apparmor_sha256: 64494bd99fa6547a9cbdb4fc6bc732451a02dd19e6eb70eab977b239632151eb
+  apparmor_sha512: cfd6b0afb98d4559c16a6a2e23ca16ee9d86325fc6059313df5d3e8feba3d398f96a5754d3880dd2cafb2e7b1a06bd789d62cd36aaf993e46290f6311bb49dac
 labels:
   org.opencontainers.image.source: https://github.com/siderolabs/pkgs

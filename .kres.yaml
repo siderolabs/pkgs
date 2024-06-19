@@ -3,6 +3,7 @@ kind: pkgfile.Build
 spec:
   targets:
     # - non-related to the kernel, in alphabetical order
+    - apparmor
     - base
     - ca-certificates
     - cni

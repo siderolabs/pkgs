@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2024-05-28T12:19:20Z by kres a914cae.
+# Generated on 2024-06-25T05:52:46Z by kres 4c9f215.
 
 # common variables
 
@@ -44,7 +44,8 @@ COMMON_ARGS += --build-arg=SOURCE_DATE_EPOCH=$(SOURCE_DATE_EPOCH)
 
 # targets defines all the available targets
 
-TARGETS = base
+TARGETS = apparmor
+TARGETS += base
 TARGETS += ca-certificates
 TARGETS += cni
 TARGETS += containerd
