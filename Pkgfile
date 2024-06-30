@@ -11,10 +11,10 @@ vars:
   cni_sha512: cbe5ed422c9992261299d9b012d42402f0e824e39a867a88cf02df5b24de4339325b4c9ae152ae047712a71e08e1ae6b85491e3d4594a647fd8f46c1816ec9e7
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v2.0.0-rc.2
-  containerd_ref: 28b77e33ade2112f7585e0caf36c553d65e4c860
-  containerd_sha256: 70fb8d079935828c6b3bb3ff4d715820f7006b6d82cb31b4250b5574d946d261
-  containerd_sha512: ecfd908104e6e99339ec6f8edb70ed5f52eeff2f54fada3051e8266cac9a78493c13581fe5d1114a13cafa338de2d16e129c43a9d1cd317dd961f84177c0dd34
+  containerd_version: v2.0.0-rc.3
+  containerd_ref: 27de5fea738a38345aa1ac7569032261a6b1e562
+  containerd_sha256: fe6b9cea34f67b2b4d39196bc755af345075be470211a69f1dc6ef9ad48f4d77
+  containerd_sha512: d641e488b7348f7d24545ecd765681ef8131179bfdfb335205ca12a38966077eb1b107b6f9cde4f6787614be35d18740472f67557180c1ec0b957809e202d18d
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
   cryptsetup_version: 2.7.2
@@ -143,10 +143,10 @@ vars:
   openssl_sha512: 1f9daeee6542e1b831c65f1f87befaef98ccedc3abc958c9d17f064ef771924c30849e3ff880f94eed4aaa9d81ea105e3bc8815e6d2e4d6b60b5e890f14fc5da
 
   # renovate: datasource=github-tags depName=opencontainers/runc
-  runc_version: v1.2.0-rc.1
-  runc_ref: 275e6d85f78a9d0a90d9a714ba5f667561a4b0b9
-  runc_sha256: 3f6fed97bf5db1d4eac43b622a62379e07f3f73dd1c3e5ee5c0f82a1c960e1f7
-  runc_sha512: c6bf8bb1d29f93f34aa44949f544d96399be3666e7effaf3d46007647c6ac94a0a2d26ccad3ce215908c44cb84d1bcc94b0a6536f8dfcd8454d6bfd7715e4703
+  runc_version: v1.2.0-rc.2
+  runc_ref: f2d2ee5e45af3c9b38dfd639ac92f43c3055ce4e
+  runc_sha256: 293b7271196a7284a1cca1865e8e210d9c153054b0d0c04f3a69f28ca517723d
+  runc_sha512: 13739045e0a7a479ece0696eba852a89b51c4e900c5f694175e603c7147eec8826abc16ce11a4b64ff51d002898f5d776afb454894a101fa2106ab04d2e06658
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
   socat_version: 1.8.0.0
