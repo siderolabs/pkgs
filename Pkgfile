@@ -6,7 +6,7 @@ vars:
   TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.8.0-alpha.0-5-gd2746e5
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
-  cni_version: v1.5.0
+  cni_version: v1.5.1
   cni_sha256: 16754edd9d795aef56962b13db991addbb7669dab0a85adc5c7cbbf9c174e2e4
   cni_sha512: cbe5ed422c9992261299d9b012d42402f0e824e39a867a88cf02df5b24de4339325b4c9ae152ae047712a71e08e1ae6b85491e3d4594a647fd8f46c1816ec9e7
 
@@ -17,7 +17,7 @@ vars:
   containerd_sha512: d641e488b7348f7d24545ecd765681ef8131179bfdfb335205ca12a38966077eb1b107b6f9cde4f6787614be35d18740472f67557180c1ec0b957809e202d18d
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
-  cryptsetup_version: 2.7.2
+  cryptsetup_version: 2.7.3
   cryptsetup_sha256: 7a06c99fd902e857f96aa8313c4d347bd6c194db9cf229264ffe7793c0c5bfd7
   cryptsetup_sha512: ba8f4aeda997242372e3e2eb4527babfd0ebf31fd28a2e894d7648d37b9a7a1845fb286f2769b3b3741340d68cdd7877d2f9be743bb3e4db9c053accf4640093
 
@@ -27,7 +27,7 @@ vars:
   dosfstools_sha512: 3cc0808edb4432428df8a67da4bb314fd1f27adc4a05754c1a492091741a7b6875ebd9f6a509cc4c5ad85643fc40395b6e0cadee548b25cc439cc9b725980156
 
   # renovate: datasource=github-tags extractVersion=^drbd-(?<version>.*)$ depName=LINBIT/drbd
-  drbd_version: 9.2.9
+  drbd_version: 9.2.10
   drbd_sha256: 30b1b4846bc08e390dc61b336e99dbf1f933594402d733e191e39a534579c778
   drbd_sha512: 8c395fd4795112e4307115ebd5a158dc43709b78687858a07b7a5402223dbc537b923fce0abdf7fd16440ae12e2d4d6d449ebf45acc361d470ae130fbd073942
 
@@ -63,7 +63,7 @@ vars:
   iptables_sha512: 71e6ed2260859157d61981a4fe5039dc9e8d7da885a626a4b5dae8164c509a9d9f874286b9468bb6a462d6e259d4d32d5967777ecefdd8a293011ae80c00f153
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: e965f179e1654103eca33feed7a9cc4c51d91be6
+  ipxe_ref: b66e27d9b29a172a097c737ab4d378d60fe01b05
   ipxe_sha256: 9f27554b8e177ec5789721c280b8074fdac7edaa5d6e6fc905980943c84c86b6
   ipxe_sha512: 563f99dc8af0181875aa69a64eba99458186ae4c0f2216827d19830670f9a08a243aeda0a3a03df87613d33f764157d9a7a8f0f4e0e6808f895a3b1e5381c221
 
@@ -114,12 +114,12 @@ vars:
   liburcu_sha512: 7297e51012f4c44ee27c0e18ed9d87bf24be34db68a5398394c1e683a045bb561cf74aa913398404c0ed5cb8011af728ea12947717fa5f27627e5ca78e63a40f
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20240513
+  linux_firmware_version: 20240610
   linux_firmware_sha256: b7224364e1fd7ee6b803f861747f9ccde7c2030af939fdc1eeea083ea85ce51c
   linux_firmware_sha512: 6c857897f466fafe5750a22f72d10958505f682eeba1e525bf102aaa067fa27f543e692e1ba52591ed9024688743a2936505e3ce66e1dd947b6de80111d8ee25
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
-  lvm2_version: 2_03_22
+  lvm2_version: 2_03_24
   lvm2_sha256: 4c5a6923bd1ace7ce04474608a84937ce053ba91b1ace9f0b0017268e732dc7c
   lvm2_sha512: 17cd24ceee8026481566824b688dafd03ec816201d5cb3549cb7fc8a36f4cdaa982faaef4dcd26debfe775dea5ffa2744798164314ea6dc99a84f8ccccfc33ff
 
@@ -133,7 +133,7 @@ vars:
   musl_sha512: 7bb7f7833923cd69c7a1a9b8a5f1784bfd5289663eb6061dcd43d583e45987df8a68a1be05d75cc1c88a3f5b610653d1a70f4a9cff4d8f7fd41ae73ee058c17c
 
   # renovate: datasource=github-releases depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_version: 535.129.03
+  nvidia_driver_version: 535.183.01
   nvidia_driver_sha256: 170ee91b6cd6c801bba0de91e0d62af8e574adde38120bc762784755b5a9821d
   nvidia_driver_sha512: c8104103f34365b7a20dcebb64e1eb2e64a7b056b44329fa305f81e267759f2b1bb1c09923e617d4f5f4af3be01c3b8e2e6d739f03d4d0f129b31331fec3a4d8
 
