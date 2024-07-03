@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2024-06-25T05:52:46Z by kres 4c9f215.
+# Generated on 2024-07-03T10:20:21Z by kres 2c4ff8a.
 
 name: default
 concurrency:
@@ -81,6 +81,7 @@ jobs:
           driver: remote
           endpoint: tcp://127.0.0.1:1234
       - name: Build
+        if: github.event_name == 'pull_request'
         run: |
           make
       - name: Build nonfree
