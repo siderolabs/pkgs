@@ -13,7 +13,7 @@ index 003eb4b08..247a6bda6 100644
  libudev_private_la_SOURCES = \
  	$(libudev_la_SOURCES) \
 diff --git a/src/shared/selinux-util.c b/src/shared/selinux-util.c
-index 84e45e3b7..e64090e95 100644
+index 84e45e3b7..d0682fd48 100644
 --- a/src/shared/selinux-util.c
 +++ b/src/shared/selinux-util.c
 @@ -21,12 +21,7 @@
@@ -30,7 +30,7 @@ index 84e45e3b7..e64090e95 100644
  
  #include "strv.h"
  #include "path-util.h"
-@@ -40,496 +35,74 @@ DEFINE_TRIVIAL_CLEANUP_FUNC(context_t, context_free);
+@@ -40,496 +35,75 @@ DEFINE_TRIVIAL_CLEANUP_FUNC(context_t, context_free);
  #define _cleanup_security_context_free_ _cleanup_(freeconp)
  #define _cleanup_context_free_ _cleanup_(context_freep)
  
@@ -206,6 +206,7 @@ index 84e45e3b7..e64090e95 100644
 +                return -errno;
          }
 -#endif
++        log_error("Successfully set SELinux security context %s on path %s: %m", label, path);
          return 0;
  }
  
