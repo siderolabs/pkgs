@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.6.0-3-gae30965
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.6.0-4-g8ebe1dc
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.3.0
@@ -11,10 +11,10 @@ vars:
   cni_sha512: 87e186b3cd64f66280f5b2293dcdd1fc22cb8f51a248124fb622adc48a893348419ba4c29c4769dede4d9e60f2e9fea5d4198f10badb4ecd20a1551e0b344e10
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v1.7.13
-  containerd_ref: 7c3aca7a610df76212171d200ca3811ff6096eb8
-  containerd_sha256: ae2b914bff0ddbb9b29d5fc689a51e1ce89ea4edfc4df9ae10517c6f5d2d5aaf
-  containerd_sha512: b2932387ea14b8fb76e2583b862ec6495b2e08a8fd7cdf169978d554e8b352b44bb27585c9de1e4e3bb3984d0050d0f3de9bc7a559205d3130c2fe40f961feb4
+  containerd_version: v1.7.20
+  containerd_ref: 8fc6bcff51318944179630522a095cc9dbf9f353
+  containerd_sha256: c4268561e514a2e8322bc8cdd39113d5e164fb31c2cef76f479d683395ea9bd6
+  containerd_sha512: b8be3a073c1716d66cd97162b0f40cab68094df9f8a9eaf81fa617c552d51f536d41d2823838e01e4e3936fe0ae8af0352531b1682623c25dc2318cd9af32985
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
   cryptsetup_version: 2.6.1
@@ -68,9 +68,9 @@ vars:
   ipxe_sha512: d3abf08808a67990856876a18d54d9b2ea866bb8c9a020b1b72251cc017bc9d5df6f1c5e8ff4230716e7c277aeae1c91a7f3e7ad4c8e68b35a8e7659fcfcf3e4
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.1.82
-  linux_sha256: d150d2d9d416877668d8b56f75759f166168d192419eefaa942ed67225cbec06
-  linux_sha512: b77ef041a504548d988d1335bb28390a8a829cd62f5d852159222de8aa14a2d8bd9cf60e06a57353ed4ef761d3d251efc65b118c78092fd6c5e4eb5f619362c8
+  linux_version: 6.1.100
+  linux_sha256: b9aa6ec1a00f234d6c6f2d428fbb0a6bf459606c259263df978f86685b65a8b9
+  linux_sha512: 842c5ee1109f6414b0173b83abf9ae0655a8bf1bf36299d86d83db1dd2a70147f7f637afe202c3899984fe340ce4633e4e5d3cb9d7b0b89014226a413bc79d8d
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 31
@@ -147,10 +147,10 @@ vars:
   raspberrypi_firmware_sha512: ddc9baeba4e2e442bfe41e427c7ecdd38ee6d44ac4e7c297ae7d5a6c64b0aa1a81206929baeb9aceb74de6f96707b30040e82450ef4f01a78b958299c72e3857
 
   # renovate: datasource=github-tags depName=opencontainers/runc
-  runc_version: v1.1.12
-  runc_ref: 51d5e94601ceffbbd85688df1c928ecccbfa4685
-  runc_sha256: 47d9e34500e478d860512b3b646724ee4b9e638692122ddaa82af417668ca4d7
-  runc_sha512: 61afae94dc78253c2f6b305b48ddf76c71813f5735e69fde7f3ae6f51539f10131a37a0917cbcb23b303490c62ac78dafd79eb2a6f2849ec17638f3bd5833136
+  runc_version: v1.1.13
+  runc_ref: 58aa9203c123022138b22cf96540c284876a7910
+  runc_sha256: d20e76688ce0681dc687369e18b47aeffcfdac5184c978befa7ce5da35e797fe
+  runc_sha512: cd8efd87f62a73d6bbfa83e950ef41106de0080169956c4a106a9f291953051488f3c13348a8e6b5a83d18ba666e6878cf1e07b6217ca641bdb282aa257e6976
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
   socat_version: 1.8.0.0
