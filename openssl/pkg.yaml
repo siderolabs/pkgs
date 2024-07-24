@@ -5,7 +5,7 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      - url: https://www.openssl.org/source/openssl-{{ .openssl_version | replace "_" "." }}.tar.gz
+      - url: https://github.com/openssl/openssl/releases/download/openssl-{{ .openssl_version }}/openssl-{{ .openssl_version }}.tar.gz
         destination: openssl.tar.gz
         sha256: "{{ .openssl_sha256 }}"
         sha512: "{{ .openssl_sha512 }}"
