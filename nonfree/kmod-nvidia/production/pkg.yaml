@@ -1,4 +1,4 @@
-name: nonfree-kmod-nvidia-pkg
+name: nonfree-kmod-nvidia-production-pkg
 variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
@@ -6,35 +6,29 @@ dependencies:
 steps:
   - sources:
     # {{ if eq .ARCH "aarch64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
-      - url: https://download.nvidia.com/XFree86/Linux-aarch64/{{ .nvidia_driver_version }}/NVIDIA-Linux-aarch64-{{ .nvidia_driver_version }}.run
-        destination: nvidia.run
-        sha256: 8ba8d961457a241bcdf91b76d6fe2f36cb473c8bbdb02fb6650a622ce2e85b33
-        sha512: 706de7e53b81f909d8bc6a12a39c594754a164c49f5d23c7939dc3abcfc04f5d5b12b7d65762ae574582149a098f06ee5fe95be4f8ad1056a3307a6ce93f3c00
+      - url: https://developer.download.nvidia.com/compute/cuda/redist/nvidia_driver/linux-sbsa/nvidia_driver-linux-sbsa-{{ .nvidia_driver_version_production }}-archive.tar.xz
+        destination: nvidia.tar.xz
+        sha256: b39a8cb837fe3846284d89ab2202e93b14804349d3fc9aa8a8384fd2759ec2f5
+        sha512: 164636addea50d4d28c4630bf7eaf6060c6392b4aac670c0f5e43996fb309203efc1fa95d464eed8a9d3a22fa2aa5f446195c0f3e4dafa9e32a532447810a2d7
     # {{ else }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
-      - url: https://download.nvidia.com/XFree86/Linux-x86_64/{{ .nvidia_driver_version }}/NVIDIA-Linux-x86_64-{{ .nvidia_driver_version }}.run
-        destination: nvidia.run
-        sha256: e6dca5626a2608c6bb2a046cfcb7c1af338b9e961a7dd90ac09bb8a126ff002e
-        sha512: 3d7142658fe836e1debf7786857bdb293490ef33351e9b7d39face245fe8596b0f46052b86fae08350fcda1e2a9fd68d7309b94e107d1b016bd529d8fc37e31f
+      - url: https://developer.download.nvidia.com/compute/cuda/redist/nvidia_driver/linux-x86_64/nvidia_driver-linux-x86_64-{{ .nvidia_driver_version_production }}-archive.tar.xz
+        destination: nvidia.tar.xz
+        sha256: e1416ebc1e7b4a14d393ca584e3f9c5e22f9750f4ba502a8ba2c5c5ad943bbb5
+        sha512: 188e742796ace5a48b6cdbedae0943c2be593f9e48fb3107ac9f844ed443369cbe977aa084abf17604dd789f475633cd419ad80d63c27429d2760a4018c57586
     # {{ end }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
     prepare:
       - |
-        export PATH=/toolchain/bin:$PATH
-        export GUESS_MD5_PATH=/toolchain/bin
-
-        rm -f /dev/tty && ln -s /dev/stdout /dev/tty
-        ln -s /toolchain/bin/echo /toolchain/bin/which
-
-        /toolchain/bin/bash nvidia.run --extract-only
+        tar xf nvidia.tar.xz --strip-components=1
     build:
       - |
-        cd NVIDIA-Linux-*/kernel
+        cd kernel
 
         make -j $(nproc) SYSSRC=/src
     install:
       - |
-        cd NVIDIA-Linux-*/kernel
+        cd kernel
 
         mkdir -p /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
         cp /src/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/

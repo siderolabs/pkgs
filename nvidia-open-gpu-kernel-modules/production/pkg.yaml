@@ -1,0 +1,45 @@
+name: nvidia-open-gpu-kernel-modules-production-pkg
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: kernel-build
+steps:
+  - sources:
+    # {{ if eq .ARCH "aarch64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
+      - url: https://developer.download.nvidia.com/compute/cuda/redist/nvidia_driver/linux-sbsa/nvidia_driver-linux-sbsa-{{ .nvidia_driver_version_production }}-archive.tar.xz
+        destination: nvidia.tar.xz
+        sha256: b39a8cb837fe3846284d89ab2202e93b14804349d3fc9aa8a8384fd2759ec2f5
+        sha512: 164636addea50d4d28c4630bf7eaf6060c6392b4aac670c0f5e43996fb309203efc1fa95d464eed8a9d3a22fa2aa5f446195c0f3e4dafa9e32a532447810a2d7
+    # {{ else }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
+      - url: https://developer.download.nvidia.com/compute/cuda/redist/nvidia_driver/linux-x86_64/nvidia_driver-linux-x86_64-{{ .nvidia_driver_version_production }}-archive.tar.xz
+        destination: nvidia.tar.xz
+        sha256: e1416ebc1e7b4a14d393ca584e3f9c5e22f9750f4ba502a8ba2c5c5ad943bbb5
+        sha512: 188e742796ace5a48b6cdbedae0943c2be593f9e48fb3107ac9f844ed443369cbe977aa084abf17604dd789f475633cd419ad80d63c27429d2760a4018c57586
+    # {{ end }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
+    env:
+      ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+    prepare:
+      - |
+        tar xf nvidia.tar.xz --strip-components=1
+    build:
+      - |
+        cd kernel-open
+
+        make -j $(nproc) SYSSRC=/src
+    install:
+      - |
+        cd kernel-open
+
+        mkdir -p /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin.modinfo /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+
+        make -j $(nproc) modules_install SYSSRC=/src DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs INSTALL_MOD_STRIP=1
+    test:
+      - |
+        # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
+        find /rootfs/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
+finalize:
+  - from: /rootfs
+    to: /

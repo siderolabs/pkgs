@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2024-06-25T05:52:46Z by kres 4c9f215.
+# Generated on 2024-08-02T11:55:34Z by kres faf91e3.
 
 # common variables
 
@@ -79,9 +79,11 @@ TARGETS += xfsprogs
 TARGETS += kernel
 TARGETS += drbd-pkg
 TARGETS += gasket-driver-pkg
-TARGETS += nvidia-open-gpu-kernel-modules-pkg
+TARGETS += nvidia-open-gpu-kernel-modules-lts-pkg
+TARGETS += nvidia-open-gpu-kernel-modules-production-pkg
 TARGETS += zfs-pkg
-NONFREE_TARGETS = nonfree-kmod-nvidia-pkg
+NONFREE_TARGETS = nonfree-kmod-nvidia-lts-pkg
+NONFREE_TARGETS += nonfree-kmod-nvidia-production-pkg
 
 # help menu
 

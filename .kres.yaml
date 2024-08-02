@@ -40,11 +40,13 @@ spec:
     - kernel
     - drbd-pkg
     - gasket-driver-pkg
-    - nvidia-open-gpu-kernel-modules-pkg
+    - nvidia-open-gpu-kernel-modules-lts-pkg
+    - nvidia-open-gpu-kernel-modules-production-pkg
     - zfs-pkg
   additionalTargets:
     nonfree:
-      - nonfree-kmod-nvidia-pkg
+      - nonfree-kmod-nvidia-lts-pkg
+      - nonfree-kmod-nvidia-production-pkg
   reproducibleTargetName: reproducibility
 ---
 kind: auto.CustomSteps
