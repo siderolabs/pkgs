@@ -6,15 +6,15 @@ dependencies:
 steps:
   - sources:
     # {{ if eq .ARCH "aarch64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
-      - url: https://developer.download.nvidia.com/compute/cuda/redist/nvidia_driver/linux-sbsa/nvidia_driver-linux-sbsa-{{ .nvidia_driver_version_production }}-archive.tar.xz
+      - url: https://developer.download.nvidia.com/compute/nvidia-driver/redist/nvidia_driver/linux-sbsa/nvidia_driver-linux-sbsa-{{ .nvidia_driver_production_version }}-archive.tar.xz
         destination: nvidia.tar.xz
-        sha256: b39a8cb837fe3846284d89ab2202e93b14804349d3fc9aa8a8384fd2759ec2f5
-        sha512: 164636addea50d4d28c4630bf7eaf6060c6392b4aac670c0f5e43996fb309203efc1fa95d464eed8a9d3a22fa2aa5f446195c0f3e4dafa9e32a532447810a2d7
+        sha256: dd2892ac0c97abe69dd9ccb5e09d2fd5b5ce010c64ce5eb0950a0f6fceb9b4dc
+        sha512: 9c1466d9ea09a01dda4de0a2b3270cc6a5093636554eadfb58c3e2957e053592f7d628c3d5b31dbb36702e187561cb7f955e9bf2ddb1adb28e7ca4568d39a0f0
     # {{ else }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
-      - url: https://developer.download.nvidia.com/compute/cuda/redist/nvidia_driver/linux-x86_64/nvidia_driver-linux-x86_64-{{ .nvidia_driver_version_production }}-archive.tar.xz
+      - url: https://developer.download.nvidia.com/compute/nvidia-driver/redist/nvidia_driver/linux-x86_64/nvidia_driver-linux-x86_64-{{ .nvidia_driver_production_version }}-archive.tar.xz
         destination: nvidia.tar.xz
-        sha256: e1416ebc1e7b4a14d393ca584e3f9c5e22f9750f4ba502a8ba2c5c5ad943bbb5
-        sha512: 188e742796ace5a48b6cdbedae0943c2be593f9e48fb3107ac9f844ed443369cbe977aa084abf17604dd789f475633cd419ad80d63c27429d2760a4018c57586
+        sha256: 7959e9e0e15863c9242f8a0bda0b3b67b39701956890ff159961f59e89f92158
+        sha512: 89a4249bce2c15af56911afa6998c355d6522e2e7493e80ed9241a9d5009ccf2522bf7bceffc03673600bbfd0d89f3a46a3c21fb0f4977e6dc674648b4c6caea
     # {{ end }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
