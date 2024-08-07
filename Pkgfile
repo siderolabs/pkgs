@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.8.0-alpha.0-7-g7d807bd
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.8.0-alpha.0-8-ga764e8d
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.5.1
@@ -63,9 +63,9 @@ vars:
   iptables_sha512: 71e6ed2260859157d61981a4fe5039dc9e8d7da885a626a4b5dae8164c509a9d9f874286b9468bb6a462d6e259d4d32d5967777ecefdd8a293011ae80c00f153
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: a064d397688930dcb341f62587db4e8e786777a0
-  ipxe_sha256: 5f8d3b104ca07f87d8faf963e3751aba2578684cd9fd45c0bc8f15b15c8c4c99
-  ipxe_sha512: c5f85ecb0fe6fa1465c0a903522323e65f710a4c8851774e189868493fd05b1dd6bcbd8515c36625b3caa409c8e9bd20ccf5988b7e56f37cb09dcb14fc021cba
+  ipxe_ref: 59e2b03e6ac842d0e69bc4f757bf6da452fca074
+  ipxe_sha256: cf9f7825b12bf0dbdd4a301f61ca55235db6563b8ceff451a4bf5905040310b4
+  ipxe_sha512: e2601fb59cfd46c601b5d23c9cb6d34541ea80702b9db74a3ec035bd611d6ff9d20aba3a1728c28c008136aa3d69bc1a1f91e2708285294666607238ce7c2081
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
   linux_version: 6.6.44
@@ -140,10 +140,10 @@ vars:
   # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
   nvidia_driver_production_version: 550.90.07
 
-  # renovate: datasource=git-tags extractVersion=^openssl-(?<version>.*)$ depName=git://git.openssl.org/openssl.git
-  openssl_version: 3.3.0
-  openssl_sha256: 53e66b043322a606abf0087e7699a0e033a37fa13feb9742df35c3a33b18fb02
-  openssl_sha512: 1f9daeee6542e1b831c65f1f87befaef98ccedc3abc958c9d17f064ef771924c30849e3ff880f94eed4aaa9d81ea105e3bc8815e6d2e4d6b60b5e890f14fc5da
+  # renovate: datasource=github-releases extractVersion=^openssl-(?<version>.*)$ depName=openssl/openssl
+  openssl_version: 3.3.1
+  openssl_sha256: 777cd596284c883375a2a7a11bf5d2786fc5413255efab20c50d6ffe6d020b7e
+  openssl_sha512: d3682a5ae0721748c6b9ec2f1b74d2b1ba61ee6e4c0d42387b5037a56ef34312833b6abb522d19400b45d807dd65cc834156f5e891cb07fbaf69fcf67e1c595d
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.2.0-rc.2
@@ -166,16 +166,15 @@ vars:
   util_linux_sha256: d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3
   util_linux_sha512: ffe20b915a518a150401d429b0338bc7022190e4ca0ef91a6d9eea345db8c1e11ad01784163b8fcf978506f3f5cad473f29d5d4ef93a4c66a5ae0ebd9fb0c8f2
 
-  # DO NOT bump above 5.18.*, as in newer versions filesystems smaller than 300MB are not supported (i.e. Talos STATE partition).
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
-  xfsprogs_version: 5.18.0
-  xfsprogs_sha256: 1e8d8801bdec8cd4cad360ce3bbd12c35a97f2bc8f7c8c9580d1903b0e8cc35b
-  xfsprogs_sha512: 47d035a33367edae7357e34c70bdb0fe9219231153fb4c4f418ed1462d137dd77338c12a199eb71cd70e88903e5fc11e1e4fb595c622183786e87346e2f65739
+  xfsprogs_version: 6.9.0
+  xfsprogs_sha256: 975284783fb3fbc4e1ae640bd804d788e4237a86b07582acee86b6e48f6521b7
+  xfsprogs_sha512: c597453759c400690810971f0b2daf0e4e22c74270b0f9800e2235da5e5c1383b59bc1176c5bba0023f74b623020fb51c62f0e98a74885cf3a8336e0b81c9023
 
   # renovate: datasource=github-tags extractVersion=^zfs-(?<version>.*)$ depName=openzfs/zfs
-  zfs_version: 2.2.4
-  zfs_sha256: 9790905f7683d41759418e1ef3432828c31116654ff040e91356ff1c21c31ec0
-  zfs_sha512: 1d17e30573d594fb5c9ea77cde104616dca362fed7530296816d1b55173594f66170fcfb23ab57c27074f85b79d3eb557b4ee9a1c420e507b2434a7902d8dcc1
+  zfs_version: 2.2.5
+  zfs_sha256: 2388cf6f29cd75e87d6d05e4858a09d419c4f883a658d51ef57796121cd08897
+  zfs_sha512: 8e288620ce78fb235fa0c9929fc97150987a64091a8a5209209f1e0975d4d6213b8b307e32b3c89d934e83dc8468a1998b797fcdff5bbbbd023f07674877b0c6
 
   # renovate: datasource=git-tags depName=https://gitlab.com/apparmor/apparmor.git
   apparmor_version: v3.1.7
