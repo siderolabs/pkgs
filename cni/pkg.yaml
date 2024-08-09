@@ -19,7 +19,7 @@ steps:
       - |
         export PATH=${PATH}:${TOOLCHAIN}/go/bin
         cd ${GOPATH}/src/
-        /toolchain/bin/bash ./build_linux.sh
+        GOFLAGS="-ldflags=-s" /toolchain/bin/bash ./build_linux.sh
     install:
       - |
         mkdir -p /rootfs/opt/cni/bin

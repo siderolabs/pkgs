@@ -36,7 +36,7 @@ steps:
         sed -i '/BUILD_DATE=/c BUILD_DATE="1"' scripts/version.sh
         sed -i '/COMMIT=/c COMMIT={{ .flannel_cni_ref }}' scripts/version.sh
 
-        /toolchain/bin/bash scripts/build_flannel.sh
+        EXTRA_LDFLAGS=-s /toolchain/bin/bash scripts/build_flannel.sh
     install:
       - |
         mkdir -p /rootfs/opt/cni/bin
