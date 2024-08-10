@@ -71,6 +71,7 @@ TARGETS += linux-firmware
 TARGETS += lvm2
 TARGETS += musl
 TARGETS += openssl
+TARGETS += pcre2
 TARGETS += runc
 TARGETS += sd-boot
 TARGETS += socat

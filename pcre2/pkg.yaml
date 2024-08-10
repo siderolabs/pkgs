@@ -1,0 +1,32 @@
+name: pcre2
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: https://github.com/PCRE2Project/pcre2/releases/download/pcre2-{{ .pcre2_version }}/pcre2-{{ .pcre2_version }}.tar.bz2
+        destination: pcre.tar.bz2
+        sha256: "{{ .pcre2_sha256 }}"
+        sha512: "{{ .pcre2_sha512 }}"
+    prepare:
+      - |
+        tar -xjf pcre.tar.bz2 --strip-components=1
+        mkdir build
+        cd build
+        ../configure \
+              --prefix="/usr" \
+              --enable-unicode-properties \
+              --enable-pcre216 \
+              --enable-pcre232 \
+              --disable-static
+    build:
+      - |
+        cd build
+        make -j $(nproc)
+    install:
+      - |
+        cd build
+        make DESTDIR=/rootfs install
+        rm -rf /rootfs/share
+finalize:
+  - from: /rootfs
+    to: /
