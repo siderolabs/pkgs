@@ -19,16 +19,20 @@ spec:
     - ipxe
     - kmod
     - libaio
+    - libcap
     - libinih
     - libjson-c
     - liblzma
     - libpopt
     - libseccomp
+    - libselinux
+    - libsepol
     - liburcu
     - linux-firmware
     - lvm2
     - musl
     - openssl
+    - pcre2
     - runc
     - sd-boot
     - socat

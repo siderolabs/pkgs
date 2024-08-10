@@ -59,7 +59,10 @@
                 "git://git.savannah.gnu.org/grub.git",
                 "https://pagure.io/libaio.git",
                 "rpm-software-management/popt",
-                "git://git.liburcu.org/userspace-rcu.git"
+                "PCRE2Project/pcre2",
+                "SELinuxProject/selinux",
+                "git://git.liburcu.org/userspace-rcu.git",
+                "git://git.kernel.org/pub/scm/libs/libcap/libcap.git"
             ],
             "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.?(?<patch>\\d+)?$"
         },

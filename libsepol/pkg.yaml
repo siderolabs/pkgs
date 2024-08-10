@@ -1,0 +1,23 @@
+name: libsepol
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: https://github.com/SELinuxProject/selinux/releases/download/{{ .selinux_version }}/libsepol-{{ .selinux_version }}.tar.gz
+        destination: libsepol.tar.gz
+        sha256: "{{ .libsepol_sha256 }}"
+        sha512: "{{ .libsepol_sha512 }}"
+    prepare:
+      - |
+        tar -xzf libsepol.tar.gz --strip-components=1
+    build:
+      - |
+        make -j $(nproc)
+    install:
+      - |
+        make install DESTDIR=/rootfs
+finalize:
+  - from: /rootfs
+    to: /

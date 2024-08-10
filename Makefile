@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2024-08-07T16:43:47Z by kres dbf015a.
+# Generated on 2024-09-29T13:39:30Z by kres 8be5fa7.
 
 # common variables
 
@@ -61,16 +61,20 @@ TARGETS += ipxe
 TARGETS += kmod
 TARGETS += libaio
 TARGETS += libattr
+TARGETS += libcap
 TARGETS += libinih
 TARGETS += libjson-c
 TARGETS += liblzma
 TARGETS += libpopt
 TARGETS += libseccomp
+TARGETS += libselinux
+TARGETS += libsepol
 TARGETS += liburcu
 TARGETS += linux-firmware
 TARGETS += lvm2
 TARGETS += musl
 TARGETS += openssl
+TARGETS += pcre2
 TARGETS += runc
 TARGETS += sd-boot
 TARGETS += socat

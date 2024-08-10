@@ -1,0 +1,28 @@
+name: libselinux
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+  - stage: libsepol
+  - stage: pcre2
+steps:
+  - sources:
+      - url: https://github.com/SELinuxProject/selinux/releases/download/{{ .selinux_version }}/libselinux-{{ .selinux_version }}.tar.gz
+        destination: libselinux.tar.gz
+        sha256: "{{ .libselinux_sha256 }}"
+        sha512: "{{ .libselinux_sha512 }}"
+    prepare:
+      - |
+        tar -xzf libselinux.tar.gz --strip-components=1
+
+        patch -p1 < /pkg/patches/musl-lstat.patch
+        patch -p1 < /pkg/patches/selabel-digest-uninit.patch
+    build:
+      - |
+        make -j $(nproc) FTS_LDLIBS="-l:libfts.a -L/toolchain/lib"
+    install:
+      - |
+        make install DESTDIR=/rootfs
+finalize:
+  - from: /rootfs
+    to: /

@@ -1,0 +1,22 @@
+name: libcap
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: https://kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-{{ .libcap_version }}.tar.xz
+        destination: libcap.tar.xz
+        sha256: "{{ .libcap_sha256 }}"
+        sha512: "{{ .libcap_sha512 }}"
+    prepare:
+      - |
+        tar -xf libcap.tar.xz --strip-components=1
+    build:
+      - |
+        make prefix=/ lib=lib -j $(nproc)
+    install:
+      - |
+        make DESTDIR=/rootfs prefix=/ lib=lib install
+        rm -rf /rootfs/share
+finalize:
+  - from: /rootfs
+    to: /

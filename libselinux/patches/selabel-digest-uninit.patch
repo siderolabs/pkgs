@@ -1,0 +1,13 @@
+diff --git a/utils/selabel_digest.c b/utils/selabel_digest.c
+index 47aad21f..c574d3fd 100644
+--- a/utils/selabel_digest.c
++++ b/utils/selabel_digest.c
+@@ -65,7 +65,7 @@ int main(int argc, char **argv)
+ 	size_t digest_len, i, num_specfiles;
+ 
+ 	char cmd_buf[4096];
+-	char *cmd_ptr;
++	char *cmd_ptr = NULL;
+ 	char *sha1_buf = NULL;
+ 
+ 	struct selabel_handle *hnd;
