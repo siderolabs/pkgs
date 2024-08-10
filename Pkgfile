@@ -109,6 +109,11 @@ vars:
   libseccomp_sha512: f630e7a7e53a21b7ccb4d3e7b37616b89aeceba916677c8e3032830411d77a14c2d74dcf594cd193b1acc11f52595072e28316dc44300e54083d5d7b314a38da
 
   # renovate: datasource=github-tags extractVersion=^(?<version>.*)$ depName=SELinuxProject/selinux
+  libselinux_version: 3.7
+  libselinux_sha256: ea03f42d13a4f95757997dba8cf0b26321fac5d2f164418b4cc856a92d2b17bd
+  libselinux_sha512: e949c20b606c50ad521b9592ce55ad6658e8c4b24d9838028f5aba0a4fc762b6d0d0d0d207f5bef7a2e41485e12d91382fa6090df27152dbb40071b273419352
+
+  # renovate: datasource=github-tags extractVersion=^(?<version>.*)$ depName=SELinuxProject/selinux
   libsepol_version: 3.7
   libsepol_sha256: cd741e25244e7ef6cd934d633614131a266c3eaeab33d8bfa45e8a93b45cc901
   libsepol_sha512: 85d12d0ba5a7a3225f08d041a18fd59641608db5e0a78a1e9649754e45be54a807cd422d4889b88da6e806b4af546336c7a0913448f08ac33dc6ffb983890ef8

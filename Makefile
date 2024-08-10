@@ -65,6 +65,7 @@ TARGETS += libjson-c
 TARGETS += liblzma
 TARGETS += libpopt
 TARGETS += libseccomp
+TARGETS += libselinux
 TARGETS += libsepol
 TARGETS += liburcu
 TARGETS += linux-firmware

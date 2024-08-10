@@ -24,6 +24,7 @@ dependencies:
   - stage: liblzma
   - stage: libpopt
   - stage: libseccomp
+  - stage: libselinux
   - stage: libsepol
   - stage: liburcu
   # linux-firmware can be ignored from reproducibility test since it's a tarball downloaded and extracted (no build happens)
