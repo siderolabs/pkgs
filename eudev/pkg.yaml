@@ -4,6 +4,9 @@ shell: /toolchain/bin/bash
 dependencies:
   - stage: base
   - stage: util-linux
+  - stage: pcre2 # libsepol dependency
+  - stage: libsepol # libselinux dependency
+  - stage: libselinux
 steps:
   - sources:
       - url: https://github.com/gentoo/eudev/archive/refs/tags/{{ .eudev_version }}.tar.gz
@@ -13,8 +16,6 @@ steps:
     prepare:
       - |
         tar -xzf eudev.tar.gz --strip-components=1
-
-        patch -p1 < /pkg/patches/selinux-without-libselinux.patch
 
         # Required by gperf.
         cp /toolchain/lib/libstdc++* /lib
@@ -27,6 +28,8 @@ steps:
         cat > config.cache << "EOF"
         HAVE_BLKID=1
         BLKID_LIBS="-lblkid"
+        HAVE_SELINUX=1
+        SELINUX_LIBS="-lselinux"
         EOF
 
         mkdir build
