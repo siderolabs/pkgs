@@ -19,7 +19,7 @@ steps:
         patch -p1 < /pkg/patches/selabel-digest-uninit.patch
     build:
       - |
-        make -j $(nproc) FTS_LDLIBS="-lfts -L/toolchain/lib"
+        make -j $(nproc) FTS_LDLIBS="-l:libfts.a -L/toolchain/lib"
     install:
       - |
         make install DESTDIR=/rootfs
