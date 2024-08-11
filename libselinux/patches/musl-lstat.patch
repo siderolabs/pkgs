@@ -1,3 +1,5 @@
+Patch from https://bugs.gentoo.org/905711#c10 to build with musl
+
 diff --git a/src/selinux_restorecon.c b/src/selinux_restorecon.c
 index bc6ed935..3bc0d8dd 100644
 --- a/src/selinux_restorecon.c
