@@ -13,6 +13,8 @@ steps:
         destination: eudev.tar.gz
         sha256: "{{ .eudev_sha256 }}"
         sha512: "{{ .eudev_sha512 }}"
+    env:
+      PKG_CONFIG_PATH: /usr/lib/pkgconfig:/toolchain/lib/pkgconfig
     prepare:
       - |
         tar -xzf eudev.tar.gz --strip-components=1
@@ -28,8 +30,6 @@ steps:
         cat > config.cache << "EOF"
         HAVE_BLKID=1
         BLKID_LIBS="-lblkid"
-        HAVE_SELINUX=1
-        SELINUX_LIBS="-lselinux"
         EOF
 
         mkdir build
