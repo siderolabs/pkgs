@@ -1,0 +1,258 @@
+diff --git a/src/init.c b/src/init.c
+index 542c979b..a2ac3ac5 100644
+--- a/src/init.c
++++ b/src/init.c
+@@ -86,23 +86,41 @@ static void init_selinuxmnt(void)
+ 	size_t len;
+ 	ssize_t num;
+ 
++	printf("debug: 89;\n");
++	fflush(stdout);
++
+ 	if (selinux_mnt)
+ 		return;
+ 
++	printf("debug: 95;\n");
++	fflush(stdout);
++
+ 	if (verify_selinuxmnt(SELINUXMNT) == 0) return;
+ 
++	printf("debug: 100;\n");
++	fflush(stdout);
++
+ 	if (verify_selinuxmnt(OLDSELINUXMNT) == 0) return;
+ 
++	printf("debug: 105;\n");
++	fflush(stdout);
++
+ 	/* Drop back to detecting it the long way. */
+ 	if (!selinuxfs_exists())
+ 		goto out;
+ 
++	printf("debug: 112;\n");
++	fflush(stdout);
++
+ 	/* At this point, the usual spot doesn't have an selinuxfs so
+ 	 * we look around for it */
+ 	fp = fopen("/proc/mounts", "re");
+ 	if (!fp)
+ 		goto out;
+ 
++	printf("debug: 121;\n");
++	fflush(stdout);
++
+ 	__fsetlocking(fp, FSETLOCKING_BYCALLER);
+ 	while ((num = getline(&buf, &len, fp)) != -1) {
+ 		char *tmp;
+@@ -119,10 +137,16 @@ static void init_selinuxmnt(void)
+ 		}
+ 	}
+ 
++	printf("debug: aaa;\n");
++	fflush(stdout);
++
+ 	/* If we found something, dup it */
+ 	if (num > 0)
+ 		verify_selinuxmnt(p);
+ 
++	printf("debug: aaa;\n");
++	fflush(stdout);
++
+       out:
+ 	free(buf);
+ 	if (fp)
+@@ -146,10 +170,18 @@ void set_selinuxmnt(const char *mnt)
+ static void init_lib(void) __attribute__ ((constructor));
+ static void init_lib(void)
+ {
++	printf("debug: 000;\n");
++	fflush(stdout);
+ 	selinux_page_size = sysconf(_SC_PAGE_SIZE);
++	printf("debug: 111;\n");
++	fflush(stdout);
+ 	init_selinuxmnt();
+ #ifndef ANDROID
++	printf("debug: aaa;\n");
++	fflush(stdout);
+ 	has_selinux_config = (access(SELINUXCONFIG, F_OK) == 0);
++	printf("debug: bbb;\n");
++	fflush(stdout);
+ #endif
+ }
+ 
+diff --git a/src/selinux_config.c b/src/selinux_config.c
+index 1d8cfb71..f5859af3 100644
+--- a/src/selinux_config.c
++++ b/src/selinux_config.c
+@@ -89,20 +89,35 @@ static const uint16_t file_path_suffixes_idx[NEL] = {
+ int selinux_getenforcemode(int *enforce)
+ {
+ 	int ret = -1;
++
++printf("libselinux: dbgFILE *cfg = fopen(SELINUXCONFIG, );\n");
++fflush(stdout);
+ 	FILE *cfg = fopen(SELINUXCONFIG, "re");
++
++printf("libselinux: dbgif (cfg) {\n");
++fflush(stdout);
+ 	if (cfg) {
+ 		char *buf;
+ 		char *tag;
+ 		int len = sizeof(SELINUXTAG) - 1;
++
++printf("libselinux: dbgbuf = malloc(selinux_page_size);\n");
++fflush(stdout);
+ 		buf = malloc(selinux_page_size);
+ 		if (!buf) {
+ 			fclose(cfg);
+ 			return -1;
+ 		}
++
++printf("libselinux: dbgwhile (fgets_unlocked(buf, selinux_page_size, cfg)) {\n");
++fflush(stdout);
+ 		while (fgets_unlocked(buf, selinux_page_size, cfg)) {
+ 			if (strncmp(buf, SELINUXTAG, len))
+ 				continue;
+ 			tag = buf+len;
++
++printf("libselinux: dbgwhile (isspace((unsigned char)*tag))\n");
++fflush(stdout);
+ 			while (isspace((unsigned char)*tag))
+ 				tag++;
+ 			if (!strncasecmp
+@@ -125,9 +140,15 @@ int selinux_getenforcemode(int *enforce)
+ 				ret = 0;
+ 				break;
+ 			}
++
++printf("libselinux: dbgbetn}\n");
++fflush(stdout);
+ 		}
+ 		fclose(cfg);
+ 		free(buf);
++
++printf("libselinux: dbgddfsv}\n");
++fflush(stdout);
+ 	}
+ 	return ret;
+ }
+@@ -162,56 +183,82 @@ static void init_selinux_config(void)
+ 	ssize_t len;
+ 	char *line_buf = NULL, *buf_p, *value, *type = NULL, *end;
+ 	FILE *fp;
++	printf("libselinux: db aaag\n");
++fflush(stdout);
+ 
+ 	if (selinux_policyroot)
+ 		return;
++	printf("libselinux: db bbbg\n");
++fflush(stdout);
+ 
+ 	fp = fopen(SELINUXCONFIG, "re");
+ 	if (fp) {
++		printf("libselinux: dbg 		__fsetlocking(fp, FSETLOCKING_BYCALLER);\n");
++		fflush(stdout);
+ 		__fsetlocking(fp, FSETLOCKING_BYCALLER);
+ 		while ((len = getline(&line_buf, &line_len, fp)) > 0) {
+ 			if (line_buf[len - 1] == '\n')
+ 				line_buf[len - 1] = 0;
+ 			buf_p = line_buf;
++			printf("libselinux: dbg 			while (isspace((unsigned char)*buf_p))\n");
++			fflush(stdout);
+ 			while (isspace((unsigned char)*buf_p))
+ 				buf_p++;
+ 			if (*buf_p == '#' || *buf_p == 0)
+ 				continue;
++			printf("libselinux: db g\n");
++			fflush(stdout);
+ 
+ 			if (!strncasecmp(buf_p, SELINUXTYPETAG,
+ 					 sizeof(SELINUXTYPETAG) - 1)) {
++						printf("libselinux: dbg 				buf_p += sizeof(SELINUXTYPETAG) - 1;\n");
++						fflush(stdout);
+ 				buf_p += sizeof(SELINUXTYPETAG) - 1;
+ 				while (isspace((unsigned char)*buf_p))
+ 					buf_p++;
+ 				type = strdup(buf_p);
++				printf("libselinux: dbg 				if (!type) {\n");
++				fflush(stdout);
+ 				if (!type) {
+ 					free(line_buf);
+ 					fclose(fp);
+ 					return;
+ 				}
++				printf("libselinux: dbg 				end = type + strlen(type) - 1;\n");
++				fflush(stdout);
+ 				end = type + strlen(type) - 1;
+ 				while ((end > type) &&
+ 				       (isspace((unsigned char)*end) || iscntrl((unsigned char)*end))) {
+ 					*end = 0;
+ 					end--;
+ 				}
++				printf("libselinux: dbg 				if (setpolicytype(type) != 0) {\n");
++				fflush(stdout);
+ 				if (setpolicytype(type) != 0) {
+ 					free(type);
+ 					free(line_buf);
+ 					fclose(fp);
+ 					return;
+ 				}
++				printf("libselinux: dbg 				free(type);\n");
++				fflush(stdout);
+ 				free(type);
+ 				continue;
+ 			} else if (!strncmp(buf_p, REQUIRESEUSERS,
+ 					    sizeof(REQUIRESEUSERS) - 1)) {
++							printf("libselinux: dbg 				value = buf_p + sizeof(REQUIRESEUSERS) - 1;\n");
++							fflush(stdout);
+ 				value = buf_p + sizeof(REQUIRESEUSERS) - 1;
+ 				while (isspace((unsigned char)*value))
+ 					value++;
++				printf("libselinux: dbg 				intptr = &require_seusers;\n");
++				fflush(stdout);
+ 				intptr = &require_seusers;
+ 			} else {
+ 				continue;
+ 			}
++			printf("libselinux: db g\n");
++			fflush(stdout);
+ 
+ 			if (isdigit((unsigned char)*value))
+ 				*intptr = atoi(value);
+@@ -220,17 +267,27 @@ static void init_selinux_config(void)
+ 			else if (strncasecmp
+ 				 (value, "false", sizeof("false") - 1))
+ 				*intptr = 0;
++				printf("libselinux: dbg 		}\n");
++				fflush(stdout);
+ 		}
+ 		free(line_buf);
+ 		fclose(fp);
++		printf("libselinux: dbg 	}\n");
++		fflush(stdout);
+ 	}
+ 
++printf("libselinux: dbg 	if (!selinux_policytype && setpolicytype(SELINUXDEFAULT) != 0)\n");
++fflush(stdout);
+ 	if (!selinux_policytype && setpolicytype(SELINUXDEFAULT) != 0)
+ 		return;
+ 
++printf("libselinux: dbg 	if (asprintf(&selinux_policyroot, SELINUXDIR, selinux_policytype) == -1)\n");
++fflush(stdout);
+ 	if (asprintf(&selinux_policyroot, "%s%s", SELINUXDIR, selinux_policytype) == -1)
+ 		return;
+ 
++printf("libselinux: dbg 	for (i = 0; i < NEL; i++)\n");
++fflush(stdout);
+ 	for (i = 0; i < NEL; i++)
+ 		if (asprintf(&file_paths[i], "%s%s",
+ 			     selinux_policyroot,
+@@ -238,6 +295,8 @@ static void init_selinux_config(void)
+ 			     file_path_suffixes_idx[i])
+ 		    == -1)
+ 			return;
++			printf("libselinux: dbg }\n");
++			fflush(stdout);
+ }
+ 
+ static void fini_selinux_policyroot(void) __attribute__ ((destructor));
