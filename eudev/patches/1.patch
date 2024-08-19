@@ -1,7 +1,21 @@
 diff --git a/src/shared/selinux-util.c b/src/shared/selinux-util.c
-index 84e45e3b7..c974723a5 100644
+index 84e45e3b7..1a3b1c1de 100644
 --- a/src/shared/selinux-util.c
 +++ b/src/shared/selinux-util.c
+@@ -48,10 +48,10 @@ static struct selabel_handle *label_hnd = NULL;
+ 
+ bool mac_selinux_use(void) {
+ #ifdef HAVE_SELINUX
+-        if (cached_use < 0)
+-                cached_use = is_selinux_enabled() > 0;
++        // if (cached_use < 0)
++        //         cached_use = is_selinux_enabled() > 0;
+ 
+-        return cached_use;
++        return true;
+ #else
+         return false;
+ #endif
 @@ -65,6 +65,8 @@ void mac_selinux_retest(void) {
  
  int mac_selinux_init(const char *prefix) {
