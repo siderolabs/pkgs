@@ -35,7 +35,8 @@ steps:
           --libexecdir=/usr/libexec \
           --sbindir=/sbin \
           --disable-manpages \
-          --disable-hwdb
+          --disable-hwdb \
+          --disable-selinux
     build:
       - |
         cd build
