@@ -4,6 +4,7 @@ shell: /toolchain/bin/bash
 dependencies:
   - stage: base
   - stage: util-linux
+  - stage: libattr
   - stage: libinih
   - stage: liburcu
 steps:
@@ -13,7 +14,6 @@ steps:
         sha256: "{{ .xfsprogs_sha256 }}"
         sha512: "{{ .xfsprogs_sha512 }}"
     env:
-      DEBUG: "-DNDEBUG"
       # musl >=1.2.4 requires _LARGEFILE64_SOURCE for LFS64 interfaces support:
       # https://www.openwall.com/lists/musl/2023/05/02/1
       CFLAGS: "-D_LARGEFILE64_SOURCE"
@@ -28,7 +28,7 @@ steps:
         --enable-gettext=no
     build:
       - |
-        make -j $(nproc) DEBUG=-DNDEBUG
+        make -j $(nproc)
     install:
       - |
         make install DESTDIR=/rootfs

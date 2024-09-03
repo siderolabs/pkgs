@@ -1,0 +1,39 @@
+name: libattr
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: https://src.fedoraproject.org/repo/extras/rpms/rpms/attr/attr-{{ .libattr_version }}.tar.xz/sha512/f587ea544effb7cfed63b3027bf14baba2c2dbe3a9b6c0c45fc559f7e8cb477b3e9a4a826eae30f929409468c50d11f3e7dc6d2500f41e1af8662a7e96a30ef3/attr-{{ .libattr_version }}.tar.xz
+        # url: https://download.savannah.nongnu.org/releases/attr/attr-{{ .libattr_version }}.tar.gz
+        destination: attr.tar.xz
+        sha256: "{{ .libattr_sha256 }}"
+        sha512: "{{ .libattr_sha512 }}"
+    prepare:
+      - |
+        tar -xf attr.tar.xz --strip-components=1
+
+        OPTIMIZER="$CFLAGS" \
+        DEBUG=-DNDEBUG \
+        INSTALL_USER=root \
+        INSTALL_GROUP=root \
+        ./configure \
+          --prefix=/ \
+          --exec-prefix=/ \
+          --sbindir=/bin \
+          --bindir=/usr/bin \
+          --libdir=/lib \
+          --libexecdir=/usr/lib \
+          --includedir=/usr/include \
+          --disable-manpages \
+          --disable-nls
+    build:
+      - |
+        make -j $(nproc)
+    install:
+      - |
+        make install DESTDIR=/rootfs
+finalize:
+  - from: /rootfs
+    to: /

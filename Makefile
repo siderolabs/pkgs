@@ -60,6 +60,7 @@ TARGETS += iptables
 TARGETS += ipxe
 TARGETS += kmod
 TARGETS += libaio
+TARGETS += libattr
 TARGETS += libinih
 TARGETS += libjson-c
 TARGETS += liblzma
@@ -203,4 +204,3 @@ release-notes: $(ARTIFACTS)
 conformance:
 	@docker pull $(CONFORMANCE_IMAGE)
 	@docker run --rm -it -v $(PWD):/src -w /src $(CONFORMANCE_IMAGE) enforce
-
