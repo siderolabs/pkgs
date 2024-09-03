@@ -1,4 +1,4 @@
-https://github.com/ipmitool/ipmitool/commit/1edb0e27e44196d1ebe449aba0b9be22d376bcb6.diff
+https://gitlab.archlinux.org/archlinux/packaging/packages/ipmitool/-/commit/fb71a15a206331bd94f2582e596234214406f861
 
 diff --git a/Makefile.am b/Makefile.am
 index ce3267f0..3182a524 100644
@@ -9,7 +9,7 @@ index ce3267f0..3182a524 100644
 
  SUBDIRS = lib src include doc contrib control
 -IANA_PEN = http://www.iana.org/assignments/enterprise-numbers
-+IANA_PEN = http://www.iana.org/assignments/enterprise-numbers.txt
++IANA_PEN = file:///pkg/enterprise-numbers.txt
 
  dist-hook:
  	cp control/ipmitool.spec $(distdir)
