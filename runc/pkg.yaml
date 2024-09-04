@@ -16,7 +16,6 @@ steps:
       GO: /toolchain/go/bin/go
       PKG_CONFIG_PATH: /usr/lib/pkgconfig
       CC: /toolchain/bin/cc
-      VERSION: {{ .runc_version }}
       PATH: /toolchain/go/bin:/toolchain/bin:/bin
     prepare:
       - |
@@ -29,7 +28,7 @@ steps:
 
         ldflags="-w -s -buildid="
 
-        make COMMIT_NO= COMMIT={{ .runc_ref }} EXTRA_FLAGS="-a" EXTRA_LDFLAGS="${ldflags}" static
+        make COMMIT_NO= COMMIT={{ .runc_ref }} EXTRA_FLAGS="-a" EXTRA_LDFLAGS="${ldflags}" VERSION="{{ .runc_version }}" static
     install:
       - |
         cd runc
