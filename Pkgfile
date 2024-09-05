@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.8.0
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.8.0-1-ga0c06c6
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.5.1
@@ -141,9 +141,9 @@ vars:
   nvidia_driver_production_version: 550.90.07
 
   # renovate: datasource=github-releases extractVersion=^openssl-(?<version>.*)$ depName=openssl/openssl
-  openssl_version: 3.3.1
-  openssl_sha256: 777cd596284c883375a2a7a11bf5d2786fc5413255efab20c50d6ffe6d020b7e
-  openssl_sha512: d3682a5ae0721748c6b9ec2f1b74d2b1ba61ee6e4c0d42387b5037a56ef34312833b6abb522d19400b45d807dd65cc834156f5e891cb07fbaf69fcf67e1c595d
+  openssl_version: 3.3.2
+  openssl_sha256: 2e8a40b01979afe8be0bbfb3de5dc1c6709fedb46d6c89c10da114ab5fc3d281
+  openssl_sha512: 5ae47bf1aed2740a33ba5df7dc7345a6738aa6bfa3c9c4de5e51742485e24b25192988d7a2c1b8201ef70056ad8abd0ca78b3d55abe24c0b0373d83b47ed9b74
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.2.0-rc.3
@@ -172,9 +172,9 @@ vars:
   xfsprogs_sha512: c597453759c400690810971f0b2daf0e4e22c74270b0f9800e2235da5e5c1383b59bc1176c5bba0023f74b623020fb51c62f0e98a74885cf3a8336e0b81c9023
 
   # renovate: datasource=github-tags extractVersion=^zfs-(?<version>.*)$ depName=openzfs/zfs
-  zfs_version: 2.2.5
-  zfs_sha256: 2388cf6f29cd75e87d6d05e4858a09d419c4f883a658d51ef57796121cd08897
-  zfs_sha512: 8e288620ce78fb235fa0c9929fc97150987a64091a8a5209209f1e0975d4d6213b8b307e32b3c89d934e83dc8468a1998b797fcdff5bbbbd023f07674877b0c6
+  zfs_version: 2.2.6
+  zfs_sha256: c92e02103ac5dd77bf01d7209eabdca55c7b3356aa747bb2357ec4222652a2a7
+  zfs_sha512: c217a3397b67d7239bc30bc492d58fff96bb29c9cf73e390d1787a4fb787cb297557e594a926453fed11faaab80363d40853af271f8ee18ce9a317dfde4c6745
 
   # renovate: datasource=git-tags depName=https://gitlab.com/apparmor/apparmor.git
   apparmor_version: v3.1.7
