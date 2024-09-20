@@ -36,7 +36,8 @@ steps:
              --enable-udev_sync \
              --enable-udev_rules \
              --enable-static_link \
-             --with-udev-prefix=/usr
+             --with-udev-prefix=/usr \
+             MODPROBE_CMD=/sbin/modprobe
 
         rm -f /sbin/blkdeactivate \
               /sbin/fsadm \
