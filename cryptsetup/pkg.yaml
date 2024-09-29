@@ -3,7 +3,8 @@ variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
   - stage: base
-  - stage: eudev # dependency for libdevmapper
+  - stage: systemd-udevd # dependency for libdevmapper
+  - stage: libcap # dependency for libudev
   - stage: lvm2 # libdevmapper
   - stage: util-linux # libuuid
   - stage: libpopt
@@ -17,6 +18,7 @@ steps:
         sha512: "{{ .cryptsetup_sha512 }}"
     env:
       PKG_CONFIG_PATH: /usr/lib/pkgconfig
+      LIBS: -lcap
     prepare:
       - |
         tar -xzf cryptsetup.tar.gz --strip-components=1

@@ -4,7 +4,8 @@ shell: /toolchain/bin/bash
 dependencies:
   - stage: base
   - stage: libaio
-  - stage: eudev
+  - stage: systemd-udevd
+  - stage: libcap # dependency for libudev
   - stage: util-linux
 steps:
   - sources:
@@ -12,6 +13,8 @@ steps:
         destination: lvm2.tar.gz
         sha256: "{{ .lvm2_sha256 }}"
         sha512: "{{ .lvm2_sha512 }}"
+    env:
+      LIBS: -lcap
     prepare:
       - |
         tar -xzf lvm2.tar.gz --strip-components=1

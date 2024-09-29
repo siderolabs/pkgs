@@ -31,10 +31,10 @@ vars:
   drbd_sha256: 016127238d5e0585130ec9558d991347e5360fb3c075283c62ea67f661bcd66b
   drbd_sha512: 437e50d588b37aece7583eed06236c82931a41ab69f6835853fbeaf05125e4d5e0d1a81f501971e6773f86703d71d604ee3e1f0634faa9a03c3379d8297ed1cc
 
-  # renovate: datasource=github-releases depName=eudev-project/eudev
-  eudev_version: v3.2.14
-  eudev_sha256: c340e6c51dfc5531ac0c0fa84a34b72162acf525f9023eb9cf4931b782c8f177
-  eudev_sha512: b2d5e0d13e30c83cd15a12ada868242354691bb51eda365ace14b1b1a3942c2d0c9db7ba4ed89a3d4c87572f1f29d10d887fe45a8d257a88cba88270e75b3baf
+  # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
+  systemd_version: 256.6
+  systemd_sha256: c085f162dec001407dd32f00abbf20b7e6ed7043dcfaf8ed954787d86707f409
+  systemd_sha512: 99d0fad02cab3559e081dabc2797d1d66bbc21daf9aaec847aeb6bce289456ff9c8599a34563c9bfa3826db36ae9ab30836b09bae00bf1a410b54d0bad9bd4dc
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
   flannel_cni_version: v1.5.1-flannel2

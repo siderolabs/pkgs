@@ -10,7 +10,6 @@ spec:
     - containerd
     - cryptsetup
     - dosfstools
-    - eudev
     - fhs
     - flannel-cni
     - grub
@@ -37,6 +36,7 @@ spec:
     - sd-boot
     - socat
     - syslinux
+    - systemd-udevd
     - util-linux
     - xfsprogs
     # - kernel & dependent packages (out of tree kernel modules)

@@ -1,0 +1,134 @@
+name: systemd-udevd
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+  - stage: openssl # for pip
+  - stage: util-linux
+  - stage: libselinux
+  - stage: libcap # runtime-dependency of systemd-hwdb
+  - stage: libsepol # runtime-dependency of systemd-hwdb
+  - stage: pcre2 # runtime-dependency of systemd-hwdb
+steps:
+  - sources:
+      - url: https://github.com/systemd/systemd/archive/refs/tags/v{{ .systemd_version }}.tar.gz
+        destination: systemd.tar.gz
+        sha256: "{{ .systemd_sha256 }}"
+        sha512: "{{ .systemd_sha512 }}"
+    env:
+      SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
+    prepare:
+      - |
+        tar -xzf systemd.tar.gz --strip-components=1
+        ln -s /toolchain/bin/echo /toolchain/bin/getent
+        mkdir -p /usr/bin
+        ln -sf /toolchain/bin/env /usr/bin/env
+        ln -sf /toolchain/bin/python3 /toolchain/bin/python
+
+        pip3 install jinja2 ninja
+
+        # Patches for musl from openembedded-core, MIT licensed
+        # Also replicated by Chimera Linux: https://github.com/chimera-linux/cports/tree/001642bd7691349e95574d93e325bb05d5dcb2c1/main/udev/patches
+        patch -p1 < /pkg/patches/0004-missing_type.h-add-comparison_fn_t.patch
+        patch -p1 < /pkg/patches/0005-add-fallback-parse_printf_format-implementation.patch
+        patch -p1 < /pkg/patches/0006-don-t-fail-if-GLOB_BRACE-and-GLOB_ALTDIRFUNC-is-not-.patch
+        patch -p1 < /pkg/patches/0008-Use-uintmax_t-for-handling-rlim_t.patch
+        patch -p1 < /pkg/patches/0009-don-t-pass-AT_SYMLINK_NOFOLLOW-flag-to-faccessat.patch
+        patch -p1 < /pkg/patches/0010-Define-glibc-compatible-basename-for-non-glibc-syste.patch
+        patch -p1 < /pkg/patches/0011-Do-not-disable-buffering-when-writing-to-oom_score_a.patch
+        patch -p1 < /pkg/patches/0012-distinguish-XSI-compliant-strerror_r-from-GNU-specif.patch
+        patch -p1 < /pkg/patches/0013-avoid-redefinition-of-prctl_mm_map-structure.patch
+        patch -p1 < /pkg/patches/0014-do-not-disable-buffer-in-writing-files.patch
+        patch -p1 < /pkg/patches/0016-Handle-missing-gshadow.patch
+        patch -p1 < /pkg/patches/0017-missing_syscall.h-Define-MIPS-ABI-defines-for-musl.patch
+        patch -p1 < /pkg/patches/0019-Adjust-for-musl-headers.patch
+        patch -p1 < /pkg/patches/0022-sd-event-Make-malloc_trim-conditional-on-glibc.patch
+        patch -p1 < /pkg/patches/0023-shared-Do-not-use-malloc_info-on-musl.patch
+        patch -p1 < /pkg/patches/0024-avoid-missing-LOCK_EX-declaration.patch
+        patch -p1 < /pkg/patches/0025-include-signal.h-to-avoid-the-undeclared-error.patch
+        patch -p1 < /pkg/patches/0026-undef-stdin-for-references-using-stdin-as-a-struct-m.patch
+        patch -p1 < /pkg/patches/0027-adjust-header-inclusion-order-to-avoid-redeclaration.patch
+        patch -p1 < /pkg/patches/0028-build-path.c-avoid-boot-time-segfault-for-musl.patch
+
+        # Own patches
+        patch -p1 < /pkg/patches/0001-chore-musl-headers-compatibility-for-udev.patch
+
+        meson setup build \
+          --buildtype=release \
+          -Dmode=release \
+          -Dlibdir=/usr/lib \
+          -Dversion-tag="{{ .systemd_version }}-talos" \
+          -Dselinux=enabled \
+          -Dblkid=enabled \
+          -Dkmod=enabled \
+          -Dopenssl=disabled \
+          -Dgshadow=false \
+          -Dutmp=false \
+          -Duserdb=false \
+          -Ddbus=disabled \
+          -Dglib=disabled \
+          -Dnss-mymachines=disabled \
+          -Dnss-myhostname=false \
+          -Dnss-resolve=disabled \
+          -Dnss-systemd=false \
+          -Dbacklight=false \
+          -Dbinfmt=false \
+          -Dbpf-framework=disabled \
+          -Dcoredump=false \
+          -Denvironment-d=false \
+          -Dfirstboot=false \
+          -Dhibernate=false \
+          -Dhostnamed=false \
+          -Dlink-udev-shared=false \
+          -Dlogind=false \
+          -Dmachined=false \
+          -Dnetworkd=false \
+          -Doomd=false \
+          -Dportabled=false \
+          -Dsysext=false \
+          -Danalyze=false \
+          -Dtimedated=false \
+          -Dtimesyncd=false \
+          -Dtmpfiles=false \
+          -Dpolkit=disabled \
+          -Dstatic-libudev=true \
+          -Dman=disabled \
+          -Dtests=false \
+          -Dwerror=false
+    build:
+      - |
+        meson compile -C build
+    install:
+      - |
+        meson install -C build --destdir /installroot
+
+        mkdir -p /rootfs/usr/bin
+        cp /installroot/usr/bin/udevadm /rootfs/usr/bin/
+
+        mkdir -p /rootfs/sbin
+        ln -s /usr/bin/udevadm /rootfs/sbin/udevadm
+        ln -s /usr/bin/udevadm /rootfs/sbin/systemd-udevd
+
+        mkdir -p /rootfs/usr/lib/pkgconfig/
+        mkdir -p /rootfs/usr/share/pkgconfig/
+        cp /installroot/usr/lib/pkgconfig/libudev.pc /rootfs/usr/lib/pkgconfig/
+        cp /installroot/usr/share/pkgconfig/udev.pc /rootfs/usr/share/pkgconfig/
+
+        mkdir -p /rootfs/usr/etc/
+        cp -r /installroot/etc/udev /rootfs/usr/etc/
+        cp -r /installroot/usr/include /rootfs/usr/
+
+        # Build hwdb.bin
+        /installroot/usr/bin/systemd-hwdb update --root=/installroot --usr --strict
+
+        mkdir -p /rootfs/usr/lib/
+        cp -r /installroot/usr/lib/udev /rootfs/usr/lib/
+        cp --preserve=links /installroot/usr/lib/libudev.* /rootfs/usr/lib/
+        # Already built this
+        rm -rf /rootfs/usr/lib/udev/hwdb.d
+        rm -f /rootfs/usr/lib/udev/rules.d/{README,60-cdrom_id.rules,60-persistent-alsa.rules,60-persistent-v4l.rules,64-btrfs.rules,70-joystick.rules,70-mouse.rules,70-touchpad.rules,78-sound-card.rules,80-net-name-slot.rules,90-vconsole.rules,99-systemd.rules}
+        # Azure csi support
+        cp /pkg/files/66-azure.rules /rootfs/usr/lib/udev/rules.d/66-azure.rules
+finalize:
+  - from: /rootfs
+    to: /

@@ -1,0 +1,88 @@
+From bc049f17be6eca828cc84861877d26092fea71a1 Mon Sep 17 00:00:00 2001
+From: Dmitry Sharshakov <dmitry.sharshakov@siderolabs.com>
+Date: Sat, 28 Sep 2024 19:09:54 +0200
+Subject: [PATCH] chore: musl headers compatibility for udev
+
+Signed-off-by: Dmitry Sharshakov <dmitry.sharshakov@siderolabs.com>
+---
+ src/basic/linux/if.h          |  2 +-
+ src/basic/linux/if_ether.h    |  2 +-
+ src/basic/linux/libc-compat.h | 10 +++++++---
+ src/basic/linux/netdevice.h   |  2 +-
+ 4 files changed, 10 insertions(+), 6 deletions(-)
+
+diff --git a/src/basic/linux/if.h b/src/basic/linux/if.h
+index e79f5c8ceb..7a885ea299 100644
+--- a/src/basic/linux/if.h
++++ b/src/basic/linux/if.h
+@@ -130,10 +130,10 @@ enum net_device_flags {
+ #define IFF_LOWER_UP			IFF_LOWER_UP
+ #define IFF_DORMANT			IFF_DORMANT
+ #define IFF_ECHO			IFF_ECHO
+-#endif /* __UAPI_DEF_IF_NET_DEVICE_FLAGS_LOWER_UP_DORMANT_ECHO */
+ 
+ #define IFF_VOLATILE	(IFF_LOOPBACK|IFF_POINTOPOINT|IFF_BROADCAST|IFF_ECHO|\
+ 		IFF_MASTER|IFF_SLAVE|IFF_RUNNING|IFF_LOWER_UP|IFF_DORMANT)
++#endif /* __UAPI_DEF_IF_NET_DEVICE_FLAGS_LOWER_UP_DORMANT_ECHO */
+ 
+ #define IF_GET_IFACE	0x0001		/* for querying only */
+ #define IF_GET_PROTO	0x0002
+diff --git a/src/basic/linux/if_ether.h b/src/basic/linux/if_ether.h
+index 69e0457eb2..4bf6341acf 100644
+--- a/src/basic/linux/if_ether.h
++++ b/src/basic/linux/if_ether.h
+@@ -166,7 +166,7 @@
+ 
+ /* allow libcs like musl to deactivate this, glibc does not implement this. */
+ #ifndef __UAPI_DEF_ETHHDR
+-#define __UAPI_DEF_ETHHDR		1
++#define __UAPI_DEF_ETHHDR		0
+ #endif
+ 
+ #if __UAPI_DEF_ETHHDR
+diff --git a/src/basic/linux/libc-compat.h b/src/basic/linux/libc-compat.h
+index 8254c937c9..3e06d3eabb 100644
+--- a/src/basic/linux/libc-compat.h
++++ b/src/basic/linux/libc-compat.h
+@@ -172,18 +172,22 @@
+  * unsupported C libraries a way to opt out of any kernel definition. */
+ #else /* !defined(__GLIBC__) */
+ 
++#ifndef NI_IDN
++#define NI_IDN 0
++#endif
++
+ /* Definitions for if.h */
+ #ifndef __UAPI_DEF_IF_IFCONF
+-#define __UAPI_DEF_IF_IFCONF 1
++#define __UAPI_DEF_IF_IFCONF 0
+ #endif
+ #ifndef __UAPI_DEF_IF_IFMAP
+-#define __UAPI_DEF_IF_IFMAP 1
++#define __UAPI_DEF_IF_IFMAP 0
+ #endif
+ #ifndef __UAPI_DEF_IF_IFNAMSIZ
+ #define __UAPI_DEF_IF_IFNAMSIZ 1
+ #endif
+ #ifndef __UAPI_DEF_IF_IFREQ
+-#define __UAPI_DEF_IF_IFREQ 1
++#define __UAPI_DEF_IF_IFREQ 0
+ #endif
+ /* Everything up to IFF_DYNAMIC, matches net/if.h until glibc 2.23 */
+ #ifndef __UAPI_DEF_IF_NET_DEVICE_FLAGS
+diff --git a/src/basic/linux/netdevice.h b/src/basic/linux/netdevice.h
+index f3770c5b0f..6125206f33 100644
+--- a/src/basic/linux/netdevice.h
++++ b/src/basic/linux/netdevice.h
+@@ -31,7 +31,7 @@
+ #include <linux/if_packet.h>
+ #include <linux/if_link.h>
+ 
+-
++#undef MAX_ADDR_LEN
+ #define MAX_ADDR_LEN	32		/* Largest hardware address length */
+ 
+ /* Initial net device group. All devices belong to group 0 by default. */
+-- 
+2.46.1
+

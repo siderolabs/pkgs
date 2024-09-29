@@ -10,7 +10,6 @@ dependencies:
   - stage: containerd
   - stage: cryptsetup
   - stage: dosfstools
-  - stage: eudev
   - stage: fhs
   - stage: flannel-cni
   - stage: grub
@@ -28,6 +27,7 @@ dependencies:
   - stage: libselinux
   - stage: libsepol
   - stage: liburcu
+  - stage: systemd-udevd
   # linux-firmware can be ignored from reproducibility test since it's a tarball downloaded and extracted (no build happens)
   # - stage: linux-firmware
   - stage: lvm2
