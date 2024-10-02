@@ -96,6 +96,9 @@ steps:
     install:
       - |
         make DESTDIR=/rootfs install
+
+        # LVM activation is handled by Talos itself
+        rm -f /rootfs/usr/lib/udev/rules.d/69-dm-lvm.rules
 finalize:
   - from: /rootfs
     to: /
