@@ -26,6 +26,8 @@ steps:
         export PKG_CONFIG_PATH=/usr/lib/pkgconfig
 
         ./configure \
+             --with-default-run-dir=/run/lvm \
+             --with-default-locking-dir=/run/lock/lvm \
              --with-thin=internal \
              --with-cache=none \
              --disable-udev-systemd-background-jobs \
