@@ -1,0 +1,281 @@
+From 7a3a64290c2eaaa9c35c4b27f53851017b335205 Mon Sep 17 00:00:00 2001
+From: Dmitry Sharshakov <dmitry.sharshakov@siderolabs.com>
+Date: Fri, 4 Oct 2024 14:23:12 +0200
+Subject: [PATCH] shared, udev: use SYSCONF_DIR instead of /etc for
+ systemd-related files
+
+Some distributions might want to store systemd configs in a different directory, such as /usr/etc. This might be particularly important for immutable and modular systems
+
+Signed-off-by: Dmitry Sharshakov <dmitry.sharshakov@siderolabs.com>
+---
+ src/basic/constants.h                  |  2 ++
+ src/basic/path-lookup.c                | 11 +++++++++--
+ src/basic/user-util.c                  |  2 +-
+ src/libsystemd/sd-hwdb/hwdb-internal.h |  2 ++
+ src/login/logind-dbus.c                |  6 +++---
+ src/machine/machinectl.c               |  6 +++---
+ src/nspawn/nspawn.c                    |  2 +-
+ src/shared/hwdb-util.c                 |  3 ++-
+ src/shared/userdb-dropin.h             |  1 +
+ src/udev/iocost/iocost.c               |  2 +-
+ src/udev/scsi_id/scsi_id.c             |  2 +-
+ 11 files changed, 26 insertions(+), 13 deletions(-)
+
+diff --git a/src/basic/constants.h b/src/basic/constants.h
+index e70817c51f..9f8006b065 100644
+--- a/src/basic/constants.h
++++ b/src/basic/constants.h
+@@ -60,12 +60,14 @@
+  * conf_files_list_nulstr() to implement drop-in directories for extending configuration files. */
+ #define CONF_PATHS_NULSTR(n)                    \
+         "/etc/" n "\0"                          \
++        SYSCONF_DIR "/" n "\0"                  \
+         "/run/" n "\0"                          \
+         "/usr/local/lib/" n "\0"                \
+         "/usr/lib/" n "\0"
+ 
+ #define CONF_PATHS(n)                           \
+         "/etc/" n,                              \
++        SYSCONF_DIR "/" n,                      \
+         "/run/" n,                              \
+         "/usr/local/lib/" n,                    \
+         "/usr/lib/" n
+diff --git a/src/basic/path-lookup.c b/src/basic/path-lookup.c
+index 540256b73b..2484c7c7d3 100644
+--- a/src/basic/path-lookup.c
++++ b/src/basic/path-lookup.c
+@@ -134,6 +134,7 @@ static const char* const user_data_unit_paths[] = {
+ static const char* const user_config_unit_paths[] = {
+         USER_CONFIG_UNIT_DIR,
+         "/etc/systemd/user",
++        SYSCONF_DIR "/systemd/user",
+         NULL
+ };
+ 
+@@ -397,7 +398,7 @@ static int acquire_control_dirs(RuntimeScope scope, char **persistent, char **ru
+         case RUNTIME_SCOPE_SYSTEM:  {
+                 _cleanup_free_ char *b = NULL;
+ 
+-                a = strdup("/etc/systemd/system.control");
++                a = strdup(SYSCONF_DIR "/systemd/system.control");
+                 if (!a)
+                         return -ENOMEM;
+ 
+@@ -453,7 +454,7 @@ static int acquire_attached_dirs(
+         if (scope != RUNTIME_SCOPE_SYSTEM)
+                 return -EOPNOTSUPP;
+ 
+-        a = strdup("/etc/systemd/system.attached");
++        a = strdup(SYSCONF_DIR "/systemd/system.attached");
+         if (!a)
+                 return -ENOMEM;
+ 
+@@ -634,6 +635,7 @@ int lookup_paths_init(
+                                         persistent_config,
+                                         SYSTEM_CONFIG_UNIT_DIR,
+                                         "/etc/systemd/system",
++                                        SYSCONF_DIR "/systemd/system",
+                                         STRV_IFNOTNULL(persistent_attached),
+                                         runtime_config,
+                                         "/run/systemd/system",
+@@ -659,6 +661,7 @@ int lookup_paths_init(
+                                         persistent_config,
+                                         USER_CONFIG_UNIT_DIR,
+                                         "/etc/systemd/user",
++                                        SYSCONF_DIR "/systemd/user",
+                                         runtime_config,
+                                         "/run/systemd/user",
+                                         STRV_IFNOTNULL(generator),
+@@ -825,6 +828,7 @@ char **generator_binary_paths(RuntimeScope scope) {
+                 case RUNTIME_SCOPE_SYSTEM:
+                         add = strv_new("/run/systemd/system-generators",
+                                        "/etc/systemd/system-generators",
++                                       SYSCONF_DIR "/systemd/system-generators",
+                                        "/usr/local/lib/systemd/system-generators",
+                                        SYSTEM_GENERATOR_DIR);
+                         break;
+@@ -833,6 +837,7 @@ char **generator_binary_paths(RuntimeScope scope) {
+                 case RUNTIME_SCOPE_USER:
+                         add = strv_new("/run/systemd/user-generators",
+                                        "/etc/systemd/user-generators",
++                                       SYSCONF_DIR "/systemd/user-generators",
+                                        "/usr/local/lib/systemd/user-generators",
+                                        USER_GENERATOR_DIR);
+                         break;
+@@ -872,6 +877,7 @@ char **env_generator_binary_paths(RuntimeScope runtime_scope) {
+                 case RUNTIME_SCOPE_SYSTEM:
+                         add = strv_new("/run/systemd/system-environment-generators",
+                                         "/etc/systemd/system-environment-generators",
++                                        SYSCONF_DIR "/systemd/system-environment-generators",
+                                         "/usr/local/lib/systemd/system-environment-generators",
+                                         SYSTEM_ENV_GENERATOR_DIR);
+                         break;
+@@ -879,6 +885,7 @@ char **env_generator_binary_paths(RuntimeScope runtime_scope) {
+                 case RUNTIME_SCOPE_USER:
+                         add = strv_new("/run/systemd/user-environment-generators",
+                                        "/etc/systemd/user-environment-generators",
++                                       SYSCONF_DIR "/systemd/user-environment-generators",
+                                        "/usr/local/lib/systemd/user-environment-generators",
+                                        USER_ENV_GENERATOR_DIR);
+                         break;
+diff --git a/src/basic/user-util.c b/src/basic/user-util.c
+index 6de5e4705e..ed2d9df25d 100644
+--- a/src/basic/user-util.c
++++ b/src/basic/user-util.c
+@@ -921,7 +921,7 @@ bool synthesize_nobody(void) {
+         static int cache = -1;
+ 
+         if (cache < 0)
+-                cache = access("/etc/systemd/dont-synthesize-nobody", F_OK) < 0;
++                cache = access(SYSCONF_DIR "/systemd/dont-synthesize-nobody", F_OK) < 0;
+ 
+         return cache;
+ }
+diff --git a/src/libsystemd/sd-hwdb/hwdb-internal.h b/src/libsystemd/sd-hwdb/hwdb-internal.h
+index b26eb594ed..6b8b4c17ca 100644
+--- a/src/libsystemd/sd-hwdb/hwdb-internal.h
++++ b/src/libsystemd/sd-hwdb/hwdb-internal.h
+@@ -84,6 +84,8 @@ struct trie_value_entry2_f {
+ 
+ #define HWDB_BIN_PATHS                          \
+         "/etc/systemd/hwdb/hwdb.bin\0"          \
++        SYSCONF_DIR "/systemd/hwdb/hwdb.bin\0"  \
+         "/etc/udev/hwdb.bin\0"                  \
++        SYSCONF_DIR "/udev/hwdb.bin\0"          \
+         "/usr/lib/systemd/hwdb/hwdb.bin\0"      \
+         UDEVLIBEXECDIR "/hwdb.bin\0"
+diff --git a/src/login/logind-dbus.c b/src/login/logind-dbus.c
+index 6dd375c164..d4b0fc9107 100644
+--- a/src/login/logind-dbus.c
++++ b/src/login/logind-dbus.c
+@@ -1598,13 +1598,13 @@ static int attach_device(Manager *m, const char *seat, const char *sysfs, sd_bus
+         if (sd_device_get_property_value(d, "ID_FOR_SEAT", &id_for_seat) < 0)
+                 return sd_bus_error_set_errnof(error, ENODEV, "Device '%s' lacks 'ID_FOR_SEAT' udev property.", sysfs);
+ 
+-        if (asprintf(&file, "/etc/udev/rules.d/72-seat-%s.rules", id_for_seat) < 0)
++        if (asprintf(&file, SYSCONF_DIR "/udev/rules.d/72-seat-%s.rules", id_for_seat) < 0)
+                 return -ENOMEM;
+ 
+         if (asprintf(&rule, "TAG==\"seat\", ENV{ID_FOR_SEAT}==\"%s\", ENV{ID_SEAT}=\"%s\"", id_for_seat, seat) < 0)
+                 return -ENOMEM;
+ 
+-        (void) mkdir_p_label("/etc/udev/rules.d", 0755);
++        (void) mkdir_p_label(SYSCONF_DIR "/udev/rules.d", 0755);
+         r = write_string_file_atomic_label(file, rule);
+         if (r < 0)
+                 return r;
+@@ -1617,7 +1617,7 @@ static int flush_devices(Manager *m) {
+ 
+         assert(m);
+ 
+-        d = opendir("/etc/udev/rules.d");
++        d = opendir(SYSCONF_DIR "/udev/rules.d");
+         if (!d) {
+                 if (errno != ENOENT)
+                         log_warning_errno(errno, "Failed to open /etc/udev/rules.d: %m");
+diff --git a/src/machine/machinectl.c b/src/machine/machinectl.c
+index e6d773b7a0..abb098cd5c 100644
+--- a/src/machine/machinectl.c
++++ b/src/machine/machinectl.c
+@@ -1453,7 +1453,7 @@ static int get_settings_path(const char *name, char **ret_path) {
+         assert(name);
+         assert(ret_path);
+ 
+-        FOREACH_STRING(i, "/etc/systemd/nspawn", "/run/systemd/nspawn", "/var/lib/machines") {
++        FOREACH_STRING(i, SYSCONF_DIR "/systemd/nspawn", "/run/systemd/nspawn", "/var/lib/machines") {
+                 _cleanup_free_ char *path = NULL;
+ 
+                 path = path_join(i, name);
+@@ -1510,7 +1510,7 @@ static int edit_settings(int argc, char *argv[], void *userdata) {
+                 if (r == -ENOENT) {
+                         log_debug("No existing settings file for machine '%s' found, creating a new file.", *name);
+ 
+-                        path = path_join("/etc/systemd/nspawn", file);
++                        path = path_join(SYSCONF_DIR "/systemd/nspawn", file);
+                         if (!path)
+                                 return log_oom();
+ 
+@@ -1525,7 +1525,7 @@ static int edit_settings(int argc, char *argv[], void *userdata) {
+                 if (path_startswith(path, "/var/lib/machines")) {
+                         _cleanup_free_ char *new_path = NULL;
+ 
+-                        new_path = path_join("/etc/systemd/nspawn", file);
++                        new_path = path_join(SYSCONF_DIR "/systemd/nspawn", file);
+                         if (!new_path)
+                                 return log_oom();
+ 
+diff --git a/src/nspawn/nspawn.c b/src/nspawn/nspawn.c
+index fb1954320e..13d5b567eb 100644
+--- a/src/nspawn/nspawn.c
++++ b/src/nspawn/nspawn.c
+@@ -5029,7 +5029,7 @@ static int load_settings(void) {
+ 
+         /* We first look in the admin's directories in /etc and /run */
+         if (arg_privileged) {
+-                FOREACH_STRING(i, "/etc/systemd/nspawn", "/run/systemd/nspawn") {
++                FOREACH_STRING(i, "/etc/systemd/nspawn", SYSCONF_DIR "/systemd/nspawn", "/run/systemd/nspawn") {
+                         _cleanup_free_ char *j = NULL;
+ 
+                         j = path_join(i, arg_settings_filename);
+diff --git a/src/shared/hwdb-util.c b/src/shared/hwdb-util.c
+index afc1f54da3..0af4885648 100644
+--- a/src/shared/hwdb-util.c
++++ b/src/shared/hwdb-util.c
+@@ -24,6 +24,7 @@
+ 
+ static const char* const conf_file_dirs[] = {
+         "/etc/udev/hwdb.d",
++        SYSCONF_DIR "/udev/hwdb.d",
+         UDEVLIBEXECDIR "/hwdb.d",
+         NULL
+ };
+@@ -588,7 +589,7 @@ int hwdb_update(const char *root, const char *hwdb_bin_dir, bool strict, bool co
+          * source. If true, then hwdb.bin will be created without the information. systemd-hwdb command
+          * should set the argument false, and 'udevadm hwdb' command should set it true. */
+ 
+-        hwdb_bin = path_join(root, hwdb_bin_dir ?: "/etc/udev", "hwdb.bin");
++        hwdb_bin = path_join(root, hwdb_bin_dir ?: SYSCONF_DIR "/udev", "hwdb.bin");
+         if (!hwdb_bin)
+                 return -ENOMEM;
+ 
+diff --git a/src/shared/userdb-dropin.h b/src/shared/userdb-dropin.h
+index 3bd1b9c845..903514e4a3 100644
+--- a/src/shared/userdb-dropin.h
++++ b/src/shared/userdb-dropin.h
+@@ -10,6 +10,7 @@
+  * middle, which we use here, but not otherwise. */
+ #define USERDB_DROPIN_DIR_NULSTR(n)             \
+         "/etc/" n "\0"                          \
++        SYSCONF_DIR "/" n "\0"                  \
+         "/run/" n "\0"                          \
+         "/run/host/" n "\0"                     \
+         "/usr/local/lib/" n "\0"                \
+diff --git a/src/udev/iocost/iocost.c b/src/udev/iocost/iocost.c
+index 2b2633e3c2..3827caeb14 100644
+--- a/src/udev/iocost/iocost.c
++++ b/src/udev/iocost/iocost.c
+@@ -30,7 +30,7 @@ static int parse_config(void) {
+ 
+         r = config_parse(
+                         NULL,
+-                        "/etc/udev/iocost.conf",
++                        SYSCONF_DIR "/udev/iocost.conf",
+                         NULL,
+                         "IOCost\0",
+                         config_item_table_lookup,
+diff --git a/src/udev/scsi_id/scsi_id.c b/src/udev/scsi_id/scsi_id.c
+index b63a46a730..bffa15c504 100644
+--- a/src/udev/scsi_id/scsi_id.c
++++ b/src/udev/scsi_id/scsi_id.c
+@@ -47,7 +47,7 @@ static const struct option options[] = {
+ 
+ static bool all_good = false;
+ static bool dev_specified = false;
+-static char config_file[MAX_PATH_LEN] = "/etc/scsi_id.config";
++static char config_file[MAX_PATH_LEN] = SYSCONF_DIR "/scsi_id.config";
+ static enum page_code default_page_code = PAGE_UNSPECIFIED;
+ static int sg_version = 4;
+ static bool reformat_serial = false;
+-- 
+2.46.1
+

@@ -52,11 +52,14 @@ steps:
 
         # Own patches
         patch -p1 < /pkg/patches/0001-chore-musl-headers-compatibility-for-udev.patch
+        # TODO: remove when upstreamed (https://github.com/systemd/systemd/pull/34632)
+        patch -p1 < /pkg/patches/0001-shared-udev-use-SYSCONF_DIR-instead-of-etc-for-syste.patch
 
         meson setup build \
           --buildtype=release \
           -Dmode=release \
           -Dlibdir=/usr/lib \
+          -Dsysconfdir=/usr/etc \
           -Dversion-tag="{{ .systemd_version }}-talos" \
           -Dselinux=enabled \
           -Dblkid=enabled \
@@ -115,7 +118,7 @@ steps:
         cp /installroot/usr/share/pkgconfig/udev.pc /rootfs/usr/share/pkgconfig/
 
         mkdir -p /rootfs/usr/etc/
-        cp -r /installroot/etc/udev /rootfs/usr/etc/
+        cp -r /installroot/usr/etc/udev /rootfs/usr/etc/
         cp -r /installroot/usr/include /rootfs/usr/
 
         # Build hwdb.bin
