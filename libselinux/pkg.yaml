@@ -17,6 +17,9 @@ steps:
 
         patch -p1 < /pkg/patches/musl-lstat.patch
         patch -p1 < /pkg/patches/selabel-digest-uninit.patch
+        patch -p1 < /pkg/patches/0001-libselinux-exclude-requirement-for-etc-selinux.patch
+        # TODO: remove upstream patches when updating to 3.8
+        patch -p1 < /pkg/patches/0001-libselinux-set-free-d-data-to-NULL.patch
     build:
       - |
         make -j $(nproc) FTS_LDLIBS="-l:libfts.a -L/toolchain/lib"

@@ -1,0 +1,46 @@
+From d759ab08ab7cfa88afb5fcac749b08e8e26aeab3 Mon Sep 17 00:00:00 2001
+From: Dmitry Sharshakov <dmitry.sharshakov@siderolabs.com>
+Date: Fri, 4 Oct 2024 21:08:24 +0200
+Subject: [PATCH] libselinux: exclude requirement for /etc/selinux
+
+We don't use this directory in Talos but load a policy embedded in the init binary
+
+Signed-off-by: Dmitry Sharshakov <dmitry.sharshakov@siderolabs.com>
+---
+ src/enabled.c | 4 ----
+ src/init.c    | 3 ---
+ 2 files changed, 7 deletions(-)
+
+diff --git a/src/enabled.c b/src/enabled.c
+index fefb0bd9..3e56f981 100644
+--- a/src/enabled.c
++++ b/src/enabled.c
+@@ -13,11 +13,7 @@ int is_selinux_enabled(void)
+ 	/* init_selinuxmnt() gets called before this function. We
+  	 * will assume that if a selinux file system is mounted, then
+  	 * selinux is enabled. */
+-#ifdef ANDROID
+ 	return (selinux_mnt ? 1 : 0);
+-#else
+-	return (selinux_mnt && has_selinux_config);
+-#endif
+ }
+ 
+ 
+diff --git a/src/init.c b/src/init.c
+index 542c979b..46a83bfb 100644
+--- a/src/init.c
++++ b/src/init.c
+@@ -148,9 +148,6 @@ static void init_lib(void)
+ {
+ 	selinux_page_size = sysconf(_SC_PAGE_SIZE);
+ 	init_selinuxmnt();
+-#ifndef ANDROID
+-	has_selinux_config = (access(SELINUXCONFIG, F_OK) == 0);
+-#endif
+ }
+ 
+ static void fini_lib(void) __attribute__ ((destructor));
+-- 
+2.46.1
+

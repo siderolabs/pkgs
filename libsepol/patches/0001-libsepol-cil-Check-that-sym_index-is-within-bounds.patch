@@ -1,0 +1,40 @@
+From 6b5626fd30292b148fa8b732a38a03af1705b655 Mon Sep 17 00:00:00 2001
+From: Vit Mojzis <vmojzis@redhat.com>
+Date: Tue, 23 Jul 2024 16:41:57 +0200
+Subject: [PATCH] libsepol/cil: Check that sym_index is within bounds
+
+Make sure sym_index is within the bounds of symtab array before using it
+to index the array.
+
+Fixes:
+  Error: OVERRUN (CWE-119):
+  libsepol-3.6/cil/src/cil_resolve_ast.c:3157: assignment: Assigning: "sym_index" = "CIL_SYM_UNKNOWN".
+  libsepol-3.6/cil/src/cil_resolve_ast.c:3189: overrun-call: Overrunning callee's array of size 19 by passing argument "sym_index" (which evaluates to 20) in call to "cil_resolve_name".
+  \# 3187|                   switch (curr->flavor) {
+  \# 3188|                   case CIL_STRING:
+  \# 3189|->                         rc = cil_resolve_name(parent, curr->data, sym_index, db, &res_datum);
+  \# 3190|                           if (rc != SEPOL_OK) {
+  \# 3191|                                   goto exit;
+
+Signed-off-by: Vit Mojzis <vmojzis@redhat.com>
+Acked-by: James Carter <jwcart2@gmail.com>
+---
+ cil/src/cil_resolve_ast.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/cil/src/cil_resolve_ast.c b/cil/src/cil_resolve_ast.c
+index 427a320c..da8863c4 100644
+--- a/cil/src/cil_resolve_ast.c
++++ b/cil/src/cil_resolve_ast.c
+@@ -4291,7 +4291,7 @@ int cil_resolve_name_keep_aliases(struct cil_tree_node *ast_node, char *name, en
+ 	int rc = SEPOL_ERR;
+ 	struct cil_tree_node *node = NULL;
+ 
+-	if (name == NULL) {
++	if (name == NULL || sym_index >= CIL_SYM_NUM) {
+ 		cil_log(CIL_ERR, "Invalid call to cil_resolve_name\n");
+ 		goto exit;
+ 	}
+-- 
+2.46.1
+
