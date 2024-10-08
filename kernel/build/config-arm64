@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.6.52 Kernel Configuration
+# Linux/arm64 6.6.54 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="gcc (GCC) 13.3.0"
 CONFIG_CC_IS_GCC=y
@@ -1172,7 +1172,7 @@ CONFIG_XFRM_USER=y
 # CONFIG_XFRM_INTERFACE is not set
 # CONFIG_XFRM_SUB_POLICY is not set
 # CONFIG_XFRM_MIGRATE is not set
-# CONFIG_XFRM_STATISTICS is not set
+CONFIG_XFRM_STATISTICS=y
 CONFIG_XFRM_AH=y
 CONFIG_XFRM_ESP=y
 CONFIG_XFRM_IPCOMP=y
