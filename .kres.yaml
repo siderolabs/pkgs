@@ -18,6 +18,7 @@ spec:
     - ipxe
     - kmod
     - libaio
+    - libattr
     - libcap
     - libinih
     - libjson-c
