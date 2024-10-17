@@ -63,7 +63,7 @@ vars:
   iptables_sha512: 71e6ed2260859157d61981a4fe5039dc9e8d7da885a626a4b5dae8164c509a9d9f874286b9468bb6a462d6e259d4d32d5967777ecefdd8a293011ae80c00f153
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: c7f2e75519986f5847ba14ccd0e9b846c138aaaf
+  ipxe_ref: 2bf16c6ffca1e294bb8233d19c9c36e43b31f041
   ipxe_sha256: 117bbe9c0e0b24bdfb86a7e76c9351a0ca10dca75f4a4126c23af386b860cab8
   ipxe_sha512: 3f9fce7d9c78fcaff7663502cf797e4045c2593d1d23a4abf6db688e443173ca43cc5f960b69ecd9364591062dfde088f99aa3625cd87cbfffcab1fad1166a59
 
@@ -136,7 +136,7 @@ vars:
   linux_firmware_sha512: 2c94f04a9a334e7be5640f70b81b68862e4c02059c833c380483731977c2df3599a70f8f1a77d29b1cd9475022a249cd64731f378e67b02fe9698114c593f50a
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
-  lvm2_version: 2_03_22
+  lvm2_version: 2_03_27
   lvm2_sha256: 4c5a6923bd1ace7ce04474608a84937ce053ba91b1ace9f0b0017268e732dc7c
   lvm2_sha512: 17cd24ceee8026481566824b688dafd03ec816201d5cb3549cb7fc8a36f4cdaa982faaef4dcd26debfe775dea5ffa2744798164314ea6dc99a84f8ccccfc33ff
 
