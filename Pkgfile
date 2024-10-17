@@ -68,9 +68,9 @@ vars:
   ipxe_sha512: 3f9fce7d9c78fcaff7663502cf797e4045c2593d1d23a4abf6db688e443173ca43cc5f960b69ecd9364591062dfde088f99aa3625cd87cbfffcab1fad1166a59
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.6.56
-  linux_sha256: f74812f78e88992c416434cb107639e13a551dbaff36bb90d6346ab16ab71a95
-  linux_sha512: 57af6cc0796db0f0cf727b93155d34cf9a702abdfdbcde2e9d421eca7e225ec519a9f8a5e859879a24dd530c047666468cb70445c5389f17e3a6996888ce89d7
+  linux_version: 6.6.57
+  linux_sha256: 66ce426ef96f99b8e1ef7ac72e780c730ef8b970f7aa5708501c4274d7abb7b3
+  linux_sha512: 6a3501e16823fda4b2b26f710f31fa1a5f17709dac1fb30d3845b0b2d0650444a21bf1be285fb0f0d385455f19e895ba07cb37112174d971ae29e8f4bdc3ac6b
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 33
@@ -131,9 +131,9 @@ vars:
   liburcu_sha512: 46137525854164df05326202909689b62f8f3aa6e04127eb9157a83aed8180f35a68332ec66e4e4fc9b0c046b64c64b492caed4b64f86f87a31579e4209ec345
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20240909
-  linux_firmware_sha256: 93e9b6ae2240661639c874f5fc38f677d18afe365b17a13fee6b4fc4fba42c10
-  linux_firmware_sha512: 27df561de4612016e7f5e5cf1c200f0d84b376d790b5df372608a8896fb6387de2c2da41ef1178ee2bec2e065e811db7a00a7bb7800fb689c738004128b04dc9
+  linux_firmware_version: 20241017
+  linux_firmware_sha256: 551708bc71cb7ac67c800055aecb55e50eb3c86d13486c56250d1ef5132b39dc
+  linux_firmware_sha512: 2c94f04a9a334e7be5640f70b81b68862e4c02059c833c380483731977c2df3599a70f8f1a77d29b1cd9475022a249cd64731f378e67b02fe9698114c593f50a
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
   lvm2_version: 2_03_22
