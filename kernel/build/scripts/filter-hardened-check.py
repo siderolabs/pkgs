@@ -32,6 +32,7 @@ IGNORE_VIOLATIONS = {
     'CONFIG_SPECULATION_MITIGATIONS', # Renamed in the kernel to 'CONFIG_CPU_MITIGATIONS'
     'CONFIG_EFI_DISABLE_PCI_DMA', # enabling this breaks boot with no visible error messages to debug (https://github.com/siderolabs/talos/issues/8743)
     'CONFIG_INET_DIAG', # last vulnerability prior to v4.1. Required for CNIs such as Cilium to terminate sockets. (https://github.com/siderolabs/pkgs/issues/1028)
+    'CONFIG_IOMMU_DEFAULT_DMA_STRICT', # performance impact https://github.com/siderolabs/talos/issues/9531
 }
 
 """
