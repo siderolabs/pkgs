@@ -1,3 +1,4 @@
 | Patch file                                                                 | Description                                | Upstream status | Link                                                                                                                                                                                                         |
 |----------------------------------------------------------------------------|--------------------------------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | mpt3sas-ubsan.patch | Backport fixes for UBSAN reporting | in 6.8 | Commit fd7090e384725edb1910a4b0a9c51007858f2c81 |
+| netfilter.patch | Fix netfilter with ipv6 | in main | should be backported to the next stable release |
