@@ -36,7 +36,6 @@ spec:
     - runc
     - sd-boot
     - socat
-    - syslinux
     - systemd-udevd
     - util-linux
     - xfsprogs

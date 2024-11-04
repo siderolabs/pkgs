@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2024-10-17T14:53:25Z by kres 34e72ac.
+# Generated on 2024-11-04T06:45:55Z by kres dd14759.
 
 # common variables
 
@@ -77,7 +77,6 @@ TARGETS += pcre2
 TARGETS += runc
 TARGETS += sd-boot
 TARGETS += socat
-TARGETS += syslinux
 TARGETS += systemd-udevd
 TARGETS += util-linux
 TARGETS += xfsprogs

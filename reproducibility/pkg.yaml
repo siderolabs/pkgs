@@ -37,7 +37,6 @@ dependencies:
   - stage: runc
   - stage: sd-boot
   - stage: socat
-  - stage: syslinux
   - stage: util-linux
   - stage: xfsprogs
 finalize:
