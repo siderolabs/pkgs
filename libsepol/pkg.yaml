@@ -15,6 +15,8 @@ steps:
         # TODO: remove upstream patches when updating to 3.8
         patch -p1 < /pkg/patches/0001-libsepol-sepol_compute_sid-Do-not-destroy-uninitiali.patch
         patch -p1 < /pkg/patches/0001-libsepol-cil-Check-that-sym_index-is-within-bounds.patch
+        # Do not build CLI utilities we do not use
+        patch -p1 < /pkg/patches/dont-build-utils.patch
     build:
       - |
         make -j $(nproc)

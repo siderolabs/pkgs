@@ -22,10 +22,10 @@ steps:
         patch -p1 < /pkg/patches/0001-libselinux-set-free-d-data-to-NULL.patch
     build:
       - |
-        make -j $(nproc) FTS_LDLIBS="-l:libfts.a -L/toolchain/lib"
+        make -j $(nproc) FTS_LDLIBS="-l:libfts.a -L/toolchain/lib" SUBDIRS="include src"
     install:
       - |
-        make install DESTDIR=/rootfs
+        make install DESTDIR=/rootfs SUBDIRS="include src"
 finalize:
   - from: /rootfs
     to: /
