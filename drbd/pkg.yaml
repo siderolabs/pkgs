@@ -14,6 +14,8 @@ steps:
     prepare:
       - |
         tar -xzf drbd.tar.gz --strip-components=1
+
+        patch -p1 < /pkg/patches/genlmsg_multicast_allns.patch
     build:
       - |
         make -j $(nproc) -C drbd KERNEL_SOURCES=/src MODVERSIONS=detect KDIR=/src

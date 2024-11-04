@@ -1,0 +1,13 @@
+diff --git a/drbd/drbd-headers/linux/genl_magic_func-genl_register_family_with_ops_groups.h b/drbd/drbd-headers/linux/genl_magic_func-genl_register_family_with_ops_groups.h
+index b7adc48..5c930bf 100644
+--- a/drbd/drbd-headers/linux/genl_magic_func-genl_register_family_with_ops_groups.h
++++ b/drbd/drbd-headers/linux/genl_magic_func-genl_register_family_with_ops_groups.h
+@@ -19,7 +19,7 @@ static int CONCAT_(GENL_MAGIC_FAMILY, _genl_multicast_ ## group)(	\
+ 	unsigned int group_id =						\
+ 		CONCAT_(GENL_MAGIC_FAMILY, _group_ ## group);		\
+ 	return genlmsg_multicast_allns(&ZZZ_genl_family, skb, 0,	\
+-				 group_id, flags);			\
++				 group_id);			\
+ }
+ 
+ #include GENL_MAGIC_INCLUDE_FILE
