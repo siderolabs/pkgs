@@ -1,25 +1,16 @@
 diff --git lib/commands/toolcontext.c lib/commands/toolcontext.c
-index 4cb81bf94..91843425f 100644
+index 30fc5d4f2..ad807c93a 100644
 --- lib/commands/toolcontext.c
 +++ lib/commands/toolcontext.c
-@@ -1666,7 +1666,7 @@ struct cmd_context *create_toolcontext(unsigned is_clvmd,
- 	/* FIXME Make this configurable? */
- 	reset_lvm_errno(1);
+@@ -1670,7 +1670,7 @@ struct cmd_context *create_toolcontext(unsigned is_clvmd,
+        reset_lvm_errno(1);
 
--#ifndef VALGRIND_POOL
-+#if !defined(VALGRIND_POOL) && defined(__GLIBC__)
- 	/* Set in/out stream buffering before glibc */
- 	if (set_buffering
+        /* Set in/out stream buffering before glibc */
+-       if (set_buffering
++       if (0 && set_buffering
+            && !cmd->running_on_valgrind /* Skipping within valgrind execution. */
  #ifdef SYS_gettid
-@@ -2046,7 +2046,7 @@ void destroy_toolcontext(struct cmd_context *cmd)
- 		dm_hash_destroy(cmd->cft_def_hash);
-
- 	dm_device_list_destroy(&cmd->cache_dm_devs);
--#ifndef VALGRIND_POOL
-+#if !defined(VALGRIND_POOL) && defined(__GLIBC__)
- 	if (cmd->linebuffer) {
- 		/* Reset stream buffering to defaults */
- 		if (is_valid_fd(STDIN_FILENO) &&
+            /* For threaded programs no changes of streams */
 diff --git tools/lvmcmdline.c tools/lvmcmdline.c
 index 1e3547ed7..470fcaa87 100644
 --- tools/lvmcmdline.c

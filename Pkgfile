@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.9.0-alpha.0-4-g2058296
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.9.0-alpha.0-5-g63ecd80
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.6.0
@@ -63,9 +63,9 @@ vars:
   iptables_sha512: 71e6ed2260859157d61981a4fe5039dc9e8d7da885a626a4b5dae8164c509a9d9f874286b9468bb6a462d6e259d4d32d5967777ecefdd8a293011ae80c00f153
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: c7f2e75519986f5847ba14ccd0e9b846c138aaaf
-  ipxe_sha256: 117bbe9c0e0b24bdfb86a7e76c9351a0ca10dca75f4a4126c23af386b860cab8
-  ipxe_sha512: 3f9fce7d9c78fcaff7663502cf797e4045c2593d1d23a4abf6db688e443173ca43cc5f960b69ecd9364591062dfde088f99aa3625cd87cbfffcab1fad1166a59
+  ipxe_ref: 8fc11d8a4ad41f15af3d081250865f971312d871
+  ipxe_sha256: 55b19ba8972019f1286baa82643de9f0904838fe1491996a91a97748ef04f7ea
+  ipxe_sha512: 51f111f5e18c18194c0ad44debebb45e0d5f18efcbc1aef9e03cfa849d122bee439c237d85a8f94299b39453f7cba52b3aab1217d2f39fafe7576352d7050710
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
   linux_version: 6.6.58
@@ -121,9 +121,9 @@ vars:
   libsepol_sha512: 85d12d0ba5a7a3225f08d041a18fd59641608db5e0a78a1e9649754e45be54a807cd422d4889b88da6e806b4af546336c7a0913448f08ac33dc6ffb983890ef8
 
   # renovate: datasource=git-tags extractVersion=^libcap-(?<version>.*)$ depName=git://git.kernel.org/pub/scm/libs/libcap/libcap.git
-  libcap_version: 2.70
-  libcap_sha256: 23a6ef8aadaf1e3e875f633bb2d116cfef8952dba7bc7c569b13458e1952b30f
-  libcap_sha512: 4e0bf0efeccb654c409afe9727b2b53c1d4da8190d7a0a9848fc52550ff3e13502add3eacde04a68a5b7bec09e91df487f64c5746ba987f873236a9e53b3d4e8
+  libcap_version: 2.71
+  libcap_sha256: b7006c9af5168315f35fc734bf1a8d2aa70766bd8b8c4340962e05b19c35b900
+  libcap_sha512: 59bb6781d96776595ad3df890f4e5188380634eabbb6128f3a5307946b01cf3bd19dee8a29d3e501de1d9e1c6ed0092c4cd5adc91da227a1260c1f4356cc0bf3
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.liburcu.org/userspace-rcu.git
   liburcu_version: 0.14.1
@@ -136,9 +136,9 @@ vars:
   linux_firmware_sha512: 2c94f04a9a334e7be5640f70b81b68862e4c02059c833c380483731977c2df3599a70f8f1a77d29b1cd9475022a249cd64731f378e67b02fe9698114c593f50a
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
-  lvm2_version: 2_03_22
-  lvm2_sha256: 4c5a6923bd1ace7ce04474608a84937ce053ba91b1ace9f0b0017268e732dc7c
-  lvm2_sha512: 17cd24ceee8026481566824b688dafd03ec816201d5cb3549cb7fc8a36f4cdaa982faaef4dcd26debfe775dea5ffa2744798164314ea6dc99a84f8ccccfc33ff
+  lvm2_version: 2_03_28
+  lvm2_sha256: b822baff6b62df36382c717ceba98a2688ebb31bf2b768f3ffa2b6d5e2557242
+  lvm2_sha512: 6b203dcf71ec91e663512458a6b25ebee4c7ee699c67f26ad42a74c054d157bd7f74f8f17f4217dd660b4bf421dd26ee1dd6048f321696168c9e81b354a8393a
 
   mellanox_ofed_version: 5.9-0.5.6.0
   mellanox_ofed_sha256: 4503258cbe92b00c734e612c3a7ad1d71e023fdffae2a2c119f7b537505e499c
@@ -158,9 +158,9 @@ vars:
   nvidia_driver_production_version: 550.90.07
 
   # renovate: datasource=github-releases extractVersion=^openssl-(?<version>.*)$ depName=openssl/openssl
-  openssl_version: 3.3.2
-  openssl_sha256: 2e8a40b01979afe8be0bbfb3de5dc1c6709fedb46d6c89c10da114ab5fc3d281
-  openssl_sha512: 5ae47bf1aed2740a33ba5df7dc7345a6738aa6bfa3c9c4de5e51742485e24b25192988d7a2c1b8201ef70056ad8abd0ca78b3d55abe24c0b0373d83b47ed9b74
+  openssl_version: 3.4.0
+  openssl_sha256: e15dda82fe2fe8139dc2ac21a36d4ca01d5313c75f99f46c4e8a27709b7294bf
+  openssl_sha512: 0784096f00c7907e477919d5ddeadb14b61bcb569a938fa739c1c714949214a7daf63574149d718dae372ed0c91c300042f4e3ba5e8633607e8034a3bda75a26
 
   # renovate: datasource=github-releases extractVersion=^pcre2-(?<version>.*)$ depName=PCRE2Project/pcre2
   pcre2_version: 10.44
@@ -184,9 +184,9 @@ vars:
   util_linux_sha512: ffe20b915a518a150401d429b0338bc7022190e4ca0ef91a6d9eea345db8c1e11ad01784163b8fcf978506f3f5cad473f29d5d4ef93a4c66a5ae0ebd9fb0c8f2
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
-  xfsprogs_version: 6.10.1
-  xfsprogs_sha256: 6cb839be1a9535f8352441b3f6eea521ead5c5c7c913e8106cdfac96aa117041
-  xfsprogs_sha512: b9fd7b7eaf038772ee4a9602bf38f714db7077731ec8904e0959d28b0103d443be8ae67720869012b90737c1ff440fbce44b3b23b662939c9a90c6d3be3fab08
+  xfsprogs_version: 6.11.0
+  xfsprogs_sha256: dae3bb432196f7b183b2e6bd5dc44bf33edbd7d0e85bd37d25c235df81b8100a
+  xfsprogs_sha512: 209b479e510e5d5c558430b523bebd90f34b2effeac46f783aad4ec45a9f39998ca1efc67155c54c22e778859968f4b275b0ca6f225603f17ae4cc5c7596a4ca
 
   # renovate: datasource=github-tags extractVersion=^zfs-(?<version>.*)$ depName=openzfs/zfs
   zfs_version: 2.2.6

@@ -24,7 +24,7 @@ steps:
         # ref: https://github.com/siderolabs/sidero/issues/806
         {{ if eq .ARCH "aarch64" }}
         cat <<EOF > src/config/local/nap.h
-        #undef NAP_EFIARM
+        #undef NAP_EFI
         #define NAP_NULL
         EOF
         {{ end }}

@@ -20,7 +20,7 @@ steps:
         tar -xzf lvm2.tar.gz --strip-components=1
 
         patch -p1 < /pkg/patches/includes.patch
-        patch -p0 < /pkg/patches/fix-stdio-usage.patch
+        patch -p0 -l < /pkg/patches/fix-stdio-usage.patch
         patch -p0 < /pkg/patches/mlockall-default-config.patch
 
         export PKG_CONFIG_PATH=/usr/lib/pkgconfig
