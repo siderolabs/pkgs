@@ -14,6 +14,8 @@ steps:
       - |
         tar -xzf apparmor.tar.gz --strip-components=1
 
+        patch -p1 < /pkg/patches/basename.patch
+
         mkdir -p /usr/bin \
             && ln -sf /toolchain/bin/env /usr/bin/env
         ln -s /toolchain/bin/echo /toolchain/bin/which
@@ -21,13 +23,16 @@ steps:
 
         cd libraries/libapparmor
         ./autogen.sh
-        ./configure --disable-dependency-tracking --disable-man-pages
+
+        ./configure \
+          --disable-dependency-tracking \
+          --disable-man-pages
     build:
       - |
         cd libraries/libapparmor
         make -j $(nproc)
-        
-        cd ../../parser        
+
+        cd ../../parser
         make arch -j $(nproc)
     install:
       - |

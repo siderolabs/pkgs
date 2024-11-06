@@ -14,6 +14,8 @@ steps:
       - |
         tar -xf attr.tar.xz --strip-components=1
 
+        patch -p1 < /pkg/patches/basename.patch
+
         OPTIMIZER="$CFLAGS" \
         DEBUG=-DNDEBUG \
         INSTALL_USER=root \

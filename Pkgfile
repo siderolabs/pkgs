@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.9.0-alpha.0-5-g63ecd80
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.9.0-alpha.0-7-g3750064
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.6.0
@@ -149,13 +149,13 @@ vars:
   musl_sha256: a9a118bbe84d8764da0ea0d28b3ab3fae8477fc7e4085d90102b8596fc7c75e4
   musl_sha512: 7bb7f7833923cd69c7a1a9b8a5f1784bfd5289663eb6061dcd43d583e45987df8a68a1be05d75cc1c88a3f5b610653d1a70f4a9cff4d8f7fd41ae73ee058c17c
 
-  # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/cuda/redist/fabricmanager/linux-x86_64/
+  # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/linux-x86_64/
   # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_lts_version: 535.183.06
+  nvidia_driver_lts_version: 535.216.01
 
-  # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/cuda/redist/fabricmanager/linux-x86_64/
+  # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/linux-x86_64/
   # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_production_version: 550.90.07
+  nvidia_driver_production_version: 550.127.05
 
   # renovate: datasource=github-releases extractVersion=^openssl-(?<version>.*)$ depName=openssl/openssl
   openssl_version: 3.4.0

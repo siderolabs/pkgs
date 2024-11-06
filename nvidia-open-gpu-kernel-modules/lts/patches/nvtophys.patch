@@ -1,0 +1,32 @@
+From 228032a9161072b3cfa803301a29398725890098 Mon Sep 17 00:00:00 2001
+From: Paolo Pisati <paolo.pisati@canonical.com>
+Date: Wed, 31 Jul 2024 13:53:05 +0000
+Subject: [PATCH] nv-vtophys: explicit a void cast
+
+Due to gcc-14 upgrade, implicit cast are treated as error:
+
+...
+./arch/arm64/include/asm/memory.h:425:66: error: passing argument 1 of â€˜virt_to_pfnâ€™ makes pointer from integer without a cast [-Wint-conversion]
+  425 | __is_lm_address(__addr) && pfn_is_map_memory(virt_to_pfn(__addr));
+...
+
+Signed-off-by: Paolo Pisati <paolo.pisati@canonical.com>
+---
+ nvidia/nv-vtophys.c                | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/nvidia/nv-vtophys.c b/nvidia/nv-vtophys.c
+index df2a01e..fcae701 100644
+--- a/nvidia/nv-vtophys.c
++++ b/nvidia/nv-vtophys.c
+@@ -29,7 +29,7 @@
+ NvU64 NV_API_CALL nv_get_kern_phys_address(NvU64 address)
+ {
+     /* direct-mapped kernel address */
+-    if (virt_addr_valid(address))
++    if (virt_addr_valid((void *)address))
+         return __pa(address);
+
+     nv_printf(NV_DBG_ERRORS,
+--
+2.45.2
