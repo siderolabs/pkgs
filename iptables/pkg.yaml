@@ -5,7 +5,7 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      - url: https://fossies.org/linux/misc/iptables-{{ .iptables_version }}.tar.xz
+      - url: https://www.netfilter.org/pub/iptables/iptables-{{ .iptables_version }}.tar.xz
         destination: iptables.tar.xz
         sha256: "{{ .iptables_sha256 }}"
         sha512: "{{ .iptables_sha512 }}"
