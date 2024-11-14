@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2024-11-11T15:36:12Z by kres b6443eb.
+# Generated on 2024-11-14T16:26:00Z by kres c0e2b63.
 
 # common variables
 
@@ -154,13 +154,13 @@ target-%:  ## Builds the specified target defined in the Pkgfile. The build resu
 
 local-%:  ## Builds the specified target defined in the Pkgfile using the local output type. The build result will be output to the specified local destination.
 	@$(MAKE) target-$* TARGET_ARGS="--output=type=local,dest=$(DEST) $(TARGET_ARGS)"
-	@PLATFORM=$(PLATFORM) ARTIFACTS=$(ARTIFACTS) bash -c '\
+	@PLATFORM=$(PLATFORM) DEST=$(DEST) bash -c '\
 	  for platform in $$(tr "," "\n" <<< "$$PLATFORM"); do \
 	    echo $$platform; \
 	    directory="$${platform//\//_}"; \
-	    if [[ -d "$$ARTIFACTS/$$directory" ]]; then \
-	      mv "$$ARTIFACTS/$$directory/"* $$ARTIFACTS; \
-	      rmdir "$$ARTIFACTS/$$directory/"; \
+	    if [[ -d "$$DEST/$$directory" ]]; then \
+	      mv "$$DEST/$$directory/"* $$DEST; \
+	      rmdir "$$DEST/$$directory/"; \
 	    fi; \
 	  done'
 
