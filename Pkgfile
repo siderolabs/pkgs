@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.9.0-alpha.0-9-ge061b6f
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.9.0-alpha.0-11-gaa0beaf
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.6.0
@@ -27,9 +27,9 @@ vars:
   dosfstools_sha512: 3cc0808edb4432428df8a67da4bb314fd1f27adc4a05754c1a492091741a7b6875ebd9f6a509cc4c5ad85643fc40395b6e0cadee548b25cc439cc9b725980156
 
   # renovate: datasource=github-tags extractVersion=^drbd-(?<version>.*)$ depName=LINBIT/drbd
-  drbd_version: 9.2.11
-  drbd_sha256: 016127238d5e0585130ec9558d991347e5360fb3c075283c62ea67f661bcd66b
-  drbd_sha512: 437e50d588b37aece7583eed06236c82931a41ab69f6835853fbeaf05125e4d5e0d1a81f501971e6773f86703d71d604ee3e1f0634faa9a03c3379d8297ed1cc
+  drbd_version: 9.2.12
+  drbd_sha256: 6a675cc8f4f29c64da699879e7c4372a71ae1b2c8b24a9ec63e34108edba26ad
+  drbd_sha512: b3d5700141d0791dd5cfa8496e3888124670029ec39800f915dcc5f292b57723cc8aecbbdad83f33a61f38e9be6dbac0b75bf9696536bcd3cb1017f48703dce6
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git
   e2fsprogs_version: v1.47.1
@@ -73,9 +73,9 @@ vars:
   ipxe_sha512: 51f111f5e18c18194c0ad44debebb45e0d5f18efcbc1aef9e03cfa849d122bee439c237d85a8f94299b39453f7cba52b3aab1217d2f39fafe7576352d7050710
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.6.62
-  linux_sha256: e2c35611775534941b9d4dd871f3ae5b988b6594dc9033b5ca784366e07d9336
-  linux_sha512: 9b49ff136afe1044ed29b776246d91fbbc9976629f3dd30bd0ee233664db10c35cd1791fc1c82c0d9b2db8829e562c547db43da60a6de962100f2a0dbdbbd00c
+  linux_version: 6.12.1
+  linux_sha256: 0193b1d86dd372ec891bae799f6da20deef16fc199f30080a4ea9de8cef0c619
+  linux_sha512: c7523dc5b012367301ab43a685b766dce025c4993041acd3dacd085b052b3fccc7f50c892357acf481e24ccad512770ef46a13d2da16c2a178c44a27f7022932
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 33
@@ -126,9 +126,9 @@ vars:
   libsepol_sha512: 85d12d0ba5a7a3225f08d041a18fd59641608db5e0a78a1e9649754e45be54a807cd422d4889b88da6e806b4af546336c7a0913448f08ac33dc6ffb983890ef8
 
   # renovate: datasource=git-tags extractVersion=^libcap-(?<version>.*)$ depName=git://git.kernel.org/pub/scm/libs/libcap/libcap.git
-  libcap_version: 2.71
-  libcap_sha256: b7006c9af5168315f35fc734bf1a8d2aa70766bd8b8c4340962e05b19c35b900
-  libcap_sha512: 59bb6781d96776595ad3df890f4e5188380634eabbb6128f3a5307946b01cf3bd19dee8a29d3e501de1d9e1c6ed0092c4cd5adc91da227a1260c1f4356cc0bf3
+  libcap_version: 2.72
+  libcap_sha256: 0274f5a15a5205f656d8f0169eef711dd29158ba8ad3b240618b342b2460175b
+  libcap_sha512: c0726bcd5e48395c6f4edd34f0fcaa21d7b2fe35dbc88824c0d86b42859dbe507f55c1ac7f7352e2aa56e3632b7aa9a098ca9cc730c82f942106d2786b10ba2c
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.liburcu.org/userspace-rcu.git
   liburcu_version: 0.14.1
@@ -156,11 +156,19 @@ vars:
 
   # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/linux-x86_64/
   # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_lts_version: 535.216.01
+  nvidia_driver_lts_version: 535.216.03
+  nvidia_driver_lts_arm64_sha256: bf4c22053068310b988a5ecb43e821c493ffce80b519c73623419ba2cb5d0c83
+  nvidia_driver_lts_arm64_sha512: 257dc56d95e8a0a4f9e2d5f5e7a7cdefd017e5319e5d3144f9c1b31a6c47cbdf33252aa504658f20cd15684c8d9855d80efeae6c20f9dad60848ed9c34d5f423
+  nvidia_driver_lts_amd64_sha256: 3aa05d8bdddd7a6f2cd461969895dd4ba9eb3e554a8bf1abeb860d84cc7b1d10
+  nvidia_driver_lts_amd64_sha512: d6e8ea0d4348fe5e919ebd967c73f22236caae3aeb1f847685d1c801ed80b30661410b63363b6736ee034323eb812787e8bdedde15deb7c9ce05d92306cb5e2e
 
   # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/linux-x86_64/
   # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_production_version: 550.127.05
+  nvidia_driver_production_version: 550.127.08
+  nvidia_driver_production_arm64_sha256: 025ee91b6f75d7deb5cb98bc8327c6bae5fd925029d5f853e26720f10d5fcdcf
+  nvidia_driver_production_arm64_sha512: cf18ecd885d4520930a01605c8f23ae02eb76d4e660c72c1ab99f6bbaabbad263222c5c41863fcafcf293bd9f78a6dec319ae70921c0188b8b07960ddcd6b12f
+  nvidia_driver_production_amd64_sha256: 04551fbeda76645e664910f1168e1fb3c9ac379461296da0474d0231e703ad70
+  nvidia_driver_production_amd64_sha512: 9715a8d9707bd999b6955048d626e48e807ecd2507b8e6437acd0bf1f0b8de59d41e649bb26a4a9024bbec4f35da6fac64d7652dda63b626d41a17fd4753f110
 
   # renovate: datasource=github-releases extractVersion=^openssl-(?<version>.*)$ depName=openssl/openssl
   openssl_version: 3.4.0
@@ -194,9 +202,11 @@ vars:
   xfsprogs_sha512: 209b479e510e5d5c558430b523bebd90f34b2effeac46f783aad4ec45a9f39998ca1efc67155c54c22e778859968f4b275b0ca6f225603f17ae4cc5c7596a4ca
 
   # renovate: datasource=github-tags extractVersion=^zfs-(?<version>.*)$ depName=openzfs/zfs
-  zfs_version: 2.2.6
-  zfs_sha256: c92e02103ac5dd77bf01d7209eabdca55c7b3356aa747bb2357ec4222652a2a7
-  zfs_sha512: c217a3397b67d7239bc30bc492d58fff96bb29c9cf73e390d1787a4fb787cb297557e594a926453fed11faaab80363d40853af271f8ee18ce9a317dfde4c6745
+  # [NOTE]: as a temporary workaround, a manual tarball was created for `zfs` main version after 2.3.0-rc.3
+  # when updating to the next version, remove the tarball
+  zfs_version: 2.3.0-rc3
+  zfs_sha256: 459639b89489f9139c9e91f9fb8dab77b5cb1ed6fb6c0bc31281d916b9581599
+  zfs_sha512: ae3f3f62f9fb767864ff162e086ae3d4f98a379e009b9afd665ce5f2c352f4267f774e333db1fc47cdefd4f919eb105ad9cd2c906b04c4368cbb64ec3e92659f
 
   # renovate: datasource=git-tags depName=https://gitlab.com/apparmor/apparmor.git
   apparmor_version: v3.1.7

@@ -5,15 +5,18 @@ dependencies:
   - stage: kernel-build
 steps:
   - sources:
-      - url: https://github.com/openzfs/zfs/releases/download/zfs-{{ .zfs_version }}/zfs-{{ .zfs_version }}.tar.gz
-        destination: zfs.tar.gz
-        sha256: "{{ .zfs_sha256 }}"
-        sha512: "{{ .zfs_sha512 }}"
+      # [NOTE]: temporary workaround to pull in main version of ZFS, uncomment this and remove files/zfs.tar.gz
+      # - url: https://github.com/openzfs/zfs/releases/download/zfs-{{ .zfs_version }}/zfs-{{ .zfs_version }}.tar.gz
+      #   destination: zfs.tar.gz
+      #   sha256: "{{ .zfs_sha256 }}"
+      #   sha512: "{{ .zfs_sha512 }}"
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
     prepare:
       - |
-        tar -xzf zfs.tar.gz --strip-components=1
+        # [NOTE]: remporary, restore me:
+        # tar -xzf zfs.tar.gz --strip-components=1
+        tar -xzf /pkg/files/zfs.tar.gz --strip-components=1
         ./autogen.sh
         ./configure --with-config=kernel --with-linux=/src
     build:

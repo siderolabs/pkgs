@@ -14,6 +14,9 @@ steps:
     prepare:
       - |
         tar xf gasket-driver.tar.gz --strip-components=1
+      - |
+        # Linux 6.12 compatibility, from upstream PR
+        patch -p1 </pkg/patches/no-llseek.patch
     build:
       - |
         cd src
