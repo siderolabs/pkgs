@@ -32,12 +32,6 @@ steps:
         mkdir -p /usr/lib/pkgconfig
         ln -s /toolchain/include /usr/include
 
-        for lib in ncurses form panel menu ; do
-            rm -vf                    /lib/lib${lib}.so
-            echo "INPUT(-l${lib}w)" > /lib/lib${lib}.so
-            ln -sfv ${lib}w.pc        /lib/pkgconfig/${lib}.pc
-        done
-
         make mrproper
       - |
         cd /toolchain && git clone https://github.com/a13xp0p0v/kernel-hardening-checker.git
