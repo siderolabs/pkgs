@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2024-11-18T15:53:48Z by kres a8af16d.
+# Generated on 2024-11-20T04:30:14Z by kres a8af16d.
 
 # common variables
 
@@ -53,6 +53,7 @@ TARGETS += cni
 TARGETS += containerd
 TARGETS += cryptsetup
 TARGETS += dosfstools
+TARGETS += e2fsprogs
 TARGETS += fhs
 TARGETS += flannel-cni
 TARGETS += grub

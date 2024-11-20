@@ -10,6 +10,7 @@ dependencies:
   - stage: containerd
   - stage: cryptsetup
   - stage: dosfstools
+  - stage: e2fsprogs
   - stage: fhs
   - stage: flannel-cni
   - stage: grub

@@ -1,0 +1,47 @@
+name: e2fsprogs
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+  - stage: util-linux
+  #- stage: libattr
+  #- stage: libinih
+  #- stage: liburcu
+steps:
+  - sources:
+      - url: https://github.com/tytso/e2fsprogs/archive/refs/tags/{{ .e2fsprogs_version}}.tar.gz
+        destination: e2fsprogs.tar.gz
+        sha256: "{{ .e2fsprogs_sha256 }}"
+        sha512: "{{ .e2fsprogs_sha512 }}"
+    prepare:
+      - |
+        tar xf e2fsprogs.tar.gz --strip-components=1
+
+        ./configure \
+        --prefix=/usr \
+        --localstatedir=/run \
+        --enable-hardening \
+        --enable-elf-shlibs \
+        --enable-symlink-install \
+        --disable-fsck \
+        --disable-uuidd \
+        --disable-libuuid \
+        --disable-libblkid \
+        --disable-nls \
+        --disable-fuse2fs
+    build:
+      - |
+        make -j $(nproc) progs
+    install:
+      - |
+        make install DESTDIR=/rootfs-temp
+
+        rm -rf /rootfs-temp/usr/{bin,etc,include,share}
+
+        mkdir -p /rootfs/{sbin,usr/lib}
+
+        cp -r /rootfs-temp/usr/lib /rootfs/usr
+        cp -r /rootfs-temp/usr/sbin/{e2fsck,fsck.*,mke2fs,mkfs.*,resize2fs,tune2fs} /rootfs/sbin
+finalize:
+  - from: /rootfs
+    to: /

@@ -10,6 +10,7 @@ spec:
     - containerd
     - cryptsetup
     - dosfstools
+    - e2fsprogs
     - fhs
     - flannel-cni
     - grub

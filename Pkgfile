@@ -31,6 +31,11 @@ vars:
   drbd_sha256: 016127238d5e0585130ec9558d991347e5360fb3c075283c62ea67f661bcd66b
   drbd_sha512: 437e50d588b37aece7583eed06236c82931a41ab69f6835853fbeaf05125e4d5e0d1a81f501971e6773f86703d71d604ee3e1f0634faa9a03c3379d8297ed1cc
 
+  # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git
+  e2fsprogs_version: v1.47.1
+  e2fsprogs_sha256: db95ff1cb6ef741c9aa8875d9f3f52a34168360febba765b6377b80bada09a8c
+  e2fsprogs_sha512: 7e59746e14df9e29034693f415dc4bcbd405217712e2d9e594dcc755bbc1c9f3c4f66ba37e4289b022c337c5aae3d96561c0cd88fa21082ed1017d2a000d3b82
+
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
   systemd_version: 256.6
   systemd_sha256: c085f162dec001407dd32f00abbf20b7e6ed7043dcfaf8ed954787d86707f409
