@@ -1,0 +1,80 @@
+diff --git a/src/common/shared/inc/nvdevid.h b/src/common/shared/inc/nvdevid.h
+index 1d239ec2..b53fcfa5 100644
+--- a/src/common/shared/inc/nvdevid.h
++++ b/src/common/shared/inc/nvdevid.h
+@@ -146,6 +146,7 @@
+ #define PCI_VENDOR_ID_ARM           0x13B5
+ #define PCI_VENDOR_ID_HYGON         0x1D94
+ #define PCI_VENDOR_ID_ALIBABA       0x1DED
++#define PCI_VENDOR_ID_FREESCALE     0x1957
+ 
+ #define NV_PCI_DEVID_DEVICE                    31:16  /* RW--F */
+ #define NV_PCI_SUBID_DEVICE                    31:16  /* RW--F */
+@@ -632,6 +633,7 @@ enum {
+ ,     CS_INTEL_7A04
+ ,     CS_INTEL_5795
+ ,     CS_AMPERE_AMPEREONE
++,     CS_FREESCALE_LX2160A
+ ,     CS_MAX_PCIE
+ };
+ 
+diff --git a/src/nvidia/arch/nvalloc/common/inc/nvcst.h b/src/nvidia/arch/nvalloc/common/inc/nvcst.h
+index 684eda3d..99eb93fb 100644
+--- a/src/nvidia/arch/nvalloc/common/inc/nvcst.h
++++ b/src/nvidia/arch/nvalloc/common/inc/nvcst.h
+@@ -93,7 +93,7 @@ CHIPSET_SETUP_FUNC(Ampere_AmpereOne_setupFunc)
+ CHIPSET_SETUP_FUNC(Nvidia_T210_setupFunc)
+ CHIPSET_SETUP_FUNC(Nvidia_T194_setupFunc)
+ CHIPSET_SETUP_FUNC(Nvidia_TH500_setupFunc)
+-
++CHIPSET_SETUP_FUNC(Freescale_LX2160a_setupFunc)
+ 
+ // Keep string length <=32 (including termination) to avoid string copy overflow
+ CSINFO chipsetInfo[] =
+@@ -276,6 +276,7 @@ CSINFO chipsetInfo[] =
+     {PCI_VENDOR_ID_AMPERE,      0xE205, CS_AMPERE_AMPEREONE, "Ampere AmpereOne", Ampere_AmpereOne_setupFunc},
+     {PCI_VENDOR_ID_AMPERE,      0xE206, CS_AMPERE_AMPEREONE, "Ampere AmpereOne", Ampere_AmpereOne_setupFunc},
+     {PCI_VENDOR_ID_AMPERE,      0xE207, CS_AMPERE_AMPEREONE, "Ampere AmpereOne", Ampere_AmpereOne_setupFunc},
++    {PCI_VENDOR_ID_FREESCALE,   0x8D90, CS_FREESCALE_LX2160A, "Freescale Layerscape LX2160a", Freescale_LX2160a_setupFunc},
+ 
+ ///////////////////////////////////////////////////////////////////////////////////////////////////
+ 
+@@ -311,6 +312,7 @@ VENDORNAME vendorName[] =
+     {PCI_VENDOR_ID_CADENCE,     "Cadence"},
+     {PCI_VENDOR_ID_ARM,         "ARM"},
+     {PCI_VENDOR_ID_ALIBABA,     "Alibaba"},
++    {PCI_VENDOR_ID_FREESCALE,   "Freescale"},
+     {0,                         "Unknown"} // Indicates end of the table
+ };
+ 
+@@ -384,6 +386,8 @@ ARMCSALLOWLISTINFO armChipsetAllowListInfo[] =
+     {PCI_VENDOR_ID_AMPERE,      0xE206, CS_AMPERE_AMPEREONE},   // Ampere AmpereOne
+     {PCI_VENDOR_ID_AMPERE,      0xE207, CS_AMPERE_AMPEREONE},   // Ampere AmpereOne
+ 
++    {PCI_VENDOR_ID_FREESCALE,   0x8D90, CS_FREESCALE_LX2160A},  // Freescale LX2160a
++
+     // last element must have chipset CS_UNKNOWN (zero)
+     {0,                         0,      CS_UNKNOWN}
+ };
+diff --git a/src/nvidia/src/kernel/platform/chipset/chipset_info.c b/src/nvidia/src/kernel/platform/chipset/chipset_info.c
+index 31e5601b..0090cf06 100644
+--- a/src/nvidia/src/kernel/platform/chipset/chipset_info.c
++++ b/src/nvidia/src/kernel/platform/chipset/chipset_info.c
+@@ -1313,6 +1313,17 @@ Ampere_AmpereOne_setupFunc
+     return NV_OK;
+ }
+ 
++static NV_STATUS
++Freescale_LX2160a_setupFunc
++(
++    OBJCL *pCl
++)
++{
++    // TODO Need to check if any more PDB properties should be set
++    pCl->setProperty(pCl, PDB_PROP_CL_IS_CHIPSET_IO_COHERENT, NV_TRUE);
++    return NV_OK;
++}
++
+ void
+ csGetInfoStrings
+ (

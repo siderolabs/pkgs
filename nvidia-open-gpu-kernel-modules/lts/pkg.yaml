@@ -26,6 +26,7 @@ steps:
         cd kernel-open
 
         patch -p1 </pkg/patches/nvtophys.patch
+        patch -p1 </pkg/patches/lx2160-535.216.01.patch
 
         make -j $(nproc) SYSSRC=/src
     install:
