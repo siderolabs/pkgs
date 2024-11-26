@@ -5,39 +5,28 @@ dependencies:
   - stage: kernel-build
 steps:
   - sources:
-    # {{ if eq .ARCH "aarch64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
-      - url: https://developer.download.nvidia.com/compute/nvidia-driver/redist/nvidia_driver/linux-sbsa/nvidia_driver-linux-sbsa-{{ .nvidia_driver_lts_version }}-archive.tar.xz
-        destination: nvidia.tar.xz
-        sha256: 83e018efc0952824d6b907dd30cf84d1c93652d142c3fff5ca3859c44de24d1b
-        sha512: c1a59402590860f68ee30df23179cb9245ecd772b8845d0c2fcc28a544a56ba7ec688d7071cebc8dff826dc11fc192b3141f9a2481ba6c3693f28c5835f50416
-    # {{ else }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
-      - url: https://developer.download.nvidia.com/compute/nvidia-driver/redist/nvidia_driver/linux-x86_64/nvidia_driver-linux-x86_64-{{ .nvidia_driver_lts_version }}-archive.tar.xz
-        destination: nvidia.tar.xz
-        sha256: 44893fa59f87d20fee7c15573c17d7701ceb96e29a44013ee79fde30b245d045
-        sha512: d8ecaa0eef65aa2768eac41e836fe731c89431a8b2cd910962ab749c204701fb925ebca8943ead2e0456dc6b8568243349fb1e29c208216a17bdddb62b1f2a2d
-    # {{ end }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
+    - url: https://github.com/asymingt/open-gpu-kernel-modules/archive/refs/tags/{{ .nvidia_driver_lts_version }}.tar.gz
+      destination: nvidia.tar.gz
+      sha256: 416a861a0949471a9a28d05f570e2a4a801bb2e95f5774a1c0dca9ee2b289415
+      sha512: 7181101f7ce442f5401274a55b183d3dd77924c40b7e1c4a252266af15f6253354bfbf835f693905c11ca0312c5161f3326f41776ae83e39995efab9b2605237
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
     prepare:
       - |
-        tar xf nvidia.tar.xz --strip-components=1
+        tar xzf nvidia.tar.gz --strip-components=1
     build:
       - |
         cd kernel-open
-
         patch -p1 </pkg/patches/nvtophys.patch
-        patch -p1 </pkg/patches/lx2160-535.216.01.patch
-
+        cd ..
         make -j $(nproc) SYSSRC=/src
     install:
       - |
         cd kernel-open
-
         mkdir -p /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
         cp /src/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
         cp /src/modules.builtin /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
         cp /src/modules.builtin.modinfo /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
-
         make -j $(nproc) modules_install SYSSRC=/src DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs INSTALL_MOD_STRIP=1
     test:
       - |
