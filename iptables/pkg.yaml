@@ -3,6 +3,8 @@ variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
   - stage: base
+  - stage: libmnl
+  - stage: libnftnl
 steps:
   - sources:
       - url: https://fossies.org/linux/misc/iptables-{{ .iptables_version }}.tar.xz
@@ -13,12 +15,13 @@ steps:
       - |
         tar -xf iptables.tar.xz --strip-components=1
 
+        export PKG_CONFIG_PATH=/usr/lib/pkgconfig
+
         ./configure \
         --prefix=/usr \
         --libexecdir=/usr/libexec \
         --disable-static \
         --sbindir=/sbin \
-        --disable-nftables \
         --enable-libipq \
         --with-xtlibdir=/lib/xtables
 
@@ -30,6 +33,19 @@ steps:
     install:
       - |
         make install DESTDIR=/rootfs
+      - |
+        # fix up symlinks which point to legacy version to point to nft version
+        for f in /rootfs/sbin/*; do
+          # if name doesn't contain 'legacy':
+          if [[ $f == *legacy* ]]; then
+            continue
+          fi
+
+          # if it's a symlink:
+          if [ -L "$f" ]; then
+            ln -sf $(readlink $f | sed 's/legacy/nft/') $f
+          fi
+        done
 finalize:
   - from: /rootfs
     to: /
