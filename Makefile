@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2024-11-20T04:30:14Z by kres a8af16d.
+# Generated on 2024-12-06T11:24:18Z by kres 232fe63.
 
 # common variables
 
@@ -67,6 +67,8 @@ TARGETS += libcap
 TARGETS += libinih
 TARGETS += libjson-c
 TARGETS += liblzma
+TARGETS += libmnl
+TARGETS += libnftnl
 TARGETS += libpopt
 TARGETS += libseccomp
 TARGETS += libselinux

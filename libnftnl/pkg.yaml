@@ -1,0 +1,29 @@
+name: libnftnl
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+  - stage: libmnl
+steps:
+  - sources:
+      - url: https://netfilter.org/projects/libnftnl/files/libnftnl-{{ .libnftnl_version }}.tar.xz
+        destination: libnftnl.tar.bz2
+        sha256: "{{ .libnftnl_sha256 }}"
+        sha512: "{{ .libnftnl_sha512 }}"
+    prepare:
+      - |
+        tar -xf libnftnl.tar.bz2 --strip-components=1
+
+        export PKG_CONFIG_PATH=/usr/lib/pkgconfig
+
+        ./configure \
+          --prefix=/usr
+    build:
+      - |
+        make -j $(nproc)
+    install:
+      - |
+        make install DESTDIR=/rootfs
+finalize:
+  - from: /rootfs
+    to: /

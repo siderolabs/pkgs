@@ -1,0 +1,26 @@
+name: libmnl
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: https://www.netfilter.org/projects/libmnl/files/libmnl-{{ .libmnl_version }}.tar.bz2
+        destination: libmnl.tar.bz2
+        sha256: "{{ .libmnl_sha256 }}"
+        sha512: "{{ .libmnl_sha512 }}"
+    prepare:
+      - |
+        tar -xjf libmnl.tar.bz2 --strip-components=1
+
+        ./configure \
+          --prefix=/usr
+    build:
+      - |
+        make -j $(nproc)
+    install:
+      - |
+        make install DESTDIR=/rootfs
+finalize:
+  - from: /rootfs
+    to: /

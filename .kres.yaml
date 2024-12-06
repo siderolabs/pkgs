@@ -24,6 +24,8 @@ spec:
     - libinih
     - libjson-c
     - liblzma
+    - libmnl
+    - libnftnl
     - libpopt
     - libseccomp
     - libselinux
