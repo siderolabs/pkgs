@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2024-11-14T16:26:00Z by kres c0e2b63.
+# Generated on 2024-12-06T11:24:18Z by kres 232fe63.
 
 # common variables
 
@@ -64,6 +64,8 @@ TARGETS += libaio
 TARGETS += libinih
 TARGETS += libjson-c
 TARGETS += liblzma
+TARGETS += libmnl
+TARGETS += libnftnl
 TARGETS += libpopt
 TARGETS += libseccomp
 TARGETS += liburcu
