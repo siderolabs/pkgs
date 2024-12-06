@@ -219,7 +219,7 @@ vars:
   zfs_sha512: ae3f3f62f9fb767864ff162e086ae3d4f98a379e009b9afd665ce5f2c352f4267f774e333db1fc47cdefd4f919eb105ad9cd2c906b04c4368cbb64ec3e92659f
 
   # renovate: datasource=git-tags depName=https://gitlab.com/apparmor/apparmor.git
-  apparmor_version: v3.1.7
+  apparmor_version: v4.0.3
   apparmor_sha256: 64494bd99fa6547a9cbdb4fc6bc732451a02dd19e6eb70eab977b239632151eb
   apparmor_sha512: cfd6b0afb98d4559c16a6a2e23ca16ee9d86325fc6059313df5d3e8feba3d398f96a5754d3880dd2cafb2e7b1a06bd789d62cd36aaf993e46290f6311bb49dac
 labels:
