@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 6.12.1 Kernel Configuration
+# Linux/x86 6.12.3 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="gcc (GCC) 14.2.0"
 CONFIG_CC_IS_GCC=y
@@ -2129,7 +2129,6 @@ CONFIG_BLK_DEV=y
 CONFIG_CDROM=y
 # CONFIG_BLK_DEV_PCIESSD_MTIP32XX is not set
 # CONFIG_ZRAM is not set
-CONFIG_ZRAM_DEF_COMP="unset-value"
 CONFIG_BLK_DEV_LOOP=y
 CONFIG_BLK_DEV_LOOP_MIN_COUNT=8
 # CONFIG_BLK_DEV_DRBD is not set
