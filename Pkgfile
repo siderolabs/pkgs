@@ -177,9 +177,9 @@ vars:
   socat_sha512: c0a04e697f03da35d8c630de038e837c544e4dc77dd5bfbe73198d88b2d21727d9062114c1c50925daa264178f3317bc11c5504d1358ab7b3e8bce15e3e2dff9
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
-  xfsprogs_version: 6.11.0
-  xfsprogs_sha256: dae3bb432196f7b183b2e6bd5dc44bf33edbd7d0e85bd37d25c235df81b8100a
-  xfsprogs_sha512: 209b479e510e5d5c558430b523bebd90f34b2effeac46f783aad4ec45a9f39998ca1efc67155c54c22e778859968f4b275b0ca6f225603f17ae4cc5c7596a4ca
+  xfsprogs_version: 6.12.0
+  xfsprogs_sha256: 0832407247db791cc70def96e7e254bd6edf043dc84a80a62f3ccd6e3dffd329
+  xfsprogs_sha512: 020810b4a261f4ab4eb94aae813f22b26bb9f17705967198189509e684422361dd80af938e4a77cf326353d5d61d5aeaaee9a34e8a7b8ed1dddd63b7ad1b0510
 
   # renovate: datasource=github-tags extractVersion=^zfs-(?<version>.*)$ depName=openzfs/zfs
   zfs_version: 2.3.0
