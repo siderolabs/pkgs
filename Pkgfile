@@ -212,11 +212,9 @@ vars:
   xfsprogs_sha512: 209b479e510e5d5c558430b523bebd90f34b2effeac46f783aad4ec45a9f39998ca1efc67155c54c22e778859968f4b275b0ca6f225603f17ae4cc5c7596a4ca
 
   # renovate: datasource=github-tags extractVersion=^zfs-(?<version>.*)$ depName=openzfs/zfs
-  # [NOTE]: as a temporary workaround, a manual tarball was created for `zfs` main version after 2.3.0-rc.3
-  # when updating to the next version, remove the tarball
-  zfs_version: 2.3.0-rc3
-  zfs_sha256: 459639b89489f9139c9e91f9fb8dab77b5cb1ed6fb6c0bc31281d916b9581599
-  zfs_sha512: ae3f3f62f9fb767864ff162e086ae3d4f98a379e009b9afd665ce5f2c352f4267f774e333db1fc47cdefd4f919eb105ad9cd2c906b04c4368cbb64ec3e92659f
+  zfs_version: 2.2.7
+  zfs_sha256: b2b8e3bfabf2a6407a0132243726cb6762547a5bd095b1b1f37eaf2a9d8f7672
+  zfs_sha512: 6493faa8e31d9c042c4e8f748d32cb9243212fdf4e0341c19568b47bcf302e60beb89940b80374610b71e1dca1ca5813f3efaddbf1a2453ceabb38381165b271
 
   # renovate: datasource=git-tags depName=https://gitlab.com/apparmor/apparmor.git
   apparmor_version: v3.1.7
