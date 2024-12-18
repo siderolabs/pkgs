@@ -6,7 +6,7 @@ vars:
   TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.10.0-alpha.0
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
-  cni_version: v1.6.0
+  cni_version: v1.6.1
   cni_sha256: c7e994a755960ab8922c65d7bdbb26d1781a3afe90b9b688010c5e8636b95980
   cni_sha512: a967dcaedb595bad25e0643aba50b35fb850b5893518829951ba5622d195ab309a3a489c9eb9ff8ad1df9ad0244c05434143f564ea27c4d04f27e1c5be240554
 
@@ -37,7 +37,7 @@ vars:
   e2fsprogs_sha512: 7e59746e14df9e29034693f415dc4bcbd405217712e2d9e594dcc755bbc1c9f3c4f66ba37e4289b022c337c5aae3d96561c0cd88fa21082ed1017d2a000d3b82
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
-  systemd_version: 256.8
+  systemd_version: 256.9
   systemd_sha256: b3d003b4f6d1ab0bfae0cf7a37c4aa559923c49bc8e9d1331b7459e12ebc357a
   systemd_sha512: 0cdd41274b79177705f6999194ea2698e8bccd123d983733972e0fba4ece5467eddefec419a992d1646e93adda7b811810deec163a15f2c9347473caefe2ce09
 
@@ -68,7 +68,7 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 4f7dd7fbba205d413cf9b989f7cdc928fa02caf2
+  ipxe_ref: c0cbe7c2e69185bad65344914e757fe1844ee962
   ipxe_sha256: d08ad7ca555d0f529816c44bb09472325c9233124181cac944a0c7e1593d30c7
   ipxe_sha512: c5b8ec789fad016d3dfa325a601857e357ecd26fd353d8d657901898817ee1d7dc76d513811c81fdee2a9dc001af4c6d7285f736db9a1d6abd890e8e09b57c27
 
@@ -136,7 +136,7 @@ vars:
   libsepol_sha512: 85d12d0ba5a7a3225f08d041a18fd59641608db5e0a78a1e9649754e45be54a807cd422d4889b88da6e806b4af546336c7a0913448f08ac33dc6ffb983890ef8
 
   # renovate: datasource=git-tags extractVersion=^libcap-(?<version>.*)$ depName=git://git.kernel.org/pub/scm/libs/libcap/libcap.git
-  libcap_version: 2.72
+  libcap_version: 2.73
   libcap_sha256: 0274f5a15a5205f656d8f0169eef711dd29158ba8ad3b240618b342b2460175b
   libcap_sha512: c0726bcd5e48395c6f4edd34f0fcaa21d7b2fe35dbc88824c0d86b42859dbe507f55c1ac7f7352e2aa56e3632b7aa9a098ca9cc730c82f942106d2786b10ba2c
 
@@ -151,7 +151,7 @@ vars:
   linux_firmware_sha512: 75e2d7383e209c2f787a4369e171e2d9bd16dc9cc1cd74920874d1dc56a950df95981be942fd7aa95620ef18da3e50d0fd95886c1497c91c4e54f564fe381fc3
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
-  lvm2_version: 2_03_28
+  lvm2_version: 2_03_29
   lvm2_sha256: b822baff6b62df36382c717ceba98a2688ebb31bf2b768f3ffa2b6d5e2557242
   lvm2_sha512: 6b203dcf71ec91e663512458a6b25ebee4c7ee699c67f26ad42a74c054d157bd7f74f8f17f4217dd660b4bf421dd26ee1dd6048f321696168c9e81b354a8393a
 
@@ -197,7 +197,7 @@ vars:
   runc_sha512: eeb7ab4a81393aea26d5f8a50cd40225ab5b9058b0b6739d99cdaf9aa5d06c91cbc1b678cd08c741dfc06b474116fcbc7903fa0801ce94fd6ab1b690bcd3f625
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
-  socat_version: 1.8.0.1
+  socat_version: 1.8.0.2
   socat_sha256: dc350411e03da657269e529c4d49fe23ba7b4610b0b225c020df4cf9b46e6982
   socat_sha512: 2a327b4c2e00fc6afda503548d5bc285d4f120892c75ec6633201825e39e3003a8b8d827053364dc444b72ff728a82381769941c023d8b0a66d955417162b735
 
@@ -207,7 +207,7 @@ vars:
   util_linux_sha512: ffe20b915a518a150401d429b0338bc7022190e4ca0ef91a6d9eea345db8c1e11ad01784163b8fcf978506f3f5cad473f29d5d4ef93a4c66a5ae0ebd9fb0c8f2
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
-  xfsprogs_version: 6.11.0
+  xfsprogs_version: 6.12.0
   xfsprogs_sha256: dae3bb432196f7b183b2e6bd5dc44bf33edbd7d0e85bd37d25c235df81b8100a
   xfsprogs_sha512: 209b479e510e5d5c558430b523bebd90f34b2effeac46f783aad4ec45a9f39998ca1efc67155c54c22e778859968f4b275b0ca6f225603f17ae4cc5c7596a4ca
 
