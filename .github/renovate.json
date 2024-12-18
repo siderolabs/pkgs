@@ -16,7 +16,7 @@
                 "Pkgfile"
             ],
             "matchStrings": [
-                "# renovate: datasource=(?<datasource>.*?)(?:\\s+extractVersion=(?<extractVersion>.+?))?(?:\\s+versioning=(?<versioning>.+?))?\\s+depName=(?<depName>.+?)?\\s(?:\\s+.*_(?:version|VERSION):\\s+(?<currentValue>.*))?(?:\\s.*_(?:ref|REF):\\s+(?<currentDigest>.*))?"
+                "# renovate: datasource=(?<datasource>.*?)(?:\\s+extractVersion=(?<extractVersion>.+?))?(?:\\s+versioning=(?<versioning>.+?))?\\s+depName=(?<depName>.+?)?\\s(?:.*_(?:version|VERSION):\\s+(?<currentValue>.*))?(?:(\\s)?.*_(?:ref|REF):\\s+(?<currentDigest>.*))?"
             ]
         },
         {
@@ -25,8 +25,7 @@
             "depNameTemplate": "siderolabs/bldr",
             "versioningTemplate": "semver",
             "fileMatch": [
-                "Pkgfile",
-                "Makefile"
+                "Pkgfile"
             ],
             "matchStrings": [
                 "ghcr.io\\/siderolabs\\/bldr:(?<currentValue>v.*)"
