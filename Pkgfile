@@ -6,9 +6,9 @@ vars:
   TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.10.0-alpha.0
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
-  cni_version: v1.6.0
-  cni_sha256: c7e994a755960ab8922c65d7bdbb26d1781a3afe90b9b688010c5e8636b95980
-  cni_sha512: a967dcaedb595bad25e0643aba50b35fb850b5893518829951ba5622d195ab309a3a489c9eb9ff8ad1df9ad0244c05434143f564ea27c4d04f27e1c5be240554
+  cni_version: v1.6.1
+  cni_sha256: 5e2ea69bca08bfb92921f22fa2cc1e69392ee139a5878068dfbc1c7568e37b01
+  cni_sha512: 62b4e2c5c4bf6a9b21880e7b145547bec153f591926419d9960345cc7fb7d499ae44b0236928bbfeb46e383f38018d7504e58da1dd8a6ad39ef4ae3122b3be56
 
   # renovate: datasource=github-tags depName=containerd/containerd
   containerd_version: v2.0.1
@@ -73,9 +73,9 @@ vars:
   ipxe_sha512: c5b8ec789fad016d3dfa325a601857e357ecd26fd353d8d657901898817ee1d7dc76d513811c81fdee2a9dc001af4c6d7285f736db9a1d6abd890e8e09b57c27
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.12.5
-  linux_sha256: 39207fce1ce42838e085261bae0af5ce4a0843aa777cfc0f5c49bc7729602bcd
-  linux_sha512: 1331df19fda83120d2b5491b6978cce4003229892b4fa40d5b8c10910293207cc36ec212621583e6c848f8ba42179637437f03df353aabe941922846f84a2371
+  linux_version: 6.12.6
+  linux_sha256: d450ab215de4e1f8bb85e0f4216760fa33fd024b4526b144f4ce0d9012b29c9e
+  linux_sha512: 35fcfc5044b1bf892b6432a330df26c5601f78f78f416400359f5e08c448255bcf424de611e67ff7ac72d014884d5f3c6c2bddb20d08dd47469df5c0424832f9
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 33
