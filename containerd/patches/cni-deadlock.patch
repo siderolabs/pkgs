@@ -1,0 +1,2158 @@
+diff --git a/go.mod b/go.mod
+index 0f69d076f..b38bf2ce3 100644
+--- a/go.mod
++++ b/go.mod
+@@ -2,6 +2,8 @@ module github.com/containerd/containerd/v2
+ 
+ go 1.22.0
+ 
++replace github.com/containerd/go-cni => github.com/smira/go-cni v0.0.0-20241224121944-75a24409e819
++
+ require (
+ 	dario.cat/mergo v1.0.1
+ 	github.com/AdaLogics/go-fuzz-headers v0.0.0-20240806141605-e8a1dd7889d6
+@@ -118,12 +120,14 @@ require (
+ 	github.com/modern-go/reflect2 v1.0.2 // indirect
+ 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
+ 	github.com/mxk/go-flowrate v0.0.0-20140419014527-cca7078d478f // indirect
++	github.com/petermattis/goid v0.0.0-20240813172612-4fcff4a6cae7 // indirect
+ 	github.com/pkg/errors v0.9.1 // indirect
+ 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
+ 	github.com/prometheus/client_model v0.6.1 // indirect
+ 	github.com/prometheus/common v0.55.0 // indirect
+ 	github.com/prometheus/procfs v0.15.1 // indirect
+ 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
++	github.com/sasha-s/go-deadlock v0.3.5 // indirect
+ 	github.com/stefanberger/go-pkcs11uri v0.0.0-20230803200340-78284954bff6 // indirect
+ 	github.com/syndtr/gocapability v0.0.0-20200815063812-42c35b437635 // indirect
+ 	github.com/vishvananda/netns v0.0.4 // indirect
+diff --git a/go.sum b/go.sum
+index 455584edf..1d44e230c 100644
+--- a/go.sum
++++ b/go.sum
+@@ -679,8 +679,6 @@ github.com/containerd/errdefs/pkg v0.3.0 h1:9IKJ06FvyNlexW690DXuQNx2KA2cUJXx151X
+ github.com/containerd/errdefs/pkg v0.3.0/go.mod h1:NJw6s9HwNuRhnjJhM7pylWwMyAkmCQvQ4GpJHEqRLVk=
+ github.com/containerd/fifo v1.1.0 h1:4I2mbh5stb1u6ycIABlBw9zgtlK8viPI9QkQNRQEEmY=
+ github.com/containerd/fifo v1.1.0/go.mod h1:bmC4NWMbXlt2EZ0Hc7Fx7QzTFxgPID13eH0Qu+MAb2o=
+-github.com/containerd/go-cni v1.1.11 h1:fWt1K15AmSLsEfa57N+qYw4NeGPiQKYq1pjNGJwV9mc=
+-github.com/containerd/go-cni v1.1.11/go.mod h1:/Y/sL8yqYQn1ZG1om1OncJB1W4zN3YmjfP/ShCzG/OY=
+ github.com/containerd/go-runc v1.1.0 h1:OX4f+/i2y5sUT7LhmcJH7GYrjjhHa1QI4e8yO0gGleA=
+ github.com/containerd/go-runc v1.1.0/go.mod h1:xJv2hFF7GvHtTJd9JqTS2UVxMkULUYw4JN5XAUZqH5U=
+ github.com/containerd/imgcrypt/v2 v2.0.0-rc.1 h1:7OMu5otk5Z2GeQs24JBPOmYbTc50+q6jo02qWNJc0p8=
+@@ -1027,6 +1025,8 @@ github.com/opencontainers/selinux v1.11.1 h1:nHFvthhM0qY8/m+vfhJylliSshm8G1jJ2jD
+ github.com/opencontainers/selinux v1.11.1/go.mod h1:E5dMC3VPuVvVHDYmi78qvhJp8+M586T4DlDRYpFkyec=
+ github.com/pelletier/go-toml/v2 v2.2.3 h1:YmeHyLY8mFWbdkNWwpr+qIL2bEqT0o95WSdkNHvL12M=
+ github.com/pelletier/go-toml/v2 v2.2.3/go.mod h1:MfCQTFTvCcUyyvvwm1+G6H/jORL20Xlb6rzQu9GuUkc=
++github.com/petermattis/goid v0.0.0-20240813172612-4fcff4a6cae7 h1:Dx7Ovyv/SFnMFw3fD4oEoeorXc6saIiQ23LrGLth0Gw=
++github.com/petermattis/goid v0.0.0-20240813172612-4fcff4a6cae7/go.mod h1:pxMtw7cyUw6B2bRH0ZBANSPg+AoSud1I1iyJHI69jH4=
+ github.com/phpdave11/gofpdf v1.4.2/go.mod h1:zpO6xFn9yxo3YLyMvW8HcKWVdbNqgIfOOp2dXMnm1mY=
+ github.com/phpdave11/gofpdi v1.0.12/go.mod h1:vBmVV0Do6hSBHC8uKUQ71JGW+ZGQq74llk/7bXwjDoI=
+ github.com/phpdave11/gofpdi v1.0.13/go.mod h1:vBmVV0Do6hSBHC8uKUQ71JGW+ZGQq74llk/7bXwjDoI=
+@@ -1074,10 +1074,14 @@ github.com/russross/blackfriday/v2 v2.1.0 h1:JIOH55/0cWyOuilr9/qlrm0BSXldqnqwMsf
+ github.com/russross/blackfriday/v2 v2.1.0/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQDYRxCVz55jmeOWTM=
+ github.com/ruudk/golang-pdf417 v0.0.0-20181029194003-1af4ab5afa58/go.mod h1:6lfFZQK844Gfx8o5WFuvpxWRwnSoipWe/p622j1v06w=
+ github.com/ruudk/golang-pdf417 v0.0.0-20201230142125-a7e3863a1245/go.mod h1:pQAZKsJ8yyVxGRWYNEm9oFB8ieLgKFnamEyDmSA0BRk=
++github.com/sasha-s/go-deadlock v0.3.5 h1:tNCOEEDG6tBqrNDOX35j/7hL5FcFViG6awUGROb2NsU=
++github.com/sasha-s/go-deadlock v0.3.5/go.mod h1:bugP6EGbdGYObIlx7pUZtWqlvo8k9H6vCBBsiChJQ5U=
+ github.com/sirupsen/logrus v1.2.0/go.mod h1:LxeOpSwHxABJmUn/MG1IvRgCAasNZTLOkJPxbbu5VWo=
+ github.com/sirupsen/logrus v1.8.1/go.mod h1:yWOB1SBYBC5VeMP7gHvWumXLIWorT60ONWic61uBYv0=
+ github.com/sirupsen/logrus v1.9.3 h1:dueUQJ1C2q9oE3F7wvmSGAaVtTmUizReu6fjN8uqzbQ=
+ github.com/sirupsen/logrus v1.9.3/go.mod h1:naHLuLoDiP4jHNo9R0sCBMtWGeIprob74mVsIT4qYEQ=
++github.com/smira/go-cni v0.0.0-20241224121944-75a24409e819 h1:znUF/b0AU1/94qYzrq8dDH658BJdYw/CSOvyOByC+7g=
++github.com/smira/go-cni v0.0.0-20241224121944-75a24409e819/go.mod h1:+jaqRBdtW5faJxj2Qwg1Of7GsV66xcvnCx4mSJtUlxU=
+ github.com/spaolacci/murmur3 v0.0.0-20180118202830-f09979ecbc72/go.mod h1:JwIasOWyU6f++ZhiEuf87xNszmSA2myDM2Kzu9HwQUA=
+ github.com/spf13/afero v1.3.3/go.mod h1:5KUK8ByomD5Ti5Artl0RtHeI5pTF7MIDuXL3yY520V4=
+ github.com/spf13/afero v1.6.0/go.mod h1:Ai8FlHk4v/PARR026UzYexafAt9roJ7LcLMAmO6Z93I=
+diff --git a/vendor/github.com/containerd/go-cni/cni.go b/vendor/github.com/containerd/go-cni/cni.go
+index 003f30293..70ca3821e 100644
+--- a/vendor/github.com/containerd/go-cni/cni.go
++++ b/vendor/github.com/containerd/go-cni/cni.go
+@@ -80,7 +80,10 @@ type libcni struct {
+ 	cniConfig    cnilibrary.CNI
+ 	networkCount int // minimum network plugin configurations needed to initialize cni
+ 	networks     []*Network
+-	sync.RWMutex
++	// Mutex contract:
++	// - lock in public methods: write lock when mutating the state, read lock when reading the state.
++	// - never lock in private methods.
++	RWMutex
+ }
+ 
+ func defaultCNIConfig() *libcni {
+@@ -135,11 +138,11 @@ func (c *libcni) Load(opts ...Opt) error {
+ 
+ // Status returns the status of CNI initialization.
+ func (c *libcni) Status() error {
++	c.RLock()
++	defer c.RUnlock()
+ 	if err := c.ready(); err != nil {
+ 		return err
+ 	}
+-	c.RLock()
+-	defer c.RUnlock()
+ 	// STATUS is only called for CNI Version 1.1.0 or greater. It is ignored for previous versions.
+ 	for _, v := range c.networks {
+ 		err := c.cniConfig.GetStatusNetworkList(context.Background(), v.config)
+@@ -162,11 +165,11 @@ func (c *libcni) Networks() []*Network {
+ 
+ // Setup setups the network in the namespace and returns a Result
+ func (c *libcni) Setup(ctx context.Context, id string, path string, opts ...NamespaceOpts) (*Result, error) {
++	c.RLock()
++	defer c.RUnlock()
+ 	if err := c.ready(); err != nil {
+ 		return nil, err
+ 	}
+-	c.RLock()
+-	defer c.RUnlock()
+ 	ns, err := newNamespace(id, path, opts...)
+ 	if err != nil {
+ 		return nil, err
+@@ -180,11 +183,11 @@ func (c *libcni) Setup(ctx context.Context, id string, path string, opts ...Name
+ 
+ // SetupSerially setups the network in the namespace and returns a Result
+ func (c *libcni) SetupSerially(ctx context.Context, id string, path string, opts ...NamespaceOpts) (*Result, error) {
++	c.RLock()
++	defer c.RUnlock()
+ 	if err := c.ready(); err != nil {
+ 		return nil, err
+ 	}
+-	c.RLock()
+-	defer c.RUnlock()
+ 	ns, err := newNamespace(id, path, opts...)
+ 	if err != nil {
+ 		return nil, err
+@@ -198,7 +201,7 @@ func (c *libcni) SetupSerially(ctx context.Context, id string, path string, opts
+ 
+ func (c *libcni) attachNetworksSerially(ctx context.Context, ns *Namespace) ([]*types100.Result, error) {
+ 	var results []*types100.Result
+-	for _, network := range c.Networks() {
++	for _, network := range c.networks {
+ 		r, err := network.Attach(ctx, ns)
+ 		if err != nil {
+ 			return nil, err
+@@ -223,15 +226,15 @@ func asynchAttach(ctx context.Context, index int, n *Network, ns *Namespace, wg
+ func (c *libcni) attachNetworks(ctx context.Context, ns *Namespace) ([]*types100.Result, error) {
+ 	var wg sync.WaitGroup
+ 	var firstError error
+-	results := make([]*types100.Result, len(c.Networks()))
++	results := make([]*types100.Result, len(c.networks))
+ 	rc := make(chan asynchAttachResult)
+ 
+-	for i, network := range c.Networks() {
++	for i, network := range c.networks {
+ 		wg.Add(1)
+ 		go asynchAttach(ctx, i, network, ns, &wg, rc)
+ 	}
+ 
+-	for range c.Networks() {
++	for range c.networks {
+ 		rs := <-rc
+ 		if rs.err != nil && firstError == nil {
+ 			firstError = rs.err
+@@ -245,16 +248,16 @@ func (c *libcni) attachNetworks(ctx context.Context, ns *Namespace) ([]*types100
+ 
+ // Remove removes the network config from the namespace
+ func (c *libcni) Remove(ctx context.Context, id string, path string, opts ...NamespaceOpts) error {
++	c.RLock()
++	defer c.RUnlock()
+ 	if err := c.ready(); err != nil {
+ 		return err
+ 	}
+-	c.RLock()
+-	defer c.RUnlock()
+ 	ns, err := newNamespace(id, path, opts...)
+ 	if err != nil {
+ 		return err
+ 	}
+-	for _, network := range c.Networks() {
++	for _, network := range c.networks {
+ 		if err := network.Remove(ctx, ns); err != nil {
+ 			// Based on CNI spec v0.7.0, empty network namespace is allowed to
+ 			// do best effort cleanup. However, it is not handled consistently
+@@ -275,16 +278,16 @@ func (c *libcni) Remove(ctx context.Context, id string, path string, opts ...Nam
+ 
+ // Check checks if the network is still in desired state
+ func (c *libcni) Check(ctx context.Context, id string, path string, opts ...NamespaceOpts) error {
++	c.RLock()
++	defer c.RUnlock()
+ 	if err := c.ready(); err != nil {
+ 		return err
+ 	}
+-	c.RLock()
+-	defer c.RUnlock()
+ 	ns, err := newNamespace(id, path, opts...)
+ 	if err != nil {
+ 		return err
+ 	}
+-	for _, network := range c.Networks() {
++	for _, network := range c.networks {
+ 		err := network.Check(ctx, ns)
+ 		if err != nil {
+ 			return err
+@@ -329,8 +332,6 @@ func (c *libcni) reset() {
+ }
+ 
+ func (c *libcni) ready() error {
+-	c.RLock()
+-	defer c.RUnlock()
+ 	if len(c.networks) < c.networkCount {
+ 		return ErrCNINotInitialized
+ 	}
+diff --git a/vendor/github.com/containerd/go-cni/deprecated.go b/vendor/github.com/containerd/go-cni/deprecated.go
+index 06afd1543..fd8b3eb33 100644
+--- a/vendor/github.com/containerd/go-cni/deprecated.go
++++ b/vendor/github.com/containerd/go-cni/deprecated.go
+@@ -30,5 +30,7 @@ type CNIResult = Result //revive:disable // type name will be used as cni.CNIRes
+ // results fails, or if a network could not be found.
+ // Deprecated: do not use
+ func (c *libcni) GetCNIResultFromResults(results []*types100.Result) (*Result, error) {
++	c.RLock()
++	defer c.RUnlock()
+ 	return c.createResult(results)
+ }
+diff --git a/vendor/github.com/containerd/go-cni/mutex.go b/vendor/github.com/containerd/go-cni/mutex.go
+new file mode 100644
+index 000000000..8d40d62d0
+--- /dev/null
++++ b/vendor/github.com/containerd/go-cni/mutex.go
+@@ -0,0 +1,23 @@
++//go:build !deadlocks && !race
++
++/*
++   Copyright The containerd Authors.
++
++   Licensed under the Apache License, Version 2.0 (the "License");
++   you may not use this file except in compliance with the License.
++   You may obtain a copy of the License at
++
++       http://www.apache.org/licenses/LICENSE-2.0
++
++   Unless required by applicable law or agreed to in writing, software
++   distributed under the License is distributed on an "AS IS" BASIS,
++   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++   See the License for the specific language governing permissions and
++   limitations under the License.
++*/
++
++package cni
++
++import "sync"
++
++type RWMutex = sync.RWMutex
+diff --git a/vendor/github.com/containerd/go-cni/mutex_deadlocks.go b/vendor/github.com/containerd/go-cni/mutex_deadlocks.go
+new file mode 100644
+index 000000000..20e97b2b1
+--- /dev/null
++++ b/vendor/github.com/containerd/go-cni/mutex_deadlocks.go
+@@ -0,0 +1,25 @@
++//go:build deadlocks || race
++
++/*
++   Copyright The containerd Authors.
++
++   Licensed under the Apache License, Version 2.0 (the "License");
++   you may not use this file except in compliance with the License.
++   You may obtain a copy of the License at
++
++       http://www.apache.org/licenses/LICENSE-2.0
++
++   Unless required by applicable law or agreed to in writing, software
++   distributed under the License is distributed on an "AS IS" BASIS,
++   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++   See the License for the specific language governing permissions and
++   limitations under the License.
++*/
++
++package cni
++
++import (
++	"github.com/sasha-s/go-deadlock"
++)
++
++type RWMutex = deadlock.RWMutex
+diff --git a/vendor/github.com/containerd/go-cni/result.go b/vendor/github.com/containerd/go-cni/result.go
+index 0dd002e8e..ea160dff3 100644
+--- a/vendor/github.com/containerd/go-cni/result.go
++++ b/vendor/github.com/containerd/go-cni/result.go
+@@ -69,8 +69,6 @@ type Config struct {
+ // interfaces created in the namespace. It returns an error if validation of
+ // results fails, or if a network could not be found.
+ func (c *libcni) createResult(results []*types100.Result) (*Result, error) {
+-	c.RLock()
+-	defer c.RUnlock()
+ 	r := &Result{
+ 		Interfaces: make(map[string]*Config),
+ 		raw:        results,
+diff --git a/vendor/github.com/containerd/go-cni/testutils.go b/vendor/github.com/containerd/go-cni/testutils.go
+index c27010039..d195feaf7 100644
+--- a/vendor/github.com/containerd/go-cni/testutils.go
++++ b/vendor/github.com/containerd/go-cni/testutils.go
+@@ -23,22 +23,11 @@ import (
+ 	"testing"
+ )
+ 
+-func makeTmpDir(prefix string) (string, error) {
+-	tmpDir, err := os.MkdirTemp("", prefix)
+-	if err != nil {
+-		return "", err
+-	}
+-	return tmpDir, nil
+-}
+-
+ func makeFakeCNIConfig(t *testing.T) (string, string) {
+-	cniDir, err := makeTmpDir("fakecni")
+-	if err != nil {
+-		t.Fatalf("Failed to create plugin config dir: %v", err)
+-	}
++	cniDir := t.TempDir()
+ 
+ 	cniConfDir := path.Join(cniDir, "net.d")
+-	err = os.MkdirAll(cniConfDir, 0777)
++	err := os.MkdirAll(cniConfDir, 0777)
+ 	if err != nil {
+ 		t.Fatalf("Failed to create network config dir: %v", err)
+ 	}
+@@ -69,13 +58,6 @@ func makeFakeCNIConfig(t *testing.T) (string, string) {
+ 	return cniDir, cniConfDir
+ }
+ 
+-func tearDownCNIConfig(t *testing.T, confDir string) {
+-	err := os.RemoveAll(confDir)
+-	if err != nil {
+-		t.Fatalf("Failed to cleanup CNI configs: %v", err)
+-	}
+-}
+-
+ func buildFakeConfig(t *testing.T) (string, string) {
+ 	conf := `
+ 	{
+@@ -111,13 +93,10 @@ func buildFakeConfig(t *testing.T) (string, string) {
+ 	]
+ 	}`
+ 
+-	cniDir, err := makeTmpDir("fakecni")
+-	if err != nil {
+-		t.Fatalf("Failed to create plugin config dir: %v", err)
+-	}
++	cniDir := t.TempDir()
+ 
+ 	cniConfDir := path.Join(cniDir, "net.d")
+-	err = os.MkdirAll(cniConfDir, 0777)
++	err := os.MkdirAll(cniConfDir, 0777)
+ 	if err != nil {
+ 		t.Fatalf("Failed to create network config dir: %v", err)
+ 	}
+diff --git a/vendor/github.com/petermattis/goid/.gitignore b/vendor/github.com/petermattis/goid/.gitignore
+new file mode 100644
+index 000000000..2b9d6b552
+--- /dev/null
++++ b/vendor/github.com/petermattis/goid/.gitignore
+@@ -0,0 +1,4 @@
++*~
++*.test
++.*.swp
++.DS_Store
+diff --git a/vendor/github.com/petermattis/goid/LICENSE b/vendor/github.com/petermattis/goid/LICENSE
+new file mode 100644
+index 000000000..e06d20818
+--- /dev/null
++++ b/vendor/github.com/petermattis/goid/LICENSE
+@@ -0,0 +1,202 @@
++Apache License
++                           Version 2.0, January 2004
++                        http://www.apache.org/licenses/
++
++   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
++
++   1. Definitions.
++
++      "License" shall mean the terms and conditions for use, reproduction,
++      and distribution as defined by Sections 1 through 9 of this document.
++
++      "Licensor" shall mean the copyright owner or entity authorized by
++      the copyright owner that is granting the License.
++
++      "Legal Entity" shall mean the union of the acting entity and all
++      other entities that control, are controlled by, or are under common
++      control with that entity. For the purposes of this definition,
++      "control" means (i) the power, direct or indirect, to cause the
++      direction or management of such entity, whether by contract or
++      otherwise, or (ii) ownership of fifty percent (50%) or more of the
++      outstanding shares, or (iii) beneficial ownership of such entity.
++
++      "You" (or "Your") shall mean an individual or Legal Entity
++      exercising permissions granted by this License.
++
++      "Source" form shall mean the preferred form for making modifications,
++      including but not limited to software source code, documentation
++      source, and configuration files.
++
++      "Object" form shall mean any form resulting from mechanical
++      transformation or translation of a Source form, including but
++      not limited to compiled object code, generated documentation,
++      and conversions to other media types.
++
++      "Work" shall mean the work of authorship, whether in Source or
++      Object form, made available under the License, as indicated by a
++      copyright notice that is included in or attached to the work
++      (an example is provided in the Appendix below).
++
++      "Derivative Works" shall mean any work, whether in Source or Object
++      form, that is based on (or derived from) the Work and for which the
++      editorial revisions, annotations, elaborations, or other modifications
++      represent, as a whole, an original work of authorship. For the purposes
++      of this License, Derivative Works shall not include works that remain
++      separable from, or merely link (or bind by name) to the interfaces of,
++      the Work and Derivative Works thereof.
++
++      "Contribution" shall mean any work of authorship, including
++      the original version of the Work and any modifications or additions
++      to that Work or Derivative Works thereof, that is intentionally
++      submitted to Licensor for inclusion in the Work by the copyright owner
++      or by an individual or Legal Entity authorized to submit on behalf of
++      the copyright owner. For the purposes of this definition, "submitted"
++      means any form of electronic, verbal, or written communication sent
++      to the Licensor or its representatives, including but not limited to
++      communication on electronic mailing lists, source code control systems,
++      and issue tracking systems that are managed by, or on behalf of, the
++      Licensor for the purpose of discussing and improving the Work, but
++      excluding communication that is conspicuously marked or otherwise
++      designated in writing by the copyright owner as "Not a Contribution."
++
++      "Contributor" shall mean Licensor and any individual or Legal Entity
++      on behalf of whom a Contribution has been received by Licensor and
++      subsequently incorporated within the Work.
++
++   2. Grant of Copyright License. Subject to the terms and conditions of
++      this License, each Contributor hereby grants to You a perpetual,
++      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
++      copyright license to reproduce, prepare Derivative Works of,
++      publicly display, publicly perform, sublicense, and distribute the
++      Work and such Derivative Works in Source or Object form.
++
++   3. Grant of Patent License. Subject to the terms and conditions of
++      this License, each Contributor hereby grants to You a perpetual,
++      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
++      (except as stated in this section) patent license to make, have made,
++      use, offer to sell, sell, import, and otherwise transfer the Work,
++      where such license applies only to those patent claims licensable
++      by such Contributor that are necessarily infringed by their
++      Contribution(s) alone or by combination of their Contribution(s)
++      with the Work to which such Contribution(s) was submitted. If You
++      institute patent litigation against any entity (including a
++      cross-claim or counterclaim in a lawsuit) alleging that the Work
++      or a Contribution incorporated within the Work constitutes direct
++      or contributory patent infringement, then any patent licenses
++      granted to You under this License for that Work shall terminate
++      as of the date such litigation is filed.
++
++   4. Redistribution. You may reproduce and distribute copies of the
++      Work or Derivative Works thereof in any medium, with or without
++      modifications, and in Source or Object form, provided that You
++      meet the following conditions:
++
++      (a) You must give any other recipients of the Work or
++          Derivative Works a copy of this License; and
++
++      (b) You must cause any modified files to carry prominent notices
++          stating that You changed the files; and
++
++      (c) You must retain, in the Source form of any Derivative Works
++          that You distribute, all copyright, patent, trademark, and
++          attribution notices from the Source form of the Work,
++          excluding those notices that do not pertain to any part of
++          the Derivative Works; and
++
++      (d) If the Work includes a "NOTICE" text file as part of its
++          distribution, then any Derivative Works that You distribute must
++          include a readable copy of the attribution notices contained
++          within such NOTICE file, excluding those notices that do not
++          pertain to any part of the Derivative Works, in at least one
++          of the following places: within a NOTICE text file distributed
++          as part of the Derivative Works; within the Source form or
++          documentation, if provided along with the Derivative Works; or,
++          within a display generated by the Derivative Works, if and
++          wherever such third-party notices normally appear. The contents
++          of the NOTICE file are for informational purposes only and
++          do not modify the License. You may add Your own attribution
++          notices within Derivative Works that You distribute, alongside
++          or as an addendum to the NOTICE text from the Work, provided
++          that such additional attribution notices cannot be construed
++          as modifying the License.
++
++      You may add Your own copyright statement to Your modifications and
++      may provide additional or different license terms and conditions
++      for use, reproduction, or distribution of Your modifications, or
++      for any such Derivative Works as a whole, provided Your use,
++      reproduction, and distribution of the Work otherwise complies with
++      the conditions stated in this License.
++
++   5. Submission of Contributions. Unless You explicitly state otherwise,
++      any Contribution intentionally submitted for inclusion in the Work
++      by You to the Licensor shall be under the terms and conditions of
++      this License, without any additional terms or conditions.
++      Notwithstanding the above, nothing herein shall supersede or modify
++      the terms of any separate license agreement you may have executed
++      with Licensor regarding such Contributions.
++
++   6. Trademarks. This License does not grant permission to use the trade
++      names, trademarks, service marks, or product names of the Licensor,
++      except as required for reasonable and customary use in describing the
++      origin of the Work and reproducing the content of the NOTICE file.
++
++   7. Disclaimer of Warranty. Unless required by applicable law or
++      agreed to in writing, Licensor provides the Work (and each
++      Contributor provides its Contributions) on an "AS IS" BASIS,
++      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
++      implied, including, without limitation, any warranties or conditions
++      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
++      PARTICULAR PURPOSE. You are solely responsible for determining the
++      appropriateness of using or redistributing the Work and assume any
++      risks associated with Your exercise of permissions under this License.
++
++   8. Limitation of Liability. In no event and under no legal theory,
++      whether in tort (including negligence), contract, or otherwise,
++      unless required by applicable law (such as deliberate and grossly
++      negligent acts) or agreed to in writing, shall any Contributor be
++      liable to You for damages, including any direct, indirect, special,
++      incidental, or consequential damages of any character arising as a
++      result of this License or out of the use or inability to use the
++      Work (including but not limited to damages for loss of goodwill,
++      work stoppage, computer failure or malfunction, or any and all
++      other commercial damages or losses), even if such Contributor
++      has been advised of the possibility of such damages.
++
++   9. Accepting Warranty or Additional Liability. While redistributing
++      the Work or Derivative Works thereof, You may choose to offer,
++      and charge a fee for, acceptance of support, warranty, indemnity,
++      or other liability obligations and/or rights consistent with this
++      License. However, in accepting such obligations, You may act only
++      on Your own behalf and on Your sole responsibility, not on behalf
++      of any other Contributor, and only if You agree to indemnify,
++      defend, and hold each Contributor harmless for any liability
++      incurred by, or claims asserted against, such Contributor by reason
++      of your accepting any such warranty or additional liability.
++
++   END OF TERMS AND CONDITIONS
++
++   APPENDIX: How to apply the Apache License to your work.
++
++      To apply the Apache License to your work, attach the following
++      boilerplate notice, with the fields enclosed by brackets "{}"
++      replaced with your own identifying information. (Don't include
++      the brackets!)  The text should be enclosed in the appropriate
++      comment syntax for the file format. We also recommend that a
++      file or class name and description of purpose be included on the
++      same "printed page" as the copyright notice for easier
++      identification within third-party archives.
++
++   Copyright {yyyy} {name of copyright owner}
++
++   Licensed under the Apache License, Version 2.0 (the "License");
++   you may not use this file except in compliance with the License.
++   You may obtain a copy of the License at
++
++       http://www.apache.org/licenses/LICENSE-2.0
++
++   Unless required by applicable law or agreed to in writing, software
++   distributed under the License is distributed on an "AS IS" BASIS,
++   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++   See the License for the specific language governing permissions and
++   limitations under the License.
++
+diff --git a/vendor/github.com/petermattis/goid/README.md b/vendor/github.com/petermattis/goid/README.md
+new file mode 100644
+index 000000000..3fd144c2c
+--- /dev/null
++++ b/vendor/github.com/petermattis/goid/README.md
+@@ -0,0 +1,4 @@
++# goid ![Build Status](https://github.com/petermattis/goid/actions/workflows/go.yml/badge.svg)
++
++Programatically retrieve the current goroutine's ID. See [the CI
++configuration](.github/workflows/go.yml) for supported Go versions.
+diff --git a/vendor/github.com/petermattis/goid/goid.go b/vendor/github.com/petermattis/goid/goid.go
+new file mode 100644
+index 000000000..408e61992
+--- /dev/null
++++ b/vendor/github.com/petermattis/goid/goid.go
+@@ -0,0 +1,35 @@
++// Copyright 2016 Peter Mattis.
++//
++// Licensed under the Apache License, Version 2.0 (the "License");
++// you may not use this file except in compliance with the License.
++// You may obtain a copy of the License at
++//
++//     http://www.apache.org/licenses/LICENSE-2.0
++//
++// Unless required by applicable law or agreed to in writing, software
++// distributed under the License is distributed on an "AS IS" BASIS,
++// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
++// implied. See the License for the specific language governing
++// permissions and limitations under the License. See the AUTHORS file
++// for names of contributors.
++
++package goid
++
++import (
++	"bytes"
++	"runtime"
++	"strconv"
++)
++
++func ExtractGID(s []byte) int64 {
++	s = s[len("goroutine "):]
++	s = s[:bytes.IndexByte(s, ' ')]
++	gid, _ := strconv.ParseInt(string(s), 10, 64)
++	return gid
++}
++
++// Parse the goid from runtime.Stack() output. Slow, but it works.
++func getSlow() int64 {
++	var buf [64]byte
++	return ExtractGID(buf[:runtime.Stack(buf[:], false)])
++}
+diff --git a/vendor/github.com/petermattis/goid/goid_gccgo.go b/vendor/github.com/petermattis/goid/goid_gccgo.go
+new file mode 100644
+index 000000000..31c14d99a
+--- /dev/null
++++ b/vendor/github.com/petermattis/goid/goid_gccgo.go
+@@ -0,0 +1,26 @@
++// Copyright 2018 Peter Mattis.
++//
++// Licensed under the Apache License, Version 2.0 (the "License");
++// you may not use this file except in compliance with the License.
++// You may obtain a copy of the License at
++//
++//     http://www.apache.org/licenses/LICENSE-2.0
++//
++// Unless required by applicable law or agreed to in writing, software
++// distributed under the License is distributed on an "AS IS" BASIS,
++// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
++// implied. See the License for the specific language governing
++// permissions and limitations under the License. See the AUTHORS file
++// for names of contributors.
++
++//go:build gccgo
++// +build gccgo
++
++package goid
++
++//extern runtime.getg
++func getg() *g
++
++func Get() int64 {
++	return getg().goid
++}
+diff --git a/vendor/github.com/petermattis/goid/goid_go1.3.c b/vendor/github.com/petermattis/goid/goid_go1.3.c
+new file mode 100644
+index 000000000..2e3f7ab79
+--- /dev/null
++++ b/vendor/github.com/petermattis/goid/goid_go1.3.c
+@@ -0,0 +1,23 @@
++// Copyright 2015 Peter Mattis.
++//
++// Licensed under the Apache License, Version 2.0 (the "License");
++// you may not use this file except in compliance with the License.
++// You may obtain a copy of the License at
++//
++//     http://www.apache.org/licenses/LICENSE-2.0
++//
++// Unless required by applicable law or agreed to in writing, software
++// distributed under the License is distributed on an "AS IS" BASIS,
++// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
++// implied. See the License for the specific language governing
++// permissions and limitations under the License. See the AUTHORS file
++// for names of contributors.
++
++// +build !go1.4
++
++#include <runtime.h>
++
++void ·Get(int64 ret) {
++  ret = g->goid;
++  USED(&ret);
++}
+diff --git a/vendor/github.com/petermattis/goid/goid_go1.3.go b/vendor/github.com/petermattis/goid/goid_go1.3.go
+new file mode 100644
+index 000000000..d73b69920
+--- /dev/null
++++ b/vendor/github.com/petermattis/goid/goid_go1.3.go
+@@ -0,0 +1,22 @@
++// Copyright 2015 Peter Mattis.
++//
++// Licensed under the Apache License, Version 2.0 (the "License");
++// you may not use this file except in compliance with the License.
++// You may obtain a copy of the License at
++//
++//     http://www.apache.org/licenses/LICENSE-2.0
++//
++// Unless required by applicable law or agreed to in writing, software
++// distributed under the License is distributed on an "AS IS" BASIS,
++// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
++// implied. See the License for the specific language governing
++// permissions and limitations under the License. See the AUTHORS file
++// for names of contributors.
++
++//go:build !go1.4
++// +build !go1.4
++
++package goid
++
++// Get returns the id of the current goroutine.
++func Get() int64
+diff --git a/vendor/github.com/petermattis/goid/goid_go1.4.go b/vendor/github.com/petermattis/goid/goid_go1.4.go
+new file mode 100644
+index 000000000..4798980b3
+--- /dev/null
++++ b/vendor/github.com/petermattis/goid/goid_go1.4.go
+@@ -0,0 +1,35 @@
++// Copyright 2015 Peter Mattis.
++//
++// Licensed under the Apache License, Version 2.0 (the "License");
++// you may not use this file except in compliance with the License.
++// You may obtain a copy of the License at
++//
++//     http://www.apache.org/licenses/LICENSE-2.0
++//
++// Unless required by applicable law or agreed to in writing, software
++// distributed under the License is distributed on an "AS IS" BASIS,
++// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
++// implied. See the License for the specific language governing
++// permissions and limitations under the License. See the AUTHORS file
++// for names of contributors.
++
++//go:build go1.4 && !go1.5
++// +build go1.4,!go1.5
++
++package goid
++
++import "unsafe"
++
++var pointerSize = unsafe.Sizeof(uintptr(0))
++
++// Backdoor access to runtime·getg().
++func getg() uintptr // in goid_go1.4.s
++
++// Get returns the id of the current goroutine.
++func Get() int64 {
++	// The goid is the 16th field in the G struct where each field is a
++	// pointer, uintptr or padded to that size. See runtime.h from the
++	// Go sources. I'm not aware of a cleaner way to determine the
++	// offset.
++	return *(*int64)(unsafe.Pointer(getg() + 16*pointerSize))
++}
+diff --git a/vendor/github.com/petermattis/goid/goid_go1.4.s b/vendor/github.com/petermattis/goid/goid_go1.4.s
+new file mode 100644
+index 000000000..21a07d662
+--- /dev/null
++++ b/vendor/github.com/petermattis/goid/goid_go1.4.s
+@@ -0,0 +1,18 @@
++// Copyright 2014 The Go Authors. All rights reserved.
++// Use of this source code is governed by a BSD-style
++// license that can be found in the LICENSE file.
++
++// Assembly to get into package runtime without using exported symbols.
++// See https://github.com/golang/go/blob/release-branch.go1.4/misc/cgo/test/backdoor/thunk.s
++
++// +build amd64 amd64p32 arm 386
++// +build go1.4,!go1.5
++
++#include "textflag.h"
++
++#ifdef GOARCH_arm
++#define JMP B
++#endif
++
++TEXT ·getg(SB),NOSPLIT,$0-0
++	JMP	runtime·getg(SB)
+diff --git a/vendor/github.com/petermattis/goid/goid_go1.5.go b/vendor/github.com/petermattis/goid/goid_go1.5.go
+new file mode 100644
+index 000000000..4521f7920
+--- /dev/null
++++ b/vendor/github.com/petermattis/goid/goid_go1.5.go
+@@ -0,0 +1,28 @@
++// Copyright 2016 Peter Mattis.
++//
++// Licensed under the Apache License, Version 2.0 (the "License");
++// you may not use this file except in compliance with the License.
++// You may obtain a copy of the License at
++//
++//     http://www.apache.org/licenses/LICENSE-2.0
++//
++// Unless required by applicable law or agreed to in writing, software
++// distributed under the License is distributed on an "AS IS" BASIS,
++// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
++// implied. See the License for the specific language governing
++// permissions and limitations under the License. See the AUTHORS file
++// for names of contributors.
++
++//go:build (386 || amd64 || amd64p32 || arm || arm64 || s390x) && gc && go1.5
++// +build 386 amd64 amd64p32 arm arm64 s390x
++// +build gc
++// +build go1.5
++
++package goid
++
++// Defined in goid_go1.5.s.
++func getg() *g
++
++func Get() int64 {
++	return getg().goid
++}
+diff --git a/vendor/github.com/petermattis/goid/goid_go1.5.s b/vendor/github.com/petermattis/goid/goid_go1.5.s
+new file mode 100644
+index 000000000..c49333f14
+--- /dev/null
++++ b/vendor/github.com/petermattis/goid/goid_go1.5.s
+@@ -0,0 +1,44 @@
++// Copyright 2021 Peter Mattis.
++//
++// Licensed under the Apache License, Version 2.0 (the "License");
++// you may not use this file except in compliance with the License.
++// You may obtain a copy of the License at
++//
++//     http://www.apache.org/licenses/LICENSE-2.0
++//
++// Unless required by applicable law or agreed to in writing, software
++// distributed under the License is distributed on an "AS IS" BASIS,
++// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
++// implied. See the License for the specific language governing
++// permissions and limitations under the License. See the AUTHORS file
++// for names of contributors.
++
++// Assembly to mimic runtime.getg.
++
++//go:build (386 || amd64 || amd64p32 || arm || arm64 || s390x) && gc && go1.5
++// +build 386 amd64 amd64p32 arm arm64 s390x
++// +build gc
++// +build go1.5
++
++#include "textflag.h"
++
++// func getg() *g
++TEXT ·getg(SB),NOSPLIT,$0-8
++#ifdef GOARCH_386
++	MOVL (TLS), AX
++	MOVL AX, ret+0(FP)
++#endif
++#ifdef GOARCH_amd64
++	MOVQ (TLS), AX
++	MOVQ AX, ret+0(FP)
++#endif
++#ifdef GOARCH_arm
++	MOVW g, ret+0(FP)
++#endif
++#ifdef GOARCH_arm64
++	MOVD g, ret+0(FP)
++#endif
++#ifdef GOARCH_s390x
++	MOVD g, ret+0(FP)
++#endif
++	RET
+diff --git a/vendor/github.com/petermattis/goid/goid_slow.go b/vendor/github.com/petermattis/goid/goid_slow.go
+new file mode 100644
+index 000000000..8bdb4357e
+--- /dev/null
++++ b/vendor/github.com/petermattis/goid/goid_slow.go
+@@ -0,0 +1,24 @@
++// Copyright 2016 Peter Mattis.
++//
++// Licensed under the Apache License, Version 2.0 (the "License");
++// you may not use this file except in compliance with the License.
++// You may obtain a copy of the License at
++//
++//     http://www.apache.org/licenses/LICENSE-2.0
++//
++// Unless required by applicable law or agreed to in writing, software
++// distributed under the License is distributed on an "AS IS" BASIS,
++// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
++// implied. See the License for the specific language governing
++// permissions and limitations under the License. See the AUTHORS file
++// for names of contributors.
++
++//go:build (go1.4 && !go1.5 && !amd64 && !amd64p32 && !arm && !386) || (go1.5 && !386 && !amd64 && !amd64p32 && !arm && !arm64 && !s390x)
++// +build go1.4,!go1.5,!amd64,!amd64p32,!arm,!386 go1.5,!386,!amd64,!amd64p32,!arm,!arm64,!s390x
++
++package goid
++
++// Get returns the id of the current goroutine.
++func Get() int64 {
++	return getSlow()
++}
+diff --git a/vendor/github.com/petermattis/goid/runtime_gccgo_go1.8.go b/vendor/github.com/petermattis/goid/runtime_gccgo_go1.8.go
+new file mode 100644
+index 000000000..dfcb74e0c
+--- /dev/null
++++ b/vendor/github.com/petermattis/goid/runtime_gccgo_go1.8.go
+@@ -0,0 +1,17 @@
++//go:build gccgo && go1.8
++// +build gccgo,go1.8
++
++package goid
++
++// https://github.com/gcc-mirror/gcc/blob/releases/gcc-7/libgo/go/runtime/runtime2.go#L329-L354
++
++type g struct {
++	_panic       uintptr
++	_defer       uintptr
++	m            uintptr
++	syscallsp    uintptr
++	syscallpc    uintptr
++	param        uintptr
++	atomicstatus uint32
++	goid         int64 // Here it is!
++}
+diff --git a/vendor/github.com/petermattis/goid/runtime_go1.23.go b/vendor/github.com/petermattis/goid/runtime_go1.23.go
+new file mode 100644
+index 000000000..146d81734
+--- /dev/null
++++ b/vendor/github.com/petermattis/goid/runtime_go1.23.go
+@@ -0,0 +1,38 @@
++//go:build gc && go1.23
++// +build gc,go1.23
++
++package goid
++
++type stack struct {
++	lo uintptr
++	hi uintptr
++}
++
++type gobuf struct {
++	sp   uintptr
++	pc   uintptr
++	g    uintptr
++	ctxt uintptr
++	ret  uintptr
++	lr   uintptr
++	bp   uintptr
++}
++
++type g struct {
++	stack       stack
++	stackguard0 uintptr
++	stackguard1 uintptr
++
++	_panic       uintptr
++	_defer       uintptr
++	m            uintptr
++	sched        gobuf
++	syscallsp    uintptr
++	syscallpc    uintptr
++	syscallbp    uintptr
++	stktopsp     uintptr
++	param        uintptr
++	atomicstatus uint32
++	stackLock    uint32
++	goid         int64 // Here it is!
++}
+diff --git a/vendor/github.com/petermattis/goid/runtime_go1.5.go b/vendor/github.com/petermattis/goid/runtime_go1.5.go
+new file mode 100644
+index 000000000..6ce2ab8ee
+--- /dev/null
++++ b/vendor/github.com/petermattis/goid/runtime_go1.5.go
+@@ -0,0 +1,57 @@
++// Copyright 2016 Peter Mattis.
++//
++// Licensed under the Apache License, Version 2.0 (the "License");
++// you may not use this file except in compliance with the License.
++// You may obtain a copy of the License at
++//
++//     http://www.apache.org/licenses/LICENSE-2.0
++//
++// Unless required by applicable law or agreed to in writing, software
++// distributed under the License is distributed on an "AS IS" BASIS,
++// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
++// implied. See the License for the specific language governing
++// permissions and limitations under the License. See the AUTHORS file
++// for names of contributors.
++
++//go:build go1.5 && !go1.6
++// +build go1.5,!go1.6
++
++package goid
++
++// Just enough of the structs from runtime/runtime2.go to get the offset to goid.
++// See https://github.com/golang/go/blob/release-branch.go1.5/src/runtime/runtime2.go
++
++type stack struct {
++	lo uintptr
++	hi uintptr
++}
++
++type gobuf struct {
++	sp   uintptr
++	pc   uintptr
++	g    uintptr
++	ctxt uintptr
++	ret  uintptr
++	lr   uintptr
++	bp   uintptr
++}
++
++type g struct {
++	stack       stack
++	stackguard0 uintptr
++	stackguard1 uintptr
++
++	_panic       uintptr
++	_defer       uintptr
++	m            uintptr
++	stackAlloc   uintptr
++	sched        gobuf
++	syscallsp    uintptr
++	syscallpc    uintptr
++	stkbar       []uintptr
++	stkbarPos    uintptr
++	param        uintptr
++	atomicstatus uint32
++	stackLock    uint32
++	goid         int64 // Here it is!
++}
+diff --git a/vendor/github.com/petermattis/goid/runtime_go1.6.go b/vendor/github.com/petermattis/goid/runtime_go1.6.go
+new file mode 100644
+index 000000000..983d55bc4
+--- /dev/null
++++ b/vendor/github.com/petermattis/goid/runtime_go1.6.go
+@@ -0,0 +1,43 @@
++//go:build gc && go1.6 && !go1.9
++// +build gc,go1.6,!go1.9
++
++package goid
++
++// Just enough of the structs from runtime/runtime2.go to get the offset to goid.
++// See https://github.com/golang/go/blob/release-branch.go1.6/src/runtime/runtime2.go
++
++type stack struct {
++	lo uintptr
++	hi uintptr
++}
++
++type gobuf struct {
++	sp   uintptr
++	pc   uintptr
++	g    uintptr
++	ctxt uintptr
++	ret  uintptr
++	lr   uintptr
++	bp   uintptr
++}
++
++type g struct {
++	stack       stack
++	stackguard0 uintptr
++	stackguard1 uintptr
++
++	_panic       uintptr
++	_defer       uintptr
++	m            uintptr
++	stackAlloc   uintptr
++	sched        gobuf
++	syscallsp    uintptr
++	syscallpc    uintptr
++	stkbar       []uintptr
++	stkbarPos    uintptr
++	stktopsp     uintptr
++	param        uintptr
++	atomicstatus uint32
++	stackLock    uint32
++	goid         int64 // Here it is!
++}
+diff --git a/vendor/github.com/petermattis/goid/runtime_go1.9.go b/vendor/github.com/petermattis/goid/runtime_go1.9.go
+new file mode 100644
+index 000000000..f9ef8f5ff
+--- /dev/null
++++ b/vendor/github.com/petermattis/goid/runtime_go1.9.go
+@@ -0,0 +1,37 @@
++//go:build gc && go1.9 && !go1.23
++// +build gc,go1.9,!go1.23
++
++package goid
++
++type stack struct {
++	lo uintptr
++	hi uintptr
++}
++
++type gobuf struct {
++	sp   uintptr
++	pc   uintptr
++	g    uintptr
++	ctxt uintptr
++	ret  uintptr
++	lr   uintptr
++	bp   uintptr
++}
++
++type g struct {
++	stack       stack
++	stackguard0 uintptr
++	stackguard1 uintptr
++
++	_panic       uintptr
++	_defer       uintptr
++	m            uintptr
++	sched        gobuf
++	syscallsp    uintptr
++	syscallpc    uintptr
++	stktopsp     uintptr
++	param        uintptr
++	atomicstatus uint32
++	stackLock    uint32
++	goid         int64 // Here it is!
++}
+diff --git a/vendor/github.com/sasha-s/go-deadlock/.travis.yml b/vendor/github.com/sasha-s/go-deadlock/.travis.yml
+new file mode 100644
+index 000000000..5180de6ad
+--- /dev/null
++++ b/vendor/github.com/sasha-s/go-deadlock/.travis.yml
+@@ -0,0 +1,26 @@
++arch:
++  - amd64
++  - ppc64le
++language: go
++sudo: false
++go:
++  - 1.9.x
++  - 1.10.x
++  - 1.11.x
++  - 1.12.x
++  - 1.13.x
++  - 1.14.x
++  - 1.15.x
++  - 1.16.x
++  - master
++  - tip
++
++before_install:
++  - go get golang.org/x/tools/cmd/cover
++  - go get -t -v ./...
++
++script:
++  - ./test.sh
++
++after_success:
++  - bash <(curl -s https://codecov.io/bash)
+diff --git a/vendor/github.com/sasha-s/go-deadlock/LICENSE b/vendor/github.com/sasha-s/go-deadlock/LICENSE
+new file mode 100644
+index 000000000..8dada3eda
+--- /dev/null
++++ b/vendor/github.com/sasha-s/go-deadlock/LICENSE
+@@ -0,0 +1,201 @@
++                                 Apache License
++                           Version 2.0, January 2004
++                        http://www.apache.org/licenses/
++
++   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
++
++   1. Definitions.
++
++      "License" shall mean the terms and conditions for use, reproduction,
++      and distribution as defined by Sections 1 through 9 of this document.
++
++      "Licensor" shall mean the copyright owner or entity authorized by
++      the copyright owner that is granting the License.
++
++      "Legal Entity" shall mean the union of the acting entity and all
++      other entities that control, are controlled by, or are under common
++      control with that entity. For the purposes of this definition,
++      "control" means (i) the power, direct or indirect, to cause the
++      direction or management of such entity, whether by contract or
++      otherwise, or (ii) ownership of fifty percent (50%) or more of the
++      outstanding shares, or (iii) beneficial ownership of such entity.
++
++      "You" (or "Your") shall mean an individual or Legal Entity
++      exercising permissions granted by this License.
++
++      "Source" form shall mean the preferred form for making modifications,
++      including but not limited to software source code, documentation
++      source, and configuration files.
++
++      "Object" form shall mean any form resulting from mechanical
++      transformation or translation of a Source form, including but
++      not limited to compiled object code, generated documentation,
++      and conversions to other media types.
++
++      "Work" shall mean the work of authorship, whether in Source or
++      Object form, made available under the License, as indicated by a
++      copyright notice that is included in or attached to the work
++      (an example is provided in the Appendix below).
++
++      "Derivative Works" shall mean any work, whether in Source or Object
++      form, that is based on (or derived from) the Work and for which the
++      editorial revisions, annotations, elaborations, or other modifications
++      represent, as a whole, an original work of authorship. For the purposes
++      of this License, Derivative Works shall not include works that remain
++      separable from, or merely link (or bind by name) to the interfaces of,
++      the Work and Derivative Works thereof.
++
++      "Contribution" shall mean any work of authorship, including
++      the original version of the Work and any modifications or additions
++      to that Work or Derivative Works thereof, that is intentionally
++      submitted to Licensor for inclusion in the Work by the copyright owner
++      or by an individual or Legal Entity authorized to submit on behalf of
++      the copyright owner. For the purposes of this definition, "submitted"
++      means any form of electronic, verbal, or written communication sent
++      to the Licensor or its representatives, including but not limited to
++      communication on electronic mailing lists, source code control systems,
++      and issue tracking systems that are managed by, or on behalf of, the
++      Licensor for the purpose of discussing and improving the Work, but
++      excluding communication that is conspicuously marked or otherwise
++      designated in writing by the copyright owner as "Not a Contribution."
++
++      "Contributor" shall mean Licensor and any individual or Legal Entity
++      on behalf of whom a Contribution has been received by Licensor and
++      subsequently incorporated within the Work.
++
++   2. Grant of Copyright License. Subject to the terms and conditions of
++      this License, each Contributor hereby grants to You a perpetual,
++      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
++      copyright license to reproduce, prepare Derivative Works of,
++      publicly display, publicly perform, sublicense, and distribute the
++      Work and such Derivative Works in Source or Object form.
++
++   3. Grant of Patent License. Subject to the terms and conditions of
++      this License, each Contributor hereby grants to You a perpetual,
++      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
++      (except as stated in this section) patent license to make, have made,
++      use, offer to sell, sell, import, and otherwise transfer the Work,
++      where such license applies only to those patent claims licensable
++      by such Contributor that are necessarily infringed by their
++      Contribution(s) alone or by combination of their Contribution(s)
++      with the Work to which such Contribution(s) was submitted. If You
++      institute patent litigation against any entity (including a
++      cross-claim or counterclaim in a lawsuit) alleging that the Work
++      or a Contribution incorporated within the Work constitutes direct
++      or contributory patent infringement, then any patent licenses
++      granted to You under this License for that Work shall terminate
++      as of the date such litigation is filed.
++
++   4. Redistribution. You may reproduce and distribute copies of the
++      Work or Derivative Works thereof in any medium, with or without
++      modifications, and in Source or Object form, provided that You
++      meet the following conditions:
++
++      (a) You must give any other recipients of the Work or
++          Derivative Works a copy of this License; and
++
++      (b) You must cause any modified files to carry prominent notices
++          stating that You changed the files; and
++
++      (c) You must retain, in the Source form of any Derivative Works
++          that You distribute, all copyright, patent, trademark, and
++          attribution notices from the Source form of the Work,
++          excluding those notices that do not pertain to any part of
++          the Derivative Works; and
++
++      (d) If the Work includes a "NOTICE" text file as part of its
++          distribution, then any Derivative Works that You distribute must
++          include a readable copy of the attribution notices contained
++          within such NOTICE file, excluding those notices that do not
++          pertain to any part of the Derivative Works, in at least one
++          of the following places: within a NOTICE text file distributed
++          as part of the Derivative Works; within the Source form or
++          documentation, if provided along with the Derivative Works; or,
++          within a display generated by the Derivative Works, if and
++          wherever such third-party notices normally appear. The contents
++          of the NOTICE file are for informational purposes only and
++          do not modify the License. You may add Your own attribution
++          notices within Derivative Works that You distribute, alongside
++          or as an addendum to the NOTICE text from the Work, provided
++          that such additional attribution notices cannot be construed
++          as modifying the License.
++
++      You may add Your own copyright statement to Your modifications and
++      may provide additional or different license terms and conditions
++      for use, reproduction, or distribution of Your modifications, or
++      for any such Derivative Works as a whole, provided Your use,
++      reproduction, and distribution of the Work otherwise complies with
++      the conditions stated in this License.
++
++   5. Submission of Contributions. Unless You explicitly state otherwise,
++      any Contribution intentionally submitted for inclusion in the Work
++      by You to the Licensor shall be under the terms and conditions of
++      this License, without any additional terms or conditions.
++      Notwithstanding the above, nothing herein shall supersede or modify
++      the terms of any separate license agreement you may have executed
++      with Licensor regarding such Contributions.
++
++   6. Trademarks. This License does not grant permission to use the trade
++      names, trademarks, service marks, or product names of the Licensor,
++      except as required for reasonable and customary use in describing the
++      origin of the Work and reproducing the content of the NOTICE file.
++
++   7. Disclaimer of Warranty. Unless required by applicable law or
++      agreed to in writing, Licensor provides the Work (and each
++      Contributor provides its Contributions) on an "AS IS" BASIS,
++      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
++      implied, including, without limitation, any warranties or conditions
++      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
++      PARTICULAR PURPOSE. You are solely responsible for determining the
++      appropriateness of using or redistributing the Work and assume any
++      risks associated with Your exercise of permissions under this License.
++
++   8. Limitation of Liability. In no event and under no legal theory,
++      whether in tort (including negligence), contract, or otherwise,
++      unless required by applicable law (such as deliberate and grossly
++      negligent acts) or agreed to in writing, shall any Contributor be
++      liable to You for damages, including any direct, indirect, special,
++      incidental, or consequential damages of any character arising as a
++      result of this License or out of the use or inability to use the
++      Work (including but not limited to damages for loss of goodwill,
++      work stoppage, computer failure or malfunction, or any and all
++      other commercial damages or losses), even if such Contributor
++      has been advised of the possibility of such damages.
++
++   9. Accepting Warranty or Additional Liability. While redistributing
++      the Work or Derivative Works thereof, You may choose to offer,
++      and charge a fee for, acceptance of support, warranty, indemnity,
++      or other liability obligations and/or rights consistent with this
++      License. However, in accepting such obligations, You may act only
++      on Your own behalf and on Your sole responsibility, not on behalf
++      of any other Contributor, and only if You agree to indemnify,
++      defend, and hold each Contributor harmless for any liability
++      incurred by, or claims asserted against, such Contributor by reason
++      of your accepting any such warranty or additional liability.
++
++   END OF TERMS AND CONDITIONS
++
++   APPENDIX: How to apply the Apache License to your work.
++
++      To apply the Apache License to your work, attach the following
++      boilerplate notice, with the fields enclosed by brackets "{}"
++      replaced with your own identifying information. (Don't include
++      the brackets!)  The text should be enclosed in the appropriate
++      comment syntax for the file format. We also recommend that a
++      file or class name and description of purpose be included on the
++      same "printed page" as the copyright notice for easier
++      identification within third-party archives.
++
++   Copyright {yyyy} {name of copyright owner}
++
++   Licensed under the Apache License, Version 2.0 (the "License");
++   you may not use this file except in compliance with the License.
++   You may obtain a copy of the License at
++
++       http://www.apache.org/licenses/LICENSE-2.0
++
++   Unless required by applicable law or agreed to in writing, software
++   distributed under the License is distributed on an "AS IS" BASIS,
++   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++   See the License for the specific language governing permissions and
++   limitations under the License.
+diff --git a/vendor/github.com/sasha-s/go-deadlock/Readme.md b/vendor/github.com/sasha-s/go-deadlock/Readme.md
+new file mode 100644
+index 000000000..792d8a205
+--- /dev/null
++++ b/vendor/github.com/sasha-s/go-deadlock/Readme.md
+@@ -0,0 +1,187 @@
++# Online deadlock detection in go (golang). [![Try it online](https://img.shields.io/badge/try%20it-online-blue.svg)](https://wandbox.org/permlink/hJc6QCZowxbNm9WW) [![Docs](https://godoc.org/github.com/sasha-s/go-deadlock?status.svg)](https://godoc.org/github.com/sasha-s/go-deadlock) [![Build Status](https://travis-ci.com/sasha-s/go-deadlock.svg?branch=master)](https://travis-ci.com/sasha-s/go-deadlock) [![codecov](https://codecov.io/gh/sasha-s/go-deadlock/branch/master/graph/badge.svg)](https://codecov.io/gh/sasha-s/go-deadlock) [![version](https://badge.fury.io/gh/sasha-s%2Fgo-deadlock.svg)](https://github.com/sasha-s/go-deadlock/releases)  [![Go Report Card](https://goreportcard.com/badge/github.com/sasha-s/go-deadlock)](https://goreportcard.com/report/github.com/sasha-s/go-deadlock) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) 
++
++## Why
++Deadlocks happen and are painful to debug.
++
++## What
++go-deadlock provides (RW)Mutex drop-in replacements for sync.(RW)Mutex.
++It would not work if you create a spaghetti of channels.
++Mutexes only.
++
++## Installation
++```sh
++go get github.com/sasha-s/go-deadlock/...
++```
++
++## Usage
++```go
++import "github.com/sasha-s/go-deadlock"
++var mu deadlock.Mutex
++// Use normally, it works exactly like sync.Mutex does.
++mu.Lock()
++
++defer mu.Unlock()
++// Or
++var rw deadlock.RWMutex
++rw.RLock()
++defer rw.RUnlock()
++```
++
++### Deadlocks
++One of the most common sources of deadlocks is inconsistent lock ordering:
++say, you have two mutexes A and B, and in some goroutines you have
++```go
++A.Lock() // defer A.Unlock() or similar.
++...
++B.Lock() // defer B.Unlock() or similar.
++```
++And in another goroutine the order of locks is reversed:
++```go
++B.Lock() // defer B.Unlock() or similar.
++...
++A.Lock() // defer A.Unlock() or similar.
++```
++
++Another common sources of deadlocks is duplicate take a lock in a goroutine:
++```
++A.Rlock() or lock()
++
++A.lock() or A.RLock()
++```
++
++This does not guarantee a deadlock (maybe the goroutines above can never be running at the same time), but it usually a design flaw at least.
++
++go-deadlock can detect such cases (unless you cross goroutine boundary - say lock A, then spawn a goroutine, block until it is singals, and lock B inside of the goroutine), even if the deadlock itself happens very infrequently and is painful to reproduce!
++
++Each time go-deadlock sees a lock attempt for lock B, it records the order A before B, for each lock that is currently being held in the same goroutine, and it prints (and exits the program by default) when it sees the locking order being violated.
++
++In addition, if it sees that we are waiting on a lock for a long time (opts.DeadlockTimeout, 30 seconds by default), it reports a potential deadlock, also printing the stacktrace for a goroutine that is currently holding the lock we are desperately trying to grab.
++
++
++## Sample output
++#### Inconsistent lock ordering:
++```
++POTENTIAL DEADLOCK: Inconsistent locking. saw this ordering in one goroutine:
++happened before
++inmem.go:623 bttest.(*server).ReadModifyWriteRow { r.mu.Lock() } <<<<<
++inmem_test.go:118 bttest.TestConcurrentMutationsReadModifyAndGC.func4 { _, _ = s.ReadModifyWriteRow(ctx, rmw()) }
++
++happened after
++inmem.go:629 bttest.(*server).ReadModifyWriteRow { tbl.mu.RLock() } <<<<<
++inmem_test.go:118 bttest.TestConcurrentMutationsReadModifyAndGC.func4 { _, _ = s.ReadModifyWriteRow(ctx, rmw()) }
++
++in another goroutine: happened before
++inmem.go:799 bttest.(*table).gc { t.mu.RLock() } <<<<<
++inmem_test.go:125 bttest.TestConcurrentMutationsReadModifyAndGC.func5 { tbl.gc() }
++
++happend after
++inmem.go:814 bttest.(*table).gc { r.mu.Lock() } <<<<<
++inmem_test.go:125 bttest.TestConcurrentMutationsReadModifyAndGC.func5 { tbl.gc() }
++```
++
++#### Waiting for a lock for a long time:
++
++```
++POTENTIAL DEADLOCK:
++Previous place where the lock was grabbed
++goroutine 240 lock 0xc820160440
++inmem.go:799 bttest.(*table).gc { t.mu.RLock() } <<<<<
++inmem_test.go:125 bttest.TestConcurrentMutationsReadModifyAndGC.func5 { tbl.gc() }
++
++Have been trying to lock it again for more than 40ms
++goroutine 68 lock 0xc820160440
++inmem.go:785 bttest.(*table).mutableRow { t.mu.Lock() } <<<<<
++inmem.go:428 bttest.(*server).MutateRow { r := tbl.mutableRow(string(req.RowKey)) }
++inmem_test.go:111 bttest.TestConcurrentMutationsReadModifyAndGC.func3 { s.MutateRow(ctx, req) }
++
++
++Here is what goroutine 240 doing now
++goroutine 240 [select]:
++github.com/sasha-s/go-deadlock.lock(0xc82028ca10, 0x5189e0, 0xc82013a9b0)
++        /Users/sasha/go/src/github.com/sasha-s/go-deadlock/deadlock.go:163 +0x1640
++github.com/sasha-s/go-deadlock.(*Mutex).Lock(0xc82013a9b0)
++        /Users/sasha/go/src/github.com/sasha-s/go-deadlock/deadlock.go:54 +0x86
++google.golang.org/cloud/bigtable/bttest.(*table).gc(0xc820160440)
++        /Users/sasha/go/src/google.golang.org/cloud/bigtable/bttest/inmem.go:814 +0x28d
++google.golang.org/cloud/bigtable/bttest.TestConcurrentMutationsReadModifyAndGC.func5(0xc82015c760, 0xc820160440)      /Users/sasha/go/src/google.golang.org/cloud/bigtable/bttest/inmem_test.go:125 +0x48
++created by google.golang.org/cloud/bigtable/bttest.TestConcurrentMutationsReadModifyAndGC
++        /Users/sasha/go/src/google.golang.org/cloud/bigtable/bttest/inmem_test.go:126 +0xb6f
++```
++
++## Used in
++[cockroachdb: Potential deadlock between Gossip.SetStorage and Node.gossipStores](https://github.com/cockroachdb/cockroach/issues/7972)
++
++[bigtable/bttest: A race between GC and row mutations](https://code-review.googlesource.com#/c/5301/)
++
++## Need a mutex that works with net.context?
++I have [one](https://github.com/sasha-s/go-csync).
++
++## Grabbing an RLock twice from the same goroutine
++This is, surprisingly, not a good idea!
++
++From [RWMutex](https://golang.org/pkg/sync/#RWMutex) docs:
++
++>If a goroutine holds a RWMutex for reading and another goroutine might call Lock, no goroutine should expect to be able to acquire a read lock until the initial read lock is released. In particular, this prohibits recursive read locking. This is to ensure that the lock eventually becomes available; a blocked Lock call excludes new readers from acquiring the lock.
++
++
++The following code will deadlock &mdash; [run the example on playground](https://play.golang.org/p/AkL-W63nq5f) or [try it online with go-deadlock on wandbox](https://wandbox.org/permlink/JwnL0GMySBju4SII):
++```go
++package main
++
++import (
++	"fmt"
++	"sync"
++)
++
++func main() {
++	var mu sync.RWMutex
++
++	chrlockTwice := make(chan struct{}) // Used to control rlockTwice
++	rlockTwice := func() {
++		mu.RLock()
++		fmt.Println("first Rlock succeeded")
++		<-chrlockTwice
++		<-chrlockTwice
++		fmt.Println("trying to Rlock again")
++		mu.RLock()
++		fmt.Println("second Rlock succeeded")
++		mu.RUnlock()
++		mu.RUnlock()
++	}
++
++	chLock := make(chan struct{}) // Used to contol lock
++	lock := func() {
++		<-chLock
++		fmt.Println("about to Lock")
++		mu.Lock()
++		fmt.Println("Lock succeeded")
++		mu.Unlock()
++		<-chLock
++	}
++
++	control := func() {
++		chrlockTwice <- struct{}{}
++		chLock <- struct{}{}
++
++		close(chrlockTwice)
++		close(chLock)
++	}
++
++	go control()
++	go lock()
++	rlockTwice()
++}
++```
++## Configuring go-deadlock
++
++Have a look at [Opts](https://pkg.go.dev/github.com/sasha-s/go-deadlock#pkg-variables).
++
++* `Opts.Disable`: disables deadlock detection altogether
++* `Opts.DisableLockOrderDetection`: disables lock order based deadlock detection.
++* `Opts.DeadlockTimeout`: blocking on mutex for longer than DeadlockTimeout is considered a deadlock. ignored if negative
++* `Opts.OnPotentialDeadlock`: callback for then deadlock is detected
++* `Opts.MaxMapSize`: size of happens before // happens after table
++* `Opts.PrintAllCurrentGoroutines`:  dump stacktraces of all goroutines when inconsistent locking is detected, verbose
++* `Opts.LogBuf`: where to write deadlock info/stacktraces
++
++	
+diff --git a/vendor/github.com/sasha-s/go-deadlock/deadlock.go b/vendor/github.com/sasha-s/go-deadlock/deadlock.go
+new file mode 100644
+index 000000000..a285c751d
+--- /dev/null
++++ b/vendor/github.com/sasha-s/go-deadlock/deadlock.go
+@@ -0,0 +1,387 @@
++package deadlock
++
++import (
++	"bufio"
++	"bytes"
++	"fmt"
++	"io"
++	"os"
++	"sync"
++	"time"
++
++	"github.com/petermattis/goid"
++)
++
++// Opts control how deadlock detection behaves.
++// Options are supposed to be set once at a startup (say, when parsing flags).
++var Opts = struct {
++	// Mutex/RWMutex would work exactly as their sync counterparts
++	// -- almost no runtime penalty, no deadlock detection if Disable == true.
++	Disable bool
++	// Would disable lock order based deadlock detection if DisableLockOrderDetection == true.
++	DisableLockOrderDetection bool
++	// Waiting for a lock for longer than DeadlockTimeout is considered a deadlock.
++	// Ignored if DeadlockTimeout <= 0.
++	DeadlockTimeout time.Duration
++	// OnPotentialDeadlock is called each time a potential deadlock is detected -- either based on
++	// lock order or on lock wait time.
++	OnPotentialDeadlock func()
++	// Will keep MaxMapSize lock pairs (happens before // happens after) in the map.
++	// The map resets once the threshold is reached.
++	MaxMapSize int
++	// Will dump stacktraces of all goroutines when inconsistent locking is detected.
++	PrintAllCurrentGoroutines bool
++	mu                        *sync.Mutex // Protects the LogBuf.
++	// Will print deadlock info to log buffer.
++	LogBuf io.Writer
++}{
++	DeadlockTimeout: time.Second * 30,
++	OnPotentialDeadlock: func() {
++		os.Exit(2)
++	},
++	MaxMapSize: 1024 * 64,
++	mu:         &sync.Mutex{},
++	LogBuf:     os.Stderr,
++}
++
++// Cond is sync.Cond wrapper
++type Cond struct {
++	sync.Cond
++}
++
++// Locker is sync.Locker wrapper
++type Locker struct {
++	sync.Locker
++}
++
++// Once is sync.Once wrapper
++type Once struct {
++	sync.Once
++}
++
++// Pool is sync.Poll wrapper
++type Pool struct {
++	sync.Pool
++}
++
++// WaitGroup is sync.WaitGroup wrapper
++type WaitGroup struct {
++	sync.WaitGroup
++}
++
++// NewCond is a sync.NewCond wrapper
++var NewCond = sync.NewCond
++
++// A Mutex is a drop-in replacement for sync.Mutex.
++// Performs deadlock detection unless disabled in Opts.
++type Mutex struct {
++	mu sync.Mutex
++}
++
++// Lock locks the mutex.
++// If the lock is already in use, the calling goroutine
++// blocks until the mutex is available.
++//
++// Unless deadlock detection is disabled, logs potential deadlocks to Opts.LogBuf,
++// calling Opts.OnPotentialDeadlock on each occasion.
++func (m *Mutex) Lock() {
++	lock(m.mu.Lock, m)
++}
++
++// Unlock unlocks the mutex.
++// It is a run-time error if m is not locked on entry to Unlock.
++//
++// A locked Mutex is not associated with a particular goroutine.
++// It is allowed for one goroutine to lock a Mutex and then
++// arrange for another goroutine to unlock it.
++func (m *Mutex) Unlock() {
++	m.mu.Unlock()
++	if !Opts.Disable {
++		postUnlock(m)
++	}
++}
++
++// An RWMutex is a drop-in replacement for sync.RWMutex.
++// Performs deadlock detection unless disabled in Opts.
++type RWMutex struct {
++	mu sync.RWMutex
++}
++
++// Lock locks rw for writing.
++// If the lock is already locked for reading or writing,
++// Lock blocks until the lock is available.
++// To ensure that the lock eventually becomes available,
++// a blocked Lock call excludes new readers from acquiring
++// the lock.
++//
++// Unless deadlock detection is disabled, logs potential deadlocks to Opts.LogBuf,
++// calling Opts.OnPotentialDeadlock on each occasion.
++func (m *RWMutex) Lock() {
++	lock(m.mu.Lock, m)
++}
++
++// Unlock unlocks the mutex for writing.  It is a run-time error if rw is
++// not locked for writing on entry to Unlock.
++//
++// As with Mutexes, a locked RWMutex is not associated with a particular
++// goroutine.  One goroutine may RLock (Lock) an RWMutex and then
++// arrange for another goroutine to RUnlock (Unlock) it.
++func (m *RWMutex) Unlock() {
++	m.mu.Unlock()
++	if !Opts.Disable {
++		postUnlock(m)
++	}
++}
++
++// RLock locks the mutex for reading.
++//
++// Unless deadlock detection is disabled, logs potential deadlocks to Opts.LogBuf,
++// calling Opts.OnPotentialDeadlock on each occasion.
++func (m *RWMutex) RLock() {
++	lock(m.mu.RLock, m)
++}
++
++// RUnlock undoes a single RLock call;
++// it does not affect other simultaneous readers.
++// It is a run-time error if rw is not locked for reading
++// on entry to RUnlock.
++func (m *RWMutex) RUnlock() {
++	m.mu.RUnlock()
++	if !Opts.Disable {
++		postUnlock(m)
++	}
++}
++
++// RLocker returns a Locker interface that implements
++// the Lock and Unlock methods by calling RLock and RUnlock.
++func (m *RWMutex) RLocker() sync.Locker {
++	return (*rlocker)(m)
++}
++
++func preLock(stack []uintptr, p interface{}) {
++	lo.preLock(stack, p)
++}
++
++func postLock(stack []uintptr, p interface{}) {
++	lo.postLock(stack, p)
++}
++
++func postUnlock(p interface{}) {
++	lo.postUnlock(p)
++}
++
++func lock(lockFn func(), ptr interface{}) {
++	if Opts.Disable {
++		lockFn()
++		return
++	}
++	stack := callers(1)
++	preLock(stack, ptr)
++	if Opts.DeadlockTimeout <= 0 {
++		lockFn()
++	} else {
++		ch := make(chan struct{})
++		currentID := goid.Get()
++		go checkDeadlock(stack, ptr, currentID, ch)
++		lockFn()
++		postLock(stack, ptr)
++		close(ch)
++		return
++	}
++	postLock(stack, ptr)
++}
++
++var timersPool sync.Pool
++
++func acquireTimer(d time.Duration) *time.Timer {
++	t, ok := timersPool.Get().(*time.Timer)
++	if ok {
++		_ = t.Reset(d)
++		return t
++	}
++	return time.NewTimer(Opts.DeadlockTimeout)
++}
++
++func releaseTimer(t *time.Timer) {
++	if !t.Stop() {
++		<-t.C
++	}
++	timersPool.Put(t)
++}
++
++func checkDeadlock(stack []uintptr, ptr interface{}, currentID int64, ch <-chan struct{}) {
++	t := acquireTimer(Opts.DeadlockTimeout)
++	defer releaseTimer(t)
++	for {
++		select {
++		case <-t.C:
++			lo.mu.Lock()
++			prev, ok := lo.cur[ptr]
++			if !ok {
++				lo.mu.Unlock()
++				break // Nobody seems to be holding the lock, try again.
++			}
++			Opts.mu.Lock()
++			fmt.Fprintln(Opts.LogBuf, header)
++			fmt.Fprintln(Opts.LogBuf, "Previous place where the lock was grabbed")
++			fmt.Fprintf(Opts.LogBuf, "goroutine %v lock %p\n", prev.gid, ptr)
++			printStack(Opts.LogBuf, prev.stack)
++			fmt.Fprintln(Opts.LogBuf, "Have been trying to lock it again for more than", Opts.DeadlockTimeout)
++			fmt.Fprintf(Opts.LogBuf, "goroutine %v lock %p\n", currentID, ptr)
++			printStack(Opts.LogBuf, stack)
++			stacks := stacks()
++			grs := bytes.Split(stacks, []byte("\n\n"))
++			for _, g := range grs {
++				if goid.ExtractGID(g) == prev.gid {
++					fmt.Fprintln(Opts.LogBuf, "Here is what goroutine", prev.gid, "doing now")
++					Opts.LogBuf.Write(g)
++					fmt.Fprintln(Opts.LogBuf)
++				}
++			}
++			lo.other(ptr)
++			if Opts.PrintAllCurrentGoroutines {
++				fmt.Fprintln(Opts.LogBuf, "All current goroutines:")
++				Opts.LogBuf.Write(stacks)
++			}
++			fmt.Fprintln(Opts.LogBuf)
++			if buf, ok := Opts.LogBuf.(*bufio.Writer); ok {
++				buf.Flush()
++			}
++			Opts.mu.Unlock()
++			lo.mu.Unlock()
++			Opts.OnPotentialDeadlock()
++			<-ch
++			return
++		case <-ch:
++			return
++		}
++		t.Reset(Opts.DeadlockTimeout)
++	}
++}
++
++type lockOrder struct {
++	mu    sync.Mutex
++	cur   map[interface{}]stackGID // stacktraces + gids for the locks currently taken.
++	order map[beforeAfter]ss       // expected order of locks.
++}
++
++type stackGID struct {
++	stack []uintptr
++	gid   int64
++}
++
++type beforeAfter struct {
++	before interface{}
++	after  interface{}
++}
++
++type ss struct {
++	before []uintptr
++	after  []uintptr
++}
++
++var lo = newLockOrder()
++
++func newLockOrder() *lockOrder {
++	return &lockOrder{
++		cur:   map[interface{}]stackGID{},
++		order: map[beforeAfter]ss{},
++	}
++}
++
++func (l *lockOrder) postLock(stack []uintptr, p interface{}) {
++	gid := goid.Get()
++	l.mu.Lock()
++	l.cur[p] = stackGID{stack, gid}
++	l.mu.Unlock()
++}
++
++func (l *lockOrder) preLock(stack []uintptr, p interface{}) {
++	if Opts.DisableLockOrderDetection {
++		return
++	}
++	gid := goid.Get()
++	l.mu.Lock()
++	for b, bs := range l.cur {
++		if b == p {
++			if bs.gid == gid {
++				Opts.mu.Lock()
++				fmt.Fprintln(Opts.LogBuf, header, "Recursive locking:")
++				fmt.Fprintf(Opts.LogBuf, "current goroutine %d lock %p\n", gid, b)
++				printStack(Opts.LogBuf, stack)
++				fmt.Fprintln(Opts.LogBuf, "Previous place where the lock was grabbed (same goroutine)")
++				printStack(Opts.LogBuf, bs.stack)
++				l.other(p)
++				if buf, ok := Opts.LogBuf.(*bufio.Writer); ok {
++					buf.Flush()
++				}
++				Opts.mu.Unlock()
++				Opts.OnPotentialDeadlock()
++			}
++			continue
++		}
++		if bs.gid != gid { // We want locks taken in the same goroutine only.
++			continue
++		}
++		if s, ok := l.order[beforeAfter{p, b}]; ok {
++			Opts.mu.Lock()
++			fmt.Fprintln(Opts.LogBuf, header, "Inconsistent locking. saw this ordering in one goroutine:")
++			fmt.Fprintln(Opts.LogBuf, "happened before")
++			printStack(Opts.LogBuf, s.before)
++			fmt.Fprintln(Opts.LogBuf, "happened after")
++			printStack(Opts.LogBuf, s.after)
++			fmt.Fprintln(Opts.LogBuf, "in another goroutine: happened before")
++			printStack(Opts.LogBuf, bs.stack)
++			fmt.Fprintln(Opts.LogBuf, "happened after")
++			printStack(Opts.LogBuf, stack)
++			l.other(p)
++			fmt.Fprintln(Opts.LogBuf)
++			if buf, ok := Opts.LogBuf.(*bufio.Writer); ok {
++				buf.Flush()
++			}
++			Opts.mu.Unlock()
++			Opts.OnPotentialDeadlock()
++		}
++		l.order[beforeAfter{b, p}] = ss{bs.stack, stack}
++		if len(l.order) == Opts.MaxMapSize { // Reset the map to keep memory footprint bounded.
++			l.order = map[beforeAfter]ss{}
++		}
++	}
++	l.mu.Unlock()
++}
++
++func (l *lockOrder) postUnlock(p interface{}) {
++	l.mu.Lock()
++	delete(l.cur, p)
++	l.mu.Unlock()
++}
++
++type rlocker RWMutex
++
++func (r *rlocker) Lock()   { (*RWMutex)(r).RLock() }
++func (r *rlocker) Unlock() { (*RWMutex)(r).RUnlock() }
++
++// Under lo.mu Locked.
++func (l *lockOrder) other(ptr interface{}) {
++	empty := true
++	for k := range l.cur {
++		if k == ptr {
++			continue
++		}
++		empty = false
++	}
++	if empty {
++		return
++	}
++	fmt.Fprintln(Opts.LogBuf, "Other goroutines holding locks:")
++	for k, pp := range l.cur {
++		if k == ptr {
++			continue
++		}
++		fmt.Fprintf(Opts.LogBuf, "goroutine %v lock %p\n", pp.gid, k)
++		printStack(Opts.LogBuf, pp.stack)
++	}
++	fmt.Fprintln(Opts.LogBuf)
++}
++
++const header = "POTENTIAL DEADLOCK:"
+diff --git a/vendor/github.com/sasha-s/go-deadlock/deadlock_map.go b/vendor/github.com/sasha-s/go-deadlock/deadlock_map.go
+new file mode 100644
+index 000000000..ec66bdc0f
+--- /dev/null
++++ b/vendor/github.com/sasha-s/go-deadlock/deadlock_map.go
+@@ -0,0 +1,10 @@
++// +build go1.9
++
++package deadlock
++
++import "sync"
++
++// Map is sync.Map wrapper
++type Map struct {
++	sync.Map
++}
+diff --git a/vendor/github.com/sasha-s/go-deadlock/stacktraces.go b/vendor/github.com/sasha-s/go-deadlock/stacktraces.go
+new file mode 100644
+index 000000000..d93050fcd
+--- /dev/null
++++ b/vendor/github.com/sasha-s/go-deadlock/stacktraces.go
+@@ -0,0 +1,107 @@
++package deadlock
++
++import (
++	"bytes"
++	"fmt"
++	"io"
++	"io/ioutil"
++	"os"
++	"os/user"
++	"path/filepath"
++	"runtime"
++	"strings"
++	"sync"
++)
++
++func callers(skip int) []uintptr {
++	s := make([]uintptr, 50) // Most relevant context seem to appear near the top of the stack.
++	return s[:runtime.Callers(2+skip, s)]
++}
++
++func printStack(w io.Writer, stack []uintptr) {
++	home := os.Getenv("HOME")
++	usr, err := user.Current()
++	if err == nil {
++		home = usr.HomeDir
++	}
++	cwd, _ := os.Getwd()
++
++	for i, pc := range stack {
++		f := runtime.FuncForPC(pc)
++		name := f.Name()
++		pkg := ""
++		if pos := strings.LastIndex(name, "/"); pos >= 0 {
++			name = name[pos+1:]
++		}
++		if pos := strings.Index(name, "."); pos >= 0 {
++			pkg = name[:pos]
++			name = name[pos+1:]
++		}
++		file, line := f.FileLine(pc)
++		if (pkg == "runtime" && name == "goexit") || (pkg == "testing" && name == "tRunner") {
++			fmt.Fprintln(w)
++			return
++		}
++		tail := ""
++		if i == 0 {
++			tail = " <<<<<" // Make the line performing a lock prominent.
++		}
++		// Shorten the file name.
++		clean := file
++		if cwd != "" {
++			cl, err := filepath.Rel(cwd, file)
++			if err == nil {
++				clean = cl
++			}
++		}
++		if home != "" {
++			s2 := strings.Replace(file, home, "~", 1)
++			if len(clean) > len(s2) {
++				clean = s2
++			}
++		}
++		fmt.Fprintf(w, "%s:%d %s.%s %s%s\n", clean, line-1, pkg, name, code(file, line), tail)
++	}
++	fmt.Fprintln(w)
++}
++
++var fileSources struct {
++	sync.Mutex
++	lines map[string][][]byte
++}
++
++// Reads souce file lines from disk if not cached already.
++func getSourceLines(file string) [][]byte {
++	fileSources.Lock()
++	defer fileSources.Unlock()
++	if fileSources.lines == nil {
++		fileSources.lines = map[string][][]byte{}
++	}
++	if lines, ok := fileSources.lines[file]; ok {
++		return lines
++	}
++	text, _ := ioutil.ReadFile(file)
++	fileSources.lines[file] = bytes.Split(text, []byte{'\n'})
++	return fileSources.lines[file]
++}
++
++func code(file string, line int) string {
++	lines := getSourceLines(file)
++	line -= 2
++	if line >= len(lines) || line < 0 {
++		return "???"
++	}
++	return "{ " + string(bytes.TrimSpace(lines[line])) + " }"
++}
++
++// Stacktraces for all goroutines.
++func stacks() []byte {
++	buf := make([]byte, 1024*16)
++	for {
++		n := runtime.Stack(buf, true)
++		if n < len(buf) {
++			return buf[:n]
++		}
++		buf = make([]byte, 2*len(buf))
++	}
++}
+diff --git a/vendor/github.com/sasha-s/go-deadlock/test.sh b/vendor/github.com/sasha-s/go-deadlock/test.sh
+new file mode 100644
+index 000000000..9c9da85cd
+--- /dev/null
++++ b/vendor/github.com/sasha-s/go-deadlock/test.sh
+@@ -0,0 +1,12 @@
++#!/usr/bin/env bash
++
++set -e
++echo "" > coverage.txt
++
++for d in $(go list ./...); do
++    go test -bench=. -coverprofile=profile.out -covermode=atomic "$d"
++    if [ -f profile.out ]; then
++        cat profile.out >> coverage.txt
++        rm profile.out
++    fi
++done
+diff --git a/vendor/github.com/sasha-s/go-deadlock/trylock.go b/vendor/github.com/sasha-s/go-deadlock/trylock.go
+new file mode 100644
+index 000000000..e8a6775b4
+--- /dev/null
++++ b/vendor/github.com/sasha-s/go-deadlock/trylock.go
+@@ -0,0 +1,39 @@
++// +build go1.18
++
++package deadlock
++
++// TryLock tries to lock the mutex.
++// Returns false if the lock is already in use, true otherwise.
++func (m *Mutex) TryLock() bool {
++	return trylock(m.mu.TryLock, m)
++}
++
++// TryLock tries to lock rw for writing.
++// Returns false if the lock is already locked for reading or writing, true otherwise.
++func (m *RWMutex) TryLock() bool {
++	return trylock(m.mu.TryLock, m)
++}
++
++// TryRLock tries to lock rw for reading.
++// Returns false if the lock is already locked for writing, true otherwise.
++func (m *RWMutex) TryRLock() bool {
++	return trylock(m.mu.TryRLock, m)
++}
++
++// trylock can not deadlock, so there is no deadlock detection.
++// lock ordering is still supported by calling into preLock/postLock,
++// and in failed attempt into postUnlock to unroll the state added by preLock.
++func trylock(lockFn func() bool, ptr interface{}) bool {
++	if Opts.Disable {
++		return lockFn()
++	}
++	stack := callers(1)
++	preLock(stack, ptr)
++	ret := lockFn()
++	if ret {
++		postLock(stack, ptr)
++	} else {
++		postUnlock(ptr)
++	}		
++	return ret
++}
+diff --git a/vendor/modules.txt b/vendor/modules.txt
+index 16e1d9c92..61790e5a8 100644
+--- a/vendor/modules.txt
++++ b/vendor/modules.txt
+@@ -154,7 +154,7 @@ github.com/containerd/errdefs/pkg/internal/types
+ # github.com/containerd/fifo v1.1.0
+ ## explicit; go 1.18
+ github.com/containerd/fifo
+-# github.com/containerd/go-cni v1.1.11
++# github.com/containerd/go-cni v1.1.11 => github.com/smira/go-cni v0.0.0-20241224121944-75a24409e819
+ ## explicit; go 1.21
+ github.com/containerd/go-cni
+ # github.com/containerd/go-runc v1.1.0
+@@ -423,6 +423,9 @@ github.com/pelletier/go-toml/v2/internal/characters
+ github.com/pelletier/go-toml/v2/internal/danger
+ github.com/pelletier/go-toml/v2/internal/tracker
+ github.com/pelletier/go-toml/v2/unstable
++# github.com/petermattis/goid v0.0.0-20240813172612-4fcff4a6cae7
++## explicit; go 1.17
++github.com/petermattis/goid
+ # github.com/pkg/errors v0.9.1
+ ## explicit
+ github.com/pkg/errors
+@@ -451,6 +454,9 @@ github.com/prometheus/procfs/internal/util
+ # github.com/russross/blackfriday/v2 v2.1.0
+ ## explicit
+ github.com/russross/blackfriday/v2
++# github.com/sasha-s/go-deadlock v0.3.5
++## explicit
++github.com/sasha-s/go-deadlock
+ # github.com/sirupsen/logrus v1.9.3
+ ## explicit; go 1.13
+ github.com/sirupsen/logrus
+@@ -878,3 +884,4 @@ tags.cncf.io/container-device-interface/pkg/parser
+ # tags.cncf.io/container-device-interface/specs-go v0.8.0
+ ## explicit; go 1.19
+ tags.cncf.io/container-device-interface/specs-go
++# github.com/containerd/go-cni => github.com/smira/go-cni v0.0.0-20241224121944-75a24409e819
