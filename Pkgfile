@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.10.0-alpha.0
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.10.0-alpha.0-3-g0393558
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.6.1
@@ -68,9 +68,9 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 4f7dd7fbba205d413cf9b989f7cdc928fa02caf2
-  ipxe_sha256: d08ad7ca555d0f529816c44bb09472325c9233124181cac944a0c7e1593d30c7
-  ipxe_sha512: c5b8ec789fad016d3dfa325a601857e357ecd26fd353d8d657901898817ee1d7dc76d513811c81fdee2a9dc001af4c6d7285f736db9a1d6abd890e8e09b57c27
+  ipxe_ref: 83ba34076ad4ca79be81a71f25303b340c60e7b8
+  ipxe_sha256: f2e8660d65feb099294fa80446cf2fdff509daa714a7235af9d032d6afa1f0d7
+  ipxe_sha512: 6eed2537d002983ecdadcadaa976d0fad45963a8d526139ac0611be15edb04097975445b91700a2798fe19e2ed4f8d4b489973bd61955cbe757c392af034789b
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
   linux_version: 6.12.6
@@ -136,14 +136,14 @@ vars:
   libsepol_sha512: 85d12d0ba5a7a3225f08d041a18fd59641608db5e0a78a1e9649754e45be54a807cd422d4889b88da6e806b4af546336c7a0913448f08ac33dc6ffb983890ef8
 
   # renovate: datasource=git-tags extractVersion=^libcap-(?<version>.*)$ depName=git://git.kernel.org/pub/scm/libs/libcap/libcap.git
-  libcap_version: 2.72
-  libcap_sha256: 0274f5a15a5205f656d8f0169eef711dd29158ba8ad3b240618b342b2460175b
-  libcap_sha512: c0726bcd5e48395c6f4edd34f0fcaa21d7b2fe35dbc88824c0d86b42859dbe507f55c1ac7f7352e2aa56e3632b7aa9a098ca9cc730c82f942106d2786b10ba2c
+  libcap_version: 2.73
+  libcap_sha256: 6405f6089cf4cdd8c271540cd990654d78dd0b1989b2d9bda20f933a75a795a5
+  libcap_sha512: 8ab72cf39bf029656b2a4a5972a0da4ab4b46a3d8a8da66d6cde925e06fe34df2fa5fc4d0b62c9cec4972b0b2678fdac6ef9421b6fb83c2a5bf869cf8d5fdb16
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.liburcu.org/userspace-rcu.git
-  liburcu_version: 0.14.1
-  liburcu_sha256: 231acb13dc6ec023e836a0f0666f6aab47dc621ecb1d2cd9d9c22f922678abc0
-  liburcu_sha512: 46137525854164df05326202909689b62f8f3aa6e04127eb9157a83aed8180f35a68332ec66e4e4fc9b0c046b64c64b492caed4b64f86f87a31579e4209ec345
+  liburcu_version: 0.15.0
+  liburcu_sha256: 4f2d839af67905ad396d6d53ba5649b66113d90840dcbc89941e0da64bccd38c
+  liburcu_sha512: a0b543dcc6d1ace34c4f159074a439926bcec6708fde66db14022cfa6e8082d5d0430ad02dc036cc3902304357439bbacd89b3fc5f4ed9911716f2f0480af3e4
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
   linux_firmware_version: 20241210
@@ -151,9 +151,9 @@ vars:
   linux_firmware_sha512: 75e2d7383e209c2f787a4369e171e2d9bd16dc9cc1cd74920874d1dc56a950df95981be942fd7aa95620ef18da3e50d0fd95886c1497c91c4e54f564fe381fc3
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
-  lvm2_version: 2_03_28
-  lvm2_sha256: b822baff6b62df36382c717ceba98a2688ebb31bf2b768f3ffa2b6d5e2557242
-  lvm2_sha512: 6b203dcf71ec91e663512458a6b25ebee4c7ee699c67f26ad42a74c054d157bd7f74f8f17f4217dd660b4bf421dd26ee1dd6048f321696168c9e81b354a8393a
+  lvm2_version: 2_03_29
+  lvm2_sha256: 30c53776cb4ddf6bf9eca29d0c28dbf9c5ac170c09154321213b11c3dbb5be9c
+  lvm2_sha512: 2d5dfde81007fcf34752b19e9edc9ab8189449f572429e973317b968c5a99b886dc26e81dc29c3cf5b7678da0f8a7e8c060431a33b950f6ff6279dfbddd9c7b2
 
   mellanox_ofed_version: 5.9-0.5.6.0
   mellanox_ofed_sha256: 4503258cbe92b00c734e612c3a7ad1d71e023fdffae2a2c119f7b537505e499c
@@ -197,9 +197,9 @@ vars:
   runc_sha512: eeb7ab4a81393aea26d5f8a50cd40225ab5b9058b0b6739d99cdaf9aa5d06c91cbc1b678cd08c741dfc06b474116fcbc7903fa0801ce94fd6ab1b690bcd3f625
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
-  socat_version: 1.8.0.1
-  socat_sha256: dc350411e03da657269e529c4d49fe23ba7b4610b0b225c020df4cf9b46e6982
-  socat_sha512: 2a327b4c2e00fc6afda503548d5bc285d4f120892c75ec6633201825e39e3003a8b8d827053364dc444b72ff728a82381769941c023d8b0a66d955417162b735
+  socat_version: 1.8.0.2
+  socat_sha256: e9498367cb765d44bb06be9709c950f436b30bf7071a224a0fee2522f9cbb417
+  socat_sha512: c0a04e697f03da35d8c630de038e837c544e4dc77dd5bfbe73198d88b2d21727d9062114c1c50925daa264178f3317bc11c5504d1358ab7b3e8bce15e3e2dff9
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/util-linux/util-linux.git
   util_linux_version: 2.40.2
