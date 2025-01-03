@@ -13,7 +13,7 @@ steps:
         mkdir -p /rootfs/boot
         mkdir -p /rootfs/dtb
         mkdir -p /rootfs/certs
-        cp /src/certs/signing_key.x509 /rootfs/certs/signing_key.x509
+
         case $ARCH in
             x86_64)
                 mv arch/x86/boot/bzImage /rootfs/boot/vmlinuz
