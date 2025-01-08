@@ -73,9 +73,9 @@ vars:
   ipxe_sha512: c5b8ec789fad016d3dfa325a601857e357ecd26fd353d8d657901898817ee1d7dc76d513811c81fdee2a9dc001af4c6d7285f736db9a1d6abd890e8e09b57c27
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.12.6
-  linux_sha256: d450ab215de4e1f8bb85e0f4216760fa33fd024b4526b144f4ce0d9012b29c9e
-  linux_sha512: 35fcfc5044b1bf892b6432a330df26c5601f78f78f416400359f5e08c448255bcf424de611e67ff7ac72d014884d5f3c6c2bddb20d08dd47469df5c0424832f9
+  linux_version: 6.12.8
+  linux_sha256: 2291da065ca04b715c89ee50362aec3f021a7414bc963f1b56736682c8122979
+  linux_sha512: 193b07ce4984d0bf3a808fc0b527650686a06432cfe3bb222c80e7a851adfe4e151335514bed44b5fb4cf18cb24f2251c5895b98e6fec84a097e2b130ff234fa
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
   kmod_version: 33
@@ -191,10 +191,10 @@ vars:
   pcre2_sha512: ee91cc10a2962bc7818b03d368df3dd31f42ea9a7260ae51483ea8cd331b7431e36e63256b0adc213cc6d6741e7c90414fd420622308c0ae3fcb5dd878591be2
 
   # renovate: datasource=github-tags depName=opencontainers/runc
-  runc_version: v1.2.3
-  runc_ref: 0d37cfd4b557771e555a184d5a78d0ed4bdb79a5
-  runc_sha256: 34c0f370629d679fdfc708b80576557c573ed1c9c9b757a3e29dc64917316ce8
-  runc_sha512: eeb7ab4a81393aea26d5f8a50cd40225ab5b9058b0b6739d99cdaf9aa5d06c91cbc1b678cd08c741dfc06b474116fcbc7903fa0801ce94fd6ab1b690bcd3f625
+  runc_version: v1.2.4
+  runc_ref: 6c52b3fc541fb26fe8c374d5f58112a0a5dbda66
+  runc_sha256: 86c087a141c233ce02dab089c1b9ec88ecbc0fedc1cc581989f6e53701323a65
+  runc_sha512: bed47cd17cfc2346e69baa186a145bb55d888f56025931301c829d48f88a9506e95632f8e3ff25dd423ffe92232572e2dd067cb6e84a0fb09e8bd487a9e1a775
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
   socat_version: 1.8.0.1
