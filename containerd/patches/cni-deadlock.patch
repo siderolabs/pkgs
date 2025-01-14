@@ -1,23 +1,23 @@
 diff --git a/go.mod b/go.mod
-index 0f69d076f..b38bf2ce3 100644
+index 0dd61619d..efdd4bac8 100644
 --- a/go.mod
 +++ b/go.mod
-@@ -2,6 +2,8 @@ module github.com/containerd/containerd/v2
- 
- go 1.22.0
- 
-+replace github.com/containerd/go-cni => github.com/smira/go-cni v0.0.0-20241224121944-75a24409e819
-+
- require (
- 	dario.cat/mergo v1.0.1
- 	github.com/AdaLogics/go-fuzz-headers v0.0.0-20240806141605-e8a1dd7889d6
-@@ -118,12 +120,14 @@ require (
+@@ -18,7 +18,7 @@ require (
+ 	github.com/containerd/errdefs v1.0.0
+ 	github.com/containerd/errdefs/pkg v0.3.0
+ 	github.com/containerd/fifo v1.1.0
+-	github.com/containerd/go-cni v1.1.11
++	github.com/containerd/go-cni v1.1.12
+ 	github.com/containerd/go-runc v1.1.0
+ 	github.com/containerd/imgcrypt/v2 v2.0.0-rc.1
+ 	github.com/containerd/log v0.1.0
+@@ -118,12 +118,14 @@ require (
  	github.com/modern-go/reflect2 v1.0.2 // indirect
  	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
  	github.com/mxk/go-flowrate v0.0.0-20140419014527-cca7078d478f // indirect
 +	github.com/petermattis/goid v0.0.0-20240813172612-4fcff4a6cae7 // indirect
  	github.com/pkg/errors v0.9.1 // indirect
- 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
+ 	github.com/pmezard/go-difflib v1.0.0 // indirect
  	github.com/prometheus/client_model v0.6.1 // indirect
  	github.com/prometheus/common v0.55.0 // indirect
  	github.com/prometheus/procfs v0.15.1 // indirect
@@ -27,42 +27,38 @@ index 0f69d076f..b38bf2ce3 100644
  	github.com/syndtr/gocapability v0.0.0-20200815063812-42c35b437635 // indirect
  	github.com/vishvananda/netns v0.0.4 // indirect
 diff --git a/go.sum b/go.sum
-index 455584edf..1d44e230c 100644
+index 7e86fad33..521ba8561 100644
 --- a/go.sum
 +++ b/go.sum
-@@ -679,8 +679,6 @@ github.com/containerd/errdefs/pkg v0.3.0 h1:9IKJ06FvyNlexW690DXuQNx2KA2cUJXx151X
+@@ -49,8 +49,8 @@ github.com/containerd/errdefs/pkg v0.3.0 h1:9IKJ06FvyNlexW690DXuQNx2KA2cUJXx151X
  github.com/containerd/errdefs/pkg v0.3.0/go.mod h1:NJw6s9HwNuRhnjJhM7pylWwMyAkmCQvQ4GpJHEqRLVk=
  github.com/containerd/fifo v1.1.0 h1:4I2mbh5stb1u6ycIABlBw9zgtlK8viPI9QkQNRQEEmY=
  github.com/containerd/fifo v1.1.0/go.mod h1:bmC4NWMbXlt2EZ0Hc7Fx7QzTFxgPID13eH0Qu+MAb2o=
 -github.com/containerd/go-cni v1.1.11 h1:fWt1K15AmSLsEfa57N+qYw4NeGPiQKYq1pjNGJwV9mc=
 -github.com/containerd/go-cni v1.1.11/go.mod h1:/Y/sL8yqYQn1ZG1om1OncJB1W4zN3YmjfP/ShCzG/OY=
++github.com/containerd/go-cni v1.1.12 h1:wm/5VD/i255hjM4uIZjBRiEQ7y98W9ACy/mHeLi4+94=
++github.com/containerd/go-cni v1.1.12/go.mod h1:+jaqRBdtW5faJxj2Qwg1Of7GsV66xcvnCx4mSJtUlxU=
  github.com/containerd/go-runc v1.1.0 h1:OX4f+/i2y5sUT7LhmcJH7GYrjjhHa1QI4e8yO0gGleA=
  github.com/containerd/go-runc v1.1.0/go.mod h1:xJv2hFF7GvHtTJd9JqTS2UVxMkULUYw4JN5XAUZqH5U=
  github.com/containerd/imgcrypt/v2 v2.0.0-rc.1 h1:7OMu5otk5Z2GeQs24JBPOmYbTc50+q6jo02qWNJc0p8=
-@@ -1027,6 +1025,8 @@ github.com/opencontainers/selinux v1.11.1 h1:nHFvthhM0qY8/m+vfhJylliSshm8G1jJ2jD
+@@ -261,6 +261,8 @@ github.com/opencontainers/selinux v1.11.1 h1:nHFvthhM0qY8/m+vfhJylliSshm8G1jJ2jD
  github.com/opencontainers/selinux v1.11.1/go.mod h1:E5dMC3VPuVvVHDYmi78qvhJp8+M586T4DlDRYpFkyec=
  github.com/pelletier/go-toml/v2 v2.2.3 h1:YmeHyLY8mFWbdkNWwpr+qIL2bEqT0o95WSdkNHvL12M=
  github.com/pelletier/go-toml/v2 v2.2.3/go.mod h1:MfCQTFTvCcUyyvvwm1+G6H/jORL20Xlb6rzQu9GuUkc=
 +github.com/petermattis/goid v0.0.0-20240813172612-4fcff4a6cae7 h1:Dx7Ovyv/SFnMFw3fD4oEoeorXc6saIiQ23LrGLth0Gw=
 +github.com/petermattis/goid v0.0.0-20240813172612-4fcff4a6cae7/go.mod h1:pxMtw7cyUw6B2bRH0ZBANSPg+AoSud1I1iyJHI69jH4=
- github.com/phpdave11/gofpdf v1.4.2/go.mod h1:zpO6xFn9yxo3YLyMvW8HcKWVdbNqgIfOOp2dXMnm1mY=
- github.com/phpdave11/gofpdi v1.0.12/go.mod h1:vBmVV0Do6hSBHC8uKUQ71JGW+ZGQq74llk/7bXwjDoI=
- github.com/phpdave11/gofpdi v1.0.13/go.mod h1:vBmVV0Do6hSBHC8uKUQ71JGW+ZGQq74llk/7bXwjDoI=
-@@ -1074,10 +1074,14 @@ github.com/russross/blackfriday/v2 v2.1.0 h1:JIOH55/0cWyOuilr9/qlrm0BSXldqnqwMsf
+ github.com/pkg/errors v0.8.0/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
+ github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
+ github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
+@@ -289,6 +291,8 @@ github.com/rogpeppe/go-internal v1.13.1 h1:KvO1DLK/DRN07sQ1LQKScxyZJuNnedQ5/wKSR
+ github.com/rogpeppe/go-internal v1.13.1/go.mod h1:uMEvuHeurkdAXX61udpOXGD/AzZDWNMNyH2VO9fmH0o=
+ github.com/russross/blackfriday/v2 v2.1.0 h1:JIOH55/0cWyOuilr9/qlrm0BSXldqnqwMsf35Ld67mk=
  github.com/russross/blackfriday/v2 v2.1.0/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQDYRxCVz55jmeOWTM=
- github.com/ruudk/golang-pdf417 v0.0.0-20181029194003-1af4ab5afa58/go.mod h1:6lfFZQK844Gfx8o5WFuvpxWRwnSoipWe/p622j1v06w=
- github.com/ruudk/golang-pdf417 v0.0.0-20201230142125-a7e3863a1245/go.mod h1:pQAZKsJ8yyVxGRWYNEm9oFB8ieLgKFnamEyDmSA0BRk=
 +github.com/sasha-s/go-deadlock v0.3.5 h1:tNCOEEDG6tBqrNDOX35j/7hL5FcFViG6awUGROb2NsU=
 +github.com/sasha-s/go-deadlock v0.3.5/go.mod h1:bugP6EGbdGYObIlx7pUZtWqlvo8k9H6vCBBsiChJQ5U=
  github.com/sirupsen/logrus v1.2.0/go.mod h1:LxeOpSwHxABJmUn/MG1IvRgCAasNZTLOkJPxbbu5VWo=
  github.com/sirupsen/logrus v1.8.1/go.mod h1:yWOB1SBYBC5VeMP7gHvWumXLIWorT60ONWic61uBYv0=
  github.com/sirupsen/logrus v1.9.3 h1:dueUQJ1C2q9oE3F7wvmSGAaVtTmUizReu6fjN8uqzbQ=
- github.com/sirupsen/logrus v1.9.3/go.mod h1:naHLuLoDiP4jHNo9R0sCBMtWGeIprob74mVsIT4qYEQ=
-+github.com/smira/go-cni v0.0.0-20241224121944-75a24409e819 h1:znUF/b0AU1/94qYzrq8dDH658BJdYw/CSOvyOByC+7g=
-+github.com/smira/go-cni v0.0.0-20241224121944-75a24409e819/go.mod h1:+jaqRBdtW5faJxj2Qwg1Of7GsV66xcvnCx4mSJtUlxU=
- github.com/spaolacci/murmur3 v0.0.0-20180118202830-f09979ecbc72/go.mod h1:JwIasOWyU6f++ZhiEuf87xNszmSA2myDM2Kzu9HwQUA=
- github.com/spf13/afero v1.3.3/go.mod h1:5KUK8ByomD5Ti5Artl0RtHeI5pTF7MIDuXL3yY520V4=
- github.com/spf13/afero v1.6.0/go.mod h1:Ai8FlHk4v/PARR026UzYexafAt9roJ7LcLMAmO6Z93I=
 diff --git a/vendor/github.com/containerd/go-cni/cni.go b/vendor/github.com/containerd/go-cni/cni.go
 index 003f30293..70ca3821e 100644
 --- a/vendor/github.com/containerd/go-cni/cni.go
@@ -2119,7 +2115,7 @@ index 000000000..e8a6775b4
 +	return ret
 +}
 diff --git a/vendor/modules.txt b/vendor/modules.txt
-index 16e1d9c92..61790e5a8 100644
+index 4fb8bb609..8ed73f3d7 100644
 --- a/vendor/modules.txt
 +++ b/vendor/modules.txt
 @@ -154,7 +154,7 @@ github.com/containerd/errdefs/pkg/internal/types
@@ -2127,7 +2123,7 @@ index 16e1d9c92..61790e5a8 100644
  ## explicit; go 1.18
  github.com/containerd/fifo
 -# github.com/containerd/go-cni v1.1.11
-+# github.com/containerd/go-cni v1.1.11 => github.com/smira/go-cni v0.0.0-20241224121944-75a24409e819
++# github.com/containerd/go-cni v1.1.12
  ## explicit; go 1.21
  github.com/containerd/go-cni
  # github.com/containerd/go-runc v1.1.0
@@ -2151,8 +2147,3 @@ index 16e1d9c92..61790e5a8 100644
  # github.com/sirupsen/logrus v1.9.3
  ## explicit; go 1.13
  github.com/sirupsen/logrus
-@@ -878,3 +884,4 @@ tags.cncf.io/container-device-interface/pkg/parser
- # tags.cncf.io/container-device-interface/specs-go v0.8.0
- ## explicit; go 1.19
- tags.cncf.io/container-device-interface/specs-go
-+# github.com/containerd/go-cni => github.com/smira/go-cni v0.0.0-20241224121944-75a24409e819

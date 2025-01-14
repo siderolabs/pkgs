@@ -15,7 +15,7 @@ steps:
       PKG_CONFIG_PATH: /usr/lib/pkgconfig
       CC: /toolchain/bin/gcc
       PATH: /toolchain/go/bin:/toolchain/bin:{{ .PATH }}
-      BUILDTAGS: 'seccomp no_aufs no_btrfs no_devmapper no_systemd no_zfs'
+      BUILDTAGS: 'seccomp no_aufs no_btrfs no_devmapper no_dynamic_plugins no_systemd no_zfs'
     prepare:
       - |
         tar -xzf containerd.tar.gz --strip-components=1
