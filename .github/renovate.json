@@ -44,6 +44,18 @@
             ]
         },
         {
+            "enabled": false,
+            "matchFileNames": [
+                "Dockerfile"
+            ]
+        },
+        {
+            "enabled": false,
+            "matchFileNames": [
+                ".github/workflows/*.yaml"
+            ]
+        },
+        {
             "allowedVersions": "<= 6.12",
             "matchPackageNames": [
                 "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
