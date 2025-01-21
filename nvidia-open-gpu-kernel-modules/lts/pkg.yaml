@@ -27,8 +27,6 @@ steps:
 
         # temporary patches, might be removed with the next release
         patch -p1 </pkg/patches/nvtophys.patch
-        patch -p2 </pkg/patches/psc.patch
-        patch -p2 </pkg/patches/fops.patch
 
         make -j $(nproc) SYSSRC=/src
     install:

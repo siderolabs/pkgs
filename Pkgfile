@@ -166,19 +166,19 @@ vars:
 
   # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/linux-x86_64/
   # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_lts_version: 535.216.03
-  nvidia_driver_lts_arm64_sha256: bf4c22053068310b988a5ecb43e821c493ffce80b519c73623419ba2cb5d0c83
-  nvidia_driver_lts_arm64_sha512: 257dc56d95e8a0a4f9e2d5f5e7a7cdefd017e5319e5d3144f9c1b31a6c47cbdf33252aa504658f20cd15684c8d9855d80efeae6c20f9dad60848ed9c34d5f423
-  nvidia_driver_lts_amd64_sha256: 3aa05d8bdddd7a6f2cd461969895dd4ba9eb3e554a8bf1abeb860d84cc7b1d10
-  nvidia_driver_lts_amd64_sha512: d6e8ea0d4348fe5e919ebd967c73f22236caae3aeb1f847685d1c801ed80b30661410b63363b6736ee034323eb812787e8bdedde15deb7c9ce05d92306cb5e2e
+  nvidia_driver_lts_version: 535.230.02
+  nvidia_driver_lts_arm64_sha256: 26f99e01a22f4c2e52f35789c286aa1efab6e0d91b447ebfef171a0b035f4a74
+  nvidia_driver_lts_arm64_sha512: 0e4ee5e95120b5ee46f3ebee6725a312110b07aeace21455aed24af07750c8a3c974a13cd3bf7d3f4f83aae3ccf11e9a80eb26144f123447b793327bcf57cb8c
+  nvidia_driver_lts_amd64_sha256: 4ead516e02073ebc8a46500a2e2023fb508b5c17f1c06e177b9b5b1f763ff4f5
+  nvidia_driver_lts_amd64_sha512: 34b72f6163ebcca3186e22599ef4ac7b61ddee0cc51f78429fe731ae552a792e15e97b67fbbe709bb4f9dfd374e12cba7968bbcf4d7ae5da050125a1a1116a6e
 
   # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/linux-x86_64/
   # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_production_version: 550.127.08
-  nvidia_driver_production_arm64_sha256: 025ee91b6f75d7deb5cb98bc8327c6bae5fd925029d5f853e26720f10d5fcdcf
-  nvidia_driver_production_arm64_sha512: cf18ecd885d4520930a01605c8f23ae02eb76d4e660c72c1ab99f6bbaabbad263222c5c41863fcafcf293bd9f78a6dec319ae70921c0188b8b07960ddcd6b12f
-  nvidia_driver_production_amd64_sha256: 04551fbeda76645e664910f1168e1fb3c9ac379461296da0474d0231e703ad70
-  nvidia_driver_production_amd64_sha512: 9715a8d9707bd999b6955048d626e48e807ecd2507b8e6437acd0bf1f0b8de59d41e649bb26a4a9024bbec4f35da6fac64d7652dda63b626d41a17fd4753f110
+  nvidia_driver_production_version: 550.144.03
+  nvidia_driver_production_arm64_sha256: 04a354b5c51e0c0c3f89148243ed19796f80dc100adf87b217a1a34d770c9bd2
+  nvidia_driver_production_arm64_sha512: 1ce05ed2c7c3bc3b0a46b7c911cf15b55089cea3be7eb109d4c645a729d2a83bf4ce618478c4357707cf33970c31a7e30674ddd09ccac1913627eda0a9d4b7b5
+  nvidia_driver_production_amd64_sha256: f822150666707ed3c383889e0e68d24e8ceb4033eebd19737f9b405069e89beb
+  nvidia_driver_production_amd64_sha512: 548afbaf726b69fc001de5c4964a6b57f06dc0aba29bf7e1b4345e0176c7c438b2fe972de83ee917ee187836fc005e76fe998c3dada34929bcdea0929a35fb26
 
   # renovate: datasource=github-releases extractVersion=^openssl-(?<version>.*)$ depName=openssl/openssl
   openssl_version: 3.4.0
