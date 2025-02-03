@@ -1,14 +1,26 @@
 name: fhs
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
 steps:
 - install:
   - |
     PREFIX=/rootfs
-    mkdir -pv ${PREFIX}/{dev,lib,proc,sys,bin,sbin,etc,opt,run}
+    mkdir -pv ${PREFIX}/{dev,proc,sys,etc,opt,run}
+    mkdir -pv ${PREFIX}/run/lock
     mkdir -pv ${PREFIX}/usr/{bin,sbin,lib,var,include,src}
-    mkdir -pv ${PREFIX}/usr/local/{bin,sbin,lib,include}
-    mkdir -pv ${PREFIX}/var/{log,run,mail,spool}
+    mkdir -pv ${PREFIX}/var/{log,mail,spool}
     install -dv -m 0750 ${PREFIX}/root
     install -dv -m 1777 ${PREFIX}/tmp ${PREFIX}/var/tmp
+    cd ${PREFIX}
+    ln -sT usr/lib lib64
+    ln -sT usr/lib lib
+    ln -sT usr/bin bin
+    ln -sT usr/sbin sbin
+    ln -sT lib usr/lib64
+    ln -sT ../run var/run
+    ln -sT ../run/lock var/lock
 finalize:
 - from: /rootfs
   to: /

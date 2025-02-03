@@ -1,6 +1,6 @@
 name: libsepol
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - stage: base
 steps:
@@ -19,10 +19,10 @@ steps:
         patch -p1 < /pkg/patches/dont-build-utils.patch
     build:
       - |
-        make -j $(nproc)
+        make -j $(nproc) SHLIBDIR=/usr/lib
     install:
       - |
-        make install DESTDIR=/rootfs
+        make install DESTDIR=/rootfs SHLIBDIR=/usr/lib
 finalize:
   - from: /rootfs
     to: /

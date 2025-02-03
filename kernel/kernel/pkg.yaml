@@ -1,7 +1,8 @@
 name: kernel
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
+  - stage: base
   - stage: kernel-build
 steps:
   - env:
@@ -35,9 +36,9 @@ steps:
         esac
 
         export KERNELRELEASE=$(cat include/config/kernel.release)
-        make -j $(nproc) modules_install DEPMOD=/toolchain/bin/depmod INSTALL_MOD_PATH=/rootfs INSTALL_MOD_STRIP=1
-        depmod -b /rootfs $KERNELRELEASE
-        unlink /rootfs/lib/modules/$KERNELRELEASE/build
+        make -j $(nproc) modules_install INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_STRIP=1
+        depmod -b /rootfs/usr $KERNELRELEASE
+        unlink /rootfs/usr/lib/modules/$KERNELRELEASE/build
 finalize:
   - from: /rootfs
     to: /

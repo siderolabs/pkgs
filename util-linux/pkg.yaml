@@ -1,6 +1,6 @@
 name: util-linux
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - stage: base
 steps:
@@ -17,6 +17,9 @@ steps:
         cd build
         ../configure \
             --prefix=/usr \
+            --bindir=/usr/bin \
+            --sbindir=/usr/bin \
+            --libdir=/usr/lib \
             --without-python \
             --disable-bash-completion \
             --disable-asciidoc \

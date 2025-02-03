@@ -1,6 +1,6 @@
 name: runc
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - stage: base
   - stage: libseccomp
@@ -12,11 +12,8 @@ steps:
         sha256: "{{ .runc_sha256 }}"
         sha512: "{{ .runc_sha512 }}"
     env:
-      GOPATH: /go
-      GO: /toolchain/go/bin/go
       PKG_CONFIG_PATH: /usr/lib/pkgconfig
-      CC: /toolchain/bin/cc
-      PATH: /toolchain/go/bin:/toolchain/bin:/bin
+      CC: gcc
     prepare:
       - |
         mkdir -p runc
@@ -33,9 +30,9 @@ steps:
       - |
         cd runc
 
-        mkdir -p /rootfs/bin
-        mv runc /rootfs/bin/runc
-        chmod +x /rootfs/bin/runc
+        mkdir -p /rootfs/usr/bin
+        mv runc /rootfs/usr/bin/runc
+        chmod +x /rootfs/usr/bin/runc
 finalize:
   - from: /rootfs
     to: /

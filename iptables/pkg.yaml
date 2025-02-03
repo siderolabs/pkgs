@@ -1,6 +1,6 @@
 name: iptables
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - stage: base
   - stage: libmnl
@@ -15,18 +15,20 @@ steps:
       - |
         tar -xf iptables.tar.xz --strip-components=1
 
+        patch -p1 < /pkg/patches/0001-fix-redefinition-on-musl.patch
+
         export PKG_CONFIG_PATH=/usr/lib/pkgconfig
 
         ./configure \
         --prefix=/usr \
         --libexecdir=/usr/libexec \
         --disable-static \
-        --sbindir=/sbin \
+        --sbindir=/usr/sbin \
         --enable-libipq \
-        --with-xtlibdir=/lib/xtables
+        --with-xtlibdir=/usr/lib/xtables
 
-        rm -f /sbin/iptables-apply \
-              /sbin/ip6tables-apply
+        rm -f /usr/sbin/iptables-apply \
+              /usr/sbin/ip6tables-apply
     build:
       - |
         make -j $(nproc)
@@ -35,7 +37,7 @@ steps:
         make install DESTDIR=/rootfs
       - |
         # fix up symlinks which point to legacy version to point to nft version
-        for f in /rootfs/sbin/*; do
+        for f in /rootfs/usr/sbin/*; do
           # if name doesn't contain 'legacy':
           if [[ $f == *legacy* ]]; then
             continue

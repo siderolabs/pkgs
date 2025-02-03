@@ -1,6 +1,6 @@
 name: ipmitool
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - stage: base
   - stage: openssl
@@ -16,10 +16,9 @@ steps:
       - |
         tar -xzf ipmitool.tar.gz --strip-components=1
 
+        # ipmitool prefers wget, however only curl supports file:// scheme
+        rm /usr/bin/wget
         patch -p1 < /pkg/patches/iana-url.patch
-
-        mkdir -p /usr/bin \
-            && ln -sf /toolchain/bin/env /usr/bin/env
 
         ./bootstrap
 

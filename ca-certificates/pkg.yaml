@@ -1,4 +1,8 @@
 name: ca-certificates
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
 steps:
 - sources:
   - url: https://curl.se/ca/cacert-2024-12-31.pem

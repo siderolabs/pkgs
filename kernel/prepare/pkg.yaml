@@ -1,6 +1,6 @@
 name: kernel-prepare
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - image: '{{ .TOOLS_IMAGE }}'
 steps:
@@ -9,44 +9,24 @@ steps:
         destination: linux.tar.xz
         sha256: "{{ .linux_sha256 }}"
         sha512: "{{ .linux_sha512 }}"
+      - url: https://github.com/a13xp0p0v/kernel-hardening-checker/archive/{{ .kspp_ref }}.tar.gz
+        destination: kspp.tar.gz
+        sha256: "{{ .kspp_sha256 }}"
+        sha512: "{{ .kspp_sha512 }}"
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
     prepare:
       - |
-        tar -xJf linux.tar.xz --strip-components=1
-        rm linux.tar.xz
+        mkdir -p /src
+        tar -xJf linux.tar.xz --strip-components=1 -C /src
 
-        mkdir /bin
-        ln -sv /toolchain/bin/bash /bin/bash
-        ln -sv /toolchain/bin/bash /bin/sh
-        ln -sv /toolchain/lib /lib
-        mkdir -p /usr/bin \
-            && ln -sf /toolchain/bin/env /usr/bin/env \
-            && ln -sf /toolchain/bin/true /bin/true \
-            && ln -sf /toolchain/bin/false /bin/false \
-            && ln -sf /toolchain/bin/pwd /bin/pwd
-
-        # Ensure that `make menuconfig` works.
-        ln -s /toolchain/bin/awk /usr/bin/awk
-
-        mkdir -p /usr/lib/pkgconfig
-        ln -s /toolchain/include /usr/include
-
+        cd /src
         make mrproper
       - |
-        cd /toolchain && git clone https://github.com/a13xp0p0v/kernel-hardening-checker.git
-    install:
-      - |
-        mkdir -p /src
-        cp -a . /src/
+        mkdir -p /toolchain/kernel-hardening-checker
+        tar -xzf kspp.tar.gz --strip-components=1 -C /toolchain/kernel-hardening-checker
 finalize:
   - from: /src
     to: /src
   - from: /toolchain
     to: /toolchain
-  - from: /usr
-    to: /usr
-  - from: /bin
-    to: /bin
-  - from: /lib
-    to: /lib

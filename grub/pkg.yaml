@@ -1,6 +1,6 @@
 name: grub
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - stage: base
   - stage: util-linux
@@ -20,7 +20,7 @@ steps:
 
         patch -p1 < /pkg/patches/efi-fat-serial-number.patch
 
-        PYTHON=python3 /toolchain/bin/bash ./autogen.sh
+        PYTHON=python3 bash ./autogen.sh
 
         touch ./grub-core/extra_deps.lst
     build:

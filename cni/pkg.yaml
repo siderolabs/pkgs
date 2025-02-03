@@ -1,6 +1,6 @@
 name: cni
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - stage: base
 steps:
@@ -9,22 +9,17 @@ steps:
         destination: cni-plugins.tar.gz
         sha256: "{{ .cni_sha256 }}"
         sha512: "{{ .cni_sha512 }}"
-    env:
-      GOPATH: /go
     prepare:
       - |
-        mkdir -p ${GOPATH}/src/
-        tar -xzf cni-plugins.tar.gz --strip-components=1 -C ${GOPATH}/src/
+        tar -xzf cni-plugins.tar.gz --strip-components=1
     build:
       - |
-        export PATH=${PATH}:${TOOLCHAIN}/go/bin
-        cd ${GOPATH}/src/
-        CGO_ENABLED=0 GOFLAGS="-ldflags=-s" /toolchain/bin/bash ./build_linux.sh
+        CGO_ENABLED=0 GOFLAGS="-ldflags=-s" bash ./build_linux.sh
     install:
       - |
         mkdir -p /rootfs/opt/cni/bin
 
-        mv ${GOPATH}/src/bin/* /rootfs/opt/cni/bin
+        mv bin/* /rootfs/opt/cni/bin
 finalize:
   - from: /rootfs
     to: /

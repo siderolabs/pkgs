@@ -1,4 +1,6 @@
 name: pcre2
+variant: scratch
+shell: /bin/bash
 dependencies:
   - stage: base
 steps:

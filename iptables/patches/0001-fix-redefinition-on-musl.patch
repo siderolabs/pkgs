@@ -1,0 +1,54 @@
+From dec4d2cdbff9298a2c54305f59e683c68c5b4fdd Mon Sep 17 00:00:00 2001
+From: Dmitry Sharshakov <dmitry.sharshakov@siderolabs.com>
+Date: Tue, 4 Feb 2025 17:04:37 +0100
+Subject: [PATCH] fix redefinition on musl
+
+Signed-off-by: Dmitry Sharshakov <dmitry.sharshakov@siderolabs.com>
+---
+ extensions/libipt_CLUSTERIP.c | 2 --
+ extensions/libipt_realm.c     | 2 --
+ extensions/libxt_mac.c        | 2 --
+ 3 files changed, 6 deletions(-)
+
+diff --git a/extensions/libipt_CLUSTERIP.c b/extensions/libipt_CLUSTERIP.c
+index b207cde..2bdd2b1 100644
+--- a/extensions/libipt_CLUSTERIP.c
++++ b/extensions/libipt_CLUSTERIP.c
+@@ -12,8 +12,6 @@
+ 
+ #if defined(__GLIBC__) && __GLIBC__ == 2
+ #include <net/ethernet.h>
+-#else
+-#include <linux/if_ether.h>
+ #endif
+ 
+ #include <xtables.h>
+diff --git a/extensions/libipt_realm.c b/extensions/libipt_realm.c
+index e01d048..406eb36 100644
+--- a/extensions/libipt_realm.c
++++ b/extensions/libipt_realm.c
+@@ -4,8 +4,6 @@
+ #include <errno.h>
+ #if defined(__GLIBC__) && __GLIBC__ == 2
+ #include <net/ethernet.h>
+-#else
+-#include <linux/if_ether.h>
+ #endif
+ #include <xtables.h>
+ #include <linux/netfilter_ipv4/ipt_realm.h>
+diff --git a/extensions/libxt_mac.c b/extensions/libxt_mac.c
+index 55891b2..50436e4 100644
+--- a/extensions/libxt_mac.c
++++ b/extensions/libxt_mac.c
+@@ -1,8 +1,6 @@
+ #include <stdio.h>
+ #if defined(__GLIBC__) && __GLIBC__ == 2
+ #include <net/ethernet.h>
+-#else
+-#include <linux/if_ether.h>
+ #endif
+ #include <xtables.h>
+ #include <linux/netfilter/xt_mac.h>
+-- 
+2.48.1
+

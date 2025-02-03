@@ -1,6 +1,6 @@
 name: liblzma
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - stage: base
 steps:

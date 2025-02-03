@@ -1,6 +1,6 @@
 name: apparmor
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - stage: base
   - stage: util-linux
@@ -16,17 +16,13 @@ steps:
 
         patch -p1 < /pkg/patches/basename.patch
 
-        mkdir -p /usr/bin \
-            && ln -sf /toolchain/bin/env /usr/bin/env
-        ln -s /toolchain/bin/echo /toolchain/bin/which
-        ln -s /toolchain/include/linux /usr/include/linux
-
         cd libraries/libapparmor
         ./autogen.sh
 
         ./configure \
           --disable-dependency-tracking \
-          --disable-man-pages
+          --disable-man-pages \
+          --prefix=/usr
     build:
       - |
         cd libraries/libapparmor
@@ -37,7 +33,7 @@ steps:
     install:
       - |
         cd parser
-        DISTRO=unknown make install-arch DESTDIR=/rootfs
+        DISTRO=unknown make install-arch DESTDIR=/rootfs SBINDIR=/rootfs/usr/sbin
 finalize:
   - from: /rootfs
     to: /

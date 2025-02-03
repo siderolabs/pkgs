@@ -1,6 +1,6 @@
 name: musl
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - image: "{{ .TOOLS_IMAGE }}"
 steps:
@@ -16,15 +16,10 @@ steps:
       LDFLAGS: ""
     prepare:
       - |
-        export PATH=${TOOLCHAIN}/cross/bin:${PATH}
-
         tar -xzf musl.tar.gz --strip-components=1
 
         patch -p1 < /pkg/patches/handle-aux-at-base.patch
         patch -p1 < /pkg/patches/close-range.patch
-
-        mkdir /bin
-        ln -sv /toolchain/bin/bash /bin/sh
 
         mkdir build
         cd build
@@ -43,6 +38,14 @@ steps:
       - |
         cd build
         make DESTDIR=/rootfs install
+
+        # musl by default installs to unprefixed /lib, fix this for usrmerge
+        mkdir -p /rootfs/usr/bin /rootfs/usr/lib
+        rm -rf /rootfs/lib
+        ln -sf /usr/lib/ld-musl-${ARCH}.so.1 /rootfs/usr/bin/ldd
+        mv -f /rootfs/usr/lib/libc.so /rootfs/usr/lib/ld-musl-${ARCH}.so.1
+        ln -sf ld-musl-${ARCH}.so.1 /rootfs/usr/lib/libc.musl-${ARCH}.so.1
+        ln -sf /usr/lib/ld-musl-${ARCH}.so.1 /rootfs/usr/lib/libc.so
 finalize:
   - from: /rootfs
     to: /

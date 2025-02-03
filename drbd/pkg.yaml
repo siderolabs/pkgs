@@ -1,7 +1,8 @@
 name: drbd-pkg
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
+  - stage: base
   - stage: kernel-build
 steps:
   - sources:
@@ -14,21 +15,22 @@ steps:
     prepare:
       - |
         tar -xzf drbd.tar.gz --strip-components=1
+  - network: default
     build:
       - |
         make -j $(nproc) -C drbd KERNEL_SOURCES=/src MODVERSIONS=detect KDIR=/src
     install:
       - |
-        mkdir -p /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
-        cp /src/modules.order /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
-        cp /src/modules.builtin /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
-        cp /src/modules.builtin.modinfo /rootfs/lib/modules/$(cat /src/include/config/kernel.release)/
+        mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.order /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin.modinfo /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
 
-        make -C /src M=$(pwd)/drbd/build-current modules_install DESTDIR=/rootfs INSTALL_MOD_PATH=/rootfs INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1 CONFIG_MODULE_SIG_ALL=y
+        make -C /src M=$(pwd)/drbd/build-current modules_install DESTDIR=/rootfs INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1 CONFIG_MODULE_SIG_ALL=y
     test:
       - |
         # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
-        find /rootfs/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
+        find /rootfs/usr/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
 finalize:
   - from: /rootfs
     to: /

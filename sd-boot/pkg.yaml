@@ -1,6 +1,6 @@
 name: sd-boot
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - stage: base
   - image: "{{ .TOOLS_IMAGE }}"
@@ -9,8 +9,8 @@ steps:
       - |
         mkdir -p /rootfs
 
-        cp /toolchain/lib/systemd/boot/efi/*.efi /rootfs
-        cp /toolchain/lib/systemd/boot/efi/*.efi.stub /rootfs
+        cp /usr/lib/systemd/boot/efi/*.efi /rootfs
+        cp /usr/lib/systemd/boot/efi/*.efi.stub /rootfs
 finalize:
   - from: /rootfs
     to: /

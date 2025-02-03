@@ -1,6 +1,6 @@
 name: socat
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - stage: base
   - stage: openssl

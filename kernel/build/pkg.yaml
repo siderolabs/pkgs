@@ -1,7 +1,8 @@
 name: kernel-build
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
+  - stage: base
   - stage: kernel-prepare
 steps:
   - env:
@@ -47,10 +48,4 @@ finalize:
     to: /src
   - from: /toolchain
     to: /toolchain
-  - from: /usr
-    to: /usr
-  - from: /bin
-    to: /bin
-  - from: /lib
-    to: /lib
   {{ end }}

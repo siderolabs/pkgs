@@ -1,6 +1,6 @@
 name: xfsprogs
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - stage: base
   - stage: util-linux
@@ -25,6 +25,7 @@ steps:
 
         ./configure \
         --prefix=/usr \
+        --enable-lib64=no \
         --enable-gettext=no
     build:
       - |

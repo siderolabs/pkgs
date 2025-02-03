@@ -1,6 +1,6 @@
 name: libattr
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - stage: base
 steps:
@@ -23,9 +23,9 @@ steps:
         ./configure \
           --prefix=/ \
           --exec-prefix=/ \
-          --sbindir=/bin \
+          --sbindir=/usr/sbin \
           --bindir=/usr/bin \
-          --libdir=/lib \
+          --libdir=/usr/lib \
           --libexecdir=/usr/lib \
           --includedir=/usr/include \
           --disable-manpages \

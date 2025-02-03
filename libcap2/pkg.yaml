@@ -1,4 +1,6 @@
 name: libcap
+variant: scratch
+shell: /bin/bash
 dependencies:
   - stage: base
 steps:
@@ -12,11 +14,11 @@ steps:
         tar -xf libcap.tar.xz --strip-components=1
     build:
       - |
-        make prefix=/ lib=lib -j $(nproc)
+        make prefix=/usr lib=lib sbin=sbin -j $(nproc)
     install:
       - |
-        make DESTDIR=/rootfs prefix=/ lib=lib install
-        rm -rf /rootfs/share
+        make DESTDIR=/rootfs prefix=/usr lib=lib sbin=sbin install
+        rm -rf /rootfs/usr/share
 finalize:
   - from: /rootfs
     to: /

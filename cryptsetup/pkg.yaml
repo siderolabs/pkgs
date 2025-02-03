@@ -1,6 +1,6 @@
 name: cryptsetup
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - stage: base
   - stage: systemd-udevd # dependency for libdevmapper

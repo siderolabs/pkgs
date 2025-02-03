@@ -1,5 +1,6 @@
 name: reproducibility
 variant: scratch
+shell: /bin/bash
 dependencies:
   - stage: apparmor
   # base is not needed since it's toolchain modified with a local musl build, we're only interested in the reproducibility of files that go into talos
@@ -19,6 +20,7 @@ dependencies:
   - stage: ipxe
   - stage: kmod
   - stage: libaio
+  - stage: libattr
   - stage: libcap
   - stage: libinih
   - stage: libjson-c

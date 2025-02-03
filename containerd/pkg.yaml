@@ -1,6 +1,6 @@
 name: containerd
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - stage: base
   - stage: libseccomp
@@ -13,8 +13,7 @@ steps:
         sha512: "{{ .containerd_sha512 }}"
     env:
       PKG_CONFIG_PATH: /usr/lib/pkgconfig
-      CC: /toolchain/bin/gcc
-      PATH: /toolchain/go/bin:/toolchain/bin:{{ .PATH }}
+      CC: gcc
       BUILDTAGS: 'seccomp no_aufs no_btrfs no_devmapper no_dynamic_plugins no_systemd no_zfs'
     prepare:
       - |
@@ -26,10 +25,10 @@ steps:
         make VERSION={{ .containerd_version }} REVISION={{ .containerd_ref }}
     install:
       - |
-        mkdir -p /rootfs/bin
-        make install PREFIX=/ DESTDIR=/rootfs
+        mkdir -p /rootfs/usr/bin
+        make install PREFIX=/usr DESTDIR=/rootfs
 
-        rm /rootfs/bin/{containerd-stress,ctr}
+        rm /rootfs/usr/bin/{containerd-stress,ctr}
 finalize:
   - from: /rootfs
     to: /

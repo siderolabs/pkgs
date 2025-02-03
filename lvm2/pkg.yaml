@@ -1,6 +1,6 @@
 name: lvm2
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - stage: base
   - stage: libaio
@@ -41,58 +41,9 @@ steps:
              --enable-udev_sync \
              --enable-udev_rules \
              --enable-static_link \
+             --prefix=/usr \
              --with-udev-prefix=/usr \
-             MODPROBE_CMD=/sbin/modprobe
-
-        rm -f /sbin/blkdeactivate \
-              /sbin/fsadm \
-              /sbin/fsck.xfs \
-              /sbin/lvchange \
-              /sbin/lvconvert \
-              /sbin/lvcreate \
-              /sbin/lvdisplay \
-              /sbin/lvextend \
-              /sbin/lvmconfig \
-              /sbin/lvmdevices \
-              /sbin/lvmdiskscan \
-              /sbin/lvmdump \
-              /sbin/lvm_import_vdo \
-              /sbin/lvmsadc \
-              /sbin/lvmsar \
-              /sbin/lvreduce \
-              /sbin/lvremove \
-              /sbin/lvrename \
-              /sbin/lvresize \
-              /sbin/lvs \
-              /sbin/lvscan \
-              /sbin/pvchange \
-              /sbin/pvck \
-              /sbin/pvcreate \
-              /sbin/pvdisplay \
-              /sbin/pvmove \
-              /sbin/pvremove \
-              /sbin/pvresize \
-              /sbin/pvs \
-              /sbin/pvscan \
-              /sbin/vgcfgbackup \
-              /sbin/vgcfrestore \
-              /sbin/vgchange \
-              /sbin/vgck \
-              /sbin/vgconvert \
-              /sbin/vgcreate \
-              /sbin/vgdisplay \
-              /sbin/vgexport \
-              /sbin/vgimport \
-              /sbin/vgimportclone \
-              /sbin/vgimportdevices \
-              /sbin/vgmerge \
-              /sbin/vgmknodes \
-              /sbin/vgreduce \
-              /sbin/vgremove \
-              /sbin/vgrename \
-              /sbin/vgs \
-              /sbin/vgscan \
-              /sbin/vgsplit
+             MODPROBE_CMD=/usr/bin/modprobe
     build:
       - |
         make -j $(nproc)

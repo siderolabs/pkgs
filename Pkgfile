@@ -1,9 +1,9 @@
-# syntax = ghcr.io/siderolabs/bldr:v0.3.2
+# syntax = ghcr.io/siderolabs/bldr:v0.4.0-1-g76a2c8f
 
 format: v1alpha2
 
 vars:
-  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.10.0-alpha.0-7-g7200845
+  TOOLS_IMAGE: ghcr.io/siderolabs/tools:v1.10.0-alpha.0-10-g9db33dd
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.6.2
@@ -71,6 +71,11 @@ vars:
   ipxe_ref: cc38d7dd3e379f3f93bcc97390137bbfd4049d60
   ipxe_sha256: 6ba8c70598666c8393c424c774329303ed198c3dc6e294fac14ff3c34368b0e4
   ipxe_sha512: 576c8abd7ad8ff738f935d40bc93eb3a25aff1053f1853af1d75d33b40573b4cf6f96bc19e6084b78a5454ca0b708abfc06e69c8c5a2d0efd57e9b5ad182b92c
+
+  # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
+  kspp_ref: 0c00f3fa766496d221ae3b79ce3f6730468f3641
+  kspp_sha256: b3c25019d75355fff63f129e5df86090dc7b0d295565fff2eeb414f7f6e4c263
+  kspp_sha512: 996f8baad6d58583b23fe7b8d2cabe73d65b85fcc81ef2aa1d42a4a106e5adf9891876579d6a7ca76cb67f6241b2f980310c19785ef94af40e2eda1f372a3933
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
   linux_version: 6.12.11

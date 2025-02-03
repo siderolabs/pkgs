@@ -1,6 +1,6 @@
 name: e2fsprogs
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - stage: base
   - stage: util-linux
@@ -38,10 +38,10 @@ steps:
 
         rm -rf /rootfs-temp/usr/{bin,etc,include,share}
 
-        mkdir -p /rootfs/{sbin,usr/lib}
+        mkdir -p /rootfs/usr/{sbin,lib}
 
         cp -r /rootfs-temp/usr/lib /rootfs/usr
-        cp -r /rootfs-temp/usr/sbin/{e2fsck,fsck.*,mke2fs,mkfs.*,resize2fs,tune2fs} /rootfs/sbin
+        cp -r /rootfs-temp/usr/sbin/{e2fsck,fsck.*,mke2fs,mkfs.*,resize2fs,tune2fs} /rootfs/usr/sbin
 finalize:
   - from: /rootfs
     to: /
