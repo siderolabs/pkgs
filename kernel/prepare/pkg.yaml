@@ -26,7 +26,5 @@ steps:
         mkdir -p /toolchain/kernel-hardening-checker
         tar -xzf kspp.tar.gz --strip-components=1 -C /toolchain/kernel-hardening-checker
 finalize:
-  - from: /src
-    to: /src
-  - from: /toolchain
-    to: /toolchain
+  - from: /
+    to: /

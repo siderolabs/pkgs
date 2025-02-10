@@ -2,7 +2,6 @@ name: kernel-build
 variant: scratch
 shell: /bin/bash
 dependencies:
-  - stage: base
   - stage: kernel-prepare
 steps:
   - env:
