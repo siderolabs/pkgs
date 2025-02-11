@@ -84,6 +84,7 @@ TARGETS += systemd-udevd
 TARGETS += util-linux
 TARGETS += xfsprogs
 TARGETS += kernel
+TARGETS += kernel-devel
 TARGETS += drbd-pkg
 TARGETS += gasket-driver-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-lts-pkg
