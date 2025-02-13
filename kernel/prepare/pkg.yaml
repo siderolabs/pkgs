@@ -2,7 +2,7 @@ name: kernel-prepare
 variant: scratch
 shell: /bin/bash
 dependencies:
-  - image: '{{ .TOOLS_IMAGE }}'
+  - stage: base
 steps:
   - sources:
       - url: https://cdn.kernel.org/pub/linux/kernel/v{{ regexReplaceAll "(\\d+)(.\\d+)(\\.\\d+)?$" .linux_version "${1}" }}.x/linux-{{ .linux_version }}.tar.xz

@@ -1,33 +1,7 @@
 name: kmod
 variant: scratch
-shell: /bin/bash
 dependencies:
-  - stage: base
-steps:
-  - sources:
-      - url: https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-{{.kmod_version }}.tar.xz
-        destination: kmod.tar.xz
-        sha256: "{{ .kmod_sha256 }}"
-        sha512: "{{ .kmod_sha512 }}"
-    prepare:
-      - |
-        tar -xJf kmod.tar.xz --strip-components=1
-
-        patch -p1 < /pkg/patches/strndupa.patch
-
-        mkdir build
-        cd build
-        ../configure \
-            --prefix=/usr \
-            --disable-manpages
-    build:
-      - |
-        cd build
-        make -j $(nproc)
-    install:
-      - |
-        cd build
-        make DESTDIR=/rootfs install
+  - image: "{{ .TOOLS_PREFIX }}tools-kmod:{{ .TOOLS_REV }}"
 finalize:
-  - from: /rootfs
-    to: /
+- from: /
+  to: /

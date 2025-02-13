@@ -3,115 +3,18 @@ variant: scratch
 shell: /bin/bash
 dependencies:
   - stage: base
-  - stage: openssl # for pip
-  - stage: util-linux
-  - stage: libselinux
-  - stage: libcap # runtime-dependency of systemd-hwdb
-  - stage: libsepol # runtime-dependency of systemd-hwdb
-  - stage: pcre2 # runtime-dependency of systemd-hwdb
+  - stage: systemd
 steps:
-  - sources:
-      - url: https://github.com/systemd/systemd/archive/refs/tags/v{{ .systemd_version }}.tar.gz
-        destination: systemd.tar.gz
-        sha256: "{{ .systemd_sha256 }}"
-        sha512: "{{ .systemd_sha512 }}"
-    env:
+  - env:
       SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
-  - network: default
-    prepare:
-      - |
-        tar -xzf systemd.tar.gz --strip-components=1
-
-        pip3 install jinja2 ninja
-
-        # Patches for musl from openembedded-core, MIT licensed
-        # Also replicated by Chimera Linux: https://github.com/chimera-linux/cports/tree/001642bd7691349e95574d93e325bb05d5dcb2c1/main/udev/patches
-        patch -p1 < /pkg/patches/0003-missing_type.h-add-comparison_fn_t.patch
-        patch -p1 < /pkg/patches/0004-add-fallback-parse_printf_format-implementation.patch
-        patch -p1 < /pkg/patches/0005-don-t-fail-if-GLOB_BRACE-and-GLOB_ALTDIRFUNC-is-not-.patch
-        patch -p1 < /pkg/patches/0007-Use-uintmax_t-for-handling-rlim_t.patch
-        patch -p1 < /pkg/patches/0008-Define-glibc-compatible-basename-for-non-glibc-syste.patch
-        patch -p1 < /pkg/patches/0009-Do-not-disable-buffering-when-writing-to-oom_score_a.patch
-        patch -p1 < /pkg/patches/0010-distinguish-XSI-compliant-strerror_r-from-GNU-specif.patch
-        patch -p1 < /pkg/patches/0011-avoid-redefinition-of-prctl_mm_map-structure.patch
-        patch -p1 < /pkg/patches/0012-do-not-disable-buffer-in-writing-files.patch
-        patch -p1 < /pkg/patches/0014-Handle-missing-gshadow.patch
-        patch -p1 < /pkg/patches/0015-missing_syscall.h-Define-MIPS-ABI-defines-for-musl.patch
-        patch -p1 < /pkg/patches/0017-Adjust-for-musl-headers.patch
-        patch -p1 < /pkg/patches/0019-errno-util-Make-STRERROR-portable-for-musl.patch
-        patch -p1 < /pkg/patches/0020-sd-event-Make-malloc_trim-conditional-on-glibc.patch
-        patch -p1 < /pkg/patches/0021-shared-Do-not-use-malloc_info-on-musl.patch
-        patch -p1 < /pkg/patches/0022-avoid-missing-LOCK_EX-declaration.patch
-        patch -p1 < /pkg/patches/0023-include-signal.h-to-avoid-the-undeclared-error.patch
-        patch -p1 < /pkg/patches/0024-undef-stdin-for-references-using-stdin-as-a-struct-m.patch
-        patch -p1 < /pkg/patches/0025-adjust-header-inclusion-order-to-avoid-redeclaration.patch
-        patch -p1 < /pkg/patches/0026-build-path.c-avoid-boot-time-segfault-for-musl.patch
-
-        # General improvement from OpenEmbedded
-        patch -p1 < /pkg/patches/0001-Do-not-create-var-log-README.patch
-
-        # Chimera Linux patch for ARM64 VMs, BSD-2-Clause licensed
-        # https://raw.githubusercontent.com/chimera-linux/cports/dabadf241e1078f5a696d6615622f67f0b1c85ac/main/udev/patches/xxx-udev-dynbuf.patch
-        patch -p1 < /pkg/patches/xxx-udev-dynbuf.patch
-
-        # Own fixes for musl
-        patch -p1 < /pkg/patches/0001-chore-musl-headers-compatibility-for-udev.patch
-
-        meson setup build \
-          --buildtype=release \
-          -Dmode=release \
-          -Dlibdir=/usr/lib \
-          -Dversion-tag="{{ .systemd_version }}-talos" \
-          -Dselinux=enabled \
-          -Dblkid=enabled \
-          -Dkmod=enabled \
-          -Dopenssl=disabled \
-          -Dgshadow=false \
-          -Dutmp=false \
-          -Duserdb=false \
-          -Ddbus=disabled \
-          -Dglib=disabled \
-          -Dnss-mymachines=disabled \
-          -Dnss-myhostname=false \
-          -Dnss-resolve=disabled \
-          -Dnss-systemd=false \
-          -Dbacklight=false \
-          -Dbinfmt=false \
-          -Dbpf-framework=disabled \
-          -Dcoredump=false \
-          -Denvironment-d=false \
-          -Dfirstboot=false \
-          -Dhibernate=false \
-          -Dhostnamed=false \
-          -Dlink-udev-shared=false \
-          -Dlogind=false \
-          -Dmachined=false \
-          -Dnetworkd=false \
-          -Doomd=false \
-          -Dportabled=false \
-          -Dsysext=false \
-          -Danalyze=false \
-          -Dtimedated=false \
-          -Dtimesyncd=false \
-          -Dtmpfiles=false \
-          -Dpolkit=disabled \
-          -Dstatic-libudev=true \
-          -Dman=disabled \
-          -Dtests=false \
-          -Dwerror=false
-    build:
-      - |
-        meson compile -C build
     install:
       - |
+        cd /tmp/systemd
         meson install -C build --destdir /installroot
 
         mkdir -p /rootfs/usr/bin
         cp /installroot/usr/bin/udevadm /rootfs/usr/bin/
-
-        mkdir -p /rootfs/usr/sbin
-        ln -s /usr/bin/udevadm /rootfs/usr/sbin/udevadm
-        ln -s /usr/bin/udevadm /rootfs/usr/sbin/systemd-udevd
+        ln -s udevadm /rootfs/usr/bin/systemd-udevd
 
         mkdir -p /rootfs/usr/lib/pkgconfig/
         mkdir -p /rootfs/usr/share/pkgconfig/

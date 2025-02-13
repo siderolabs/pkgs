@@ -3,7 +3,6 @@ variant: scratch
 shell: /bin/bash
 dependencies:
   - stage: base
-  - stage: openssl
 steps:
   - sources:
       - url: https://github.com/ipmitool/ipmitool/archive/refs/tags/IPMITOOL_{{ .ipmitool_version }}.tar.gz
@@ -31,7 +30,8 @@ steps:
           --mandir=/usr/share/man \
           --infodir=/usr/share/info \
           --localstatedir=/var \
-          --bindir=/usr/sbin \
+          --bindir=/usr/bin \
+          --sbindir=/usr/bin \
           --enable-ipmishell \
           --enable-intf-lan \
           --enable-intf-lanplus \

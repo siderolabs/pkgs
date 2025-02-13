@@ -3,7 +3,6 @@ variant: scratch
 shell: /bin/bash
 dependencies:
   - stage: base
-  - stage: util-linux
   - stage: libattr
   - stage: libinih
   - stage: liburcu
@@ -25,6 +24,7 @@ steps:
 
         ./configure \
         --prefix=/usr \
+        --sbindir=/usr/bin \
         --enable-lib64=no \
         --enable-gettext=no
     build:

@@ -1,18 +1,7 @@
 name: ca-certificates
 variant: scratch
-shell: /bin/bash
 dependencies:
-  - stage: base
-steps:
-- sources:
-  - url: https://curl.se/ca/cacert-2024-12-31.pem
-    destination: cacert.pem
-    sha256: a3f328c21e39ddd1f2be1cea43ac0dec819eaa20a90425d7da901a11531b3aa5
-    sha512: bf578937d7826106bae1ebe74a70bfbc439387445a1f41ef57430de9d9aea6fcfa1884381bf0ef14632f6b89e9543642c9b774fcca93837efffdc557c4958dbd
-  install:
-  - |
-    mkdir -p /rootfs/etc/ssl/certs
-    mv cacert.pem /rootfs/etc/ssl/certs/ca-certificates
+  - image: "{{ .TOOLS_PREFIX }}tools-ca-certificates:{{ .TOOLS_REV }}"
 finalize:
-- from: /rootfs
+- from: /
   to: /

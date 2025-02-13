@@ -3,7 +3,6 @@ variant: scratch
 shell: /bin/bash
 dependencies:
   - stage: base
-  - stage: openssl
 steps:
   - sources:
       - url: http://www.dest-unreach.org/socat/download/socat-{{ .socat_version }}.tar.gz

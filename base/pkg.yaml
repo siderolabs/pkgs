@@ -2,8 +2,7 @@ name: base
 variant: scratch
 shell: /bin/bash
 dependencies:
-  - image: "{{ .TOOLS_IMAGE }}"
-  - stage: musl
+  - image: "{{ .TOOLS_PREFIX }}tools:{{ .TOOLS_REV }}"
 finalize:
   - from: /
     to: /

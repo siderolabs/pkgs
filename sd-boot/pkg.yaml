@@ -3,14 +3,15 @@ variant: scratch
 shell: /bin/bash
 dependencies:
   - stage: base
-  - image: "{{ .TOOLS_IMAGE }}"
+  - stage: systemd
 steps:
   - install:
-      - |
-        mkdir -p /rootfs
+    - |
+      cd /tmp/systemd
+      mkdir -p /rootfs/
 
-        cp /usr/lib/systemd/boot/efi/*.efi /rootfs
-        cp /usr/lib/systemd/boot/efi/*.efi.stub /rootfs
+      cp build/src/boot/*.efi /rootfs/
+      cp build/src/boot/*.efi.stub /rootfs/
 finalize:
   - from: /rootfs
     to: /

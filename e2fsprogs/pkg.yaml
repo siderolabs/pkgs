@@ -3,10 +3,6 @@ variant: scratch
 shell: /bin/bash
 dependencies:
   - stage: base
-  - stage: util-linux
-  #- stage: libattr
-  #- stage: libinih
-  #- stage: liburcu
 steps:
   - sources:
       - url: https://github.com/tytso/e2fsprogs/archive/refs/tags/{{ .e2fsprogs_version}}.tar.gz
@@ -19,6 +15,7 @@ steps:
 
         ./configure \
         --prefix=/usr \
+        --sbindir=/usr/bin \
         --localstatedir=/run \
         --enable-hardening \
         --enable-elf-shlibs \
@@ -36,12 +33,10 @@ steps:
       - |
         make install DESTDIR=/rootfs-temp
 
-        rm -rf /rootfs-temp/usr/{bin,etc,include,share}
-
-        mkdir -p /rootfs/usr/{sbin,lib}
+        mkdir -p /rootfs/usr/{bin,lib}
 
         cp -r /rootfs-temp/usr/lib /rootfs/usr
-        cp -r /rootfs-temp/usr/sbin/{e2fsck,fsck.*,mke2fs,mkfs.*,resize2fs,tune2fs} /rootfs/usr/sbin
+        cp -r /rootfs-temp/usr/bin/{e2fsck,fsck.*,mke2fs,mkfs.*,resize2fs,tune2fs} /rootfs/usr/bin
 finalize:
   - from: /rootfs
     to: /

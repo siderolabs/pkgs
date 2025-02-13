@@ -2,7 +2,7 @@ name: linux-firmware
 variant: scratch
 shell: /bin/bash
 dependencies:
-    - image: '{{ .TOOLS_IMAGE }}'
+    - stage: base
 steps:
     - sources:
           - url: https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{{ .linux_firmware_version }}.tar.gz

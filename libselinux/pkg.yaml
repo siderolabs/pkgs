@@ -1,31 +1,7 @@
 name: libselinux
 variant: scratch
-shell: /bin/bash
 dependencies:
-  - stage: base
-  - stage: libsepol
-  - stage: pcre2
-steps:
-  - sources:
-      - url: https://github.com/SELinuxProject/selinux/releases/download/{{ .selinux_version }}/libselinux-{{ .selinux_version }}.tar.gz
-        destination: libselinux.tar.gz
-        sha256: "{{ .libselinux_sha256 }}"
-        sha512: "{{ .libselinux_sha512 }}"
-    prepare:
-      - |
-        tar -xzf libselinux.tar.gz --strip-components=1
-
-        patch -p1 < /pkg/patches/musl-lstat.patch
-        patch -p1 < /pkg/patches/selabel-digest-uninit.patch
-        patch -p1 < /pkg/patches/0001-libselinux-exclude-requirement-for-etc-selinux.patch
-        # TODO: remove upstream patches when updating to 3.8
-        patch -p1 < /pkg/patches/0001-libselinux-set-free-d-data-to-NULL.patch
-    build:
-      - |
-        make -j $(nproc) FTS_LDLIBS="-l:libfts.a" SUBDIRS="include src" SHLIBDIR=/usr/lib
-    install:
-      - |
-        make install DESTDIR=/rootfs SUBDIRS="include src" SHLIBDIR=/usr/lib
+  - image: "{{ .TOOLS_PREFIX }}tools-libselinux:{{ .TOOLS_REV }}"
 finalize:
-  - from: /rootfs
-    to: /
+- from: /
+  to: /

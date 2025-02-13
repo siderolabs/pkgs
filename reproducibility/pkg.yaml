@@ -2,11 +2,20 @@ name: reproducibility
 variant: scratch
 shell: /bin/bash
 dependencies:
-  - stage: apparmor
   # base is not needed since it's toolchain modified with a local musl build, we're only interested in the reproducibility of files that go into talos
-  # - stage: base
-  # ca-certificates can be ignored from reproducibility test since it's a file downloaded and extracted (no build happens)
+  # However, pull it in for a test script
+  - stage: base
+  - stage: apparmor
+  # These packages are pulled through from tools, so they are tested there
   # - stage: ca-certificates
+  # - stage: kmod
+  # - stage: libcap
+  # - stage: libselinux
+  # - stage: libsepol
+  # - stage: musl
+  # - stage: openssl
+  # - stage: pcre2
+  # - stage: util-linux
   - stage: cni
   - stage: containerd
   - stage: cryptsetup
@@ -18,30 +27,34 @@ dependencies:
   - stage: ipmitool
   - stage: iptables
   - stage: ipxe
-  - stage: kmod
   - stage: libaio
   - stage: libattr
-  - stage: libcap
   - stage: libinih
   - stage: libjson-c
   - stage: liblzma
+  - stage: libnftnl
+  - stage: libmnl
   - stage: libpopt
   - stage: libseccomp
-  - stage: libselinux
-  - stage: libsepol
   - stage: liburcu
   - stage: systemd-udevd
   # linux-firmware can be ignored from reproducibility test since it's a tarball downloaded and extracted (no build happens)
   # - stage: linux-firmware
   - stage: lvm2
-  - stage: musl
-  - stage: openssl
-  - stage: pcre2
   - stage: runc
   - stage: sd-boot
   - stage: socat
-  - stage: util-linux
   - stage: xfsprogs
+steps:
+  - test:
+    - |
+      # Validate usrmerge symlinks from toolchain & tools did not get overwritten
+      [ -L /bin ] && [ -d /bin ]
+      [ -L /lib ] && [ -d /lib ]
+      [ -L /lib64 ] && [ -d /lib64 ]
+      [ -L /usr/lib64 ] && [ -d /usr/lib64 ]
+      [ -L /sbin ] && [ -d /sbin ]
+      [ -L /usr/sbin ] && [ -d /usr/sbin ]
 finalize:
   - from: /
     to: /

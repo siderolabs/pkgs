@@ -1,48 +1,7 @@
 name: openssl
 variant: scratch
-shell: /bin/bash
 dependencies:
-  - stage: base
-steps:
-  - sources:
-      - url: https://github.com/openssl/openssl/releases/download/openssl-{{ .openssl_version }}/openssl-{{ .openssl_version }}.tar.gz
-        destination: openssl.tar.gz
-        sha256: "{{ .openssl_sha256 }}"
-        sha512: "{{ .openssl_sha512 }}"
-    env:
-      SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
-    prepare:
-      - |
-        mkdir openssl
-        tar -xzf openssl.tar.gz --strip-components=1 -C openssl
-    build:
-      - |
-        cd openssl
-
-        perl ./Configure \
-          linux-${ARCH} \
-          --prefix=/usr \
-          --libdir=lib \
-          --openssldir=/etc/ssl3.1 \
-          shared \
-          no-zlib \
-          no-async \
-          no-comp \
-          no-idea \
-          no-mdc2 \
-          no-rc5 \
-          no-ec2m \
-          no-sm2 \
-          no-sm4 \
-          no-ssl3 \
-          no-seed \
-          no-weak-ssl-ciphers
-
-        make -j $(nproc) build_sw
-    install:
-      - |
-        cd openssl
-        make DESTDIR=/rootfs install_sw
+  - image: "{{ .TOOLS_PREFIX }}tools-openssl:{{ .TOOLS_REV }}"
 finalize:
-  - from: /rootfs
-    to: /
+- from: /
+  to: /

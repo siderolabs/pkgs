@@ -3,7 +3,6 @@ variant: scratch
 shell: /bin/bash
 dependencies:
   - stage: base
-  - stage: util-linux
 steps:
   - sources:
       - url: https://gitlab.com/apparmor/apparmor/-/archive/{{ .apparmor_version }}/apparmor-{{ .apparmor_version }}.tar.gz
@@ -33,7 +32,7 @@ steps:
     install:
       - |
         cd parser
-        DISTRO=unknown make install-arch DESTDIR=/rootfs SBINDIR=/rootfs/usr/sbin
+        DISTRO=unknown make install-arch DESTDIR=/rootfs SBINDIR=/rootfs/usr/bin
 finalize:
   - from: /rootfs
     to: /

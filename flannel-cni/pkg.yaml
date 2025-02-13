@@ -9,10 +9,12 @@ steps:
         destination: flannel-cni.tar.gz
         sha256: "{{ .flannel_cni_sha256 }}"
         sha512: "{{ .flannel_cni_sha512 }}"
+  - network: default
     prepare:
       - |
         tar -xzf flannel-cni.tar.gz --strip-components=1
-  - network: default
+        go mod vendor
+  - network: none
     build:
       - |
         export GOARCH=$(go env GOARCH)
@@ -22,8 +24,6 @@ steps:
         {{ if eq .ARCH "x86_64" }}
         export CGO_ENABLED=1
         {{ end }}
-
-        go mod vendor
 
         sed -i '/BUILD_DATE=/c BUILD_DATE="1"' scripts/version.sh
         sed -i '/COMMIT=/c COMMIT={{ .flannel_cni_ref }}' scripts/version.sh

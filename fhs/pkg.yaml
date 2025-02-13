@@ -9,7 +9,7 @@ steps:
     PREFIX=/rootfs
     mkdir -pv ${PREFIX}/{dev,proc,sys,etc,opt,run}
     mkdir -pv ${PREFIX}/run/lock
-    mkdir -pv ${PREFIX}/usr/{bin,sbin,lib,var,include,src}
+    mkdir -pv ${PREFIX}/usr/{bin,lib,var,include,src}
     mkdir -pv ${PREFIX}/var/{log,mail,spool}
     install -dv -m 0750 ${PREFIX}/root
     install -dv -m 1777 ${PREFIX}/tmp ${PREFIX}/var/tmp
@@ -17,8 +17,9 @@ steps:
     ln -sT usr/lib lib64
     ln -sT usr/lib lib
     ln -sT usr/bin bin
-    ln -sT usr/sbin sbin
+    ln -sT usr/bin sbin
     ln -sT lib usr/lib64
+    ln -sT bin usr/sbin
     ln -sT ../run var/run
     ln -sT ../run/lock var/lock
 finalize:

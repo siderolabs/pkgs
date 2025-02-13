@@ -23,12 +23,9 @@ steps:
         --prefix=/usr \
         --libexecdir=/usr/libexec \
         --disable-static \
-        --sbindir=/usr/sbin \
+        --sbindir=/usr/bin \
         --enable-libipq \
         --with-xtlibdir=/usr/lib/xtables
-
-        rm -f /usr/sbin/iptables-apply \
-              /usr/sbin/ip6tables-apply
     build:
       - |
         make -j $(nproc)
@@ -37,7 +34,7 @@ steps:
         make install DESTDIR=/rootfs
       - |
         # fix up symlinks which point to legacy version to point to nft version
-        for f in /rootfs/usr/sbin/*; do
+        for f in /rootfs/usr/bin/*; do
           # if name doesn't contain 'legacy':
           if [[ $f == *legacy* ]]; then
             continue

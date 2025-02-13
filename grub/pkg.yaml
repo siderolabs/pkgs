@@ -3,7 +3,6 @@ variant: scratch
 shell: /bin/bash
 dependencies:
   - stage: base
-  - stage: util-linux
 steps:
   - sources:
       - url: https://ftp.gnu.org/gnu/grub/grub-{{ .grub_version }}.tar.xz

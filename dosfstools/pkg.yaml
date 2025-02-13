@@ -18,6 +18,7 @@ steps:
 
         ../configure \
         --prefix=/usr \
+        --sbindir=/usr/bin \
         --enable-compat-symlinks
     build:
       - |

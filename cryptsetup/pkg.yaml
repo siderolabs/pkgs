@@ -4,12 +4,9 @@ shell: /bin/bash
 dependencies:
   - stage: base
   - stage: systemd-udevd # dependency for libdevmapper
-  - stage: libcap # dependency for libudev
   - stage: lvm2 # libdevmapper
-  - stage: util-linux # libuuid
   - stage: libpopt
   - stage: libjson-c
-  - stage: openssl
 steps:
   - sources:
       - url: https://www.kernel.org/pub/linux/utils/cryptsetup/v{{ regexReplaceAll ".\\d+$" .cryptsetup_version "${1}" }}/cryptsetup-{{ .cryptsetup_version }}.tar.gz
@@ -25,6 +22,7 @@ steps:
 
         ./configure \
           --prefix=/usr \
+          --sbindir=/usr/bin \
           --disable-asciidoc \
           --disable-ssh-token \
           --enable-static-cryptsetup || (cat config.log; exit 1)

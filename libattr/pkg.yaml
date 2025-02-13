@@ -23,7 +23,7 @@ steps:
         ./configure \
           --prefix=/ \
           --exec-prefix=/ \
-          --sbindir=/usr/sbin \
+          --sbindir=/usr/bin \
           --bindir=/usr/bin \
           --libdir=/usr/lib \
           --libexecdir=/usr/lib \

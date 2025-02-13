@@ -77,23 +77,17 @@
         {
             "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.?(?<patch>\\d+)?$",
             "matchPackageNames": [
-                "git://git.kernel.org/pub/scm/boot/syslinux/syslinux.git",
-                "git://git.kernel.org/pub/scm/utils/util-linux/util-linux.git",
                 "nvidia/open-gpu-kernel-modules",
                 "dosfstools/dosfstools",
                 "git://git.savannah.gnu.org/grub.git",
                 "https://pagure.io/libaio.git",
                 "rpm-software-management/popt",
-                "PCRE2Project/pcre2",
-                "SELinuxProject/selinux",
-                "git://git.liburcu.org/userspace-rcu.git",
-                "git://git.kernel.org/pub/scm/libs/libcap/libcap.git"
+                "git://git.liburcu.org/userspace-rcu.git"
             ]
         },
         {
             "versioning": "regex:^(?<major>\\d+)\\.?(?<minor>\\d+)?\\.?(?<patch>\\d+)?$",
             "matchPackageNames": [
-                "git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git",
                 "benhoyt/inih",
                 "systemd/systemd"
             ]

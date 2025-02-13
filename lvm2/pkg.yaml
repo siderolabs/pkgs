@@ -5,8 +5,6 @@ dependencies:
   - stage: base
   - stage: libaio
   - stage: systemd-udevd
-  - stage: libcap # dependency for libudev
-  - stage: util-linux
 steps:
   - sources:
       - url: https://mirrors.kernel.org/sourceware/lvm2/LVM2.{{ .lvm2_version | replace "_" "." }}.tgz
@@ -42,6 +40,8 @@ steps:
              --enable-udev_rules \
              --enable-static_link \
              --prefix=/usr \
+             --sbindir=/usr/bin \
+             --with-usrsbindir=/usr/bin \
              --with-udev-prefix=/usr \
              MODPROBE_CMD=/usr/bin/modprobe
     build:
@@ -53,6 +53,9 @@ steps:
 
         # LVM activation is handled by Talos itself
         rm -f /rootfs/usr/lib/udev/rules.d/69-dm-lvm.rules
+
+        mv /rootfs/usr/sbin/* /rootfs/usr/bin/
+        rm -r /rootfs/usr/sbin
 finalize:
   - from: /rootfs
     to: /

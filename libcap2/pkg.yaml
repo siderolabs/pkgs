@@ -1,24 +1,7 @@
 name: libcap
 variant: scratch
-shell: /bin/bash
 dependencies:
-  - stage: base
-steps:
-  - sources:
-      - url: https://kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-{{ .libcap_version }}.tar.xz
-        destination: libcap.tar.xz
-        sha256: "{{ .libcap_sha256 }}"
-        sha512: "{{ .libcap_sha512 }}"
-    prepare:
-      - |
-        tar -xf libcap.tar.xz --strip-components=1
-    build:
-      - |
-        make prefix=/usr lib=lib sbin=sbin -j $(nproc)
-    install:
-      - |
-        make DESTDIR=/rootfs prefix=/usr lib=lib sbin=sbin install
-        rm -rf /rootfs/usr/share
+  - image: "{{ .TOOLS_PREFIX }}tools-libcap:{{ .TOOLS_REV }}"
 finalize:
-  - from: /rootfs
-    to: /
+- from: /
+  to: /

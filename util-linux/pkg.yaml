@@ -1,45 +1,7 @@
 name: util-linux
 variant: scratch
-shell: /bin/bash
 dependencies:
-  - stage: base
-steps:
-  - sources:
-      - url: https://www.kernel.org/pub/linux/utils/util-linux/v{{ regexReplaceAll ".\\d+$" .util_linux_version "${1}" }}/util-linux-{{  regexReplaceAll "\\.0$" .util_linux_version "${1}" }}.tar.xz
-        destination: util-linux.tar.xz
-        sha256: "{{ .util_linux_sha256 }}"
-        sha512: "{{ .util_linux_sha512 }}"
-    prepare:
-      - |
-        tar -xJf util-linux.tar.xz --strip-components=1
-
-        mkdir build
-        cd build
-        ../configure \
-            --prefix=/usr \
-            --bindir=/usr/bin \
-            --sbindir=/usr/bin \
-            --libdir=/usr/lib \
-            --without-python \
-            --disable-bash-completion \
-            --disable-asciidoc \
-            --disable-makeinstall-chown \
-            --disable-liblastlog2 \
-            --without-systemd \
-            --without-systemdsystemunitdir \
-            --disable-all-programs \
-            --enable-libmount \
-            --enable-libblkid \
-            --enable-libuuid
-    build:
-      - |
-        cd build
-        make -j $(nproc)
-    install:
-      - |
-        cd build
-        mkdir /rootfs
-        make install DESTDIR=/rootfs
+  - image: "{{ .TOOLS_PREFIX }}tools-util-linux:{{ .TOOLS_REV }}"
 finalize:
-  - from: /rootfs
-    to: /
+- from: /
+  to: /

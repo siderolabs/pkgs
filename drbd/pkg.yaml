@@ -19,6 +19,7 @@ steps:
     build:
       - |
         make -j $(nproc) -C drbd KERNEL_SOURCES=/src MODVERSIONS=detect KDIR=/src
+  - network: none
     install:
       - |
         mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/

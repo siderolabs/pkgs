@@ -1,51 +1,7 @@
 name: musl
 variant: scratch
-shell: /bin/bash
 dependencies:
-  - image: "{{ .TOOLS_IMAGE }}"
-steps:
-  - sources:
-      - url: https://www.musl-libc.org/releases/musl-{{ .musl_version }}.tar.gz
-        destination: musl.tar.gz
-        sha256: "{{ .musl_sha256 }}"
-        sha512: "{{ .musl_sha512 }}"
-    env:
-      # disable any optimizations, as musl does its own
-      CFLAGS: ""
-      CXXFLAGS: ""
-      LDFLAGS: ""
-    prepare:
-      - |
-        tar -xzf musl.tar.gz --strip-components=1
-
-        patch -p1 < /pkg/patches/handle-aux-at-base.patch
-        patch -p1 < /pkg/patches/close-range.patch
-
-        mkdir build
-        cd build
-
-        # From https://www.musl-libc.org/doc/1.0.0/manual.html:
-        #    $(syslibdir), $(includedir), and $(libdir) refer to the paths
-        #    chosen at build time (by default, /lib, $(prefix)/include, and
-        #    $(prefix)/lib, respectively)
-        ../configure \
-        --prefix=/usr
-    build:
-      - |
-        cd build
-        make -j $(nproc)
-    install:
-      - |
-        cd build
-        make DESTDIR=/rootfs install
-
-        # musl by default installs to unprefixed /lib, fix this for usrmerge
-        mkdir -p /rootfs/usr/bin /rootfs/usr/lib
-        rm -rf /rootfs/lib
-        ln -sf /usr/lib/ld-musl-${ARCH}.so.1 /rootfs/usr/bin/ldd
-        mv -f /rootfs/usr/lib/libc.so /rootfs/usr/lib/ld-musl-${ARCH}.so.1
-        ln -sf ld-musl-${ARCH}.so.1 /rootfs/usr/lib/libc.musl-${ARCH}.so.1
-        ln -sf /usr/lib/ld-musl-${ARCH}.so.1 /rootfs/usr/lib/libc.so
+  - image: "{{ .TOOLCHAIN_MUSL_IMAGE }}"
 finalize:
-  - from: /rootfs
+  - from: /
     to: /
