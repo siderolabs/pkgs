@@ -39,9 +39,9 @@ vars:
   e2fsprogs_sha512: 1dc86535b72a4ab60e17a547efe5e137054eff6cad9f6cf9cc9485694ec6166687a9d5f50fb47a10e776a70c7690ade5445c0339731f83066abf33c01f70d9c7
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
-  systemd_version: 257.2
-  systemd_sha256: 7f2bc3253e4f87578132c5e433ef9ff7e8fee01d9eb5a5b7c64376d617f694d0
-  systemd_sha512: 4f47fcd9a4148101ee7b85cf5908a04ec9e025dc7a5a2e8e61c05439cfd427851b6d356bb96a0dfae55566bbf6d3c93a13251d220840c09296e94f80bd4a5945
+  systemd_version: 257.3
+  systemd_sha256: 99365d1a01bcc59a659ab59c7bae9c34f7eb2998f1656ee0a4aae05312eacdc9
+  systemd_sha512: ef395998df4b24537147fa3b2e3ae2d100d3345f386fc39018bca0fe8092b7874bf9a6e6058a142342b3a0caebe1312ea9519bcbb4327a9d3649f593c49b3dab
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
   flannel_cni_version: v1.5.1-flannel3
@@ -70,9 +70,9 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: bd90abf487a6b0500f457193f86ff54fd2be3143
-  ipxe_sha256: d387a4410b0daee975d5460e2e602eaf8193c130d6d977ec3401256e02178633
-  ipxe_sha512: e630665d5f27d604fa2806bfbb14fbcdfdeeaa826f163fa1ca087e5194665e15869838d72ec93b0558f11a220a313751bdfc991248c29289a5d9526f7e40842f
+  ipxe_ref: 8e6b914c53732b6764c344856787cf67dd44026c
+  ipxe_sha256: 7b568783e127a95aa6731cfd497d8f1718bb1f5b49f3876ee3ce5a28cd44ca0c
+  ipxe_sha512: 97b2862fb102d0309d76262ce68325f1d981bddef4ba84980a841da9a20fdea752362d93f3687b4d33a01894ad9c4ef39a075c8103c2524413526810a69342d3
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: 0c00f3fa766496d221ae3b79ce3f6730468f3641
@@ -166,10 +166,10 @@ vars:
   nvidia_driver_production_amd64_sha512: 548afbaf726b69fc001de5c4964a6b57f06dc0aba29bf7e1b4345e0176c7c438b2fe972de83ee917ee187836fc005e76fe998c3dada34929bcdea0929a35fb26
 
   # renovate: datasource=github-tags depName=opencontainers/runc
-  runc_version: v1.2.4
-  runc_ref: 6c52b3fc541fb26fe8c374d5f58112a0a5dbda66
-  runc_sha256: 86c087a141c233ce02dab089c1b9ec88ecbc0fedc1cc581989f6e53701323a65
-  runc_sha512: bed47cd17cfc2346e69baa186a145bb55d888f56025931301c829d48f88a9506e95632f8e3ff25dd423ffe92232572e2dd067cb6e84a0fb09e8bd487a9e1a775
+  runc_version: v1.2.5
+  runc_ref: 59923ef18c98053ddb1acf23ecba10344056c28e
+  runc_sha256: 700be41d0bf2be1ea8680fa77a801d307f1071062c6ecfed5874f6b803c5ef73
+  runc_sha512: b22ef70047cf98b3e633791b62b31002289c63d07c789c19709b8dbca1982756d862e1a962601722ea42cbcb8e1527d72ff4b0e71b588886d30e424f77eafd58
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
   socat_version: 1.8.0.2
