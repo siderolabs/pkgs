@@ -55,6 +55,20 @@ steps:
       [ -L /usr/lib64 ] && [ -d /usr/lib64 ]
       [ -L /sbin ] && [ -d /sbin ]
       [ -L /usr/sbin ] && [ -d /usr/sbin ]
+    - |
+      # Test for extra files/directories
+      # go and pkg come from base
+      ALLOWED_DIRS="usr etc bin sbin lib lib64 dev proc sys opt run var root tmp home go pkg"
+
+      for dir in $(ls /); do
+        if ! echo $ALLOWED_DIRS | grep -q $dir; then
+          echo "Extra directory found: $dir"
+          exit 1
+        fi
+      done
+
+      # Ensure pkg is empty
+      [ -z "$(ls /pkg)" ]"
 finalize:
   - from: /
     to: /
