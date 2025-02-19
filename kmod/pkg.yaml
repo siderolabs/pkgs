@@ -2,6 +2,7 @@ name: kmod
 variant: scratch
 dependencies:
   - image: "{{ .TOOLS_PREFIX }}tools-kmod:{{ .TOOLS_REV }}"
+    to: /rootfs
 finalize:
-- from: /
+- from: /rootfs
   to: /

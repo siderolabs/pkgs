@@ -5,7 +5,6 @@ dependencies:
   # base is not needed since it's toolchain modified with a local musl build, we're only interested in the reproducibility of files that go into talos
   # However, pull it in for a test script
   - stage: base
-  - stage: apparmor
   # These packages are pulled through from tools, so they are tested there
   # - stage: ca-certificates
   # - stage: kmod
@@ -16,45 +15,86 @@ dependencies:
   # - stage: openssl
   # - stage: pcre2
   # - stage: util-linux
-  - stage: cni
-  - stage: containerd
-  - stage: cryptsetup
-  - stage: dosfstools
-  - stage: e2fsprogs
-  - stage: fhs
-  - stage: flannel-cni
-  - stage: grub
-  - stage: ipmitool
-  - stage: iptables
-  - stage: ipxe
-  - stage: libaio
-  - stage: libattr
-  - stage: libinih
-  - stage: libjson-c
-  - stage: liblzma
-  - stage: libnftnl
-  - stage: libmnl
-  - stage: libpopt
-  - stage: libseccomp
-  - stage: liburcu
-  - stage: systemd-udevd
   # linux-firmware can be ignored from reproducibility test since it's a tarball downloaded and extracted (no build happens)
   # - stage: linux-firmware
+  #
+  # FHS must be the first for symlinks
+  - stage: fhs
+    to: /rootfs
+  - stage: apparmor
+    to: /rootfs
+  - stage: cni
+    to: /rootfs
+  - stage: containerd
+    to: /rootfs
+  - stage: cryptsetup
+    to: /rootfs
+  - stage: dosfstools
+    to: /rootfs
+  - stage: e2fsprogs
+    to: /rootfs
+  - stage: flannel-cni
+    to: /rootfs
+  - stage: grub
+    to: /rootfs
+  - stage: ipmitool
+    to: /rootfs
+  - stage: iptables
+    to: /rootfs
+  - stage: ipxe
+    to: /rootfs
+  - stage: libaio
+    to: /rootfs
+  - stage: libattr
+    to: /rootfs
+  - stage: libinih
+    to: /rootfs
+  - stage: libjson-c
+    to: /rootfs
+  - stage: liblzma
+    to: /rootfs
+  - stage: libnftnl
+    to: /rootfs
+  - stage: libmnl
+    to: /rootfs
+  - stage: libpopt
+    to: /rootfs
+  - stage: libseccomp
+    to: /rootfs
+  - stage: liburcu
+    to: /rootfs
+  - stage: systemd-udevd
+    to: /rootfs
   - stage: lvm2
+    to: /rootfs
   - stage: runc
+    to: /rootfs
   - stage: sd-boot
+    to: /rootfs
   - stage: socat
+    to: /rootfs
   - stage: xfsprogs
+    to: /rootfs
 steps:
   - test:
     - |
-      # Validate usrmerge symlinks from toolchain & tools did not get overwritten
-      [ -L /bin ] && [ -d /bin ]
-      [ -L /lib ] && [ -d /lib ]
-      [ -L /lib64 ] && [ -d /lib64 ]
-      [ -L /usr/lib64 ] && [ -d /usr/lib64 ]
-      [ -L /sbin ] && [ -d /sbin ]
-      [ -L /usr/sbin ] && [ -d /usr/sbin ]
+      # Validate usrmerge symlinks from fhs did not get overwritten
+      [ -L /rootfs/bin ] && [ -d /rootfs/bin ]
+      [ -L /rootfs/lib ] && [ -d /rootfs/lib ]
+      [ -L /rootfs/lib64 ] && [ -d /rootfs/lib64 ]
+      [ -L /rootfs/usr/lib64 ] && [ -d /rootfs/usr/lib64 ]
+      [ -L /rootfs/sbin ] && [ -d /rootfs/sbin ]
+      [ -L /rootfs/usr/sbin ] && [ -d /rootfs/usr/sbin ]
+    - |
+      # Test for extra files/directories
+      ALLOWED_DIRS="usr etc bin sbin lib lib64 dev proc sys opt run var root tmp home"
+
+      for dir in $(ls /rootfs); do
+        if ! echo $ALLOWED_DIRS | grep -q $dir; then
+          echo "Extra directory found: $dir"
+          exit 1
+        fi
+      done
 finalize:
-  - from: /
+  - from: /rootfs
     to: /

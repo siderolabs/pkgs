@@ -2,6 +2,7 @@ name: pcre2
 variant: scratch
 dependencies:
   - image: "{{ .TOOLS_PREFIX }}tools-pcre2:{{ .TOOLS_REV }}"
+    to: /rootfs
 finalize:
-- from: /
+- from: /rootfs
   to: /

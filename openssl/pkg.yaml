@@ -2,6 +2,7 @@ name: openssl
 variant: scratch
 dependencies:
   - image: "{{ .TOOLS_PREFIX }}tools-openssl:{{ .TOOLS_REV }}"
+    to: /rootfs
 finalize:
-- from: /
+- from: /rootfs
   to: /

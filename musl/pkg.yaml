@@ -2,6 +2,7 @@ name: musl
 variant: scratch
 dependencies:
   - image: "{{ .TOOLCHAIN_MUSL_IMAGE }}"
+    to: /rootfs
 finalize:
-  - from: /
+  - from: /rootfs
     to: /

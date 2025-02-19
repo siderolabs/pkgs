@@ -3,6 +3,7 @@ variant: scratch
 shell: /bin/bash
 dependencies:
   - image: "{{ .TOOLS_PREFIX }}tools:{{ .TOOLS_REV }}"
+    to: /rootfs
 finalize:
-  - from: /
+  - from: /rootfs
     to: /
