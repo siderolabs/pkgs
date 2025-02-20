@@ -1,0 +1,8 @@
+name: xz
+variant: scratch
+dependencies:
+  - image: "{{ .TOOLS_PREFIX }}tools-xz:{{ .TOOLS_REV }}"
+    to: /rootfs
+finalize:
+- from: /rootfs
+  to: /

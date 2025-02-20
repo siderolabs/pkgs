@@ -1,0 +1,25 @@
+name: pigz
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: libburn
+steps:
+  - sources:
+      - url: https://zlib.net/pigz/pigz-{{ .pigz_version }}.tar.gz
+        destination: pigz.tar.gz
+        sha256: "{{ .pigz_sha256 }}"
+        sha512: "{{ .pigz_sha512 }}"
+    prepare:
+      - |
+        tar -xzf pigz.tar.gz --strip-components=1
+    build:
+      - |
+        make -j $(nproc)
+    install:
+      - |
+        install -Dm755 pigz /rootfs/usr/bin/pigz
+        ln -s pigz /rootfs/usr/bin/unpigz
+finalize:
+  - from: /rootfs
+    to: /

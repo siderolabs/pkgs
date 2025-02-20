@@ -4,6 +4,7 @@ dependencies:
   # These packages are pulled through from tools, so they are not tested here.
   # - stage: base
   # - stage: ca-certificates
+  # - stage: cpio
   # - stage: kmod
   # - stage: libcap
   # - stage: libselinux
@@ -11,7 +12,11 @@ dependencies:
   # - stage: musl
   # - stage: openssl
   # - stage: pcre2
+  # - stage: squashfs-tools
+  # - stage: tar
   # - stage: util-linux
+  # - stage: xz
+  # - stage: zstd
   # linux-firmware can be ignored from reproducibility test since it's a tarball downloaded and extracted (no build happens)
   # - stage: linux-firmware
   #
@@ -44,15 +49,21 @@ dependencies:
     to: /rootfs
   - stage: libattr
     to: /rootfs
+  - stage: libburn
+    to: /rootfs
   - stage: libinih
+    to: /rootfs
+  - stage: libisoburn
+    to: /rootfs
+  - stage: libisofs
     to: /rootfs
   - stage: libjson-c
     to: /rootfs
   - stage: liblzma
     to: /rootfs
-  - stage: libnftnl
-    to: /rootfs
   - stage: libmnl
+    to: /rootfs
+  - stage: libnftnl
     to: /rootfs
   - stage: libpopt
     to: /rootfs
@@ -63,6 +74,12 @@ dependencies:
   - stage: systemd-udevd
     to: /rootfs
   - stage: lvm2
+    to: /rootfs
+  - stage: mtools
+    to: /rootfs
+  - stage: pigz
+    to: /rootfs
+  - stage: qemu-tools
     to: /rootfs
   - stage: runc
     to: /rootfs

@@ -82,7 +82,8 @@
                 "git://git.savannah.gnu.org/grub.git",
                 "https://pagure.io/libaio.git",
                 "rpm-software-management/popt",
-                "git://git.liburcu.org/userspace-rcu.git"
+                "git://git.liburcu.org/userspace-rcu.git",
+                "madler/pigz"
             ]
         },
         {

@@ -1,0 +1,29 @@
+name: libisofs
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: libburn
+steps:
+  - sources:
+      - url: https://files.libburnia-project.org/releases/libisofs-{{ .libisofs_version }}.tar.gz
+        destination: libisofs.tar.gz
+        sha256: "{{ .libisofs_sha256 }}"
+        sha512: "{{ .libisofs_sha512 }}"
+    prepare:
+      - |
+        tar -xzf libisofs.tar.gz --strip-components=1
+
+        ./configure \
+            --prefix=/usr
+    build:
+      - |
+        make -j $(nproc)
+    install:
+      - |
+        make install DESTDIR=/rootfs
+
+        rm -rf /rootfs/usr/share
+finalize:
+  - from: /rootfs
+    to: /

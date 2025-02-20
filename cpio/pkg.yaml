@@ -1,0 +1,8 @@
+name: cpio
+variant: scratch
+dependencies:
+  - image: "{{ .TOOLS_PREFIX }}tools-cpio:{{ .TOOLS_REV }}"
+    to: /rootfs
+finalize:
+- from: /rootfs
+  to: /

@@ -5,7 +5,7 @@ format: v1alpha2
 vars:
   TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v0.14.0-alpha.0-6-g818b320
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.10.0-alpha.0-12-g758d61c
+  TOOLS_REV: v1.10.0-alpha.0-15-gd93b780
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.6.2
@@ -99,6 +99,21 @@ vars:
   libinih_sha256: e79216260d5dffe809bda840be48ab0eec7737b2bb9f02d2275c1b46344ea7b7
   libinih_sha512: d69f488299c1896e87ddd3dd20cd9db5848da7afa4c6159b8a99ba9a5d33f35cadfdb9f65d6f2fe31decdbadb8b43bf610ff2699df475e1f9ff045e343ac26ae
 
+  # renovate: datasource=git-tags extractVersion=^release-(?<version>.*)$ depName=https://dev.lovelyhq.com/libburnia/libburn.git
+  libburn_version: 1.5.6
+  libburn_sha256: 7295491b4be5eeac5e7a3fb2067e236e2955ffdc6bbd45f546466edee321644b
+  libburn_sha512: 549cb25310aac5ce445639374d84f0c09fb1fdd70be97479588775e5afcc12dd0655c5bf51bd3f1bf8c06a66b318fd1e709dcfd72845e795ffaf353ea621accd
+
+  # renovate: datasource=git-tags extractVersion=^release-(?<version>.*)$ depName=https://dev.lovelyhq.com/libburnia/libisoburn.git
+  libisoburn_version: 1.5.6
+  libisoburn_sha256: 2b80a6f73dd633a5d243facbe97a15e5c9a07644a5e1a242c219b9375a45f71b
+  libisoburn_sha512: 0fc0058aa4cf755f30d5be0de808012978c657348412c7f129b8f8128da41f18216f3e039050a5851b557ffab344cf7dc44df374400ca008e34e2e2524fbd979
+
+  # renovate: datasource=git-tags extractVersion=^release-(?<version>.*)$ depName=https://dev.lovelyhq.com/libburnia/libisofs.git
+  libisofs_version: 1.5.6
+  libisofs_sha256: 0152d66a9d340b659fe9c880eb9190f3570fb477ac07cf52e8bcd134a1d30d70
+  libisofs_sha512: a5f573bbe9758e072fad195cc9beb672568273ddb993ece9c15585ad3f99efb0deae6fefb6d3d40b9712e73e3bc68869d79d923b2a09623d190f5dc84974d65f
+
   # renovate: datasource=github-tags extractVersion=^json-c-(?<version>.*)-.*$ depName=json-c/json-c
   libjson_c_version: 0.18
   libjson_c_sha256: 876ab046479166b869afc6896d288183bbc0e5843f141200c677b3e8dfb11724
@@ -149,6 +164,11 @@ vars:
   mellanox_ofed_sha256: 4503258cbe92b00c734e612c3a7ad1d71e023fdffae2a2c119f7b537505e499c
   mellanox_ofed_sha512: 58604ea89aa8351727532c48f0c59b4e533ba8bfcef9533f45d94e15ffdcf3a5c464398706cad14ebf3826b132972bd044fadbf7f047e60bdb0c2a454c96acd7
 
+  # this tools doesn't have a git repo at all
+  mtools_version: 4.0.47
+  mtools_sha256: e0111d863f9ef55715582f4b69a7ffd261645e0c89417cefeb308cd080002e04
+  mtools_sha512: 6a915693536cf3bd1a1afc06edeb3b0c94c9191c741eb986a38625b3bbe3b046eb06c364d10f8db54f350caac434f2e926733180e0a5698c1de917b76f781b4b
+
   # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/linux-x86_64/
   # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
   nvidia_driver_lts_version: 535.230.02
@@ -164,6 +184,21 @@ vars:
   nvidia_driver_production_arm64_sha512: 1ce05ed2c7c3bc3b0a46b7c911cf15b55089cea3be7eb109d4c645a729d2a83bf4ce618478c4357707cf33970c31a7e30674ddd09ccac1913627eda0a9d4b7b5
   nvidia_driver_production_amd64_sha256: f822150666707ed3c383889e0e68d24e8ceb4033eebd19737f9b405069e89beb
   nvidia_driver_production_amd64_sha512: 548afbaf726b69fc001de5c4964a6b57f06dc0aba29bf7e1b4345e0176c7c438b2fe972de83ee917ee187836fc005e76fe998c3dada34929bcdea0929a35fb26
+
+  # renovate: datasource=github-tags depName=madler/pigz
+  pigz_version: 2.8
+  pigz_sha256: eb872b4f0e1f0ebe59c9f7bd8c506c4204893ba6a8492de31df416f0d5170fd0
+  pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
+
+  # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
+  glib_version: 2.83.2
+  glib_sha256: 8428d672c8485636d940f03ce8dcdc174f9b3892ac8b2eea76dd281af6a6e937
+  glib_sha512: 1686ef719122d2b3e8bcc569ba1e125cde51fbe645811e1eb7ddd49e300ff834eed712bb619bba13629f23ad5f801fdc2d37e3103b5150ad3cb7ff9d1168d902
+
+  # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
+  qemu_version: 9.2.0
+  qemu_sha256: f859f0bc65e1f533d040bbe8c92bcfecee5af2c921a6687c652fb44d089bd894
+  qemu_sha512: f92548623e4e31400c823a2d78417a8a4ecfccb07f3ee4883e2f2ad33054539d2a37d076dbc64df42c6c86c08fa7c2c975cd6e823aa14d5f20cef83348006813
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.2.5

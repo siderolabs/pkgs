@@ -7,6 +7,7 @@ spec:
     - ca-certificates
     - cni
     - containerd
+    - cpio
     - cryptsetup
     - dosfstools
     - e2fsprogs
@@ -19,8 +20,11 @@ spec:
     - kmod
     - libaio
     - libattr
+    - libburn
     - libcap
     - libinih
+    - libisoburn
+    - libisofs
     - libjson-c
     - liblzma
     - libmnl
@@ -32,15 +36,22 @@ spec:
     - liburcu
     - linux-firmware
     - lvm2
+    - mtools
     - musl
     - openssl
     - pcre2
+    - pigz
+    - qemu-tools
     - runc
     - sd-boot
     - socat
+    - squashfs-tools
     - systemd-udevd
+    - tar
     - util-linux
     - xfsprogs
+    - xz
+    - zstd
     # - kernel & dependent packages (out of tree kernel modules)
     #   kernel first, then packages in alphabetical order
     - kernel
@@ -106,6 +117,7 @@ spec:
         - https://pagure.io/libaio.git
         - rpm-software-management/popt
         - git://git.liburcu.org/userspace-rcu.git
+        - madler/pigz
       versioning: 'regex:^(?<major>\d+)\.(?<minor>\d+)\.?(?<patch>\d+)?$'
     - matchPackageNames:
         - benhoyt/inih

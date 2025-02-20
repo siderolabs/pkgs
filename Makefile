@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2025-02-13T14:20:04Z by kres 5e9dc91.
+# Generated on 2025-02-21T12:13:04Z by kres 8a48729.
 
 # common variables
 
@@ -45,10 +45,10 @@ COMMON_ARGS += --build-arg=SOURCE_DATE_EPOCH=$(SOURCE_DATE_EPOCH)
 # targets defines all the available targets
 
 TARGETS = apparmor
-TARGETS += base
 TARGETS += ca-certificates
 TARGETS += cni
 TARGETS += containerd
+TARGETS += cpio
 TARGETS += cryptsetup
 TARGETS += dosfstools
 TARGETS += e2fsprogs
@@ -61,8 +61,11 @@ TARGETS += ipxe
 TARGETS += kmod
 TARGETS += libaio
 TARGETS += libattr
+TARGETS += libburn
 TARGETS += libcap
 TARGETS += libinih
+TARGETS += libisoburn
+TARGETS += libisofs
 TARGETS += libjson-c
 TARGETS += liblzma
 TARGETS += libmnl
@@ -74,15 +77,22 @@ TARGETS += libsepol
 TARGETS += liburcu
 TARGETS += linux-firmware
 TARGETS += lvm2
+TARGETS += mtools
 TARGETS += musl
 TARGETS += openssl
 TARGETS += pcre2
+TARGETS += pigz
+TARGETS += qemu-tools
 TARGETS += runc
 TARGETS += sd-boot
 TARGETS += socat
+TARGETS += squashfs-tools
 TARGETS += systemd-udevd
+TARGETS += tar
 TARGETS += util-linux
 TARGETS += xfsprogs
+TARGETS += xz
+TARGETS += zstd
 TARGETS += kernel
 TARGETS += drbd-pkg
 TARGETS += gasket-driver-pkg

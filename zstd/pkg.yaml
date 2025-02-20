@@ -1,0 +1,8 @@
+name: zstd
+variant: scratch
+dependencies:
+  - image: "{{ .TOOLS_PREFIX }}tools-zstd:{{ .TOOLS_REV }}"
+    to: /rootfs
+finalize:
+- from: /rootfs
+  to: /
