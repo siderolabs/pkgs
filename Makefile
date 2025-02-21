@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2025-02-21T12:13:04Z by kres 8a48729.
+# Generated on 2025-02-21T16:00:44Z by kres 8a48729.
 
 # common variables
 
@@ -54,6 +54,7 @@ TARGETS += dosfstools
 TARGETS += e2fsprogs
 TARGETS += fhs
 TARGETS += flannel-cni
+TARGETS += glib
 TARGETS += grub
 TARGETS += ipmitool
 TARGETS += iptables
@@ -92,6 +93,7 @@ TARGETS += tar
 TARGETS += util-linux
 TARGETS += xfsprogs
 TARGETS += xz
+TARGETS += zlib
 TARGETS += zstd
 TARGETS += kernel
 TARGETS += drbd-pkg

@@ -13,6 +13,7 @@ spec:
     - e2fsprogs
     - fhs
     - flannel-cni
+    - glib
     - grub
     - ipmitool
     - iptables
@@ -51,6 +52,7 @@ spec:
     - util-linux
     - xfsprogs
     - xz
+    - zlib
     - zstd
     # - kernel & dependent packages (out of tree kernel modules)
     #   kernel first, then packages in alphabetical order

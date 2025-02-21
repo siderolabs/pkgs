@@ -15,7 +15,15 @@ steps:
 
         meson setup \
           --prefix=/usr \
-          -Ddefault_library=both \
+          -Dman-pages=disabled \
+          -Ddocumentation=false \
+          -Dtests=false \
+          -Dlibmount=disabled \
+          -Dsysprof=disabled \
+          -Dnls=disabled \
+          -Dintrospection=disabled \
+          -Dglib_debug=disabled \
+          -Dbuildtype=release \
           -Dlibelf=disabled \
           -Dselinux=disabled \
           _build
@@ -25,6 +33,9 @@ steps:
     install:
       - |
         DESTDIR=/rootfs ninja -C _build install
+
+        # we only need the headers and libs
+        rm -rf /rootfs/usr/{bin,share}
 finalize:
   - from: /rootfs
     to: /

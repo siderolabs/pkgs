@@ -1,0 +1,8 @@
+name: zlib
+variant: scratch
+dependencies:
+  - image: "{{ .TOOLS_PREFIX }}tools-zlib:{{ .TOOLS_REV }}"
+    to: /rootfs
+finalize:
+- from: /rootfs
+  to: /
