@@ -45,6 +45,7 @@ steps:
           esac
 
           ../configure --prefix=/usr \
+                    --sbindir=/usr/bin \
                     --sysconfdir=/etc \
                     --mandir=/usr/share/man \
                     --localstatedir=/var \
@@ -62,8 +63,9 @@ steps:
       - |
         rm -f /rootfs/usr/lib/charset.alias
         mkdir -p /rootfs/usr/share/locale
-        mkdir -p /rootfs/usr/share/bash-completion/completions
-        mv -v /rootfs/etc/bash_completion.d/grub /rootfs/usr/share/bash-completion/completions
+    test:
+      - |
+        fhs-validator /rootfs
 finalize:
   - from: /rootfs
     to: /

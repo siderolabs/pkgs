@@ -36,6 +36,9 @@ steps:
         export GOARCH=$(go env GOARCH)
 
         mv dist/flannel-${GOARCH} /rootfs/opt/cni/bin/flannel
+    test:
+      - |
+        fhs-validator /rootfs
 finalize:
   - from: /rootfs
     to: /

@@ -37,6 +37,9 @@ steps:
 
         cp -r /rootfs-temp/usr/lib /rootfs/usr
         cp -r /rootfs-temp/usr/bin/{e2fsck,fsck.*,mke2fs,mkfs.*,resize2fs,tune2fs} /rootfs/usr/bin
+    test:
+      - |
+        fhs-validator /rootfs
 finalize:
   - from: /rootfs
     to: /

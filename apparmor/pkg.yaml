@@ -33,6 +33,9 @@ steps:
       - |
         cd parser
         DISTRO=unknown make install-arch DESTDIR=/rootfs SBINDIR=/rootfs/usr/bin
+    test:
+      - |
+        fhs-validator /rootfs
 finalize:
   - from: /rootfs
     to: /

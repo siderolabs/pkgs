@@ -5,5 +5,7 @@ dependencies:
   - image: "{{ .TOOLS_PREFIX }}tools:{{ .TOOLS_REV }}"
     to: /rootfs
 finalize:
+  - from: /pkg/fhs-validator.sh
+    to: /usr/bin/fhs-validator
   - from: /rootfs
     to: /

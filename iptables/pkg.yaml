@@ -45,6 +45,9 @@ steps:
             ln -sf $(readlink $f | sed 's/legacy/nft/') $f
           fi
         done
+    test:
+      - |
+        fhs-validator /rootfs
 finalize:
   - from: /rootfs
     to: /

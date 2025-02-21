@@ -4,19 +4,22 @@ shell: /bin/bash
 dependencies:
     - stage: base
 steps:
-    - sources:
-          - url: https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{{ .linux_firmware_version }}.tar.gz
-            destination: linux-firmware.tar.gz
-            sha256: "{{ .linux_firmware_sha256 }}"
-            sha512: "{{ .linux_firmware_sha512 }}"
-      prepare:
-          - |
-              mkdir -p usr/lib/firmware
-              tar -xzf linux-firmware.tar.gz --strip-components=1 -C usr/lib/firmware
-      install:
-          - |
-              mkdir /rootfs
-              cp -R usr /rootfs
+  - sources:
+      - url: https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{{ .linux_firmware_version }}.tar.gz
+        destination: linux-firmware.tar.gz
+        sha256: "{{ .linux_firmware_sha256 }}"
+        sha512: "{{ .linux_firmware_sha512 }}"
+    prepare:
+      - |
+          mkdir -p usr/lib/firmware
+          tar -xzf linux-firmware.tar.gz --strip-components=1 -C usr/lib/firmware
+    install:
+      - |
+          mkdir /rootfs
+          cp -R usr /rootfs
+    test:
+      - |
+        fhs-validator /rootfs
 finalize:
     - from: /rootfs
       to: /

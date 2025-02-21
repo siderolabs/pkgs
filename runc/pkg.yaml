@@ -33,6 +33,9 @@ steps:
         mkdir -p /rootfs/usr/bin
         mv runc /rootfs/usr/bin/runc
         chmod +x /rootfs/usr/bin/runc
+    test:
+      - |
+        fhs-validator /rootfs
 finalize:
   - from: /rootfs
     to: /

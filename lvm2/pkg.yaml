@@ -41,6 +41,7 @@ steps:
              --enable-static_link \
              --prefix=/usr \
              --sbindir=/usr/bin \
+             --with-staticdir=/usr/bin \
              --with-usrsbindir=/usr/bin \
              --with-udev-prefix=/usr \
              MODPROBE_CMD=/usr/bin/modprobe
@@ -53,9 +54,9 @@ steps:
 
         # LVM activation is handled by Talos itself
         rm -f /rootfs/usr/lib/udev/rules.d/69-dm-lvm.rules
-
-        mv /rootfs/usr/sbin/* /rootfs/usr/bin/
-        rm -r /rootfs/usr/sbin
+    test:
+      - |
+        fhs-validator /rootfs
 finalize:
   - from: /rootfs
     to: /

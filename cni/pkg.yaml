@@ -20,6 +20,9 @@ steps:
         mkdir -p /rootfs/opt/cni/bin
 
         mv bin/* /rootfs/opt/cni/bin
+    test:
+      - |
+        fhs-validator /rootfs
 finalize:
   - from: /rootfs
     to: /

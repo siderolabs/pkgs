@@ -52,6 +52,9 @@ steps:
         cp -p bin/undionly.kpxe.bin bin/undionly.kpxe.zinfo /rootfs/usr/libexec/kpxe
         {{ end }}
         cp -p util/zbin /rootfs/usr/libexec
+    test:
+      - |
+        fhs-validator /rootfs
 finalize:
   - from: /rootfs
     to: /

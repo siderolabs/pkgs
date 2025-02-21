@@ -20,6 +20,9 @@ steps:
     install:
       - |
         make DESTDIR=/rootfs install
+    test:
+      - |
+        fhs-validator /rootfs
 finalize:
   - from: /rootfs
     to: /

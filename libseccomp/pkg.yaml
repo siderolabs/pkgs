@@ -26,6 +26,9 @@ steps:
       - |
         cd build
         make install DESTDIR=/rootfs
+    test:
+      - |
+        fhs-validator /rootfs
 finalize:
   - from: /rootfs
     to: /

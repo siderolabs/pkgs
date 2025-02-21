@@ -26,6 +26,9 @@ steps:
     install:
       - |
         make -C build DESTDIR=/rootfs install
+    test:
+      - |
+        fhs-validator /rootfs
 finalize:
   - from: /rootfs
     to: /

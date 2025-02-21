@@ -1,11 +1,8 @@
 name: reproducibility
 variant: scratch
-shell: /bin/bash
 dependencies:
-  # base is not needed since it's toolchain modified with a local musl build, we're only interested in the reproducibility of files that go into talos
-  # However, pull it in for a test script
-  - stage: base
-  # These packages are pulled through from tools, so they are tested there
+  # These packages are pulled through from tools, so they are not tested here.
+  # - stage: base
   # - stage: ca-certificates
   # - stage: kmod
   # - stage: libcap
@@ -75,26 +72,6 @@ dependencies:
     to: /rootfs
   - stage: xfsprogs
     to: /rootfs
-steps:
-  - test:
-    - |
-      # Validate usrmerge symlinks from fhs did not get overwritten
-      [ -L /rootfs/bin ] && [ -d /rootfs/bin ]
-      [ -L /rootfs/lib ] && [ -d /rootfs/lib ]
-      [ -L /rootfs/lib64 ] && [ -d /rootfs/lib64 ]
-      [ -L /rootfs/usr/lib64 ] && [ -d /rootfs/usr/lib64 ]
-      [ -L /rootfs/sbin ] && [ -d /rootfs/sbin ]
-      [ -L /rootfs/usr/sbin ] && [ -d /rootfs/usr/sbin ]
-    - |
-      # Test for extra files/directories
-      ALLOWED_DIRS="usr etc bin sbin lib lib64 dev proc sys opt run var root tmp home"
-
-      for dir in $(ls /rootfs); do
-        if ! echo $ALLOWED_DIRS | grep -q $dir; then
-          echo "Extra directory found: $dir"
-          exit 1
-        fi
-      done
 finalize:
   - from: /rootfs
     to: /

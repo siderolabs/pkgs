@@ -29,6 +29,9 @@ steps:
         make install PREFIX=/usr DESTDIR=/rootfs
 
         rm /rootfs/usr/bin/{containerd-stress,ctr}
+    test:
+      - |
+        fhs-validator /rootfs
 finalize:
   - from: /rootfs
     to: /
