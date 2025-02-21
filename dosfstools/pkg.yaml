@@ -28,6 +28,8 @@ steps:
       - |
         cd build
         make install DESTDIR=/rootfs
+        # doc and man
+        rm -r /rootfs/usr/share
     test:
       - |
         fhs-validator /rootfs

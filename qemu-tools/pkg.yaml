@@ -33,6 +33,9 @@ steps:
         make DESTDIR=/rootfs install
 
         rm -rf /rootfs/usr/share
+    test:
+      - |
+        fhs-validator /rootfs
 finalize:
   - from: /rootfs
     to: /

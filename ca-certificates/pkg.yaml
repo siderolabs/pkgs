@@ -1,8 +1,14 @@
 name: ca-certificates
 variant: scratch
+shell: /bin/bash
 dependencies:
+  - stage: base
   - image: "{{ .TOOLS_PREFIX }}tools-ca-certificates:{{ .TOOLS_REV }}"
     to: /rootfs
+steps:
+  - test:
+      - |
+        fhs-validator /rootfs
 finalize:
-- from: /rootfs
-  to: /
+  - from: /rootfs
+    to: /

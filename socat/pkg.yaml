@@ -25,6 +25,7 @@ steps:
     install:
       - |
         make install DESTDIR=/rootfs
+        rm -rf /rootfs/usr/share
     test:
       - |
         fhs-validator /rootfs

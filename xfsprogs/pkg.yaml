@@ -31,6 +31,8 @@ steps:
     install:
       - |
         make install DESTDIR=/rootfs
+        rm -rf /rootfs/usr/share/man
+        rm -rf /rootfs/usr/share/doc
     test:
       - |
         fhs-validator /rootfs

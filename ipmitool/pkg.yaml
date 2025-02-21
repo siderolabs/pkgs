@@ -55,6 +55,8 @@ steps:
         make install DESTDIR=/rootfs
         # ipmitool downloads this file, so set a static timestamp
         touch -ch -t $(date -d @${SOURCE_DATE_EPOCH} +%Y%m%d0000) /rootfs/usr/share/misc/enterprise-numbers
+        rm -r /rootfs/usr/share/doc
+        rm -r /rootfs/usr/share/man
     test:
       - |
         fhs-validator /rootfs

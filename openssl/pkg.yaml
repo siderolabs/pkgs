@@ -1,8 +1,14 @@
 name: openssl
 variant: scratch
+shell: /bin/bash
 dependencies:
+  - stage: base
   - image: "{{ .TOOLS_PREFIX }}tools-openssl:{{ .TOOLS_REV }}"
     to: /rootfs
+steps:
+  - test:
+      - |
+        fhs-validator /rootfs
 finalize:
-- from: /rootfs
-  to: /
+  - from: /rootfs
+    to: /

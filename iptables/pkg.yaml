@@ -45,6 +45,7 @@ steps:
             ln -sf $(readlink $f | sed 's/legacy/nft/') $f
           fi
         done
+        rm -r /rootfs/usr/share/man
     test:
       - |
         fhs-validator /rootfs

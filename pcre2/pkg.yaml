@@ -1,8 +1,14 @@
 name: pcre2
 variant: scratch
+shell: /bin/bash
 dependencies:
+  - stage: base
   - image: "{{ .TOOLS_PREFIX }}tools-pcre2:{{ .TOOLS_REV }}"
     to: /rootfs
+steps:
+  - test:
+      - |
+        fhs-validator /rootfs
 finalize:
-- from: /rootfs
-  to: /
+  - from: /rootfs
+    to: /

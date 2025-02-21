@@ -20,6 +20,9 @@ steps:
       - |
         install -Dm755 pigz /rootfs/usr/bin/pigz
         ln -s pigz /rootfs/usr/bin/unpigz
+    test:
+      - |
+        fhs-validator /rootfs
 finalize:
   - from: /rootfs
     to: /

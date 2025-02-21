@@ -24,6 +24,9 @@ steps:
         make install DESTDIR=/rootfs
 
         rm -rf /rootfs/usr/share
+    test:
+      - |
+        fhs-validator /rootfs
 finalize:
   - from: /rootfs
     to: /

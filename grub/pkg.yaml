@@ -62,7 +62,7 @@ steps:
     install:
       - |
         rm -f /rootfs/usr/lib/charset.alias
-        mkdir -p /rootfs/usr/share/locale
+        rm -r /rootfs/usr/share/info
     test:
       - |
         fhs-validator /rootfs

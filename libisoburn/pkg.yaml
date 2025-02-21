@@ -30,6 +30,9 @@ steps:
         ln -s xorriso /rootfs/usr/bin/mkisofs
 
         rm -rf /rootfs/usr/share
+    test:
+      - |
+        fhs-validator /rootfs
 finalize:
   - from: /rootfs
     to: /

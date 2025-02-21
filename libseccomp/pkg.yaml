@@ -26,6 +26,11 @@ steps:
       - |
         cd build
         make install DESTDIR=/rootfs
+
+        # scmp_sys_resolver
+        rm -rf /rootfs/usr/bin
+        # man
+        rm -rf /rootfs/usr/share
     test:
       - |
         fhs-validator /rootfs
