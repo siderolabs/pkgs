@@ -1,0 +1,46 @@
+name: nvidia-jetson-orin
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: kernel-build
+steps:
+  - sources:
+    - url: https://developer.nvidia.com/downloads/embedded/l4t/{{ .nvidia_l4t_version }}/sources/public_sources.tbz2
+      destination: public_sources.tbz2
+      sha256: "{{ .nvidia_l4t_version_sha256 }}"
+      sha512: "{{ .nvidia_l4t_version_sha512 }}"
+    env:
+      ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else }}unsupported{{ end }}
+    prepare:
+      - |
+        tar xf public_sources.tbz2 --strip-components=2
+        mkdir -p kernel_oot_modules
+        tar xf kernel_oot_modules_src.tbz2 -C kernel_oot_modules
+        tar xf nvidia_kernel_display_driver_source_without_root_dir.tbz2 -C kernel_oot_modules
+    build:
+      - |
+        cd kernel_oot_modules
+
+        make -j $(nproc) modules SYSSRC=/src
+    install:
+      - |
+        cd kernel_oot_modules/out/nvidia-linux-header
+
+        ls -la
+
+        mkdir -p /rootfs/usr/lib/modules/$(cat include/config/kernel.release)/
+        cp modules.order /rootfs/usr/lib/modules/$(cat include/config/kernel.release)/
+        cp modules.builtin /rootfs/usr/lib/modules/$(cat include/config/kernel.release)/
+        cp modules.builtin.modinfo /rootfs/usr/lib/modules/$(cat include/config/kernel.release)/
+
+        make -j $(nproc) modules_install SYSSRC=/src INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_STRIP=1
+    test:
+      - |
+        # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
+        find /rootfs/usr/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
+      - |
+        fhs-validator /rootfs
+finalize:
+  - from: /rootfs
+    to: /
