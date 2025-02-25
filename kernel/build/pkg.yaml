@@ -16,6 +16,7 @@ steps:
         cd /src
         for patch in $(find /pkg/patches -type f -name "*.patch" | sort); do
           patch -p1 < $patch || (echo "Failed to apply patch $patch" && exit 1)
+          echo "Applied patch $patch"
         done
     build:
       {{ if .BUILD_ARG_KERNEL_TARGET }}

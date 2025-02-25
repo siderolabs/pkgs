@@ -1,3 +1,3 @@
 | Patch file                                                                 | Description                                | Upstream status | Link                                                                                                                                                                                                         |
 |----------------------------------------------------------------------------|--------------------------------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| mpt3sas-ubsan.patch | Backport fixes for UBSAN reporting | in 6.8 | Commit fd7090e384725edb1910a4b0a9c51007858f2c81 |
+| blackhole.patch | Backport fixes for blackhole device sending packets without Ethernet header | in 6.14 | Commit 	0e4427f8f587c4b603475468bb3aee9418574893 |
