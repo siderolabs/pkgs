@@ -24,7 +24,9 @@ steps:
           --disable-docs \
           --disable-install-blobs \
           --enable-stack-protector \
-          --enable-tools
+          --enable-tools \
+          --enable-vmdk \
+          --enable-vpc
     build:
       - |
         make -j $(nproc)
