@@ -98,10 +98,11 @@ TARGETS += zstd
 TARGETS += kernel
 TARGETS += drbd-pkg
 TARGETS += gasket-driver-pkg
+TARGETS += nvidia-l4t-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-lts-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-production-pkg
 TARGETS += zfs-pkg
-TARGETS += nvidia-l4t-pkg
+
 NONFREE_TARGETS = nonfree-kmod-nvidia-lts-pkg
 NONFREE_TARGETS += nonfree-kmod-nvidia-production-pkg
 
