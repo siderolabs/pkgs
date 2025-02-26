@@ -62,6 +62,7 @@ spec:
     - nvidia-open-gpu-kernel-modules-lts-pkg
     - nvidia-open-gpu-kernel-modules-production-pkg
     - zfs-pkg
+    - nvidia-l4t-pkg
   additionalTargets:
     nonfree:
       - nonfree-kmod-nvidia-lts-pkg

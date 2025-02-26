@@ -1,4 +1,4 @@
-name: nvidia-jetson-orin
+name: nvidia-l4t-pkg
 variant: scratch
 shell: /bin/bash
 dependencies:
@@ -22,17 +22,21 @@ steps:
       - |
         cd kernel_oot_modules
 
+        patch -p1 </pkg/patches/001-nvidia-drm-drv.patch
+        patch -p1 </pkg/patches/002-nvidia-drm-gem.patch
+        patch -p1 </pkg/patches/003-fbdev_linux_611.patch
+        patch -p1 </pkg/patches/004-drm_fop_flags_linux_612.patch
+        patch -p1 </pkg/patches/999-manual.patch
+
         make -j $(nproc) modules SYSSRC=/src
     install:
       - |
-        cd kernel_oot_modules/out/nvidia-linux-header
+        cd kernel_oot_modules
 
-        ls -la
-
-        mkdir -p /rootfs/usr/lib/modules/$(cat include/config/kernel.release)/
-        cp modules.order /rootfs/usr/lib/modules/$(cat include/config/kernel.release)/
-        cp modules.builtin /rootfs/usr/lib/modules/$(cat include/config/kernel.release)/
-        cp modules.builtin.modinfo /rootfs/usr/lib/modules/$(cat include/config/kernel.release)/
+        mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.order /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin.modinfo /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
 
         make -j $(nproc) modules_install SYSSRC=/src INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_STRIP=1
     test:
