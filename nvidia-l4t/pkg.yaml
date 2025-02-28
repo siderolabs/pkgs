@@ -15,30 +15,37 @@ steps:
     prepare:
       - |
         tar xf public_sources.tbz2 --strip-components=2
-        mkdir -p kernel_oot_modules
+        mkdir kernel_oot_modules
         tar xf kernel_oot_modules_src.tbz2 -C kernel_oot_modules
-        tar xf nvidia_kernel_display_driver_source_without_root_dir.tbz2 -C kernel_oot_modules
+        tar xf nvidia_kernel_display_driver_source.tbz2 -C kernel_oot_modules
     build:
       - |
         cd kernel_oot_modules
 
-        patch -p1 </pkg/patches/001-nvidia-drm-drv.patch
-        patch -p1 </pkg/patches/002-nvidia-drm-gem.patch
-        patch -p1 </pkg/patches/003-fbdev_linux_611.patch
-        patch -p1 </pkg/patches/004-drm_fop_flags_linux_612.patch
-        patch -p1 </pkg/patches/999-manual.patch
+        # patches for nv driver
+        patch -d nvdisplay -p1 </pkg/patches/nvdisplay/001-nvidia-drm-drv.patch
+        patch -d nvdisplay -p1 </pkg/patches/nvdisplay/002-nvidia-drm-gem.patch
+        patch -d nvdisplay -p1 </pkg/patches/nvdisplay/003-fbdev_linux_611.patch
+        patch -d nvdisplay -p1 </pkg/patches/nvdisplay/004-drm_fop_flags_linux_612.patch
+        patch -d nvdisplay -p1 </pkg/patches/nvdisplay/999-manual.patch
 
-        make -j $(nproc) modules SYSSRC=/src
+        mkdir /out
+        make -j $(nproc) -C /out modules
+        make -j $(nproc) -C /out dtbs
+
+        ls -LRla /out
     install:
       - |
-        cd kernel_oot_modules
+        cd kernel_oot_modules1
 
         mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
         cp /src/modules.order /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
         cp /src/modules.builtin /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
         cp /src/modules.builtin.modinfo /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
 
-        make -j $(nproc) modules_install SYSSRC=/src INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_STRIP=1
+        mkdir /out_headers
+        make -j $(nproc) -C /out_headers modules_install INSTALL_MOD_DIR=updates INSTALL_MOD_PATH=/rootfs INSTALL_MOD_STRIP=1
+        ls -LRla /out_headers
     test:
       - |
         # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
