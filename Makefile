@@ -1,15 +1,16 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2025-12-03T14:11:37Z by kres 571923f.
+# Generated on 2025-12-09T22:14:53Z by kres 4b09af7.
 
 # common variables
 
 SHA := $(shell git describe --match=none --always --abbrev=8 --dirty)
 TAG := $(shell git describe --tag --always --dirty --match v[0-9]\*)
+TAG_SUFFIX ?=
 ABBREV_TAG := $(shell git describe --tags >/dev/null 2>/dev/null && git describe --tag --always --match v[0-9]\* --abbrev=0 || echo 'undefined')
 BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 ARTIFACTS := _out
-IMAGE_TAG ?= $(TAG)
+IMAGE_TAG ?= $(TAG)$(TAG_SUFFIX)
 OPERATING_SYSTEM := $(shell uname -s | tr '[:upper:]' '[:lower:]')
 GOARCH := $(shell uname -m | sed 's/x86_64/amd64/' | sed 's/aarch64/arm64/')
 REGISTRY ?= ghcr.io
@@ -25,7 +26,7 @@ SOURCE_DATE_EPOCH := $(shell git log $(INITIAL_COMMIT_SHA) --pretty=%ct)
 
 # sync bldr image with pkgfile
 
-BLDR_RELEASE := v0.5.5
+BLDR_RELEASE := v0.5.6
 BLDR_IMAGE := ghcr.io/siderolabs/bldr:$(BLDR_RELEASE)
 BLDR := docker run --rm --user $(shell id -u):$(shell id -g) --volume $(PWD):/src --entrypoint=/bldr $(BLDR_IMAGE) --root=/src
 
@@ -104,6 +105,7 @@ TARGETS += drbd-pkg
 TARGETS += ena-pkg
 TARGETS += gasket-driver-pkg
 TARGETS += hailort-pkg
+TARGETS += mellanox-mstflint-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-lts-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-production-pkg
 TARGETS += tenstorrent-pkg

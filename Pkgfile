@@ -1,4 +1,4 @@
-# syntax = ghcr.io/siderolabs/bldr:v0.5.5
+# syntax = ghcr.io/siderolabs/bldr:v0.5.6
 
 format: v1alpha2
 
@@ -146,11 +146,10 @@ vars:
   nftables_sha256: 1daf10f322e14fd90a017538aaf2c034d7cc1eb1cc418ded47445d714ea168d4
   nftables_sha512: 01fbbea43fd01250b0176a200dfdb6b84d3d51156cc2350acb25a5e66960e1908c3d17a0363baddb32897ea8bea0569b67500a94f708c8587b0e29402f51cbb6
 
-  # renovate: datasource=github-releases depName=tukaani-project/xz
-  # NOTE: using 5.4.5 the version debian downgraded to. Ref: https://www.openwall.com/lists/oss-security/2024/03/29/4
-  xz_version: v5.4.5
-  xz_sha256: da9dec6c12cf2ecf269c31ab65b5de18e8e52b96f35d5bcd08c12b43e6878803
-  xz_sha512: 5cbc3b5bb35a9f5773ad657788fe77013471e3b621c5a8149deb7389d48535926e5bed103456fcfe5ecb044b236b1055b03938a6cc877cfc749372b899fc79e5
+  # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=tukaani-project/xz
+  xz_version: 5.8.1
+  xz_sha256: 0b54f79df85912504de0b14aec7971e3f964491af1812d83447005807513cd9e
+  xz_sha512: 34dbc874a697f4fd17127b3dc828236dd7fd35120a77e0867325273c5d56c4ecddc8a39dce6cbdb3141fff32c56001f4ab18edfa572076d10f2fd55b07ff2b9e
 
   # renovate: datasource=github-releases extractVersion=^popt-(?<version>.*)-release$ depName=rpm-software-management/popt
   libpopt_version: 1.19
@@ -177,6 +176,11 @@ vars:
   lvm2_version: 2_03_37
   lvm2_sha256: b02656cc39a2f86a702c432dab0d0317e12111fca9d623a18f1b9c3f87b88200
   lvm2_sha512: c67e9e47c9f117d82b458e43c98e7b2bbf0f176fc86b7fa1a90d04209df14df442f576fd9b1e41be86b161aa744f0db5b6cac9d7b118bc4156354307314c441a
+
+  # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=Mellanox/mstflint
+  mellanox_mstflint_version: 4.31.0-1
+  mellanox_mstflint_sha256: 91006fffaee68b0ea548721c095632eba07b3875687c5b3637e7afb6c4373af9
+  mellanox_mstflint_sha512: 783d9865b74252051fba336c4b85ca0e1b85e57c8eac77cb9157bd837dbee207ff00a2af1156569d387e2e2a1bbafd07d0a42c966a9ebb0197e5e2e6f2858318
 
   mellanox_ofed_version: 5.9-0.5.6.0
   mellanox_ofed_sha256: 4503258cbe92b00c734e612c3a7ad1d71e023fdffae2a2c119f7b537505e499c
