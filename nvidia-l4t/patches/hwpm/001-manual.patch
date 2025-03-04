@@ -1,0 +1,12 @@
+diff --git a/hwpm/drivers/tegra/hwpm/Makefile.t234.sources b/hwpm/drivers/tegra/hwpm/Makefile.t234.sources
+--- a/hwpm/drivers/tegra/hwpm/Makefile.t234.sources
++++ b/hwpm/drivers/tegra/hwpm/Makefile.t234.sources
+@@ -4,6 +4,8 @@
+
+ # SPDX-License-Identifier: GPL-2.0
+
++ccflags-y += -DNV_PLATFORM_DRIVER_STRUCT_REMOVE_RETURNS_VOID
++
+ ifeq ($(CONFIG_TEGRA_T234_HWPM),y)
+ nvhwpm-t234-objs += hal/t234/t234_aperture.o
+ nvhwpm-t234-objs += hal/t234/t234_interface.o

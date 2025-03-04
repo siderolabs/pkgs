@@ -29,11 +29,14 @@ steps:
         patch -d nvdisplay -p1 </pkg/patches/nvdisplay/004-drm_fop_flags_linux_612.patch
         patch -d nvdisplay -p1 </pkg/patches/nvdisplay/999-manual.patch
 
-        mkdir /out
-        make -j $(nproc) -C /out modules
-        make -j $(nproc) -C /out dtbs
+        # patches for hwpm module
+        patch -p1 </pkg/patches/hwpm/001-manual.patch
 
-        ls -LRla /out
+        # patches for nvidia-oot module
+        patch -p1 </pkg/patches/nvidia-oot/001-manual.patch
+
+        make -j $(nproc) modules KERNEL_HEADERS=/src
+        make -j $(nproc) dtbs KERNEL_HEADERS=/src
     install:
       - |
         cd kernel_oot_modules1
@@ -45,7 +48,10 @@ steps:
 
         mkdir /out_headers
         make -j $(nproc) -C /out_headers modules_install INSTALL_MOD_DIR=updates INSTALL_MOD_PATH=/rootfs INSTALL_MOD_STRIP=1
+      - |
         ls -LRla /out_headers
+      - |
+        ls -LRla /rootfs
     test:
       - |
         # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
