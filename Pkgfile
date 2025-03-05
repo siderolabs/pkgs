@@ -3,9 +3,9 @@
 format: v1alpha2
 
 vars:
-  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v0.14.0-alpha.0-6-g818b320
+  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v0.14.0-alpha.0-7-g60b660e
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.10.0-alpha.0-18-gfcee25b
+  TOOLS_REV: v1.10.0-alpha.0-19-g87acb27
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.6.2
@@ -70,9 +70,9 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: e7595fe88d8c32354cd61055cbc9f2e7b3f91ff8
-  ipxe_sha256: b2f4ece8f0ec76427c3f35867110e22976f4558ba6f6ca5074d316512f285f19
-  ipxe_sha512: 18cceec5ea5835d895c82f38c6626c3d0868434f301d77e403b752724cba32bac6c08aacb63521469e15d93001cc354129cee6609ac336de7563775f76650d34
+  ipxe_ref: be3a78eaf804a2c437aa055d5c1e2f4a1310a0c1
+  ipxe_sha256: db0cefc614a831f46a1d84745a1e97331ee63b3c003baf5df506d5c270c66c43
+  ipxe_sha512: 5689dcb7937011db737bb4d07027a29719ab3a85d33b82b51dd237eba37e166215841a92565b477fb70f1a35c82dc33f5b57ee1c2eb24ce5a25219514193bee4
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: dd028a2fd49ce5f25f05cdbec91958022c2a3dc2
@@ -156,9 +156,9 @@ vars:
   linux_firmware_sha512: 1b694666cd49bad3f0aa9c67653686249ca545e1f2d06ee1a0f20ff8ea89e22cc1e921808c6c89029c32bfb3d348427b036dd2cb25b5bd96e32f3840e0476f02
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
-  lvm2_version: 2_03_30
-  lvm2_sha256: ad76abecb8dc887733e06c449cb9add04a3506f9f0780c128817a6e1a17cec05
-  lvm2_sha512: 5b3d9ede4d91b0a620763201cb1c607b2cc206f8107ed2a01cb129d298fd20f0c8202aa1207812b0ab5754fbd5463e9565a576f987595983ecbcb8683e1ed946
+  lvm2_version: 2_03_31
+  lvm2_sha256: 5db2956a00fbf87d92274cccc92436387ec0c3faadece7413ece1ba1c10c98ff
+  lvm2_sha512: 254131e28b22d55531d211886afbfdc219e77a4df802e3ec9b66d889ff22bf6d0a6c2df9c5ff017592d92e1dce0f658a6628fb321c1e90152ff7257492218242
 
   mellanox_ofed_version: 5.9-0.5.6.0
   mellanox_ofed_sha256: 4503258cbe92b00c734e612c3a7ad1d71e023fdffae2a2c119f7b537505e499c
@@ -191,14 +191,14 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
-  glib_version: 2.83.4
-  glib_sha256: 4edc4dc184f46d1220694b7775c5d7c62265c83b0e9632d844da127c181fc391
-  glib_sha512: 39e1ade8ba5a43e6dbd4c60b48327a87d50755be96eddfffce824bd5d417f6d3a9b80e6b307b47c3a74d52e726954f7c38e3245f87f32ef4dccb3f0a51eabc1e
+  glib_version: 2.83.5
+  glib_sha256: f8342c4f2b713c926db1b34b8bd93dd4cb2515a1102d8419686fe93942c6071c
+  glib_sha512: 89fb70e865363bfdda3a1f62c96d6a2a753ea9b6a1c08fd39b23e5ae45d5b0c7d0fdd0b6a01eb401d603282b9e7278ae2d5ca1f9222367e5f987bcc46bbf813a
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
-  qemu_version: 9.2.1
-  qemu_sha256: 72874fe9c395ced0c7fd7c22c43744072697f7ee1926a72237bd81784b2faf62
-  qemu_sha512: b8eb457ad9b565054dddb3987e17a8ce43adfe90391790774640d109a9efae1784ca71fe808a3595cf2585c2640bec3f74b0f336c7c6ce3d77e4ee66630fa998
+  qemu_version: 9.2.2
+  qemu_sha256: 752eaeeb772923a73d536b231e05bcc09c9b1f51690a41ad9973d900e4ec9fbf
+  qemu_sha512: b010876da9f91da01dbb9e06705a1358d5f062d0fdd4ad5c8cd8ce3fd43adcefcf72a61216eb8d415281f6607b945ce1cfb6b5fc5692ada9163e8f05b7fb5533
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.2.5
