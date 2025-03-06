@@ -251,7 +251,7 @@ diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/gpu/drm/tegra/hdmi.c k
  
  struct platform_driver tegra_hdmi_driver = {
 diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/gpu/drm/tegra/hub.c kernel_oot_modules/nvidia-oot/drivers/gpu/drm/tegra/hub.c
---- kernel_oot_modules2/nvidia-oot/drivers/gpu/drm/tegra/hub.c	2025-03-03 11:06:21.266121395 +0100
+--- kernel_oot_modules2/nvidia-oot/drivers/gpu/drm/tegra/hub.c	2025-01-08 02:11:50.000000000 +0100
 +++ kernel_oot_modules/nvidia-oot/drivers/gpu/drm/tegra/hub.c	2025-03-03 11:06:10.375559601 +0100
 @@ -1174,7 +1174,7 @@ unregister:
  	return err;
@@ -766,7 +766,7 @@ diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/gpu/host1x/mipi.c kern
  
  struct platform_driver tegra_mipi_driver = {
 diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/gpu/host1x/syncpt.c kernel_oot_modules/nvidia-oot/drivers/gpu/host1x/syncpt.c
---- kernel_oot_modules2/nvidia-oot/drivers/gpu/host1x/syncpt.c	2025-03-04 14:34:37.537326965 +0100
+--- kernel_oot_modules2/nvidia-oot/drivers/gpu/host1x/syncpt.c	2025-01-08 02:11:50.000000000 +0100
 +++ kernel_oot_modules/nvidia-oot/drivers/gpu/host1x/syncpt.c	2025-03-04 15:55:56.775928139 +0100
 @@ -122,7 +122,6 @@ unlock:
  	mutex_unlock(&host->syncpt_mutex);
@@ -832,7 +832,15 @@ diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/gpu/host1x/syncpt.c ke
  
  /**
   * host1x_syncpt_read_min() - read minimum syncpoint value
-@@ -488,7 +480,6 @@ u32 host1x_syncpt_read(struct host1x_syn
+@@ -479,7 +471,6 @@ u32 host1x_syncpt_read_min(struct host1x
+ 
+ 	return (u32)atomic_read(&sp->min_val);
+ }
+-EXPORT_SYMBOL(host1x_syncpt_read_min);
+ 
+ /**
+  * host1x_syncpt_read() - read the current syncpoint value
+@@ -489,7 +480,6 @@ u32 host1x_syncpt_read(struct host1x_syn
  {
  	return host1x_syncpt_load(sp);
  }
@@ -840,7 +848,7 @@ diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/gpu/host1x/syncpt.c ke
  
  unsigned int host1x_syncpt_nb_pts(struct host1x *host)
  {
-@@ -521,7 +512,6 @@ struct host1x_syncpt *host1x_syncpt_get_
+@@ -522,7 +512,6 @@ struct host1x_syncpt *host1x_syncpt_get_
  	else
  		return NULL;
  }
@@ -848,7 +856,7 @@ diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/gpu/host1x/syncpt.c ke
  
  /**
   * host1x_syncpt_get_by_id_noref() - obtain a syncpoint by ID but don't
-@@ -537,7 +527,6 @@ struct host1x_syncpt *host1x_syncpt_get_
+@@ -538,7 +527,6 @@ struct host1x_syncpt *host1x_syncpt_get_
  
  	return &host->syncpt[id];
  }
@@ -856,7 +864,7 @@ diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/gpu/host1x/syncpt.c ke
  
  /**
   * host1x_syncpt_get() - increment syncpoint refcount
-@@ -549,7 +538,6 @@ struct host1x_syncpt *host1x_syncpt_get(
+@@ -550,7 +538,6 @@ struct host1x_syncpt *host1x_syncpt_get(
  
  	return sp;
  }
@@ -864,7 +872,7 @@ diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/gpu/host1x/syncpt.c ke
  
  /**
   * host1x_syncpt_get_base() - obtain the wait base associated with a syncpoint
-@@ -559,7 +547,6 @@ struct host1x_syncpt_base *host1x_syncpt
+@@ -560,7 +547,6 @@ struct host1x_syncpt_base *host1x_syncpt
  {
  	return sp ? sp->base : NULL;
  }
@@ -872,7 +880,7 @@ diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/gpu/host1x/syncpt.c ke
  
  /**
   * host1x_syncpt_base_id() - retrieve the ID of a syncpoint wait base
-@@ -569,7 +556,6 @@ u32 host1x_syncpt_base_id(struct host1x_
+@@ -570,7 +556,6 @@ u32 host1x_syncpt_base_id(struct host1x_
  {
  	return base->id;
  }
@@ -880,11 +888,29 @@ diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/gpu/host1x/syncpt.c ke
  
  static void do_nothing(struct kref *ref)
  {
-@@ -597,4 +583,3 @@ void host1x_syncpt_release_vblank_reserv
+@@ -598,4 +583,3 @@ void host1x_syncpt_release_vblank_reserv
  
  	kref_put(&host->syncpt[syncpt_id].ref, do_nothing);
  }
 -EXPORT_SYMBOL(host1x_syncpt_release_vblank_reservation);
+diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/media/i2c/Makefile kernel_oot_modules/nvidia-oot/drivers/media/i2c/Makefile
+--- kernel_oot_modules2/nvidia-oot/drivers/media/i2c/Makefile	2025-01-08 02:11:50.000000000 +0100
++++ kernel_oot_modules/nvidia-oot/drivers/media/i2c/Makefile	2025-03-06 10:23:22.664134865 +0100
+@@ -7,7 +7,6 @@ obj-m += max9295.o
+ obj-m += max9296.o
+ ifeq ($(findstring ack_src,$(NV_BUILD_KERNEL_OPTIONS)),)
+ obj-m += max96712.o
+-
+ ifdef CONFIG_MEDIA_SUPPORT
+ obj-m += ar1335_common.o
+ obj-m += lt6911uxc.o
+@@ -24,5 +23,5 @@ obj-m += max929x.o
+ endif
+ 
+ obj-m += pca9570.o
+-obj-m += virtual_i2c_mux.o
++obj-$(CONFIG_I2C_MUX)	+= virtual_i2c_mux.o
+ endif
 diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/media/platform/tegra/cam_fsync/cam_fsync.c kernel_oot_modules/nvidia-oot/drivers/media/platform/tegra/cam_fsync/cam_fsync.c
 --- kernel_oot_modules2/nvidia-oot/drivers/media/platform/tegra/cam_fsync/cam_fsync.c	2025-01-08 02:11:50.000000000 +0100
 +++ kernel_oot_modules/nvidia-oot/drivers/media/platform/tegra/cam_fsync/cam_fsync.c	2025-03-04 11:36:51.138089595 +0100
@@ -1833,7 +1859,7 @@ diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/isp/i
  struct nvhost_device_data t19_isp5_info = {
 diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/nvcsi/nvcsi-t194.c kernel_oot_modules/nvidia-oot/drivers/video/tegra/host/nvcsi/nvcsi-t194.c
 --- kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/nvcsi/nvcsi-t194.c	2025-01-08 02:11:51.000000000 +0100
-+++ kernel_oot_modules/nvidia-oot/drivers/video/tegra/host/nvcsi/nvcsi-t194.c	2025-03-04 13:57:49.398861215 +0100
++++ kernel_oot_modules/nvidia-oot/drivers/video/tegra/host/nvcsi/nvcsi-t194.c	2025-03-05 09:49:02.831110345 +0100
 @@ -109,7 +109,6 @@ static int t194_nvcsi_release(struct ino
  
  const struct file_operations tegra194_nvcsi_ctrl_ops = {
@@ -1847,11 +1873,11 @@ diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/nvcsi
  }
  
 -static int __exit t194_nvcsi_remove(struct platform_device *dev)
-+static void __exit t194_nvcsi_remove(struct platform_device *dev)
++static void t194_nvcsi_remove(struct platform_device *dev)
  {
  	struct nvhost_device_data *pdata = platform_get_drvdata(dev);
  	struct t194_nvcsi *nvcsi = pdata->private_data;
-@@ -239,8 +238,6 @@ static int __exit t194_nvcsi_remove(stru
+@@ -239,13 +238,11 @@ static int __exit t194_nvcsi_remove(stru
  	tegra_camera_device_unregister(nvcsi);
  	mc_csi = NULL;
  	tegra_csi_media_controller_remove(&nvcsi->csi);
@@ -1860,6 +1886,12 @@ diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/nvcsi
  }
  
  static struct platform_driver t194_nvcsi_driver = {
+ 	.probe = t194_nvcsi_probe,
+-	.remove = __exit_p(t194_nvcsi_remove),
++	.remove = t194_nvcsi_remove,
+ 	.driver = {
+ 		.owner = THIS_MODULE,
+ 		.name = "t194-nvcsi",
 diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/nvcsi/nvcsi.c kernel_oot_modules/nvidia-oot/drivers/video/tegra/host/nvcsi/nvcsi.c
 --- kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/nvcsi/nvcsi.c	2025-01-08 02:11:51.000000000 +0100
 +++ kernel_oot_modules/nvidia-oot/drivers/video/tegra/host/nvcsi/nvcsi.c	2025-03-04 13:30:13.247395835 +0100
@@ -1872,14 +1904,14 @@ diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/nvcsi
  #ifdef CONFIG_COMPAT
  	.compat_ioctl = nvcsi_ioctl,
 diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/nvdla/nvdla.c kernel_oot_modules/nvidia-oot/drivers/video/tegra/host/nvdla/nvdla.c
---- kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/nvdla/nvdla.c	2025-03-04 08:53:18.481738289 +0100
-+++ kernel_oot_modules/nvidia-oot/drivers/video/tegra/host/nvdla/nvdla.c	2025-03-04 08:53:07.001035895 +0100
+--- kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/nvdla/nvdla.c	2025-01-08 02:11:51.000000000 +0100
++++ kernel_oot_modules/nvidia-oot/drivers/video/tegra/host/nvdla/nvdla.c	2025-03-05 09:48:40.180162341 +0100
 @@ -1263,7 +1263,7 @@ err_get_pdata:
  	return err;
  }
  
 -static int __exit nvdla_remove(struct platform_device *pdev)
-+static void __exit nvdla_remove(struct platform_device *pdev)
++static void nvdla_remove(struct platform_device *pdev)
  {
  	struct nvhost_device_data *pdata = platform_get_drvdata(pdev);
  	struct nvdla_device *nvdla_dev = pdata->private_data;
@@ -1892,6 +1924,15 @@ diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/nvdla
  }
  
  #ifdef CONFIG_PM
+@@ -1528,7 +1526,7 @@ const struct dev_pm_ops nvdla_module_pm_
+ 
+ static struct platform_driver nvdla_driver = {
+ 	.probe = nvdla_probe,
+-	.remove = __exit_p(nvdla_remove),
++	.remove = nvdla_remove,
+ 	.driver = {
+ 		.owner = THIS_MODULE,
+ 		.name = "nvdla",
 diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/nvdla/nvdla_ioctl.c kernel_oot_modules/nvidia-oot/drivers/video/tegra/host/nvdla/nvdla_ioctl.c
 --- kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/nvdla/nvdla_ioctl.c	2025-01-08 02:11:51.000000000 +0100
 +++ kernel_oot_modules/nvidia-oot/drivers/video/tegra/host/nvdla/nvdla_ioctl.c	2025-03-04 09:50:30.789867205 +0100
@@ -1905,13 +1946,13 @@ diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/nvdla
  	.compat_ioctl = nvdla_ioctl,
 diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/pva/pva.c kernel_oot_modules/nvidia-oot/drivers/video/tegra/host/pva/pva.c
 --- kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/pva/pva.c	2025-01-08 02:11:51.000000000 +0100
-+++ kernel_oot_modules/nvidia-oot/drivers/video/tegra/host/pva/pva.c	2025-03-04 16:19:20.992141436 +0100
++++ kernel_oot_modules/nvidia-oot/drivers/video/tegra/host/pva/pva.c	2025-03-05 09:48:49.420660723 +0100
 @@ -1487,7 +1487,7 @@ err_get_pdata:
  	return err;
  }
  
 -static int __exit pva_remove(struct platform_device *pdev)
-+static void __exit pva_remove(struct platform_device *pdev)
++static void pva_remove(struct platform_device *pdev)
  {
  	struct nvhost_device_data *pdata = platform_get_drvdata(pdev);
  	struct pva *pva = pdata->private_data;
@@ -1946,13 +1987,13 @@ diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/pva/p
  	.compat_ioctl = pva_ioctl,
 diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/pva/pva_iommu_context_dev.c kernel_oot_modules/nvidia-oot/drivers/video/tegra/host/pva/pva_iommu_context_dev.c
 --- kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/pva/pva_iommu_context_dev.c	2025-01-08 02:11:51.000000000 +0100
-+++ kernel_oot_modules/nvidia-oot/drivers/video/tegra/host/pva/pva_iommu_context_dev.c	2025-03-04 11:35:27.305707460 +0100
-@@ -226,15 +226,13 @@ static int pva_iommu_context_dev_probe(s
++++ kernel_oot_modules/nvidia-oot/drivers/video/tegra/host/pva/pva_iommu_context_dev.c	2025-03-05 09:48:56.320759958 +0100
+@@ -226,20 +226,18 @@ static int pva_iommu_context_dev_probe(s
  	return 0;
  }
  
 -static int __exit pva_iommu_context_dev_remove(struct platform_device *pdev)
-+static void __exit pva_iommu_context_dev_remove(struct platform_device *pdev)
++static void pva_iommu_context_dev_remove(struct platform_device *pdev)
  {
  	struct pva_iommu_ctx *ctx = platform_get_drvdata(pdev);
  
@@ -1964,6 +2005,12 @@ diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/pva/p
  }
  
  struct platform_driver nvpva_iommu_context_dev_driver = {
+ 	.probe = pva_iommu_context_dev_probe,
+-	.remove = __exit_p(pva_iommu_context_dev_remove),
++	.remove = pva_iommu_context_dev_remove,
+ 	.driver = {
+ 		.owner = THIS_MODULE,
+ 		.name = "pva_iommu_context_dev",
 diff --color -urpN kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/vi/vi5.c kernel_oot_modules/nvidia-oot/drivers/video/tegra/host/vi/vi5.c
 --- kernel_oot_modules2/nvidia-oot/drivers/video/tegra/host/vi/vi5.c	2025-01-08 02:11:51.000000000 +0100
 +++ kernel_oot_modules/nvidia-oot/drivers/video/tegra/host/vi/vi5.c	2025-03-04 13:58:14.249091610 +0100

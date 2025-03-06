@@ -35,6 +35,9 @@ steps:
         # patches for nvidia-oot module
         patch -p1 </pkg/patches/nvidia-oot/001-manual.patch
 
+        # patches for nvgpu module
+        patch -p1 </pkg/patches/nvgpu/001-manual.patch
+
         make -j $(nproc) modules KERNEL_HEADERS=/src
         make -j $(nproc) dtbs KERNEL_HEADERS=/src
     install:
