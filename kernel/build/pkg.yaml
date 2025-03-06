@@ -36,7 +36,7 @@ steps:
 
         if [[ "${ARCH}" == "arm64" ]]; then
           echo "Compiling device-tree blobs"
-          make -j $(nproc) dtbs
+          make -j $(nproc) DTC_FLAGS=-@ dtbs
         fi
       {{ end }}
 finalize:
