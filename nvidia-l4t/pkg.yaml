@@ -42,17 +42,14 @@ steps:
         make -j $(nproc) dtbs KERNEL_HEADERS=/src
     install:
       - |
-        cd kernel_oot_modules1
+        cd kernel_oot_modules
 
         mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
         cp /src/modules.order /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
         cp /src/modules.builtin /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
         cp /src/modules.builtin.modinfo /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
 
-        mkdir /out_headers
-        make -j $(nproc) -C /out_headers modules_install INSTALL_MOD_DIR=updates INSTALL_MOD_PATH=/rootfs INSTALL_MOD_STRIP=1
-      - |
-        ls -LRla /out_headers
+        make -j $(nproc) modules_install KERNEL_HEADERS=/src INSTALL_MOD_DIR=updates INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_STRIP=1
       - |
         ls -LRla /rootfs
     test:
