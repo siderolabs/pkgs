@@ -50,8 +50,6 @@ steps:
         cp /src/modules.builtin.modinfo /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
 
         make -j $(nproc) modules_install KERNEL_HEADERS=/src INSTALL_MOD_DIR=updates INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_STRIP=1
-      - |
-        ls -LRla /rootfs
     test:
       - |
         # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
