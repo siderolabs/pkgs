@@ -1,0 +1,142 @@
+name: kernel-devel
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: kernel-build
+steps:
+  - env:
+      ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+      ASMARCH: {{ if eq .ARCH "aarch64"}}arm{{ else if eq .ARCH "x86_64" }}x86{{ else }}unsupported{{ end }}
+    install:
+      - |
+        cd /src
+
+        export KERNELRELEASE=$(cat include/config/kernel.release)
+
+        rm -f /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        mkdir -p /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+
+        find . -name *.h.s -delete
+
+        # Copy all Makefiles and Kconfig files to the target
+        find -type f \( -name 'Makefile*' -o -name 'Kconfig*' \) -exec cp --parents --target-directory=/rootfs/usr/lib/modules/${KERNELRELEASE}/build/ {} +
+        cp Module.symvers /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+        cp System.map /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+        rm -rf /rootfs/usr/lib/modules/${KERNELRELEASE}/build/scripts
+        rm -rf /rootfs/usr/lib/modules/${KERNELRELEASE}/build/include
+        cp .config /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp -a scripts /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        rm -rf /rootfs/usr/lib/modules/${KERNELRELEASE}/build/scripts/tracing
+        rm -f /rootfs/usr/lib/modules/${KERNELRELEASE}/build/scripts/spdxcheck.py
+
+        # Files for 'make scripts' to succeed with kernel-devel.
+        mkdir -p /rootfs/usr/lib/modules/${KERNELRELEASE}/build/security/selinux/include
+        cp -a --parents security/selinux/include/classmap.h /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp -a --parents security/selinux/include/initial_sid_to_string.h /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        mkdir -p /rootfs/usr/lib/modules/${KERNELRELEASE}/build/tools/include/tools
+        cp -a --parents tools/include/tools/be_byteshift.h /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp -a --parents tools/include/tools/le_byteshift.h /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+
+        # Files for 'make prepare' to succeed with kernel-devel.
+        cp -a --parents tools/include/linux/compiler* /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp -a --parents tools/include/linux/types.h /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp -a --parents tools/build/Build.include /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp --parents tools/build/fixdep.c /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp --parents tools/objtool/sync-check.sh /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp -a --parents tools/bpf/resolve_btfids /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+
+        cp --parents security/selinux/include/policycap_names.h /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp --parents security/selinux/include/policycap.h /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+
+        cp -a --parents tools/include/asm /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp -a --parents tools/include/asm-generic /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp -a --parents tools/include/linux /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp -a --parents tools/include/uapi/asm /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp -a --parents tools/include/uapi/asm-generic /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp -a --parents tools/include/uapi/linux /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp -a --parents tools/include/vdso /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp --parents tools/scripts/utilities.mak /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp -a --parents tools/lib/subcmd /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp --parents tools/lib/*.c /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp --parents tools/objtool/*.[ch] /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp --parents tools/objtool/Build /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp --parents tools/objtool/include/objtool/*.h /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp -a --parents tools/lib/bpf /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp --parents tools/lib/bpf/Build /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+
+        if [ -f tools/objtool/objtool ]; then
+          cp -a tools/objtool/objtool /rootfs/usr/lib/modules/${KERNELRELEASE}/build/tools/objtool/ || :
+        fi
+        if [ -f tools/objtool/fixdep ]; then
+          cp -a tools/objtool/fixdep /rootfs/usr/lib/modules/${KERNELRELEASE}/build/tools/objtool/ || :
+        fi
+        if [ -d arch/${ARCH}/scripts ]; then
+          cp -a arch/${ARCH}/scripts /rootfs/usr/lib/modules/${KERNELRELEASE}/build/arch/{{ .ARCH }} || :
+        fi
+        if [ -f arch/${ARCH}/*lds ]; then
+          cp -a arch/${ARCH}/*lds /rootfs/usr/lib/modules/${KERNELRELEASE}/build/arch/{{ .ARCH }}/ || :
+        fi
+        if [ -f arch/${ASMARCH}/kernel/module.lds ]; then
+          cp -a --parents arch/{{ .ARCH }}/kernel/module.lds /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+        fi
+        find /rootfs/usr/lib/modules/${KERNELRELEASE}/build/scripts \( -iname "*.o" -o -iname "*.cmd" \) -delete
+
+        {{ if eq .ARCH "ppc64le"}}
+        cp -a --parents arch/powerpc/lib/crtsavres.[So] /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+        {{ end }}
+
+        if [ -d arch/${ASMARCH}/include ]; then
+          cp -a --parents arch/${ASMARCH}/include /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+        fi
+        if [ -d tools/arch/${ASMARCH}/include ]; then
+          cp -a --parents tools/arch/${ASMARCH}/include /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        fi
+        {{ if eq .ARCH "aarch64"}}
+        # arch/arm64/include/asm/xen references arch/arm
+        cp -a --parents arch/arm/include/asm/xen /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+        # arch/arm64/include/asm/opcodes.h references arch/arm
+        cp -a --parents arch/arm/include/asm/opcodes.h /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+        {{ end }}
+        cp -a include /rootfs/usr/lib/modules/${KERNELRELEASE}/build/include
+        # Cross-reference from include/perf/events/sof.h
+        cp -a sound/soc/sof/sof-audio.h /rootfs/usr/lib/modules/${KERNELRELEASE}/build/sound/soc/sof
+        {{ if eq .ARCH "x86_64"}}
+        # files for 'make prepare' to succeed with kernel-devel
+        cp -a --parents arch/x86/entry/syscalls/syscall_32.tbl /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+        cp -a --parents arch/x86/entry/syscalls/syscall_64.tbl /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+        cp -a --parents arch/x86/tools/relocs_32.c /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+        cp -a --parents arch/x86/tools/relocs_64.c /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+        cp -a --parents arch/x86/tools/relocs.c /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+        cp -a --parents arch/x86/tools/relocs_common.c /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+        cp -a --parents arch/x86/tools/relocs.h /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+        cp -a --parents arch/x86/purgatory/purgatory.c /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+        cp -a --parents arch/x86/purgatory/stack.S /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+        cp -a --parents arch/x86/purgatory/setup-x86_64.S /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+        cp -a --parents arch/x86/purgatory/entry64.S /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+        cp -a --parents arch/x86/boot/string.h /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+        cp -a --parents arch/x86/boot/string.c /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+        cp -a --parents arch/x86/boot/ctype.h /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+
+        cp -a --parents scripts/syscalltbl.sh /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+        cp -a --parents scripts/syscallhdr.sh /rootfs/usr/lib/modules/${KERNELRELEASE}/build/
+
+        cp -a --parents tools/arch/x86/include/asm /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp -a --parents tools/arch/x86/include/uapi/asm /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp -a --parents tools/objtool/arch/x86/lib /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp -a --parents tools/arch/x86/lib/ /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp -a --parents tools/arch/x86/tools/gen-insn-attr-x86.awk /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        cp -a --parents tools/objtool/arch/x86/ /rootfs/usr/lib/modules/${KERNELRELEASE}/build
+        {{ end }}
+        # Clean up intermediate tools files
+        find /rootfs/usr/lib/modules/${KERNELRELEASE}/build/tools \( -iname "*.o" -o -iname "*.cmd" \) -delete
+
+        # Make sure the Makefile, version.h, and auto.conf have a matching
+        # timestamp so that external modules can be built
+        touch -r /rootfs/usr/lib/modules/${KERNELRELEASE}/build/Makefile \
+            /rootfs/usr/lib/modules/${KERNELRELEASE}/build/include/generated/uapi/linux/version.h \
+            /rootfs/usr/lib/modules/${KERNELRELEASE}/build/include/config/auto.conf
+
+finalize:
+  - from: /rootfs
+    to: /
