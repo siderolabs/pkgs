@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.12.17 Kernel Configuration
+# Linux/arm64 6.12.18 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="gcc (GCC) 14.2.0"
 CONFIG_CC_IS_GCC=y
@@ -8855,7 +8855,7 @@ CONFIG_IMA_SECURE_AND_OR_TRUSTED_BOOT=y
 # CONFIG_DEFAULT_SECURITY_SELINUX is not set
 # CONFIG_DEFAULT_SECURITY_APPARMOR is not set
 CONFIG_DEFAULT_SECURITY_DAC=y
-CONFIG_LSM="yama,selinux,loadpin,safesetid,integrity,bpf,apparmor"
+CONFIG_LSM="yama,selinux,loadpin,safesetid,integrity,bpf,apparmor,lockdown,landlock"
 
 #
 # Kernel hardening options
