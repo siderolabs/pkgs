@@ -5,7 +5,7 @@ dependencies:
     - image: '{{ .TOOLS_IMAGE }}'
 steps:
     - sources:
-          - url: https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{{ .linux_firmware_version }}.tar.gz
+          - url: https://gitlab.com/kernel-firmware/linux-firmware/-/archive/{{ .linux_firmware_version }}/linux-firmware-{{ .linux_firmware_version }}.tar.gz
             destination: linux-firmware.tar.gz
             sha256: "{{ .linux_firmware_sha256 }}"
             sha512: "{{ .linux_firmware_sha512 }}"
