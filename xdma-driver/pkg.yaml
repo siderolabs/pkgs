@@ -1,0 +1,40 @@
+name: xdma-driver-pkg
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: kernel-build
+steps:
+  - sources:
+      - url: https://github.com/Xilinx/dma_ip_drivers/archive/{{ .xdma_driver_version }}.tar.gz
+        destination: xdma-driver.tar.gz
+        sha256: "{{ .xdma_driver_sha256 }}"
+        sha512: "{{ .xdma_driver_sha512 }}"
+    env:
+      ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+    prepare:
+      - |
+        tar xf xdma-driver.tar.gz --strip-components=1
+    build:
+      - |
+        cd XDMA/linux-kernel/xdma
+        make all BUILDSYSTEM_DIR=/src
+    install:
+      - |
+        cd XDMA/linux-kernel/xdma
+
+        mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)
+        cp /src/modules.order /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin.modinfo /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+
+        make -C /src M=$(pwd) modules_install INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1
+    test:
+      - |
+        # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
+        find /rootfs/usr/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
+      - |
+        fhs-validator /rootfs
+finalize:
+  - from: /rootfs
+    to: /

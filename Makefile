@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2025-03-31T10:51:16Z by kres d903dae.
+# Generated on 2025-03-31T16:25:48Z by kres d903dae.
 
 # common variables
 
@@ -101,6 +101,7 @@ TARGETS += ena-pkg
 TARGETS += gasket-driver-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-lts-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-production-pkg
+TARGETS += xdma-driver-pkg
 TARGETS += zfs-pkg
 NONFREE_TARGETS = nonfree-kmod-nvidia-lts-pkg
 NONFREE_TARGETS += nonfree-kmod-nvidia-production-pkg
