@@ -98,6 +98,7 @@ TARGETS += zstd
 TARGETS += kernel
 TARGETS += drbd-pkg
 TARGETS += gasket-driver-pkg
+TARGETS += xdma-driver-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-lts-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-production-pkg
 TARGETS += zfs-pkg
