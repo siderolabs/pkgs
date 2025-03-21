@@ -185,6 +185,11 @@ vars:
   nvidia_driver_production_amd64_sha256: f822150666707ed3c383889e0e68d24e8ceb4033eebd19737f9b405069e89beb
   nvidia_driver_production_amd64_sha512: 548afbaf726b69fc001de5c4964a6b57f06dc0aba29bf7e1b4345e0176c7c438b2fe972de83ee917ee187836fc005e76fe998c3dada34929bcdea0929a35fb26
 
+  nvidia_l4t_version: r36_release_v4.3
+  nvidia_l4t_version_sha256: 2c177804679e3ed650dabec6fa958388579896f170570c6171a1b6c386669216
+  nvidia_l4t_version_sha512: 31e3d67c46edc6f6b8fc243d314e3859b685e2e928bf95b71200776f689a8ee9d5a64ec44c361f6dac702ba7d285c5595b306e315fbaa1e11e54adf4888ce446
+
+
   # renovate: datasource=github-tags depName=madler/pigz
   pigz_version: 2.8
   pigz_sha256: eb872b4f0e1f0ebe59c9f7bd8c506c4204893ba6a8492de31df416f0d5170fd0
