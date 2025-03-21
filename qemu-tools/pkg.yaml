@@ -34,7 +34,8 @@ steps:
       - |
         make DESTDIR=/rootfs install
 
-        rm -rf /rootfs/usr/share
+        rm -r /rootfs/usr/{share,libexec}
+        rm -f /rootfs/usr/bin/{qemu-edid,qemu-io,qemu-nbd,qemu-pr-helper,qemu-storage-daemon,qemu-vmsr-helper}
     test:
       - |
         fhs-validator /rootfs
