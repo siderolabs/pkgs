@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2025-02-21T16:00:44Z by kres 8a48729.
+# Generated on 2025-03-31T10:51:16Z by kres d903dae.
 
 # common variables
 
@@ -97,6 +97,7 @@ TARGETS += zlib
 TARGETS += zstd
 TARGETS += kernel
 TARGETS += drbd-pkg
+TARGETS += ena-pkg
 TARGETS += gasket-driver-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-lts-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-production-pkg

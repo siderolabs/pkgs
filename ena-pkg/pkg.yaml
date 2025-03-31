@@ -1,0 +1,37 @@
+name: ena-pkg
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: kernel-build
+steps:
+  - sources:
+      - url: https://github.com/amzn/amzn-drivers/archive/refs/tags/ena_linux_{{ .ena_version }}.tar.gz
+        destination: ena.tar.gz
+        sha256: "{{ .ena_sha256 }}"
+        sha512: "{{ .ena_sha512 }}"
+    env:
+      ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+    prepare:
+      - |
+        tar xf ena.tar.gz --strip-components=1
+    build:
+      - |
+        cd kernel/linux/ena
+        make KERNEL_BUILD_DIR=/src
+
+    install:
+      - |
+        cd kernel/linux/ena
+        mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)
+        
+        make -C /src M=$(pwd) modules_install INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1
+    test:
+      - |
+        # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
+        find /rootfs/usr/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
+      - |
+        fhs-validator /rootfs
+finalize:
+  - from: /rootfs
+    to: /

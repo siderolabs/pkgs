@@ -58,6 +58,7 @@ spec:
     #   kernel first, then packages in alphabetical order
     - kernel
     - drbd-pkg
+    - ena-pkg
     - gasket-driver-pkg
     - nvidia-open-gpu-kernel-modules-lts-pkg
     - nvidia-open-gpu-kernel-modules-production-pkg

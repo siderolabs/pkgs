@@ -38,6 +38,11 @@ vars:
   e2fsprogs_sha256: be7edd7031734d1fef8a319f0901828f8ab89e8f3b5073e6b18740be3771a95c
   e2fsprogs_sha512: 1dc86535b72a4ab60e17a547efe5e137054eff6cad9f6cf9cc9485694ec6166687a9d5f50fb47a10e776a70c7690ade5445c0339731f83066abf33c01f70d9c7
 
+  # renovate: datasource=github-releases extractVersion=^ena_linux_(?<version>.*)$ depName=amzn/amzn-drivers
+  ena_version: 2.13.3
+  ena_sha256: c5177525b4579ea1398e5f09b58e11d6e5185879a514217ccbdc9fe28c254f91
+  ena_sha512: 25b254b274c5e2a987406298d438ed4e78e5b227d0ead53e1b42dfdc8efd1b6db27ee56ed45ed3bd269ee651277c2a04a6dec223413204cbe45a5fa94dffe8f5
+
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
   systemd_version: 257.4
   systemd_sha256: 3e7955ecdb8ad317b2876a31ad749e4dd71d371f343de40d856d62c1eb2ffa2a
