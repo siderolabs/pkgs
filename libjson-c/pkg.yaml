@@ -19,6 +19,7 @@ steps:
           -DBUILD_SHARED_LIBS=True \
           -DBUILD_STATIC_LIBS=True \
           -DCMAKE_BUILD_TYPE=None \
+          -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
          .
     build:
       - |

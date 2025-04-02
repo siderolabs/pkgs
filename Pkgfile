@@ -3,9 +3,9 @@
 format: v1alpha2
 
 vars:
-  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v0.14.0-alpha.0-7-g60b660e
+  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v0.14.0-alpha.0-9-g98c4d8a
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.10.0-alpha.0-23-g6d456ca
+  TOOLS_REV: v1.10.0-alpha.0-24-g4f2036e
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.6.2
@@ -29,9 +29,9 @@ vars:
   dosfstools_sha512: 3cc0808edb4432428df8a67da4bb314fd1f27adc4a05754c1a492091741a7b6875ebd9f6a509cc4c5ad85643fc40395b6e0cadee548b25cc439cc9b725980156
 
   # renovate: datasource=github-tags extractVersion=^drbd-(?<version>.*)$ depName=LINBIT/drbd
-  drbd_version: 9.2.12
-  drbd_sha256: 6a675cc8f4f29c64da699879e7c4372a71ae1b2c8b24a9ec63e34108edba26ad
-  drbd_sha512: b3d5700141d0791dd5cfa8496e3888124670029ec39800f915dcc5f292b57723cc8aecbbdad83f33a61f38e9be6dbac0b75bf9696536bcd3cb1017f48703dce6
+  drbd_version: 9.2.13
+  drbd_sha256: 2ccbda05dbd564e8d9b6159b839adee7fe1784da7d6c47d98a2443e0f365505a
+  drbd_sha512: 4918a486db1a3bd32200a46bffdc45d3df5c6ef514a38af221aaa7217afd00de6ea03db2e8504a18d308e5618924181a2786f0e344a1b03aeeeb07e877f7686f
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git
   e2fsprogs_version: v1.47.2
@@ -75,9 +75,9 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 02ecb23d106fe849899597b79f9db03a5d4673d9
-  ipxe_sha256: daef5cb2f1a22f6f40c8927494e256cf3332cef812466413a88827291e620db8
-  ipxe_sha512: d55ece7590704c0c77a77413c8195a3bcc23f7d34580940eeaa63a157017ab410e2076b5fce4aeeaafa305c640910c7229aa5da497c0412ae38e57880f9a00f8
+  ipxe_ref: 7e64e9b6703e6dd363c063d545a5fe63bbc70011
+  ipxe_sha256: c72f02b390b98d14b5ba19b2bf82ec6d58ceac0b070e491f8803ca8b2737d023
+  ipxe_sha512: 978780a2f5e02b405a9ae2dd18623f2713814c1aef59d596025b75405798b4fa3833b35cd59b654f197ad4d1c9da9f8f812aa36db0d94e2b816e34f63924d66e
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: dd028a2fd49ce5f25f05cdbec91958022c2a3dc2
@@ -100,9 +100,9 @@ vars:
   libattr_sha512: f587ea544effb7cfed63b3027bf14baba2c2dbe3a9b6c0c45fc559f7e8cb477b3e9a4a826eae30f929409468c50d11f3e7dc6d2500f41e1af8662a7e96a30ef3
 
   # renovate: datasource=github-releases extractVersion=^r(?<version>.*)$ depName=benhoyt/inih
-  libinih_version: 58
-  libinih_sha256: e79216260d5dffe809bda840be48ab0eec7737b2bb9f02d2275c1b46344ea7b7
-  libinih_sha512: d69f488299c1896e87ddd3dd20cd9db5848da7afa4c6159b8a99ba9a5d33f35cadfdb9f65d6f2fe31decdbadb8b43bf610ff2699df475e1f9ff045e343ac26ae
+  libinih_version: 59
+  libinih_sha256: 062279922805f5e9a369551a08d5ddb506140fe50774183ffdbb7c22bb97e3f4
+  libinih_sha512: cd5ee8796c1be1ff7f589069ec90fee6fc4464ae7b2f0b39600ab08cf01cda9e4c006aa1cba0ee3c78df0111de5da23fa314816bfd327e34211a0dfcfa1d993b
 
   # renovate: datasource=git-tags extractVersion=^release-(?<version>.*)$ depName=https://dev.lovelyhq.com/libburnia/libburn.git
   libburn_version: 1.5.6
@@ -201,9 +201,9 @@ vars:
   glib_sha512: 72b85e30c535c5da7d8598d1cec02b1b481c467e612dbb396a0a64ad1d37cf2f1802c6fa576885c99cf8a22f4f0fc7dfdf42a3f32f7f40394f72db588fdbebb7
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
-  qemu_version: 9.2.2
-  qemu_sha256: 752eaeeb772923a73d536b231e05bcc09c9b1f51690a41ad9973d900e4ec9fbf
-  qemu_sha512: b010876da9f91da01dbb9e06705a1358d5f062d0fdd4ad5c8cd8ce3fd43adcefcf72a61216eb8d415281f6607b945ce1cfb6b5fc5692ada9163e8f05b7fb5533
+  qemu_version: 9.2.3
+  qemu_sha256: baed494270c361bf69816acc84512e3efed71c7a23f76691642b80bc3de7693e
+  qemu_sha512: 941a4337a115c65de2fca042932efb31886114f4300226fcf55f04c2c5471bd2b5ce220c4b17e01c3679bd55ba08a1aa7ce399de15e3e5f28c17da52030b139e
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.2.6
@@ -222,9 +222,9 @@ vars:
   xdma_driver_sha512: 0d3be501410baaa75b422b96ba86971fff4e3dd7b99301c61a89d7523cda87cbcbe126f71c477f6f1938496d360e5d59e852c2ecdcfd8181d2fe6991d4596e9e
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
-  xfsprogs_version: 6.12.0
-  xfsprogs_sha256: 0832407247db791cc70def96e7e254bd6edf043dc84a80a62f3ccd6e3dffd329
-  xfsprogs_sha512: 020810b4a261f4ab4eb94aae813f22b26bb9f17705967198189509e684422361dd80af938e4a77cf326353d5d61d5aeaaee9a34e8a7b8ed1dddd63b7ad1b0510
+  xfsprogs_version: 6.13.0
+  xfsprogs_sha256: 0459933f93d94c82bc2789e7bd63742273d9d74207cdae67dc3032038da08337
+  xfsprogs_sha512: 9fd73c8585cd295b79b227cd5855407da4b3ea2d40a1ca82e0a93887644b497cced182960bcd8f3c45805dda4a244d1555fd49da5d7e82fe4525d345c766a63a
 
   # renovate: datasource=github-tags extractVersion=^zfs-(?<version>.*)$ depName=openzfs/zfs
   zfs_version: 2.3.1
