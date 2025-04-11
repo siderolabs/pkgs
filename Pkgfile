@@ -75,7 +75,7 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 7e64e9b6703e6dd363c063d545a5fe63bbc70011
+  ipxe_ref: 96dfaa7e7ac40fa068172ea39b70609af2212fb1
   ipxe_sha256: c72f02b390b98d14b5ba19b2bf82ec6d58ceac0b070e491f8803ca8b2737d023
   ipxe_sha512: 978780a2f5e02b405a9ae2dd18623f2713814c1aef59d596025b75405798b4fa3833b35cd59b654f197ad4d1c9da9f8f812aa36db0d94e2b816e34f63924d66e
 
