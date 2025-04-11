@@ -92,6 +92,7 @@ TARGETS += squashfs-tools
 TARGETS += systemd-udevd
 TARGETS += talosctl-cni-bundle
 TARGETS += tar
+TARGETS += tenstorrent
 TARGETS += util-linux
 TARGETS += xfsprogs
 TARGETS += xz

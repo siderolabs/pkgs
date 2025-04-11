@@ -1,0 +1,35 @@
+name: tenstorrent
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: kernel-build
+steps:
+  - sources:
+      - url: https://github.com/tenstorrent/tt-kmd/archive/refs/tags/ttkmd-{{ .tenstorrent_version }}.tar.gz
+        destination: tt-kmd.tar.gz
+        sha256: "{{ .tenstorrent_sha256 }}"
+        sha512: "{{ .tenstorrent_sha512 }}"
+    env:
+      ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+    prepare:
+      - |
+        tar xf tt-kmd.tar.gz --strip-components=1
+      - |
+        mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release) /rootfs/etc/udev/rules.d/
+    build:
+      - |
+        make -j $(nproc) KDIR=/src/
+    install:
+      - |
+        make -j $(nproc) modules_install KDIR=/src INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1
+        cp udev-50-tenstorrent.rules /rootfs/etc/udev/rules.d/50-tenstorrent.rules
+    test:
+      - |
+        # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
+        find /rootfs/usr/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
+      - |
+        fhs-validator /rootfs
+finalize:
+  - from: /rootfs
+    to: /

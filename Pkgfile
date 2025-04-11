@@ -227,6 +227,11 @@ vars:
   tc_redirect_tap_sha256: 9fa586fc97b2d4f11105c445b0c64e37fab3c8363eb4180ff25ce66aec5c1354
   tc_redirect_tap_sha512: bfd32e45a3cc481b714c45148cfae680d52a224116995bb9bfeec157399d08ddfa1be81d64fb2db71521dab2ff25bff1298536f64484ccb2b69765c46be1a030
 
+  # renovate: datasource=github-releases extractVersion=^ttkmd-(?<version>.*)$ depName=tenstorrent/tt-kmd
+  tenstorrent_version: 1.34
+  tenstorrent_sha256: bc3e7dc6b734c5e05fa5918bfba419e8af557938eeb10e4287658f41c2fd8ff1
+  tenstorrent_sha512: 61c8ad597de664f0e41b77ae403c5340b900d7cc45a94380912c58a141413ecdd29b0cd2309a7bebe384f7e54a63f6c42dcb514f1ad5fee47053fc5bc1c6dbbb
+
   # renovate: datasource=git-refs versioning=git depName=https://github.com/Xilinx/dma_ip_drivers.git
   xdma_driver_version: 03ac7f31e256c5604eeb970e98d343cf925ddb52
   xdma_driver_sha256: 942f54aa2569572e3ffebc14b7d0dd73d49315b0d7b63c9cc4ed04232e32073e
