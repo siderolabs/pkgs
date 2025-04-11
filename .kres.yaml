@@ -50,6 +50,7 @@ spec:
     - systemd-udevd
     - talosctl-cni-bundle
     - tar
+    - tenstorrent
     - util-linux
     - xfsprogs
     - xz
