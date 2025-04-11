@@ -1,0 +1,61 @@
+name: nvidia-l4t-pkg
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: kernel-build
+steps:
+  - sources:
+    - url: https://developer.nvidia.com/downloads/embedded/l4t/{{ .nvidia_l4t_version }}/sources/public_sources.tbz2
+      destination: public_sources.tbz2
+      sha256: "{{ .nvidia_l4t_version_sha256 }}"
+      sha512: "{{ .nvidia_l4t_version_sha512 }}"
+    env:
+      ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else }}unsupported{{ end }}
+    prepare:
+      - |
+        tar xf public_sources.tbz2 --strip-components=2
+        mkdir kernel_oot_modules
+        tar xf kernel_oot_modules_src.tbz2 -C kernel_oot_modules
+        tar xf nvidia_kernel_display_driver_source.tbz2 -C kernel_oot_modules
+    build:
+      - |
+        cd kernel_oot_modules
+
+        # patches for nv driver
+        patch -d nvdisplay -p1 </pkg/patches/nvdisplay/001-nvidia-drm-drv.patch
+        patch -d nvdisplay -p1 </pkg/patches/nvdisplay/002-nvidia-drm-gem.patch
+        patch -d nvdisplay -p1 </pkg/patches/nvdisplay/003-fbdev_linux_611.patch
+        patch -d nvdisplay -p1 </pkg/patches/nvdisplay/004-drm_fop_flags_linux_612.patch
+        patch -d nvdisplay -p1 </pkg/patches/nvdisplay/999-manual.patch
+
+        # patches for hwpm module
+        patch -p1 </pkg/patches/hwpm/001-manual.patch
+
+        # patches for nvidia-oot module
+        patch -p1 </pkg/patches/nvidia-oot/001-manual.patch
+
+        # patches for nvgpu module
+        patch -p1 </pkg/patches/nvgpu/001-manual.patch
+
+        make -j $(nproc) modules KERNEL_HEADERS=/src
+        make -j $(nproc) dtbs KERNEL_HEADERS=/src
+    install:
+      - |
+        cd kernel_oot_modules
+
+        mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.order /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin.modinfo /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+
+        make -j $(nproc) modules_install KERNEL_HEADERS=/src INSTALL_MOD_DIR=updates INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_STRIP=1
+    test:
+      - |
+        # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
+        find /rootfs/usr/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
+      - |
+        fhs-validator /rootfs
+finalize:
+  - from: /rootfs
+    to: /
