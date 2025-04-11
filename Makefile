@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2025-03-31T16:25:48Z by kres d903dae.
+# Generated on 2025-04-11T11:47:10Z by kres d903dae.
 
 # common variables
 
@@ -89,6 +89,7 @@ TARGETS += sd-boot
 TARGETS += socat
 TARGETS += squashfs-tools
 TARGETS += systemd-udevd
+TARGETS += talosctl-cni-bundle
 TARGETS += tar
 TARGETS += util-linux
 TARGETS += xfsprogs

@@ -216,6 +216,11 @@ vars:
   socat_sha256: a9f9eb6cfb9aa6b1b4b8fe260edbac3f2c743f294db1e362b932eb3feca37ba4
   socat_sha512: 600a3387e9756e0937d2db49de9066df03d9818e4042da6b72109d1b5688dd72352754773a19bd2558fe93ec6a8a73e80e7cf2602fd915960f66c403fd89beef
 
+  # renovate: datasource=git-refs versioning=git depName=https://github.com/awslabs/tc-redirect-tap.git
+  tc_redirect_tap_ref: b3c5abdd90fe9066aa75f429182688a51c1e9279
+  tc_redirect_tap_sha256: 98cadbfb0f8bc45df7a677b6ffad1a2465c55a45b396ac3d861b8515ee5bd737
+  tc_redirect_tap_sha512: 33cf7148a2324234999e2fe21d1e5ef6a5e6d713cca3eb6e7ca0ef4b8fb2ce6068e99c34b868a830fa29d925709e2aec064a12575998ef9df821b1fbf0b0b307
+
   # renovate: datasource=git-refs versioning=git depName=https://github.com/Xilinx/dma_ip_drivers.git
   xdma_driver_version: 03ac7f31e256c5604eeb970e98d343cf925ddb52
   xdma_driver_sha256: 942f54aa2569572e3ffebc14b7d0dd73d49315b0d7b63c9cc4ed04232e32073e

@@ -1,0 +1,19 @@
+name: talosctl-cni-bundle
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: cni
+  - stage: tc-redirect-tap
+steps:
+  - install:
+      - |
+        mkdir -p /rootfs/opt/cni/bin
+
+        cp /opt/cni/bin/{bridge,firewall,static,tc-redirect-tap} /rootfs/opt/cni/bin/
+    test:
+      - |
+        fhs-validator /rootfs
+finalize:
+  - from: /rootfs
+    to: /

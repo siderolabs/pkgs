@@ -48,6 +48,7 @@ spec:
     - socat
     - squashfs-tools
     - systemd-udevd
+    - talosctl-cni-bundle
     - tar
     - util-linux
     - xfsprogs
