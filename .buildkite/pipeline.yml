@@ -1,0 +1,14 @@
+common_plugins:
+  hermit: &hermit
+    elastic/hermit#v1.0.2
+
+steps:
+  - group: "Build"
+    key: "build"
+    if: build.branch != 'main' && build.tag == null
+    steps:
+      - id: "build"
+        label: "Build"
+        commands: "make kernel"
+        plugins:
+          - *hermit
