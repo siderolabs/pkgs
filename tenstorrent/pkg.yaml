@@ -15,7 +15,11 @@ steps:
     prepare:
       - |
         tar xf tt-kmd.tar.gz --strip-components=1
+      - |
         mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release) /rootfs/etc/udev/rules.d/
+    build:
+      - |
+        make -j $(nproc) KDIR=/src/
     install:
       - |
         make -j $(nproc) modules_install KDIR=/src INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1
