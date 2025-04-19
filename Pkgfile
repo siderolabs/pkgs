@@ -13,8 +13,8 @@ vars:
   cni_sha512: ee577e3fe39558d6a6296754c97de6608f95152805c01b8053e2958d16634ab57d147eea7c950fcc4d1a98d6733a85717adf7078ee2dffff007ec3b063386c24
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v2.0.4
-  containerd_ref: 1a43cb6a1035441f9aca8f5666a9b3ef9e70ab20
+  containerd_version: v2.0.5
+  containerd_ref: fb4c30d4ede3531652d86197bf3fc9515e5276d9
   containerd_sha256: af0b18d125abf97fbe90d6d2cda53ffa0cd4cbb9e7d65fee61fc095bfb63cef5
   containerd_sha512: f84e0cc0b82313df010b95989faf56e81ebfbbc321585b968c8c706917b91a9f0d895692fa5046f24f1c370de7a74b50daf83da617fe0595e5a8ff69ed658727
 
@@ -75,7 +75,7 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 7e64e9b6703e6dd363c063d545a5fe63bbc70011
+  ipxe_ref: 1291dc39fd09807f6b864c6433444d97be2a0c8a
   ipxe_sha256: c72f02b390b98d14b5ba19b2bf82ec6d58ceac0b070e491f8803ca8b2737d023
   ipxe_sha512: 978780a2f5e02b405a9ae2dd18623f2713814c1aef59d596025b75405798b4fa3833b35cd59b654f197ad4d1c9da9f8f812aa36db0d94e2b816e34f63924d66e
 
@@ -227,7 +227,7 @@ vars:
   xdma_driver_sha512: 0d3be501410baaa75b422b96ba86971fff4e3dd7b99301c61a89d7523cda87cbcbe126f71c477f6f1938496d360e5d59e852c2ecdcfd8181d2fe6991d4596e9e
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
-  xfsprogs_version: 6.13.0
+  xfsprogs_version: 6.14.0
   xfsprogs_sha256: 0459933f93d94c82bc2789e7bd63742273d9d74207cdae67dc3032038da08337
   xfsprogs_sha512: 9fd73c8585cd295b79b227cd5855407da4b3ea2d40a1ca82e0a93887644b497cced182960bcd8f3c45805dda4a244d1555fd49da5d7e82fe4525d345c766a63a
 
