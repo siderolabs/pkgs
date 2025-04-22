@@ -13,10 +13,10 @@ vars:
   cni_sha512: ee577e3fe39558d6a6296754c97de6608f95152805c01b8053e2958d16634ab57d147eea7c950fcc4d1a98d6733a85717adf7078ee2dffff007ec3b063386c24
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v2.0.4
-  containerd_ref: 1a43cb6a1035441f9aca8f5666a9b3ef9e70ab20
-  containerd_sha256: af0b18d125abf97fbe90d6d2cda53ffa0cd4cbb9e7d65fee61fc095bfb63cef5
-  containerd_sha512: f84e0cc0b82313df010b95989faf56e81ebfbbc321585b968c8c706917b91a9f0d895692fa5046f24f1c370de7a74b50daf83da617fe0595e5a8ff69ed658727
+  containerd_version: v2.0.5
+  containerd_ref: fb4c30d4ede3531652d86197bf3fc9515e5276d9
+  containerd_sha256: 617917606c64df1cab19a0f5cc20fd724ed9187314bcd40eaacf66a9e75b1eb8
+  containerd_sha512: af89a5c9ad5f931c5fee33c75c13c296fc9ec966f2c64ec244897695eebb365bcb542f6b431e60d4ef7213f0ea11d3a8896d1b7f033ed445e6b521b7ddbffe6f
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
   cryptsetup_version: 2.7.5
@@ -85,9 +85,9 @@ vars:
   kspp_sha512: ac31ec1a4f88a46e2bd9c16e99991c0b96796c8c014ffc30e3535942a89db855243750b3c2b27fd9e7f90734c68b1d06deeb48684ee88dccdb7ec6360aba4371
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.12.23
-  linux_sha256: d8d95404f8deeb7ff6992c0df855025062e9e8182bca6daa27ef2e9275d27749
-  linux_sha512: c972c81f985c5470d4c1b4642214f9ddcb49cecbf1e6a99e52a24ce480d06d7ee7ca7f0dcee7bc4fe00da2f41f0bec4fcd569b6034522845ba5f0ad9ea0e1958
+  linux_version: 6.12.24
+  linux_sha256: 643142c1b5991560dd12f950825cc19e4497b95b82641918ecff1177f4130c1d
+  linux_sha512: 631f683593245f31871548556d4ccee8af9f3ef321267b45f924d7cca28cb5d38e75a5069012a14a7b40a7a1dea3d8821b4d14170a7e192453127b7df4500f3e
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
