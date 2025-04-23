@@ -20,6 +20,7 @@ steps:
         tar -xzf containerd.tar.gz --strip-components=1
       - |
         patch -p1 < /pkg/patches/restart.patch
+        patch -p1 < /pkg/patches/11741-not-set-sandbox-id-when-use-podsandbox-type.patch
     build:
       - |
         make VERSION={{ .containerd_version }} REVISION={{ .containerd_ref }}
