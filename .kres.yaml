@@ -135,3 +135,7 @@ spec:
     - matchPackageNames:
         - openzfs/zfs
       versioning: 'regex:^(?<major>\d+)\.(?<minor>\d+)\.?(?<patch>[0-9]{1}[0-8]{0,1})?$'
+---
+kind: common.Repository
+spec:
+  conformMaximumOfOneCommit: false
