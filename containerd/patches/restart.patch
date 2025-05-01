@@ -1,0 +1,32 @@
+https://patch-diff.githubusercontent.com/raw/containerd/containerd/pull/10853.patch
+
+From 7dd19026265e54768ed29242d9d035530e0dc095 Mon Sep 17 00:00:00 2001
+From: Zou Nengren <zouyee1989@gmail.com>
+Date: Fri, 18 Oct 2024 21:08:30 +0800
+Subject: [PATCH] log error and continue when pod can't be migrated due to
+ missing metadata for the key
+
+fix: https://github.com/containerd/containerd/issues/10848
+
+Signed-off-by: Zou Nengren <zouyee1989@gmail.com>
+---
+ internal/cri/server/restart.go | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/internal/cri/server/restart.go b/internal/cri/server/restart.go
+index f4d63b21162a..73fc2fec66d5 100644
+--- a/internal/cri/server/restart.go
++++ b/internal/cri/server/restart.go
+@@ -107,7 +107,11 @@ func (c *criService) recover(ctx context.Context) error {
+ 		metadata := sandboxstore.Metadata{}
+ 		err := sbx.GetExtension(podsandbox.MetadataKey, &metadata)
+ 		if err != nil {
+-			return fmt.Errorf("failed to get metadata for stored sandbox %q: %w", sbx.ID, err)
++			log.G(ctx).
++				WithError(err).
++				WithField("sandbox", sbx.ID).
++				Warn("failed to get metadata for stored sandbox")
++			continue
+ 		}
+ 
+ 		var (
