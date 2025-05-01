@@ -146,9 +146,9 @@ vars:
   libpopt_sha512: 5d1b6a15337e4cd5991817c1957f97fc4ed98659870017c08f26f754e34add31d639d55ee77ca31f29bb631c0b53368c1893bd96cf76422d257f7997a11f6466
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=seccomp/libseccomp
-  libseccomp_version: 2.6.0
-  libseccomp_sha256: 83b6085232d1588c379dc9b9cae47bb37407cf262e6e74993c61ba72d2a784dc
-  libseccomp_sha512: 9039478656d9b670af2ff4cb67b6b1fa315821e59d2f82ba6247e988859ddc7e3d15fea159eccca161bf2890828bb62aa6ab4d6b7ff55f27a9d6bd9532eeee1b
+  libseccomp_version: 2.5.5
+  libseccomp_sha256: 248a2c8a4d9b9858aa6baf52712c34afefcf9c9e94b76dce02c1c9aa25fb3375
+  libseccomp_sha512: f630e7a7e53a21b7ccb4d3e7b37616b89aeceba916677c8e3032830411d77a14c2d74dcf594cd193b1acc11f52595072e28316dc44300e54083d5d7b314a38da
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.liburcu.org/userspace-rcu.git
   liburcu_version: 0.15.1
