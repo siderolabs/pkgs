@@ -3,7 +3,6 @@ variant: scratch
 shell: /bin/bash
 dependencies:
   - stage: base
-  - stage: libseccomp
 steps:
   - sources:
         # sync with version and revision in build
@@ -14,7 +13,7 @@ steps:
     env:
       PKG_CONFIG_PATH: /usr/lib/pkgconfig
       CC: gcc
-      BUILDTAGS: 'seccomp no_aufs no_btrfs no_devmapper no_dynamic_plugins no_systemd no_zfs'
+      BUILDTAGS: 'no_aufs no_btrfs no_devmapper no_dynamic_plugins no_systemd no_zfs'
     prepare:
       - |
         tar -xzf containerd.tar.gz --strip-components=1
