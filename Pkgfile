@@ -80,14 +80,14 @@ vars:
   ipxe_sha512: 978780a2f5e02b405a9ae2dd18623f2713814c1aef59d596025b75405798b4fa3833b35cd59b654f197ad4d1c9da9f8f812aa36db0d94e2b816e34f63924d66e
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
-  kspp_ref: dd028a2fd49ce5f25f05cdbec91958022c2a3dc2
-  kspp_sha256: e7bd01ae14372a1382aaf978f5d7fa0673cfea6c77bf40d0bebb2f3984ede2d3
-  kspp_sha512: ac31ec1a4f88a46e2bd9c16e99991c0b96796c8c014ffc30e3535942a89db855243750b3c2b27fd9e7f90734c68b1d06deeb48684ee88dccdb7ec6360aba4371
+  kspp_ref: 6587deed3920484c522b0d6f94a262260e2c2ec0
+  kspp_sha256: 1845e9671d898f9afd7139fdc8a2eeafd582fbda3c5c4c3ac6602ed2c766e539
+  kspp_sha512: e4b8660d0ef35e3cfd2339872ba1806f2d32b990e9f9f0c99420addd85447fb3cffb0caf578274a040e00fd87f89c504459b7bbfd6d15b7a741667670a83c410
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.12.25
-  linux_sha256: c8af780f6f613ca24622116e4c512a764335ab66e75c6643003c16e49a8e3b90
-  linux_sha512: 00a69a5d4d36cd845dc94b8b184cb0dd92af0fdadb4cacdc7592d54c272ab5dea11df5c0cbc4370bc4a8c63a427d772ea6a413c40f9e77ad97dd33ace8efc08c
+  linux_version: 6.12.27
+  linux_sha256: 8f4655a4cc7f93d72f515bbca54756de26ddaf5949790da6a17f766e3c33dc79
+  linux_sha512: f875960e1cc23bd9ef388c0c1224ab10c2093120ab946954bb075692e3ab35dc0d1b99f5353f6cfd4e0634f783d332985165b2539ce792ffbe164debcbc5cf7f
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
