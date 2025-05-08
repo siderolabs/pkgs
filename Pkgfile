@@ -3,14 +3,14 @@
 format: v1alpha2
 
 vars:
-  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.11.0-alpha.0
+  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.11.0-alpha.0-1-gfa0b147
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.11.0-alpha.0
+  TOOLS_REV: v1.11.0-alpha.0-1-ge35234b
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
-  cni_version: v1.6.2
-  cni_sha256: aa9a9401d27c1ad440627bbe7093d7e9ff47d325aac27b89a2cbdd56e25f3625
-  cni_sha512: ee577e3fe39558d6a6296754c97de6608f95152805c01b8053e2958d16634ab57d147eea7c950fcc4d1a98d6733a85717adf7078ee2dffff007ec3b063386c24
+  cni_version: v1.7.1
+  cni_sha256: 95b639f8ccbb714da98e331ef8813f790d447fce5417f2f8a575f3c62bfb1474
+  cni_sha512: 5b1a8c1a63f6f7a7ca4df570bf5c4b2003cdfe1b861ac86f145b5b523c9371275f68b01a115566a4f3455e56709a5a280b485005ea3fa121c1f381fbf6bd500e
 
   # renovate: datasource=github-tags depName=containerd/containerd
   containerd_version: v2.0.5
@@ -39,9 +39,9 @@ vars:
   e2fsprogs_sha512: 1dc86535b72a4ab60e17a547efe5e137054eff6cad9f6cf9cc9485694ec6166687a9d5f50fb47a10e776a70c7690ade5445c0339731f83066abf33c01f70d9c7
 
   # renovate: datasource=github-releases extractVersion=^ena_linux_(?<version>.*)$ depName=amzn/amzn-drivers
-  ena_version: 2.13.3
-  ena_sha256: c5177525b4579ea1398e5f09b58e11d6e5185879a514217ccbdc9fe28c254f91
-  ena_sha512: 25b254b274c5e2a987406298d438ed4e78e5b227d0ead53e1b42dfdc8efd1b6db27ee56ed45ed3bd269ee651277c2a04a6dec223413204cbe45a5fa94dffe8f5
+  ena_version: 2.14.0
+  ena_sha256: c8004d5761a78a080e85ebaae7442e099f23450a44850bb2f2e4015a8b469dea
+  ena_sha512: f39c38f2bb973985a8cebdcbdfd7b4eec982f9dc4b5cf95aac24f2c8c5f057ca46230a6a5ff7c20f47a24647ae1bde26113ccd27e0f76936d6e3853e46eedc53
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
   systemd_version: 257.5
@@ -75,14 +75,14 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 7e64e9b6703e6dd363c063d545a5fe63bbc70011
-  ipxe_sha256: c72f02b390b98d14b5ba19b2bf82ec6d58ceac0b070e491f8803ca8b2737d023
-  ipxe_sha512: 978780a2f5e02b405a9ae2dd18623f2713814c1aef59d596025b75405798b4fa3833b35cd59b654f197ad4d1c9da9f8f812aa36db0d94e2b816e34f63924d66e
+  ipxe_ref: 8f7aa292aa3df9b55a1886a94700249eff6d020f
+  ipxe_sha256: 2118191a5081c3c0c9381cd8117aca1da239ac6609960f97a8569aac9f2f9c3b
+  ipxe_sha512: 477c79ca0a0d264569ed58b44149f16d4ee16c0976714309dcec987ee2db289caf9e8465da82e39805983e0fca56c0e5dda31f2f189143b66e65ab1504ce9aab
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
-  kspp_ref: 6587deed3920484c522b0d6f94a262260e2c2ec0
-  kspp_sha256: 1845e9671d898f9afd7139fdc8a2eeafd582fbda3c5c4c3ac6602ed2c766e539
-  kspp_sha512: e4b8660d0ef35e3cfd2339872ba1806f2d32b990e9f9f0c99420addd85447fb3cffb0caf578274a040e00fd87f89c504459b7bbfd6d15b7a741667670a83c410
+  kspp_ref: bdb9fe46abd40ec17779a9afe176922121c86d6d
+  kspp_sha256: 5c2cf482c3a634041ef08a19441467b6f0d33f14ded2460ebafdd9df0a45501a
+  kspp_sha512: 32df2db7c83bb48faec6e4af916be6579e9bb36afc7c315aea5cc348378c85b651ef1da5dc3bdfc800d0860c65a6a1a1de89d2f2c0eaf7a17ffc7ed1a5f3b0e0
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
   linux_version: 6.12.27
@@ -145,10 +145,11 @@ vars:
   libpopt_sha256: c25a4838fc8e4c1c8aacb8bd620edb3084a3d63bf8987fdad3ca2758c63240f9
   libpopt_sha512: 5d1b6a15337e4cd5991817c1957f97fc4ed98659870017c08f26f754e34add31d639d55ee77ca31f29bb631c0b53368c1893bd96cf76422d257f7997a11f6466
 
+  # NOTE: let's keep this in sync with runc: https://github.com/opencontainers/runc/blob/release-1.3/script/release_build.sh#L22
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=seccomp/libseccomp
-  libseccomp_version: 2.5.5
-  libseccomp_sha256: 248a2c8a4d9b9858aa6baf52712c34afefcf9c9e94b76dce02c1c9aa25fb3375
-  libseccomp_sha512: f630e7a7e53a21b7ccb4d3e7b37616b89aeceba916677c8e3032830411d77a14c2d74dcf594cd193b1acc11f52595072e28316dc44300e54083d5d7b314a38da
+  libseccomp_version: 2.5.6
+  libseccomp_sha256: 04c37d72965dce218a0c94519b056e1775cf786b5260ee2b7992956c4ee38633
+  libseccomp_sha512: c35d8d6f80ee38a96688955932c6bf369101409a470ecf0dc550013b19f57311be907a600adc4d2f4699fb8e94e8038333b4f5702edc3c26b14c36fb6e1c42fd
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.liburcu.org/userspace-rcu.git
   liburcu_version: 0.15.1
@@ -161,9 +162,9 @@ vars:
   linux_firmware_sha512: acbee11445b113fa386e2fb4581e036f8276ceaaab231b3cbea5a602c6638949199861f191894075e1c668c569a5412fa3482dd5e6947ec5ce009241e2ec0649
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
-  lvm2_version: 2_03_31
-  lvm2_sha256: 5db2956a00fbf87d92274cccc92436387ec0c3faadece7413ece1ba1c10c98ff
-  lvm2_sha512: 254131e28b22d55531d211886afbfdc219e77a4df802e3ec9b66d889ff22bf6d0a6c2df9c5ff017592d92e1dce0f658a6628fb321c1e90152ff7257492218242
+  lvm2_version: 2_03_32
+  lvm2_sha256: 2917832ddd4e46e593651e022bf122fd267ab5e6f74faee082484388c886d1ad
+  lvm2_sha512: 6a7acebf10274b029211b0f5b7c7a9aabf2074a8e9ce1b72fce7eadffdaf2ebb23d9d998be41ff31a9e10808ece32ec2dde3454c82103c39084ac1beffe18ec1
 
   mellanox_ofed_version: 5.9-0.5.6.0
   mellanox_ofed_sha256: 4503258cbe92b00c734e612c3a7ad1d71e023fdffae2a2c119f7b537505e499c
@@ -176,19 +177,19 @@ vars:
 
   # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/linux-x86_64/
   # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_lts_version: 535.230.02
-  nvidia_driver_lts_arm64_sha256: 26f99e01a22f4c2e52f35789c286aa1efab6e0d91b447ebfef171a0b035f4a74
-  nvidia_driver_lts_arm64_sha512: 0e4ee5e95120b5ee46f3ebee6725a312110b07aeace21455aed24af07750c8a3c974a13cd3bf7d3f4f83aae3ccf11e9a80eb26144f123447b793327bcf57cb8c
-  nvidia_driver_lts_amd64_sha256: 4ead516e02073ebc8a46500a2e2023fb508b5c17f1c06e177b9b5b1f763ff4f5
-  nvidia_driver_lts_amd64_sha512: 34b72f6163ebcca3186e22599ef4ac7b61ddee0cc51f78429fe731ae552a792e15e97b67fbbe709bb4f9dfd374e12cba7968bbcf4d7ae5da050125a1a1116a6e
+  nvidia_driver_lts_version: 535.247.01
+  nvidia_driver_lts_arm64_sha256: 71b77bc88a2af5885b8879304d3dddfad069f36961314b10bb26cb881d20ce1d
+  nvidia_driver_lts_arm64_sha512: 21957c183dbea5709a227c5f15610fdf5a071c9024d89d63ee041a026ca7bb602c6fb6deaa83ba8023d0458340132dae7b33f558814627ce46801e041a5b0ab3
+  nvidia_driver_lts_amd64_sha256: bcfeec3cec580c5b72f23e5a71f90d39f84a793e717a2ee4d05ecad086317145
+  nvidia_driver_lts_amd64_sha512: cce646f374c9b6768928125e66f5d120ee464a495893489caf793f1473ae80fed70970c0d610b286948f08a158addcfe0ff1e74e753fd121c1e73d95731e0617
 
   # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/linux-x86_64/
   # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_production_version: 570.124.06
-  nvidia_driver_production_arm64_sha256: 0edad79f9f52818d4b03bcc06ee4ef2ea81136330381347696fd3f804087f54b
-  nvidia_driver_production_arm64_sha512: f7c54de1efc40e919b88b737d3a2c8ddf6864b4d77b109c6a62abb27340dd9a132a344cddbcd71390489c3afacc8e559c5133854f439108345be413e5d68e3c5
-  nvidia_driver_production_amd64_sha256: 0fcaa9b47c124cca981df5155e2826615de3f28e31a27e139af8901e92d38b34
-  nvidia_driver_production_amd64_sha512: e5a303ab6265f4bf43668818397314dfabaca2099347ad0e17760e02a6727053cd3f178cdf303fd74b359e4a09e4810f2303496f84bbbc4fb5cd12fb025b53f0
+  nvidia_driver_production_version: 570.133.20
+  nvidia_driver_production_arm64_sha256: f198b84b0d461d28e2aa39c0ddd7da42960adbf6c02a66116bb84d9e81a74fe8
+  nvidia_driver_production_arm64_sha512: 93c73ef887099534d627f5b165f0565df6660b00a3ff8fd4e027fa3e6334c8e73870493079ae802eb171d6bd3556b934e6e06105b84bafa0b2335c0074f63013
+  nvidia_driver_production_amd64_sha256: d5b9561a7b9d41390b074372dab1b895d7da9e4cb8ac008d0849f1e0f2674dc5
+  nvidia_driver_production_amd64_sha512: a573b3554249c99dd77f4d9908895c7bab0ac5f1e3382150747d26c3e0185d288b6e5eff14b0d274ab627be35e1a06e23860c9ad2898d62c8629fcf4fb23b25e
 
   # renovate: datasource=github-tags depName=madler/pigz
   pigz_version: 2.8
@@ -201,15 +202,15 @@ vars:
   glib_sha512: ee7f38a4726fd72e41ddb75c4933c7b1bb30935bb2fddc84902d0627a836af512534195132cc02e3d15f168fefc816576181a8d6e436472b582191437b79a456
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
-  qemu_version: 9.2.3
-  qemu_sha256: baed494270c361bf69816acc84512e3efed71c7a23f76691642b80bc3de7693e
-  qemu_sha512: 941a4337a115c65de2fca042932efb31886114f4300226fcf55f04c2c5471bd2b5ce220c4b17e01c3679bd55ba08a1aa7ce399de15e3e5f28c17da52030b139e
+  qemu_version: 10.0.0
+  qemu_sha256: 22c075601fdcf8c7b2671a839ebdcef1d4f2973eb6735254fd2e1bd0f30b3896
+  qemu_sha512: 2215458ed8be3ab0b0032fe2a96e79183f5fc2da323d927018412ea3d980b022a07ba87d4f446229eaaa7d1b19a577d438dbcaa3af3bd537c7720b56734a2d8b
 
   # renovate: datasource=github-tags depName=opencontainers/runc
-  runc_version: v1.2.6
-  runc_ref: e89a29929c775025419ab0d218a43588b4c12b9a
-  runc_sha256: 39695adb39b0284a4fc4b184d764772d886121bf30378f9614a3abfbdc5ff11a
-  runc_sha512: 772265769316e62d9f3d3e09eb48c6f7a1299bedede0a9472add430474b33758b5e723a33b5121411c20e15cd171e3133e80ab88b7a8c082327181be5507f65b
+  runc_version: v1.3.0
+  runc_ref: 4ca628d1d4c974f92d24daccb901aa078aad748e
+  runc_sha256: f2f799a1000e16cc37776fae1745f2a302633fad94dd52de9bece83df8dc4b4e
+  runc_sha512: 735bc0fd03489a5e851876f6444735598c38e6f215b0894393b4ffa46765f9bc3ed80ad1af3e96877403edf066125e80f5ad746d488bbc95d3a0db143fc8a461
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
   socat_version: 1.8.0.3
@@ -217,9 +218,9 @@ vars:
   socat_sha512: 600a3387e9756e0937d2db49de9066df03d9818e4042da6b72109d1b5688dd72352754773a19bd2558fe93ec6a8a73e80e7cf2602fd915960f66c403fd89beef
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/awslabs/tc-redirect-tap.git
-  tc_redirect_tap_ref: b3c5abdd90fe9066aa75f429182688a51c1e9279
-  tc_redirect_tap_sha256: 98cadbfb0f8bc45df7a677b6ffad1a2465c55a45b396ac3d861b8515ee5bd737
-  tc_redirect_tap_sha512: 33cf7148a2324234999e2fe21d1e5ef6a5e6d713cca3eb6e7ca0ef4b8fb2ce6068e99c34b868a830fa29d925709e2aec064a12575998ef9df821b1fbf0b0b307
+  tc_redirect_tap_ref: d7bc77cb66c0fc9eba11626dc209541b10fe3dfb
+  tc_redirect_tap_sha256: 9fa586fc97b2d4f11105c445b0c64e37fab3c8363eb4180ff25ce66aec5c1354
+  tc_redirect_tap_sha512: bfd32e45a3cc481b714c45148cfae680d52a224116995bb9bfeec157399d08ddfa1be81d64fb2db71521dab2ff25bff1298536f64484ccb2b69765c46be1a030
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/Xilinx/dma_ip_drivers.git
   xdma_driver_version: 03ac7f31e256c5604eeb970e98d343cf925ddb52
@@ -227,9 +228,9 @@ vars:
   xdma_driver_sha512: 0d3be501410baaa75b422b96ba86971fff4e3dd7b99301c61a89d7523cda87cbcbe126f71c477f6f1938496d360e5d59e852c2ecdcfd8181d2fe6991d4596e9e
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
-  xfsprogs_version: 6.13.0
-  xfsprogs_sha256: 0459933f93d94c82bc2789e7bd63742273d9d74207cdae67dc3032038da08337
-  xfsprogs_sha512: 9fd73c8585cd295b79b227cd5855407da4b3ea2d40a1ca82e0a93887644b497cced182960bcd8f3c45805dda4a244d1555fd49da5d7e82fe4525d345c766a63a
+  xfsprogs_version: 6.14.0
+  xfsprogs_sha256: fa5ab77f8b5169ce48dd8de09446ad7e29834a05b8f52012bae411cf53ec1f58
+  xfsprogs_sha512: 249a64fb5a92ceb9e58b75a270a90773cfe2c90e863d3f9853c14b3eb0f414bf55b8b67c220a1d7386894ef9295622e224977bd3c6600c9dcba826cb4a634f49
 
   # renovate: datasource=github-tags extractVersion=^zfs-(?<version>.*)$ depName=openzfs/zfs
   zfs_version: 2.3.2

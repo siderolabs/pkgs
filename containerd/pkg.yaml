@@ -22,10 +22,6 @@ steps:
         patch -p1 < /pkg/patches/11741-not-set-sandbox-id-when-use-podsandbox-type.patch
     build:
       - |
-        # use Go 1.23 to build containerd, a temporary workaround for https://github.com/golang/go/issues/73577
-        ln -sf /go123/bin/go /usr/bin/go
-        ln -sf /go123/bin/gofmt /usr/bin/gofmt
-
         make VERSION={{ .containerd_version }} REVISION={{ .containerd_ref }}
     install:
       - |

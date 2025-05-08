@@ -25,7 +25,7 @@ steps:
 
         ldflags="-w -s -buildid="
 
-        make COMMIT_NO= COMMIT={{ .runc_ref }} EXTRA_FLAGS="-a" EXTRA_LDFLAGS="${ldflags}" VERSION="{{ .runc_version }}" static
+        make COMMIT_NO= COMMIT={{ .runc_ref }} EXTRA_FLAGS="-a" EXTRA_LDFLAGS="${ldflags}" static
     install:
       - |
         cd runc
