@@ -61,6 +61,7 @@ spec:
     - drbd-pkg
     - ena-pkg
     - gasket-driver-pkg
+    - hailort-pkg
     - nvidia-open-gpu-kernel-modules-lts-pkg
     - nvidia-open-gpu-kernel-modules-production-pkg
     - xdma-driver-pkg
