@@ -58,9 +58,9 @@ vars:
   ipmitool_sha512: 2d91706e9feba4b2ce4808eca087b81b842c4292a5840830001919c06ec8babd8f8761b74bb9dcf8fbc7765f028a5b1a192a3c1b643f2adaa157fed6fb0d1ee3
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.netfilter.org/iptables
-  iptables_version: 1.8.10
-  iptables_sha256: 5cc255c189356e317d070755ce9371eb63a1b783c34498fb8c30264f3cc59c9c
-  iptables_sha512: 71e6ed2260859157d61981a4fe5039dc9e8d7da885a626a4b5dae8164c509a9d9f874286b9468bb6a462d6e259d4d32d5967777ecefdd8a293011ae80c00f153
+  iptables_version: 1.8.11
+  iptables_sha256: d87303d55ef8c92bcad4dd3f978b26d272013642b029425775f5bad1009fe7b2
+  iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
   ipxe_ref: dc118c53696af6a0b1a8ee78fc9a4d28a217fb21
@@ -133,9 +133,9 @@ vars:
   musl_sha512: 498ec5d7941194a8806f4d42f0f6d218c862996ef1398b737d0d06995e0b7a6574b240a48088f6b84016b14b2776fe463f829dcb11149cdfc1023d496b235c55
 
   # renovate: datasource=github-releases depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_version: 535.129.03
-  nvidia_driver_sha256: 170ee91b6cd6c801bba0de91e0d62af8e574adde38120bc762784755b5a9821d
-  nvidia_driver_sha512: c8104103f34365b7a20dcebb64e1eb2e64a7b056b44329fa305f81e267759f2b1bb1c09923e617d4f5f4af3be01c3b8e2e6d739f03d4d0f129b31331fec3a4d8
+  nvidia_driver_version: 535.247.01
+  nvidia_driver_sha256: 80683aa89727af062f8f1d2159d79ae552c0e841eedf792aae6d65b90a65d4ab
+  nvidia_driver_sha512: 841f7076cb3a03d0547ec1b457b1532a69dce9a7245956794e0c723117c316f60d3779d2cbfc86916c3340ed3b34629ee5df59680d35fda3abe8c9d6605bf27d
 
   # renovate: datasource=git-tags extractVersion=^openssl-(?<version>.*)$ depName=git://git.openssl.org/openssl.git
   openssl_version: 3.2.1
