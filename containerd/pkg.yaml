@@ -13,16 +13,15 @@ steps:
     env:
       PKG_CONFIG_PATH: /usr/lib/pkgconfig
       CC: gcc
-      BUILDTAGS: 'no_aufs no_btrfs no_devmapper no_dynamic_plugins no_systemd no_zfs'
+      BUILDTAGS: 'no_aufs no_btrfs no_devmapper no_systemd no_zfs'
     prepare:
       - |
         tar -xzf containerd.tar.gz --strip-components=1
       - |
         patch -p1 < /pkg/patches/restart.patch
-        patch -p1 < /pkg/patches/11741-not-set-sandbox-id-when-use-podsandbox-type.patch
     build:
       - |
-        make VERSION={{ .containerd_version }} REVISION={{ .containerd_ref }}
+        make VERSION={{ .containerd_version }} REVISION={{ .containerd_ref }} STATIC=1
     install:
       - |
         mkdir -p /rootfs/usr/bin
