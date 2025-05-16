@@ -1,0 +1,50 @@
+diff --color -urpN kernel_oot_modules2/nvgpu/drivers/gpu/nvgpu/Makefile.linux.configs kernel_oot_modules/nvgpu/drivers/gpu/nvgpu/Makefile.linux.configs
+--- kernel_oot_modules2/nvgpu/drivers/gpu/nvgpu/Makefile.linux.configs	2025-01-08 02:11:49.000000000 +0100
++++ kernel_oot_modules/nvgpu/drivers/gpu/nvgpu/Makefile.linux.configs	2025-03-06 15:07:24.452227676 +0100
+@@ -350,3 +350,5 @@ endif
+ ifeq ($(CONFIG_NVGPU_TSG_SHARING),y)
+ ccflags-y += -DCONFIG_NVGPU_TSG_SHARING
+ endif
++
++ccflags-y += -DNV_PLATFORM_DRIVER_STRUCT_REMOVE_RETURNS_VOID
+diff --color -urpN kernel_oot_modules2/nvgpu/drivers/gpu/nvgpu/os/linux/ioctl_clk_arb.c kernel_oot_modules/nvgpu/drivers/gpu/nvgpu/os/linux/ioctl_clk_arb.c
+--- kernel_oot_modules2/nvgpu/drivers/gpu/nvgpu/os/linux/ioctl_clk_arb.c	2025-01-08 02:11:50.000000000 +0100
++++ kernel_oot_modules/nvgpu/drivers/gpu/nvgpu/os/linux/ioctl_clk_arb.c	2025-03-06 14:07:42.578589551 +0100
+@@ -424,15 +424,15 @@ int nvgpu_clk_arb_commit_request_fd(stru
+ 	clk_arb_dbg(g, " ");
+ 
+ 	fd  = fdget(request_fd);
+-	if (!fd.file)
++	if (!fd_file(fd))
+ 		return -EINVAL;
+ 
+-	if (fd.file->f_op != &completion_dev_ops) {
++	if (fd_file(fd)->f_op != &completion_dev_ops) {
+ 		err = -EINVAL;
+ 		goto fdput_fd;
+ 	}
+ 
+-	dev = (struct nvgpu_clk_dev *) fd.file->private_data;
++	dev = (struct nvgpu_clk_dev *) fd_file(fd)->private_data;
+ 
+ 	if (!dev || dev->session != session) {
+ 		err = -EINVAL;
+@@ -465,15 +465,15 @@ int nvgpu_clk_arb_set_session_target_mhz
+ 			"domain=0x%08x target_mhz=%u", api_domain, target_mhz);
+ 
+ 	fd = fdget(request_fd);
+-	if (!fd.file)
++	if (!fd_file(fd))
+ 		return -EINVAL;
+ 
+-	if (fd.file->f_op != &completion_dev_ops) {
++	if (fd_file(fd)->f_op != &completion_dev_ops) {
+ 		err = -EINVAL;
+ 		goto fdput_fd;
+ 	}
+ 
+-	dev = fd.file->private_data;
++	dev = fd_file(fd)->private_data;
+ 	if (!dev || dev->session != session) {
+ 		err = -EINVAL;
+ 		goto fdput_fd;
