@@ -64,6 +64,11 @@ vars:
   grub_sha256: f3c97391f7c4eaa677a78e090c7e97e6dc47b16f655f04683ebd37bef7fe0faa
   grub_sha512: 761c060a4c3da9c0e810b0ea967e3ebc66baa4ddd682a503ae3d30a83707626bccaf49359304a16b3a26fc4435fe6bea1ee90be910c84de3c2b5485a31a15be3
 
+  # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=hailo-ai/hailort-drivers
+  hailort_version: 4.21.0
+  hailort_sha256: 624468126c1e5609475389271b3d2878cb6e7e40df9e85bad95be464a3e11be3
+  hailort_sha512: 857f56f1788a05a666051c232bdfe4ad01bc22587cc83ef1e14079a71ab0083aefa98253d40999880c3570b774baf7ac585ccd7618ba7f28a056b7bc07c1701c
+
   # renovate: datasource=github-releases extractVersion=^IPMITOOL_(?<version>.*)$ depName=ipmitool/ipmitool
   ipmitool_version: 1_8_19
   ipmitool_sha256: 48b010e7bcdf93e4e4b6e43c53c7f60aa6873d574cbd45a8d86fa7aaeebaff9c
