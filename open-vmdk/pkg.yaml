@@ -1,0 +1,26 @@
+name: open-vmdk
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: https://github.com/vmware/open-vmdk/archive/refs/tags/{{ .open_vmdk_version }}.tar.gz
+        destination: open-vmdk.tar.gz
+        sha256: "{{ .open_vmdk_sha256 }}"
+        sha512: "{{ .open_vmdk_sha512 }}"
+    prepare:
+      - |
+        tar -xf open-vmdk.tar.gz --strip-components=1
+    build:
+      - |
+        make -C vmdk -j $(nproc)
+    install:
+      - |
+        make -C vmdk DESTDIR=/rootfs install
+    test:
+      - |
+        fhs-validator /rootfs
+finalize:
+  - from: /rootfs
+    to: /

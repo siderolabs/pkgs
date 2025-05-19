@@ -40,6 +40,7 @@ spec:
     - mtools
     - musl
     - openssl
+    - open-vmdk
     - pcre2
     - pigz
     - qemu-tools

@@ -81,6 +81,7 @@ TARGETS += lvm2
 TARGETS += mtools
 TARGETS += musl
 TARGETS += openssl
+TARGETS += open-vmdk
 TARGETS += pcre2
 TARGETS += pigz
 TARGETS += qemu-tools

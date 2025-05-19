@@ -191,6 +191,11 @@ vars:
   nvidia_driver_production_amd64_sha256: d5b9561a7b9d41390b074372dab1b895d7da9e4cb8ac008d0849f1e0f2674dc5
   nvidia_driver_production_amd64_sha512: a573b3554249c99dd77f4d9908895c7bab0ac5f1e3382150747d26c3e0185d288b6e5eff14b0d274ab627be35e1a06e23860c9ad2898d62c8629fcf4fb23b25e
 
+  # renovate: datasource=github-releases depName=vmware/open-vmdk
+  open_vmdk_version: v0.3.11
+  open_vmdk_sha256: 925a27c47bca4f1ed1d2676360166b7c2e77ac4ae900ea93ca5f70c0abf95111
+  open_vmdk_sha512: e9ece44aed19baa139ad8c58a93c32d62d8121b4660f553688bdd8b77cb30a86905199984e21ba82e4638f3bc0a2c1d612feb91a8adeda8ff486bba951f405ec
+
   # renovate: datasource=github-tags depName=madler/pigz
   pigz_version: 2.8
   pigz_sha256: eb872b4f0e1f0ebe59c9f7bd8c506c4204893ba6a8492de31df416f0d5170fd0
