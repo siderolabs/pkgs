@@ -12,8 +12,8 @@
         {
             "customType": "regex",
             "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}",
-            "fileMatch": [
-                "Pkgfile"
+            "managerFilePatterns": [
+                "/Pkgfile/"
             ],
             "matchStrings": [
                 "# renovate: datasource=(?<datasource>.*?)(?:\\s+extractVersion=(?<extractVersion>.+?))?(?:\\s+versioning=(?<versioning>.+?))?\\s+depName=(?<depName>.+?)?\\s(?:.*_(?:version|VERSION):\\s+(?<currentValue>.*))?(?:(\\s)?.*_(?:ref|REF):\\s+(?<currentDigest>.*))?"
@@ -24,8 +24,8 @@
             "datasourceTemplate": "github-tags",
             "depNameTemplate": "siderolabs/bldr",
             "versioningTemplate": "semver",
-            "fileMatch": [
-                "Pkgfile"
+            "managerFilePatterns": [
+                "/Pkgfile/"
             ],
             "matchStrings": [
                 "ghcr.io\\/siderolabs\\/bldr:(?<currentValue>v.*)"
@@ -104,6 +104,12 @@
             "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.?(?<patch>[0-9]{1}[0-8]{0,1})?$",
             "matchPackageNames": [
                 "openzfs/zfs"
+            ]
+        },
+        {
+            "versioning": "regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.?(?<patch>\\d+)?\\.?-flannel(?<build>\\d+)?$",
+            "matchPackageNames": [
+                "flannel-io/cni-plugin"
             ]
         }
     ],
