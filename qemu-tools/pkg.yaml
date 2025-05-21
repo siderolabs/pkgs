@@ -25,7 +25,6 @@ steps:
           --disable-install-blobs \
           --enable-stack-protector \
           --enable-tools \
-          --enable-vmdk \
           --enable-vpc
     build:
       - |
