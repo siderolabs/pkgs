@@ -36,6 +36,9 @@ steps:
         # remove all shell scripts
         find /rootfs/usr/bin -type f -perm /111 -exec grep -slIE '^#!' {} + | tee /dev/stderr | xargs rm
       - |
+        # drop broken symlinks
+        find /rootfs/usr/bin -xtype l -print -delete
+      - |
         # fix up symlinks which point to legacy version to point to nft version
         for f in /rootfs/usr/bin/*; do
           # if name doesn't contain 'legacy':
