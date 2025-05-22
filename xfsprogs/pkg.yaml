@@ -33,6 +33,9 @@ steps:
         make install DESTDIR=/rootfs
         rm -rf /rootfs/usr/share/man
         rm -rf /rootfs/usr/share/doc
+      - |
+        # remove all shell scripts
+        find /rootfs/usr/bin -type f -perm /111 -exec grep -slIE '^#!' {} + | tee /dev/stderr | xargs rm
     test:
       - |
         fhs-validator /rootfs

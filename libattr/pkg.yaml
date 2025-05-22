@@ -38,6 +38,9 @@ steps:
         make install DESTDIR=/rootfs
 
         rm -rf /rootfs/share
+      - |
+        # remove all binaries
+        rm -r /rootfs/usr/bin
     test:
       - |
         fhs-validator /rootfs
