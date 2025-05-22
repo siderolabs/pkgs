@@ -56,6 +56,9 @@ steps:
         rm -r /rootfs/usr/share
         # LVM activation is handled by Talos itself
         rm -f /rootfs/usr/lib/udev/rules.d/69-dm-lvm.rules
+      - |
+        # remove all shell scripts
+        find /rootfs/usr/bin -type f -perm /111 -exec grep -slIE '^#!' {} + | tee /dev/stderr | xargs rm
     test:
       - |
         fhs-validator /rootfs

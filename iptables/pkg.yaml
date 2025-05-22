@@ -33,6 +33,9 @@ steps:
       - |
         make install DESTDIR=/rootfs
       - |
+        # remove all shell scripts
+        find /rootfs/usr/bin -type f -perm /111 -exec grep -slIE '^#!' {} + | tee /dev/stderr | xargs rm
+      - |
         # fix up symlinks which point to legacy version to point to nft version
         for f in /rootfs/usr/bin/*; do
           # if name doesn't contain 'legacy':
