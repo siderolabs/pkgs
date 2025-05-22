@@ -1,4 +1,4 @@
-name: tenstorrent
+name: tenstorrent-pkg
 variant: scratch
 shell: /bin/bash
 dependencies:

@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2025-04-11T11:47:10Z by kres d903dae.
+# Generated on 2025-05-22T08:27:49Z by kres 9f64b0d.
 
 # common variables
 
@@ -92,7 +92,6 @@ TARGETS += squashfs-tools
 TARGETS += systemd-udevd
 TARGETS += talosctl-cni-bundle
 TARGETS += tar
-TARGETS += tenstorrent
 TARGETS += util-linux
 TARGETS += xfsprogs
 TARGETS += xz
@@ -104,6 +103,7 @@ TARGETS += ena-pkg
 TARGETS += gasket-driver-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-lts-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-production-pkg
+TARGETS += tenstorrent-pkg
 TARGETS += xdma-driver-pkg
 TARGETS += zfs-pkg
 NONFREE_TARGETS = nonfree-kmod-nvidia-lts-pkg
