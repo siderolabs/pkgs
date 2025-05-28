@@ -45,6 +45,7 @@ COMMON_ARGS += --build-arg=SOURCE_DATE_EPOCH=$(SOURCE_DATE_EPOCH)
 # targets defines all the available targets
 
 TARGETS = apparmor
+TARGETS += base
 TARGETS += ca-certificates
 TARGETS += cni
 TARGETS += containerd
@@ -101,11 +102,13 @@ TARGETS += kernel
 TARGETS += drbd-pkg
 TARGETS += ena-pkg
 TARGETS += gasket-driver-pkg
+TARGETS += nvidia-l4t-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-lts-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-production-pkg
 TARGETS += tenstorrent-pkg
 TARGETS += xdma-driver-pkg
 TARGETS += zfs-pkg
+
 NONFREE_TARGETS = nonfree-kmod-nvidia-lts-pkg
 NONFREE_TARGETS += nonfree-kmod-nvidia-production-pkg
 
@@ -192,7 +195,7 @@ nonfree: $(NONFREE_TARGETS)  ## Builds all nonfree targets defined.
 
 .PHONY: $(TARGETS) $(NONFREE_TARGETS)
 $(TARGETS) $(NONFREE_TARGETS):
-	@$(MAKE) docker-$@ TARGET_ARGS="--tag=$(REGISTRY_AND_USERNAME)/$@:$(TAG) --push=$(PUSH)"
+	@$(MAKE) docker-$@ TARGET_ARGS="--tag=$(REGISTRY_AND_USERNAME)/$@:$(IMAGE_TAG) --push=$(PUSH)"
 
 .PHONY: deps.png
 deps.png:  ## Generates a dependency graph of the Pkgfile.
