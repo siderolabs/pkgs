@@ -5,7 +5,7 @@ format: v1alpha2
 vars:
   TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.11.0-alpha.0-1-gfa0b147
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.11.0-alpha.0-1-ge35234b
+  TOOLS_REV: v1.11.0-alpha.0-2-gaf3fd64
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.7.1
@@ -39,20 +39,20 @@ vars:
   e2fsprogs_sha512: 1dc86535b72a4ab60e17a547efe5e137054eff6cad9f6cf9cc9485694ec6166687a9d5f50fb47a10e776a70c7690ade5445c0339731f83066abf33c01f70d9c7
 
   # renovate: datasource=github-releases extractVersion=^ena_linux_(?<version>.*)$ depName=amzn/amzn-drivers
-  ena_version: 2.14.0
-  ena_sha256: c8004d5761a78a080e85ebaae7442e099f23450a44850bb2f2e4015a8b469dea
-  ena_sha512: f39c38f2bb973985a8cebdcbdfd7b4eec982f9dc4b5cf95aac24f2c8c5f057ca46230a6a5ff7c20f47a24647ae1bde26113ccd27e0f76936d6e3853e46eedc53
+  ena_version: 2.14.1
+  ena_sha256: b0ea854c3f1c8d663b71bdfeadbc656bd4583a6fc5df1c8508b58104e458ab9d
+  ena_sha512: 131319ef17405eb5154c665c57f7fbd37ea405e6468b293660bba875c546b078904f37ec74344cad49bff680ad9cf40042d18f65067ef695f2862c4d49197e3b
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
-  systemd_version: 257.5
-  systemd_sha256: 4d65f9482608cf9f7823df42a6d7796f0e0dfcfb94301df75effff86d40da33e
-  systemd_sha512: 9e5352c20c9edac53f302a534532035185139998628ed0a85411f440df47f1dd7cce6651aec787484809bb1aa2825008d062714c37936cbfd08451fbe29a998f
+  systemd_version: 257.6
+  systemd_sha256: 1ac656c61e595cc6e653883d554caadd2053f323d9065c0daff69f83368b120c
+  systemd_sha512: ceed65196d4235f53db00f5970eadff79149629d8c34f79593d0b326ece536ea0b4f97192458989b5fccbd9438bb2dbb0abda2a5e6c3449a709c9a0889e29d3d
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
-  flannel_cni_version: v1.5.1-flannel3
-  flannel_cni_ref: a3f52e86452cdcdd2d970bb0f89eef248aed0e7c
-  flannel_cni_sha256: d66de816e48240b66d8d521f24bddc534c4e05bd83bf9c08aec6cd5e7f2890db
-  flannel_cni_sha512: 52e614d867060489e792769219345f6f5ee03e04e30d8a08ae96e9c0881e9c9fa5f6f424888ac1ce610afe13cf29e54da017483a09b6e844e3422b99d00bcdf3
+  flannel_cni_version: v1.7.1-flannel1
+  flannel_cni_ref: c11ca80f81318f05375a47046f26c87a3c61dc6f
+  flannel_cni_sha256: bbc7be9dfc31bf2b798032b8adaa4bcaa7551bf94b3efdf464dcde5575d45f0c
+  flannel_cni_sha512: f13cf7275679945042de3e63441e634bf746bc6a7c542da709c4a027ca5410626c473db3f01e3942e783780ee569faeca168c3a74a952a433561712bcf64ebee
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/google/gasket-driver.git
   gasket_driver_ref: 5815ee3908a46a415aac616ac7b9aedcb98a504c
@@ -75,9 +75,9 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 8f7aa292aa3df9b55a1886a94700249eff6d020f
-  ipxe_sha256: 2118191a5081c3c0c9381cd8117aca1da239ac6609960f97a8569aac9f2f9c3b
-  ipxe_sha512: 477c79ca0a0d264569ed58b44149f16d4ee16c0976714309dcec987ee2db289caf9e8465da82e39805983e0fca56c0e5dda31f2f189143b66e65ab1504ce9aab
+  ipxe_ref: 5b3ebf8b24ae40a6f9f9f78491702d508f843e56
+  ipxe_sha256: 1c819adbaf9767a6103ebedd45329aaa9baaf78444ecf7af97d86a198b55a641
+  ipxe_sha512: de181543038f539713fd061b145ae9f8dcc071dae3c4d52bb0c0eb43be925c8ed0844f411378a8e37dd4cf8abe5fa110bc4471dae1b1241186bfe88089534ab6
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: 0c65440652cf01da1bf5c2c746037bd350281468
@@ -202,14 +202,14 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
-  glib_version: 2.84.1
-  glib_sha256: 2b4bc2ec49611a5fc35f86aca855f2ed0196e69e53092bab6bb73396bf30789a
-  glib_sha512: ee7f38a4726fd72e41ddb75c4933c7b1bb30935bb2fddc84902d0627a836af512534195132cc02e3d15f168fefc816576181a8d6e436472b582191437b79a456
+  glib_version: 2.85.0
+  glib_sha256: 97cfb0466ae41fca4fa2a57a15440bee15b54ae76a12fb3cbff11df947240e48
+  glib_sha512: c08dd4f8c87b4dde98a6529e136b935db459bcdf3be22ed76c6bcb6e93d374740c15899c0645cec363c72fb0d508b6365bb5f5aaa7b36b67f13748cfcd0b55ce
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
-  qemu_version: 10.0.0
-  qemu_sha256: 22c075601fdcf8c7b2671a839ebdcef1d4f2973eb6735254fd2e1bd0f30b3896
-  qemu_sha512: 2215458ed8be3ab0b0032fe2a96e79183f5fc2da323d927018412ea3d980b022a07ba87d4f446229eaaa7d1b19a577d438dbcaa3af3bd537c7720b56734a2d8b
+  qemu_version: 10.0.2
+  qemu_sha256: ef786f2398cb5184600f69aef4d5d691efd44576a3cff4126d38d4c6fec87759
+  qemu_sha512: 7fda582c3845ea663aa5eda21bb38ebcfb6c25bccf8944ea6cdf8b5be6946b5a874b36674a7f5db3e325abb9cca0dd9bc0727837fdceb71a8c947d96169a9b20
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.3.0
@@ -223,9 +223,9 @@ vars:
   socat_sha512: 600a3387e9756e0937d2db49de9066df03d9818e4042da6b72109d1b5688dd72352754773a19bd2558fe93ec6a8a73e80e7cf2602fd915960f66c403fd89beef
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/awslabs/tc-redirect-tap.git
-  tc_redirect_tap_ref: d7bc77cb66c0fc9eba11626dc209541b10fe3dfb
-  tc_redirect_tap_sha256: 9fa586fc97b2d4f11105c445b0c64e37fab3c8363eb4180ff25ce66aec5c1354
-  tc_redirect_tap_sha512: bfd32e45a3cc481b714c45148cfae680d52a224116995bb9bfeec157399d08ddfa1be81d64fb2db71521dab2ff25bff1298536f64484ccb2b69765c46be1a030
+  tc_redirect_tap_ref: 34bf829e9a5c99df47318c7feeb637576df239fc
+  tc_redirect_tap_sha256: 2a01f8bd6fabc13c604a7cc9be2a6a7050d48ddbcc2d036b743e0ec63be693a2
+  tc_redirect_tap_sha512: 017d01fef1d6cddc2b53d6516acf7c8b61c7864c6c3708e7adaf73c5413f43b1495679249379e7a46de639a24e66643daf659565d0135a61b36246df4edc7936
 
   # renovate: datasource=github-releases extractVersion=^ttkmd-(?<version>.*)$ depName=tenstorrent/tt-kmd
   tenstorrent_version: 1.34

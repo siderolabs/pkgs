@@ -13,6 +13,7 @@ steps:
     prepare:
       - |
         tar -xzf flannel-cni.tar.gz --strip-components=1
+        go mod tidy
         go mod vendor
   - network: none
     build:
