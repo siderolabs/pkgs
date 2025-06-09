@@ -1,0 +1,47 @@
+--- a/kernel-open/nvidia/nv-backlight.c	2025-01-08 02:33:51.000000000 +0100
++++ b/kernel-open/nvidia/nv-backlight.c	2025-02-25 23:01:15.771979676 +0100
+@@ -28,6 +28,8 @@
+ #include "os-interface.h"
+ #include "nv-linux.h"
+ 
++#undef NV_GET_BACKLIGHT_DEVICE_BY_NAME_PRESENT
++
+ NV_STATUS NV_API_CALL nv_get_tegra_brightness_level
+ (
+     nv_state_t *nv,
+--- a/kernel-open/nvidia/nv-dsi-parse-panel-props.c	2025-01-08 02:33:51.000000000 +0100
++++ b/kernel-open/nvidia/nv-dsi-parse-panel-props.c	2025-02-24 14:58:55.871260088 +0100
+@@ -493,7 +493,7 @@ static int parse_dsi_properties(const st
+         "nvidia,dsi-lvds-bridge", &temp))
+         dsi->dsi2lvds_bridge_enable = (bool)temp;
+ 
+-    of_property_for_each_u32(np_dsi_panel, "nvidia,dsi-dpd-pads", prop, p, temp)
++    of_property_for_each_u32(np_dsi_panel, "nvidia,dsi-dpd-pads", temp)
+         dsi->dpd_dsi_pads |= (u32)temp;
+ 
+     if (!of_property_read_u32(np_dsi_panel,
+--- a/kernel-open/nvidia/nv-platform.c	2025-01-08 02:33:51.000000000 +0100
++++ b/kernel-open/nvidia/nv-platform.c	2025-02-24 14:56:09.562534365 +0100
+@@ -1189,7 +1189,11 @@ static int nv_platform_device_probe(stru
+     return rc;
+ }
+ 
++#if KERNEL_VERSION(6, 10, 0) >= LINUX_VERSION_CODE
+ static int nv_platform_device_remove(struct platform_device *plat_dev)
++#else
++static void nv_platform_device_remove(struct platform_device *plat_dev)
++#endif
+ {
+     int rc = 0;
+ 
+@@ -1203,8 +1207,9 @@ static int nv_platform_device_remove(str
+     {
+         rc = nv_platform_device_display_remove(plat_dev);
+     }
+-
++    #if KERNEL_VERSION(6, 10, 0) >= LINUX_VERSION_CODE
+     return rc;
++	#endif
+ }
+ 
+ const struct of_device_id nv_platform_device_table[] =

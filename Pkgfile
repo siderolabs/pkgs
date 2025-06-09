@@ -196,6 +196,11 @@ vars:
   open_vmdk_sha256: 925a27c47bca4f1ed1d2676360166b7c2e77ac4ae900ea93ca5f70c0abf95111
   open_vmdk_sha512: e9ece44aed19baa139ad8c58a93c32d62d8121b4660f553688bdd8b77cb30a86905199984e21ba82e4638f3bc0a2c1d612feb91a8adeda8ff486bba951f405ec
 
+  nvidia_l4t_version: r36_release_v4.3
+  nvidia_l4t_version_sha256: 2c177804679e3ed650dabec6fa958388579896f170570c6171a1b6c386669216
+  nvidia_l4t_version_sha512: 31e3d67c46edc6f6b8fc243d314e3859b685e2e928bf95b71200776f689a8ee9d5a64ec44c361f6dac702ba7d285c5595b306e315fbaa1e11e54adf4888ce446
+
+
   # renovate: datasource=github-tags depName=madler/pigz
   pigz_version: 2.8
   pigz_sha256: eb872b4f0e1f0ebe59c9f7bd8c506c4204893ba6a8492de31df416f0d5170fd0
