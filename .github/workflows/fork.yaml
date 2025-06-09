@@ -1,0 +1,116 @@
+name: fork
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+on:
+  push:
+    branches:
+      - opi5-plus-*
+    tags:
+      - v*
+  pull_request:
+    branches:
+      - opi5-plus-*
+jobs:
+  default:
+    permissions:
+      actions: read
+      contents: write
+      issues: read
+      packages: write
+      pull-requests: read
+    runs-on:
+      - self-hosted
+    env:
+      PLATFORM: linux/arm64
+      REGISTRY: docker.io
+      USERNAME: ${{ secrets.DOCKERHUB_USER }}
+    if: (!startsWith(github.head_ref, 'renovate/') && !startsWith(github.head_ref, 'dependabot/'))
+    outputs:
+      labels: ${{ steps.retrieve-pr-labels.outputs.result }}
+    steps:
+      - name: gather-system-info
+        id: system-info
+        uses: kenchan0130/actions-system-info@v1.3.0
+        continue-on-error: true
+      - name: print-system-info
+        run: |
+          MEMORY_GB=$((${{ steps.system-info.outputs.totalmem }}/1024/1024/1024))
+
+          OUTPUTS=(
+            "CPU Core: ${{ steps.system-info.outputs.cpu-core }}"
+            "CPU Model: ${{ steps.system-info.outputs.cpu-model }}"
+            "Hostname: ${{ steps.system-info.outputs.hostname }}"
+            "NodeName: ${NODE_NAME}"
+            "Kernel release: ${{ steps.system-info.outputs.kernel-release }}"
+            "Kernel version: ${{ steps.system-info.outputs.kernel-version }}"
+            "Name: ${{ steps.system-info.outputs.name }}"
+            "Platform: ${{ steps.system-info.outputs.platform }}"
+            "Release: ${{ steps.system-info.outputs.release }}"
+            "Total memory: ${MEMORY_GB} GB"
+          )
+
+          for OUTPUT in "${OUTPUTS[@]}";do
+            echo "${OUTPUT}"
+          done
+        continue-on-error: true
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: Unshallow
+        run: |
+          git fetch --prune --unshallow
+      - name: Set up Docker Buildx
+        id: setup-buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          platforms: linux/arm64
+          driver: remote
+          endpoint: tcp://buildkitd.buildkit.svc.cluster.local:1234
+      - name: Build
+        if: github.event_name == 'pull_request'
+        run: |
+          make
+      - name: Build nonfree
+        if: github.event_name == 'pull_request'
+        run: |
+          make nonfree
+      - name: Login to registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: docker.io
+          username: ${{ secrets.DOCKERHUB_USER }}
+      - name: Push to registry
+        if: github.event_name != 'pull_request'
+        run: |
+          make  PUSH=true
+      - name: Push nonfree
+        if: github.event_name != 'pull_request'
+        run: |
+          make nonfree PUSH=true
+      - name: Retrieve PR labels
+        id: retrieve-pr-labels
+        uses: actions/github-script@v7
+        with:
+          retries: "3"
+          script: |
+            if (context.eventName != "pull_request") { return "[]" }
+
+            const resp = await github.rest.issues.get({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+            })
+
+            return resp.data.labels.map(label => label.name)
+      - name: release-notes
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          make release-notes
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: crazy-max/ghaction-github-release@v2
+        with:
+          body_path: _out/RELEASE_NOTES.md
+          draft: "true"
