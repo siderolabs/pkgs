@@ -37,6 +37,13 @@ steps:
     test:
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/cryptsetup.spdx.json
+      version: {{ .cryptsetup_version }}
+      cpes:
+        - cpe:2.3:a:cryptsetup_project:cryptsetup:{{ .cryptsetup_version }}:*:*:*:*:*:*:*
+      licenses:
+        - GPL-2.0-or-later
 finalize:
   - from: /rootfs
     to: /

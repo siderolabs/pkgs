@@ -43,6 +43,15 @@ steps:
         find /rootfs/usr/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/kmod-nvidia-production.spdx.json
+      version: {{ .nvidia_driver_production_version }}
+      cpes:
+        - cpe:2.3:a:nvidia:gpu_display_driver:{{ .nvidia_driver_production_version }}:*:*:*:*:*:*:*
+        - cpe:2.3:a:nvidia:gpu_display_driver:{{ .nvidia_driver_production_version }}:*:*:*:*:linux_kernel:*:*
+      purl: pkg:nvidia/gpu-display-driver@{{ .nvidia_driver_production_version }}
+      licenses:
+        - CUSTOM
 finalize:
   - from: /rootfs
     to: /

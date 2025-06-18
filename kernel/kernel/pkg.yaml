@@ -39,6 +39,13 @@ steps:
         make -j $(nproc) modules_install INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_STRIP=1
         depmod -b /rootfs/usr $KERNELRELEASE
         unlink /rootfs/usr/lib/modules/$KERNELRELEASE/build
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/kernel.spdx.json
+      version: {{ .linux_version }}
+      cpes:
+        - cpe:2.3:o:linux:linux_kernel:{{ .linux_version }}:*:*:*:*:*:*:*
+      licenses:
+        - GPL-2.0-only
 finalize:
   - from: /rootfs
     to: /

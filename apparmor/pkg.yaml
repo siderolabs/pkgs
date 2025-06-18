@@ -36,6 +36,14 @@ steps:
     test:
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/apparmor.spdx.json
+      version: {{ .apparmor_version }}
+      cpes:
+        - cpe:2.3:a:apparmor:apparmor:{{ .apparmor_version }}:*:*:*:*:*:*:*
+        - cpe:2.3:a:canonical:apparmor:{{ .apparmor_version }}:*:*:*:*:*:*:*
+      licenses:
+        - GPL-2.0-or-later
 finalize:
   - from: /rootfs
     to: /
