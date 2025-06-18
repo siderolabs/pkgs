@@ -4,6 +4,11 @@ shell: /bin/bash
 dependencies:
   - stage: base
   - stage: kernel-build
+version: {{ .nvidia_driver_production_version }}
+cpes:
+  - cpe:2.3:a:nvidia:gpu_display_driver:*:*:*:*:*:*:*:*
+  - cpe:2.3:a:nvidia:gpu_display_driver:*:*:*:*:*:linux_kernel:*:*
+purl: pkg:nvidia/gpu-display-driver@{{ .nvidia_driver_production_version }}
 steps:
   - sources:
     # {{ if eq .ARCH "aarch64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
