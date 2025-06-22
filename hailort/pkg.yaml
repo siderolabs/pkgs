@@ -10,22 +10,28 @@ steps:
         destination: hailort-driver.tar.gz
         sha256: "{{ .hailort_sha256 }}"
         sha512: "{{ .hailort_sha512 }}"
+
+      - url: https://hailo-hailort.s3.eu-west-2.amazonaws.com/Hailo8/{{ .hailort_version }}/FW/hailo8_fw.{{ .hailort_version }}.bin
+        destination: hailo8_fw.bin
+        sha256: "{{ .hailort_fw_sha256 }}"
+        sha512: "{{ .hailort_fw_sha512 }}"
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
     prepare:
       - |
         tar xf hailort-driver.tar.gz --strip-components=1
       - |
-        mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release) /rootfs/etc/udev/rules.d/
+        mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/ /rootfs/usr/lib/firmware/hailo/ /rootfs/usr/lib/udev/rules.d/
     build:
       - |
         cd linux/pcie
         make -j $(nproc) KERNEL_DIR=/src/ all
     install:
       - |
+        mv hailo8_fw.bin /rootfs/usr/lib/firmware/hailo/hailo8_fw.bin
         cd linux/pcie
         make -j $(nproc) -C /src M=$(pwd) modules_install INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=kernel/drivers/misc INSTALL_MOD_STRIP=1
-        cp 51-hailo-udev.rules /rootfs/etc/udev/rules.d/51-hailo-udev.rules
+        cp 51-hailo-udev.rules /rootfs/usr/lib/udev/rules.d/51-hailo-udev.rules
     test:
       - |
         # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping

@@ -68,6 +68,8 @@ vars:
   hailort_version: 4.21.0
   hailort_sha256: 624468126c1e5609475389271b3d2878cb6e7e40df9e85bad95be464a3e11be3
   hailort_sha512: 857f56f1788a05a666051c232bdfe4ad01bc22587cc83ef1e14079a71ab0083aefa98253d40999880c3570b774baf7ac585ccd7618ba7f28a056b7bc07c1701c
+  hailort_fw_sha256: 2a5c94591d9e70d884242e64bf2388b0d2d46b816a335b4c00c3f81a07832635
+  hailort_fw_sha512: 43b36a7d958f4dba25f79ee37ad2ffa303c446a5c4516f7d882fb94c6ea0bee72089305b061a55b8bc37fc327ffce9db08f1f171a92c2421dd1a52a7c1695267
 
   # renovate: datasource=github-releases extractVersion=^IPMITOOL_(?<version>.*)$ depName=ipmitool/ipmitool
   ipmitool_version: 1_8_19
