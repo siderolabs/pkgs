@@ -7,7 +7,7 @@ dependencies:
   - stage: libnftnl
 steps:
   - sources:
-      - url: https://fossies.org/linux/misc/iptables-{{ .iptables_version }}.tar.xz
+      - url: https://www.netfilter.org/projects/iptables/files/iptables-{{ .iptables_version }}.tar.xz
         destination: iptables.tar.xz
         sha256: "{{ .iptables_sha256 }}"
         sha512: "{{ .iptables_sha512 }}"
