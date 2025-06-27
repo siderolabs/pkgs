@@ -1,6 +1,11 @@
 name: nonfree-kmod-nvidia-production-pkg
 variant: scratch
 shell: /bin/bash
+version: {{ .nvidia_driver_production_version }}
+cpes:
+  - cpe:2.3:a:nvidia:gpu_display_driver:*:*:*:*:*:*:*:*
+  - cpe:2.3:a:nvidia:gpu_display_driver:*:*:*:*:*:linux_kernel:*:*
+purl: pkg:nvidia/gpu-display-driver@{{ .nvidia_driver_production_version }}
 dependencies:
   - stage: base
   - stage: kernel-build

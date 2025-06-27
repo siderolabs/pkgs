@@ -3,6 +3,10 @@ variant: scratch
 shell: /bin/bash
 dependencies:
   - stage: base
+version: {{ .containerd_version }}
+cpes:
+  - cpe:2.3:a:containerd:containerd:*:*:*:*:*:*:*:*
+purl: pkg:github/containerd/containerd@{{ .containerd_version }}
 steps:
   - sources:
         # sync with version and revision in build
