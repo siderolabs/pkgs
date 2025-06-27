@@ -13,10 +13,10 @@ vars:
   cni_sha512: 5b1a8c1a63f6f7a7ca4df570bf5c4b2003cdfe1b861ac86f145b5b523c9371275f68b01a115566a4f3455e56709a5a280b485005ea3fa121c1f381fbf6bd500e
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v2.1.2
-  containerd_ref: 64ed272067a24c2d917064eea25a78e1479d632f
-  containerd_sha256: 9fc20eb912ae46b32243bc8a23ce7df83be34dbbd15325ba5c6f3765a3ca0529
-  containerd_sha512: c072730bf499c7a1a0012233734856f67b93c8b0e997f40d793e95324b3cd27dde467d3768f986ab4a8588ba2bf65be158c367333a0f48bec30c572804277b10
+  containerd_version: v2.1.3
+  containerd_ref: c787fb98911740dd3ff2d0e45ce88cdf01410486
+  containerd_sha256: f5fd43b9eefd71ddef100e7070016f9e40a1d689251bc885a2d2a87750da26b5
+  containerd_sha512: a8c9b4c8699fbf0086c34406f606381a26725a01925550426522404447be2bd262e93af5fcea26f6c336d7fff645b9e44155a25e0b39c52db91dd74dd7e3ad7a
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
   cryptsetup_version: 2.7.5
@@ -29,9 +29,9 @@ vars:
   dosfstools_sha512: 3cc0808edb4432428df8a67da4bb314fd1f27adc4a05754c1a492091741a7b6875ebd9f6a509cc4c5ad85643fc40395b6e0cadee548b25cc439cc9b725980156
 
   # renovate: datasource=github-tags extractVersion=^drbd-(?<version>.*)$ depName=LINBIT/drbd
-  drbd_version: 9.2.13
-  drbd_sha256: 2ccbda05dbd564e8d9b6159b839adee7fe1784da7d6c47d98a2443e0f365505a
-  drbd_sha512: 4918a486db1a3bd32200a46bffdc45d3df5c6ef514a38af221aaa7217afd00de6ea03db2e8504a18d308e5618924181a2786f0e344a1b03aeeeb07e877f7686f
+  drbd_version: 9.2.14
+  drbd_sha256: c7ca2758f4f20672add7bc687e2bd5954fb8da7ab55ed0a8f62d7891239277df
+  drbd_sha512: 37fc6ed86fc03ed8a480bfbe44f92b2a090dfa5129b3a0531b3feaf61b9fe784b4a1fa6b376fd932742cc8387ef6cc791b69a33efd1e50489aa10b6d589d5a0e
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git
   e2fsprogs_version: v1.47.2
@@ -92,9 +92,9 @@ vars:
   kspp_sha512: f8ad4c7cce39225c77e216cad2933136a99e42759d3247eaca0a0f0ab06404c851b8bddbd1512584759248202085a15666ca4aeeae684526084617cf05d0193f
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.12.31
-  linux_sha256: b04c5b3e5df6e0aa5e9cd1efe527fac99f9dd39a43b97f13b22f8ca93e524ba7
-  linux_sha512: 9e70e7e8ef4681e0f1ec908a31f74c5632690ef4b8b45331c46c71f9c89637134b8fd3b06ef508799da20e03ebfdfbbdd8ba16f85eb21f76f0f96ccf410543dd
+  linux_version: 6.12.35
+  linux_sha256: 05f4e0b01dde578c3328eb539d305cccec7b84e939f6dd5f21fdaf5f313da748
+  linux_sha512: 3697bf2c9525c8d11f7e821fa080d8c366ae751af02b471a506224002abe6b23b0ccf17d9694c7590c1b07002289eb19003ba8677bbb0bb09d54458495964188
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
@@ -164,9 +164,9 @@ vars:
   liburcu_sha512: 164d369cc1375b6b71eaa26812aff8a294bfbdffde65c2668e5c559d215d74c1973681f8083bfde39e280ca6fe8e92aadc7c867f966a5769548b754c92389616
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20250509
-  linux_firmware_sha256: d990e2b1ed2aaf5d4d3bad2e3623710255ca5e62a6540e85193cc00d19d02b70
-  linux_firmware_sha512: 636448ad224df656175d1e15aa4b9d5db2bb4c36de43248f1dee7c8178d052c97a11196abf914f05e3cb3645c88acdc2694081e983d6895c5dfa9c9438c2a779
+  linux_firmware_version: 20250613
+  linux_firmware_sha256: cf8668371742b5f7b69de2a96b4973addb780398a5ad231e40876919b650863a
+  linux_firmware_sha512: c42d657df6f7c62592c9caa5d86325659cea36d90063472e39ea03675510b4aaf7d0b699a61b14bec55fefc6e965abf4dca35f960f4f011e80c9ca528763acea
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
   lvm2_version: 2_03_32
@@ -250,9 +250,9 @@ vars:
   xfsprogs_sha512: 249a64fb5a92ceb9e58b75a270a90773cfe2c90e863d3f9853c14b3eb0f414bf55b8b67c220a1d7386894ef9295622e224977bd3c6600c9dcba826cb4a634f49
 
   # renovate: datasource=github-tags extractVersion=^zfs-(?<version>.*)$ depName=openzfs/zfs
-  zfs_version: 2.3.2
-  zfs_sha256: 80da628a9543ec3355bf410617450e167706948ceb287541455a1b8d87b8758a
-  zfs_sha512: 94311f2eca1488be83aa0cb802b4a4541bbbd061a3e8e5cbda62cabbb0c8f9a705372ad192cb77703b3d7642c43be7f604f3c363b243cf03a6aceae2d7e5db81
+  zfs_version: 2.3.3
+  zfs_sha256: 844122118f0ea81205a01753bbcb1315330f8967c1f866dcd10155273131f071
+  zfs_sha512: 0a18615da052989c19e889758972f14173e790710a2615fc186212d02f9909f0bf62debc19d85ff5c58411d8ef82aa85aff20804c3fbe2446913cd293a18b80d
 
   # renovate: datasource=git-tags depName=https://gitlab.com/apparmor/apparmor.git
   apparmor_version: v3.1.7 # v4 requires autoconf-archive
