@@ -15,7 +15,7 @@ steps:
     env:
       DEBUG: "-DNDEBUG"
       OPTIMIZER: "-flto=auto"
-      CFLAGS: "-DOVERRIDE_SYSTEM_STATX"
+      CFLAGS: "-g0 -Os -DOVERRIDE_SYSTEM_STATX -DSTATX__RESERVED=0x80000000U"
     prepare:
       - |
         tar -xJf xfsprogs.tar.xz --strip-components=1
