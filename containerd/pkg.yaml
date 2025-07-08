@@ -34,10 +34,10 @@ steps:
     sbom:
       outputPath: /rootfs/usr/share/spdx/containerd.spdx.json
       version: {{ .containerd_version }}
+      purl: pkg:golang/github.com/containerd/containerd@{{ .containerd_version }}
       cpes:
         - cpe:2.3:a:containerd:containerd:{{ .containerd_version }}:*:*:*:*:*:*:*
         - cpe:2.3:a:linuxfoundation:containerd:{{ .containerd_version }}:*:*:*:*:*:*:*
-      purl: pkg:github/containerd/containerd@{{ .containerd_version }}
       licenses:
         - Apache-2.0
 finalize:

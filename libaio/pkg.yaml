@@ -21,6 +21,13 @@ steps:
     test:
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/libaio.spdx.json
+      version: {{ .libaio_version }}
+      cpes:
+        - cpe:2.3:a:libaio_project:libaio:{{ .libaio_version }}:*:*:*:*:*:*:*
+      licenses:
+        - LGPL-2.1-or-later
 finalize:
   - from: /rootfs
     to: /

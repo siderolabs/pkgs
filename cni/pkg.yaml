@@ -23,6 +23,15 @@ steps:
     test:
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/cni.spdx.json
+      version: {{ .cni_version }}
+      purl: pkg:golang/github.com/containernetworking/plugins@{{ .cni_version }}
+      cpes:
+        - cpe:2.3:a:containernetworking:plugins:{{ .cni_version }}:*:*:*:*:*:*:*
+        - cpe:2.3:a:linuxfoundation:cni_network_plugins:{{ .cni_version }}:*:*:*:*:*:*:*
+      licenses:
+        - Apache-2.0
 finalize:
   - from: /rootfs
     to: /

@@ -36,6 +36,16 @@ steps:
     test:
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/systemd.spdx.json
+      version: {{ .systemd_version }}
+      cpes:
+        - cpe:2.3:a:systemd_project:systemd:{{ .systemd_version }}:*:*:*:*:*:*:*
+      licenses:
+        - GPL-2.0-or-later
+        - LGPL-2.1-or-later
+        - BSD-3-Clause
+        - CC0-1.0
 finalize:
   - from: /rootfs
     to: /

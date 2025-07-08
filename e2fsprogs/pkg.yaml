@@ -40,6 +40,16 @@ steps:
     test:
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/e2fsprogs.spdx.json
+      version: {{ .e2fsprogs_version }}
+      cpes:
+        - cpe:2.3:a:e2fsprogs_project:e2fsprogs:{{ .e2fsprogs_version }}:*:*:*:*:*:*:*
+      licenses:
+        - GPL-2.0-only
+        - LGPL-2.0-only
+        - BSD-3-Clause
+        - MIT
 finalize:
   - from: /rootfs
     to: /

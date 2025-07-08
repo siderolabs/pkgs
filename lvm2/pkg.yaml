@@ -62,6 +62,16 @@ steps:
     test:
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/lvm2.spdx.json
+      version: {{ .lvm2_version | replace "_" "." }}
+      cpes:
+        - cpe:2.3:a:heinz_mauelshagen:lvm2:{{ .lvm2_version | replace "_" "." }}:*:*:*:*:*:*:*
+        - cpe:2.3:a:redhat:lvm2:{{ .lvm2_version | replace "_" "." }}:*:*:*:*:*:*:*
+      licenses:
+        - LGPL-2.1-only
+        - GPL-2.0-only
+        - BSD-2-Clause
 finalize:
   - from: /rootfs
     to: /

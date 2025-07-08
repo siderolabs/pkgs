@@ -26,6 +26,13 @@ steps:
     test:
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/libpopt.spdx.json
+      version: {{ .libpopt_version }}
+      cpes:
+        - cpe:2.3:a:popt_project:popt:{{ .libpopt_version }}:*:*:*:*:*:*:*
+      licenses:
+        - MIT
 finalize:
   - from: /rootfs
     to: /

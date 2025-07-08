@@ -47,6 +47,11 @@ steps:
     test:
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/libinih.spdx.json
+      version: {{ .libinih_version }}
+      licenses:
+        - BSD-3-Clause
 finalize:
   - from: /rootfs
     to: /

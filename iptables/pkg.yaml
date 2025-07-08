@@ -55,6 +55,13 @@ steps:
     test:
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/iptables.spdx.json
+      version: {{ .iptables_version }}
+      cpes:
+        - cpe:2.3:a:netfilter:iptables:{{ .iptables_version }}:*:*:*:*:*:*:*
+      licenses:
+        - GPL-2.0-only
 finalize:
   - from: /rootfs
     to: /

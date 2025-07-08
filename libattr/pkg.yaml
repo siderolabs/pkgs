@@ -44,6 +44,14 @@ steps:
     test:
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/libattr.spdx.json
+      version: {{ .libattr_version }}
+      cpes:
+        - cpe:2.3:a:attr_project:attr:{{ .libattr_version }}:*:*:*:*:*:*:*
+      licenses:
+        - LGPL-2.1-only
+        - GPL-2.0-only
 finalize:
   - from: /rootfs
     to: /

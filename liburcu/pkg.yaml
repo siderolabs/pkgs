@@ -24,6 +24,11 @@ steps:
     test:
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/liburcu.spdx.json
+      version: {{ .liburcu_version }}
+      licenses:
+        - LGPL-2.1-or-later
 finalize:
   - from: /rootfs
     to: /

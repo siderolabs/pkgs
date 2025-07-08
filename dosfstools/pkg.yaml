@@ -33,6 +33,13 @@ steps:
     test:
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/dosfstools.spdx.json
+      version: {{ .dosfstools_version }}
+      cpes:
+        - cpe:2.3:a:dosfstools_project:dosfstools:{{ .dosfstools_version }}:*:*:*:*:*:*:*
+      licenses:
+        - GPL-3.0-or-later
 finalize:
   - from: /rootfs
     to: /

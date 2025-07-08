@@ -24,6 +24,13 @@ steps:
     test:
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/libmnl.spdx.json
+      version: {{ .libmnl_version }}
+      cpes:
+        - cpe:2.3:a:netfilter:libmnl:{{ .libmnl_version }}:*:*:*:*:*:*:*
+      licenses:
+        - LGPL-2.1-or-later
 finalize:
   - from: /rootfs
     to: /

@@ -39,6 +39,14 @@ steps:
     test:
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/xfsprogs.spdx.json
+      version: {{ .xfsprogs_version }}
+      cpes:
+        - cpe:2.3:a:sgi:xfsprogs:{{ .xfsprogs_version }}:*:*:*:*:*:*:*
+      licenses:
+        - GPL-2.0-only
+        - LGPL-2.1-only
 finalize:
   - from: /rootfs
     to: /

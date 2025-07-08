@@ -30,6 +30,13 @@ steps:
     test:
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/libjson-c.spdx.json
+      version: {{ .libjson_c_version }}
+      cpes:
+        - cpe:2.3:a:json-c:json-c:{{ .libjson_c_version }}:*:*:*:*:*:*:*
+      licenses:
+        - MIT
 finalize:
   - from: /rootfs
     to: /

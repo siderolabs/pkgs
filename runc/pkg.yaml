@@ -36,6 +36,15 @@ steps:
     test:
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/runc.spdx.json
+      version: {{ .runc_version }}
+      purl: pkg:golang/github.com/opencontainers/runc@{{ .runc_version }}
+      cpes:
+        - cpe:2.3:a:opencontainers:runc:{{ .runc_version }}:*:*:*:*:*:*:*
+        - cpe:2.3:a:linuxfoundation:runc:{{ .runc_version }}:*:*:*:*:*:*:*
+      licenses:
+        - Apache-2.0
 finalize:
   - from: /rootfs
     to: /

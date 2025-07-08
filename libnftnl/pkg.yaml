@@ -27,6 +27,14 @@ steps:
     test:
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/libnftnl.spdx.json
+      version: {{ .libnftnl_version }}
+      cpes:
+        - cpe:2.3:a:netfilter:libnftnl:{{ .libnftnl_version }}:*:*:*:*:*:*:*
+        - cpe:2.3:a:netfilter:libnfnetlink:{{ .libnftnl_version }}:*:*:*:*:*:*:*
+      licenses:
+        - GPL-2.0-or-later
 finalize:
   - from: /rootfs
     to: /
