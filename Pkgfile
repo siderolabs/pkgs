@@ -92,9 +92,9 @@ vars:
   kspp_sha512: a37b67e615f3ffc5e3b9e584f9bb4a5e86431216bf4492a8d68eb9974be6a7a236f022e83d6659ee198c11ffec35c132b484c7a5bb4e16db078dd119d4367e78
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.12.35
-  linux_sha256: 05f4e0b01dde578c3328eb539d305cccec7b84e939f6dd5f21fdaf5f313da748
-  linux_sha512: 3697bf2c9525c8d11f7e821fa080d8c366ae751af02b471a506224002abe6b23b0ccf17d9694c7590c1b07002289eb19003ba8677bbb0bb09d54458495964188
+  linux_version: 6.12.36
+  linux_sha256: 4a168aed2de5a81aadd90ba2b153860a98d99bfc34651936e17f18e54f01ba8c
+  linux_sha512: 17f540e00c4f5e457e64211c29d6b8c8dc7c9e7a523be070cced0423ef68a3c068a956561de069f4a7719009506908696219c524c27953c4b02fadfa37db808e
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
@@ -164,9 +164,9 @@ vars:
   liburcu_sha512: 164d369cc1375b6b71eaa26812aff8a294bfbdffde65c2668e5c559d215d74c1973681f8083bfde39e280ca6fe8e92aadc7c867f966a5769548b754c92389616
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20250613
-  linux_firmware_sha256: cf8668371742b5f7b69de2a96b4973addb780398a5ad231e40876919b650863a
-  linux_firmware_sha512: c42d657df6f7c62592c9caa5d86325659cea36d90063472e39ea03675510b4aaf7d0b699a61b14bec55fefc6e965abf4dca35f960f4f011e80c9ca528763acea
+  linux_firmware_version: 20250708
+  linux_firmware_sha256: bc9a2ff1223e2e1ae896816c2b7cab2f5029a6d59600e1daf032a876e6d2ce18
+  linux_firmware_sha512: 92508b6df66509dced27d361e92623affd54dbf06ca7e12b1888dd9178241f5cdc846160b22bbb34b3a50098c7461dcf3410b5aa672feb81f2e2a6fca4f0686b
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
   lvm2_version: 2_03_33
