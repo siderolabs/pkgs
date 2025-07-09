@@ -43,7 +43,6 @@ steps:
     sbom:
       outputPath: /rootfs/usr/share/spdx/flannel-cni.spdx.json
       version: {{ .flannel_cni_version }}
-      purl: pkg:golang/github.com/flannel-io/cni-plugin@{{ .flannel_cni_version }}
       cpes:
         - cpe:2.3:a:flannel-io:cni-plugin:{{ .flannel_cni_version }}:*:*:*:*:*:*:*
         - cpe:2.3:a:flannel_io:cni-plugin:{{ .flannel_cni_version }}:*:*:*:*:*:*:*
