@@ -1,11 +1,11 @@
-# syntax = ghcr.io/siderolabs/bldr:v0.5.0
+# syntax = ghcr.io/siderolabs/bldr:v0.5.1
 
 format: v1alpha2
 
 vars:
-  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.11.0-alpha.0-5-gb5dd147
+  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.11.0-alpha.0-7-g149a96f
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.11.0-alpha.0-6-g4818702
+  TOOLS_REV: v1.11.0-alpha.0-8-g650b916
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.7.1
@@ -34,9 +34,9 @@ vars:
   drbd_sha512: 37fc6ed86fc03ed8a480bfbe44f92b2a090dfa5129b3a0531b3feaf61b9fe784b4a1fa6b376fd932742cc8387ef6cc791b69a33efd1e50489aa10b6d589d5a0e
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git
-  e2fsprogs_version: v1.47.2
-  e2fsprogs_sha256: be7edd7031734d1fef8a319f0901828f8ab89e8f3b5073e6b18740be3771a95c
-  e2fsprogs_sha512: 1dc86535b72a4ab60e17a547efe5e137054eff6cad9f6cf9cc9485694ec6166687a9d5f50fb47a10e776a70c7690ade5445c0339731f83066abf33c01f70d9c7
+  e2fsprogs_version: v1.47.3
+  e2fsprogs_sha256: 9286ee5471a8a5339a61eb952739e4614a5b1dbed79ca73a78f014885ce2ad53
+  e2fsprogs_sha512: 72d6ad9b2bdd1032b2a64cb7e2789a4c98e660169f3594c1d04d6322aff2ed4783cb5842eb4cb0aff7660c96c122d638dc541833b1a0a5cfdabaaaa3705ae2dd
 
   # renovate: datasource=github-releases extractVersion=^ena_linux_(?<version>.*)$ depName=amzn/amzn-drivers
   ena_version: 2.15.0
@@ -82,14 +82,14 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: c21443f0b9a4dee56ab0f47b096540d6443cda9f
-  ipxe_sha256: 54bf0bc7f6bbfc6a67b0ef9822bead6a93571398e730d4354abc1b9ba67898a9
-  ipxe_sha512: 60a568d6160ee941f3256ab868b4a9560e9db0de71b19c476a7b4b2253bc679b207904cb2806a5e3f0f2262004263b409c39d0848a3ff845688b05faba8cf34a
+  ipxe_ref: 7ac4b3c6f1c0d40b9e6d799e77df711784029f82
+  ipxe_sha256: 368ab60719c0f33e63dbe42d2c1eb82beed0551449728a1daf575a3a809dce56
+  ipxe_sha512: 61c70d36e4fa38118cdfe19fbabb715c74c0168cca0cebfe7772f68f84e79adf675fcdae267d8af144cc11aba41773effb366aacf52fed8a854c89d1fc3f8a21
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
-  kspp_ref: 0f6c72e3022fe56e245107d10399cd9020bedd2e
-  kspp_sha256: b81a809d26733d5801a00a6b979e0d39bb3ea782c8d6529f184222a20d2813c6
-  kspp_sha512: a37b67e615f3ffc5e3b9e584f9bb4a5e86431216bf4492a8d68eb9974be6a7a236f022e83d6659ee198c11ffec35c132b484c7a5bb4e16db078dd119d4367e78
+  kspp_ref: b9a1a2c357258e140c0ec2250be681cf3af50f25
+  kspp_sha256: 8b00105196da3eb7c13ee3804ca42765247ae3713a4f5ab5d5c32b4c6a56b298
+  kspp_sha512: 2cf5347c5035670f4ad25bc6a962dbabe1f064320d6fa0ad53b0f1e68ff7273b8a5aa9e16c757e6cfc2e2ccdc43f911075210df309070b12f11b2e53d2445476
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
   linux_version: 6.12.38
