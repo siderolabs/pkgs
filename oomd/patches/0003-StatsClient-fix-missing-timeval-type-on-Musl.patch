@@ -1,0 +1,24 @@
+From 8f97f0087322e5c680c6af7b285f4d482d1c7617 Mon Sep 17 00:00:00 2001
+From: Dmitrii Sharshakov <dmitry.sharshakov@siderolabs.com>
+Date: Thu, 24 Jul 2025 20:30:34 +0200
+Subject: [PATCH 3/4] StatsClient: fix missing timeval type on Musl
+
+---
+ src/oomd/StatsClient.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/oomd/StatsClient.cpp b/src/oomd/StatsClient.cpp
+index 9dab8f3..643cf9b 100644
+--- a/src/oomd/StatsClient.cpp
++++ b/src/oomd/StatsClient.cpp
+@@ -20,6 +20,7 @@
+ #include <json/value.h>
+ #include <sys/socket.h>
+ #include <sys/un.h>
++#include <sys/time.h>
+ #include <unistd.h>
+ #include <iostream>
+ #include <optional>
+-- 
+2.50.1
+

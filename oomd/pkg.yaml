@@ -1,0 +1,42 @@
+name: oomd
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: jsoncpp
+steps:
+  - sources:
+      - url: https://github.com/facebookincubator/oomd/archive/{{ .oomd_ref }}.tar.gz
+        destination: oomd.tar.gz
+        sha256: "{{ .oomd_sha256 }}"
+        sha512: "{{ .oomd_sha512 }}"
+    prepare:
+      - |
+        tar -xzf oomd.tar.gz --strip-components=1
+
+        patch -p1 < /pkg/patches/0001-Refactor-replace-strerror_r-with-Oomd-Util-strerror_.patch
+        patch -p1 < /pkg/patches/0002-Util-do-not-rely-on-GNU-implementation-of-strerror_r.patch
+        patch -p1 < /pkg/patches/0003-StatsClient-fix-missing-timeval-type-on-Musl.patch
+        patch -p1 < /pkg/patches/0004-Define-GLOB_BRACE-and-GLOB_ONLYDIR-for-non-glibc-sys.patch
+
+        meson setup build --prefix=/usr
+    build:
+      - |
+        meson compile -C build
+    install:
+      - |
+        meson install -C build --destdir /rootfs
+
+        # Remove default configs, systemd service
+        rm -rf /rootfs/usr/share/man /rootfs/etc /rootfs/usr/lib
+    test:
+      - |
+        fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/oomd.spdx.json
+      version: v0.5.0-g{{ .oomd_ref }}
+      licenses:
+        - GPL-2.0-only
+finalize:
+  - from: /rootfs
+    to: /

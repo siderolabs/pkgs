@@ -1,0 +1,37 @@
+From a29e1401f03b95e71859c600ca3dbada35e1b5b6 Mon Sep 17 00:00:00 2001
+From: Dmitrii Sharshakov <dmitry.sharshakov@siderolabs.com>
+Date: Thu, 24 Jul 2025 20:34:09 +0200
+Subject: [PATCH 4/4] Define GLOB_BRACE and GLOB_ONLYDIR for non-glibc systems
+
+This does not enable this functionality, but fixes compiler
+errors when targeting Musl platforms.
+---
+ src/oomd/util/Fs.h | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/src/oomd/util/Fs.h b/src/oomd/util/Fs.h
+index b238164..2f53596 100644
+--- a/src/oomd/util/Fs.h
++++ b/src/oomd/util/Fs.h
+@@ -29,6 +29,18 @@
+ #include "oomd/include/Types.h"
+ #include "oomd/util/SystemMaybe.h"
+ 
++// Non-glibc targets might not support GLOB_BRACE, so we define it to 0
++// to avoid a compiler error
++#ifndef GLOB_BRACE
++#define GLOB_BRACE 0
++#endif
++
++// Same with GLOB_ONLYDIR, however it is only a hint, so we can safely
++// ignore it if it is not defined
++#ifndef GLOB_ONLYDIR
++#define GLOB_ONLYDIR 0
++#endif
++
+ namespace Oomd {
+ 
+ class Fs {
+-- 
+2.50.1
+

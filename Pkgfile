@@ -86,6 +86,11 @@ vars:
   ipxe_sha256: 368ab60719c0f33e63dbe42d2c1eb82beed0551449728a1daf575a3a809dce56
   ipxe_sha512: 61c70d36e4fa38118cdfe19fbabb715c74c0168cca0cebfe7772f68f84e79adf675fcdae267d8af144cc11aba41773effb366aacf52fed8a854c89d1fc3f8a21
 
+  # renovate: datasource=github-tags depName=open-source-parsers/jsoncpp
+  jsoncpp_version: 1.9.6
+  jsoncpp_sha256: f93b6dd7ce796b13d02c108bc9f79812245a82e577581c4c9aabe57075c90ea2
+  jsoncpp_sha512: 006d81f9f723dcfe875ebc2147449c07c5246bf97dd7b9eee1909decc914b051d6f3f06feb5c3dfa143d28773fb310aabb04a81dc447cc61513309df8eba8b08
+
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: b9a1a2c357258e140c0ec2250be681cf3af50f25
   kspp_sha256: 8b00105196da3eb7c13ee3804ca42765247ae3713a4f5ab5d5c32b4c6a56b298
@@ -202,6 +207,11 @@ vars:
   open_vmdk_version: v0.3.11
   open_vmdk_sha256: 925a27c47bca4f1ed1d2676360166b7c2e77ac4ae900ea93ca5f70c0abf95111
   open_vmdk_sha512: e9ece44aed19baa139ad8c58a93c32d62d8121b4660f553688bdd8b77cb30a86905199984e21ba82e4638f3bc0a2c1d612feb91a8adeda8ff486bba951f405ec
+
+  # renovate: datasource=git-refs versioning=git depName=https://github.com/facebookincubator/oomd.git
+  oomd_ref: 71f93fe
+  oomd_sha256: fa606da4aba1ade09ce73737c5b882adde835beee618d4768826a403241a44c0
+  oomd_sha512: 32cef030a3f260947c85597e2499ac19a27c623f87fa5cf9a6fa89d19eef6a96cec3efa96fb5a14ca21ee21661a87891474b9f49ce7ff08e9cce778fce2c519f
 
   # renovate: datasource=github-tags depName=madler/pigz
   pigz_version: 2.8
