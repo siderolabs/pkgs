@@ -1,0 +1,38 @@
+From 3b0c8ce2f773264a6c21b2ab54c1b23fb8649826 Mon Sep 17 00:00:00 2001
+From: Dmitrii Sharshakov <dmitry.sharshakov@siderolabs.com>
+Date: Thu, 24 Jul 2025 20:27:23 +0200
+Subject: [PATCH 2/4] Util: do not rely on GNU implementation of ::strerror_r
+
+Adhere to POSIX standard implementation to enable building with Musl
+
+Also fix a compiler warning
+---
+ src/oomd/util/Util.cpp | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/src/oomd/util/Util.cpp b/src/oomd/util/Util.cpp
+index edfe45d..9b46d44 100644
+--- a/src/oomd/util/Util.cpp
++++ b/src/oomd/util/Util.cpp
+@@ -169,7 +169,7 @@ std::vector<std::string> Util::split(const std::string& line, char delim) {
+   std::vector<std::string> ret;
+ 
+   auto emplaceNonEmptySubstr = [&ret, &line](size_t beg, size_t end) {
+-    if (size_t len = end - beg) {
++    if (end > beg) {
+       ret.emplace_back(line.begin() + beg, line.begin() + end);
+     }
+   };
+@@ -238,7 +238,8 @@ std::string Util::strerror_r() {
+ 
+   int savedErrno = errno;
+ 
+-  std::string ret(::strerror_r(errno, buf.data(), buf.size()));
++  ::strerror_r(errno, buf.data(), buf.size());
++  std::string ret(buf.data());
+ 
+   errno = savedErrno;
+   return ret;
+-- 
+2.50.1
+

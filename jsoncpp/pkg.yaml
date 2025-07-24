@@ -1,0 +1,36 @@
+name: jsoncpp
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: https://github.com/open-source-parsers/jsoncpp/archive/refs/tags/{{ .jsoncpp_version }}.tar.gz
+        destination: jsoncpp.tar.gz
+        sha256: "{{ .jsoncpp_sha256 }}"
+        sha512: "{{ .jsoncpp_sha512 }}"
+    prepare:
+      - |
+        tar -xzf jsoncpp.tar.gz --strip-components=1
+
+        meson setup build --prefix=/usr
+    build:
+      - |
+        meson compile -C build
+    install:
+      - |
+        meson install -C build --destdir /rootfs
+    test:
+      - |
+        fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/jsoncpp.spdx.json
+      version: {{ .jsoncpp_version }}
+      cpes:
+        - cpe:2.3:a:jsoncpp_project:jsoncpp:{{ .jsoncpp_version }}:*:*:*:*:*:*:*
+      licenses:
+        - MIT
+        - Public Domain
+finalize:
+  - from: /rootfs
+    to: /
