@@ -18,6 +18,7 @@ spec:
     - ipmitool
     - iptables
     - ipxe
+    - jsoncpp
     - kmod
     - libaio
     - libattr
@@ -41,6 +42,7 @@ spec:
     - musl
     - openssl
     - open-vmdk
+    - oomd
     - pcre2
     - pigz
     - qemu-tools

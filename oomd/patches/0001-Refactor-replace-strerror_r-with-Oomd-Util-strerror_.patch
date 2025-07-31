@@ -1,0 +1,275 @@
+From 04418866a0e6e49e5c873c6fe8e3713cb3fc992c Mon Sep 17 00:00:00 2001
+From: Dmitrii Sharshakov <dmitry.sharshakov@siderolabs.com>
+Date: Thu, 24 Jul 2025 20:26:01 +0200
+Subject: [PATCH 1/4] Refactor: replace ::strerror_r with
+ Oomd::Util::strerror_r
+
+Use the helper which already contains the buffer needed. This helps fix POSIX compatibility for this function
+---
+ src/oomd/Main.cpp         |  5 ++---
+ src/oomd/Stats.cpp        | 25 ++++++++++---------------
+ src/oomd/StatsClient.cpp  | 11 +++++------
+ src/oomd/util/Fixture.cpp | 18 +++++-------------
+ 4 files changed, 22 insertions(+), 37 deletions(-)
+
+diff --git a/src/oomd/Main.cpp b/src/oomd/Main.cpp
+index 55a2802..1a9e74b 100644
+--- a/src/oomd/Main.cpp
++++ b/src/oomd/Main.cpp
+@@ -188,7 +188,6 @@ static void initializeCoreStats() {
+ }
+ 
+ static bool initRuntimeDir(const fs::path& runtime_dir) {
+-  std::array<char, 64> err_buf = {};
+   std::error_code ec;
+ 
+   // Ignore return value of fs::create_directories because it indicates
+@@ -207,13 +206,13 @@ static bool initRuntimeDir(const fs::path& runtime_dir) {
+   int lockfd = ::open(lockfile.c_str(), O_CREAT, S_IRUSR | S_IWUSR);
+   if (lockfd < 0) {
+     OLOG << "Failed to open lock file=" << lockfile << ": "
+-         << ::strerror_r(errno, err_buf.data(), err_buf.size());
++         << Oomd::Util::strerror_r();
+     return false;
+   }
+ 
+   if (::flock(lockfd, LOCK_EX | LOCK_NB)) {
+     OLOG << "Failed to acquire exclusive runtime lock=" << lockfile << ": "
+-         << ::strerror_r(errno, err_buf.data(), err_buf.size());
++         << Oomd::Util::strerror_r();
+     return false;
+   }
+ 
+diff --git a/src/oomd/Stats.cpp b/src/oomd/Stats.cpp
+index 778f391..801c153 100644
+--- a/src/oomd/Stats.cpp
++++ b/src/oomd/Stats.cpp
+@@ -40,7 +40,6 @@ Stats::Stats(const std::string& stats_socket_path)
+ }
+ 
+ Stats::~Stats() {
+-  std::array<char, 64> err_buf = {};
+   statsThreadRunning_ = false;
+   auto client = StatsClient(stats_socket_path_);
+   client.closeSocket();
+@@ -60,11 +59,11 @@ Stats::~Stats() {
+   }
+   if (::unlink(serv_addr_.sun_path) < 0) {
+     OLOG << "Closing stats error: unlinking socket path: "
+-         << ::strerror_r(errno, err_buf.data(), err_buf.size());
++         << Oomd::Util::strerror_r();
+   }
+   if (::close(sockfd_) < 0) {
+     OLOG << "Closing stats error: closing stats socket: "
+-         << ::strerror_r(errno, err_buf.data(), err_buf.size());
++         << Oomd::Util::strerror_r();
+   }
+ }
+ 
+@@ -100,12 +99,10 @@ bool& Stats::isInitInternal() {
+ }
+ 
+ bool Stats::startSocket() {
+-  std::array<char, 64> err_buf = {};
+-
+   sockfd_ = ::socket(AF_UNIX, SOCK_STREAM, 0);
+   if (sockfd_ < 0) {
+     OLOG << "Error creating socket: "
+-         << ::strerror_r(errno, err_buf.data(), err_buf.size() - 1);
++         << Oomd::Util::strerror_r();
+     return false;
+   }
+   ::memset(&serv_addr_, '\0', sizeof(serv_addr_));
+@@ -113,12 +110,12 @@ bool Stats::startSocket() {
+   ::strcpy(serv_addr_.sun_path, stats_socket_path_.c_str());
+   if (::unlink(serv_addr_.sun_path) < 0 && errno != ENOENT) {
+     OLOG << "Pre-unlinking of socket path failed. " << serv_addr_.sun_path
+-         << ". Errno: " << ::strerror_r(errno, err_buf.data(), err_buf.size());
++         << ". Errno: " << Oomd::Util::strerror_r();
+     return false;
+   }
+   if (::bind(sockfd_, (struct sockaddr*)&serv_addr_, sizeof(serv_addr_)) < 0) {
+     OLOG << "Error binding stats collection socket: "
+-         << ::strerror_r(errno, err_buf.data(), err_buf.size());
++         << Oomd::Util::strerror_r();
+     return false;
+   }
+   if (::chmod(stats_socket_path_.c_str(), 0666) < 0) {
+@@ -127,7 +124,7 @@ bool Stats::startSocket() {
+   }
+   if (::listen(sockfd_, 5) < 0) {
+     OLOG << "Error listening at socket: "
+-         << ::strerror_r(errno, err_buf.data(), err_buf.size());
++         << Oomd::Util::strerror_r();
+     return false;
+   }
+   stats_thread_ = std::thread([this] { this->runSocket(); });
+@@ -137,12 +134,11 @@ bool Stats::startSocket() {
+ void Stats::runSocket() {
+   sockaddr_un cli_addr;
+   socklen_t clilen = sizeof(cli_addr);
+-  std::array<char, 64> err_buf = {};
+   while (statsThreadRunning_) {
+     int sockfd = ::accept(sockfd_, (struct sockaddr*)&cli_addr, &clilen);
+     if (sockfd < 0) {
+       OLOG << "Stats server error: accepting connection: "
+-           << ::strerror_r(errno, err_buf.data(), err_buf.size());
++           << Oomd::Util::strerror_r();
+       continue;
+     }
+     const timeval io_timeout{.tv_sec = 2, .tv_usec = 0};
+@@ -160,11 +156,10 @@ void Stats::runSocket() {
+ }
+ 
+ void Stats::processMsg(int sockfd) {
+-  std::array<char, 64> err_buf = {};
+   OOMD_SCOPE_EXIT {
+     if (::close(sockfd) < 0) {
+       OLOG << "Stats server error: closing file descriptor: "
+-           << ::strerror_r(errno, err_buf.data(), err_buf.size());
++           << Oomd::Util::strerror_r();
+     }
+   };
+   char mode = 'a';
+@@ -174,7 +169,7 @@ void Stats::processMsg(int sockfd) {
+     int res = ::read(sockfd, &byte_buf, 1);
+     if (res < 0) { // Error reading
+       OLOG << "Stats server error: reading from socket: "
+-           << ::strerror_r(errno, err_buf.data(), err_buf.size());
++           << Oomd::Util::strerror_r();
+       return;
+     } else if (res == 0) { // EOF reached
+       break;
+@@ -214,7 +209,7 @@ void Stats::processMsg(int sockfd) {
+   std::string ret = root.toStyledString();
+   if (Util::writeFull(sockfd, ret.c_str(), strlen(ret.c_str())) < 0) {
+     OLOG << "Stats server error: writing to socket: "
+-         << ::strerror_r(errno, err_buf.data(), err_buf.size());
++         << Oomd::Util::strerror_r();
+   }
+   std::unique_lock<std::mutex> lock(thread_mutex_);
+   thread_count_--;
+diff --git a/src/oomd/StatsClient.cpp b/src/oomd/StatsClient.cpp
+index ab8724f..9dab8f3 100644
+--- a/src/oomd/StatsClient.cpp
++++ b/src/oomd/StatsClient.cpp
+@@ -123,18 +123,17 @@ int StatsClient::closeSocket() {
+ }
+ 
+ std::optional<std::string> StatsClient::msgSocket(std::string msg) {
+-  std::array<char, 64> err_buf = {};
+   int sockfd = ::socket(AF_UNIX, SOCK_STREAM, 0);
+   if (sockfd < 0) {
+     std::cerr << "Error: creating client socket: "
+-              << ::strerror_r(errno, err_buf.data(), err_buf.size())
++              << Oomd::Util::strerror_r()
+               << std::endl;
+     return std::nullopt;
+   }
+   OOMD_SCOPE_EXIT {
+     if (::close(sockfd) < 0) {
+       std::cerr << "Error: shutting down client socket: "
+-                << ::strerror_r(errno, err_buf.data(), err_buf.size())
++                << Oomd::Util::strerror_r()
+                 << std::endl;
+     }
+   };
+@@ -145,14 +144,14 @@ std::optional<std::string> StatsClient::msgSocket(std::string msg) {
+   if (::connect(sockfd, (struct sockaddr*)&serv_addr_, sizeof(serv_addr_)) <
+       0) {
+     std::cerr << "Error: connecting to stats socket: "
+-              << ::strerror_r(errno, err_buf.data(), err_buf.size())
++              << Oomd::Util::strerror_r()
+               << "\nSocket path: " << serv_addr_.sun_path << std::endl;
+     return std::nullopt;
+   }
+   msg += '\n';
+   if (Util::writeFull(sockfd, msg.c_str(), strlen(msg.c_str())) < 0) {
+     std::cerr << "Error: writing to stats socket: "
+-              << ::strerror_r(errno, err_buf.data(), err_buf.size())
++              << Oomd::Util::strerror_r()
+               << std::endl;
+     return std::nullopt;
+   }
+@@ -162,7 +161,7 @@ std::optional<std::string> StatsClient::msgSocket(std::string msg) {
+     int n = Util::readFull(sockfd, msg_buf.data(), msg_buf.size() - 1);
+     if (n < 0) {
+       std::cerr << "Error: reading from stats socket: "
+-                << ::strerror_r(errno, err_buf.data(), err_buf.size())
++                << Oomd::Util::strerror_r()
+                 << std::endl;
+       return std::nullopt;
+     } else if (n == 0) {
+diff --git a/src/oomd/util/Fixture.cpp b/src/oomd/util/Fixture.cpp
+index 0898660..c4d5027 100644
+--- a/src/oomd/util/Fixture.cpp
++++ b/src/oomd/util/Fixture.cpp
+@@ -79,11 +79,9 @@ std::string Fixture::mkdtempChecked() {
+       temp.data(), temp.size(), "%s/%s", getTempDir(), kFixturesDirTemplate);
+ 
+   if (::mkdtemp(temp.data()) == nullptr) {
+-    std::array<char, 1024> buf;
+-    buf[0] = '\0';
+     throw std::runtime_error(
+         std::string(temp.data()) +
+-        ": mkdtemp failed: " + ::strerror_r(errno, buf.data(), buf.size()));
++        ": mkdtemp failed: " + Util::strerror_r());
+   }
+   return temp.data();
+ }
+@@ -107,11 +105,9 @@ void Fixture::mkdirsChecked(
+     }
+     prefix_path += dir + "/";
+     if (::mkdir(prefix_path.c_str(), 0777) == -1 && errno != EEXIST) {
+-      std::array<char, 1024> buf;
+-      buf[0] = '\0';
+       throw std::runtime_error(
+           prefix_path +
+-          ": mkdir failed: " + ::strerror_r(errno, buf.data(), buf.size()));
++          ": mkdir failed: " + Util::strerror_r());
+     }
+   }
+ }
+@@ -120,19 +116,17 @@ void Fixture::mkdirsChecked(
+ void Fixture::writeChecked(
+     const std::string& path,
+     const std::string& content) {
+-  std::array<char, 1024> buf;
+-  buf[0] = '\0';
+   auto fd = ::open(path.c_str(), O_CREAT | O_WRONLY | O_TRUNC, 0666);
+   if (fd < 0) {
+     throw std::runtime_error(
+-        path + ": open failed: " + ::strerror_r(errno, buf.data(), buf.size()));
++        path + ": open failed: " + Util::strerror_r());
+   }
+   auto ret = Util::writeFull(fd, content.c_str(), content.size());
+   ::close(fd);
+   if (ret < 0) {
+     throw std::runtime_error(
+         path +
+-        ": write failed: " + ::strerror_r(errno, buf.data(), buf.size()));
++        ": write failed: " + Util::strerror_r());
+   }
+   if ((size_t)ret != content.size()) {
+     throw std::runtime_error(
+@@ -146,8 +140,6 @@ int rm(const char* path, const struct stat*, int, struct FTW*) {
+ 
+ // static
+ void Fixture::rmrChecked(const std::string& path) {
+-  std::array<char, 1024> buf;
+-  buf[0] = '\0';
+   if (::nftw(path.c_str(), rm, 10, FTW_DEPTH | FTW_PHYS) == -1) {
+     switch (errno) {
+       case ENOENT:
+@@ -155,7 +147,7 @@ void Fixture::rmrChecked(const std::string& path) {
+       default:
+         throw std::runtime_error(
+             path +
+-            ": remove failed: " + ::strerror_r(errno, buf.data(), buf.size()));
++            ": remove failed: " + Util::strerror_r());
+     }
+   }
+ }
+-- 
+2.50.1
+
