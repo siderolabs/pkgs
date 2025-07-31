@@ -17,8 +17,6 @@ steps:
     prepare:
       - |
         tar -xzf containerd.tar.gz --strip-components=1
-      - |
-        patch -p1 < /pkg/patches/restart.patch
     build:
       - |
         make VERSION={{ .containerd_version }} REVISION={{ .containerd_ref }} STATIC=1
