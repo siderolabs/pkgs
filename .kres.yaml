@@ -141,3 +141,7 @@ spec:
     - matchPackageNames:
         - flannel-io/cni-plugin
       versioning: 'regex:^v(?<major>\d+)\.(?<minor>\d+)\.?(?<patch>\d+)?\.?-flannel(?<build>\d+)?$'
+---
+kind: common.Repository
+spec:
+  conformMaximumOfOneCommit: false
