@@ -80,14 +80,14 @@ vars:
   ipxe_sha512: 978780a2f5e02b405a9ae2dd18623f2713814c1aef59d596025b75405798b4fa3833b35cd59b654f197ad4d1c9da9f8f812aa36db0d94e2b816e34f63924d66e
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
-  kspp_ref: 0c65440652cf01da1bf5c2c746037bd350281468
-  kspp_sha256: af07456c9bd33e7e79633df3c93484c98ccfff8dfad28e705cc46114a6715068
-  kspp_sha512: f8ad4c7cce39225c77e216cad2933136a99e42759d3247eaca0a0f0ab06404c851b8bddbd1512584759248202085a15666ca4aeeae684526084617cf05d0193f
+  kspp_ref: aa94036c6a86f1d0f76624cf6047264af5b2f525
+  kspp_sha256: 0f731380ede2aaf70da5e4ba6be7f55c3442d25e94caa9e7a8666a04b306ff15
+  kspp_sha512: ef115e8b41526b4a248dab97daaeec85561525e4abf046799154242dcb2ebe6b37203fe0491e01b301f1948faa5b102f85c732ee503e0b999e7d4d162998fc70
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.12.40
-  linux_sha256: 4811af1317f98d2cccea3c7695969a2c03a27cb02fd2d5327032dd5341842933
-  linux_sha512: a5a1110b734e16c568682daf4c20f47a935aa990ad4c068b529c7f9fc166108b2970e55371d0461893ee1148286ef9ecb608f72dc5395a707e0d785694b69d26
+  linux_version: 6.12.41
+  linux_sha256: 6b19a3ae99423de2416964d67251d745910277af258b4c4c63e88fd87dbf0e27
+  linux_sha512: c3b000894a51a944ac3357995935f8bd19d92d3764f1517413a494c89c8a54bab304ddf038faf1ec0b8716c7498f040f681779c3f3f0ee764e6608d2465ad083
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
@@ -156,9 +156,9 @@ vars:
   liburcu_sha512: 164d369cc1375b6b71eaa26812aff8a294bfbdffde65c2668e5c559d215d74c1973681f8083bfde39e280ca6fe8e92aadc7c867f966a5769548b754c92389616
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20250708
-  linux_firmware_sha256: bc9a2ff1223e2e1ae896816c2b7cab2f5029a6d59600e1daf032a876e6d2ce18
-  linux_firmware_sha512: 92508b6df66509dced27d361e92623affd54dbf06ca7e12b1888dd9178241f5cdc846160b22bbb34b3a50098c7461dcf3410b5aa672feb81f2e2a6fca4f0686b
+  linux_firmware_version: 20250808
+  linux_firmware_sha256: 7154b0ece5d98b0756e605465ad5ee6d1aff87e26d802da9c85429eb893408e9
+  linux_firmware_sha512: a7ad79f28bf7824bd978126400c98b479daa93cceb6bb052c7f9149f23641db108807d03f01c5cfafc4c10acda329a608ae59fd4676aa8eec8ba119d8749e223
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
   lvm2_version: 2_03_31
