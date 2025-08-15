@@ -44,13 +44,13 @@ vars:
   ena_sha512: 0637a804ce33c24211ae19ab65cadc62f1b5ad54efc7f083ec66b09d9cb7924248d175ea9f39b3ba720019b13c93c677e3e1c472351c3b108c20aa29bc81da3e
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
-  systemd_version: 257.7
+  systemd_version: 257.8
   systemd_sha256: 70ecf759260549486045d065555d2f8a0ac0b8523d8f58227559fbd6d7523b08
   systemd_sha512: fdc7c0153432b261ad8018c869dc714ce1d6d2a8428bdec46f7c5f120b196d3a553a375ae433f0c166c57b6e8b3c56549f585349b7b6ff83c2a86a32982d8411
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
-  flannel_cni_version: v1.7.1-flannel1
-  flannel_cni_ref: c11ca80f81318f05375a47046f26c87a3c61dc6f
+  flannel_cni_version: v1.7.1-flannel2
+  flannel_cni_ref: 494bcc218dd7556b994b39d406fb719b0a5a10a2
   flannel_cni_sha256: bbc7be9dfc31bf2b798032b8adaa4bcaa7551bf94b3efdf464dcde5575d45f0c
   flannel_cni_sha512: f13cf7275679945042de3e63441e634bf746bc6a7c542da709c4a027ca5410626c473db3f01e3942e783780ee569faeca168c3a74a952a433561712bcf64ebee
 
@@ -82,7 +82,7 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 7ac4b3c6f1c0d40b9e6d799e77df711784029f82
+  ipxe_ref: a53ec449327788e2015642bff21443d3a399c05b
   ipxe_sha256: 368ab60719c0f33e63dbe42d2c1eb82beed0551449728a1daf575a3a809dce56
   ipxe_sha512: 61c70d36e4fa38118cdfe19fbabb715c74c0168cca0cebfe7772f68f84e79adf675fcdae267d8af144cc11aba41773effb366aacf52fed8a854c89d1fc3f8a21
 
@@ -92,7 +92,7 @@ vars:
   kspp_sha512: ef115e8b41526b4a248dab97daaeec85561525e4abf046799154242dcb2ebe6b37203fe0491e01b301f1948faa5b102f85c732ee503e0b999e7d4d162998fc70
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.12.41
+  linux_version: 6.12.42
   linux_sha256: 6b19a3ae99423de2416964d67251d745910277af258b4c4c63e88fd87dbf0e27
   linux_sha512: c3b000894a51a944ac3357995935f8bd19d92d3764f1517413a494c89c8a54bab304ddf038faf1ec0b8716c7498f040f681779c3f3f0ee764e6608d2465ad083
 
@@ -107,7 +107,7 @@ vars:
   libattr_sha512: f587ea544effb7cfed63b3027bf14baba2c2dbe3a9b6c0c45fc559f7e8cb477b3e9a4a826eae30f929409468c50d11f3e7dc6d2500f41e1af8662a7e96a30ef3
 
   # renovate: datasource=github-releases extractVersion=^r(?<version>.*)$ depName=benhoyt/inih
-  libinih_version: 60
+  libinih_version: 61
   libinih_sha256: 706aa05c888b53bd170e5d8aa8f8a9d9ccf5449dfed262d5103d1f292af26774
   libinih_sha512: b58ac2395ed8e2b3fa25c3c41260ac5c6ee445d5a6520a79a4392741b417c0ea5ede12d5d89b92f8c4a9c555ff41745ea4f18b78ccbe5117eaa4c723de03b50a
 
@@ -154,7 +154,7 @@ vars:
 
   # NOTE: let's keep this in sync with runc: https://github.com/opencontainers/runc/blob/release-1.3/script/release_build.sh#L22
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=seccomp/libseccomp
-  libseccomp_version: 2.5.6
+  libseccomp_version: 2.6.0
   libseccomp_sha256: 04c37d72965dce218a0c94519b056e1775cf786b5260ee2b7992956c4ee38633
   libseccomp_sha512: c35d8d6f80ee38a96688955932c6bf369101409a470ecf0dc550013b19f57311be907a600adc4d2f4699fb8e94e8038333b4f5702edc3c26b14c36fb6e1c42fd
 
@@ -169,7 +169,7 @@ vars:
   linux_firmware_sha512: a7ad79f28bf7824bd978126400c98b479daa93cceb6bb052c7f9149f23641db108807d03f01c5cfafc4c10acda329a608ae59fd4676aa8eec8ba119d8749e223
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
-  lvm2_version: 2_03_33
+  lvm2_version: 2_03_34
   lvm2_sha256: be4babd8a986d73279f1e75fbb1d33cb41559b75c2063611781bfeb8c2def139
   lvm2_sha512: e023b99bffdf0bdfbb06148fc8f305533db609df0448a645f85cd047ab464f66450351f57e4b3a178e20001db6d632caf1d9f9cb1786f47722cbd29f5cc10348
 
@@ -209,12 +209,12 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
-  glib_version: 2.85.1
+  glib_version: 2.85.3
   glib_sha256: d3f57bcd4202d93aa547ffa1d2a5dbd380a05dbaac04cc291bd7dfce93b4a8e5
   glib_sha512: 6a9364ffef6ff972c6da5bf8bd8a313ef407f436cc515180fd04087764857b7552d58fd6232c05020f20bf1c72ab890a2faa8ecdc4564cd001530d69908788d6
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
-  qemu_version: 10.0.2
+  qemu_version: 10.0.3
   qemu_sha256: ef786f2398cb5184600f69aef4d5d691efd44576a3cff4126d38d4c6fec87759
   qemu_sha512: 7fda582c3845ea663aa5eda21bb38ebcfb6c25bccf8944ea6cdf8b5be6946b5a874b36674a7f5db3e325abb9cca0dd9bc0727837fdceb71a8c947d96169a9b20
 
