@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2025-07-15T14:31:42Z by kres b869533.
+# Generated on 2025-07-24T18:55:31Z by kres 4c6b4c0.
 
 # common variables
 
@@ -59,6 +59,7 @@ TARGETS += grub
 TARGETS += ipmitool
 TARGETS += iptables
 TARGETS += ipxe
+TARGETS += jsoncpp
 TARGETS += kmod
 TARGETS += libaio
 TARGETS += libattr
@@ -82,6 +83,7 @@ TARGETS += mtools
 TARGETS += musl
 TARGETS += openssl
 TARGETS += open-vmdk
+TARGETS += oomd
 TARGETS += pcre2
 TARGETS += pigz
 TARGETS += qemu-tools
