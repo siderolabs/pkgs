@@ -18,6 +18,8 @@ steps:
       - |
         # Linux 6.12 compatibility, from upstream PR
         patch -p1 </pkg/patches/no-llseek.patch
+        # Linux 6.13+ support: https://github.com/google/gasket-driver/pull/40
+        patch -p1 </pkg/patches/module-import-ns.patch
     build:
       - |
         cd src

@@ -3,9 +3,9 @@
 format: v1alpha2
 
 vars:
-  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.12.0-alpha.0
+  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.12.0-alpha.0-2-ga7a522d
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.12.0-alpha.0
+  TOOLS_REV: v1.12.0-alpha.0-3-gedafd5f
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.7.1
@@ -92,9 +92,9 @@ vars:
   kspp_sha512: ef115e8b41526b4a248dab97daaeec85561525e4abf046799154242dcb2ebe6b37203fe0491e01b301f1948faa5b102f85c732ee503e0b999e7d4d162998fc70
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.12.43
-  linux_sha256: 0fcbbbbcd456e87bbbfc8bf37af541fda62ccfcce76903503424fd101ef7bdee
-  linux_sha512: 39c8282ff2ad87cef9f2a7805fad1f628aa12413b71008cff6d10261273387491ff38cac35d42ae542a5db8cb41c6545426b31c03f9df203b58b120be299086f
+  linux_version: 6.15.11
+  linux_sha256: 89ab469fc35bd9cbc6c5bf4e5cb802581806d5cbc14fb47e5c9edcc477e65d93
+  linux_sha512: 26b8fd1be75f97f0e7d2a0deb5025b8cbb5c55b99b377678b13f7142b6903ffb7e4f01540517e1ad6945e1aa410817dac33d8f38c48cb959a87e7d6d40163a91
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113

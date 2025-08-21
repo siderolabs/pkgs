@@ -18,6 +18,7 @@ steps:
     build:
       - |
         cd XDMA/linux-kernel/xdma
+        cp ../include/libxdma_api.h .
         make all BUILDSYSTEM_DIR=/src
     install:
       - |
