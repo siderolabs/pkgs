@@ -26,9 +26,6 @@ steps:
       - |
         cd kernel-open
 
-        # temporary patches, might be removed with the next release
-        patch -p1 </pkg/patches/nvtophys.patch
-
         make -j $(nproc) SYSSRC=/src
     install:
       - |
