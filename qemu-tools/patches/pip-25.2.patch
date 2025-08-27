@@ -1,0 +1,133 @@
+From 6ad034e71232c2929ed546304c9d249312bb632f Mon Sep 17 00:00:00 2001
+From: "Sv. Lockal" <lockalsash@gmail.com>
+Date: Mon, 11 Aug 2025 15:01:59 -0400
+Subject: [PATCH] mkvenv: Support pip 25.2
+
+Fix compilation with pip-25.2 due to missing distlib.version
+
+Bug: https://gitlab.com/qemu-project/qemu/-/issues/3062
+
+Signed-off-by: Sv. Lockal <lockalsash@gmail.com>
+[Edits: Type "safety" whackamole --js]
+Signed-off-by: John Snow <jsnow@redhat.com>
+Message-ID: <20250811190159.237321-1-jsnow@redhat.com>
+Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+---
+ python/scripts/mkvenv.py | 64 +++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 60 insertions(+), 4 deletions(-)
+
+diff --git a/python/scripts/mkvenv.py b/python/scripts/mkvenv.py
+index 8ac5b0b2a05..f102527c4de 100644
+--- a/python/scripts/mkvenv.py
++++ b/python/scripts/mkvenv.py
+@@ -84,6 +84,7 @@
+     Sequence,
+     Tuple,
+     Union,
++    cast,
+ )
+ import venv
+ 
+@@ -94,17 +95,39 @@
+ HAVE_DISTLIB = True
+ try:
+     import distlib.scripts
+-    import distlib.version
+ except ImportError:
+     try:
+         # Reach into pip's cookie jar.  pylint and flake8 don't understand
+         # that these imports will be used via distlib.xxx.
+         from pip._vendor import distlib
+         import pip._vendor.distlib.scripts  # noqa, pylint: disable=unused-import
+-        import pip._vendor.distlib.version  # noqa, pylint: disable=unused-import
+     except ImportError:
+         HAVE_DISTLIB = False
+ 
++# pip 25.2 does not vendor distlib.version, but it uses vendored
++# packaging.version
++HAVE_DISTLIB_VERSION = True
++try:
++    import distlib.version  # pylint: disable=ungrouped-imports
++except ImportError:
++    try:
++        # pylint: disable=unused-import,ungrouped-imports
++        import pip._vendor.distlib.version  # noqa
++    except ImportError:
++        HAVE_DISTLIB_VERSION = False
++
++HAVE_PACKAGING_VERSION = True
++try:
++    # Do not bother importing non-vendored packaging, because it is not
++    # in stdlib.
++    from pip._vendor import packaging
++    # pylint: disable=unused-import
++    import pip._vendor.packaging.requirements  # noqa
++    import pip._vendor.packaging.version  # noqa
++except ImportError:
++    HAVE_PACKAGING_VERSION = False
++
++
+ # Try to load tomllib, with a fallback to tomli.
+ # HAVE_TOMLLIB is checked below, just-in-time, so that mkvenv does not fail
+ # outside the venv or before a potential call to ensurepip in checkpip().
+@@ -133,6 +156,39 @@ class Ouch(RuntimeError):
+     """An Exception class we can't confuse with a builtin."""
+ 
+ 
++class Matcher:
++    """Compatibility appliance for version/requirement string parsing."""
++    def __init__(self, name_and_constraint: str):
++        """Create a matcher from a requirement-like string."""
++        if HAVE_DISTLIB_VERSION:
++            self._m = distlib.version.LegacyMatcher(name_and_constraint)
++        elif HAVE_PACKAGING_VERSION:
++            self._m = packaging.requirements.Requirement(name_and_constraint)
++        else:
++            raise Ouch("found neither distlib.version nor packaging.version")
++        self.name = self._m.name
++
++    def match(self, version_str: str) -> bool:
++        """Return True if `version` satisfies the stored constraint."""
++        if HAVE_DISTLIB_VERSION:
++            return cast(
++                bool,
++                self._m.match(distlib.version.LegacyVersion(version_str))
++            )
++
++        assert HAVE_PACKAGING_VERSION
++        return cast(
++            bool,
++            self._m.specifier.contains(
++                packaging.version.Version(version_str), prereleases=True
++            )
++        )
++
++    def __repr__(self) -> str:
++        """Stable debug representation delegated to the backend."""
++        return repr(self._m)
++
++
+ class QemuEnvBuilder(venv.EnvBuilder):
+     """
+     An extension of venv.EnvBuilder for building QEMU's configure-time venv.
+@@ -669,7 +725,7 @@ def _do_ensure(
+     canary = None
+     for name, info in group.items():
+         constraint = _make_version_constraint(info, False)
+-        matcher = distlib.version.LegacyMatcher(name + constraint)
++        matcher = Matcher(name + constraint)
+         print(f"mkvenv: checking for {matcher}", file=sys.stderr)
+ 
+         dist: Optional[Distribution] = None
+@@ -683,7 +739,7 @@ def _do_ensure(
+             # Always pass installed package to pip, so that they can be
+             # updated if the requested version changes
+             or not _is_system_package(dist)
+-            or not matcher.match(distlib.version.LegacyVersion(dist.version))
++            or not matcher.match(dist.version)
+         ):
+             absent.append(name + _make_version_constraint(info, True))
+             if len(absent) == 1:
+-- 
+GitLab
+

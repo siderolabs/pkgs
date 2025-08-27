@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2025-07-15T14:31:42Z by kres b869533.
+# Generated on 2025-08-27T20:43:34Z by kres 4a927f7.
 
 # common variables
 
@@ -25,7 +25,7 @@ SOURCE_DATE_EPOCH := $(shell git log $(INITIAL_COMMIT_SHA) --pretty=%ct)
 
 # sync bldr image with pkgfile
 
-BLDR_RELEASE := v0.5.1
+BLDR_RELEASE := v0.5.2
 BLDR_IMAGE := ghcr.io/siderolabs/bldr:$(BLDR_RELEASE)
 BLDR := docker run --rm --user $(shell id -u):$(shell id -g) --volume $(PWD):/src --entrypoint=/bldr $(BLDR_IMAGE) --root=/src
 

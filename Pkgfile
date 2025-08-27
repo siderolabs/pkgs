@@ -1,11 +1,11 @@
-# syntax = ghcr.io/siderolabs/bldr:v0.5.1
+# syntax = ghcr.io/siderolabs/bldr:v0.5.2
 
 format: v1alpha2
 
 vars:
   TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.12.0-alpha.0-2-ga7a522d
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.12.0-alpha.0-3-gedafd5f
+  TOOLS_REV: v1.12.0-alpha.0-5-g7c659e9
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.7.1
@@ -92,9 +92,9 @@ vars:
   kspp_sha512: ef115e8b41526b4a248dab97daaeec85561525e4abf046799154242dcb2ebe6b37203fe0491e01b301f1948faa5b102f85c732ee503e0b999e7d4d162998fc70
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.15.11
-  linux_sha256: 89ab469fc35bd9cbc6c5bf4e5cb802581806d5cbc14fb47e5c9edcc477e65d93
-  linux_sha512: 26b8fd1be75f97f0e7d2a0deb5025b8cbb5c55b99b377678b13f7142b6903ffb7e4f01540517e1ad6945e1aa410817dac33d8f38c48cb959a87e7d6d40163a91
+  linux_version: 6.16.4
+  linux_sha256: d6a5e3c71a10b533a756251387cc8bf48bbd5c76d842ba5e957d8b1c316ab622
+  linux_sha512: 94a47c753d412f2f22b42d8dcff37741aab3e03f4c8736c2a42a9437fc365af02548c80d009ff2b852ddff14a986ac6093c0dfe301df4f17e727137d28d86e04
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
@@ -250,9 +250,9 @@ vars:
   xfsprogs_sha512: 975c9c7fe476b02da50da74eb599f804f2b27a638a74b807e1f69d93d0d150d19bf6d5036601b96febe557a6c51065d8cf22eef5fda92a6d7f084ac1d7647496
 
   # renovate: datasource=github-tags extractVersion=^zfs-(?<version>.*)$ depName=openzfs/zfs
-  zfs_version: 2.3.3
-  zfs_sha256: 844122118f0ea81205a01753bbcb1315330f8967c1f866dcd10155273131f071
-  zfs_sha512: 0a18615da052989c19e889758972f14173e790710a2615fc186212d02f9909f0bf62debc19d85ff5c58411d8ef82aa85aff20804c3fbe2446913cd293a18b80d
+  zfs_version: 2.3.4
+  zfs_sha256: 9ec397cf360133161a1180035f3e7d6962186ed2b3457953a28d45aa883fa495
+  zfs_sha512: 56b90960de6aa94b76f8efc3c84993454a8d544bd47e1270e02caa8d96569e866102e17ef1f16056722bf5f6624fad0bbe7f9ef0e94bc0c3fc16e61b681db815
 
   # renovate: datasource=git-tags depName=https://gitlab.com/apparmor/apparmor.git
   apparmor_version: v3.1.7 # v4 requires autoconf-archive

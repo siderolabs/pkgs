@@ -56,7 +56,7 @@
             ]
         },
         {
-            "allowedVersions": "<= 6.12",
+            "allowedVersions": "<= 6.16",
             "matchPackageNames": [
                 "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
             ]
