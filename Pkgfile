@@ -192,11 +192,11 @@ vars:
 
   # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/linux-x86_64/
   # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_production_version: 570.158.01
-  nvidia_driver_production_arm64_sha256: 7ba9bfeb50079e5f4c2266aa092574f4338f61bde74aa808cc8e06199bc11c11
-  nvidia_driver_production_arm64_sha512: 256361570ac6c4e8fdf0f7cb71fdd497c72faea4e1c93542e036b12b1efcd807008f8496f0dd02353d83b1a95e1378d3da1909371273aac8a82fb9621f79ca4f
-  nvidia_driver_production_amd64_sha256: bcbbe2961bac4d3aa0d078208a35a47ed1c4982bb6b335e5a6538a85ac25b0a7
-  nvidia_driver_production_amd64_sha512: 14c757712aa26090fb8be438282678d42a6752e7a872a77028bf5615b3b55b5ef2d69efcd60a3dd33605244d668a30eca1c4f7f1db81a9b7ddd7adbb689265fb
+  nvidia_driver_production_version: 570.172.08
+  nvidia_driver_production_arm64_sha256: e2bb3bf599ec38f681fc89d3ce4770049e65ec0e9fbb94614f28e9d14925fc5a
+  nvidia_driver_production_arm64_sha512: f193d2951ea4dc5e497fb8396d2a258f79afda43589a222a9b1274c80d67fcbae0f51cbd118548f2942d923af207baf034626a98c73fe4c63c0fb73b846d7bd0
+  nvidia_driver_production_amd64_sha256: b3865cc2cdac79ae35a7f668aac0bbed6a71c39df99eb9b9a08663fc1af04e50
+  nvidia_driver_production_amd64_sha512: 858ca52f5efb2274c8385bd81103803346165e73960bdb071fc7d44138e8aa7bf31589f1c7aebc62b5339bea4e48356adde16cc7dffdd7274db1da3cfb6da5d6
 
   # renovate: datasource=github-releases depName=vmware/open-vmdk
   open_vmdk_version: v0.3.11
