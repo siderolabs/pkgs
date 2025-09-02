@@ -14,8 +14,6 @@ steps:
       - |
         tar -xf qemu.tar.xz --strip-components=1
 
-        patch -p1 < /pkg/patches/pip-25.2.patch
-
         ./configure \
           --prefix=/usr \
           --without-default-features \

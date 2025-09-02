@@ -8,9 +8,9 @@ vars:
   TOOLS_REV: v1.12.0-alpha.0-5-g7c659e9
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
-  cni_version: v1.7.1
-  cni_sha256: 95b639f8ccbb714da98e331ef8813f790d447fce5417f2f8a575f3c62bfb1474
-  cni_sha512: 5b1a8c1a63f6f7a7ca4df570bf5c4b2003cdfe1b861ac86f145b5b523c9371275f68b01a115566a4f3455e56709a5a280b485005ea3fa121c1f381fbf6bd500e
+  cni_version: v1.8.0
+  cni_sha256: f0510b4452dda4b08d4b088d02e005ac507cb96fb7247b4422ae591286390369
+  cni_sha512: a2bf1bd2b87e2fda60329982aea4ccc4e80aff9e41de48501e72a09476e9c97132c77cf737b4c3b668383f398b9dee5f7574d2f300bfef10f15d7545cc06ab79
 
   # renovate: datasource=github-tags depName=containerd/containerd
   containerd_version: v2.1.4
@@ -19,9 +19,9 @@ vars:
   containerd_sha512: a9f84784e917621ee5ea38ad20b8106e642fbf463a00d319b73a1a8e4d1fdd5be2fba0789b6a5d31107ef239d3713eced99ce979d4b2764714271a63c0936c15
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
-  cryptsetup_version: 2.8.0
-  cryptsetup_sha256: 73d93bacfcee958a38ef5e418ff0ac5b7f2cfc640a3dd19034ec86dea62b30b7
-  cryptsetup_sha512: 016482238d0e1fbb23fe26b473c674dbd143dce44184ccda0372afcd027ae9047813d636c6c52e467aa439b6c624cacf5530e7038072d10c385d48f7dc82ae89
+  cryptsetup_version: 2.8.1
+  cryptsetup_sha256: bfe5601fd4950bd8456c7b260578e0699dea9e6ddee5cad686531f9aa3ed6ffa
+  cryptsetup_sha512: ae7eacc3584d3bcc6269e037582a81927d6163044280eba789561466fcde1620425ee599bd7cf33506b3a91c8fda119cc35ea2379740f5b1bc2f337676c99a87
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=dosfstools/dosfstools
   dosfstools_version: 4.2
@@ -44,15 +44,15 @@ vars:
   ena_sha512: 0637a804ce33c24211ae19ab65cadc62f1b5ad54efc7f083ec66b09d9cb7924248d175ea9f39b3ba720019b13c93c677e3e1c472351c3b108c20aa29bc81da3e
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
-  systemd_version: 257.7
-  systemd_sha256: 70ecf759260549486045d065555d2f8a0ac0b8523d8f58227559fbd6d7523b08
-  systemd_sha512: fdc7c0153432b261ad8018c869dc714ce1d6d2a8428bdec46f7c5f120b196d3a553a375ae433f0c166c57b6e8b3c56549f585349b7b6ff83c2a86a32982d8411
+  systemd_version: 257.8
+  systemd_sha256: f280278161446fe3838bedb970c7b3998043ad107f7627735a81483218c6f6f9
+  systemd_sha512: 30331df5eb7a1556da8c017a0e6c07b8b99f0cb31da055c1b86c9b9e6fd7074f7c6746efa3e69711b73af48a15d61a84f35ad6e554d32a23441ba910398f7f65
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
-  flannel_cni_version: v1.7.1-flannel1
-  flannel_cni_ref: c11ca80f81318f05375a47046f26c87a3c61dc6f
-  flannel_cni_sha256: bbc7be9dfc31bf2b798032b8adaa4bcaa7551bf94b3efdf464dcde5575d45f0c
-  flannel_cni_sha512: f13cf7275679945042de3e63441e634bf746bc6a7c542da709c4a027ca5410626c473db3f01e3942e783780ee569faeca168c3a74a952a433561712bcf64ebee
+  flannel_cni_version: v1.7.1-flannel2
+  flannel_cni_ref: 494bcc218dd7556b994b39d406fb719b0a5a10a2
+  flannel_cni_sha256: 956e39ed5fb71cd235e999d7dbb9c959688118e3a108e948a1f92f4ea29a074a
+  flannel_cni_sha512: 74b75591a791f3e2182a9ef356f688f812b2f3bb94e45bfce40cb27ae971ff1954881ad9207ae00c2c53e6ff710aa5f108d537a56e2b27f236e6d7a5acd6ca3e
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/google/gasket-driver.git
   gasket_driver_ref: 5815ee3908a46a415aac616ac7b9aedcb98a504c
@@ -82,9 +82,9 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 7ac4b3c6f1c0d40b9e6d799e77df711784029f82
-  ipxe_sha256: 368ab60719c0f33e63dbe42d2c1eb82beed0551449728a1daf575a3a809dce56
-  ipxe_sha512: 61c70d36e4fa38118cdfe19fbabb715c74c0168cca0cebfe7772f68f84e79adf675fcdae267d8af144cc11aba41773effb366aacf52fed8a854c89d1fc3f8a21
+  ipxe_ref: 969ce2c559a6841a949a1b73a3967b1889e0c999
+  ipxe_sha256: 1e0a139d9acd122b754d82fa47acc25e97a19d137a43af0718f123e3d467d544
+  ipxe_sha512: 6c8e7ad723e16b26ea52b77885c20b62e99623990a7d19e15f3f6d175b85acde604d85b613819b216372abde359e5d497e70a52921b17c851007c2c2a53508f9
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: aa94036c6a86f1d0f76624cf6047264af5b2f525
@@ -107,9 +107,9 @@ vars:
   libattr_sha512: f587ea544effb7cfed63b3027bf14baba2c2dbe3a9b6c0c45fc559f7e8cb477b3e9a4a826eae30f929409468c50d11f3e7dc6d2500f41e1af8662a7e96a30ef3
 
   # renovate: datasource=github-releases extractVersion=^r(?<version>.*)$ depName=benhoyt/inih
-  libinih_version: 60
-  libinih_sha256: 706aa05c888b53bd170e5d8aa8f8a9d9ccf5449dfed262d5103d1f292af26774
-  libinih_sha512: b58ac2395ed8e2b3fa25c3c41260ac5c6ee445d5a6520a79a4392741b417c0ea5ede12d5d89b92f8c4a9c555ff41745ea4f18b78ccbe5117eaa4c723de03b50a
+  libinih_version: 61
+  libinih_sha256: 7caf26a2202a4ca689df3fe4175dfa74e0faa18fcca07331bba934fd0ecb8f12
+  libinih_sha512: b02c550d320ad37a859014bc13d53bc4289197c605f2e5414537e602df45299cb7d39be3f80b5b22b42320102655dd36da4d365fd394ca9c26ebba5f5c062a14
 
   # renovate: datasource=git-tags extractVersion=^release-(?<version>.*)$ depName=https://dev.lovelyhq.com/libburnia/libburn.git
   libburn_version: 1.5.6
@@ -169,9 +169,9 @@ vars:
   linux_firmware_sha512: a7ad79f28bf7824bd978126400c98b479daa93cceb6bb052c7f9149f23641db108807d03f01c5cfafc4c10acda329a608ae59fd4676aa8eec8ba119d8749e223
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
-  lvm2_version: 2_03_33
-  lvm2_sha256: be4babd8a986d73279f1e75fbb1d33cb41559b75c2063611781bfeb8c2def139
-  lvm2_sha512: e023b99bffdf0bdfbb06148fc8f305533db609df0448a645f85cd047ab464f66450351f57e4b3a178e20001db6d632caf1d9f9cb1786f47722cbd29f5cc10348
+  lvm2_version: 2_03_34
+  lvm2_sha256: 3f4e78e7d6c49228b4d173ea08ebe158873d54457fba7d31d2abebdddd0e75b9
+  lvm2_sha512: b98b38be3eff200978c58ef01a74c34358dcc71f250599f2b5fc60f96c236aec7f7159b768d3c27bab3a1ddb7150feee3f1b7305d950cf885ce17c0c878419c2
 
   mellanox_ofed_version: 5.9-0.5.6.0
   mellanox_ofed_sha256: 4503258cbe92b00c734e612c3a7ad1d71e023fdffae2a2c119f7b537505e499c
@@ -199,9 +199,9 @@ vars:
   nvidia_driver_production_amd64_sha512: 858ca52f5efb2274c8385bd81103803346165e73960bdb071fc7d44138e8aa7bf31589f1c7aebc62b5339bea4e48356adde16cc7dffdd7274db1da3cfb6da5d6
 
   # renovate: datasource=github-releases depName=vmware/open-vmdk
-  open_vmdk_version: v0.3.11
-  open_vmdk_sha256: 925a27c47bca4f1ed1d2676360166b7c2e77ac4ae900ea93ca5f70c0abf95111
-  open_vmdk_sha512: e9ece44aed19baa139ad8c58a93c32d62d8121b4660f553688bdd8b77cb30a86905199984e21ba82e4638f3bc0a2c1d612feb91a8adeda8ff486bba951f405ec
+  open_vmdk_version: v0.3.12
+  open_vmdk_sha256: b70576ee89adb5f0be404b0d4e714623b10d6d9d1a041ebdf11f8a423f95be1d
+  open_vmdk_sha512: 4a038c899a9e3c013b830dab6514260e72d6905d6e5c2da864bdcc71f125639dc2aba68e9a4a27e96037a0200bd04d0ca2cc17306e8eaf2bf2913f9eaa0afb41
 
   # renovate: datasource=github-tags depName=madler/pigz
   pigz_version: 2.8
@@ -209,14 +209,14 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
-  glib_version: 2.85.1
-  glib_sha256: d3f57bcd4202d93aa547ffa1d2a5dbd380a05dbaac04cc291bd7dfce93b4a8e5
-  glib_sha512: 6a9364ffef6ff972c6da5bf8bd8a313ef407f436cc515180fd04087764857b7552d58fd6232c05020f20bf1c72ab890a2faa8ecdc4564cd001530d69908788d6
+  glib_version: 2.85.4
+  glib_sha256: 432d84c8e44fe689ff70a5d88dab6d0f70d5efcf7460b965ac560dbac3c6c185
+  glib_sha512: e42878724d9b91758f5c0d5e9a20e94c5cfefaa1d4656af55c3555922d893b7fc61c3b22da038ec0d96b444ebc0a91b51f85ab5f40809a3eaf506439dfb42460
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
-  qemu_version: 10.0.2
-  qemu_sha256: ef786f2398cb5184600f69aef4d5d691efd44576a3cff4126d38d4c6fec87759
-  qemu_sha512: 7fda582c3845ea663aa5eda21bb38ebcfb6c25bccf8944ea6cdf8b5be6946b5a874b36674a7f5db3e325abb9cca0dd9bc0727837fdceb71a8c947d96169a9b20
+  qemu_version: 10.1.0
+  qemu_sha256: e0517349b50ca73ebec2fa85b06050d5c463ca65c738833bd8fc1f15f180be51
+  qemu_sha512: 20552a524b6b298181df1af7084b470ded3fe8d1505f05011dda3c33cbc3d91f518ce026b44ba1a8b7f34c64ae81afddceda383066f4772a3a2a6333a2638caf
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.3.0
@@ -245,9 +245,9 @@ vars:
   xdma_driver_sha512: 0d3be501410baaa75b422b96ba86971fff4e3dd7b99301c61a89d7523cda87cbcbe126f71c477f6f1938496d360e5d59e852c2ecdcfd8181d2fe6991d4596e9e
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
-  xfsprogs_version: 6.15.0
-  xfsprogs_sha256: 13b91f74beef8ad11137f7d9d71055573d91e961bc55bb0245956f69b84cd704
-  xfsprogs_sha512: 975c9c7fe476b02da50da74eb599f804f2b27a638a74b807e1f69d93d0d150d19bf6d5036601b96febe557a6c51065d8cf22eef5fda92a6d7f084ac1d7647496
+  xfsprogs_version: 6.16.0
+  xfsprogs_sha256: fa7ba8c35cb988e7d65b7e7630fe9d0e17e8d79799d3b98db7e19f2b9b150506
+  xfsprogs_sha512: 333ef39f38d0fa46742b7fd28ebc6482e90abb32e58634b3a93aa24f0202c55f4dc32f1b00a9859c6e64efada4d844c3a995a913520cb00d5e1a4f1a83da848d
 
   # renovate: datasource=github-tags extractVersion=^zfs-(?<version>.*)$ depName=openzfs/zfs
   zfs_version: 2.3.4
