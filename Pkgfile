@@ -219,10 +219,10 @@ vars:
   qemu_sha512: 20552a524b6b298181df1af7084b470ded3fe8d1505f05011dda3c33cbc3d91f518ce026b44ba1a8b7f34c64ae81afddceda383066f4772a3a2a6333a2638caf
 
   # renovate: datasource=github-tags depName=opencontainers/runc
-  runc_version: v1.3.0
-  runc_ref: 4ca628d1d4c974f92d24daccb901aa078aad748e
-  runc_sha256: f2f799a1000e16cc37776fae1745f2a302633fad94dd52de9bece83df8dc4b4e
-  runc_sha512: 735bc0fd03489a5e851876f6444735598c38e6f215b0894393b4ffa46765f9bc3ed80ad1af3e96877403edf066125e80f5ad746d488bbc95d3a0db143fc8a461
+  runc_version: v1.3.1
+  runc_ref: e6457afc48eff1ce22dece664932395026a7105e
+  runc_sha256: 067871485466d6247306ead7c37e13e0ed505d0fdecb33899437f5e66d2212d1
+  runc_sha512: 2244eb5bc22596cf5fb25b02f727208b45f1613eac3ecc6274942523d05c552ea7c7ec6762c94550a433ef554c2101a7bac2b4f71839665c0bf7610665ca8b23
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
   socat_version: 1.8.0.3
