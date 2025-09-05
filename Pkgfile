@@ -44,7 +44,7 @@ vars:
   ena_sha512: 0637a804ce33c24211ae19ab65cadc62f1b5ad54efc7f083ec66b09d9cb7924248d175ea9f39b3ba720019b13c93c677e3e1c472351c3b108c20aa29bc81da3e
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
-  systemd_version: 257.8
+  systemd_version: 257.9
   systemd_sha256: f280278161446fe3838bedb970c7b3998043ad107f7627735a81483218c6f6f9
   systemd_sha512: 30331df5eb7a1556da8c017a0e6c07b8b99f0cb31da055c1b86c9b9e6fd7074f7c6746efa3e69711b73af48a15d61a84f35ad6e554d32a23441ba910398f7f65
 
@@ -92,7 +92,7 @@ vars:
   kspp_sha512: ef115e8b41526b4a248dab97daaeec85561525e4abf046799154242dcb2ebe6b37203fe0491e01b301f1948faa5b102f85c732ee503e0b999e7d4d162998fc70
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.16.4
+  linux_version: 6.16.5
   linux_sha256: d6a5e3c71a10b533a756251387cc8bf48bbd5c76d842ba5e957d8b1c316ab622
   linux_sha512: 94a47c753d412f2f22b42d8dcff37741aab3e03f4c8736c2a42a9437fc365af02548c80d009ff2b852ddff14a986ac6093c0dfe301df4f17e727137d28d86e04
 
@@ -154,7 +154,7 @@ vars:
 
   # NOTE: let's keep this in sync with runc: https://github.com/opencontainers/runc/blob/release-1.3/script/release_build.sh#L22
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=seccomp/libseccomp
-  libseccomp_version: 2.5.6
+  libseccomp_version: 2.6.0
   libseccomp_sha256: 04c37d72965dce218a0c94519b056e1775cf786b5260ee2b7992956c4ee38633
   libseccomp_sha512: c35d8d6f80ee38a96688955932c6bf369101409a470ecf0dc550013b19f57311be907a600adc4d2f4699fb8e94e8038333b4f5702edc3c26b14c36fb6e1c42fd
 
@@ -209,7 +209,7 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
-  glib_version: 2.85.4
+  glib_version: 2.86.0
   glib_sha256: 432d84c8e44fe689ff70a5d88dab6d0f70d5efcf7460b965ac560dbac3c6c185
   glib_sha512: e42878724d9b91758f5c0d5e9a20e94c5cfefaa1d4656af55c3555922d893b7fc61c3b22da038ec0d96b444ebc0a91b51f85ab5f40809a3eaf506439dfb42460
 
