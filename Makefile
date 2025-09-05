@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2025-08-27T20:43:34Z by kres 4a927f7.
+# Generated on 2025-09-05T14:04:09Z by kres cc45611.
 
 # common variables
 
@@ -25,7 +25,7 @@ SOURCE_DATE_EPOCH := $(shell git log $(INITIAL_COMMIT_SHA) --pretty=%ct)
 
 # sync bldr image with pkgfile
 
-BLDR_RELEASE := v0.5.2
+BLDR_RELEASE := v0.5.3
 BLDR_IMAGE := ghcr.io/siderolabs/bldr:$(BLDR_RELEASE)
 BLDR := docker run --rm --user $(shell id -u):$(shell id -g) --volume $(PWD):/src --entrypoint=/bldr $(BLDR_IMAGE) --root=/src
 
@@ -36,11 +36,12 @@ PLATFORM ?= linux/amd64,linux/arm64
 PROGRESS ?= auto
 PUSH ?= false
 CI_ARGS ?=
+BUILD_ARGS = --build-arg=SOURCE_DATE_EPOCH=$(SOURCE_DATE_EPOCH)
 COMMON_ARGS = --file=Pkgfile
 COMMON_ARGS += --provenance=false
 COMMON_ARGS += --progress=$(PROGRESS)
 COMMON_ARGS += --platform=$(PLATFORM)
-COMMON_ARGS += --build-arg=SOURCE_DATE_EPOCH=$(SOURCE_DATE_EPOCH)
+COMMON_ARGS += $(BUILD_ARGS)
 
 # targets defines all the available targets
 
@@ -195,9 +196,10 @@ nonfree: $(NONFREE_TARGETS)  ## Builds all nonfree targets defined.
 $(TARGETS) $(NONFREE_TARGETS):
 	@$(MAKE) docker-$@ TARGET_ARGS="--tag=$(REGISTRY_AND_USERNAME)/$@:$(TAG) --push=$(PUSH)"
 
-.PHONY: deps.png
-deps.png:  ## Generates a dependency graph of the Pkgfile.
-	@$(BLDR) graph | dot -Tpng -o deps.png
+.PHONY: deps.svg
+deps.svg:  ## Generates a dependency graph of the Pkgfile.
+	@rm -f deps.png
+	@$(BLDR) graph $(BUILD_ARGS) | dot -Tsvg -o deps.svg
 
 kernel-olddefconfig:
 	@$(MAKE) local-kernel-build TARGET_ARGS="--build-arg=KERNEL_TARGET=olddefconfig" PLATFORM=linux/amd64 DEST="kernel/build"

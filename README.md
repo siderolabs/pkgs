@@ -1,6 +1,6 @@
 # pkgs
 
-![Dependency Diagram](/deps.png)
+![Dependency Diagram](/deps.svg)
 
 This repository produces a set of packages that can be used to build a rootfs suitable for creating custom Linux distributions.
 The packages are published as a container image, and can be "installed" by simply copying the contents to your rootfs.
