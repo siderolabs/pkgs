@@ -3,14 +3,9 @@ concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 on:
-  push:
-    branches:
-      - opi5-plus-*
-    tags:
-      - v*
   pull_request:
     branches:
-      - opi5-plus-*
+      - '*'
 jobs:
   default:
     permissions:
