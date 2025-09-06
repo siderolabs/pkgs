@@ -1,0 +1,40 @@
+name: rocket-driver-pkg
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: kernel-build
+steps:
+  - sources:
+      - url: https://gitlab.collabora.com/hardware-enablement/rockchip-3588/linux/-/archive/{{ .rk3588_linux_ref }}/linux-{{ .rk3588_linux_ref }}.tar.gz
+        destination: rk3588-linux.tar.gz
+        sha256: "{{ .rk3588_linux_sha256 }}"
+        sha512: "{{ .rk3588_linux_sha512 }}"
+    env:
+      ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else }}unsupported{{ end }}
+    prepare:
+      - |
+        tar xf rk3588-linux.tar.gz --strip-components=1
+      - |
+        find drivers/ -name 'Makefile' -exec grep -l CONFIG_DRM_ACCEL_ROCKET {} \; | xargs -L1 sed -i 's/$(CONFIG_DRM_ACCEL_ROCKET)/m/g'
+    build:
+      - |
+        cd drivers/accel/rocket
+        make -C /src M=$(pwd) modules -j $(nproc)
+    install:
+      - |
+        cd drivers/accel/rocket
+        mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.order /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin.modinfo /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        make -C /src M=$(pwd) modules_install INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1 CONFIG_MODULE_SIG_ALL=y
+    test:
+      - |
+        # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
+        find /rootfs/usr/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
+      - |
+        fhs-validator /rootfs
+finalize:
+  - from: /rootfs
+    to: /
