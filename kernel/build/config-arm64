@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.16.4 Kernel Configuration
+# Linux/arm64 6.16.6 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="gcc (GCC) 15.2.0"
 CONFIG_CC_IS_GCC=y
@@ -5973,6 +5973,7 @@ CONFIG_SND_USB_AUDIO_USE_MEDIA_CONTROLLER=y
 # CONFIG_SND_USB_VARIAX is not set
 CONFIG_SND_SOC=m
 CONFIG_SND_SOC_GENERIC_DMAENGINE_PCM=y
+# CONFIG_SND_SOC_USB is not set
 # CONFIG_SND_SOC_ADI is not set
 # CONFIG_SND_SOC_AMD_ACP is not set
 # CONFIG_SND_AMD_ACP_CONFIG is not set
