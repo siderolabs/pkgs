@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2025-08-25T13:39:46Z by kres 6262116.
+# Generated on 2025-09-15T14:59:52Z by kres d1c95db.
 
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
@@ -26,8 +26,7 @@ jobs:
       packages: write
       pull-requests: read
     runs-on:
-      - self-hosted
-      - pkgs
+      group: pkgs
     if: (!startsWith(github.head_ref, 'renovate/') && !startsWith(github.head_ref, 'dependabot/'))
     outputs:
       labels: ${{ steps.retrieve-pr-labels.outputs.result }}
@@ -121,8 +120,7 @@ jobs:
           draft: "true"
   reproducibility:
     runs-on:
-      - self-hosted
-      - pkgs
+      group: pkgs
     if: contains(fromJSON(needs.default.outputs.labels), 'integration/reproducibility')
     needs:
       - default

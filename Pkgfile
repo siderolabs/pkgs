@@ -44,9 +44,9 @@ vars:
   ena_sha512: 0637a804ce33c24211ae19ab65cadc62f1b5ad54efc7f083ec66b09d9cb7924248d175ea9f39b3ba720019b13c93c677e3e1c472351c3b108c20aa29bc81da3e
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
-  systemd_version: 257.8
-  systemd_sha256: f280278161446fe3838bedb970c7b3998043ad107f7627735a81483218c6f6f9
-  systemd_sha512: 30331df5eb7a1556da8c017a0e6c07b8b99f0cb31da055c1b86c9b9e6fd7074f7c6746efa3e69711b73af48a15d61a84f35ad6e554d32a23441ba910398f7f65
+  systemd_version: 257.9
+  systemd_sha256: b27dcc100a738b4b5b81f7c5174c1239a6495f5bdf3d3caa94a17b8373e6a1ca
+  systemd_sha512: 23b3d2764e0f990d8373068ccb41177793413bc193f7bd34e38b03d6fc3cd32d07c86e9dcbf07e32904075bb5eeca208f65beab04d628ac0e0b81ba87a975c1b
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
   flannel_cni_version: v1.7.1-flannel2
@@ -87,14 +87,14 @@ vars:
   ipxe_sha512: 6c8e7ad723e16b26ea52b77885c20b62e99623990a7d19e15f3f6d175b85acde604d85b613819b216372abde359e5d497e70a52921b17c851007c2c2a53508f9
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
-  kspp_ref: aa94036c6a86f1d0f76624cf6047264af5b2f525
-  kspp_sha256: 0f731380ede2aaf70da5e4ba6be7f55c3442d25e94caa9e7a8666a04b306ff15
-  kspp_sha512: ef115e8b41526b4a248dab97daaeec85561525e4abf046799154242dcb2ebe6b37203fe0491e01b301f1948faa5b102f85c732ee503e0b999e7d4d162998fc70
+  kspp_ref: 7209f2fdef01885c05a1f55b7655ece514b23ead
+  kspp_sha256: afb5a10abc0c9586b6d24e62ff1f36904fcc0be26a26e1363175b3c51b9d17eb
+  kspp_sha512: 8f1b6169ea2a5cf412ad5ab8a28beb144cf2e6a7b8fa19579670305d0f8d1196de79504036dd5e5e4c22cc9232e8d7729c616688408bcbaaad690ccd22458aa0
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.16.6
-  linux_sha256: 48b57b1e2e2166fb601a0e035d2fb6396e295d9245f0dfd6883d7c0c838b3002
-  linux_sha512: 018c9ab624cd3f1d2d990e86194fafd79834ddeb1c4f30e56fa09f3b381fbffd564fef147ce1f443541feb40c871e749dc49f1ff183a691795122985f0ca0288
+  linux_version: 6.16.7
+  linux_sha256: 5be3daa1f9427b1bdb34c4894d9c1adfac38cff674376fe0611a3065729a1a81
+  linux_sha512: d9091bdcb6a82eb4eab3065314122b178f763173c084c9b16dd87de7ec9ba0c007a2cdfa700af9fc5a212f87686a053dc13eaa71912a589b3955686178c8e48b
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
@@ -107,9 +107,9 @@ vars:
   libattr_sha512: f587ea544effb7cfed63b3027bf14baba2c2dbe3a9b6c0c45fc559f7e8cb477b3e9a4a826eae30f929409468c50d11f3e7dc6d2500f41e1af8662a7e96a30ef3
 
   # renovate: datasource=github-releases extractVersion=^r(?<version>.*)$ depName=benhoyt/inih
-  libinih_version: 61
-  libinih_sha256: 7caf26a2202a4ca689df3fe4175dfa74e0faa18fcca07331bba934fd0ecb8f12
-  libinih_sha512: b02c550d320ad37a859014bc13d53bc4289197c605f2e5414537e602df45299cb7d39be3f80b5b22b42320102655dd36da4d365fd394ca9c26ebba5f5c062a14
+  libinih_version: 62
+  libinih_sha256: 9c15fa751bb8093d042dae1b9f125eb45198c32c6704cd5481ccde460d4f8151
+  libinih_sha512: 206ddfaa55d29396c3a44f8d1dfcf578c5ebf892e81fe875cd6b4ec2af5cccf400ca13fc6585b6d8232bd122bd8aef7522bfc83898b5609b29c20bad9390ee02
 
   # renovate: datasource=git-tags extractVersion=^release-(?<version>.*)$ depName=https://dev.lovelyhq.com/libburnia/libburn.git
   libburn_version: 1.5.6
@@ -169,9 +169,9 @@ vars:
   linux_firmware_sha512: a7ad79f28bf7824bd978126400c98b479daa93cceb6bb052c7f9149f23641db108807d03f01c5cfafc4c10acda329a608ae59fd4676aa8eec8ba119d8749e223
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
-  lvm2_version: 2_03_34
-  lvm2_sha256: 3f4e78e7d6c49228b4d173ea08ebe158873d54457fba7d31d2abebdddd0e75b9
-  lvm2_sha512: b98b38be3eff200978c58ef01a74c34358dcc71f250599f2b5fc60f96c236aec7f7159b768d3c27bab3a1ddb7150feee3f1b7305d950cf885ce17c0c878419c2
+  lvm2_version: 2_03_35
+  lvm2_sha256: ebf28b3427535e2b5abd9991cd839b61622a0dbfb8c86df0f7af1f69dcaa8371
+  lvm2_sha512: e925a7685b1a4d96046187e495627176b7c623418116f01fda6a26e607f9c2d2c3f70fe996a6bbe043d79e0e084a4a7385c853114747e61c2bebc42a16d61f11
 
   mellanox_ofed_version: 5.9-0.5.6.0
   mellanox_ofed_sha256: 4503258cbe92b00c734e612c3a7ad1d71e023fdffae2a2c119f7b537505e499c

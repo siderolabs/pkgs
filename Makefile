@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2025-09-05T14:04:09Z by kres cc45611.
+# Generated on 2025-09-15T16:50:28Z by kres 06e6a5f.
 
 # common variables
 
@@ -25,7 +25,7 @@ SOURCE_DATE_EPOCH := $(shell git log $(INITIAL_COMMIT_SHA) --pretty=%ct)
 
 # sync bldr image with pkgfile
 
-BLDR_RELEASE := v0.5.3
+BLDR_RELEASE := v0.5.4
 BLDR_IMAGE := ghcr.io/siderolabs/bldr:$(BLDR_RELEASE)
 BLDR := docker run --rm --user $(shell id -u):$(shell id -g) --volume $(PWD):/src --entrypoint=/bldr $(BLDR_IMAGE) --root=/src
 
@@ -189,6 +189,14 @@ reproducibility-test-local-%:  ## Builds the specified target defined in the Pkg
 	@touch -ch -t $$(date -d @$(SOURCE_DATE_EPOCH) +%Y%m%d0000) $(ARTIFACTS)/build-a $(ARTIFACTS)/build-b
 	@diffoscope $(ARTIFACTS)/build-a $(ARTIFACTS)/build-b
 	@rm -rf $(ARTIFACTS)/build-a $(ARTIFACTS)/build-b
+
+$(ARTIFACTS)/bldr: $(ARTIFACTS)  ## Downloads bldr binary.
+	@curl -sSL https://github.com/siderolabs/bldr/releases/download/$(BLDR_RELEASE)/bldr-$(OPERATING_SYSTEM)-$(GOARCH) -o $(ARTIFACTS)/bldr
+	@chmod +x $(ARTIFACTS)/bldr
+
+.PHONY: update-checksums
+update-checksums: $(ARTIFACTS)/bldr  ## Updates the checksums in the Pkgfile/vars.yaml based on the changed version variables.
+	@git diff -U0 | $(ARTIFACTS)/bldr update
 
 nonfree: $(NONFREE_TARGETS)  ## Builds all nonfree targets defined.
 
