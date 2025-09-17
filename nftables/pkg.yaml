@@ -1,0 +1,45 @@
+name: nftables
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: libmnl
+  - stage: libnftnl
+steps:
+  - sources:
+      - url: https://netfilter.org/projects/nftables/files/nftables-{{ .nftables_version }}.tar.xz
+        destination: nftables.tar.xz
+        sha256: "{{ .nftables_sha256 }}"
+        sha512: "{{ .nftables_sha512 }}"
+    prepare:
+      - |
+        tar -xf nftables.tar.xz --strip-components=1
+
+        export PKG_CONFIG_PATH=/usr/lib/pkgconfig
+
+        ./configure \
+          --prefix=/usr \
+          --disable-man-doc \
+          --sbindir=/usr/bin \
+          --without-cli
+    build:
+      - |
+        make -j $(nproc)
+    install:
+      - |
+        make install DESTDIR=/rootfs
+
+        rm -rf /rootfs/usr/share/
+    test:
+      - |
+        fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/nftables.spdx.json
+      version: {{ .nftables_version }}
+      cpes:
+        - cpe:2.3:a:netfilter:nftables:{{ .nftables_version }}:*:*:*:*:*:*:*
+      licenses:
+        - GPL-2.0-or-later
+finalize:
+  - from: /rootfs
+    to: /

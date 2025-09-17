@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2025-09-15T16:50:28Z by kres 06e6a5f.
+# Generated on 2025-09-17T13:36:09Z by kres ce14887.
 
 # common variables
 
@@ -81,6 +81,7 @@ TARGETS += linux-firmware
 TARGETS += lvm2
 TARGETS += mtools
 TARGETS += musl
+TARGETS += nftables
 TARGETS += openssl
 TARGETS += open-vmdk
 TARGETS += pcre2

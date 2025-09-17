@@ -39,6 +39,7 @@ spec:
     - lvm2
     - mtools
     - musl
+    - nftables
     - openssl
     - open-vmdk
     - pcre2

@@ -131,15 +131,20 @@ vars:
   libjson_c_sha256: 876ab046479166b869afc6896d288183bbc0e5843f141200c677b3e8dfb11724
   libjson_c_sha512: 4763f2352414dac3599bc2183b4fa57dbfaac0ca24de890097bd7d0bdda93c91efa280f6566e949e6d94212ef39a63fc76c5f9d0c54ff3d04b13c859717dba5a
 
-  # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.netfilter.org/libmnl
+  # renovate: datasource=git-tags extractVersion=^libmnl-(?<version>.*)$ depName=git://git.netfilter.org/libmnl
   libmnl_version: 1.0.5
   libmnl_sha256: 274b9b919ef3152bfb3da3a13c950dd60d6e2bcd54230ffeca298d03b40d0525
   libmnl_sha512: 16fa48e74c9da7724a85c655dfb0abd8369392627934639d65de951543e1447ac3e048d231248f1ce8861443c2ef62654a85a81feeedbbffaf2e5744f6cf4c9f
 
+  # renovate: datasource=git-tags extractVersion=^libnftnl-(?<version>.*)$ depName=git://git.netfilter.org/libnftnl
+  libnftnl_version: 1.3.0
+  libnftnl_sha256: 0f4be47a8bb8b77a350ee58cbd4b5fae6260ad486a527706ab15cfe1dd55a3c4
+  libnftnl_sha512: a2220dba97cc9a1bbd0d093a0bd0afd491120a814be6343aef35cbeba0e4781289fa84ced36510b6b9d76e99b3ba35f3964a9a40a21f38e2e0fad90c34fd3916
+
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.netfilter.org/libnftnl
-  libnftnl_version: 1.2.8
-  libnftnl_sha256: 37fea5d6b5c9b08de7920d298de3cdc942e7ae64b1a3e8b880b2d390ae67ad95
-  libnftnl_sha512: c57030f34c50b09ae2fbf8dac5d9cf431eaaa5a5a08098e3e4c146a8bd4ae9b7753f5d2de5f2d0a6c15e5ba0c39f51275c9d8b03bdedeaadbafa6c96f9a972b6
+  nftables_version: 1.1.5
+  nftables_sha256: 1daf10f322e14fd90a017538aaf2c034d7cc1eb1cc418ded47445d714ea168d4
+  nftables_sha512: 01fbbea43fd01250b0176a200dfdb6b84d3d51156cc2350acb25a5e66960e1908c3d17a0363baddb32897ea8bea0569b67500a94f708c8587b0e29402f51cbb6
 
   # renovate: datasource=github-releases depName=tukaani-project/xz
   # NOTE: using 5.4.5 the version debian downgraded to. Ref: https://www.openwall.com/lists/oss-security/2024/03/29/4
