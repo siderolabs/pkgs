@@ -21,7 +21,8 @@ steps:
           --prefix=/usr \
           --disable-man-doc \
           --sbindir=/usr/bin \
-          --without-cli
+          --without-cli \
+          --with-mini-gmp=yes
     build:
       - |
         make -j $(nproc)
