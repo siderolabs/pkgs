@@ -1,4 +1,4 @@
-# syntax = ghcr.io/siderolabs/bldr:v0.5.1
+# syntax = ghcr.io/siderolabs/bldr:v0.5.4
 
 format: v1alpha2
 
@@ -164,9 +164,9 @@ vars:
   liburcu_sha512: 164d369cc1375b6b71eaa26812aff8a294bfbdffde65c2668e5c559d215d74c1973681f8083bfde39e280ca6fe8e92aadc7c867f966a5769548b754c92389616
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20250808
-  linux_firmware_sha256: 7154b0ece5d98b0756e605465ad5ee6d1aff87e26d802da9c85429eb893408e9
-  linux_firmware_sha512: a7ad79f28bf7824bd978126400c98b479daa93cceb6bb052c7f9149f23641db108807d03f01c5cfafc4c10acda329a608ae59fd4676aa8eec8ba119d8749e223
+  linux_firmware_version: 20250917
+  linux_firmware_sha256: 5fd67b94e19b768e706608a6c8af5e4e95770245045a58a27157aa9a07df1e92
+  linux_firmware_sha512: b18c4ff2821c6b40fabbc8ae12fbcb75262bc56cd4cf8b65124e4faa1fefd4c15ccdc36d57467a6066402cf19b28a1690224797bebcf16cd367bf02f5df7e14f
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
   lvm2_version: 2_03_33
