@@ -1,5 +1,4 @@
 | Patch file                                                                 | Description                                | Upstream status | Link                                                                                                                                                                                                         |
 |----------------------------------------------------------------------------|--------------------------------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | mglru.patch | Backport fixes for OOM in memory-constrained cgroups on fast IO | in 6.13 | Commit 1bc542c6a0d1444559ab75823a89a94d244bf933 |
-| 0001-CVE-2025-21751-backport-for-Talos-net-mlx5-HWS-chang.patch | Backport CVE-2025-21751 patch | Commit 1ce840c7a659aa53a31ef49f0271b4fd0dc10296 |
 | 0002-CVE-2025-37860-backport-for-Talos-sfc-fix-NULL-deref.patch | Backport CVE-2025-37860 patch | Commit 8241ecec1cdc6699ae197d52d58e76bddd995fa5 |

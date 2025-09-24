@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2025-07-15T14:31:42Z by kres b869533.
+# Generated on 2025-09-24T10:43:58Z by kres fdbc9fc.
 
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
@@ -26,15 +26,14 @@ jobs:
       packages: write
       pull-requests: read
     runs-on:
-      - self-hosted
-      - pkgs
+      group: pkgs
     if: (!startsWith(github.head_ref, 'renovate/') && !startsWith(github.head_ref, 'dependabot/'))
     outputs:
       labels: ${{ steps.retrieve-pr-labels.outputs.result }}
     steps:
       - name: gather-system-info
         id: system-info
-        uses: kenchan0130/actions-system-info@v1.3.1
+        uses: kenchan0130/actions-system-info@v1.4.0
         continue-on-error: true
       - name: print-system-info
         run: |
@@ -58,7 +57,7 @@ jobs:
           done
         continue-on-error: true
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Unshallow
         run: |
           git fetch --prune --unshallow
@@ -121,15 +120,14 @@ jobs:
           draft: "true"
   reproducibility:
     runs-on:
-      - self-hosted
-      - pkgs
+      group: pkgs
     if: contains(fromJSON(needs.default.outputs.labels), 'integration/reproducibility')
     needs:
       - default
     steps:
       - name: gather-system-info
         id: system-info
-        uses: kenchan0130/actions-system-info@v1.3.1
+        uses: kenchan0130/actions-system-info@v1.4.0
         continue-on-error: true
       - name: print-system-info
         run: |
@@ -153,7 +151,7 @@ jobs:
           done
         continue-on-error: true
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Unshallow
         run: |
           git fetch --prune --unshallow
