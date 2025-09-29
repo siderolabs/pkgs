@@ -29,9 +29,9 @@ vars:
   dosfstools_sha512: 3cc0808edb4432428df8a67da4bb314fd1f27adc4a05754c1a492091741a7b6875ebd9f6a509cc4c5ad85643fc40395b6e0cadee548b25cc439cc9b725980156
 
   # renovate: datasource=github-tags extractVersion=^drbd-(?<version>.*)$ depName=LINBIT/drbd
-  drbd_version: 9.2.14
-  drbd_sha256: c7ca2758f4f20672add7bc687e2bd5954fb8da7ab55ed0a8f62d7891239277df
-  drbd_sha512: 37fc6ed86fc03ed8a480bfbe44f92b2a090dfa5129b3a0531b3feaf61b9fe784b4a1fa6b376fd932742cc8387ef6cc791b69a33efd1e50489aa10b6d589d5a0e
+  drbd_version: 9.2.15
+  drbd_sha256: 6ca68bef0b639526d490b465312ac662369bd23752f25bb96e049c4db7e99651
+  drbd_sha512: 81516ee210309d4738f06fb17a51cbb895ab42600194ebee21394f1d23f45bf46f64d52f0285995839d7d05afd20e80995b0c2c09a467602ebf56006e924e5bb
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git
   e2fsprogs_version: v1.47.3
@@ -82,9 +82,9 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 969ce2c559a6841a949a1b73a3967b1889e0c999
-  ipxe_sha256: 1e0a139d9acd122b754d82fa47acc25e97a19d137a43af0718f123e3d467d544
-  ipxe_sha512: 6c8e7ad723e16b26ea52b77885c20b62e99623990a7d19e15f3f6d175b85acde604d85b613819b216372abde359e5d497e70a52921b17c851007c2c2a53508f9
+  ipxe_ref: ee9aea7893b7e1e08b591c06f18b24940198e7c5
+  ipxe_sha256: debf9490f21976ef046c4feada5de55a95b294b0d1d3ddfe56e8b890830c657f
+  ipxe_sha512: 1b7c407fc130e3314dea9269dfbb78e9302b39939276483397db77bd54bb3666325d3f61172cbddc5c87364055c26b3cf9d5ad72640cf3b81d135ef15305427c
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: 7209f2fdef01885c05a1f55b7655ece514b23ead
@@ -92,9 +92,9 @@ vars:
   kspp_sha512: 8f1b6169ea2a5cf412ad5ab8a28beb144cf2e6a7b8fa19579670305d0f8d1196de79504036dd5e5e4c22cc9232e8d7729c616688408bcbaaad690ccd22458aa0
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.16.7
-  linux_sha256: 5be3daa1f9427b1bdb34c4894d9c1adfac38cff674376fe0611a3065729a1a81
-  linux_sha512: d9091bdcb6a82eb4eab3065314122b178f763173c084c9b16dd87de7ec9ba0c007a2cdfa700af9fc5a212f87686a053dc13eaa71912a589b3955686178c8e48b
+  linux_version: 6.16.9
+  linux_sha256: 7ac8c8a3cf05476375deaaa85dfcee095a826ffe557b437f43774fc3b64ce58d
+  linux_sha512: 4a3e704edb7a880422d6d19ec749e9a591520aca5c5614043e6e36887b5dd6a2a0c813ea761f405350c7c49433d37e9df5d9f85a54f290038b7a2af7cbef8a8b
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
@@ -214,9 +214,9 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
-  glib_version: 2.85.4
-  glib_sha256: 432d84c8e44fe689ff70a5d88dab6d0f70d5efcf7460b965ac560dbac3c6c185
-  glib_sha512: e42878724d9b91758f5c0d5e9a20e94c5cfefaa1d4656af55c3555922d893b7fc61c3b22da038ec0d96b444ebc0a91b51f85ab5f40809a3eaf506439dfb42460
+  glib_version: 2.86.0
+  glib_sha256: b5739972d737cfb0d6fd1e7f163dfe650e2e03740bb3b8d408e4d1faea580d6d
+  glib_sha512: 6ccf5fba13e06012135ec4b5e65c9ad61460f32fc00457081ca799a0518e872589c589b01e1846a23499fa7d4425727b95774851d7a89b15cd71260e0d13bfdd
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
   qemu_version: 10.1.0

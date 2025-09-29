@@ -15,8 +15,6 @@ steps:
     prepare:
       - |
         tar -xzf drbd.tar.gz --strip-components=1
-
-        patch -p1 < /pkg/patches/timer_container_of.patch
   - network: default
     build:
       - |
