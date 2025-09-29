@@ -92,9 +92,9 @@ vars:
   kspp_sha512: 8f1b6169ea2a5cf412ad5ab8a28beb144cf2e6a7b8fa19579670305d0f8d1196de79504036dd5e5e4c22cc9232e8d7729c616688408bcbaaad690ccd22458aa0
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.16.9
-  linux_sha256: 7ac8c8a3cf05476375deaaa85dfcee095a826ffe557b437f43774fc3b64ce58d
-  linux_sha512: 4a3e704edb7a880422d6d19ec749e9a591520aca5c5614043e6e36887b5dd6a2a0c813ea761f405350c7c49433d37e9df5d9f85a54f290038b7a2af7cbef8a8b
+  linux_version: 6.17
+  linux_sha256: 9b607166a1c999d8326098121222feb080a20a3253975fcdfa2de96ba7f757a7
+  linux_sha512: 063999d7b819970657f6b7713fdb4173da2065ffdeed7cae197026dbb1edfd7f1d50374f073a1e19ef9686539594824ff6ecb8a930d97c4f272cb12f1c6d8355
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
@@ -197,11 +197,11 @@ vars:
 
   # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/linux-x86_64/
   # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_production_version: 570.172.08
-  nvidia_driver_production_arm64_sha256: e2bb3bf599ec38f681fc89d3ce4770049e65ec0e9fbb94614f28e9d14925fc5a
-  nvidia_driver_production_arm64_sha512: f193d2951ea4dc5e497fb8396d2a258f79afda43589a222a9b1274c80d67fcbae0f51cbd118548f2942d923af207baf034626a98c73fe4c63c0fb73b846d7bd0
-  nvidia_driver_production_amd64_sha256: b3865cc2cdac79ae35a7f668aac0bbed6a71c39df99eb9b9a08663fc1af04e50
-  nvidia_driver_production_amd64_sha512: 858ca52f5efb2274c8385bd81103803346165e73960bdb071fc7d44138e8aa7bf31589f1c7aebc62b5339bea4e48356adde16cc7dffdd7274db1da3cfb6da5d6
+  nvidia_driver_production_version: 570.195.03
+  nvidia_driver_production_arm64_sha256: fde2e6e02d7087d97bbeb9dda8d95ea668923c17b6926d56485a56a3989f6a58
+  nvidia_driver_production_arm64_sha512: 27b8f07cccbe58d1cb2849f101f89c2ab0e296439859b1d3afcd3865cbc5aab32f178f34f7054d019833dfbf10d2a77b21d5350efaf14a92cab2226aa55d3f2e
+  nvidia_driver_production_amd64_sha256: 7129c923e96d6c187b6cfa8d3b2c4114c0930ffb0d69bc168928bfc736a8acd8
+  nvidia_driver_production_amd64_sha512: 3c786145b0a259a78104393825963f5d9460ca460c12310c60b7ad12b0c99a916c00b82d96df765c71fe175eaf965666f443fada008edf5809dc164c3bc73276
 
   # renovate: datasource=github-releases depName=vmware/open-vmdk
   open_vmdk_version: v0.3.12
@@ -255,9 +255,9 @@ vars:
   xfsprogs_sha512: 333ef39f38d0fa46742b7fd28ebc6482e90abb32e58634b3a93aa24f0202c55f4dc32f1b00a9859c6e64efada4d844c3a995a913520cb00d5e1a4f1a83da848d
 
   # renovate: datasource=github-tags extractVersion=^zfs-(?<version>.*)$ depName=openzfs/zfs
-  zfs_version: 2.3.4
-  zfs_sha256: 9ec397cf360133161a1180035f3e7d6962186ed2b3457953a28d45aa883fa495
-  zfs_sha512: 56b90960de6aa94b76f8efc3c84993454a8d544bd47e1270e02caa8d96569e866102e17ef1f16056722bf5f6624fad0bbe7f9ef0e94bc0c3fc16e61b681db815
+  zfs_version: 2.4.0-rc2
+  zfs_sha256: 6b5b821e03520034b49f965acb198ff4f37661195689326a1c05a4782389987f
+  zfs_sha512: 7fa6caecc6818af17bdc104624eb7638a6c41bfca03a5b45ce996e7bbf8bfd1b06a54714ca7cb59ac70b061cb0eb11bc68868f786a502f427775f1bcfe1a5de0
 
   # renovate: datasource=git-tags depName=https://gitlab.com/apparmor/apparmor.git
   apparmor_version: v3.1.7 # v4 requires autoconf-archive

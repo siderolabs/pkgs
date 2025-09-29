@@ -111,7 +111,7 @@ spec:
   packageRules:
     - matchPackageNames:
         - git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-      allowedVersions: "<= 6.16"
+      allowedVersions: "<= 6.17"
     - matchPackageNames:
         - ipmitool/ipmitool
         - git://sourceware.org/git/lvm2.git
