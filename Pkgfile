@@ -86,7 +86,7 @@ vars:
   ipxe_sha256: debf9490f21976ef046c4feada5de55a95b294b0d1d3ddfe56e8b890830c657f
   ipxe_sha512: 1b7c407fc130e3314dea9269dfbb78e9302b39939276483397db77bd54bb3666325d3f61172cbddc5c87364055c26b3cf9d5ad72640cf3b81d135ef15305427c
 
-  # renovate: datasource=github-releases depName=strongtz/i915-sriov-dkms
+  # renovate: datasource=git-tags depName=https://github.com/bbaa-bbaa/i915-sriov-dkms.git
   i915_sriov_dkms_version: 2025.07.22
   i915_sriov_dkms_sha256: a4b5f244d1845c7e1561f810b0c204df8e797627ab2cf623dea06fbe35d48e7c
   i915_sriov_dkms_sha512: 2e67b67ce856abd6d72062f722affc8dc412386501796fc1519bfacf9dc69a83d656f7deb2a90e4327fa2e85b51936600b6a8c3cf1ce2adde940d841ebd80812
