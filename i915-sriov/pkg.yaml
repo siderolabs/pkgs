@@ -36,4 +36,4 @@ steps:
         fhs-validator /rootfs
 finalize:
   - from: /rootfs
-    to: /rootfs
+    to: /
