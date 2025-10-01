@@ -60,6 +60,7 @@ TARGETS += grub
 TARGETS += ipmitool
 TARGETS += iptables
 TARGETS += ipxe
+TARGETS += i915-sriov
 TARGETS += kmod
 TARGETS += libaio
 TARGETS += libattr

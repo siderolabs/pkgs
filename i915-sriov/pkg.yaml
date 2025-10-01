@@ -15,6 +15,11 @@ steps:
     prepare:
       - |
         tar --zstd -xvf i915-sriov-dkms.pkg.tar.zst
+
+        cd usr/src/i915-sriov-dkms-{{ .i915_sriov_dkms_version }}/
+
+        ./configure \
+          --prefix=/usr
     build:
       - |
         cd usr/src/i915-sriov-dkms-{{ .i915_sriov_dkms_version }}/
