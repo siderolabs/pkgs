@@ -18,6 +18,7 @@ spec:
     - ipmitool
     - iptables
     - ipxe
+    - i915-sriov
     - kmod
     - libaio
     - libattr

@@ -1,0 +1,41 @@
+name: i915-sriov
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: kernel-build
+steps:
+  - sources:
+      - url: https://github.com/strongtz/i915-sriov-dkms/releases/download/{{ .i915_sriov_dkms_version }}/i915-sriov-dkms-{{ .i915_sriov_dkms_version }}-1-x86_64.pkg.tar.zst
+        destination: i915-sriov-dkms.pkg.tar.zst
+        sha256: "{{ .i915_sriov_dkms_sha256 }}"
+        sha512: "{{ .i915_sriov_dkms_sha512 }}"
+    env:
+      ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+    prepare:
+      - |
+        tar --zstd -xvf i915-sriov-dkms.pkg.tar.zst
+    build:
+      - |
+        cd usr/src/i915-sriov-dkms-{{ .i915_sriov_dkms_version }}/
+
+        make -j $(nproc) SYSSRC=/src
+    install:
+      - |
+        cd kernel-open
+
+        mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.order /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin.modinfo /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+
+        make -j $(nproc) modules_install SYSSRC=/src INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_STRIP=1
+    test:
+      - |
+        # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
+        find /rootfs/usr/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
+      - |
+        fhs-validator /rootfs
+finalize:
+  - from: /rootfs
+    to: /
