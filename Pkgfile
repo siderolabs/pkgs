@@ -88,8 +88,8 @@ vars:
 
   # renovate: datasource=github-releases depName=strongtz/i915-sriov-dkms
   i915_sriov_dkms_version: 2025.07.22
-  i915_sriov_dkms_sha256: b25be72732521aff5b8feb643cc363f7d0f582124e5efb227dc906fa264bf4b0
-  i915_sriov_dkms_sha512: 2f630a44039a1b8d7755ff41b15e290206cfaca3e0f9c4c5280d927862f5941b63dcfc182eccc7cf5cf9962798edc48c8bec5b25b384c7bacfcf849db7e6dcc1
+  i915_sriov_dkms_sha256: a4b5f244d1845c7e1561f810b0c204df8e797627ab2cf623dea06fbe35d48e7c
+  i915_sriov_dkms_sha512: 2e67b67ce856abd6d72062f722affc8dc412386501796fc1519bfacf9dc69a83d656f7deb2a90e4327fa2e85b51936600b6a8c3cf1ce2adde940d841ebd80812
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: 7209f2fdef01885c05a1f55b7655ece514b23ead
