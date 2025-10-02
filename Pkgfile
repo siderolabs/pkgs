@@ -64,7 +64,7 @@ vars:
   grub_sha256: f3c97391f7c4eaa677a78e090c7e97e6dc47b16f655f04683ebd37bef7fe0faa
   grub_sha512: 761c060a4c3da9c0e810b0ea967e3ebc66baa4ddd682a503ae3d30a83707626bccaf49359304a16b3a26fc4435fe6bea1ee90be910c84de3c2b5485a31a15be3
 
-  # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=hailo-ai/hailort-drivers
+  # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=hailo-ai/hailort-drivers
   hailort_version: 4.21.0
   hailort_sha256: 624468126c1e5609475389271b3d2878cb6e7e40df9e85bad95be464a3e11be3
   hailort_sha512: 857f56f1788a05a666051c232bdfe4ad01bc22587cc83ef1e14079a71ab0083aefa98253d40999880c3570b774baf7ac585ccd7618ba7f28a056b7bc07c1701c
@@ -163,7 +163,7 @@ vars:
   libseccomp_sha256: 04c37d72965dce218a0c94519b056e1775cf786b5260ee2b7992956c4ee38633
   libseccomp_sha512: c35d8d6f80ee38a96688955932c6bf369101409a470ecf0dc550013b19f57311be907a600adc4d2f4699fb8e94e8038333b4f5702edc3c26b14c36fb6e1c42fd
 
-  # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.liburcu.org/userspace-rcu.git
+  # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=urcu/userspace-rcu
   liburcu_version: 0.15.1
   liburcu_sha256: 98d66cc12f2c5881879b976f0c55d10d311401513be254e3bd28cf3811fb50c8
   liburcu_sha512: 164d369cc1375b6b71eaa26812aff8a294bfbdffde65c2668e5c559d215d74c1973681f8083bfde39e280ca6fe8e92aadc7c867f966a5769548b754c92389616
