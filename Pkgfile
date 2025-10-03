@@ -5,7 +5,7 @@ format: v1alpha2
 vars:
   TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.12.0-alpha.0-6-gfd8b77d
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.12.0-alpha.0-6-gc37ac80
+  TOOLS_REV: v1.12.0-alpha.0-12-g2c56d7a
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.8.0
@@ -49,10 +49,10 @@ vars:
   systemd_sha512: 23b3d2764e0f990d8373068ccb41177793413bc193f7bd34e38b03d6fc3cd32d07c86e9dcbf07e32904075bb5eeca208f65beab04d628ac0e0b81ba87a975c1b
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
-  flannel_cni_version: v1.7.1-flannel2
-  flannel_cni_ref: 494bcc218dd7556b994b39d406fb719b0a5a10a2
-  flannel_cni_sha256: 956e39ed5fb71cd235e999d7dbb9c959688118e3a108e948a1f92f4ea29a074a
-  flannel_cni_sha512: 74b75591a791f3e2182a9ef356f688f812b2f3bb94e45bfce40cb27ae971ff1954881ad9207ae00c2c53e6ff710aa5f108d537a56e2b27f236e6d7a5acd6ca3e
+  flannel_cni_version: v1.8.0-flannel1
+  flannel_cni_ref: b5b151504dade1ef4bef19854bc671d208c5b827
+  flannel_cni_sha256: ab98ae18db545a6308af2fd6f8fe7eb059b326a7562d1d7a0fded886fd6f621c
+  flannel_cni_sha512: 0645bc55736bf1ff289c33807092872cab43e668a74d332d6ebe53a972bb45312c7010ba52e28ed33e76f048dd57d1d5dc7b9facf177f9824da9cab93c20233c
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/google/gasket-driver.git
   gasket_driver_ref: 5815ee3908a46a415aac616ac7b9aedcb98a504c
@@ -65,11 +65,11 @@ vars:
   grub_sha512: 761c060a4c3da9c0e810b0ea967e3ebc66baa4ddd682a503ae3d30a83707626bccaf49359304a16b3a26fc4435fe6bea1ee90be910c84de3c2b5485a31a15be3
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=hailo-ai/hailort-drivers
-  hailort_version: 4.21.0
-  hailort_sha256: 624468126c1e5609475389271b3d2878cb6e7e40df9e85bad95be464a3e11be3
-  hailort_sha512: 857f56f1788a05a666051c232bdfe4ad01bc22587cc83ef1e14079a71ab0083aefa98253d40999880c3570b774baf7ac585ccd7618ba7f28a056b7bc07c1701c
-  hailort_fw_sha256: 2a5c94591d9e70d884242e64bf2388b0d2d46b816a335b4c00c3f81a07832635
-  hailort_fw_sha512: 43b36a7d958f4dba25f79ee37ad2ffa303c446a5c4516f7d882fb94c6ea0bee72089305b061a55b8bc37fc327ffce9db08f1f171a92c2421dd1a52a7c1695267
+  hailort_version: 4.23.0
+  hailort_sha256: 245c7157746c2fd48b2fab4a990c8fb3b786921dd72c9e5348f5b5619ee05ec3
+  hailort_sha512: b5abdf3ca5cb4cbb9d3189ed6bae52d66e52dbce99ed1698ece8ff1f5f32db7560990e66bab740f2f0102e13175eb3fc0ae41162b75ee743684fb64ff845db07
+  hailort_fw_sha256: 1ba9528972091ec17bebc0dc7ea2e6f4449efe70664890f6387ccbc7b60626ee
+  hailort_fw_sha512: 6280e4bddc120ab6e9a4a4fdac529816ee1f94d343e0e0ef6c36fd474b579f85032e22b24a8f758b23028d429ef5936780fa07ed3c0abc512f5fd72985fc982c
 
   # renovate: datasource=github-releases extractVersion=^IPMITOOL_(?<version>.*)$ depName=ipmitool/ipmitool
   ipmitool_version: 1_8_19
@@ -82,9 +82,9 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: ee9aea7893b7e1e08b591c06f18b24940198e7c5
-  ipxe_sha256: debf9490f21976ef046c4feada5de55a95b294b0d1d3ddfe56e8b890830c657f
-  ipxe_sha512: 1b7c407fc130e3314dea9269dfbb78e9302b39939276483397db77bd54bb3666325d3f61172cbddc5c87364055c26b3cf9d5ad72640cf3b81d135ef15305427c
+  ipxe_ref: cf534975411051ea0ddcbea28347d8d643a36360
+  ipxe_sha256: 53782c265819c519fce44fe4b41a5cf519e36741362c17a4180cc30e02b2140a
+  ipxe_sha512: 628f7b8ade4e61027aaef6b869ae1ac703e74f3a882c80baf5a82a069e31e454f59537780279ddbfb3a1f9ffe1a29e89e56d56ec34e43166e7c209021535179e
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: 7209f2fdef01885c05a1f55b7655ece514b23ead
@@ -164,9 +164,9 @@ vars:
   libseccomp_sha512: c35d8d6f80ee38a96688955932c6bf369101409a470ecf0dc550013b19f57311be907a600adc4d2f4699fb8e94e8038333b4f5702edc3c26b14c36fb6e1c42fd
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=urcu/userspace-rcu
-  liburcu_version: 0.15.1
-  liburcu_sha256: 98d66cc12f2c5881879b976f0c55d10d311401513be254e3bd28cf3811fb50c8
-  liburcu_sha512: 164d369cc1375b6b71eaa26812aff8a294bfbdffde65c2668e5c559d215d74c1973681f8083bfde39e280ca6fe8e92aadc7c867f966a5769548b754c92389616
+  liburcu_version: 0.15.3
+  liburcu_sha256: 26687ec84e3e114759454c884a08abeaf79dec09b041895ddf4c45ec150acb6d
+  liburcu_sha512: 9461f5f1ebfcfdb28bc9548738a030d0a29e754ae5340581d057c405c0fa5c17560a251fa15a20cf14d35f1fcc9aceac80841b37a5f348698da52a71ee4d4fe5
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
   linux_firmware_version: 20250917
