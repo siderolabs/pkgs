@@ -5,7 +5,7 @@ format: v1alpha2
 vars:
   TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.12.0-alpha.0-6-gfd8b77d
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.12.0-alpha.0-12-g2c56d7a
+  TOOLS_REV: v1.12.0-alpha.0-13-g11f0337
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.8.0
@@ -82,9 +82,9 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: cf534975411051ea0ddcbea28347d8d643a36360
-  ipxe_sha256: 53782c265819c519fce44fe4b41a5cf519e36741362c17a4180cc30e02b2140a
-  ipxe_sha512: 628f7b8ade4e61027aaef6b869ae1ac703e74f3a882c80baf5a82a069e31e454f59537780279ddbfb3a1f9ffe1a29e89e56d56ec34e43166e7c209021535179e
+  ipxe_ref: ce30ba14fcf1a50e5e8cd7461b098023d08cab42
+  ipxe_sha256: 12fdf86a6f2b94ad2a83a4a2a35b509c951d8379a4af591dfc88d0931e299664
+  ipxe_sha512: f4bcaff60ec814dea3801a3a1ccdcd2244f83bdfce37138ece64d160c6a0d0640721e087410132b5e486d6c8821ce97e955c48aeb02a693db01f09cd72e77e77
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: 7209f2fdef01885c05a1f55b7655ece514b23ead
