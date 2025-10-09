@@ -92,9 +92,9 @@ vars:
   kspp_sha512: 8f1b6169ea2a5cf412ad5ab8a28beb144cf2e6a7b8fa19579670305d0f8d1196de79504036dd5e5e4c22cc9232e8d7729c616688408bcbaaad690ccd22458aa0
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.17
-  linux_sha256: 9b607166a1c999d8326098121222feb080a20a3253975fcdfa2de96ba7f757a7
-  linux_sha512: 063999d7b819970657f6b7713fdb4173da2065ffdeed7cae197026dbb1edfd7f1d50374f073a1e19ef9686539594824ff6ecb8a930d97c4f272cb12f1c6d8355
+  linux_version: 6.17.1
+  linux_sha256: a53dbe3f41491922a61f17c5cc551e88f544d5411aeb1c8c65c402795c4f4da0
+  linux_sha512: 3d780e4ccae54db7322e6625d158d18a874d5af9097c33bce637fd87147e880467661c76f03a03d8a35c8759eb852a850644d3530c59926fe26e09df2697d26d
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
@@ -189,11 +189,11 @@ vars:
 
   # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/linux-x86_64/
   # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_lts_version: 580.82.07
-  nvidia_driver_lts_arm64_sha256: d435966c7ec512d4c723ffce4d722af1076803b29becba39ef4a27cdecd3d924
-  nvidia_driver_lts_arm64_sha512: d40d8b69b40a339e49a414396798301ee35fcb2dc3443f2b994ea5e312247c9dd534bf35fe8fbcd309c81cc4f705b4c3add9805b6e332af75aef2771e3749016
-  nvidia_driver_lts_amd64_sha256: 290f7fa5b48b153ed9b0711f6deff9075fa39c08348a38a6fc349da1500156c8
-  nvidia_driver_lts_amd64_sha512: cb70682e875028cd56b6a5f79dff5435542dbd1d3f8a0f19f8533c19d25aa5ec4e2949911be57a116cbef07e3ae6dacd756b87eecc523483fc2a906224bf1176
+  nvidia_driver_lts_version: 580.95.05
+  nvidia_driver_lts_arm64_sha256: 95b52919632928d7a245e5696b71cd68285e6bffd1f22cdcd4f9686d5d5b0b09
+  nvidia_driver_lts_arm64_sha512: ee3cccf6967e5b802c98897be16899f020dfdff7c226ad8ae44befe6b8aa765af1a0b7faf36a9334ab89834ae4d774ac6d5b33e18af81348e42060bfebaefafe
+  nvidia_driver_lts_amd64_sha256: 3528df4fb0c7a1665ae2af5d26effeb67f76fc86742ffc1defd7714408405d4d
+  nvidia_driver_lts_amd64_sha512: 268e78c300544ae5088323ca9dfb1e963d39b240fb402965fe79dedde0cd302d3221e92ec37aa3ca97b44d26e53ee2e121009dc0f41c5fca26d89a175d9adaa5
 
   # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/linux-x86_64/
   # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
@@ -219,9 +219,9 @@ vars:
   glib_sha512: 6ccf5fba13e06012135ec4b5e65c9ad61460f32fc00457081ca799a0518e872589c589b01e1846a23499fa7d4425727b95774851d7a89b15cd71260e0d13bfdd
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
-  qemu_version: 10.1.0
-  qemu_sha256: e0517349b50ca73ebec2fa85b06050d5c463ca65c738833bd8fc1f15f180be51
-  qemu_sha512: 20552a524b6b298181df1af7084b470ded3fe8d1505f05011dda3c33cbc3d91f518ce026b44ba1a8b7f34c64ae81afddceda383066f4772a3a2a6333a2638caf
+  qemu_version: 10.1.1
+  qemu_sha256: e56b93d95953a9b6a64d1985dbcedfb07dc54d92c50b7912526693536c589923
+  qemu_sha512: 72ca08894fb63c734163a53c6a836a6237de0f9f4ece4570e871bf80bcfba43fb5d4f11715564e0aef7244b7b3c4fe1890d5f10bbb05528b592d25cd95a57dfa
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.3.2
