@@ -90,7 +90,8 @@
             "versioning": "regex:^(?<major>\\d+)\\.?(?<minor>\\d+)?\\.?(?<patch>\\d+)?$",
             "matchPackageNames": [
                 "benhoyt/inih",
-                "systemd/systemd"
+                "systemd/systemd",
+                "tenstorrent/tt-kmd"
             ]
         },
         {

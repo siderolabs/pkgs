@@ -92,9 +92,9 @@ vars:
   kspp_sha512: 8f1b6169ea2a5cf412ad5ab8a28beb144cf2e6a7b8fa19579670305d0f8d1196de79504036dd5e5e4c22cc9232e8d7729c616688408bcbaaad690ccd22458aa0
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.17.1
-  linux_sha256: a53dbe3f41491922a61f17c5cc551e88f544d5411aeb1c8c65c402795c4f4da0
-  linux_sha512: 3d780e4ccae54db7322e6625d158d18a874d5af9097c33bce637fd87147e880467661c76f03a03d8a35c8759eb852a850644d3530c59926fe26e09df2697d26d
+  linux_version: 6.17.3
+  linux_sha256: 3ecc8619d8a5b5f675224d2f52c71d1fc09bc3f9c019d8bd82d0581e03689499
+  linux_sha512: b2c77d3d0bee221a970dd020f71d10843275994538a98584129887db20854bcceb5da3f5fa057ebc42d8d8714cb9bcb36239716ea59a70c56c8f9d2a16421fa6
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
@@ -240,9 +240,9 @@ vars:
   tc_redirect_tap_sha512: 017d01fef1d6cddc2b53d6516acf7c8b61c7864c6c3708e7adaf73c5413f43b1495679249379e7a46de639a24e66643daf659565d0135a61b36246df4edc7936
 
   # renovate: datasource=github-releases extractVersion=^ttkmd-(?<version>.*)$ depName=tenstorrent/tt-kmd
-  tenstorrent_version: 1.34
-  tenstorrent_sha256: bc3e7dc6b734c5e05fa5918bfba419e8af557938eeb10e4287658f41c2fd8ff1
-  tenstorrent_sha512: 61c8ad597de664f0e41b77ae403c5340b900d7cc45a94380912c58a141413ecdd29b0cd2309a7bebe384f7e54a63f6c42dcb514f1ad5fee47053fc5bc1c6dbbb
+  tenstorrent_version: 2.4.1
+  tenstorrent_sha256: e9f239c869b946b76697ed5294e8ace695cf727e45e31e6b285528839d645320
+  tenstorrent_sha512: 34f30ea95490abc0e844d171a12cd9f174fe7ac4cf864f3e1a187aeb516cf3db76b1e70532a629cf4b84b2f7ec6a6dd59935db5b5f250003d0962ea71d049791
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/Xilinx/dma_ip_drivers.git
   xdma_driver_version: 03ac7f31e256c5604eeb970e98d343cf925ddb52
