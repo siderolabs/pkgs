@@ -44,7 +44,7 @@ vars:
   ena_sha512: 0637a804ce33c24211ae19ab65cadc62f1b5ad54efc7f083ec66b09d9cb7924248d175ea9f39b3ba720019b13c93c677e3e1c472351c3b108c20aa29bc81da3e
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
-  systemd_version: 257.9
+  systemd_version: 258.1
   systemd_sha256: b27dcc100a738b4b5b81f7c5174c1239a6495f5bdf3d3caa94a17b8373e6a1ca
   systemd_sha512: 23b3d2764e0f990d8373068ccb41177793413bc193f7bd34e38b03d6fc3cd32d07c86e9dcbf07e32904075bb5eeca208f65beab04d628ac0e0b81ba87a975c1b
 
@@ -65,7 +65,7 @@ vars:
   grub_sha512: 761c060a4c3da9c0e810b0ea967e3ebc66baa4ddd682a503ae3d30a83707626bccaf49359304a16b3a26fc4435fe6bea1ee90be910c84de3c2b5485a31a15be3
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=hailo-ai/hailort-drivers
-  hailort_version: 4.23.0
+  hailort_version: 5.1.0
   hailort_sha256: 245c7157746c2fd48b2fab4a990c8fb3b786921dd72c9e5348f5b5619ee05ec3
   hailort_sha512: b5abdf3ca5cb4cbb9d3189ed6bae52d66e52dbce99ed1698ece8ff1f5f32db7560990e66bab740f2f0102e13175eb3fc0ae41162b75ee743684fb64ff845db07
   hailort_fw_sha256: 1ba9528972091ec17bebc0dc7ea2e6f4449efe70664890f6387ccbc7b60626ee
@@ -82,12 +82,12 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: ce30ba14fcf1a50e5e8cd7461b098023d08cab42
+  ipxe_ref: ba1846a0d3f90e399d30a22b600a25d9c966b3b3
   ipxe_sha256: 12fdf86a6f2b94ad2a83a4a2a35b509c951d8379a4af591dfc88d0931e299664
   ipxe_sha512: f4bcaff60ec814dea3801a3a1ccdcd2244f83bdfce37138ece64d160c6a0d0640721e087410132b5e486d6c8821ce97e955c48aeb02a693db01f09cd72e77e77
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
-  kspp_ref: 7209f2fdef01885c05a1f55b7655ece514b23ead
+  kspp_ref: 0eb58cf02aa2676d477bf8442e0d9dc19c66eb46
   kspp_sha256: afb5a10abc0c9586b6d24e62ff1f36904fcc0be26a26e1363175b3c51b9d17eb
   kspp_sha512: 8f1b6169ea2a5cf412ad5ab8a28beb144cf2e6a7b8fa19579670305d0f8d1196de79504036dd5e5e4c22cc9232e8d7729c616688408bcbaaad690ccd22458aa0
 
@@ -159,7 +159,7 @@ vars:
 
   # NOTE: let's keep this in sync with runc: https://github.com/opencontainers/runc/blob/release-1.3/script/release_build.sh#L22
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=seccomp/libseccomp
-  libseccomp_version: 2.5.6
+  libseccomp_version: 2.6.0
   libseccomp_sha256: 04c37d72965dce218a0c94519b056e1775cf786b5260ee2b7992956c4ee38633
   libseccomp_sha512: c35d8d6f80ee38a96688955932c6bf369101409a470ecf0dc550013b19f57311be907a600adc4d2f4699fb8e94e8038333b4f5702edc3c26b14c36fb6e1c42fd
 
