@@ -5,7 +5,7 @@ format: v1alpha2
 vars:
   TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.12.0-alpha.0-9-g6da0776
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.12.0-alpha.0-15-ge62d613
+  TOOLS_REV: v1.12.0-alpha.0-16-ga08cc1f
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.8.0
@@ -82,19 +82,19 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: ce30ba14fcf1a50e5e8cd7461b098023d08cab42
-  ipxe_sha256: 12fdf86a6f2b94ad2a83a4a2a35b509c951d8379a4af591dfc88d0931e299664
-  ipxe_sha512: f4bcaff60ec814dea3801a3a1ccdcd2244f83bdfce37138ece64d160c6a0d0640721e087410132b5e486d6c8821ce97e955c48aeb02a693db01f09cd72e77e77
+  ipxe_ref: c8f088d4e11a1dedda4829c4be1bb1b14e9da016
+  ipxe_sha256: ff429558f9a303f4bd6952c6fffb5e530ad15efa853dda4d1a8662fe8eafee58
+  ipxe_sha512: c7d08106c8e59ef89cd0310ca379644c938916168250f02889f1ea24dbbcbc2645b95daa519312d1b1c3d6556feca010af756195106e580f3642262346187291
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
-  kspp_ref: 7209f2fdef01885c05a1f55b7655ece514b23ead
-  kspp_sha256: afb5a10abc0c9586b6d24e62ff1f36904fcc0be26a26e1363175b3c51b9d17eb
-  kspp_sha512: 8f1b6169ea2a5cf412ad5ab8a28beb144cf2e6a7b8fa19579670305d0f8d1196de79504036dd5e5e4c22cc9232e8d7729c616688408bcbaaad690ccd22458aa0
+  kspp_ref: c01a6240c9729c08b66f3f11b2784c4ca0e32d6e
+  kspp_sha256: cfc5c0b5719d01e3939eaa7edd8ccf9118c0740614d49c1b683f0b936f50a0a2
+  kspp_sha512: b1feba837ecc69af96d57dec4019230ec1e7f6ff539c68e4031a4076f3514406afd97c78fc5c992ec052d170d494b524b331ec01ad5c331c7a0b570ac3458e0e
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.17.3
-  linux_sha256: 3ecc8619d8a5b5f675224d2f52c71d1fc09bc3f9c019d8bd82d0581e03689499
-  linux_sha512: b2c77d3d0bee221a970dd020f71d10843275994538a98584129887db20854bcceb5da3f5fa057ebc42d8d8714cb9bcb36239716ea59a70c56c8f9d2a16421fa6
+  linux_version: 6.17.4
+  linux_sha256: 010a12296e6fba7597ff36681be2485fd3b1780ac8fd9e6a9f3cfe193f0491db
+  linux_sha512: f1ecfbff3cb8af6985765066018170f3bc48353345a09bdb0f0eb73e74348becd2d748b7cafb849eb29f877205b5538510ccc3f76c3f43e3b5c3c65e55cbf89b
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
@@ -219,9 +219,9 @@ vars:
   glib_sha512: 6ccf5fba13e06012135ec4b5e65c9ad61460f32fc00457081ca799a0518e872589c589b01e1846a23499fa7d4425727b95774851d7a89b15cd71260e0d13bfdd
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
-  qemu_version: 10.1.1
-  qemu_sha256: e56b93d95953a9b6a64d1985dbcedfb07dc54d92c50b7912526693536c589923
-  qemu_sha512: 72ca08894fb63c734163a53c6a836a6237de0f9f4ece4570e871bf80bcfba43fb5d4f11715564e0aef7244b7b3c4fe1890d5f10bbb05528b592d25cd95a57dfa
+  qemu_version: 10.1.2
+  qemu_sha256: 9d75f331c1a5cb9b6eb8fd9f64f563ec2eab346c822cb97f8b35cd82d3f11479
+  qemu_sha512: 4defbcb78f65ba3d8079466bdb3ab29e26f10129723e045d34901e7d524656e5ff729dc97fb33537febe2596eb0b21a02aadd88007eb5b226e599bd236213263
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.3.2
