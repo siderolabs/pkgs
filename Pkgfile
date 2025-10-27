@@ -92,9 +92,9 @@ vars:
   kspp_sha512: b1feba837ecc69af96d57dec4019230ec1e7f6ff539c68e4031a4076f3514406afd97c78fc5c992ec052d170d494b524b331ec01ad5c331c7a0b570ac3458e0e
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.17.4
-  linux_sha256: 010a12296e6fba7597ff36681be2485fd3b1780ac8fd9e6a9f3cfe193f0491db
-  linux_sha512: f1ecfbff3cb8af6985765066018170f3bc48353345a09bdb0f0eb73e74348becd2d748b7cafb849eb29f877205b5538510ccc3f76c3f43e3b5c3c65e55cbf89b
+  linux_version: 6.17.5
+  linux_sha256: c05faf36e9c2164be723cf6ada8533788804d48f9dd2fe1be2ccee3616a92bce
+  linux_sha512: c57d72d96117ce53669e6707e563ee9122b7001c56d0b70f138a1d1bc34e2d1952e123f2c7cfa9dbefb7dbe083722d39da49179fd3a48018822177d4a81d3156
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
@@ -174,9 +174,9 @@ vars:
   linux_firmware_sha512: 675195fccf8f94b1585e63451b6a9dc2da6f8ff8ec72e66aa1c549e01e5454d47fa2fe0ff1a2f3a9415d3e47f36049c4145b6a9f8541fccd8b993fd21f83bfa9
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
-  lvm2_version: 2_03_35
-  lvm2_sha256: ebf28b3427535e2b5abd9991cd839b61622a0dbfb8c86df0f7af1f69dcaa8371
-  lvm2_sha512: e925a7685b1a4d96046187e495627176b7c623418116f01fda6a26e607f9c2d2c3f70fe996a6bbe043d79e0e084a4a7385c853114747e61c2bebc42a16d61f11
+  lvm2_version: 2_03_36
+  lvm2_sha256: 44db12df4b990ed2c910176279f70b257f79ee6fc7684c577afbf59c13cd2cca
+  lvm2_sha512: bc70dbe9e099c2fa63333dfd355bdd0c5493f6554a3d17689d5180546433165225c718e9cf227b0a1f6b835cc6ceb6e02e500c79badb13174985e604ad093389
 
   mellanox_ofed_version: 5.9-0.5.6.0
   mellanox_ofed_sha256: 4503258cbe92b00c734e612c3a7ad1d71e023fdffae2a2c119f7b537505e499c
@@ -214,9 +214,9 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
-  glib_version: 2.86.0
-  glib_sha256: b5739972d737cfb0d6fd1e7f163dfe650e2e03740bb3b8d408e4d1faea580d6d
-  glib_sha512: 6ccf5fba13e06012135ec4b5e65c9ad61460f32fc00457081ca799a0518e872589c589b01e1846a23499fa7d4425727b95774851d7a89b15cd71260e0d13bfdd
+  glib_version: 2.86.1
+  glib_sha256: 119d1708ca022556d6d2989ee90ad1b82bd9c0d1667e066944a6d0020e2d5e57
+  glib_sha512: b2e9a3a35cd4cbe0bb6ca493a4250df480eeb0570a0877880ff4ec6d7f1f98d828249b3b60f839b81f17a33494d95be9d42b5f20fa6bb1acb15bcf5734adba51
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
   qemu_version: 10.1.2
@@ -250,9 +250,9 @@ vars:
   xdma_driver_sha512: 0d3be501410baaa75b422b96ba86971fff4e3dd7b99301c61a89d7523cda87cbcbe126f71c477f6f1938496d360e5d59e852c2ecdcfd8181d2fe6991d4596e9e
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
-  xfsprogs_version: 6.16.0
-  xfsprogs_sha256: fa7ba8c35cb988e7d65b7e7630fe9d0e17e8d79799d3b98db7e19f2b9b150506
-  xfsprogs_sha512: 333ef39f38d0fa46742b7fd28ebc6482e90abb32e58634b3a93aa24f0202c55f4dc32f1b00a9859c6e64efada4d844c3a995a913520cb00d5e1a4f1a83da848d
+  xfsprogs_version: 6.17.0
+  xfsprogs_sha256: 5b0f56a81f641326266f762ae8a563b29d95cdbcda83bc7938f68ce122f1edd9
+  xfsprogs_sha512: bcdd5a632ac1eae4ad68ac1b18a0289820fcef997da2b3b132e97f035f21e951f20f19de9d09e0babd7d7feb8ad14c0782aa81c698b39c19e4349e603892287e
 
   # renovate: datasource=github-tags extractVersion=^zfs-(?<version>.*)$ depName=openzfs/zfs
   zfs_version: 2.4.0-rc2
