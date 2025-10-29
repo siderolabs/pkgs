@@ -263,5 +263,10 @@ vars:
   apparmor_version: v3.1.7 # v4 requires autoconf-archive
   apparmor_sha256: 64494bd99fa6547a9cbdb4fc6bc732451a02dd19e6eb70eab977b239632151eb
   apparmor_sha512: cfd6b0afb98d4559c16a6a2e23ca16ee9d86325fc6059313df5d3e8feba3d398f96a5754d3880dd2cafb2e7b1a06bd789d62cd36aaf993e46290f6311bb49dac
+
+  # renovate: datasource=github-tags depName=NVIDIA/gdrcopy
+  gdrcopy_version: v2.5.1
+  gdrcopy_sha256: c6d5ebb7dabb89d798f27609511735595004da73af28d93ac041bb5290c4cbec
+  gdrcopy_sha512: eb45965de6660bd33173cc150a373c185113e98aa66b8ead90871cf358c3423c3e5757438b841b38c8c2a993789dfc7f242a25e2e2b20f1dde2b592b646d2a30
 labels:
   org.opencontainers.image.source: https://github.com/siderolabs/pkgs

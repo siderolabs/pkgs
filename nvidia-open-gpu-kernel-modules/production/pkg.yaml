@@ -17,19 +17,36 @@ steps:
         sha256: "{{ .nvidia_driver_production_amd64_sha256 }}"
         sha512: "{{ .nvidia_driver_production_amd64_sha512 }}"
     # {{ end }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
+      - url: https://github.com/NVIDIA/gdrcopy/archive/refs/tags/{{ .gdrcopy_version }}.tar.gz
+        destination: gdrcopy.tar.gz
+        sha256: "{{ .gdrcopy_sha256 }}"
+        sha512: "{{ .gdrcopy_sha512 }}"
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
     prepare:
       - |
-        tar xf nvidia.tar.xz --strip-components=1
+        mkdir -p /nvidia-driver
+        tar xf nvidia.tar.xz -C /nvidia-driver --strip-components=1
+      - |
+        mkdir -p /gdrcopy
+        tar xf gdrcopy.tar.gz -C /gdrcopy --strip-components=1
     build:
       - |
-        cd kernel-open
+        cd /nvidia-driver/kernel-open
 
         make -j $(nproc) SYSSRC=/src
+      - |
+        cd /gdrcopy/src/gdrdrv
+        # Build the kernel module with NVIDIA driver sources and kernel 6.12 compatibility flags
+        make -C /src M=/gdrcopy/src/gdrdrv modules \
+          NVIDIA_SRC_DIR=/nvidia-driver/kernel-open/nvidia \
+          NVIDIA_IS_OPENSOURCE=y \
+          HAVE_VM_FLAGS_SET=y \
+          HAVE_PROC_OPS=y \
+          KDIR=/src
     install:
       - |
-        cd kernel-open
+        cd /nvidia-driver/kernel-open
 
         mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
         cp /src/modules.order /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
@@ -37,6 +54,11 @@ steps:
         cp /src/modules.builtin.modinfo /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
 
         make -j $(nproc) modules_install SYSSRC=/src INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_STRIP=1
+      - |
+        cd /gdrcopy
+
+        # Install the gdrdrv kernel module
+        make -C /src M=/gdrcopy/src/gdrdrv modules_install INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1
     test:
       - |
         # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
