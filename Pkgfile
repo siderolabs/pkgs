@@ -44,13 +44,13 @@ vars:
   ena_sha512: 0637a804ce33c24211ae19ab65cadc62f1b5ad54efc7f083ec66b09d9cb7924248d175ea9f39b3ba720019b13c93c677e3e1c472351c3b108c20aa29bc81da3e
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
-  systemd_version: 257.9
+  systemd_version: 258.1
   systemd_sha256: b27dcc100a738b4b5b81f7c5174c1239a6495f5bdf3d3caa94a17b8373e6a1ca
   systemd_sha512: 23b3d2764e0f990d8373068ccb41177793413bc193f7bd34e38b03d6fc3cd32d07c86e9dcbf07e32904075bb5eeca208f65beab04d628ac0e0b81ba87a975c1b
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
-  flannel_cni_version: v1.8.0-flannel1
-  flannel_cni_ref: b5b151504dade1ef4bef19854bc671d208c5b827
+  flannel_cni_version: v1.8.0-flannel2
+  flannel_cni_ref: e38aaba71b9d0c4ae810585bae578e00c735dba0
   flannel_cni_sha256: ab98ae18db545a6308af2fd6f8fe7eb059b326a7562d1d7a0fded886fd6f621c
   flannel_cni_sha512: 0645bc55736bf1ff289c33807092872cab43e668a74d332d6ebe53a972bb45312c7010ba52e28ed33e76f048dd57d1d5dc7b9facf177f9824da9cab93c20233c
 
@@ -65,7 +65,7 @@ vars:
   grub_sha512: 761c060a4c3da9c0e810b0ea967e3ebc66baa4ddd682a503ae3d30a83707626bccaf49359304a16b3a26fc4435fe6bea1ee90be910c84de3c2b5485a31a15be3
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=hailo-ai/hailort-drivers
-  hailort_version: 4.23.0
+  hailort_version: 5.1.0
   hailort_sha256: 245c7157746c2fd48b2fab4a990c8fb3b786921dd72c9e5348f5b5619ee05ec3
   hailort_sha512: b5abdf3ca5cb4cbb9d3189ed6bae52d66e52dbce99ed1698ece8ff1f5f32db7560990e66bab740f2f0102e13175eb3fc0ae41162b75ee743684fb64ff845db07
   hailort_fw_sha256: 1ba9528972091ec17bebc0dc7ea2e6f4449efe70664890f6387ccbc7b60626ee
@@ -82,17 +82,17 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: c8f088d4e11a1dedda4829c4be1bb1b14e9da016
+  ipxe_ref: fde35ff003a610eca04db0e11fb81e8dfee8a681
   ipxe_sha256: ff429558f9a303f4bd6952c6fffb5e530ad15efa853dda4d1a8662fe8eafee58
   ipxe_sha512: c7d08106c8e59ef89cd0310ca379644c938916168250f02889f1ea24dbbcbc2645b95daa519312d1b1c3d6556feca010af756195106e580f3642262346187291
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
-  kspp_ref: c01a6240c9729c08b66f3f11b2784c4ca0e32d6e
+  kspp_ref: 5a47a4f3bc94f709f24126b29110bfa915ec981e
   kspp_sha256: cfc5c0b5719d01e3939eaa7edd8ccf9118c0740614d49c1b683f0b936f50a0a2
   kspp_sha512: b1feba837ecc69af96d57dec4019230ec1e7f6ff539c68e4031a4076f3514406afd97c78fc5c992ec052d170d494b524b331ec01ad5c331c7a0b570ac3458e0e
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.17.5
+  linux_version: 6.17.6
   linux_sha256: c05faf36e9c2164be723cf6ada8533788804d48f9dd2fe1be2ccee3616a92bce
   linux_sha512: c57d72d96117ce53669e6707e563ee9122b7001c56d0b70f138a1d1bc34e2d1952e123f2c7cfa9dbefb7dbe083722d39da49179fd3a48018822177d4a81d3156
 
@@ -159,7 +159,7 @@ vars:
 
   # NOTE: let's keep this in sync with runc: https://github.com/opencontainers/runc/blob/release-1.3/script/release_build.sh#L22
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=seccomp/libseccomp
-  libseccomp_version: 2.5.6
+  libseccomp_version: 2.6.0
   libseccomp_sha256: 04c37d72965dce218a0c94519b056e1775cf786b5260ee2b7992956c4ee38633
   libseccomp_sha512: c35d8d6f80ee38a96688955932c6bf369101409a470ecf0dc550013b19f57311be907a600adc4d2f4699fb8e94e8038333b4f5702edc3c26b14c36fb6e1c42fd
 
