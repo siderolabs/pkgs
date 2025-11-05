@@ -19,14 +19,12 @@ steps:
     build:
       - |
         export GOARCH=$(go env GOARCH)
-        export VERSION={{ .flannel_cni_version }}
-        export TAG=${VERSION}
 
         {{ if eq .ARCH "x86_64" }}
         export CGO_ENABLED=1
         {{ end }}
 
-        sed -i '/BUILD_DATE=/c BUILD_DATE="1"' scripts/version.sh
+        sed -i '/GIT_TAG=/c GIT_TAG={{ .flannel_cni_version }}' scripts/version.sh
         sed -i '/COMMIT=/c COMMIT={{ .flannel_cni_ref }}' scripts/version.sh
 
         EXTRA_LDFLAGS=-s bash scripts/build_flannel.sh
