@@ -1,0 +1,46 @@
+name: r8127-pkg
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: kernel-build
+steps:
+  - env:
+      ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+    prepare:
+      - |
+        # Copy r8127 source from /pkg
+        mkdir -p r8127
+        cp /pkg/*.c /pkg/*.h r8127/ 2>/dev/null || true
+        
+        # Create proper Makefile with ALL capabilities enabled including PTP
+        cat > r8127/Makefile << 'EOF'
+        # Enable all driver capabilities including PTP
+        ccflags-y += -DCONFIG_SOC_LAN -DCONFIG_R8127_NAPI -DCONFIG_R8127_VLAN -DCONFIG_ASPM 
+        ccflags-y += -DENABLE_S5WOL -DENABLE_EEE -DENABLE_TX_NO_CLOSE -DENABLE_GIGA_LITE
+        ccflags-y += -DENABLE_PTP_SUPPORT -DENABLE_RSS_SUPPORT
+
+        obj-m += r8127.o
+        r8127-y := r8127_n.o rtl_eeprom.o rtltool.o r8127_fiber.o r8127_firmware.o r8127_ptp.o r8127_rss.o
+        EOF
+    build:
+      - |
+        make -j $(nproc) -C /src M=$(pwd)/r8127 modules
+    install:
+      - |
+        mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.order /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.builtin.modinfo /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        
+        make -C /src M=$(pwd)/r8127 modules_install DESTDIR=/rootfs INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1 CONFIG_MODULE_SIG_ALL=y
+    test:
+      - |
+        # Verify module signature
+        find /rootfs/usr/lib/modules -name 'r8127.ko' -exec grep -FL '~Module signature appended~' {} \+
+      - |
+        fhs-validator /rootfs
+finalize:
+  - from: /rootfs
+    to: /
+
