@@ -65,6 +65,7 @@ spec:
     - hailort-pkg
     - nvidia-open-gpu-kernel-modules-lts-pkg
     - nvidia-open-gpu-kernel-modules-production-pkg
+    - r8127-pkg
     - tenstorrent-pkg
     - xdma-driver-pkg
     - zfs-pkg
