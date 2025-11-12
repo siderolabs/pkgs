@@ -13,8 +13,8 @@ vars:
   cni_sha512: a2bf1bd2b87e2fda60329982aea4ccc4e80aff9e41de48501e72a09476e9c97132c77cf737b4c3b668383f398b9dee5f7574d2f300bfef10f15d7545cc06ab79
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v2.1.5
-  containerd_ref: fcd43222d6b07379a4be9786bda52438f0dd16a1
+  containerd_version: v2.2.0
+  containerd_ref: 1c4457e00facac03ce1d75f7b6777a7a851e5c41
   containerd_sha256: f8def69e02ecff84c07e24350be0b834a3a8e1f6accf042cae4d504e52eb03d1
   containerd_sha512: 6376228edf615b1ff3d40287622d4f72793be091d59d5d7e97f7bdc4f265aa4412f4a5dd1937ef795e54aa5ee8a87d785e859d7c6525a25fa86631b878cefc59
 
@@ -44,7 +44,7 @@ vars:
   ena_sha512: 75c20e9bb2b7ae73c6f40d4b5a9b450cf8d88bcda14e387a33bdd3cf595df6ae9300b495a475391f878ce98bcc8e2ffecbc9cce29d58c802052fb7800aa952b4
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
-  systemd_version: 257.9
+  systemd_version: 258.2
   systemd_sha256: b27dcc100a738b4b5b81f7c5174c1239a6495f5bdf3d3caa94a17b8373e6a1ca
   systemd_sha512: 23b3d2764e0f990d8373068ccb41177793413bc193f7bd34e38b03d6fc3cd32d07c86e9dcbf07e32904075bb5eeca208f65beab04d628ac0e0b81ba87a975c1b
 
@@ -65,7 +65,7 @@ vars:
   grub_sha512: 761c060a4c3da9c0e810b0ea967e3ebc66baa4ddd682a503ae3d30a83707626bccaf49359304a16b3a26fc4435fe6bea1ee90be910c84de3c2b5485a31a15be3
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=hailo-ai/hailort-drivers
-  hailort_version: 4.23.0
+  hailort_version: 5.1.1
   hailort_sha256: 245c7157746c2fd48b2fab4a990c8fb3b786921dd72c9e5348f5b5619ee05ec3
   hailort_sha512: b5abdf3ca5cb4cbb9d3189ed6bae52d66e52dbce99ed1698ece8ff1f5f32db7560990e66bab740f2f0102e13175eb3fc0ae41162b75ee743684fb64ff845db07
   hailort_fw_sha256: 1ba9528972091ec17bebc0dc7ea2e6f4449efe70664890f6387ccbc7b60626ee
@@ -82,7 +82,7 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 5154b6fcc50a73eedf78ad4bb4a619054d77ed97
+  ipxe_ref: 0a8e34657ea3e266d6e62c0ee2f839fde56be805
   ipxe_sha256: e62551a3f4e0251bf6c99f0b48bbb78d6215c6cea0a5f8768fea0f7e3e0af3d0
   ipxe_sha512: 09daa4fafb09a534283c6a1013a398ba6f4164f761155da9538cc2e4ee305524ac67914464ce22a47237cb84407b70e05f2eec6e3e345f718b25b7fdf284932c
 
@@ -159,7 +159,7 @@ vars:
 
   # NOTE: let's keep this in sync with runc: https://github.com/opencontainers/runc/blob/release-1.3/script/release_build.sh#L22
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=seccomp/libseccomp
-  libseccomp_version: 2.5.6
+  libseccomp_version: 2.6.0
   libseccomp_sha256: 04c37d72965dce218a0c94519b056e1775cf786b5260ee2b7992956c4ee38633
   libseccomp_sha512: c35d8d6f80ee38a96688955932c6bf369101409a470ecf0dc550013b19f57311be907a600adc4d2f4699fb8e94e8038333b4f5702edc3c26b14c36fb6e1c42fd
 
