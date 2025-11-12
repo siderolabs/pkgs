@@ -1,11 +1,11 @@
-# syntax = ghcr.io/siderolabs/bldr:v0.5.4
+# syntax = ghcr.io/siderolabs/bldr:v0.5.5
 
 format: v1alpha2
 
 vars:
-  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.12.0-alpha.0-10-gfc7f2c7
+  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.12.0
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.12.0-alpha.0-18-g44932c0
+  TOOLS_REV: v1.12.0
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.8.0
@@ -82,9 +82,9 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: a786c8d2313ebe973ace0cbbe4f8f3825251062a
-  ipxe_sha256: 5e1a469a36ed009f7a26a2346db3a59b7e2615108a9539144a2459ffb673d563
-  ipxe_sha512: f4854558e4bcd40f49e40993968bdaf93b51a2b8ca656fd699cc00c111c1f1bf850cad57ed6a65069b3fa8febc003ac5180099dccf1b05f042105578615bd418
+  ipxe_ref: 5154b6fcc50a73eedf78ad4bb4a619054d77ed97
+  ipxe_sha256: e62551a3f4e0251bf6c99f0b48bbb78d6215c6cea0a5f8768fea0f7e3e0af3d0
+  ipxe_sha512: 09daa4fafb09a534283c6a1013a398ba6f4164f761155da9538cc2e4ee305524ac67914464ce22a47237cb84407b70e05f2eec6e3e345f718b25b7fdf284932c
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: afc376f2a935994793343cfeb05953583cc30191
@@ -164,14 +164,14 @@ vars:
   libseccomp_sha512: c35d8d6f80ee38a96688955932c6bf369101409a470ecf0dc550013b19f57311be907a600adc4d2f4699fb8e94e8038333b4f5702edc3c26b14c36fb6e1c42fd
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=urcu/userspace-rcu
-  liburcu_version: 0.15.4
-  liburcu_sha256: 11a14a7660ac9ba9c0bbd3b2d81718523d27dc6c8a9dfabd5e401b406673ee3a
-  liburcu_sha512: 05e714bff63c2f07eea555c7e1df0295b4a1e7a2e9152abf4a2f0b83925ce69f26a7decb80dacc707c50714caee6e26b468a3650ce6587316f6fb51c01728e15
+  liburcu_version: 0.15.5
+  liburcu_sha256: b2f787a8a83512c32599e71cdabcc5131464947b82014896bd11413b2d782de1
+  liburcu_sha512: 48c7e137b986c1a33d91ecd8e5101ed8783b7c4e15b8324660c72bce9879373b80ffd97aca0c3b8015a47dfe2c11b5f4acf9d4a065185d9ba405d4e50a2b58d8
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20251021
-  linux_firmware_sha256: 15e0da804c7d457cd7ceba8401fe7fc65744c1c7348aa32e88ffb8399ce5626d
-  linux_firmware_sha512: 388fc2b43e32fa8c42a52991a2a78b8602b87ba315b13b67945782820c3d16608896418c4a8902d4c5859296ea307ac71eec188d770d69f5612ac6b3220517c1
+  linux_firmware_version: 20251111
+  linux_firmware_sha256: 24011445db0f001a0c4067c5837bb983ea4474866545513ef17350e1ce7abeac
+  linux_firmware_sha512: 2f4568106ff8e9eb8402e53b719fac5fa53b8d100f06ec645922393c231319aa070a5e2f06f2607626896324e787b1b649c6178db59ccae7f57d9a08718f9171
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
   lvm2_version: 2_03_36
