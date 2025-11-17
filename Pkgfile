@@ -1,11 +1,11 @@
-# syntax = ghcr.io/siderolabs/bldr:v0.4.1
+# syntax = ghcr.io/siderolabs/bldr:v0.5.5
 
 format: v1alpha2
 
 vars:
-  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.10.0-6-gaaa8029
+  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.10.0-7-g02220b5
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.10.0-6-g306d9d9
+  TOOLS_REV: v1.10.0-7-g39357c8
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.6.2
@@ -13,10 +13,10 @@ vars:
   cni_sha512: ee577e3fe39558d6a6296754c97de6608f95152805c01b8053e2958d16634ab57d147eea7c950fcc4d1a98d6733a85717adf7078ee2dffff007ec3b063386c24
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v2.0.5
-  containerd_ref: fb4c30d4ede3531652d86197bf3fc9515e5276d9
-  containerd_sha256: 617917606c64df1cab19a0f5cc20fd724ed9187314bcd40eaacf66a9e75b1eb8
-  containerd_sha512: af89a5c9ad5f931c5fee33c75c13c296fc9ec966f2c64ec244897695eebb365bcb542f6b431e60d4ef7213f0ea11d3a8896d1b7f033ed445e6b521b7ddbffe6f
+  containerd_version: v2.0.7
+  containerd_ref: 4ac6c20c7bbf8177f29e46bbdc658fec02ffb8ad
+  containerd_sha256: 2bbf9fedcf4ab31736fcb3ce224ef22610a87da9d53bbd8f6d205710fd849831
+  containerd_sha512: 393e6f6357806367b7e007da7f2a951fb4330750d4e16c8e612f49c9b5d62a9f6a2b866dc12317da11dc75f2f2cd7e2e9b5118a3f07e5a68d3475d0449844a4f
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
   cryptsetup_version: 2.7.5
@@ -85,9 +85,9 @@ vars:
   kspp_sha512: ef115e8b41526b4a248dab97daaeec85561525e4abf046799154242dcb2ebe6b37203fe0491e01b301f1948faa5b102f85c732ee503e0b999e7d4d162998fc70
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.12.43
-  linux_sha256: 0fcbbbbcd456e87bbbfc8bf37af541fda62ccfcce76903503424fd101ef7bdee
-  linux_sha512: 39c8282ff2ad87cef9f2a7805fad1f628aa12413b71008cff6d10261273387491ff38cac35d42ae542a5db8cb41c6545426b31c03f9df203b58b120be299086f
+  linux_version: 6.12.58
+  linux_sha256: 5f1c4c546660a6a81046fdfa6195306bad2c8d17c0d69876dc100a85ad4613ac
+  linux_sha512: 95fd545a94d0c45c4c8c4655dba39e0c5c5892a0e7fc6b94229c67564643dc76c0a62b17271c8052a7f9264637029a815e6558a9dfa16f16fb5f49f1628d9bd9
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
@@ -206,10 +206,10 @@ vars:
   qemu_sha512: 941a4337a115c65de2fca042932efb31886114f4300226fcf55f04c2c5471bd2b5ce220c4b17e01c3679bd55ba08a1aa7ce399de15e3e5f28c17da52030b139e
 
   # renovate: datasource=github-tags depName=opencontainers/runc
-  runc_version: v1.2.6
-  runc_ref: e89a29929c775025419ab0d218a43588b4c12b9a
-  runc_sha256: 39695adb39b0284a4fc4b184d764772d886121bf30378f9614a3abfbdc5ff11a
-  runc_sha512: 772265769316e62d9f3d3e09eb48c6f7a1299bedede0a9472add430474b33758b5e723a33b5121411c20e15cd171e3133e80ab88b7a8c082327181be5507f65b
+  runc_version: v1.2.8
+  runc_ref: eeb7e6024f9ee43876301b1d23c353384fa6dcdd
+  runc_sha256: add42d467087ac18e43d18de7061e145d4d2b2aa3608e684c907ffd6c816d007
+  runc_sha512: 49d85cbc1165fd1d09d2542e2159274a6c279e8250cba55dfe35035a8e45dcf7cf3b9c26810a177bab093e204c6e6deb97dae2d6410df19ceff7f912630426dc
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
   socat_version: 1.8.0.3
