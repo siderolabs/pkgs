@@ -114,7 +114,7 @@ NONFREE_TARGETS += nonfree-kmod-nvidia-production-pkg
 
 # help menu
 
-export define HELP_MENU_HEADER
+define HELP_MENU_HEADER
 # Getting Started
 
 To build this project, you must have the following installed:
@@ -239,4 +239,3 @@ release-notes: $(ARTIFACTS)
 conformance:
 	@docker pull $(CONFORMANCE_IMAGE)
 	@docker run --rm -it -v $(PWD):/src -w /src $(CONFORMANCE_IMAGE) enforce
-
