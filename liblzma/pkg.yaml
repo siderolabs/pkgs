@@ -5,8 +5,7 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      # - url: https://github.com/tukaani-project/xz/releases/download/{{ .xz_version }}/xz-{{ .xz_version | replace "v" "" }}.tar.xz
-      - url: https://src.fedoraproject.org/lookaside/pkgs/xz/xz-5.4.5.tar.xz/sha512/5cbc3b5bb35a9f5773ad657788fe77013471e3b621c5a8149deb7389d48535926e5bed103456fcfe5ecb044b236b1055b03938a6cc877cfc749372b899fc79e5/xz-5.4.5.tar.xz
+      - url: http://archive.ubuntu.com/ubuntu/pool/main/x/xz-utils/xz-utils_{{ .xz_version | replace "v" "" }}.orig.tar.xz
         destination: xz.tar.xz
         sha256: "{{ .xz_sha256 }}"
         sha512: "{{ .xz_sha512 }}"
