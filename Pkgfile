@@ -29,9 +29,9 @@ vars:
   dosfstools_sha512: 3cc0808edb4432428df8a67da4bb314fd1f27adc4a05754c1a492091741a7b6875ebd9f6a509cc4c5ad85643fc40395b6e0cadee548b25cc439cc9b725980156
 
   # renovate: datasource=github-tags extractVersion=^drbd-(?<version>.*)$ depName=LINBIT/drbd
-  drbd_version: 9.2.15
-  drbd_sha256: 6ca68bef0b639526d490b465312ac662369bd23752f25bb96e049c4db7e99651
-  drbd_sha512: 81516ee210309d4738f06fb17a51cbb895ab42600194ebee21394f1d23f45bf46f64d52f0285995839d7d05afd20e80995b0c2c09a467602ebf56006e924e5bb
+  drbd_version: 9.2.16
+  drbd_sha256: d9f7fd5ed4a5527246e72eaaad16064e042265d127cf2c0a68a47de88b45f19c
+  drbd_sha512: 370d283072d2423f0d5b54959179a41c304ad74176aa341a10a485ce602781b33628821f641ae2480c2315bc6012c99eed47819aaa6c4b2946c9a0a73e664d15
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git
   e2fsprogs_version: v1.47.3
@@ -92,9 +92,9 @@ vars:
   kspp_sha512: 6ca9521dc15a5897b490a6e2a3e262f09922f0cbf03e1abba4819f9bdee36e2f08fb5acd7c6cb49d50fcd323cdf571222da42f934fa7d8f55c4fa69be5b2b545
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.17.7
-  linux_sha256: ddf2ea0d4439e1d57136be3623102af9458f601f5b1cb77e83246e88aea09d0e
-  linux_sha512: f16f28c395374099ccf21d9df654a31746ed3f09376f7f9eca172579787b7b493d3878cb0a44348c2846bba93f7950f04b0e45235152860e4789fdd2aa9711cb
+  linux_version: 6.17.9
+  linux_sha256: 6d08803b953c509df48d44d3281ed392524321d8bb353eb21c0555790c8f8e06
+  linux_sha512: 96d2402c9785f36650095dc357d992c9ec936b174af502d475adba58c7de4b1c7b2734505b23e95445ab7d63d3b81f359f827e17f40070b1b92f2d17dc40999a
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
@@ -169,14 +169,14 @@ vars:
   liburcu_sha512: 48c7e137b986c1a33d91ecd8e5101ed8783b7c4e15b8324660c72bce9879373b80ffd97aca0c3b8015a47dfe2c11b5f4acf9d4a065185d9ba405d4e50a2b58d8
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20251111
-  linux_firmware_sha256: 24011445db0f001a0c4067c5837bb983ea4474866545513ef17350e1ce7abeac
-  linux_firmware_sha512: 2f4568106ff8e9eb8402e53b719fac5fa53b8d100f06ec645922393c231319aa070a5e2f06f2607626896324e787b1b649c6178db59ccae7f57d9a08718f9171
+  linux_firmware_version: 20251125
+  linux_firmware_sha256: 21b8c5f9c70186474bcf9fcc4f4d1f4afe4fd2513cdf7f5a88ff3feb3ba7a374
+  linux_firmware_sha512: 80346e077ea0da87f33110a0127c19b51c7c8f527b5fd527782c923556572daaf74f8874e2787932b51efde99d3ef0011120cf50186fb15c4d8303797d6037f7
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
-  lvm2_version: 2_03_36
-  lvm2_sha256: 44db12df4b990ed2c910176279f70b257f79ee6fc7684c577afbf59c13cd2cca
-  lvm2_sha512: bc70dbe9e099c2fa63333dfd355bdd0c5493f6554a3d17689d5180546433165225c718e9cf227b0a1f6b835cc6ceb6e02e500c79badb13174985e604ad093389
+  lvm2_version: 2_03_37
+  lvm2_sha256: b02656cc39a2f86a702c432dab0d0317e12111fca9d623a18f1b9c3f87b88200
+  lvm2_sha512: c67e9e47c9f117d82b458e43c98e7b2bbf0f176fc86b7fa1a90d04209df14df442f576fd9b1e41be86b161aa744f0db5b6cac9d7b118bc4156354307314c441a
 
   mellanox_ofed_version: 5.9-0.5.6.0
   mellanox_ofed_sha256: 4503258cbe92b00c734e612c3a7ad1d71e023fdffae2a2c119f7b537505e499c
