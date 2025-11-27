@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 6.17.7 Kernel Configuration
+# Linux/x86 6.17.9 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="gcc (GCC) 15.2.0"
 CONFIG_CC_IS_GCC=y
@@ -2776,7 +2776,8 @@ CONFIG_ICE_SWITCHDEV=y
 CONFIG_ICE_HWTS=y
 # CONFIG_FM10K is not set
 CONFIG_IGC=m
-# CONFIG_IDPF is not set
+CONFIG_IDPF=m
+# CONFIG_IDPF_SINGLEQ is not set
 # CONFIG_JME is not set
 CONFIG_NET_VENDOR_LITEX=y
 CONFIG_NET_VENDOR_MARVELL=y

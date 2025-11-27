@@ -82,6 +82,8 @@ spec:
       toplevel: true
     - name: kernel-%
       toplevel: true
+    - name: check-dirty
+      toplevel: true
 ---
 kind: custom.Step
 name: kernel-olddefconfig
@@ -92,6 +94,9 @@ spec:
       - |
         @$(MAKE) local-kernel-build TARGET_ARGS="--build-arg=KERNEL_TARGET=olddefconfig" PLATFORM=linux/amd64 DEST="kernel/build"
         @$(MAKE) local-kernel-build TARGET_ARGS="--build-arg=KERNEL_TARGET=olddefconfig" PLATFORM=linux/arm64 DEST="kernel/build"
+  ghaction:
+    enabled: true
+    condition: on-pull-request
 ---
 kind: custom.Step
 name: kernel-%
@@ -105,6 +110,19 @@ spec:
           $(MAKE) docker-kernel-prepare PLATFORM=$$platform BUILDKIT_MULTI_PLATFORM=0 TARGET_ARGS="--tag=$(REGISTRY)/$(USERNAME)/kernel:$(TAG)-$$arch --load"; \
           docker run --rm -it --entrypoint=/bin/bash -w /src -v $$PWD/kernel/build/config-$$arch:/host/.hostconfig $(REGISTRY)/$(USERNAME)/kernel:$(TAG)-$$arch -c 'cp /host/.hostconfig .config && make $* && cp .config /host/.hostconfig'; \
         done
+---
+kind: custom.Step
+name: check-dirty
+spec:
+  makefile:
+    enabled: true
+    phony: true
+    script:
+      - |
+        @if test -n "`git status --porcelain`"; then echo "Source tree is dirty"; git status; git diff; exit 1 ; fi
+  ghaction:
+    enabled: true
+    condition: on-pull-request
 ---
 kind: common.Renovate
 spec:
