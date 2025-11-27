@@ -5,7 +5,7 @@ format: v1alpha2
 vars:
   TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.12.0
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.12.0
+  TOOLS_REV: v1.12.0-1-g188885e
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.8.0
