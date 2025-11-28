@@ -43,6 +43,7 @@ spec:
     - openssl
     - open-vmdk
     - pcre2
+    - perf
     - pigz
     - qemu-tools
     - runc

@@ -85,6 +85,7 @@ TARGETS += nftables
 TARGETS += openssl
 TARGETS += open-vmdk
 TARGETS += pcre2
+TARGETS += perf
 TARGETS += pigz
 TARGETS += qemu-tools
 TARGETS += runc
