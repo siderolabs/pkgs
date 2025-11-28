@@ -86,6 +86,11 @@ vars:
   ipxe_sha256: e62551a3f4e0251bf6c99f0b48bbb78d6215c6cea0a5f8768fea0f7e3e0af3d0
   ipxe_sha512: 09daa4fafb09a534283c6a1013a398ba6f4164f761155da9538cc2e4ee305524ac67914464ce22a47237cb84407b70e05f2eec6e3e345f718b25b7fdf284932c
 
+  # renovate: datasource=git-tags depName=https://github.com/bbaa-bbaa/i915-sriov-dkms.git
+  i915_sriov_dkms_version: 2025.07.22
+  i915_sriov_dkms_sha256: a4b5f244d1845c7e1561f810b0c204df8e797627ab2cf623dea06fbe35d48e7c
+  i915_sriov_dkms_sha512: 2e67b67ce856abd6d72062f722affc8dc412386501796fc1519bfacf9dc69a83d656f7deb2a90e4327fa2e85b51936600b6a8c3cf1ce2adde940d841ebd80812
+
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: afc376f2a935994793343cfeb05953583cc30191
   kspp_sha256: 3e5f3ea80c6e82afd5550211d240daabf0676e900ca651b3a207c6946e04521d
