@@ -1,0 +1,21 @@
+name: perf
+variant: scratch
+shell: /bin/bash
+
+dependencies:
+  - stage: base
+  - stage: kernel-build
+
+steps:
+  - install:
+      - |
+        mkdir -p /rootfs/usr/bin
+        cp /kernel-build/out/artifacts/bin/perf /rootfs/usr/bin/perf
+
+  - test:
+      - |
+        fhs-validator /rootfs
+
+finalize:
+  - from: /rootfs
+    to: /
