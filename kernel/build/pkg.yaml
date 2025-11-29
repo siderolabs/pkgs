@@ -42,7 +42,19 @@ steps:
         set -e
         cd /src
         
-        make -C tools/perf -j $(nproc)
+        make -C tools/perf -j"$(nproc)" \
+          NO_LIBTRACEEVENT=1 \
+          NO_LIBBPF=1 \
+          NO_LIBELF=1 \
+          NO_LIBAUDIT=1 \
+          NO_LIBDW_DWARF_UNWIND=1 \
+          NO_SLANG=1 \
+          NO_LIBNUMA=1 \
+          NO_LIBLLVM=1 \
+          NO_JAVA=1 \
+          NO_LIBCAPSTONE=1 \
+          NO_LIBBABELTRACE=1
+          
         mkdir -p /out/artifacts/bin
         cp tools/perf/perf /out/artifacts/bin/perf
       {{ end }}
