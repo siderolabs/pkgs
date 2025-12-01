@@ -4,6 +4,7 @@ shell: /bin/bash
 dependencies:
   - stage: base
   - stage: kernel-build
+  - image: "{{ .LLVM_IMAGE }}:{{ .TOOLS_REV }}"
 steps:
   - sources:
       - url: https://pkg.linbit.com//downloads/drbd/{{ regexReplaceAll ".\\d+\\.\\d+$" .drbd_version "${1}" }}/drbd-{{ .drbd_version }}.tar.gz
@@ -12,6 +13,7 @@ steps:
         sha512: "{{ .drbd_sha512 }}"
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+      LLVM: 1
     prepare:
       - |
         tar -xzf drbd.tar.gz --strip-components=1

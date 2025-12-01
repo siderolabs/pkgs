@@ -26,14 +26,16 @@ IGNORE_VIOLATIONS = {
     'CONFIG_RANDSTRUCT_FULL', # disabled due to performance reasons
     'CONFIG_RANDSTRUCT_PERFORMANCE', # disabled due to performance reasons
     'CONFIG_UBSAN_TRAP', # disabled due to performance reasons
-    'CONFIG_CFI_CLANG', # SideroLabs toolchain uses gcc, investigae more, see https://github.com/siderolabs/pkgs/issues/918
-    'CONFIG_CFI_PERMISSIVE', # SideroLabs toolchain uses gcc, investigae more, see https://github.com/siderolabs/pkgs/issues/91
+    'CONFIG_UBSAN_LOCAL_BOUNDS', # A Clang-specific option, depends on UBSAN_TRAP ^, hence cannot be enabled
+    'CONFIG_CFI_CLANG', # Conflicts with nonfree drivers, investigate more, see https://github.com/siderolabs/pkgs/issues/918
+    'CONFIG_CFI_PERMISSIVE', # Not yet tested, investigate more, see https://github.com/siderolabs/pkgs/issues/918
     'CONFIG_SECURITY_SELINUX_DEVELOP', # SELinux enabled, but permissive unless enforcing=1. TODO: force enforcing mode when complete
     'CONFIG_SPECULATION_MITIGATIONS', # Renamed in the kernel to 'CONFIG_CPU_MITIGATIONS'
     'CONFIG_EFI_DISABLE_PCI_DMA', # enabling this breaks boot with no visible error messages to debug (https://github.com/siderolabs/talos/issues/8743)
     'CONFIG_INET_DIAG', # last vulnerability prior to v4.1. Required for CNIs such as Cilium to terminate sockets. (https://github.com/siderolabs/pkgs/issues/1028)
     'CONFIG_IOMMU_DEFAULT_DMA_STRICT', # performance impact https://github.com/siderolabs/talos/issues/9531
     'CONFIG_PROC_MEM_NO_FORCE', # might break some applications, so instead we will enforce in the kernel arg 'proc_mem.force_override=never' (https://github.com/a13xp0p0v/kernel-hardening-checker/pull/201)
+    'CONFIG_GCC_PLUGIN_LATENT_ENTROPY', # doesn't seem very relevant, entropy is low quality, and not available in Clang, https://github.com/torvalds/linux/blob/37a93dd5c49b5fda807fd204edf2547c3493319c/scripts/gcc-plugins/Kconfig#L25-L33
 }
 
 """
@@ -41,15 +43,13 @@ Names of violations per arch we ignore for a good reason.
 """
 IGNORE_VIOLATIONS_BY_ARCH = {
     'arm64': {
-        'CONFIG_ARM64_BTI_KERNEL', # can't seem to enable this, probably because we're using gcc, see https://github.com/siderolabs/pkgs/issues/918
-        'CONFIG_UNWIND_PATCH_PAC_INTO_SCS', # this is a Clang feature, we use gcc
         'CONFIG_DEFAULT_MMAP_MIN_ADDR', # looks to be a bug in the kernel-hardening-checker, the config is set in kernel config
         'CONFIG_LSM_MMAP_MIN_ADDR', # on arm64, this can be set only to 32768: https://cateee.net/lkddb/web-lkddb/LSM_MMAP_MIN_ADDR.html
         'CONFIG_RODATA_FULL_DEFAULT_ENABLED', # removed in 6.18
         'CONFIG_KASAN_HW_TAGS', # incompatible with OpenZFS and NVIDIA due to 'GPL-incompatible module nvidia.ko uses GPL-only symbol 'kasan_flag_enabled''
     },
     'amd64': {
-        'CONFIG_CFI_AUTO_DEFAULT', # available only with Clang, we use gcc
+        'CONFIG_CFI_AUTO_DEFAULT', # Disabled due to issues with GPL-incompatible modules
     },
 }
 

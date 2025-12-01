@@ -4,6 +4,7 @@ shell: /bin/bash
 dependencies:
   - stage: base
   - stage: kernel-build
+  - image: "{{ .LLVM_IMAGE }}:{{ .TOOLS_REV }}"
 steps:
   - sources:
     # {{ if eq .ARCH "aarch64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
@@ -23,6 +24,7 @@ steps:
         sha512: "{{ .gdrcopy_sha512 }}"
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+      LLVM: 1
     prepare:
       - |
         mkdir -p /nvidia-driver
@@ -34,7 +36,8 @@ steps:
       - |
         cd /nvidia-driver/kernel-open
 
-        make -j $(nproc) SYSSRC=/src
+        # Explicitly specify LLVM binutils for ThinLTO compatibility, https://github.com/NVIDIA/open-gpu-kernel-modules/issues/214
+        make LD=ld.lld OBJDUMP=llvm-objdump -j $(nproc) SYSSRC=/src
       - |
         cd /gdrcopy/src/gdrdrv
         # Build the kernel module with NVIDIA driver sources and kernel 6.12 compatibility flags
@@ -53,7 +56,7 @@ steps:
         cp /src/modules.builtin /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
         cp /src/modules.builtin.modinfo /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
 
-        make -j $(nproc) modules_install SYSSRC=/src INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_STRIP=1
+        make LD=ld.lld OBJDUMP=llvm-objdump -j $(nproc) modules_install SYSSRC=/src INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_STRIP=1
       - |
         cd /gdrcopy
 

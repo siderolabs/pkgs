@@ -4,6 +4,7 @@ shell: /bin/bash
 dependencies:
   - stage: base
   - stage: kernel-build
+  - image: "{{ .LLVM_IMAGE }}:{{ .TOOLS_REV }}"
 steps:
   - sources:
       - url: https://github.com/openzfs/zfs/releases/download/zfs-{{ .zfs_version }}/zfs-{{ .zfs_version }}.tar.gz
@@ -12,12 +13,13 @@ steps:
         sha512: "{{ .zfs_sha512 }}"
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+      LLVM: 1
     prepare:
       - |
         tar -xzf zfs.tar.gz --strip-components=1
 
         ./autogen.sh
-        ./configure --with-config=kernel --with-linux=/src
+        ./configure --with-config=kernel --with-linux=/src KERNEL_LLVM=1
     build:
       - |
         make -j $(nproc)
