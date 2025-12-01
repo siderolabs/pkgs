@@ -4,6 +4,7 @@ shell: /bin/bash
 dependencies:
   - stage: base
   - stage: kernel-build
+  - image: "{{ .LLVM }}"
 steps:
   - sources:
       - url: https://github.com/tenstorrent/tt-kmd/archive/refs/tags/ttkmd-{{ .tenstorrent_version }}.tar.gz
@@ -19,10 +20,10 @@ steps:
         mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release) /rootfs/etc/udev/rules.d/
     build:
       - |
-        make -j $(nproc) KDIR=/src/
+        make LLVM=1 -j $(nproc) KDIR=/src/
     install:
       - |
-        make -j $(nproc) modules_install KDIR=/src INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1
+        make LLVM=1 -j $(nproc) modules_install KDIR=/src INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1
         cp udev-50-tenstorrent.rules /rootfs/etc/udev/rules.d/50-tenstorrent.rules
     test:
       - |
