@@ -4,6 +4,7 @@ shell: /bin/bash
 dependencies:
   - stage: base
   - stage: kernel-build
+  - image: "{{ .LLVM }}"
 steps:
   - sources:
       - url: https://github.com/openzfs/zfs/releases/download/zfs-{{ .zfs_version }}/zfs-{{ .zfs_version }}.tar.gz
@@ -17,10 +18,10 @@ steps:
         tar -xzf zfs.tar.gz --strip-components=1
 
         ./autogen.sh
-        ./configure --with-config=kernel --with-linux=/src
+        ./configure --with-config=kernel --with-linux=/src --disable-silent-rules KERNEL_LLVM=1
     build:
       - |
-        make -j $(nproc)
+        make LLVM=1 -j $(nproc)
     install:
       - |
         mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
@@ -28,7 +29,7 @@ steps:
         cp /src/modules.builtin /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
         cp /src/modules.builtin.modinfo /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
 
-        make -j $(nproc) -C /src M="$(pwd)/module" modules_install DESTDIR=/rootfs INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1 CONFIG_MODULE_SIG_ALL=y
+        make LLVM=1 -j $(nproc) -C /src M="$(pwd)/module" modules_install DESTDIR=/rootfs INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1 CONFIG_MODULE_SIG_ALL=y
     test:
       - |
         # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping

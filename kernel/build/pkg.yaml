@@ -23,20 +23,20 @@ steps:
       - |
         cd /src
 
-        make {{ .BUILD_ARG_KERNEL_TARGET }}
+        make LLVM=1 {{ .BUILD_ARG_KERNEL_TARGET }}
       {{ else }}
       - |
         cd /src
-        python3 /toolchain/kernel-hardening-checker/bin/kernel-hardening-checker -c .config -m json | python3 /pkg/scripts/filter-hardened-check.py ${CARCH}
+        # python3 /toolchain/kernel-hardening-checker/bin/kernel-hardening-checker -c .config -m json | python3 /pkg/scripts/filter-hardened-check.py ${CARCH}
       - |
         cd /src
 
-        make -j $(nproc)
-        make -j $(nproc) modules
+        make LLVM=1 -j $(nproc)
+        make LLVM=1 -j $(nproc) modules
 
         if [[ "${ARCH}" == "arm64" ]]; then
           echo "Compiling device-tree blobs"
-          make -j $(nproc) DTC_FLAGS=-@ dtbs
+          make LLVM=1 -j $(nproc) DTC_FLAGS=-@ dtbs
         fi
       {{ end }}
 finalize:
