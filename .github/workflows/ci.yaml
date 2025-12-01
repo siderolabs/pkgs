@@ -85,6 +85,16 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
           username: ${{ github.repository_owner }}
+      - name: Push to ttl.sh
+        if: github.event_name == 'pull_request'
+        run: |
+          make PUSH=true REGISTRY=ttl.sh PROGRESS=plain
+        continue-on-error: true
+      - name: Push nonfree to ttl.sh
+        if: github.event_name == 'pull_request'
+        run: |
+          make nonfree PUSH=true REGISTRY=ttl.sh PROGRESS=plain
+        continue-on-error: true
       - name: Push to registry
         if: github.event_name != 'pull_request'
         run: |
