@@ -44,7 +44,8 @@ IGNORE_VIOLATIONS_BY_ARCH = {
         'CONFIG_UNWIND_PATCH_PAC_INTO_SCS', # this is a Clang feature, we use gcc
         'CONFIG_DEFAULT_MMAP_MIN_ADDR', # looks to be a bug in the kernel-hardening-checker, the config is set in kernel config
         'CONFIG_LSM_MMAP_MIN_ADDR', # on arm64, this can be set only to 32768: https://cateee.net/lkddb/web-lkddb/LSM_MMAP_MIN_ADDR.html
-        'CONFIG_ARM64_GCS', # enable with 6.18 kernel, with 6.17 it depends on !UPROBES
+        'CONFIG_RODATA_FULL_DEFAULT_ENABLED', # removed in 6.18
+        'CONFIG_KASAN_HW_TAGS', # incompatible with OpenZFS and NVIDIA due to 'GPL-incompatible module nvidia.ko uses GPL-only symbol 'kasan_flag_enabled''
     },
     'amd64': {
         'CONFIG_CFI_AUTO_DEFAULT', # available only with Clang, we use gcc
