@@ -15,6 +15,9 @@ steps:
     prepare:
       - |
         tar -xzf zfs.tar.gz --strip-components=1
+
+        patch -p1 < /pkg/patches/meta-6.18.patch
+
         ./autogen.sh
         ./configure --with-config=kernel --with-linux=/src
     build:

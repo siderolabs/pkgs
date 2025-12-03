@@ -27,6 +27,9 @@ steps:
       - |
         mkdir -p /nvidia-driver
         tar xf nvidia.tar.xz -C /nvidia-driver --strip-components=1
+
+        cd /nvidia-driver
+        patch -p1 < /pkg/patches/nvidia-linux-6.18.patch
       - |
         mkdir -p /gdrcopy
         tar xf gdrcopy.tar.gz -C /gdrcopy --strip-components=1
