@@ -27,7 +27,7 @@ steps:
       - |
         cd kernel
 
-        make LLVM=1 -j $(nproc) SYSSRC=/src
+        make LLVM=1 LD=ld.lld OBJDUMP=llvm-objdump -j $(nproc) SYSSRC=/src
     install:
       - |
         cd kernel
@@ -37,7 +37,7 @@ steps:
         cp /src/modules.builtin /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
         cp /src/modules.builtin.modinfo /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
 
-        make LLVM=1 -j $(nproc) modules_install SYSSRC=/src INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1
+        make LLVM=1 LD=ld.lld OBJDUMP=llvm-objdump -j $(nproc) modules_install SYSSRC=/src INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1
     test:
       - |
         # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
