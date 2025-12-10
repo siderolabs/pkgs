@@ -8,9 +8,9 @@ vars:
   TOOLS_REV: v1.12.0-2-g7d57df0
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
-  cni_version: v1.8.0
-  cni_sha256: f0510b4452dda4b08d4b088d02e005ac507cb96fb7247b4422ae591286390369
-  cni_sha512: a2bf1bd2b87e2fda60329982aea4ccc4e80aff9e41de48501e72a09476e9c97132c77cf737b4c3b668383f398b9dee5f7574d2f300bfef10f15d7545cc06ab79
+  cni_version: v1.9.0
+  cni_sha256: 5091841a4f379ab6159152b546efc4523d55694c8adc4f19cc7c68f9d1db6d75
+  cni_sha512: 8383a9f3fca75e978b84035609668f139e34cac7c5c1547c2913b6893754c3a0ec55acef73fd8e362094ca022359f2fa6c54dec55bada6b8fb8db7e9d7c889ea
 
   # renovate: datasource=github-tags depName=containerd/containerd
   containerd_version: v2.1.5
