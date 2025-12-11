@@ -64,6 +64,7 @@ spec:
     - ena-pkg
     - gasket-driver-pkg
     - hailort-pkg
+    - i915-sriov
     - nvidia-open-gpu-kernel-modules-lts-pkg
     - nvidia-open-gpu-kernel-modules-production-pkg
     - tenstorrent-pkg
