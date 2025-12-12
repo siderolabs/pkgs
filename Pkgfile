@@ -39,18 +39,18 @@ vars:
   e2fsprogs_sha512: 72d6ad9b2bdd1032b2a64cb7e2789a4c98e660169f3594c1d04d6322aff2ed4783cb5842eb4cb0aff7660c96c122d638dc541833b1a0a5cfdabaaaa3705ae2dd
 
   # renovate: datasource=github-releases extractVersion=^ena_linux_(?<version>.*)$ depName=amzn/amzn-drivers
-  ena_version: 2.16.0
+  ena_version: 2.16.1
   ena_sha256: 43f9f36c671e54389f9f2e86d97a5fc930f9f73a0bbe9ad5383b8a6eb9d228eb
   ena_sha512: 75c20e9bb2b7ae73c6f40d4b5a9b450cf8d88bcda14e387a33bdd3cf595df6ae9300b495a475391f878ce98bcc8e2ffecbc9cce29d58c802052fb7800aa952b4
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
-  systemd_version: 257.9
+  systemd_version: 258.3
   systemd_sha256: b27dcc100a738b4b5b81f7c5174c1239a6495f5bdf3d3caa94a17b8373e6a1ca
   systemd_sha512: 23b3d2764e0f990d8373068ccb41177793413bc193f7bd34e38b03d6fc3cd32d07c86e9dcbf07e32904075bb5eeca208f65beab04d628ac0e0b81ba87a975c1b
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
-  flannel_cni_version: v1.8.0-flannel2
-  flannel_cni_ref: e38aaba71b9d0c4ae810585bae578e00c735dba0
+  flannel_cni_version: v1.9.0-flannel1
+  flannel_cni_ref: 0940aaf4a0edda6c9bcd9bc34b3466a0d579ddda
   flannel_cni_sha256: 6b4615542a50ba21c05d9fb0d346263904b0d37978e3f1673a4b9a890250d108
   flannel_cni_sha512: 1346fb2b0a3840f81cc65ae9011c3099e39cb59bfc2beb9169e2b761891570954e674cd25f81dbd9618e59a11361d08a053ddda5dcec70c757fb9570fcf46617
 
@@ -65,7 +65,7 @@ vars:
   grub_sha512: 761c060a4c3da9c0e810b0ea967e3ebc66baa4ddd682a503ae3d30a83707626bccaf49359304a16b3a26fc4435fe6bea1ee90be910c84de3c2b5485a31a15be3
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=hailo-ai/hailort-drivers
-  hailort_version: 4.23.0
+  hailort_version: 5.1.1
   hailort_sha256: 245c7157746c2fd48b2fab4a990c8fb3b786921dd72c9e5348f5b5619ee05ec3
   hailort_sha512: b5abdf3ca5cb4cbb9d3189ed6bae52d66e52dbce99ed1698ece8ff1f5f32db7560990e66bab740f2f0102e13175eb3fc0ae41162b75ee743684fb64ff845db07
   hailort_fw_sha256: 1ba9528972091ec17bebc0dc7ea2e6f4449efe70664890f6387ccbc7b60626ee
@@ -82,12 +82,12 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 5154b6fcc50a73eedf78ad4bb4a619054d77ed97
+  ipxe_ref: fb1188936ca29af61709afd8b866ea55d4a05a67
   ipxe_sha256: e62551a3f4e0251bf6c99f0b48bbb78d6215c6cea0a5f8768fea0f7e3e0af3d0
   ipxe_sha512: 09daa4fafb09a534283c6a1013a398ba6f4164f761155da9538cc2e4ee305524ac67914464ce22a47237cb84407b70e05f2eec6e3e345f718b25b7fdf284932c
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
-  kspp_ref: afc376f2a935994793343cfeb05953583cc30191
+  kspp_ref: 7ba6fdf929fabaa8a71850bcaff5269fe7f78a2c
   kspp_sha256: 3e5f3ea80c6e82afd5550211d240daabf0676e900ca651b3a207c6946e04521d
   kspp_sha512: 6ca9521dc15a5897b490a6e2a3e262f09922f0cbf03e1abba4819f9bdee36e2f08fb5acd7c6cb49d50fcd323cdf571222da42f934fa7d8f55c4fa69be5b2b545
 
@@ -137,7 +137,7 @@ vars:
   libmnl_sha512: 16fa48e74c9da7724a85c655dfb0abd8369392627934639d65de951543e1447ac3e048d231248f1ce8861443c2ef62654a85a81feeedbbffaf2e5744f6cf4c9f
 
   # renovate: datasource=git-tags extractVersion=^libnftnl-(?<version>.*)$ depName=git://git.netfilter.org/libnftnl
-  libnftnl_version: 1.3.0
+  libnftnl_version: 1.3.1
   libnftnl_sha256: 0f4be47a8bb8b77a350ee58cbd4b5fae6260ad486a527706ab15cfe1dd55a3c4
   libnftnl_sha512: a2220dba97cc9a1bbd0d093a0bd0afd491120a814be6343aef35cbeba0e4781289fa84ced36510b6b9d76e99b3ba35f3964a9a40a21f38e2e0fad90c34fd3916
 
@@ -158,7 +158,7 @@ vars:
 
   # NOTE: let's keep this in sync with runc: https://github.com/opencontainers/runc/blob/release-1.3/script/release_build.sh#L22
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=seccomp/libseccomp
-  libseccomp_version: 2.5.6
+  libseccomp_version: 2.6.0
   libseccomp_sha256: 04c37d72965dce218a0c94519b056e1775cf786b5260ee2b7992956c4ee38633
   libseccomp_sha512: c35d8d6f80ee38a96688955932c6bf369101409a470ecf0dc550013b19f57311be907a600adc4d2f4699fb8e94e8038333b4f5702edc3c26b14c36fb6e1c42fd
 
@@ -178,7 +178,7 @@ vars:
   lvm2_sha512: c67e9e47c9f117d82b458e43c98e7b2bbf0f176fc86b7fa1a90d04209df14df442f576fd9b1e41be86b161aa744f0db5b6cac9d7b118bc4156354307314c441a
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=Mellanox/mstflint
-  mellanox_mstflint_version: 4.31.0-1
+  mellanox_mstflint_version: 4.31.0-1-GB200
   mellanox_mstflint_sha256: 91006fffaee68b0ea548721c095632eba07b3875687c5b3637e7afb6c4373af9
   mellanox_mstflint_sha512: 783d9865b74252051fba336c4b85ca0e1b85e57c8eac77cb9157bd837dbee207ff00a2af1156569d387e2e2a1bbafd07d0a42c966a9ebb0197e5e2e6f2858318
 
@@ -223,18 +223,18 @@ vars:
   glib_sha512: 07b58dc0bc395c6a53c9bc5d21674307ce9f0a836c82c04db5d5c3163685333f86ff237fc1cfde60daa10796d0de4c5ba90aa4bca056f4d670c73d97d0868b73
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
-  qemu_version: 10.1.2
+  qemu_version: 10.1.3
   qemu_sha256: 9d75f331c1a5cb9b6eb8fd9f64f563ec2eab346c822cb97f8b35cd82d3f11479
   qemu_sha512: 4defbcb78f65ba3d8079466bdb3ab29e26f10129723e045d34901e7d524656e5ff729dc97fb33537febe2596eb0b21a02aadd88007eb5b226e599bd236213263
 
   # renovate: datasource=github-tags depName=opencontainers/runc
-  runc_version: v1.3.4
-  runc_ref: d6d73eb8c60246978da649ffe75ce5c8bca8f856
+  runc_version: v1.4.0
+  runc_ref: 8bd78a9977e604c4d5f67a7415d7b8b8c109cdc4
   runc_sha256: db8c9584c7c26ac9c1f8474070e335efd8ac5c22dfdac72172f93de0d5176f47
   runc_sha512: cce380913d710e4acd4c7c98c59821d5e98063da80827b78480bd472c998fd92868c140146b0b118f1adfab04e33ae3c6786d2e92729e2d2c5f329a3b2c23f02
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
-  socat_version: 1.8.0.3
+  socat_version: 1.8.1.0
   socat_sha256: a9f9eb6cfb9aa6b1b4b8fe260edbac3f2c743f294db1e362b932eb3feca37ba4
   socat_sha512: 600a3387e9756e0937d2db49de9066df03d9818e4042da6b72109d1b5688dd72352754773a19bd2558fe93ec6a8a73e80e7cf2602fd915960f66c403fd89beef
 
