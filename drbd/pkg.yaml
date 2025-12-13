@@ -4,6 +4,7 @@ shell: /bin/bash
 dependencies:
   - stage: base
   - stage: kernel-build
+  - image: "{{ .LLVM }}"
 steps:
   - sources:
       - url: https://pkg.linbit.com//downloads/drbd/{{ regexReplaceAll ".\\d+\\.\\d+$" .drbd_version "${1}" }}/drbd-{{ .drbd_version }}.tar.gz
@@ -18,7 +19,7 @@ steps:
   - network: default
     build:
       - |
-        make -j $(nproc) -C drbd KERNEL_SOURCES=/src MODVERSIONS=detect KDIR=/src
+        make LLVM=1 -j $(nproc) -C drbd KERNEL_SOURCES=/src MODVERSIONS=detect KDIR=/src
   - network: none
     install:
       - |
@@ -27,7 +28,7 @@ steps:
         cp /src/modules.builtin /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
         cp /src/modules.builtin.modinfo /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
 
-        make -C /src M=$(pwd)/drbd/build-current modules_install DESTDIR=/rootfs INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1 CONFIG_MODULE_SIG_ALL=y
+        make LLVM=1 -C /src M=$(pwd)/drbd/build-current modules_install DESTDIR=/rootfs INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1 CONFIG_MODULE_SIG_ALL=y
     test:
       - |
         # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping

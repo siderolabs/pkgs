@@ -4,6 +4,7 @@ shell: /bin/bash
 dependencies:
   - stage: base
   - stage: kernel-build
+  - image: "{{ .LLVM }}"
 steps:
   - sources:
     # {{ if eq .ARCH "aarch64" }} This in fact is YAML comment, but Go templating instruction is evaluated by bldr
@@ -37,16 +38,16 @@ steps:
       - |
         cd /nvidia-driver/kernel-open
 
-        make -j $(nproc) SYSSRC=/src
-      - |
-        cd /gdrcopy/src/gdrdrv
-        # Build the kernel module with NVIDIA driver sources and kernel 6.12 compatibility flags
-        make -C /src M=/gdrcopy/src/gdrdrv modules \
-          NVIDIA_SRC_DIR=/nvidia-driver/kernel-open/nvidia \
-          NVIDIA_IS_OPENSOURCE=y \
-          HAVE_VM_FLAGS_SET=y \
-          HAVE_PROC_OPS=y \
-          KDIR=/src
+        make LLVM=1 LD=ld.lld OBJDUMP=llvm-objdump -j $(nproc) SYSSRC=/src
+      # - |
+      #   cd /gdrcopy/src/gdrdrv
+      #   # Build the kernel module with NVIDIA driver sources and kernel 6.12 compatibility flags
+      #   make LLVM=1 LD=ld.lld OBJDUMP=llvm-objdump -C /src M=/gdrcopy/src/gdrdrv modules \
+      #     NVIDIA_SRC_DIR=/nvidia-driver/kernel-open/nvidia \
+      #     NVIDIA_IS_OPENSOURCE=y \
+      #     HAVE_VM_FLAGS_SET=y \
+      #     HAVE_PROC_OPS=y \
+      #     KDIR=/src
     install:
       - |
         cd /nvidia-driver/kernel-open
@@ -56,12 +57,12 @@ steps:
         cp /src/modules.builtin /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
         cp /src/modules.builtin.modinfo /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
 
-        make -j $(nproc) modules_install SYSSRC=/src INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_STRIP=1
-      - |
-        cd /gdrcopy
+        make LLVM=1 LD=ld.lld OBJDUMP=llvm-objdump -j $(nproc) modules_install SYSSRC=/src INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_STRIP=1
+      # - |
+      #   cd /gdrcopy
 
-        # Install the gdrdrv kernel module
-        make -C /src M=/gdrcopy/src/gdrdrv modules_install INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1
+      #   # Install the gdrdrv kernel module
+      #   make LLVM=1 LD=ld.lld OBJDUMP=llvm-objdump -C /src M=/gdrcopy/src/gdrdrv modules_install INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1
     test:
       - |
         # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
