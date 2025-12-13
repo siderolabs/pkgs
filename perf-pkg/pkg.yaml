@@ -11,7 +11,7 @@ steps:
       - |
         cd /src
 
-        make -C tools/perf -j $(nproc) ARCH=${ARCH} \
+        make -C tools/perf -j $(nproc) \
           NO_LIBTRACEEVENT=1 \
           NO_JEVENTS=1 \
           PYTHON=false \
