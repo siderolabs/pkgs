@@ -4,6 +4,7 @@ shell: /bin/bash
 dependencies:
   - stage: base
   - stage: kernel-build
+  - image: "{{ .LLVM }}"
 steps:
   - sources:
       - url: https://github.com/Mellanox/mstflint/releases/download/v{{ .mellanox_mstflint_version }}/kernel-mstflint-{{ .mellanox_mstflint_version }}.tar.gz
