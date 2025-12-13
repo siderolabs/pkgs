@@ -1,0 +1,29 @@
+name: perf-pkg
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: kernel-prepare
+steps:
+  - env:
+      ARCH: {{ if eq .ARCH "aarch64" }}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }} 
+    build:
+      - |
+        cd /src
+
+        make -C tools/perf -j $(nproc) \
+          NO_LIBTRACEEVENT=1 \
+          NO_JEVENTS=1 \
+          PYTHON=false \
+          PYTHON_CONFIG=false \
+          LDFLAGS=-static
+  - install:
+      - |
+        mkdir -p /rootfs/usr/bin
+        cp /src/tools/perf/perf /rootfs/usr/bin/perf
+  - test:
+      - |
+        fhs-validator /rootfs
+finalize:
+  - from: /rootfs
+    to: /
