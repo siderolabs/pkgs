@@ -4,14 +4,14 @@ shell: /bin/bash
 dependencies:
   - stage: base
   - stage: kernel-prepare
-env: 
-  ARCH: {{ if eq .ARCH "aarch64" }}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }} 
 steps:
-  - build:
+  - env:
+      ARCH: {{ if eq .ARCH "aarch64" }}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }} 
+    build:
       - |
         cd /src
 
-        make -C tools/perf -j $(nproc) \
+        make -C tools/perf -j $(nproc) ARCH=${ARCH} \
           NO_LIBTRACEEVENT=1 \
           NO_JEVENTS=1 \
           PYTHON=false \
