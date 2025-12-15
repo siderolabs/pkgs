@@ -1,0 +1,39 @@
+name: libjansson
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: https://github.com/akheron/jansson/releases/download/v{{ .libjansson_version }}/jansson-{{ .libjansson_version }}.tar.bz2
+        destination: jansson.tar.bz2
+        sha256: "{{ .libjansson_sha256 }}"
+        sha512: "{{ .libjansson_sha512 }}"
+    prepare:
+      - |
+        tar -xjf jansson.tar.bz2 --strip-components=1
+      - |
+        ./configure \
+          --prefix=/usr \
+          --libdir=/usr/lib 
+    build:
+      - |
+        make -j $(nproc)
+    install:
+      - |
+        make DESTDIR=/rootfs install
+    test:
+      - |
+        make check
+      - |
+        fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/libjansson.spdx.json
+      version: {{ .libjansson_version }}
+      cpes:
+        - cpe:2.3:a:jansson:jansson:{{ .libjansson_version }}:*:*:*:*:*:*:*
+      licenses:
+        - MIT
+finalize:
+  - from: /rootfs
+    to: /
