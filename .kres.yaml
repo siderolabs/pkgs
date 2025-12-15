@@ -26,6 +26,7 @@ spec:
     - libinih
     - libisoburn
     - libisofs
+    - libjansson
     - libjson-c
     - liblzma
     - libmnl

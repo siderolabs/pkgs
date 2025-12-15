@@ -5,6 +5,7 @@ dependencies:
   - stage: base
   - stage: libmnl
   - stage: libnftnl
+  - stage: libjansson
 steps:
   - sources:
       - url: https://netfilter.org/projects/nftables/files/nftables-{{ .nftables_version }}.tar.xz
@@ -22,6 +23,7 @@ steps:
           --disable-man-doc \
           --sbindir=/usr/bin \
           --without-cli \
+          --with-json=yes \
           --with-mini-gmp=yes
     build:
       - |
