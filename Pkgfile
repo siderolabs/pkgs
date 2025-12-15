@@ -1,11 +1,11 @@
-# syntax = ghcr.io/siderolabs/bldr:v0.5.4
+# syntax = ghcr.io/siderolabs/bldr:v0.5.6
 
 format: v1alpha2
 
 vars:
-  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.11.0-3-g0390e22
+  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.11.0-4-g63685d2
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.11.0-4-g05ee846
+  TOOLS_REV: v1.11.0-5-g7f05320
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.7.1
