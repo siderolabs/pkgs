@@ -131,6 +131,11 @@ vars:
   libjson_c_sha256: 876ab046479166b869afc6896d288183bbc0e5843f141200c677b3e8dfb11724
   libjson_c_sha512: 4763f2352414dac3599bc2183b4fa57dbfaac0ca24de890097bd7d0bdda93c91efa280f6566e949e6d94212ef39a63fc76c5f9d0c54ff3d04b13c859717dba5a
 
+  # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=akheron/jansson
+  libjansson_version: 2.14.1
+  libjansson_sha256: 6bd82d3043dadbcd58daaf903d974891128d22aab7dada5d399cb39094af49ce
+  libjansson_sha512: 668d8ffbd13b83e8a55449c588f267220c2a9e4690281c2386e3dada4c8b890c80effd6a946b3500bb1cf800eb8cf1bb3da3c6476ceea4f462d2ccc9cd4911d8
+
   # renovate: datasource=git-tags extractVersion=^libmnl-(?<version>.*)$ depName=git://git.netfilter.org/libmnl
   libmnl_version: 1.0.5
   libmnl_sha256: 274b9b919ef3152bfb3da3a13c950dd60d6e2bcd54230ffeca298d03b40d0525

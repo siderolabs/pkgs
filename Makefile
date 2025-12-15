@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2025-12-09T22:14:53Z by kres 4b09af7.
+# Generated on 2025-12-15T09:54:31Z by kres 4b09af7.
 
 # common variables
 
@@ -69,6 +69,7 @@ TARGETS += libcap
 TARGETS += libinih
 TARGETS += libisoburn
 TARGETS += libisofs
+TARGETS += libjansson
 TARGETS += libjson-c
 TARGETS += liblzma
 TARGETS += libmnl
