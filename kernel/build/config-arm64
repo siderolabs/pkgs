@@ -9278,7 +9278,10 @@ CONFIG_PHY_TEGRA194_P2U=y
 # CONFIG_PHY_XILINX_ZYNQMP is not set
 # end of PHY Subsystem
 
-# CONFIG_POWERCAP is not set
+CONFIG_POWERCAP=y
+# CONFIG_IDLE_INJECT is not set
+# CONFIG_ARM_SCMI_POWERCAP is not set
+# CONFIG_DTPM is not set
 # CONFIG_MCB is not set
 
 #
