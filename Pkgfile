@@ -13,10 +13,10 @@ vars:
   cni_sha512: 8383a9f3fca75e978b84035609668f139e34cac7c5c1547c2913b6893754c3a0ec55acef73fd8e362094ca022359f2fa6c54dec55bada6b8fb8db7e9d7c889ea
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v2.1.5
-  containerd_ref: fcd43222d6b07379a4be9786bda52438f0dd16a1
-  containerd_sha256: f8def69e02ecff84c07e24350be0b834a3a8e1f6accf042cae4d504e52eb03d1
-  containerd_sha512: 6376228edf615b1ff3d40287622d4f72793be091d59d5d7e97f7bdc4f265aa4412f4a5dd1937ef795e54aa5ee8a87d785e859d7c6525a25fa86631b878cefc59
+  containerd_version: v2.1.6
+  containerd_ref: c74fd8780002eb26bd5940ae339d690d891221c2
+  containerd_sha256: 9b13537e5d61b9cf301295a807751447cc7c86fd79bb37ac5630455013d353a5
+  containerd_sha512: 63bc424a4f3ab56edab89bffe863551286eac224b516fe283ad132cd60e2c2a0d9c6e41fbc2076936ba5a70b467f17229587f8c38d855286f66477147a3490d2
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
   cryptsetup_version: 2.8.1
