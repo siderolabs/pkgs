@@ -20,6 +20,8 @@ steps:
       - |
         tar -xJf xfsprogs.tar.xz --strip-components=1
 
+        patch -p1 < /pkg/patches/libxfs.patch
+
         ./configure \
         --prefix=/usr \
         --sbindir=/usr/bin \
