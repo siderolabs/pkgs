@@ -15,6 +15,7 @@ spec:
     - flannel-cni
     - glib
     - grub
+    - igzip
     - ipmitool
     - iptables
     - ipxe

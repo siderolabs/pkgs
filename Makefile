@@ -58,6 +58,7 @@ TARGETS += fhs
 TARGETS += flannel-cni
 TARGETS += glib
 TARGETS += grub
+TARGETS += igzip
 TARGETS += ipmitool
 TARGETS += iptables
 TARGETS += ipxe

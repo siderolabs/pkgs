@@ -1,0 +1,46 @@
+name: igzip
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: https://github.com/intel/isa-l/archive/refs/tags/v{{ .igzip_version }}.tar.gz
+        destination: isa-l.tar.gz
+        sha256: "{{ .igzip_sha256 }}"
+        sha512: "{{ .igzip_sha512 }}"
+    env:
+      SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
+    prepare:
+      - |
+        tar -xzf isa-l.tar.gz --strip-components=1
+      # apply Bottlerocket patch to increase pipe buffer sizes
+      # see: https://github.com/bottlerocket-os/bottlerocket-core-kit/pull/443
+      #      https://github.com/bottlerocket-os/bottlerocket-core-kit/issues/392
+      - |
+        patch -p1 < /pkg/patches/pipe-buffer-sizes.patch
+      - |
+        ./autogen.sh
+      - |
+        ./configure \
+          --prefix=/usr
+    build:
+      - |
+        make -j $(nproc)
+    install:
+      - |
+        make install DESTDIR=/rootfs
+      - |
+        rm -rf /rootfs/usr/share/
+    test:
+      - |
+        export LD_LIBRARY_PATH=/rootfs/usr/lib
+        echo "test" | /rootfs/usr/bin/igzip -c | /rootfs/usr/bin/igzip -d -c | grep -q "test"
+      - |
+        export LD_LIBRARY_PATH=/rootfs/usr/lib
+        /rootfs/usr/bin/igzip --version
+      - |
+        fhs-validator /rootfs
+finalize:
+  - from: /rootfs
+    to: /

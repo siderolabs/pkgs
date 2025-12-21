@@ -5,7 +5,7 @@ format: v1alpha2
 vars:
   TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.13.0-alpha.0-2-g0823283
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.13.0-alpha.0-4-gb67c1a1
+  TOOLS_REV: v1.13.0-alpha.0-5-g543a16f
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.9.0
@@ -70,6 +70,11 @@ vars:
   hailort_sha512: b5abdf3ca5cb4cbb9d3189ed6bae52d66e52dbce99ed1698ece8ff1f5f32db7560990e66bab740f2f0102e13175eb3fc0ae41162b75ee743684fb64ff845db07
   hailort_fw_sha256: 1ba9528972091ec17bebc0dc7ea2e6f4449efe70664890f6387ccbc7b60626ee
   hailort_fw_sha512: 6280e4bddc120ab6e9a4a4fdac529816ee1f94d343e0e0ef6c36fd474b579f85032e22b24a8f758b23028d429ef5936780fa07ed3c0abc512f5fd72985fc982c
+
+  # renovate: datasource=github-releases depName=intel/isa-l
+  igzip_version: 2.31.1
+  igzip_sha256: e1d5573a4019738243b568ab1e1422e6ab7557c5cae33cc8686944d327ad6bb4
+  igzip_sha512: 65199d054af1edc26d477883f7878f25fd4db65622aa98247069f1296c5f07b75da24f0361a6c3889ddb3168d940b508cd2f6340548a62ff3157977179fd002d
 
   # renovate: datasource=github-releases extractVersion=^IPMITOOL_(?<version>.*)$ depName=ipmitool/ipmitool
   ipmitool_version: 1_8_19

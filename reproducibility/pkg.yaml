@@ -79,6 +79,8 @@ dependencies:
     to: /rootfs
   - stage: pigz
     to: /rootfs
+  - stage: igzip
+    to: /rootfs
   - stage: qemu-tools
     to: /rootfs
   - stage: runc

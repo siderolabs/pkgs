@@ -3,7 +3,7 @@ variant: scratch
 shell: /bin/bash
 dependencies:
   - stage: base
-  - image: "{{ .TOOLS_PREFIX }}tools-zlib:{{ .TOOLS_REV }}"
+  - image: "{{ .TOOLS_PREFIX }}tools-zlib-ng:{{ .TOOLS_REV }}"
     to: /rootfs
 steps:
   - test:

@@ -9,6 +9,8 @@ steps:
         destination: pigz.tar.gz
         sha256: "{{ .pigz_sha256 }}"
         sha512: "{{ .pigz_sha512 }}"
+    env:
+      SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
     prepare:
       - |
         tar -xzf pigz.tar.gz --strip-components=1
@@ -18,8 +20,12 @@ steps:
     install:
       - |
         install -Dm755 pigz /rootfs/usr/bin/pigz
-        ln -s pigz /rootfs/usr/bin/unpigz
+        ln /rootfs/usr/bin/pigz /rootfs/usr/bin/unpigz
     test:
+      - |
+        echo "test" | /rootfs/usr/bin/pigz -c | /rootfs/usr/bin/unpigz -c | grep -q "test"
+      - |
+        /rootfs/usr/bin/pigz --version
       - |
         fhs-validator /rootfs
 finalize:

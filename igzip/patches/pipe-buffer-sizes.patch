@@ -1,0 +1,49 @@
+From 27c24697b497495d5af5a8d8040ebbe6a2fdc23c Mon Sep 17 00:00:00 2001
+From: Ben Cressey <bcressey@amazon.com>
+Date: Wed, 19 Mar 2025 18:13:17 +0000
+Subject: [PATCH] igzip: increase stdin and stdout pipe sizes
+
+Signed-off-by: Ben Cressey <bcressey@amazon.com>
+---
+ programs/igzip_cli.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/programs/igzip_cli.c b/programs/igzip_cli.c
+index f85ef96..d80df8b 100644
+--- a/programs/igzip_cli.c
++++ b/programs/igzip_cli.c
+@@ -39,6 +39,7 @@
+ #include <stdbool.h>
+ #include <stdarg.h>
+ #include <errno.h>
++#include <fcntl.h>
+ #include "igzip_lib.h" /* Normally you use isa-l.h instead for external programs */
+ 
+ #if defined(HAVE_THREADS)
+@@ -392,8 +393,10 @@ void
+ open_in_file(FILE **in, char *infile_name)
+ {
+         *in = NULL;
+-        if (infile_name == NULL)
++        if (infile_name == NULL) {
+                 *in = stdin;
++                fcntl(STDIN_FILENO, F_SETPIPE_SZ, BLOCK_SIZE);
++        }
+         else
+                 *in = fopen_safe(infile_name, "rb");
+ }
+@@ -402,8 +405,10 @@ void
+ open_out_file(FILE **out, char *outfile_name)
+ {
+         *out = NULL;
+-        if (global_options.use_stdout)
++        if (global_options.use_stdout) {
+                 *out = stdout;
++                fcntl(STDOUT_FILENO, F_SETPIPE_SZ, BLOCK_SIZE);
++        }
+         else if (outfile_name != NULL)
+                 *out = fopen_safe(outfile_name, "wb");
+         else if (!isatty(fileno(stdout)) || global_options.force)
+-- 
+2.48.1
+
