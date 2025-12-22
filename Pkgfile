@@ -1,16 +1,16 @@
-# syntax = ghcr.io/siderolabs/bldr:v0.5.5
+# syntax = ghcr.io/siderolabs/bldr:v0.5.6
 
 format: v1alpha2
 
 vars:
   TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.10.0-7-g02220b5
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.10.0-7-g39357c8
+  TOOLS_REV: v1.10.0-8-g11b0a3d
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
-  cni_version: v1.6.2
-  cni_sha256: aa9a9401d27c1ad440627bbe7093d7e9ff47d325aac27b89a2cbdd56e25f3625
-  cni_sha512: ee577e3fe39558d6a6296754c97de6608f95152805c01b8053e2958d16634ab57d147eea7c950fcc4d1a98d6733a85717adf7078ee2dffff007ec3b063386c24
+  cni_version: v1.9.0
+  cni_sha256: 5091841a4f379ab6159152b546efc4523d55694c8adc4f19cc7c68f9d1db6d75
+  cni_sha512: 8383a9f3fca75e978b84035609668f139e34cac7c5c1547c2913b6893754c3a0ec55acef73fd8e362094ca022359f2fa6c54dec55bada6b8fb8db7e9d7c889ea
 
   # renovate: datasource=github-tags depName=containerd/containerd
   containerd_version: v2.0.7
@@ -29,9 +29,9 @@ vars:
   dosfstools_sha512: 3cc0808edb4432428df8a67da4bb314fd1f27adc4a05754c1a492091741a7b6875ebd9f6a509cc4c5ad85643fc40395b6e0cadee548b25cc439cc9b725980156
 
   # renovate: datasource=github-tags extractVersion=^drbd-(?<version>.*)$ depName=LINBIT/drbd
-  drbd_version: 9.2.14
-  drbd_sha256: c7ca2758f4f20672add7bc687e2bd5954fb8da7ab55ed0a8f62d7891239277df
-  drbd_sha512: 37fc6ed86fc03ed8a480bfbe44f92b2a090dfa5129b3a0531b3feaf61b9fe784b4a1fa6b376fd932742cc8387ef6cc791b69a33efd1e50489aa10b6d589d5a0e
+  drbd_version: 9.2.16
+  drbd_sha256: d9f7fd5ed4a5527246e72eaaad16064e042265d127cf2c0a68a47de88b45f19c
+  drbd_sha512: 370d283072d2423f0d5b54959179a41c304ad74176aa341a10a485ce602781b33628821f641ae2480c2315bc6012c99eed47819aaa6c4b2946c9a0a73e664d15
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git
   e2fsprogs_version: v1.47.2
@@ -85,9 +85,9 @@ vars:
   kspp_sha512: ef115e8b41526b4a248dab97daaeec85561525e4abf046799154242dcb2ebe6b37203fe0491e01b301f1948faa5b102f85c732ee503e0b999e7d4d162998fc70
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.12.58
-  linux_sha256: 5f1c4c546660a6a81046fdfa6195306bad2c8d17c0d69876dc100a85ad4613ac
-  linux_sha512: 95fd545a94d0c45c4c8c4655dba39e0c5c5892a0e7fc6b94229c67564643dc76c0a62b17271c8052a7f9264637029a815e6558a9dfa16f16fb5f49f1628d9bd9
+  linux_version: 6.12.63
+  linux_sha256: 9502c5ffe4b894383c97abfccf74430a84732f04ee476b9c0d87635b29df7db3
+  linux_sha512: 89a4aaa7f924b2c579d0bf384742c3ec2fc9b11c272b9d68ad645a99127043a4f55f8a07067a99ff6220ba9c3efb29dbf27baa298d2b5980d811771873afac1d
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
@@ -206,10 +206,10 @@ vars:
   qemu_sha512: 941a4337a115c65de2fca042932efb31886114f4300226fcf55f04c2c5471bd2b5ce220c4b17e01c3679bd55ba08a1aa7ce399de15e3e5f28c17da52030b139e
 
   # renovate: datasource=github-tags depName=opencontainers/runc
-  runc_version: v1.2.8
-  runc_ref: eeb7e6024f9ee43876301b1d23c353384fa6dcdd
-  runc_sha256: add42d467087ac18e43d18de7061e145d4d2b2aa3608e684c907ffd6c816d007
-  runc_sha512: 49d85cbc1165fd1d09d2542e2159274a6c279e8250cba55dfe35035a8e45dcf7cf3b9c26810a177bab093e204c6e6deb97dae2d6410df19ceff7f912630426dc
+  runc_version: v1.2.9
+  runc_ref: 6524246c68d68d792051e5401dd9126bda1b979f
+  runc_sha256: 266fc2f9c7f83bbe863ec99a0941f9a2c54da27b9f8044864456231311281ada
+  runc_sha512: ed51b4d95e6ec2fedc3db8c5fca5e8b728be9e0d40a832e7ba6d3be88d0d67f51f6eed561c490613b26ad4688bace6033a0774a943c91b8427c1bb091d2b1f5d
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
   socat_version: 1.8.0.3
