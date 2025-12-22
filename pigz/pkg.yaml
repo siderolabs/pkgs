@@ -28,6 +28,13 @@ steps:
         /rootfs/usr/bin/pigz --version
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/pigz.spdx.json
+      version: {{ .pigz_version }}
+      cpes:
+        - cpe:2.3:a:zlib:pigz:{{ .pigz_version }}:*:*:*:*:*:*:*
+      licenses:
+        - Zlib
 finalize:
   - from: /rootfs
     to: /

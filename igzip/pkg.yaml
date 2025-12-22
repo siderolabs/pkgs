@@ -41,6 +41,13 @@ steps:
         /rootfs/usr/bin/igzip --version
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/igzip.spdx.json
+      version: {{ .igzip_version }}
+      cpes:
+        - cpe:2.3:a:intel:isa-l:{{ .igzip_version }}:*:*:*:*:*:*:*
+      licenses:
+        - BSD-3-Clause
 finalize:
   - from: /rootfs
     to: /
