@@ -19,9 +19,9 @@ vars:
   containerd_sha512: 6bbfe356bdb0fd70c5b3ca0d932b790bb34b40832392e6a309a907351dc344e3b6059e2cd583145200aab218b4e8f5160d698f2b3a84d05bbf834d023eea4bd3
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
-  cryptsetup_version: 2.8.1
-  cryptsetup_sha256: bfe5601fd4950bd8456c7b260578e0699dea9e6ddee5cad686531f9aa3ed6ffa
-  cryptsetup_sha512: ae7eacc3584d3bcc6269e037582a81927d6163044280eba789561466fcde1620425ee599bd7cf33506b3a91c8fda119cc35ea2379740f5b1bc2f337676c99a87
+  cryptsetup_version: 2.8.3
+  cryptsetup_sha256: 7cac28aeaa940d9b4b081d1d3d5a929468f2fa9b2669407948b3a63b6b8c1b7e
+  cryptsetup_sha512: 49226e56701240821ad14a98b3f206825062a5c47a3f035ea25ce5861d2c3753312922c74c733dc47250e58f43ba91985a96248258d9a605a8999a2cb42ebf00
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=dosfstools/dosfstools
   dosfstools_version: 4.2
@@ -87,14 +87,14 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 3d5cd3d79e8d8adb723e9e560a636947e19114a3
-  ipxe_sha256: cdfadac2db84396c2dd343d43a95382860b7f6fb2a701d803a5cf0938d3b87c1
-  ipxe_sha512: c36c7b05121c7666c7578b462bed6ac672ba4210ed8646e1ba08148395835808bd852b913f19f8ba26de927e88c8625f303ea5b286e8245343fc054874129aba
+  ipxe_ref: 3832147944209ece35557234102548413ef1b460
+  ipxe_sha256: 5d62b489251712939b895da83b3b03d4eca0cfac4b396936f836e7aea238e3ab
+  ipxe_sha512: 4ecbc90add94040f97d007a741c2fc5baddf97524b21bbd1ee4f5237a54cce249a876ce8a0ae243eb429d80614b73c282f7ebdd5da2cbda220d7aa3a38245c21
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
-  kspp_ref: e2890ca7355ed33989030bb45bafb7946d3fbcc3
-  kspp_sha256: 028265e6b1a44d804a1ac48cd5a09dc219e75e3c35f7d747c42f64f78c6c5346
-  kspp_sha512: c04c0c1b32b01b19b3ec56f56cef6797ff113edc5b6aba7dc3ac5e093672390e3c211f60ad1994c4270efd5de3f63b9920fca42e90b8701813c19fdc53ac2f7c
+  kspp_ref: 0bcde64140f4c7bc046090113b271c1b302c5fae
+  kspp_sha256: 36dd7901ddd924159bc04283569d2ce12516e0efd0ccea5e5fb929662f454051
+  kspp_sha512: 684d1be64bcba6cbb890675b17e601d7d7d9255f6fb90452415ebd1dfbb6357e7a484b9e64621749a3d71be78d73021d063cd839ece68884313f517324206e30
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
   linux_version: 6.18.2
@@ -157,9 +157,9 @@ vars:
   nftables_sha512: 01fbbea43fd01250b0176a200dfdb6b84d3d51156cc2350acb25a5e66960e1908c3d17a0363baddb32897ea8bea0569b67500a94f708c8587b0e29402f51cbb6
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=tukaani-project/xz
-  xz_version: 5.8.1
-  xz_sha256: 0b54f79df85912504de0b14aec7971e3f964491af1812d83447005807513cd9e
-  xz_sha512: 34dbc874a697f4fd17127b3dc828236dd7fd35120a77e0867325273c5d56c4ecddc8a39dce6cbdb3141fff32c56001f4ab18edfa572076d10f2fd55b07ff2b9e
+  xz_version: 5.8.2
+  xz_sha256: 890966ec3f5d5cc151077879e157c0593500a522f413ac50ba26d22a9a145214
+  xz_sha512: 9cb422456d51df4261c16bcd68b188d64b778f43c875188cb140372dab9793c873111f5608c3dfe3dffe5dd6da9ba7ba96d7154d3d4fae26cb1cc22b6b66910e
 
   # renovate: datasource=github-releases extractVersion=^popt-(?<version>.*)-release$ depName=rpm-software-management/popt
   libpopt_version: 1.19
