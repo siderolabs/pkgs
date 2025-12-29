@@ -19,9 +19,10 @@ steps:
     prepare:
       - |
         tar -xJf xfsprogs.tar.xz --strip-components=1
-
+      - |
         patch -p1 < /pkg/patches/libxfs.patch
-
+        patch -p1 < /pkg/patches/force-uid.patch
+      - |
         ./configure \
         --prefix=/usr \
         --sbindir=/usr/bin \
