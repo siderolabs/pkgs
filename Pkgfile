@@ -106,6 +106,11 @@ vars:
   libaio_sha256: 2c44d1c5fd0d43752287c9ae1eb9c023f04ef848ea8d4aafa46e9aedb678200b
   libaio_sha512: 65c30a102433bf8386581b03fc706d84bd341be249fbdee11a032b237a7b239e8c27413504fef15e2797b1acd67f752526637005889590ecb380e2e120ab0b71
 
+  # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=libarchive/libarchive
+  libarchive_version: 3.8.4
+  libarchive_sha256: c7b847b57feacf5e182f4d14dd6cae545ac6843d55cb725f58e107cdf1c9ad73
+  libarchive_sha512: 088f3726de7f8e2f4b2ac6cc9c01338328493de19f5b0645157114ef3b7a0fa5213cb6d64123736cae83354a2137bba9e2187bb4208cb7848e2566c65b100489
+
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.savannah.gnu.org/attr.git
   libattr_version: 2.5.2
   libattr_sha256: f2e97b0ab7ce293681ab701915766190d607a1dba7fae8a718138150b700a70b

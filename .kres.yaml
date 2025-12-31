@@ -21,6 +21,7 @@ spec:
     - ipxe
     - kmod
     - libaio
+    - libarchive
     - libattr
     - libburn
     - libcap

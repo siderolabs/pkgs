@@ -1,0 +1,44 @@
+name: libarchive
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: https://www.libarchive.org/downloads/libarchive-{{ .libarchive_version }}.tar.xz
+        destination: libarchive.tar.xz
+        sha256: "{{ .libarchive_sha256 }}"
+        sha512: "{{ .libarchive_sha512 }}"
+    prepare:
+      - |
+        tar xf libarchive.tar.xz --strip-components=1
+
+        CFLAGS="-fPIC" ./configure \
+        --disable-bsdtar \
+        --disable-bsdcat \
+        --disable-bsdcpio \
+        --disable-bsdunzip \
+        --without-xml2 \
+        --without-expat \
+        --without-bz2lib
+    build:
+      - |
+        make -j $(nproc)
+    install:
+      - |
+        make DESTDIR=/rootfs install
+
+        rm -rf /rootfs/usr/local/share
+    test:
+      - |
+        fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/libarchive.spdx.json
+      version: {{ .libarchive_version }}
+      cpes:
+        - cpe:2.3:a:libarchive:libarchive:{{ .libarchive_version }}:*:*:*:*:*:*:*
+      licenses:
+        - BSD-2-Clause
+finalize:
+  - from: /rootfs
+    to: /

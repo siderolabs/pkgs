@@ -3,6 +3,7 @@ variant: scratch
 shell: /bin/bash
 dependencies:
   - stage: base
+  - stage: libarchive
 steps:
   - sources:
       - url: https://github.com/tytso/e2fsprogs/archive/refs/tags/{{ .e2fsprogs_version}}.tar.gz
