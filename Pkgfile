@@ -65,7 +65,7 @@ vars:
   grub_sha512: 761c060a4c3da9c0e810b0ea967e3ebc66baa4ddd682a503ae3d30a83707626bccaf49359304a16b3a26fc4435fe6bea1ee90be910c84de3c2b5485a31a15be3
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=hailo-ai/hailort-drivers
-  hailort_version: 4.23.0
+  hailort_version: 5.1.1
   hailort_sha256: 245c7157746c2fd48b2fab4a990c8fb3b786921dd72c9e5348f5b5619ee05ec3
   hailort_sha512: b5abdf3ca5cb4cbb9d3189ed6bae52d66e52dbce99ed1698ece8ff1f5f32db7560990e66bab740f2f0102e13175eb3fc0ae41162b75ee743684fb64ff845db07
   hailort_fw_sha256: 1ba9528972091ec17bebc0dc7ea2e6f4449efe70664890f6387ccbc7b60626ee
@@ -87,17 +87,17 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 3832147944209ece35557234102548413ef1b460
+  ipxe_ref: 7c39c04a537ce29dccc6f2bae9749d1d371429c1
   ipxe_sha256: 5d62b489251712939b895da83b3b03d4eca0cfac4b396936f836e7aea238e3ab
   ipxe_sha512: 4ecbc90add94040f97d007a741c2fc5baddf97524b21bbd1ee4f5237a54cce249a876ce8a0ae243eb429d80614b73c282f7ebdd5da2cbda220d7aa3a38245c21
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
-  kspp_ref: 0bcde64140f4c7bc046090113b271c1b302c5fae
+  kspp_ref: 93746f46678a36822a841fdb78f6de85392b5b03
   kspp_sha256: 36dd7901ddd924159bc04283569d2ce12516e0efd0ccea5e5fb929662f454051
   kspp_sha512: 684d1be64bcba6cbb890675b17e601d7d7d9255f6fb90452415ebd1dfbb6357e7a484b9e64621749a3d71be78d73021d063cd839ece68884313f517324206e30
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.18.2
+  linux_version: 6.18.3
   linux_sha256: 558c6bbab749492b34f99827fe807b0039a744693c21d3a7e03b3a48edaab96a
   linux_sha512: 15989d1a26c6a5200b8eab4ba348b308466398aa75dda3844b37e7eb320206236d47c94cbc0e0b1d7ead10385ca84d34d0f2aa02ba5c1bd65ca6a5aa71c57117
 
@@ -173,7 +173,7 @@ vars:
 
   # NOTE: let's keep this in sync with runc: https://github.com/opencontainers/runc/blob/release-1.3/script/release_build.sh#L22
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=seccomp/libseccomp
-  libseccomp_version: 2.5.6
+  libseccomp_version: 2.6.0
   libseccomp_sha256: 04c37d72965dce218a0c94519b056e1775cf786b5260ee2b7992956c4ee38633
   libseccomp_sha512: c35d8d6f80ee38a96688955932c6bf369101409a470ecf0dc550013b19f57311be907a600adc4d2f4699fb8e94e8038333b4f5702edc3c26b14c36fb6e1c42fd
 
@@ -193,7 +193,7 @@ vars:
   lvm2_sha512: 97fd1849cd632943c8233f06f181b1899b0e6937444d672abef10307c66d207c16325701ac669d5ff438490a11596c19d1dbbcff50e4e7c00c9b6e4eb1ecf87c
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=Mellanox/mstflint
-  mellanox_mstflint_version: 4.31.0-1
+  mellanox_mstflint_version: 4.31.0-1-GB200
   mellanox_mstflint_sha256: 91006fffaee68b0ea548721c095632eba07b3875687c5b3637e7afb6c4373af9
   mellanox_mstflint_sha512: 783d9865b74252051fba336c4b85ca0e1b85e57c8eac77cb9157bd837dbee207ff00a2af1156569d387e2e2a1bbafd07d0a42c966a9ebb0197e5e2e6f2858318
 
@@ -233,12 +233,12 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
-  glib_version: 2.87.0
+  glib_version: 2.87.1
   glib_sha256: 926cf73d8eb90ea341cc2d6fc7b258901e1a086a3808b166b4476d69a98b2401
   glib_sha512: 07b58dc0bc395c6a53c9bc5d21674307ce9f0a836c82c04db5d5c3163685333f86ff237fc1cfde60daa10796d0de4c5ba90aa4bca056f4d670c73d97d0868b73
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
-  qemu_version: 10.1.3
+  qemu_version: 10.2.0
   qemu_sha256: fbaa7a0d7a9a1deb5695b125916746ec28fe0de6275d4454f3e3bbaf8b339b53
   qemu_sha512: 67608a5a422c93c494159d649a0afb296231ec2d96a6fc03b119375da4180162ba25a74bb6204a8cb36375709c1f682ef56c42961816dc2107f4d67bb8e10db4
 
@@ -249,7 +249,7 @@ vars:
   runc_sha512: 8103363e2a593360e85cc1cbd115c0c6705b472e57107ae6c03b31cb22cbf2a9b5e76db728cc0c9fd5e779904555aa0c5f2142e55837d386c2ac4cc346f92264
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
-  socat_version: 1.8.0.3
+  socat_version: 1.8.1.0
   socat_sha256: a9f9eb6cfb9aa6b1b4b8fe260edbac3f2c743f294db1e362b932eb3feca37ba4
   socat_sha512: 600a3387e9756e0937d2db49de9066df03d9818e4042da6b72109d1b5688dd72352754773a19bd2558fe93ec6a8a73e80e7cf2602fd915960f66c403fd89beef
 
@@ -269,7 +269,7 @@ vars:
   xdma_driver_sha512: 0d3be501410baaa75b422b96ba86971fff4e3dd7b99301c61a89d7523cda87cbcbe126f71c477f6f1938496d360e5d59e852c2ecdcfd8181d2fe6991d4596e9e
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
-  xfsprogs_version: 6.17.0
+  xfsprogs_version: 6.18.0
   xfsprogs_sha256: 5b0f56a81f641326266f762ae8a563b29d95cdbcda83bc7938f68ce122f1edd9
   xfsprogs_sha512: bcdd5a632ac1eae4ad68ac1b18a0289820fcef997da2b3b132e97f035f21e951f20f19de9d09e0babd7d7feb8ad14c0782aa81c698b39c19e4349e603892287e
 
