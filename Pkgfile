@@ -5,7 +5,7 @@ format: v1alpha2
 vars:
   TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.12.0-2-ge64f660
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.12.0-2-g7d57df0
+  TOOLS_REV: v1.12.0-3-g5df8bae
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.9.0
@@ -223,9 +223,9 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
-  glib_version: 2.87.0
-  glib_sha256: 926cf73d8eb90ea341cc2d6fc7b258901e1a086a3808b166b4476d69a98b2401
-  glib_sha512: 07b58dc0bc395c6a53c9bc5d21674307ce9f0a836c82c04db5d5c3163685333f86ff237fc1cfde60daa10796d0de4c5ba90aa4bca056f4d670c73d97d0868b73
+  glib_version: 2.87.1
+  glib_sha256: fc2ce0f948ee163f8adc5bdde2f38612b8a3f270022aa1b0d087cb9f1f0ac5c2
+  glib_sha512: b961abd94254273b47002eaf644bf1742481fc4c098a39479f997b9960f81091cab3ba08e5c813aa649cfd65ae09d4dc9ee1469223d015b86b077c040c1c4a60
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
   qemu_version: 10.1.2
