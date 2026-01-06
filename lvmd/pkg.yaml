@@ -1,0 +1,43 @@
+name: lvmd
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: lvm2
+steps:
+  - sources:
+      - url: https://github.com/topolvm/topolvm/archive/refs/tags/{{ .lvmd_version }}.tar.gz
+        destination: topolvm.tar.gz
+        sha256: "{{ .lvmd_sha256 }}"
+        sha512: "{{ .lvmd_sha512 }}"
+  - network: default
+    prepare:
+      - |
+        tar -xzf topolvm.tar.gz --strip-components=1
+        go mod download
+        go mod verify
+  - network: none
+    build:
+      - |
+        export GOARCH=$(go env GOARCH)
+        CGO_ENABLED=0 go build \
+          -ldflags="-s -w -X github.com/topolvm/topolvm.Version={{ .lvmd_version }}" \
+          -o lvmd ./cmd/lvmd
+    install:
+      - |
+        mkdir -p /rootfs/usr/bin
+        install -D -m 0755 lvmd /rootfs/usr/bin/lvmd
+    test:
+      - |
+        fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/lvmd.spdx.json
+      version: {{ .lvmd_version }}
+      cpes:
+        - cpe:2.3:a:topolvm:lvmd:{{ .lvmd_version }}:*:*:*:*:*:*:*
+        - cpe:2.3:a:topolvm:topolvm:{{ .lvmd_version }}:*:*:*:*:*:*:*
+      licenses:
+        - Apache-2.0
+finalize:
+  - from: /rootfs
+    to: /

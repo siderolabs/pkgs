@@ -84,6 +84,7 @@ TARGETS += libsepol
 TARGETS += liburcu
 TARGETS += linux-firmware
 TARGETS += lvm2
+TARGETS += lvmd
 TARGETS += mtools
 TARGETS += musl
 TARGETS += nftables

@@ -40,6 +40,7 @@ spec:
     - liburcu
     - linux-firmware
     - lvm2
+    - lvmd
     - mtools
     - musl
     - nftables

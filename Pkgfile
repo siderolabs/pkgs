@@ -192,6 +192,11 @@ vars:
   lvm2_sha256: 322d44bf40de318e6e6b52c56999aaeb86b16c8267187ac2e01a44d4dc526960
   lvm2_sha512: 97fd1849cd632943c8233f06f181b1899b0e6937444d672abef10307c66d207c16325701ac669d5ff438490a11596c19d1dbbcff50e4e7c00c9b6e4eb1ecf87c
 
+  # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=topolvm/topolvm
+  lvmd_version: v0.39.0
+  lvmd_sha256: 03df778981d200d7da482753a2e23988457c0231da0a3e8a463538f0d19fb675
+  lvmd_sha512: 5c5062aa9b773d180784b6a1a91566c746cd11ab9ca29d48be17c5217e758005b7e80e8c1257a233f9335572d60774fb6154e662c5569699ff38d1762e6f683a
+
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=Mellanox/mstflint
   mellanox_mstflint_version: 4.31.0-1
   mellanox_mstflint_sha256: 91006fffaee68b0ea548721c095632eba07b3875687c5b3637e7afb6c4373af9
