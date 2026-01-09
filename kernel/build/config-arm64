@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.18.2 Kernel Configuration
+# Linux/arm64 6.18.4 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="gcc (GCC) 15.2.0"
 CONFIG_CC_IS_GCC=y
@@ -4080,7 +4080,6 @@ CONFIG_SPI_BCM_QSPI=y
 # CONFIG_SPI_FSL_DSPI is not set
 CONFIG_SPI_MESON_SPICC=y
 CONFIG_SPI_MESON_SPIFC=y
-# CONFIG_SPI_MICROCHIP_CORE is not set
 # CONFIG_SPI_MICROCHIP_CORE_QSPI is not set
 # CONFIG_SPI_MT65XX is not set
 # CONFIG_SPI_MTK_NOR is not set

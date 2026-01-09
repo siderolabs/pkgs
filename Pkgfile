@@ -87,19 +87,19 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 3832147944209ece35557234102548413ef1b460
-  ipxe_sha256: 5d62b489251712939b895da83b3b03d4eca0cfac4b396936f836e7aea238e3ab
-  ipxe_sha512: 4ecbc90add94040f97d007a741c2fc5baddf97524b21bbd1ee4f5237a54cce249a876ce8a0ae243eb429d80614b73c282f7ebdd5da2cbda220d7aa3a38245c21
+  ipxe_ref: ff6d612e7250b7d791b7451f8787ddf303c30453
+  ipxe_sha256: 971bd532e216f45acbbbd393ec11260a110aa01fec255271d527e23221cb55c6
+  ipxe_sha512: 76fc77b8defe8ecdab85b899bffe8c35dd31af351b218510e79ed196aca2cb7367744b736ef14c182bcd9093799711dad2a4a7443fc558fb834be7cd8c807c00
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
-  kspp_ref: 0bcde64140f4c7bc046090113b271c1b302c5fae
-  kspp_sha256: 36dd7901ddd924159bc04283569d2ce12516e0efd0ccea5e5fb929662f454051
-  kspp_sha512: 684d1be64bcba6cbb890675b17e601d7d7d9255f6fb90452415ebd1dfbb6357e7a484b9e64621749a3d71be78d73021d063cd839ece68884313f517324206e30
+  kspp_ref: 93746f46678a36822a841fdb78f6de85392b5b03
+  kspp_sha256: 1826bd11a569bf5e7bf2a2259b8bbb6fd67890ae17393d048a47dd0981abea27
+  kspp_sha512: 47b2f7408622ba0e78f1c123aad1776ca4b15f97406dde5928e6e1ece555c3fc335df9854e7d36a0a7a6d0953c78150ddcf3e57e72306861dc6676515d2b18f5
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.18.2
-  linux_sha256: 558c6bbab749492b34f99827fe807b0039a744693c21d3a7e03b3a48edaab96a
-  linux_sha512: 15989d1a26c6a5200b8eab4ba348b308466398aa75dda3844b37e7eb320206236d47c94cbc0e0b1d7ead10385ca84d34d0f2aa02ba5c1bd65ca6a5aa71c57117
+  linux_version: 6.18.4
+  linux_sha256: f850139ca5f79c1bf6bb8b32f92e212aadca97bdaef8a83a7cf4ac4d6a525fab
+  linux_sha512: ad361094f27b8d5546a1c0a405fd2f081f39bf3e5eaf625a72019a5925d3c66c0e8eb1358904d4a0a47ead03e1098b25aaab6dd000f33c362b7cdab984cf4edf
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
@@ -107,9 +107,9 @@ vars:
   libaio_sha512: 65c30a102433bf8386581b03fc706d84bd341be249fbdee11a032b237a7b239e8c27413504fef15e2797b1acd67f752526637005889590ecb380e2e120ab0b71
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=libarchive/libarchive
-  libarchive_version: 3.8.4
-  libarchive_sha256: c7b847b57feacf5e182f4d14dd6cae545ac6843d55cb725f58e107cdf1c9ad73
-  libarchive_sha512: 088f3726de7f8e2f4b2ac6cc9c01338328493de19f5b0645157114ef3b7a0fa5213cb6d64123736cae83354a2137bba9e2187bb4208cb7848e2566c65b100489
+  libarchive_version: 3.8.5
+  libarchive_sha256: d68068e74beee3a0ec0dd04aee9037d5757fcc651591a6dcf1b6d542fb15a703
+  libarchive_sha512: b050ca8488143503bdec38ffcab7a5010af61f1b93c1207a3fa006d72d643b84aa8c1ab267e890eb39966ccaedd6e18db8fe5b02f2789bbd1b318a3c4cf138f3
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.savannah.gnu.org/attr.git
   libattr_version: 2.5.2
@@ -171,7 +171,7 @@ vars:
   libpopt_sha256: c25a4838fc8e4c1c8aacb8bd620edb3084a3d63bf8987fdad3ca2758c63240f9
   libpopt_sha512: 5d1b6a15337e4cd5991817c1957f97fc4ed98659870017c08f26f754e34add31d639d55ee77ca31f29bb631c0b53368c1893bd96cf76422d257f7997a11f6466
 
-  # NOTE: let's keep this in sync with runc: https://github.com/opencontainers/runc/blob/release-1.3/script/release_build.sh#L22
+  # NOTE: let's keep this in sync with runc: https://github.com/opencontainers/runc/blob/release-1.4/script/release_build.sh#L22
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=seccomp/libseccomp
   libseccomp_version: 2.5.6
   libseccomp_sha256: 04c37d72965dce218a0c94519b056e1775cf786b5260ee2b7992956c4ee38633
@@ -193,9 +193,9 @@ vars:
   lvm2_sha512: 97fd1849cd632943c8233f06f181b1899b0e6937444d672abef10307c66d207c16325701ac669d5ff438490a11596c19d1dbbcff50e4e7c00c9b6e4eb1ecf87c
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=Mellanox/mstflint
-  mellanox_mstflint_version: 4.31.0-1
-  mellanox_mstflint_sha256: 91006fffaee68b0ea548721c095632eba07b3875687c5b3637e7afb6c4373af9
-  mellanox_mstflint_sha512: 783d9865b74252051fba336c4b85ca0e1b85e57c8eac77cb9157bd837dbee207ff00a2af1156569d387e2e2a1bbafd07d0a42c966a9ebb0197e5e2e6f2858318
+  mellanox_mstflint_version: 4.34.1-2
+  mellanox_mstflint_sha256: da6b749c4e340192146a19a5c5073f63a75f2a5a324f321bda957c5a0c7ce99b
+  mellanox_mstflint_sha512: fed2956899d60a071c968b5f1bdafebbbeec8267e6a1d1818aac99705cde1fe61185223bb9031c2b7953d1d352f20b647f6edbdb7e7809fc735345ef531655f7
 
   mellanox_ofed_version: 5.9-0.5.6.0
   mellanox_ofed_sha256: 4503258cbe92b00c734e612c3a7ad1d71e023fdffae2a2c119f7b537505e499c
@@ -233,14 +233,14 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
-  glib_version: 2.87.0
-  glib_sha256: 926cf73d8eb90ea341cc2d6fc7b258901e1a086a3808b166b4476d69a98b2401
-  glib_sha512: 07b58dc0bc395c6a53c9bc5d21674307ce9f0a836c82c04db5d5c3163685333f86ff237fc1cfde60daa10796d0de4c5ba90aa4bca056f4d670c73d97d0868b73
+  glib_version: 2.87.1
+  glib_sha256: fc2ce0f948ee163f8adc5bdde2f38612b8a3f270022aa1b0d087cb9f1f0ac5c2
+  glib_sha512: b961abd94254273b47002eaf644bf1742481fc4c098a39479f997b9960f81091cab3ba08e5c813aa649cfd65ae09d4dc9ee1469223d015b86b077c040c1c4a60
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
-  qemu_version: 10.1.3
-  qemu_sha256: fbaa7a0d7a9a1deb5695b125916746ec28fe0de6275d4454f3e3bbaf8b339b53
-  qemu_sha512: 67608a5a422c93c494159d649a0afb296231ec2d96a6fc03b119375da4180162ba25a74bb6204a8cb36375709c1f682ef56c42961816dc2107f4d67bb8e10db4
+  qemu_version: 10.2.0
+  qemu_sha256: 9e30ad1b8b9f7b4463001582d1ab297f39cfccea5d08540c0ca6d6672785883a
+  qemu_sha512: cd910090cf8146fdd30151bded8bebe43d9e7fce8b84d9f87130a99d0bd908f310f4bef5484b53a56c29dd7a08410890d02d0a7ab90ce6af73522ff8ba5b364e
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.4.0
@@ -259,9 +259,9 @@ vars:
   tc_redirect_tap_sha512: 017d01fef1d6cddc2b53d6516acf7c8b61c7864c6c3708e7adaf73c5413f43b1495679249379e7a46de639a24e66643daf659565d0135a61b36246df4edc7936
 
   # renovate: datasource=github-releases extractVersion=^ttkmd-(?<version>.*)$ depName=tenstorrent/tt-kmd
-  tenstorrent_version: 2.5.0
-  tenstorrent_sha256: bd4e517e157c8a80e0990ed18f322cf99d6be5728e2e0c26adc388f12d626aee
-  tenstorrent_sha512: 5ed730dd90deee328f3a83d472ec3928f337c739ffb6d77dae29afc047bfb66746336e855d0096e1e6d3416dd16271fb7987ed9fd4d8a50eebb70848653d4dc1
+  tenstorrent_version: 2.6.0
+  tenstorrent_sha256: 3a090740aea1733274729780b88e8f5958377f736ac142e86541d32d07b9cbe5
+  tenstorrent_sha512: ed4e82da67e85e8279fcbf5bb25209486ae075a3f9a719eaaab376b724f09730cb8c9494c70fed161959634d1e668b781a2575ef49e3f97208dcc9f8a76e2181
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/Xilinx/dma_ip_drivers.git
   xdma_driver_version: 03ac7f31e256c5604eeb970e98d343cf925ddb52
@@ -269,9 +269,9 @@ vars:
   xdma_driver_sha512: 0d3be501410baaa75b422b96ba86971fff4e3dd7b99301c61a89d7523cda87cbcbe126f71c477f6f1938496d360e5d59e852c2ecdcfd8181d2fe6991d4596e9e
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
-  xfsprogs_version: 6.17.0
-  xfsprogs_sha256: 5b0f56a81f641326266f762ae8a563b29d95cdbcda83bc7938f68ce122f1edd9
-  xfsprogs_sha512: bcdd5a632ac1eae4ad68ac1b18a0289820fcef997da2b3b132e97f035f21e951f20f19de9d09e0babd7d7feb8ad14c0782aa81c698b39c19e4349e603892287e
+  xfsprogs_version: 6.18.0
+  xfsprogs_sha256: 3a6dc7b1245ce9bccd197bab00691f1b190bd3694d3ccc301d21b83afc133199
+  xfsprogs_sha512: 95fcbfdd91d9b02ec9adef50e23a39240056bf3bfed3d973e048a50dd0d0b040f80e8cf72537cca7e560718e4444ed1bbcf8b99ee4c82e044ca52d916536f7f5
 
   # renovate: datasource=github-tags extractVersion=^zfs-(?<version>.*)$ depName=openzfs/zfs
   zfs_version: 2.4.0
