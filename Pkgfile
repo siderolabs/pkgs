@@ -65,7 +65,7 @@ vars:
   grub_sha512: 761c060a4c3da9c0e810b0ea967e3ebc66baa4ddd682a503ae3d30a83707626bccaf49359304a16b3a26fc4435fe6bea1ee90be910c84de3c2b5485a31a15be3
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=hailo-ai/hailort-drivers
-  hailort_version: 4.23.0
+  hailort_version: 5.2.0
   hailort_sha256: 245c7157746c2fd48b2fab4a990c8fb3b786921dd72c9e5348f5b5619ee05ec3
   hailort_sha512: b5abdf3ca5cb4cbb9d3189ed6bae52d66e52dbce99ed1698ece8ff1f5f32db7560990e66bab740f2f0102e13175eb3fc0ae41162b75ee743684fb64ff845db07
   hailort_fw_sha256: 1ba9528972091ec17bebc0dc7ea2e6f4449efe70664890f6387ccbc7b60626ee
@@ -87,7 +87,7 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: ff6d612e7250b7d791b7451f8787ddf303c30453
+  ipxe_ref: 9c01c5a5dacb54167132d9a27259b23acdf091d6
   ipxe_sha256: 971bd532e216f45acbbbd393ec11260a110aa01fec255271d527e23221cb55c6
   ipxe_sha512: 76fc77b8defe8ecdab85b899bffe8c35dd31af351b218510e79ed196aca2cb7367744b736ef14c182bcd9093799711dad2a4a7443fc558fb834be7cd8c807c00
 
@@ -173,7 +173,7 @@ vars:
 
   # NOTE: let's keep this in sync with runc: https://github.com/opencontainers/runc/blob/release-1.4/script/release_build.sh#L22
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=seccomp/libseccomp
-  libseccomp_version: 2.5.6
+  libseccomp_version: 2.6.0
   libseccomp_sha256: 04c37d72965dce218a0c94519b056e1775cf786b5260ee2b7992956c4ee38633
   libseccomp_sha512: c35d8d6f80ee38a96688955932c6bf369101409a470ecf0dc550013b19f57311be907a600adc4d2f4699fb8e94e8038333b4f5702edc3c26b14c36fb6e1c42fd
 
@@ -183,7 +183,7 @@ vars:
   liburcu_sha512: 48c7e137b986c1a33d91ecd8e5101ed8783b7c4e15b8324660c72bce9879373b80ffd97aca0c3b8015a47dfe2c11b5f4acf9d4a065185d9ba405d4e50a2b58d8
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20251125
+  linux_firmware_version: 20260110
   linux_firmware_sha256: 21b8c5f9c70186474bcf9fcc4f4d1f4afe4fd2513cdf7f5a88ff3feb3ba7a374
   linux_firmware_sha512: 80346e077ea0da87f33110a0127c19b51c7c8f527b5fd527782c923556572daaf74f8874e2787932b51efde99d3ef0011120cf50186fb15c4d8303797d6037f7
 
@@ -249,7 +249,7 @@ vars:
   runc_sha512: 8103363e2a593360e85cc1cbd115c0c6705b472e57107ae6c03b31cb22cbf2a9b5e76db728cc0c9fd5e779904555aa0c5f2142e55837d386c2ac4cc346f92264
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
-  socat_version: 1.8.0.3
+  socat_version: 1.8.1.0
   socat_sha256: a9f9eb6cfb9aa6b1b4b8fe260edbac3f2c743f294db1e362b932eb3feca37ba4
   socat_sha512: 600a3387e9756e0937d2db49de9066df03d9818e4042da6b72109d1b5688dd72352754773a19bd2558fe93ec6a8a73e80e7cf2602fd915960f66c403fd89beef
 
