@@ -49,6 +49,7 @@ spec:
     - perf-pkg
     - pigz
     - qemu-tools
+    - rpm
     - runc
     - sd-boot
     - socat
@@ -68,6 +69,7 @@ spec:
     - ena-pkg
     - gasket-driver-pkg
     - hailort-pkg
+    - mellanox-doca-pkg
     - mellanox-mstflint-pkg
     - nvidia-open-gpu-kernel-modules-lts-pkg
     - nvidia-open-gpu-kernel-modules-production-pkg

@@ -1,39 +1,31 @@
-name: mellanox-ofed-pkg
+name: mellanox-doca-pkg
 variant: scratch
 shell: /bin/bash
 dependencies:
   - stage: base
   - stage: kernel-build
+  - stage: rpm
+  - stage: libpopt
+  - stage: zlib
+  - stage: libarchive
+  - stage: lua
+  - stage: file
 steps:
   - sources:
-      - url: https://www.mellanox.com/downloads/ofed/MLNX_OFED-{{ .mellanox_ofed_version }}/MLNX_OFED_SRC-debian-{{ .mellanox_ofed_version }}.tgz
-        destination: mellanox_ofed.tgz
-        sha256: "{{ .mellanox_ofed_sha256 }}"
-        sha512: "{{ .mellanox_ofed_sha512 }}"
+      - url: https://linux.mellanox.com/public/repo/doca/3.2.1/SOURCES/mlnx_ofed/MLNX_OFED_SRC-{{ .mellanox_doca_version }}.tgz
+        destination: mellanox_doca.tgz
+        sha256: "{{ .mellanox_doca_sha256 }}"
+        sha512: "{{ .mellanox_doca_sha512 }}"
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+    network: default
     prepare:
       - |
-        tar -xzf mellanox_ofed.tgz --strip-components=1
-
-        cd SOURCES
-        tar xf mlnx-ofed-kernel_5.9.orig.tar.gz
+        tar -xzf mellanox_doca.tgz --strip-components=1
     build:
       - |
-        cd SOURCES/mlnx-ofed-kernel-5.9
-
-        ./configure --with-core-mod \
-          --with-user_mad-mod \
-          --with-user_access-mod \
-          --with-addr_trans-mod \
-          --with-mlx5-mod \
-          --with-ipoib-mod \
-          --with-srp-mod \
-          --with-iser-mod \
-          --kernel-sources=/src \
-          -j $(nproc)
-
-        make kernel -j $(nproc)
+        ./install.pl --kernel $(cat /src/include/config/kernel.release) --kernel-sources /src/ --distro talos --kernel-only --without-dkms --without-depcheck --build-only \
+        --copy-ifnames-udev --without-mlnx-tools --without-knem-modules --without-srp-modules --without-kernel-mft-modules --without-iser-modules --without-isert-modules
     install:
       - |
         cd SOURCES/mlnx-ofed-kernel-5.9

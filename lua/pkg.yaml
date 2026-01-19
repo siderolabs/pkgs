@@ -1,0 +1,23 @@
+name: lua
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: https://www.lua.org/ftp/lua-{{ .lua_version }}.tar.gz
+        destination: lua.tar.gz
+        sha256: "{{ .lua_sha256 }}"
+        sha512: "{{ .lua_sha512 }}"
+    prepare:
+      - |
+        tar -xzf lua.tar.gz --strip-components=1
+    build:
+      - |
+        make linux MYCFLAGS="-fPIC" -j $(nproc)
+    install:
+      - |
+        make install INSTALL_TOP=/rootfs/usr
+finalize:
+  - from: /rootfs
+    to: /
