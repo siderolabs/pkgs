@@ -5,7 +5,7 @@ format: v1alpha2
 vars:
   TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.13.0-alpha.0-3-g3a527b1
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.13.0-alpha.0-8-g98c699e
+  TOOLS_REV: v1.13.0-alpha.0-10-g721ad07
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.9.0
@@ -29,9 +29,9 @@ vars:
   dosfstools_sha512: 3cc0808edb4432428df8a67da4bb314fd1f27adc4a05754c1a492091741a7b6875ebd9f6a509cc4c5ad85643fc40395b6e0cadee548b25cc439cc9b725980156
 
   # renovate: datasource=github-tags extractVersion=^drbd-(?<version>.*)$ depName=LINBIT/drbd
-  drbd_version: 9.2.16
-  drbd_sha256: d9f7fd5ed4a5527246e72eaaad16064e042265d127cf2c0a68a47de88b45f19c
-  drbd_sha512: 370d283072d2423f0d5b54959179a41c304ad74176aa341a10a485ce602781b33628821f641ae2480c2315bc6012c99eed47819aaa6c4b2946c9a0a73e664d15
+  drbd_version: 9.3.0
+  drbd_sha256: b67c0f136ff1a87eb8da4764eb49ca1eaaf75c66e350b27d799b5c6d2339125f
+  drbd_sha512: da5db93d03cd3e94ecfb4b6c01e02a696ea5984f18b9a57de3a9466a23e809b7bcf5c61f5c4c5d899644b79a6605827ac1b8d7e37fcdad21ff71d42c0d8cef8f
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git
   e2fsprogs_version: v1.47.3
@@ -87,9 +87,9 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: ff6d612e7250b7d791b7451f8787ddf303c30453
-  ipxe_sha256: 971bd532e216f45acbbbd393ec11260a110aa01fec255271d527e23221cb55c6
-  ipxe_sha512: 76fc77b8defe8ecdab85b899bffe8c35dd31af351b218510e79ed196aca2cb7367744b736ef14c182bcd9093799711dad2a4a7443fc558fb834be7cd8c807c00
+  ipxe_ref: 0abef79a29e59b0d328b0db9fb16531f7d6653f6
+  ipxe_sha256: 22f15e25f8ea9ce3b6d078ed3ae65f76be1d05fa5f304d5e90c266f7226a291c
+  ipxe_sha512: 7a3013a8e13dc77a5b82be2199bbfb15764f85683d8433540b0d67659ffd906c43be35a703ef7ca067290e35554893b14db43feabcb00c34f8a17e049d0684d2
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: 93746f46678a36822a841fdb78f6de85392b5b03
@@ -223,9 +223,9 @@ vars:
   nvidia_driver_production_amd64_sha512: aee43a427b04e761b728087b7c1799b8e30d94a244ff50cbd2a9e198ce9ce7173dc0c466c3a7af7cf5d835833fd18ac74fd59b9170ea774c9572bb3f43e624f2
 
   # renovate: datasource=github-releases depName=vmware/open-vmdk
-  open_vmdk_version: v0.3.12
-  open_vmdk_sha256: b70576ee89adb5f0be404b0d4e714623b10d6d9d1a041ebdf11f8a423f95be1d
-  open_vmdk_sha512: 4a038c899a9e3c013b830dab6514260e72d6905d6e5c2da864bdcc71f125639dc2aba68e9a4a27e96037a0200bd04d0ca2cc17306e8eaf2bf2913f9eaa0afb41
+  open_vmdk_version: v0.3.13
+  open_vmdk_sha256: d7f24103ece5e32420a583db697be86d74e54a1869d88ed5acdc47b03314e5b6
+  open_vmdk_sha512: ec729f4975d7d6c7206f1d4694abda9278a6203210415c9bcd0c17eb7174f947e5d0b841f33a6f211de42ec32f58937065edeb2e9e901f0c5f23f01a87ddbfea
 
   # renovate: datasource=github-tags depName=madler/pigz
   pigz_version: 2.8
@@ -233,9 +233,9 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
-  glib_version: 2.87.1
-  glib_sha256: fc2ce0f948ee163f8adc5bdde2f38612b8a3f270022aa1b0d087cb9f1f0ac5c2
-  glib_sha512: b961abd94254273b47002eaf644bf1742481fc4c098a39479f997b9960f81091cab3ba08e5c813aa649cfd65ae09d4dc9ee1469223d015b86b077c040c1c4a60
+  glib_version: 2.87.2
+  glib_sha256: d6eb74a4f4ffc0b56df79ae3a939463b1d92c623f6c167d51aab24e303a851f3
+  glib_sha512: 6156cdf2cf88672ba23c0ffb133af0dedd65b18df318ba3a99a691678c514af8a30680082ffc86f15c25050f49668382ea81aef9642cb28a4227a3e35aacbde8
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
   qemu_version: 10.2.0
