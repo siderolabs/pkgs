@@ -16,16 +16,16 @@ steps:
     prepare:
       - |
         tar -xJf grub.tar.xz --strip-components=1
-
+      - |
         # Apply patches
         for patch in /pkg/patches/*.patch; do
           echo "Applying patch: $patch"
           patch -p1 < $patch
         done
-
-        PYTHON=python3 bash ./autogen.sh
-
-        touch ./grub-core/extra_deps.lst
+      - |
+        cp /pkg/patches/sys-cdefs.h /usr/include/sys/cdefs.h
+      - |
+        PYTHON=python3 ./autogen.sh
     build:
       - |
         case "${ARCH}" in

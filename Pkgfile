@@ -60,9 +60,9 @@ vars:
   gasket_driver_sha512: e981c8e7dd72efa0ba5cb03f9b851949d0241cb8c438a93a07ba78aad44ad4103caad9075f0b0f4caa3c742de67be1e667a881f08f542d615dd3af57a0cac562
 
   # renovate: datasource=git-tags extractVersion=^grub-(?<version>.*)$ depName=git://git.savannah.gnu.org/grub.git
-  grub_version: 2.12
-  grub_sha256: f3c97391f7c4eaa677a78e090c7e97e6dc47b16f655f04683ebd37bef7fe0faa
-  grub_sha512: 761c060a4c3da9c0e810b0ea967e3ebc66baa4ddd682a503ae3d30a83707626bccaf49359304a16b3a26fc4435fe6bea1ee90be910c84de3c2b5485a31a15be3
+  grub_version: 2.14
+  grub_sha256: bc8d3c73535b8838d8c8e2654d73edc4e6ae8c8acdb45d5df5dc9a1547446d43
+  grub_sha512: 5008e3b70072798d2b34301219fe174cc6bcfead40a9ab25fe32f30c62a392ffb7bf2eb629d481f4a6c19c2925324af3f08d7043e62623e746be2d8b3cbd1182
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=hailo-ai/hailort-drivers
   hailort_version: 4.23.0
