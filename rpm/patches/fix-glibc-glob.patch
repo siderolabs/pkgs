@@ -1,0 +1,12 @@
+--- a/rpmio/rpmglob.cc
++++ b/rpmio/rpmglob.cc
+@@ -28,6 +28,10 @@
+ #include <fnmatch.h>
+ #include <glob.h>
+
++#ifndef GLOB_BRACE
++#define GLOB_BRACE 0x0
++#endif
++
+ #include <rpm/rpmfileutil.h>
+ #include <rpm/rpmurl.h>

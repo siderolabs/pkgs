@@ -1,0 +1,57 @@
+name: rpm
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: libpopt
+  - stage: zlib
+  - stage: libarchive
+  - stage: lua
+  - stage: file
+steps:
+  - sources:
+      - url: https://github.com/rpm-software-management/rpm/releases/download/rpm-{{ .rpm_version }}-release/rpm-{{ .rpm_version }}.tar.bz2
+        destination: rpm.tar.bz2
+        sha256: "{{ .rpm_sha256 }}"
+        sha512: "{{ .rpm_sha512 }}"
+    prepare:
+      - |
+        tar -xjf rpm.tar.bz2 --strip-components=1
+
+        patch -p1 < /pkg/patches/fix-glibc-glob.patch
+
+        ln -s /bin/echo /bin/scdoc
+
+        mkdir -p build
+        cd build
+
+        cmake \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_INSTALL_PREFIX=/usr \
+          -DCMAKE_INSTALL_LIBDIR=lib \
+          -DSYSCONFDIR=/etc \
+          -DLOCALSTATEDIR=/var \
+          -DENABLE_NLS=OFF \
+          -DENABLE_PYTHON=OFF \
+          -DENABLE_PLUGINS=ON \
+          -DWITH_READLINE=OFF \
+          -DENABLE_SQLITE=OFF \
+          -DWITH_ACL=OFF \
+          -DWITH_AUDIT=OFF \
+          -DWITH_LIBCAP=OFF \
+          -DWITH_SELINUX=OFF \
+          -DWITH_SEQUOIA=OFF \
+          -DWITH_OPENSSL=ON \
+          -DWITH_DBUS=OFF \
+          ..
+    build:
+      - |
+        cd build
+        make -j $(nproc)
+    install:
+      - |
+        cd build
+        make install DESTDIR=/rootfs
+finalize:
+  - from: /rootfs
+    to: /

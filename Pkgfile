@@ -197,9 +197,24 @@ vars:
   mellanox_mstflint_sha256: da6b749c4e340192146a19a5c5073f63a75f2a5a324f321bda957c5a0c7ce99b
   mellanox_mstflint_sha512: fed2956899d60a071c968b5f1bdafebbbeec8267e6a1d1818aac99705cde1fe61185223bb9031c2b7953d1d352f20b647f6edbdb7e7809fc735345ef531655f7
 
-  mellanox_ofed_version: 5.9-0.5.6.0
-  mellanox_ofed_sha256: 4503258cbe92b00c734e612c3a7ad1d71e023fdffae2a2c119f7b537505e499c
-  mellanox_ofed_sha512: 58604ea89aa8351727532c48f0c59b4e533ba8bfcef9533f45d94e15ffdcf3a5c464398706cad14ebf3826b132972bd044fadbf7f047e60bdb0c2a454c96acd7
+  mellanox_doca_version: 25.10-1.7.1.0
+  mellanox_doca_sha256: 07fc162949a988b7fd8dd624ecb11686bc654d3ca257c12ad9c69d9688c09680
+  mellanox_doca_sha512: 7a58cade4733e0483ce5db5f6bf8cf57e2f3ea632e2661fdfbec887275140bf9d917a0ecb29fc0f8a73c9b25ac69d3e3ebc1adb03dfcdf0268f8c8f3fa27bcb3
+
+  # file (libmagic) for RPM
+  file_version: 5.46
+  file_sha256: c9cc77c7c560c543135edc555af609d5619dbef011997e988ce40a3d75d86088
+  file_sha512: a6cb7325c49fd4af159b7555bdd38149e48a5097207acbe5e36deb5b7493ad6ea94d703da6e0edece5bb32959581741f4213707e5cb0528cd46d75a97a5242dc
+
+  # Lua for RPM
+  lua_version: 5.4.8
+  lua_sha256: 4f18ddae154e793e46eeab727c59ef1c0c0c2b744e7b94219710d76f530629ae
+  lua_sha512: 875ad1f6df3ba63722b5069564c9d3a4057b4c3564c691061bb49cf6cdf5d2e303f05762bd46797b444aaf992c03021f423df142123eebf86751fd77edaf8060
+
+  # renovate: datasource=github-tags extractVersion=^rpm-(?<version>.*)$ depName=rpm-software-management/rpm
+  rpm_version: 6.0.1
+  rpm_sha256: 44fd2e1425885288ce8e8da8f18e6b85bd380332c2972554a85860af10f86d0f
+  rpm_sha512: 55a03b6c65c6bd009ce824feb6298d305eb497464d860aa92ccdf15bcea9af0e2dd70e9ac4b26a8494a222656201314dc1c7a245d9cb5416b058f66f8276f4e9
 
   # this tools doesn't have a git repo at all
   mtools_version: 4.0.47

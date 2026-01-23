@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2025-12-31T09:52:12Z by kres 8a4aebf.
+# Generated on 2026-01-10T06:17:39Z by kres 0e8da31.
 
 # common variables
 
@@ -93,6 +93,7 @@ TARGETS += pcre2
 TARGETS += perf-pkg
 TARGETS += pigz
 TARGETS += qemu-tools
+TARGETS += rpm
 TARGETS += runc
 TARGETS += sd-boot
 TARGETS += socat
@@ -110,6 +111,7 @@ TARGETS += drbd-pkg
 TARGETS += ena-pkg
 TARGETS += gasket-driver-pkg
 TARGETS += hailort-pkg
+TARGETS += mellanox-doca-pkg
 TARGETS += mellanox-mstflint-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-lts-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-production-pkg
