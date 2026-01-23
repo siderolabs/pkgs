@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2025-12-31T09:52:12Z by kres 8a4aebf.
+# Generated on 2026-01-23T13:35:39Z by kres 1ffefb6.
 
 # common variables
 
@@ -113,6 +113,7 @@ TARGETS += hailort-pkg
 TARGETS += mellanox-mstflint-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-lts-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-production-pkg
+TARGETS += px-fuse-pkg
 TARGETS += tenstorrent-pkg
 TARGETS += xdma-driver-pkg
 TARGETS += zfs-pkg

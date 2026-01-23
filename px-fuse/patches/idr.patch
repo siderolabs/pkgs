@@ -1,0 +1,44 @@
+--- a/pxd.c	2025-12-01 16:09:31.000000000 +0000
++++ b/pxd.c	2026-01-23 14:55:53.110206851 +0000
+@@ -1549,9 +1549,11 @@
+ 	spin_lock_init(&pxd_dev->lock);
+ 	spin_lock_init(&pxd_dev->qlock);
+
+-	new_minor = ida_simple_get(&pxd_minor_ida,
+-					1, 1 << MINORBITS,
+-					GFP_KERNEL);
++        new_minor = ida_alloc_range(&pxd_minor_ida,
++                            1,
++                            (1 << MINORBITS) - 1,
++                            GFP_KERNEL);
++
+ 	if (new_minor < 0) {
+ 		err = new_minor;
+ 		goto out_module;
+@@ -1623,7 +1625,7 @@
+ out_fp:
+ 	pxd_fastpath_cleanup(pxd_dev);
+ out_id:
+-	ida_simple_remove(&pxd_minor_ida, new_minor);
++	ida_free(&pxd_minor_ida, new_minor);
+ out_module:
+ 	if (pxd_dev)
+ 		kfree(pxd_dev);
+@@ -1693,7 +1695,7 @@
+     list_del(&pxd_dev->node);
+     --ctx->num_devices;
+ 	pxd_dev->exported = false;
+-    ida_simple_remove(&pxd_minor_ida, pxd_dev->minor);
++    ida_free(&pxd_minor_ida, pxd_dev->minor);
+     spin_unlock(&pxd_dev->lock);
+     spin_unlock(&ctx->lock);
+ 	kfree(pxd_dev);
+@@ -2551,7 +2553,7 @@
+ 	struct pxd_device *pxd_dev = dev_to_pxd_dev(dev);
+
+ 	pxd_free_disk(pxd_dev);
+-	ida_simple_remove(&pxd_minor_ida, pxd_dev->minor);
++	ida_free(&pxd_minor_ida, pxd_dev->minor);
+ 	pxd_mem_printk("freeing dev %llu pxd device %px\n", pxd_dev->dev_id, pxd_dev);
+ 	pxd_dev->magic = PXD_POISON;
+ 	kfree(pxd_dev);
