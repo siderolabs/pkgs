@@ -5,7 +5,7 @@ format: v1alpha2
 vars:
   TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.13.0-alpha.0-3-g3a527b1
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.13.0-alpha.0-11-g0281af0
+  TOOLS_REV: v1.13.0-alpha.0-12-gca26e1c
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.9.0
@@ -19,9 +19,9 @@ vars:
   containerd_sha512: 6bbfe356bdb0fd70c5b3ca0d932b790bb34b40832392e6a309a907351dc344e3b6059e2cd583145200aab218b4e8f5160d698f2b3a84d05bbf834d023eea4bd3
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
-  cryptsetup_version: 2.8.3
-  cryptsetup_sha256: 7cac28aeaa940d9b4b081d1d3d5a929468f2fa9b2669407948b3a63b6b8c1b7e
-  cryptsetup_sha512: 49226e56701240821ad14a98b3f206825062a5c47a3f035ea25ce5861d2c3753312922c74c733dc47250e58f43ba91985a96248258d9a605a8999a2cb42ebf00
+  cryptsetup_version: 2.8.4
+  cryptsetup_sha256: b17e158bbcce26e718191d7e1fbc943caf388a4dbcddd2e9821af50f98d3d4be
+  cryptsetup_sha512: 8abb0b2d8b5ea856ae692990eeb135762eb25bdeb8976908390d1ae421686c3b46eabd9fa20a532de8ecb9035e616439ee31020900ad973f317558d9a963a49f
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=dosfstools/dosfstools
   dosfstools_version: 4.2
@@ -87,9 +87,9 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 0abef79a29e59b0d328b0db9fb16531f7d6653f6
-  ipxe_sha256: 22f15e25f8ea9ce3b6d078ed3ae65f76be1d05fa5f304d5e90c266f7226a291c
-  ipxe_sha512: 7a3013a8e13dc77a5b82be2199bbfb15764f85683d8433540b0d67659ffd906c43be35a703ef7ca067290e35554893b14db43feabcb00c34f8a17e049d0684d2
+  ipxe_ref: b05a045b41e3876a99c9825b0360043b00dbb16b
+  ipxe_sha256: 5d3d99248b02a1a7ca2c441eb1d9c73918c044c303a603b0c1e9d95ee9013037
+  ipxe_sha512: 3134848086d80dc4dc052b733fded71ccbc10b0ca0b7d3eec767aaafd712a651290a46dc0ca8548456723cbc3d4f3fc43485791af80bfbe01188ba39ac97563a
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: 93746f46678a36822a841fdb78f6de85392b5b03
@@ -142,9 +142,9 @@ vars:
   libjson_c_sha512: 4763f2352414dac3599bc2183b4fa57dbfaac0ca24de890097bd7d0bdda93c91efa280f6566e949e6d94212ef39a63fc76c5f9d0c54ff3d04b13c859717dba5a
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=akheron/jansson
-  libjansson_version: 2.14.1
-  libjansson_sha256: 6bd82d3043dadbcd58daaf903d974891128d22aab7dada5d399cb39094af49ce
-  libjansson_sha512: 668d8ffbd13b83e8a55449c588f267220c2a9e4690281c2386e3dada4c8b890c80effd6a946b3500bb1cf800eb8cf1bb3da3c6476ceea4f462d2ccc9cd4911d8
+  libjansson_version: 2.15.0
+  libjansson_sha256: a7eac7765000373165f9373eb748be039c10b2efc00be9af3467ec92357d8954
+  libjansson_sha512: bbe041dbd231b236f2c30ee6ed712bb2a3614b3897ffe0d9d1560aae5f594f3df10500f9d04930b62fe9eb8552f2d301d41832aa6010541cf4f42a4d021eab82
 
   # renovate: datasource=git-tags extractVersion=^libmnl-(?<version>.*)$ depName=git://git.netfilter.org/libmnl
   libmnl_version: 1.0.5
@@ -178,9 +178,9 @@ vars:
   libseccomp_sha512: c35d8d6f80ee38a96688955932c6bf369101409a470ecf0dc550013b19f57311be907a600adc4d2f4699fb8e94e8038333b4f5702edc3c26b14c36fb6e1c42fd
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=urcu/userspace-rcu
-  liburcu_version: 0.15.5
-  liburcu_sha256: b2f787a8a83512c32599e71cdabcc5131464947b82014896bd11413b2d782de1
-  liburcu_sha512: 48c7e137b986c1a33d91ecd8e5101ed8783b7c4e15b8324660c72bce9879373b80ffd97aca0c3b8015a47dfe2c11b5f4acf9d4a065185d9ba405d4e50a2b58d8
+  liburcu_version: 0.15.6
+  liburcu_sha256: 850b192096eb11ebf2c70e8f97bc7da7479ee41da1bebeb44e3986908bac414f
+  liburcu_sha512: 53c28821dabfc1e8803c4299f6a9e589c9949d0062dd8aaa4aabb6d77641dfbd2b2c035c50680991d9f228499c12b9b23469044726a6ffce5e84f21f17cabff3
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
   linux_firmware_version: 20260110
@@ -193,9 +193,9 @@ vars:
   lvm2_sha512: 97fd1849cd632943c8233f06f181b1899b0e6937444d672abef10307c66d207c16325701ac669d5ff438490a11596c19d1dbbcff50e4e7c00c9b6e4eb1ecf87c
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=Mellanox/mstflint
-  mellanox_mstflint_version: 4.34.1-2
-  mellanox_mstflint_sha256: da6b749c4e340192146a19a5c5073f63a75f2a5a324f321bda957c5a0c7ce99b
-  mellanox_mstflint_sha512: fed2956899d60a071c968b5f1bdafebbbeec8267e6a1d1818aac99705cde1fe61185223bb9031c2b7953d1d352f20b647f6edbdb7e7809fc735345ef531655f7
+  mellanox_mstflint_version: 4.34.1-3
+  mellanox_mstflint_sha256: 91486723ea6b296364ce728ebc3c1d879ab9c06a674a8d7709c8968f8fe4d5bf
+  mellanox_mstflint_sha512: 0447fae21378849f62acd8f70d56058a8512c70a0398c785c10f5e83d5fc7ea41ca24bcdd38efb3e44388ba6e8fcdb66809565f927608ba041e6527abe6ad1a1
 
   mellanox_ofed_version: 5.9-0.5.6.0
   mellanox_ofed_sha256: 4503258cbe92b00c734e612c3a7ad1d71e023fdffae2a2c119f7b537505e499c
@@ -233,9 +233,9 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/portworx/px-fuse.git
-  px_fuse_ref: 1f67ff84c8a5b90fe3eef7ad0a212d06637e3ba5
-  px_fuse_sha256: 6010f481e102b7ec4ec0564fa45c8f6153aeac75c16f3fa158de06966dbea3ef
-  px_fuse_sha512: 4a46253025ae01e305b509e3d108f640ccc9b757020e2a985ecea23f5ced3663e05ae11f38c1036b3004e47e903e5bbc2026289e3fc3e1c5e44648b2fd21f8d6
+  px_fuse_ref: 95261b1f682fa92fc96baf0f7157141574c1e76e
+  px_fuse_sha256: 9e642d5d06a0dbe41c370d0b75672b6658e52ebe5aa0d6dfaff1c1b6fa8cc82a
+  px_fuse_sha512: f34d645fe1f82a0a3c77a824865cc7e3038d4a0ba9cb0f3b6b30bd48e274b9bdb7f7e3e77fe6f09fca10db9b072e510dc0b877e7add5c00859e667542f2e4dc4
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
   glib_version: 2.87.2
