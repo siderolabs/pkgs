@@ -5,7 +5,7 @@ format: v1alpha2
 vars:
   TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.13.0-alpha.0-4-g4e2cc8f
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.13.0-alpha.0-13-gdecb988
+  TOOLS_REV: v1.13.0-alpha.0-14-g90bd70c
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.9.0
@@ -44,9 +44,9 @@ vars:
   ena_sha512: 63d53d0377252c8e25486be4d9df5b9af2bbe99916b348ba3960182c5d0cbc82130b636ff28c006de23f6ff9ff526679c3ecbf4ee19ea65660b411c9da66a34c
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
-  systemd_version: 259
-  systemd_sha256: a84123692d1add7f9c48fd11cdf5f901393008c2d2ade667c18f25a20bf1290d
-  systemd_sha512: ef46b13661df43e3cfbeee1bc22f0b1eb902e8ebe39c19868c465efd08b35a199c2a2cd9d8021a6bc4d692fa0c6e0eab3f13eecd6ce24dde81d3945464a25b50
+  systemd_version: 259.1
+  systemd_sha256: 7af4f36db512ad2f0f749a0f9886370edeb2bb5128014fc47cdf73702c7e1911
+  systemd_sha512: 7cbeca5dad6413a876809200583854ddc706b7a69deff958eb1ca1afb726cf4dec014006c10d1945c450b754811d4b95a80fe1778cb3136997f6d11b11c0560e
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
   flannel_cni_version: v1.9.0-flannel1
@@ -87,9 +87,9 @@ vars:
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: b05a045b41e3876a99c9825b0360043b00dbb16b
-  ipxe_sha256: 5d3d99248b02a1a7ca2c441eb1d9c73918c044c303a603b0c1e9d95ee9013037
-  ipxe_sha512: 3134848086d80dc4dc052b733fded71ccbc10b0ca0b7d3eec767aaafd712a651290a46dc0ca8548456723cbc3d4f3fc43485791af80bfbe01188ba39ac97563a
+  ipxe_ref: 481e043116c2ff151f25b6f7280cc7591d9aba70
+  ipxe_sha256: 2185a68e1338b6ad6a6501080f5fcc891b4c2d434b1f37259a1153f3d6fe0a11
+  ipxe_sha512: eac51c7d7cc78c2977652329a5408bd591c1cc8861193ed5d94ff16e6a9472a2285f845674fc68e5ee08ff5dccbdea3a2393e256b9c32c7e70493d6e83479753
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: 93746f46678a36822a841fdb78f6de85392b5b03
@@ -264,9 +264,9 @@ vars:
   tc_redirect_tap_sha512: 017d01fef1d6cddc2b53d6516acf7c8b61c7864c6c3708e7adaf73c5413f43b1495679249379e7a46de639a24e66643daf659565d0135a61b36246df4edc7936
 
   # renovate: datasource=github-releases extractVersion=^ttkmd-(?<version>.*)$ depName=tenstorrent/tt-kmd
-  tenstorrent_version: 2.6.0
-  tenstorrent_sha256: 3a090740aea1733274729780b88e8f5958377f736ac142e86541d32d07b9cbe5
-  tenstorrent_sha512: ed4e82da67e85e8279fcbf5bb25209486ae075a3f9a719eaaab376b724f09730cb8c9494c70fed161959634d1e668b781a2575ef49e3f97208dcc9f8a76e2181
+  tenstorrent_version: 2.7.0
+  tenstorrent_sha256: 3b8be637c4a40869f9608e0e23dffe4a0d97ff02478dd8db8ef78d8e26165902
+  tenstorrent_sha512: 089363cad6947a7ef7a7da7370ff3f8f722cce1d12c3339122851b5712a1444a6c436f2c649992c94265e79eb9b9edb0f9bd761aa6781bf183f5e27dac5a16e0
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/Xilinx/dma_ip_drivers.git
   xdma_driver_version: 03ac7f31e256c5604eeb970e98d343cf925ddb52
