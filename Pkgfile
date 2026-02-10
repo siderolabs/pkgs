@@ -198,11 +198,11 @@ vars:
 
   # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/linux-x86_64/
   # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_lts_version: 580.126.09
-  nvidia_driver_lts_arm64_sha256: 0adb68085fc0bea62fa3d95ed2569dc741997dbf214f4ea2fbc1e9a21522874f
-  nvidia_driver_lts_arm64_sha512: 3b33e44d12162b244d0d529be1c9444567709354f013a87b9a5bf5fa569a6056ebf00156c7abe7dc1cf3e8e18d66f22f4c7c1c386760d788d40567237c3574cd
-  nvidia_driver_lts_amd64_sha256: e4b0328de4e6e31571f4897fe4a6a5698cc193c94639045c346bcb6f826b7405
-  nvidia_driver_lts_amd64_sha512: aa807d075151ad794675d2545758e52109d2ecf6aeda4e8bf2e8db7fe52d5bccde0352b3ffba9007b9d8534e89d97aa8eaa48f70b6a787a38603a90785ac06a2
+  nvidia_driver_lts_version: 580.126.16
+  nvidia_driver_lts_arm64_sha256: b8a4d26a393643885f3cc5acfe922e4f2aa446a14036bcc9aafcf20c59cda00c
+  nvidia_driver_lts_arm64_sha512: 528a4bb01a992f9ae337b2fd5b1ccc14338e7f0863e0ec7bcf67f2e1420b0b4ec59aeef3e2ed370d35411323ec5b5df86a796ccc40addb6f3bb318c232775e75
+  nvidia_driver_lts_amd64_sha256: 972b0c3f333f24c1905e5b8142fbf60ccd6acb377bd7b9d2967698eb0d56172f
+  nvidia_driver_lts_amd64_sha512: e6a01ef5d76b58e75bace185b72e5493830c07c79b4f234c12d5f78e64ed1c66a8808bdc781d1762f6c5965696708952356f1ac6da76a25587fadb17cc4de343
 
   # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/linux-x86_64/
   # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
