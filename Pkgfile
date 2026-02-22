@@ -66,7 +66,7 @@ vars:
   grub_sha512: 5008e3b70072798d2b34301219fe174cc6bcfead40a9ab25fe32f30c62a392ffb7bf2eb629d481f4a6c19c2925324af3f08d7043e62623e746be2d8b3cbd1182
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=hailo-ai/hailort-drivers
-  hailort_version: 4.23.0
+  hailort_version: 5.2.0
   hailort_sha256: 245c7157746c2fd48b2fab4a990c8fb3b786921dd72c9e5348f5b5619ee05ec3
   hailort_sha512: b5abdf3ca5cb4cbb9d3189ed6bae52d66e52dbce99ed1698ece8ff1f5f32db7560990e66bab740f2f0102e13175eb3fc0ae41162b75ee743684fb64ff845db07
   hailort_fw_sha256: 1ba9528972091ec17bebc0dc7ea2e6f4449efe70664890f6387ccbc7b60626ee
@@ -83,12 +83,12 @@ vars:
   ipmitool_sha512: 2d91706e9feba4b2ce4808eca087b81b842c4292a5840830001919c06ec8babd8f8761b74bb9dcf8fbc7765f028a5b1a192a3c1b643f2adaa157fed6fb0d1ee3
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.netfilter.org/iptables
-  iptables_version: 1.8.11
+  iptables_version: 1.8.12
   iptables_sha256: d87303d55ef8c92bcad4dd3f978b26d272013642b029425775f5bad1009fe7b2
   iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 481e043116c2ff151f25b6f7280cc7591d9aba70
+  ipxe_ref: 0854850d02b7100e7adc02c8731032cd392aa366
   ipxe_sha256: 2185a68e1338b6ad6a6501080f5fcc891b4c2d434b1f37259a1153f3d6fe0a11
   ipxe_sha512: eac51c7d7cc78c2977652329a5408bd591c1cc8861193ed5d94ff16e6a9472a2285f845674fc68e5ee08ff5dccbdea3a2393e256b9c32c7e70493d6e83479753
 
@@ -98,7 +98,7 @@ vars:
   kspp_sha512: 47b2f7408622ba0e78f1c123aad1776ca4b15f97406dde5928e6e1ece555c3fc335df9854e7d36a0a7a6d0953c78150ddcf3e57e72306861dc6676515d2b18f5
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.18.9
+  linux_version: 6.18.13
   linux_sha256: 030115ff8fb4cb536d8449dc40ebc3e314e86ba1b316a6ae21091a11cc930578
   linux_sha512: f7f8e77d6badefb5fd4d7b9ce08eca1a32201906ed390c7cbd8025ec00174fec21cf6b55aae82700bc656662c7f5e86e186edfbd3125f1cae583df1d6c6313a2
 
@@ -174,7 +174,7 @@ vars:
 
   # NOTE: let's keep this in sync with runc: https://github.com/opencontainers/runc/blob/release-1.4/script/release_build.sh#L22
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=seccomp/libseccomp
-  libseccomp_version: 2.5.6
+  libseccomp_version: 2.6.0
   libseccomp_sha256: 04c37d72965dce218a0c94519b056e1775cf786b5260ee2b7992956c4ee38633
   libseccomp_sha512: c35d8d6f80ee38a96688955932c6bf369101409a470ecf0dc550013b19f57311be907a600adc4d2f4699fb8e94e8038333b4f5702edc3c26b14c36fb6e1c42fd
 
@@ -184,7 +184,7 @@ vars:
   liburcu_sha512: 53c28821dabfc1e8803c4299f6a9e589c9949d0062dd8aaa4aabb6d77641dfbd2b2c035c50680991d9f228499c12b9b23469044726a6ffce5e84f21f17cabff3
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20260110
+  linux_firmware_version: 20260221
   linux_firmware_sha256: 8978ac27fb306252739bab54d17a9926fe936d060eacb56e5c3de55c69a81283
   linux_firmware_sha512: b0c39fd52a84f695ff94cda6d93465b5a192ed3a663275a94b4df30e4126643ca2c9d59a3252df6efdb71a2506d607efd70b0871ec188576f34e1f661731db02
 
@@ -194,7 +194,7 @@ vars:
   lvm2_sha512: 97fd1849cd632943c8233f06f181b1899b0e6937444d672abef10307c66d207c16325701ac669d5ff438490a11596c19d1dbbcff50e4e7c00c9b6e4eb1ecf87c
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=Mellanox/mstflint
-  mellanox_mstflint_version: 4.34.1-3
+  mellanox_mstflint_version: 4.34.1-4
   mellanox_mstflint_sha256: 91486723ea6b296364ce728ebc3c1d879ab9c06a674a8d7709c8968f8fe4d5bf
   mellanox_mstflint_sha512: 0447fae21378849f62acd8f70d56058a8512c70a0398c785c10f5e83d5fc7ea41ca24bcdd38efb3e44388ba6e8fcdb66809565f927608ba041e6527abe6ad1a1
 
@@ -230,7 +230,7 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/portworx/px-fuse.git
-  px_fuse_ref: 95261b1f682fa92fc96baf0f7157141574c1e76e
+  px_fuse_ref: 06d86d4ee79e2899e2c77b44cfc58a3ec8cdaaff
   px_fuse_sha256: 9e642d5d06a0dbe41c370d0b75672b6658e52ebe5aa0d6dfaff1c1b6fa8cc82a
   px_fuse_sha512: f34d645fe1f82a0a3c77a824865cc7e3038d4a0ba9cb0f3b6b30bd48e274b9bdb7f7e3e77fe6f09fca10db9b072e510dc0b877e7add5c00859e667542f2e4dc4
 
@@ -240,7 +240,7 @@ vars:
   glib_sha512: 6156cdf2cf88672ba23c0ffb133af0dedd65b18df318ba3a99a691678c514af8a30680082ffc86f15c25050f49668382ea81aef9642cb28a4227a3e35aacbde8
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
-  qemu_version: 10.2.0
+  qemu_version: 10.2.1
   qemu_sha256: 9e30ad1b8b9f7b4463001582d1ab297f39cfccea5d08540c0ca6d6672785883a
   qemu_sha512: cd910090cf8146fdd30151bded8bebe43d9e7fce8b84d9f87130a99d0bd908f310f4bef5484b53a56c29dd7a08410890d02d0a7ab90ce6af73522ff8ba5b364e
 
@@ -251,7 +251,7 @@ vars:
   runc_sha512: 8103363e2a593360e85cc1cbd115c0c6705b472e57107ae6c03b31cb22cbf2a9b5e76db728cc0c9fd5e779904555aa0c5f2142e55837d386c2ac4cc346f92264
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
-  socat_version: 1.8.0.3
+  socat_version: 1.8.1.1
   socat_sha256: a9f9eb6cfb9aa6b1b4b8fe260edbac3f2c743f294db1e362b932eb3feca37ba4
   socat_sha512: 600a3387e9756e0937d2db49de9066df03d9818e4042da6b72109d1b5688dd72352754773a19bd2558fe93ec6a8a73e80e7cf2602fd915960f66c403fd89beef
 
