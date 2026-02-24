@@ -83,14 +83,14 @@ vars:
   ipmitool_sha512: 2d91706e9feba4b2ce4808eca087b81b842c4292a5840830001919c06ec8babd8f8761b74bb9dcf8fbc7765f028a5b1a192a3c1b643f2adaa157fed6fb0d1ee3
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.netfilter.org/iptables
-  iptables_version: 1.8.11
-  iptables_sha256: d87303d55ef8c92bcad4dd3f978b26d272013642b029425775f5bad1009fe7b2
-  iptables_sha512: 4937020bf52d57a45b76e1eba125214a2f4531de52ff1d15185faeef8bea0cd90eb77f99f81baa573944aa122f350a7198cef41d70594e1b65514784addbcc40
+  iptables_version: 1.8.12
+  iptables_sha256: 8e7ee962601492de6503d171d4a948092ab18f89f111de72e3037c1f40cfb846
+  iptables_sha512: b25bd6f6f78a6192699bce44c2b29ca65351ef71198a84fa26d29c47cb24ed695ee0406f6581fa81ece4d30445bb0680def5dc328f7fc708b80cadcd0230fe49
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 481e043116c2ff151f25b6f7280cc7591d9aba70
-  ipxe_sha256: 2185a68e1338b6ad6a6501080f5fcc891b4c2d434b1f37259a1153f3d6fe0a11
-  ipxe_sha512: eac51c7d7cc78c2977652329a5408bd591c1cc8861193ed5d94ff16e6a9472a2285f845674fc68e5ee08ff5dccbdea3a2393e256b9c32c7e70493d6e83479753
+  ipxe_ref: 1b6d88d6461d064817821e25de2aca62621ae202
+  ipxe_sha256: 3abbda262d2749b3f2953f5ee0e97ad215e00d84b118ad8da8fb9c81e8c754df
+  ipxe_sha512: 1176294be317710000554a8363efa1b515873a22665b5c06bf9d23ed147118950667042cd042ae9dec5851a30d41cf0e22ccd653e79c36a5ab7ab91e77a0e839
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: 93746f46678a36822a841fdb78f6de85392b5b03
@@ -194,9 +194,9 @@ vars:
   lvm2_sha512: 97fd1849cd632943c8233f06f181b1899b0e6937444d672abef10307c66d207c16325701ac669d5ff438490a11596c19d1dbbcff50e4e7c00c9b6e4eb1ecf87c
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=Mellanox/mstflint
-  mellanox_mstflint_version: 4.34.1-3
-  mellanox_mstflint_sha256: 91486723ea6b296364ce728ebc3c1d879ab9c06a674a8d7709c8968f8fe4d5bf
-  mellanox_mstflint_sha512: 0447fae21378849f62acd8f70d56058a8512c70a0398c785c10f5e83d5fc7ea41ca24bcdd38efb3e44388ba6e8fcdb66809565f927608ba041e6527abe6ad1a1
+  mellanox_mstflint_version: 4.34.1-4
+  mellanox_mstflint_sha256: 6c3ae532de23461c357830880d228ed40c7fe6429a8fee897fea88babe0a4776
+  mellanox_mstflint_sha512: b112884973635fd5cee00c6fe2c01fb945ac6e7cfac81abd54e267269397898dee29391748df0adbdce0ef44dbcb22a4c7591919d5e337e7241637dd4a58b662
 
   # this tools doesn't have a git repo at all
   mtools_version: 4.0.47
@@ -240,9 +240,9 @@ vars:
   glib_sha512: 6156cdf2cf88672ba23c0ffb133af0dedd65b18df318ba3a99a691678c514af8a30680082ffc86f15c25050f49668382ea81aef9642cb28a4227a3e35aacbde8
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
-  qemu_version: 10.2.0
-  qemu_sha256: 9e30ad1b8b9f7b4463001582d1ab297f39cfccea5d08540c0ca6d6672785883a
-  qemu_sha512: cd910090cf8146fdd30151bded8bebe43d9e7fce8b84d9f87130a99d0bd908f310f4bef5484b53a56c29dd7a08410890d02d0a7ab90ce6af73522ff8ba5b364e
+  qemu_version: 10.2.1
+  qemu_sha256: a3717477d8e2c84d630bfffbc20f6cd3293eb45aa1e6dac6d0cc27689991c9e1
+  qemu_sha512: e879272f17c650b4b73659f83bcb08184b8fb58741349afc996f3601412db7245400c4244ffa51b2af65554a20d8efa411db195177f6fa50e9cec4c16098aedc
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.4.0
