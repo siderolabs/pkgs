@@ -87,14 +87,14 @@ vars:
   ipxe_sha512: 09daa4fafb09a534283c6a1013a398ba6f4164f761155da9538cc2e4ee305524ac67914464ce22a47237cb84407b70e05f2eec6e3e345f718b25b7fdf284932c
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
-  kspp_ref: afc376f2a935994793343cfeb05953583cc30191
-  kspp_sha256: 3e5f3ea80c6e82afd5550211d240daabf0676e900ca651b3a207c6946e04521d
-  kspp_sha512: 6ca9521dc15a5897b490a6e2a3e262f09922f0cbf03e1abba4819f9bdee36e2f08fb5acd7c6cb49d50fcd323cdf571222da42f934fa7d8f55c4fa69be5b2b545
+  kspp_ref: e354f6ab5279f9cfa8bfdd7e13e454ccf69209f9
+  kspp_sha256: 640b25473f86557d082f680b0f57653a69f4146e97825673bf582f9a4c8b7739
+  kspp_sha512: 82dae1debbe94a3f82766a8cdbfe59ff8698d433175803458499b76c50b47b89e9280b677a9f16b2a44711badd6f4001aba951a41722a74dd51c03a18b8b9219
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.18.15
-  linux_sha256: 7c716216c3c4134ed0de69195701e677577bbcdd3979f331c182acd06bf2f170
-  linux_sha512: 266fb6e15425a59bf514e6410238ab022e1ada8e8ae305a06cdadc37f746fb91862a5ce8d66ff02a4d185b71c347dc280c5b7175d81035ca92e0a9f05f043753
+  linux_version: 6.18.16
+  linux_sha256: 4f21c01f4d04c1d1b3ed794153f8900802c92497be620b07c4869530f2d28ee3
+  linux_sha512: b34a477d53ffadcb4a71c992a19a05dccab9f5d8fd92c5c14f93046d677dc05b62f4aaaf9e6958e77bfa3b2de43e0c615566b8d269ad6ff9e6e58c9b9d967b0d
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
@@ -198,11 +198,11 @@ vars:
 
   # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/linux-x86_64/
   # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_lts_version: 580.126.16
-  nvidia_driver_lts_arm64_sha256: b8a4d26a393643885f3cc5acfe922e4f2aa446a14036bcc9aafcf20c59cda00c
-  nvidia_driver_lts_arm64_sha512: 528a4bb01a992f9ae337b2fd5b1ccc14338e7f0863e0ec7bcf67f2e1420b0b4ec59aeef3e2ed370d35411323ec5b5df86a796ccc40addb6f3bb318c232775e75
-  nvidia_driver_lts_amd64_sha256: 972b0c3f333f24c1905e5b8142fbf60ccd6acb377bd7b9d2967698eb0d56172f
-  nvidia_driver_lts_amd64_sha512: e6a01ef5d76b58e75bace185b72e5493830c07c79b4f234c12d5f78e64ed1c66a8808bdc781d1762f6c5965696708952356f1ac6da76a25587fadb17cc4de343
+  nvidia_driver_lts_version: 580.126.20
+  nvidia_driver_lts_arm64_sha256: fabf8df1db0c7146b032ead41ef4c350fe51f6fd816fa0f1da6173901627fe69
+  nvidia_driver_lts_arm64_sha512: e1ce1705a53a0139446b0347d32a249ab617e9b00e215afe56860c7ddc6d83c561dcd8421655dff2283f53b1ff920ac0f8e242e40b5154e7b1dd2865731a296d
+  nvidia_driver_lts_amd64_sha256: 81f53cda334f2e59610ec0237149d829f3e1be96ed20113998801445fc96cdf6
+  nvidia_driver_lts_amd64_sha512: 47554e18cc7508cc67a38d0a0b6ef056899a421d8b3c93829eb8c91a4a6ba788d7ecbe4b7358b8d083a49022a3c8ecea2b01c3b17f1a6c7713bb1c0f09308566
 
   # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/linux-x86_64/
   # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
@@ -264,9 +264,9 @@ vars:
   xfsprogs_sha512: bcdd5a632ac1eae4ad68ac1b18a0289820fcef997da2b3b132e97f035f21e951f20f19de9d09e0babd7d7feb8ad14c0782aa81c698b39c19e4349e603892287e
 
   # renovate: datasource=github-tags extractVersion=^zfs-(?<version>.*)$ depName=openzfs/zfs
-  zfs_version: 2.4.0
-  zfs_sha256: 7bdf13de0a71d95554c0e3e47d5e8f50786c30d4f4b63b7c593b1d11af75c9ee
-  zfs_sha512: 5f4460707cc24c55900a08d106e549ecc9eb42bc7b64e0fb613d85ba2054c3bc834fb10c34822ef14406dfcfc07b38b7ca668a02086eecb0f107d2ffce66a998
+  zfs_version: 2.4.1
+  zfs_sha256: c17b69770f0023154f578eb8c7536a70f07d6a3bb0bd38f04fa0e8811c3c1390
+  zfs_sha512: 15ef20ed8fb976dd123e1f5dca8f0f71a754a3be6edf826bf1d744a28cc8400969d33b79be90a4b5bef95dd200caaca942876f4462b7749667a9e4a225d82676
 
   # renovate: datasource=git-tags depName=https://gitlab.com/apparmor/apparmor.git
   apparmor_version: v3.1.7 # v4 requires autoconf-archive
