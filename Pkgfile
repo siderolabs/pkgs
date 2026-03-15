@@ -66,7 +66,7 @@ vars:
   grub_sha512: 5008e3b70072798d2b34301219fe174cc6bcfead40a9ab25fe32f30c62a392ffb7bf2eb629d481f4a6c19c2925324af3f08d7043e62623e746be2d8b3cbd1182
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=hailo-ai/hailort-drivers
-  hailort_version: 4.23.0
+  hailort_version: 5.2.0
   hailort_sha256: 245c7157746c2fd48b2fab4a990c8fb3b786921dd72c9e5348f5b5619ee05ec3
   hailort_sha512: b5abdf3ca5cb4cbb9d3189ed6bae52d66e52dbce99ed1698ece8ff1f5f32db7560990e66bab740f2f0102e13175eb3fc0ae41162b75ee743684fb64ff845db07
   hailort_fw_sha256: 1ba9528972091ec17bebc0dc7ea2e6f4449efe70664890f6387ccbc7b60626ee
@@ -246,7 +246,7 @@ vars:
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.4.1
-  runc_ref: 8bd78a9977e604c4d5f67a7415d7b8b8c109cdc4
+  runc_ref: c67132530367ecd401dbe800bf13b96052212f3f
   runc_sha256: 9772626f44a7b94e1da98355ec2e0fa37d6b600951ed890716f93d77d1e806c8
   runc_sha512: c1b63138e054f0db78a1f7c51a516c6b28454825a06cb2473665576d9ee51a410177083f2d3359e36694353c5a3543be5ed93bc556e3ed51176d8de698037f62
 
