@@ -26,13 +26,27 @@ steps:
       - |
         cd libraries/libapparmor
         make -j $(nproc)
-
-        cd ../../parser
+      - |
+        cd parser
         make arch -j $(nproc)
     install:
       - |
         cd parser
         DISTRO=unknown make install-arch DESTDIR=/rootfs SBINDIR=/rootfs/usr/bin
+
+        INSTALL_CONFDIR=/rootfs/etc/apparmor
+        install -m 755 -d ${INSTALL_CONFDIR}
+        install -m 644 parser.conf ${INSTALL_CONFDIR}
+      - |
+        cd profiles
+
+        PROFILES_DEST=/rootfs/etc/apparmor.d
+
+        install -m 755 -d ${PROFILES_DEST}
+        install -m 755 -d ${PROFILES_DEST}/disable
+
+        install -m 755 -d "${PROFILES_DEST}/abi"
+        install -m 644 ./apparmor.d/abi/3.0 ${PROFILES_DEST}/abi/3.0
     test:
       - |
         fhs-validator /rootfs
