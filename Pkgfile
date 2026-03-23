@@ -9,9 +9,9 @@ vars:
   LLVM_IMAGE: ghcr.io/siderolabs/llvm
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
-  cni_version: v1.9.0
-  cni_sha256: 5091841a4f379ab6159152b546efc4523d55694c8adc4f19cc7c68f9d1db6d75
-  cni_sha512: 8383a9f3fca75e978b84035609668f139e34cac7c5c1547c2913b6893754c3a0ec55acef73fd8e362094ca022359f2fa6c54dec55bada6b8fb8db7e9d7c889ea
+  cni_version: v1.9.1
+  cni_sha256: 34bd82d47e981940751619c9cc44c095bb90bfcaf8d71865cbb822c37690a764
+  cni_sha512: 5811fb14786f1f9d9e40741ce337449ce329e14e04213bc660102eb470150f24026e59caec480572e37d0e3e6e6518737f3cc7ac462c47034d0737283ec532f9
 
   # renovate: datasource=github-tags depName=containerd/containerd
   containerd_version: v2.2.2
@@ -98,9 +98,9 @@ vars:
   kspp_sha512: 82dae1debbe94a3f82766a8cdbfe59ff8698d433175803458499b76c50b47b89e9280b677a9f16b2a44711badd6f4001aba951a41722a74dd51c03a18b8b9219
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.18.18
-  linux_sha256: f4855f382c1b735c84072bdef36db5bcd5dc7b0c37e42f5104317149a0a486ef
-  linux_sha512: 822877e5bcf330752a8c5ececac54e547ebbcd4e9025d0c37880c313d712ddda0df28ace858db4582a3fd3cf82d7c90a3c157a9a7561017d558231e9bd73c180
+  linux_version: 6.18.19
+  linux_sha256: eaaf78271cd07c68ad9c4c9a70c72718b33abbd716239d82bac96b1751eb090c
+  linux_sha512: accccbbdaaf31ae817401e8db2037db5bb8d20a9c15147ade7b0150b45ec99c21d3bb07ed433d572985b2b7c5d22dfd3830c57cc3e02812ca5ec0b26e1f9cb31
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
@@ -246,7 +246,7 @@ vars:
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.4.1
-  runc_ref: 8bd78a9977e604c4d5f67a7415d7b8b8c109cdc4
+  runc_ref: c67132530367ecd401dbe800bf13b96052212f3f
   runc_sha256: 9772626f44a7b94e1da98355ec2e0fa37d6b600951ed890716f93d77d1e806c8
   runc_sha512: c1b63138e054f0db78a1f7c51a516c6b28454825a06cb2473665576d9ee51a410177083f2d3359e36694353c5a3543be5ed93bc556e3ed51176d8de698037f62
 
