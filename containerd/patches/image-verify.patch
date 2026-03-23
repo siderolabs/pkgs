@@ -98,7 +98,7 @@ index d94b47be7..a30d2ce3d 100644
  		containerd.WithResolver(resolver),
 diff --git a/internal/cri/server/images/image_talos.go b/internal/cri/server/images/image_talos.go
 new file mode 100644
-index 000000000..d563313db
+index 000000000..440e1481f
 --- /dev/null
 +++ b/internal/cri/server/images/image_talos.go
 @@ -0,0 +1,220 @@
@@ -120,7 +120,7 @@ index 000000000..d563313db
 +const (
 +	machineSocketPath = "/system/run/machined/machine.sock"
 +	roleMdKey         = "talos-role"
-+	readerRole        = "os:reader"
++	imageVerifierRole = "os:image:verifier"
 +	labelVerified     = "talos.dev/verified"
 +)
 +
@@ -196,7 +196,7 @@ index 000000000..d563313db
 +	cli := talosClient()
 +
 +	ctx = metadata.NewOutgoingContext(ctx, metadata.MD{
-+		roleMdKey: []string{readerRole},
++		roleMdKey: []string{imageVerifierRole},
 +	})
 +
 +	// decode auth config into ImageServiceCredentials:
