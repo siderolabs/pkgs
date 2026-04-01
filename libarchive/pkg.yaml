@@ -14,6 +14,7 @@ steps:
         tar xf libarchive.tar.xz --strip-components=1
 
         CFLAGS="-fPIC" ./configure \
+        --prefix=/usr \
         --disable-bsdtar \
         --disable-bsdcat \
         --disable-bsdcpio \
@@ -28,7 +29,7 @@ steps:
       - |
         make DESTDIR=/rootfs install
 
-        rm -rf /rootfs/usr/local/share
+        rm -rf /rootfs/usr/share
     test:
       - |
         fhs-validator /rootfs
