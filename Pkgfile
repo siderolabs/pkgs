@@ -3,9 +3,9 @@
 format: v1alpha2
 
 vars:
-  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.13.0-beta.0-1-gbd8fc83
+  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.13.0-beta.0-4-g973353d
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.13.0-beta.0-1-g136f1de
+  TOOLS_REV: v1.13.0-beta.0-3-gc192d81
   LLVM_IMAGE: ghcr.io/siderolabs/llvm
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
@@ -20,9 +20,9 @@ vars:
   containerd_sha512: 4471047360cd1430a189829a74d605dbe89abe092f0e0ba53ad5954269f253c7c277b8097c5d12acb9e0592a39e50e1808c92e73596e3d2d97cf945f15063ca0
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
-  cryptsetup_version: 2.8.4
-  cryptsetup_sha256: b17e158bbcce26e718191d7e1fbc943caf388a4dbcddd2e9821af50f98d3d4be
-  cryptsetup_sha512: 8abb0b2d8b5ea856ae692990eeb135762eb25bdeb8976908390d1ae421686c3b46eabd9fa20a532de8ecb9035e616439ee31020900ad973f317558d9a963a49f
+  cryptsetup_version: 2.8.6
+  cryptsetup_sha256: 4f0fffbffc4edeab6994db6062e47c841c8c1679fc9010bf4d03c707514dacd4
+  cryptsetup_sha512: 513298954c87938ead3898a1fd89b2e58154437ac7537ead2fb913c5337ad02b8750f97293439b7ddc6cc74c169c7c7ee5eaeca57a36289a324a951b200d6dc3
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=dosfstools/dosfstools
   dosfstools_version: 4.2
@@ -123,19 +123,19 @@ vars:
   libinih_sha512: 206ddfaa55d29396c3a44f8d1dfcf578c5ebf892e81fe875cd6b4ec2af5cccf400ca13fc6585b6d8232bd122bd8aef7522bfc83898b5609b29c20bad9390ee02
 
   # renovate: datasource=git-tags extractVersion=^release-(?<version>.*)$ depName=https://dev.lovelyhq.com/libburnia/libburn.git
-  libburn_version: 1.5.6
-  libburn_sha256: 7295491b4be5eeac5e7a3fb2067e236e2955ffdc6bbd45f546466edee321644b
-  libburn_sha512: 549cb25310aac5ce445639374d84f0c09fb1fdd70be97479588775e5afcc12dd0655c5bf51bd3f1bf8c06a66b318fd1e709dcfd72845e795ffaf353ea621accd
+  libburn_version: 1.5.8
+  libburn_sha256: 8e24dd99f5b7cafbecf0116d61b619ee89098e20263e6f47c793aaf4a98d6473
+  libburn_sha512: fa290de9c9e5270eea7752418caaf6d8ac9b9291e71ea043637f78493d91bf1daa3ec23f3c4e7b584d0134b123f3ca279c02cbb44ad3027e7e7d439966512280
 
   # renovate: datasource=git-tags extractVersion=^release-(?<version>.*)$ depName=https://dev.lovelyhq.com/libburnia/libisoburn.git
-  libisoburn_version: 1.5.6
-  libisoburn_sha256: 2b80a6f73dd633a5d243facbe97a15e5c9a07644a5e1a242c219b9375a45f71b
-  libisoburn_sha512: 0fc0058aa4cf755f30d5be0de808012978c657348412c7f129b8f8128da41f18216f3e039050a5851b557ffab344cf7dc44df374400ca008e34e2e2524fbd979
+  libisoburn_version: 1.5.8
+  libisoburn_sha256: dbb36620ceb8e959c88bf29994e2220ed501cc68cb9eea7d51f94881bc8c548e
+  libisoburn_sha512: 64a3423b4c60b4cf88914c832aa80db8cdc76c7ff783125148f13c59dba3dc78d66d9cd9eda77864faf2b58eefdc55d5a2a4ff3f97acf6bc5c9778bb0c5653e2
 
   # renovate: datasource=git-tags extractVersion=^release-(?<version>.*)$ depName=https://dev.lovelyhq.com/libburnia/libisofs.git
-  libisofs_version: 1.5.6
-  libisofs_sha256: 0152d66a9d340b659fe9c880eb9190f3570fb477ac07cf52e8bcd134a1d30d70
-  libisofs_sha512: a5f573bbe9758e072fad195cc9beb672568273ddb993ece9c15585ad3f99efb0deae6fefb6d3d40b9712e73e3bc68869d79d923b2a09623d190f5dc84974d65f
+  libisofs_version: 1.5.8
+  libisofs_sha256: 910532653e6a56b5e4c2ef8717500d913debd5fd29f616fed15134b7522059a6
+  libisofs_sha512: c36a81c47516f6374e65863e8e4374ece3a14cf0cfc15ab381338c5df122835d66494b139223217278434baca07dae0a4bc8c1e8c00dae131ded1c5672808cc7
 
   # renovate: datasource=github-tags extractVersion=^json-c-(?<version>.*)-.*$ depName=json-c/json-c
   libjson_c_version: 0.18
@@ -163,9 +163,9 @@ vars:
   nftables_sha512: 01fbbea43fd01250b0176a200dfdb6b84d3d51156cc2350acb25a5e66960e1908c3d17a0363baddb32897ea8bea0569b67500a94f708c8587b0e29402f51cbb6
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=tukaani-project/xz
-  xz_version: 5.8.2
-  xz_sha256: 890966ec3f5d5cc151077879e157c0593500a522f413ac50ba26d22a9a145214
-  xz_sha512: 9cb422456d51df4261c16bcd68b188d64b778f43c875188cb140372dab9793c873111f5608c3dfe3dffe5dd6da9ba7ba96d7154d3d4fae26cb1cc22b6b66910e
+  xz_version: 5.8.3
+  xz_sha256: fff1ffcf2b0da84d308a14de513a1aa23d4e9aa3464d17e64b9714bfdd0bbfb6
+  xz_sha512: c288f436b211031ca122e9169d85403d4ab8b0500a6542b2d9ba101587e04a4358ab5509f5d15cc7899f1ab3e0118567866ca0508f880007b4af802dedd7068d
 
   # renovate: datasource=github-releases extractVersion=^popt-(?<version>.*)-release$ depName=rpm-software-management/popt
   libpopt_version: 1.19
@@ -189,9 +189,9 @@ vars:
   linux_firmware_sha512: 63b67da2fb5265ffd5601ab09b7d2299d63339fbf2e5e90d60f6d387961f93bbe02e6291724ee19149b216f7e0aabfeb2e68022a06ec7b0c91f047578b381982
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
-  lvm2_version: 2_03_38
-  lvm2_sha256: 322d44bf40de318e6e6b52c56999aaeb86b16c8267187ac2e01a44d4dc526960
-  lvm2_sha512: 97fd1849cd632943c8233f06f181b1899b0e6937444d672abef10307c66d207c16325701ac669d5ff438490a11596c19d1dbbcff50e4e7c00c9b6e4eb1ecf87c
+  lvm2_version: 2_03_39
+  lvm2_sha256: 23bc9067e28fe0d37b3cc441f2865b9e022ce3c624babe22918b8dd90c031ee8
+  lvm2_sha512: 7d00f676af77f4921b10182b0c87420e196c1ec7ec6faad46fc475566b921c62b838ca29b06cddc907e6a4a1033f6ae5020abe64566fa11872eb836af6869988
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=Mellanox/mstflint
   mellanox_mstflint_version: 4.34.1-4
@@ -235,14 +235,14 @@ vars:
   px_fuse_sha512: 9cf6034c743170544c7754664872bc9ff3b41d729e7363807be45f4e0708a91cba1f89fce796d9eb2f03e1ddb6bf56358957822cd639d779cf08b8c625f90bff
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
-  glib_version: 2.87.5
-  glib_sha256: c1075c2d958cc14e179989a74a6c16ec89862ba66915be115bb542283c7fc1f9
-  glib_sha512: 5a4a48b7d2102b0e3be8326c88c9a2e014655f46623500705a1e925da10ee4091f0ce06dee5f800a5a0427481c1f13ffe0c078cd1a13c1ce432bbe66e526c8b2
+  glib_version: 2.88.0
+  glib_sha256: 3546251ccbb3744d4bc4eb48354540e1f6200846572bab68e3a2b7b2b64dfd07
+  glib_sha512: ceead8d88720db17dc6bbff7aff14f261f90afc5e8261448aae0657f89b5fcc616cf62f4b049be88a4ddd3f50a869bbcdb66b29777da4969a47987828ecac280
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
-  qemu_version: 10.2.1
-  qemu_sha256: a3717477d8e2c84d630bfffbc20f6cd3293eb45aa1e6dac6d0cc27689991c9e1
-  qemu_sha512: e879272f17c650b4b73659f83bcb08184b8fb58741349afc996f3601412db7245400c4244ffa51b2af65554a20d8efa411db195177f6fa50e9cec4c16098aedc
+  qemu_version: 10.2.2
+  qemu_sha256: 784b296ff29c1417aa72323abcb2d2ea9ab9771724f577dcd785c3b04f21e176
+  qemu_sha512: c5409530505c2d1e69a80f1750e377261cea8fee42516a0a89d0343b19d55f9d33579cef181d7cc04d51519e50a55dff1b89175e7685bb803468c8ce03929591
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.4.1
