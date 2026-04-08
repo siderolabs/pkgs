@@ -13,8 +13,6 @@ steps:
       - |
         tar -xzf libburn.tar.gz --strip-components=1
 
-        patch -p1 < /pkg/patches/gcc15.patch
-
         ./configure \
             --prefix=/usr
     build:

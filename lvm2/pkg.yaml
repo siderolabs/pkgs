@@ -47,9 +47,11 @@ steps:
              MODPROBE_CMD=/usr/bin/modprobe
     build:
       - |
+        make -C libdm -j $(nproc)
         make -j $(nproc)
     install:
       - |
+        make -C libdm DESTDIR=/rootfs install
         make DESTDIR=/rootfs install
 
         # man
