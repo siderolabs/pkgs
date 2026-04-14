@@ -34,6 +34,7 @@ IGNORE_VIOLATIONS = {
     'CONFIG_INET_DIAG', # last vulnerability prior to v4.1. Required for CNIs such as Cilium to terminate sockets. (https://github.com/siderolabs/pkgs/issues/1028)
     'CONFIG_IOMMU_DEFAULT_DMA_STRICT', # performance impact https://github.com/siderolabs/talos/issues/9531
     'CONFIG_PROC_MEM_NO_FORCE', # might break some applications, so instead we will enforce in the kernel arg 'proc_mem.force_override=never' (https://github.com/a13xp0p0v/kernel-hardening-checker/pull/201)
+    'CONFIG_MODULE_SIG_FORCE', # see https://github.com/siderolabs/talos/issues/11989
 }
 
 """
