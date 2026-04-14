@@ -92,9 +92,9 @@ vars:
   kspp_sha512: 82dae1debbe94a3f82766a8cdbfe59ff8698d433175803458499b76c50b47b89e9280b677a9f16b2a44711badd6f4001aba951a41722a74dd51c03a18b8b9219
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.18.21
-  linux_sha256: 1c38214fb137bae85b82b82537b5987358621b915ab2a8e4f09e60697c19474f
-  linux_sha512: 905fd68a53a69d228dbfbded4bbdbda68d1d776f31e5950d52771c9923d13950f3b76cbd840f04beb9029fe39d6c1946f66bccce0241f8a01d13b8af6c6fa8b1
+  linux_version: 6.18.22
+  linux_sha256: a23c92faf3657385c2c6b5f4edd8f81b808907ebe603fa30699eae224da55f59
+  linux_sha512: 19ea953d0a499efafa1fde4303a1df466ac8fcc5cc5e3d9cd0e474e49a78ed72f1183146e8533cc6b46678e8ec14520b18818a41e26f71d44307b01fb7d1ecea
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
@@ -173,9 +173,9 @@ vars:
   liburcu_sha512: 48c7e137b986c1a33d91ecd8e5101ed8783b7c4e15b8324660c72bce9879373b80ffd97aca0c3b8015a47dfe2c11b5f4acf9d4a065185d9ba405d4e50a2b58d8
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20260309
-  linux_firmware_sha256: f9e127a9453e8ceff0e7425aff248ef1939932d636b8797778d9446123aa44ad
-  linux_firmware_sha512: 63b67da2fb5265ffd5601ab09b7d2299d63339fbf2e5e90d60f6d387961f93bbe02e6291724ee19149b216f7e0aabfeb2e68022a06ec7b0c91f047578b381982
+  linux_firmware_version: 20260410
+  linux_firmware_sha256: e17162a562ffc6499a388527802b24eb034f4d1c8a61f46ef8dc648f8d2ae8e6
+  linux_firmware_sha512: 71e038ee27ec7bfef9614834893f988ce6eacdba1c1e47d759e41a882d5fdd8adb77f9a65e9eedd115c41057962800df35b3db3b06ffa004b703731647d128ba
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
   lvm2_version: 2_03_37
@@ -192,9 +192,9 @@ vars:
   mellanox_ofed_sha512: 58604ea89aa8351727532c48f0c59b4e533ba8bfcef9533f45d94e15ffdcf3a5c464398706cad14ebf3826b132972bd044fadbf7f047e60bdb0c2a454c96acd7
 
   # this tools doesn't have a git repo at all
-  mtools_version: 4.0.47
-  mtools_sha256: e0111d863f9ef55715582f4b69a7ffd261645e0c89417cefeb308cd080002e04
-  mtools_sha512: 6a915693536cf3bd1a1afc06edeb3b0c94c9191c741eb986a38625b3bbe3b046eb06c364d10f8db54f350caac434f2e926733180e0a5698c1de917b76f781b4b
+  mtools_version: 4.0.49
+  mtools_sha256: 10cd1111da87bf2400a380c1639a6cba8bfb937a24f9c51f5f88d393ae5f6f76
+  mtools_sha512: 30e75cd85916b7c5b81e667fec1e47f19c024a988a643e8fa8ddd4a20b96c58d29c528d033548f9a603119835e414ea6fc671b3dafa08f50b9192991276d2447
 
   # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/linux-x86_64/
   # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
