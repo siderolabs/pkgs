@@ -132,6 +132,15 @@ spec:
 ---
 kind: common.Renovate
 spec:
+  customDatasources:
+    nvidia-driver-lts:
+      defaultRegistryUrlTemplate: https://docs.nvidia.com/datacenter/tesla/drivers/releases.json
+      transformTemplates:
+        - '{"releases": $.*[type="lts branch"].driver_info.{"version": release_version}}'
+    nvidia-driver-production:
+      defaultRegistryUrlTemplate: https://docs.nvidia.com/datacenter/tesla/drivers/releases.json
+      transformTemplates:
+        - '{"releases": $.*[type="production branch"].driver_info.{"version": release_version}}'
   packageRules:
     - matchPackageNames:
         - git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
@@ -144,7 +153,8 @@ spec:
         - git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
       versioning: 'regex:^(?<major>\d{4})(?<minor>\d{2})(?<patch>\d{2})\.?(?<build>\d+)?$'
     - matchPackageNames:
-        - nvidia/open-gpu-kernel-modules
+        - nvidia-driver-lts
+        - nvidia-driver-production
         - dosfstools/dosfstools
         - git://git.savannah.gnu.org/grub.git
         - https://pagure.io/libaio.git

@@ -7,7 +7,7 @@ dependencies:
   - image: "{{ .LLVM_IMAGE }}:{{ .TOOLS_REV }}"
 steps:
   - sources:
-      - url: https://github.com/Xilinx/dma_ip_drivers/archive/{{ .xdma_driver_version }}.tar.gz
+      - url: https://github.com/Xilinx/dma_ip_drivers/archive/{{ .xdma_driver_ref }}.tar.gz
         destination: xdma-driver.tar.gz
         sha256: "{{ .xdma_driver_sha256 }}"
         sha512: "{{ .xdma_driver_sha512 }}"

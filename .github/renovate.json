@@ -8,6 +8,20 @@
         ":semanticCommitScopeDisabled",
         "schedule:earlyMondays"
     ],
+    "customDatasources": {
+        "nvidia-driver-lts": {
+            "defaultRegistryUrlTemplate": "https://docs.nvidia.com/datacenter/tesla/drivers/releases.json",
+            "transformTemplates": [
+                "{\"releases\": $.*[type=\"lts branch\"].driver_info.{\"version\": release_version}}"
+            ]
+        },
+        "nvidia-driver-production": {
+            "defaultRegistryUrlTemplate": "https://docs.nvidia.com/datacenter/tesla/drivers/releases.json",
+            "transformTemplates": [
+                "{\"releases\": $.*[type=\"production branch\"].driver_info.{\"version\": release_version}}"
+            ]
+        }
+    },
     "customManagers": [
         {
             "customType": "regex",
@@ -77,7 +91,8 @@
         {
             "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.?(?<patch>\\d+)?$",
             "matchPackageNames": [
-                "nvidia/open-gpu-kernel-modules",
+                "nvidia-driver-lts",
+                "nvidia-driver-production",
                 "dosfstools/dosfstools",
                 "git://git.savannah.gnu.org/grub.git",
                 "https://pagure.io/libaio.git",
