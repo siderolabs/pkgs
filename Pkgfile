@@ -50,10 +50,10 @@ vars:
   systemd_sha512: 9f975dce6861853a817a7ceab18a24449a85d1bda6939b3a5173430c02a4d8a9a2b34ebb8cce1c51db9b0ff9078fcc65da7b0f44e3bdcbbe013b9e04bb6f0ff9
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
-  flannel_cni_version: v1.9.0-flannel1
-  flannel_cni_ref: 0940aaf4a0edda6c9bcd9bc34b3466a0d579ddda
-  flannel_cni_sha256: 89ed55d84057de8dc337ecbf0fd9d08c0cd9349025e76cdbeac3c26ea931408d
-  flannel_cni_sha512: 9ce24b0283bc51e209b7b20fd41fde99aa15b13530d8490bdc3f29118b29adfbb623036a60675371e68efca2ddcb7e344177279a4f78dbf80492fe5c0c57343c
+  flannel_cni_version: v1.9.1-flannel1
+  flannel_cni_ref: 4c87e5d413198ceede07f8ef6f828357ebbd00c0
+  flannel_cni_sha256: 6401ccc2abe9c8e49a4f393d3c9c93f9d51287f7e7e7ac2658fc5ae0095d53d9
+  flannel_cni_sha512: 299ba3917588715a1bad3a36c23f96b2d29a23837711f7c9a6526f799078af16ba93a71d9c562c3cad305081f9ef21bddb764d7098e24dbd16e83856effdac39
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/google/gasket-driver.git
   gasket_driver_ref: 5815ee3908a46a415aac616ac7b9aedcb98a504c
@@ -98,9 +98,9 @@ vars:
   kspp_sha512: 82dae1debbe94a3f82766a8cdbfe59ff8698d433175803458499b76c50b47b89e9280b677a9f16b2a44711badd6f4001aba951a41722a74dd51c03a18b8b9219
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.18.22
-  linux_sha256: a23c92faf3657385c2c6b5f4edd8f81b808907ebe603fa30699eae224da55f59
-  linux_sha512: 19ea953d0a499efafa1fde4303a1df466ac8fcc5cc5e3d9cd0e474e49a78ed72f1183146e8533cc6b46678e8ec14520b18818a41e26f71d44307b01fb7d1ecea
+  linux_version: 6.18.23
+  linux_sha256: 2a2d8e76bfcd135ab861bb9795211574eeff6d4ede9cc920f7c137587e835134
+  linux_sha512: d10cb85ab550e8db2516f360f7c359f6fcc574652ddbe2960cddc8ece74a49b52d315a28b2759cd5df3ef0acb3b23d9bf73427667c3dc6333fcc5436006fc0ee
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
