@@ -17,8 +17,9 @@ steps:
         tar -xf nftables.tar.xz --strip-components=1
 
         export PKG_CONFIG_PATH=/usr/lib/pkgconfig
+        export CONFIG_SHELL=/bin/bash
 
-        ./configure \
+        /bin/bash ./configure \
           --prefix=/usr \
           --disable-man-doc \
           --sbindir=/usr/bin \

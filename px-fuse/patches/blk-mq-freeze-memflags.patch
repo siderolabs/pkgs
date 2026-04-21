@@ -1,0 +1,34 @@
+diff --git a/pxd.c b/pxd.c
+index 1234567..abcdefg 100644
+--- a/pxd.c
++++ b/pxd.c
+@@ -1235,7 +1235,7 @@ static int pxd_init_disk(struct pxd_device *pxd_dev)
+
+ #if defined __PX_BLKMQ__ && !defined __PXD_BIO_MAKEREQ__
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(6,14,0) || defined(__BLK_Q_FREEZE_WITH_MEMFLAG__) || (LINUX_VERSION_CODE >= KERNEL_VERSION(6,5,0) && defined(__SUSE_GTE_16_0__))
+-	*blk_mq_queue_flag = blk_mq_freeze_queue(q);
++	pxd_dev->blk_mq_memflags = blk_mq_freeze_queue(q);
+ #else
+ 	blk_mq_freeze_queue(q);
+ #endif
+@@ -1468,7 +1468,7 @@ ssize_t pxd_export(struct fuse_conn *fc, uint64_t dev_id)
+ 	spin_unlock(&pxd_dev->lock);
+ #if defined __PX_BLKMQ__ && !defined __PXD_BIO_MAKEREQ__
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(6,14,0) || defined(__BLK_Q_FREEZE_WITH_MEMFLAG__) || (LINUX_VERSION_CODE >= KERNEL_VERSION(6,5,0) && defined(__SUSE_GTE_16_0__))
+-	blk_mq_unfreeze_queue(pxd_dev->disk->queue, blk_mq_queue_flag);
++	blk_mq_unfreeze_queue(pxd_dev->disk->queue, pxd_dev->blk_mq_memflags);
+ #else
+ 	blk_mq_unfreeze_queue(pxd_dev->disk->queue);
+ #endif
+diff --git a/pxd_core.h b/pxd_core.h
+index 1234567..abcdefg 100644
+--- a/pxd_core.h
++++ b/pxd_core.h
+@@ -71,6 +71,7 @@ struct pxd_device {
+ #if defined(__PXD_BIO_BLKMQ__) && defined(__PX_BLKMQ__)
+         struct blk_mq_tag_set tag_set;
+ #endif
++	unsigned int blk_mq_memflags;
+ };
+
+ // how pxd_device got registered with the kernel during device add.
