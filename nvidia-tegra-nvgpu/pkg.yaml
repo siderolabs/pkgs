@@ -1,4 +1,4 @@
-name: nvidia-tegra-nvgpu
+name: nvidia-tegra-nvgpu-pkg
 variant: scratch
 shell: /bin/bash
 dependencies:
