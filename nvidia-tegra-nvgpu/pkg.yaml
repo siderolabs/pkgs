@@ -200,8 +200,6 @@ steps:
         if [ -f "${NETLIST_PRIV}" ]; then
           sed -i 's/struct netlist_region regions\[1\]/struct netlist_region regions[]/' "${NETLIST_PRIV}"
         fi
-        sed -i '/CONFIG_GCC_PLUGIN_LATENT_ENTROPY/d' /src/include/config/auto.conf 2>/dev/null || true
-        sed -i '/CONFIG_GCC_PLUGIN_LATENT_ENTROPY/d' /src/include/generated/autoconf.h 2>/dev/null || true
         make -j $(nproc) ARCH=arm64 \
           -C /src \
           M=/oot-src/nvgpu/drivers/gpu/nvgpu \
