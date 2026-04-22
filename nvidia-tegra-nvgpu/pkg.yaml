@@ -224,6 +224,10 @@ steps:
         SHIM_DIR=/oot-src/nvhost-ctrl-shim
         echo "Installing kernel modules..."
 
+        mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.order /src/modules.builtin /src/modules.builtin.modinfo \
+          /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+
         # OOT host1x → kernel/drivers/gpu/host1x/ (shadows in-tree host1x.ko;
         # provides HOST1X_SYNCPT_GPU that nvgpu's CONFIG_TEGRA_GK20A_NVHOST=y requires)
         make -j$(nproc) ARCH=arm64 -C /src \
