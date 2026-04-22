@@ -1,0 +1,157 @@
+nvgpu: use GPIO descriptors for PCI power controls
+
+Replace the removed OF integer-GPIO interface with firmware-node GPIO
+lookups. Keep GPIOD_ASIS and raw values to preserve the existing physical
+levels and direction handling, including active-low firmware flags.
+
+diff --git a/drivers/gpu/nvgpu/os/linux/pci_power.c b/drivers/gpu/nvgpu/os/linux/pci_power.c
+index 6406eb3..7f9032b 100644
+--- a/drivers/gpu/nvgpu/os/linux/pci_power.c
++++ b/drivers/gpu/nvgpu/os/linux/pci_power.c
+@@ -5,7 +5,7 @@
+ #include <linux/list.h>
+ #include <linux/pci.h>
+ #include <linux/platform_device.h>
+-#include <linux/of_gpio.h>
++#include <linux/of.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/ktime.h>
+ #include <linux/debugfs.h>
+@@ -170,19 +170,19 @@ static void nvgpu_dump_pci_gpios(struct nvgpu_pci_gpios *pgpios, const char *f)
+ 	pr_debug("nvgpu gpio status in %s:\n", f);
+ 
+ 	for (i = 0; i < PCI_GPIO_MAX; i++) {
+-		if (pgpios->gpios[i] == 0) {
++		if (pgpios->gpios[i] == NULL) {
+ 			pr_debug("%d. %-25s: gpio not requested\n",
+ 				 i, nvgpu_pci_gpio_name(i));
+ 			continue;
+ 		}
+ 
+-		gd = gpio_to_desc(pgpios->gpios[i]);
++		gd = pgpios->gpios[i];
+ 		if (gd) {
+ 			is_in = gpiod_get_direction(gd);
+-			val = gpiod_get_value_cansleep(gd);
++			val = gpiod_get_raw_value_cansleep(gd);
+ 
+ 			pr_debug("%d. %-25s gpio-%-3d dir=%s val=%s\n",
+-				 i, nvgpu_pci_gpio_name(i), pgpios->gpios[i],
++				 i, nvgpu_pci_gpio_name(i), gpiod_hwgpio(gd),
+ 				 is_in ? "in " : "out",
+ 				 val >= 0 ? (val != 0 ? "hi" : "lo") : "?  ");
+ 
+@@ -199,8 +199,8 @@ static void nvgpu_free_pci_gpios(struct nvgpu_pci_gpios *pgpios)
+ 
+ 	for (i = 0; i < PCI_GPIO_MAX; i++) {
+ 		if (pgpios->gpios[i]) {
+-			gpio_free(pgpios->gpios[i]);
+-			pgpios->gpios[i] = 0;
++			gpiod_put(pgpios->gpios[i]);
++			pgpios->gpios[i] = NULL;
+ 		}
+ 	}
+ }
+@@ -208,7 +208,8 @@ static void nvgpu_free_pci_gpios(struct nvgpu_pci_gpios *pgpios)
+ static int nvgpu_request_pci_gpios(struct nvgpu_pci_gpios *pgpios)
+ {
+ 	struct device_node *np;
+-	int i, ret, gpio;
++	struct gpio_desc *gpio;
++	int i, ret;
+ 
+ 	if (pgpios->gpios[0])
+ 		return 0;
+@@ -220,16 +221,13 @@ static int nvgpu_request_pci_gpios(struct nvgpu_pci_gpios *pgpios)
+ 	}
+ 
+ 	for (i = 0; i < PCI_GPIO_MAX; i++) {
+-		gpio = of_get_named_gpio(np, "nvgpu-pci-gpios", i);
+-		if (gpio < 0) {
+-			ret = gpio;
++		gpio = fwnode_gpiod_get_index(of_fwnode_handle(np),
++				"nvgpu-pci", i, GPIOD_ASIS, "pci-gpio");
++		if (IS_ERR(gpio)) {
++			ret = PTR_ERR(gpio);
+ 			goto err;
+ 		}
+ 
+-		ret = gpio_request(gpio, "pci-gpio");
+-		if (ret)
+-			goto err;
+-
+ 		pgpios->gpios[i] = gpio;
+ 	}
+ 
+@@ -245,9 +243,9 @@ err:
+ 
+ static int nvgpu_disable_pci_rail(struct nvgpu_pci_gpios *pgpios)
+ {
+-	int pci_vbat_pwr_on_gpio = pgpios->gpios[PCI_GPIO_VBAT_PWR_ON];
++	struct gpio_desc *pci_vbat_pwr_on_gpio = pgpios->gpios[PCI_GPIO_VBAT_PWR_ON];
+ 
+-	gpio_set_value(pci_vbat_pwr_on_gpio, 0);
++	gpiod_set_raw_value(pci_vbat_pwr_on_gpio, 0);
+ 
+ 	mdelay(PCI_VBAR_PWR_OFF_DELAY_MS);
+ 	return 0;
+@@ -255,16 +253,16 @@ static int nvgpu_disable_pci_rail(struct nvgpu_pci_gpios *pgpios)
+ 
+ static int nvgpu_check_pci_power_good(struct nvgpu_pci_gpios *pgpios)
+ {
+-	int pci_pg = pgpios->gpios[PCI_GPIO_PG];
++	struct gpio_desc *pci_pg = pgpios->gpios[PCI_GPIO_PG];
+ 
+-	return gpio_get_value(pci_pg) != 1 ? -EINVAL : 0;
++	return gpiod_get_raw_value(pci_pg) != 1 ? -EINVAL : 0;
+ }
+ 
+ static int nvgpu_enable_pci_rail(struct nvgpu_pci_gpios *pgpios)
+ {
+-	int pci_vbat_pwr_on_gpio = pgpios->gpios[PCI_GPIO_VBAT_PWR_ON];
++	struct gpio_desc *pci_vbat_pwr_on_gpio = pgpios->gpios[PCI_GPIO_VBAT_PWR_ON];
+ 
+-	gpio_set_value(pci_vbat_pwr_on_gpio, 1);
++	gpiod_set_raw_value(pci_vbat_pwr_on_gpio, 1);
+ 
+ 	mdelay(PCI_VBAR_PWR_ON_DELAY_MS);
+ 	return 0;
+@@ -272,9 +270,9 @@ static int nvgpu_enable_pci_rail(struct nvgpu_pci_gpios *pgpios)
+ 
+ static int nvgpu_deassert_pci_pwr_on(struct nvgpu_pci_gpios *pgpios)
+ {
+-	int pci_pwr_on = pgpios->gpios[PCI_GPIO_PWR_ON];
++	struct gpio_desc *pci_pwr_on = pgpios->gpios[PCI_GPIO_PWR_ON];
+ 
+-	gpio_set_value(pci_pwr_on, 0);
++	gpiod_set_raw_value(pci_pwr_on, 0);
+ 
+ 	mdelay(PCI_PWR_OFF_DELAY_MS);
+ 	return 0;
+@@ -282,9 +280,9 @@ static int nvgpu_deassert_pci_pwr_on(struct nvgpu_pci_gpios *pgpios)
+ 
+ static int nvgpu_assert_pci_pwr_on(struct nvgpu_pci_gpios *pgpios)
+ {
+-	int pci_pwr_on = pgpios->gpios[PCI_GPIO_PWR_ON];
++	struct gpio_desc *pci_pwr_on = pgpios->gpios[PCI_GPIO_PWR_ON];
+ 
+-	gpio_set_value(pci_pwr_on, 1);
++	gpiod_set_raw_value(pci_pwr_on, 1);
+ 
+ 	mdelay(PCI_PWR_ON_DELAY_MS);
+ 	return 0;
+
+diff --git a/drivers/gpu/nvgpu/os/linux/platform_gk20a.h b/drivers/gpu/nvgpu/os/linux/platform_gk20a.h
+index 6f9bc46..54e033b 100644
+--- a/drivers/gpu/nvgpu/os/linux/platform_gk20a.h
++++ b/drivers/gpu/nvgpu/os/linux/platform_gk20a.h
+@@ -49,7 +49,7 @@ enum {
+ };
+ 
+ struct nvgpu_pci_gpios {
+-	int gpios[PCI_GPIO_MAX];
++	struct gpio_desc *gpios[PCI_GPIO_MAX];
+ };
+ 
+ /* delays in milliseconds (ms) */
+
