@@ -192,6 +192,10 @@ steps:
         python3 /pkg/scripts/patch_nvhost_host1x.py
         NVHOST_H1X=/oot-src/nvgpu/drivers/gpu/nvgpu/os/linux/nvhost_host1x.c
         awk '/return host1x_syncpt_id\(sp\);/ { print "\t/* GA10b ERRATA_SYNCPT_INVALID_ID_0: skip syncpt id=0."; print "\t * host1x_syncpt_alloc may return id=0 when no GPU pool in DT."; print "\t * nvgpu rejects id=0 causing CUDA error 999. Hold it and re-alloc. */"; print "\tif (host1x_syncpt_id(sp) == 0U) {"; print "\t\tstruct host1x_syncpt *sp_skip = sp;"; print "\t\tsp = host1x_syncpt_alloc(host1x,"; print "\t\t\t\tHOST1X_SYNCPT_CLIENT_MANAGED | HOST1X_SYNCPT_GPU,"; print "\t\t\t\tsyncpt_name);"; print "\t\thost1x_syncpt_put(sp_skip);"; print "\t\tif (!sp)"; print "\t\t\treturn 0;"; print "\t}"; print ""; print "\treturn host1x_syncpt_id(sp);"; next } { print }' "$NVHOST_H1X" > "$NVHOST_H1X.tmp" && mv "$NVHOST_H1X.tmp" "$NVHOST_H1X"
+        if ! grep -q 'GA10b ERRATA_SYNCPT_INVALID_ID_0' "$NVHOST_H1X"; then
+          echo "ERROR: failed to patch $NVHOST_H1X: expected syncpt errata marker not found" >&2
+          exit 1
+        fi
         NETLIST_PRIV=/oot-src/nvgpu/drivers/gpu/nvgpu/common/netlist/netlist_priv.h
         if [ -f "${NETLIST_PRIV}" ]; then
           sed -i 's/struct netlist_region regions\[1\]/struct netlist_region regions[]/' "${NETLIST_PRIV}"
