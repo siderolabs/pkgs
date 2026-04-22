@@ -4,7 +4,6 @@
 set -euo pipefail
 
 NVIDIA_OOT=/oot-src/nvidia-oot
-CONFTEST_OUT=/oot-src/out/nvidia-conftest
 
 # ── GCC plugin latent_entropy fix ────────────────────────────────────────────
 # CONFIG_GCC_PLUGIN_LATENT_ENTROPY injects a global 'latent_entropy' variable
