@@ -180,9 +180,7 @@ steps:
           > /oot-src/out/nvidia-linux-header/Module.symvers
       - |
         echo "Building nvgpu module (OE4T patches-r36.5)..."
-        mkdir -p /usr/local/bin
-        printf '#!/bin/bash\nfiltered=()\nfor arg in "$@"; do\n  case "$arg" in\n    -fmin-function-alignment=*|-fconserve-stack) ;;\n    -fsanitize=bounds-strict) filtered+=("-fsanitize=bounds") ;;\n    -Wimplicit-fallthrough=*) filtered+=("-Wimplicit-fallthrough") ;;\n    -Wno-maybe-uninitialized) filtered+=("-Wno-uninitialized") ;;\n    -Wno-alloc-size-larger-than|-Wno-alloc-size-larger-than=*) ;;\n    -fplugin=*|-fplugin-arg-*) ;;\n    -pg|-mrecord-mcount|-mfentry|-fpatchable-function-entry=*) ;;\n    *) filtered+=("$arg") ;;\n  esac\ndone\nexec clang "${filtered[@]}" -Wno-unknown-warning-option -Wno-enum-enum-conversion -Wno-implicit-fallthrough -Wno-gnu-variable-sized-type-not-at-end\n' > /usr/local/bin/clang-oot
-        chmod +x /usr/local/bin/clang-oot
+        # clang-oot wrapper already installed by the earlier build step — reuse it.
         grep -rl "NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS" /oot-src/nvgpu/drivers/gpu/nvgpu/ \
           | xargs -r sed -i "s|#if defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)|#if 1 /* force: kernel 6.3+ */|g"
         sed -i '1s|^|ccflags-y += -Wno-implicit-fallthrough -Wno-parentheses-equality -Wno-incompatible-function-pointer-types -Wno-sometimes-uninitialized\n|' \

@@ -193,6 +193,9 @@ static struct host1x *get_host1x(void)
 	}
 
 	drvdata = platform_get_drvdata(pdev);
+	/* Release ref acquired by of_find_device_by_node(); drvdata is stable
+	 * as long as host1x.ko is loaded — pdev itself is not needed further. */
+	put_device(&pdev->dev);
 	if (!drvdata) {
 		pr_err_ratelimited("nvhost-ctrl-shim: host1x drvdata is NULL\n");
 		return ERR_PTR(-EAGAIN);
@@ -647,7 +650,11 @@ static long nvhost_ctrl_ioctl(struct file *file, unsigned int cmd,
 
 static char *nvhost_ctrl_devnode(const struct device *dev, umode_t *mode)
 {
-	*mode = 0666;
+	/* 0666: the CUDA runtime (libnvrm_host1x.so) opens this device as the
+	 * container user; Talos runs a single-workload model so world-readable
+	 * is acceptable.  Guard mode for callers that pass NULL. */
+	if (mode)
+		*mode = 0666;
 	return NULL;
 }
 
