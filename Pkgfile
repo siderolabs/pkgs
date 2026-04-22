@@ -290,12 +290,15 @@ vars:
   gdrcopy_sha512: c717f118eff8cd5a8dc35613c3881818f8b71dc493461dd0151ce7c882f8e2c2d852e22733fab4e2bec57219e10eec874c11b4fad90dd4815ae572840ed19d28
 
   # OE4T (NVIDIA Tegra) kernel modules for Jetson Orin NX (Tegra234 / GA10B)
+  # renovate: datasource=git-refs versioning=git depName=https://github.com/OE4T/linux-nvgpu.git
   oe4t_nvgpu_commit: d530a48d64f9ad3020d9f3307f53e8dde8e3fba1
   oe4t_nvgpu_sha256: adc5864edf76d986866e386803a9e628ee229e69ea34867b92b978a0b44f3d54
   oe4t_nvgpu_sha512: a7c7f0b5d3174bf41abc77c77009f46182358f93936aedbe4993e63ff7fc94e21bfd83c3fa0b41af5836866b9c200427504d8f26685d567c11722e7a7bfd3ed9
+  # renovate: datasource=git-refs versioning=git depName=https://github.com/OE4T/linux-nv-oot.git
   oe4t_nv_oot_commit: ccf7646c57462776fe1093af6643c54653f59861
   oe4t_nv_oot_sha256: d1957d2c4908a37b4c040aef3a7413a9fbb3adcc8575cc9347c58af1c8b95169
   oe4t_nv_oot_sha512: 66b8b4a0672a2c044d42e58914a6d0000fc3a01f1343fa39190794e5badbcb52cd3c2254bd3ca2b6be86286dadbbe60db5cb26c74264747b783937443e287a33
+  # renovate: datasource=git-refs versioning=git depName=https://github.com/OE4T/linux-hwpm.git
   oe4t_hwpm_commit: 4d8a6998760d85f98637dbf61597bfbb88158206
   oe4t_hwpm_sha256: 96c7656bdad0bf330e7fd58981b8a4eec4717a76840cefbe84e720d88b46be55
   oe4t_hwpm_sha512: 971b91fcae284c59dbe411356109bce9b1a7884b8fac41c9683c79bf3eddef606e71ebaa9c06ad2389b2ba382c3c1125fabe0cbaeb5edac857e218077ed24ef9
