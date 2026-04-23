@@ -64,7 +64,7 @@ steps:
         # ── Cross-compiler mismatch fix: Clang wrapper ────────────────────────────
         # Strips GCC-only flags before passing to clang (source-independent fix).
         mkdir -p /usr/local/bin
-        printf '#!/bin/bash\nfiltered=()\nfor arg in "$@"; do\n  case "$arg" in\n    -fmin-function-alignment=*|-fconserve-stack) ;;\n    -fsanitize=bounds-strict) filtered+=("-fsanitize=bounds") ;;\n    -Wimplicit-fallthrough=*) filtered+=("-Wimplicit-fallthrough") ;;\n    -Wno-maybe-uninitialized) filtered+=("-Wno-uninitialized") ;;\n    -Wno-alloc-size-larger-than|-Wno-alloc-size-larger-than=*) ;;\n    -fplugin=*|-fplugin-arg-*) ;;\n    -pg|-mrecord-mcount|-mfentry|-fpatchable-function-entry=*) ;;\n    *) filtered+=("$arg") ;;\n  esac\ndone\nexec clang "${filtered[@]}" -Wno-unknown-warning-option -Wno-enum-enum-conversion -Wno-implicit-fallthrough -Wno-gnu-variable-sized-type-not-at-end\n' > /usr/local/bin/clang-oot
+        cp /pkg/scripts/clang-oot /usr/local/bin/clang-oot
         chmod +x /usr/local/bin/clang-oot
         echo "clang-oot wrapper installed"
 

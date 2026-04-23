@@ -1,0 +1,16 @@
+#!/bin/bash
+# Cross-compiler mismatch fix: strips GCC-only flags before passing to clang.
+filtered=()
+for arg in "$@"; do
+  case "$arg" in
+    -fmin-function-alignment=*|-fconserve-stack) ;;
+    -fsanitize=bounds-strict) filtered+=("-fsanitize=bounds") ;;
+    -Wimplicit-fallthrough=*) filtered+=("-Wimplicit-fallthrough") ;;
+    -Wno-maybe-uninitialized) filtered+=("-Wno-uninitialized") ;;
+    -Wno-alloc-size-larger-than|-Wno-alloc-size-larger-than=*) ;;
+    -fplugin=*|-fplugin-arg-*) ;;
+    -pg|-mrecord-mcount|-mfentry|-fpatchable-function-entry=*) ;;
+    *) filtered+=("$arg") ;;
+  esac
+done
+exec clang "${filtered[@]}" -Wno-unknown-warning-option -Wno-enum-enum-conversion -Wno-implicit-fallthrough -Wno-gnu-variable-sized-type-not-at-end
