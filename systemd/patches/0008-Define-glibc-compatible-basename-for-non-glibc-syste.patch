@@ -26,9 +26,8 @@ index cc6aa183c0..0b035125cd 100644
 +#define basename(src) (strrchr(src,'/') ? strrchr(src,'/')+1 : src)
 +#endif
 +
- static inline char* strstr_ptr(const char *haystack, const char *needle) {
+ static inline char* strstr_ptr_internal(const char *haystack, const char *needle) {
          if (!haystack || !needle)
                  return NULL;
 -- 
 2.34.1
-
