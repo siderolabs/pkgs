@@ -12,7 +12,7 @@ steps:
         destination: nvgpu.tar.gz
         sha256: "{{ .oe4t_nvgpu_sha256 }}"
         sha512: "{{ .oe4t_nvgpu_sha512 }}"
-      # OE4T patched nvidia-oot - wip-r36.5-take-2 branch (kernel 6.18 compat: __assign_str,
+      # OE4T patched nvidia-oot - patches-r36.5 branch (kernel 6.18 compat: __assign_str,
       # f_count->f_ref, __alloc_pages_bulk 5-arg, and all earlier 6.x fixes)
       - url: https://github.com/OE4T/linux-nv-oot/archive/{{ .oe4t_nv_oot_commit }}.tar.gz
         destination: nvidia-oot.tar.gz
