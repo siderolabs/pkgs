@@ -334,15 +334,6 @@ steps:
           CONFIG_MODULE_SIG_ALL=y \
           modules_install
 
-        # Module load order: host1x → host1x-fence → nvhost-ctrl-shim → nvmap → nvgpu
-        mkdir -p /rootfs/usr/lib/modprobe.d
-        printf 'softdep nvhost-ctrl-shim pre: host1x host1x-fence\n' \
-          > /rootfs/usr/lib/modprobe.d/nvidia-tegra.conf
-        printf 'softdep nvgpu pre: host1x nvmap host1x-fence nvhost-ctrl-shim mc-utils\n' \
-          >> /rootfs/usr/lib/modprobe.d/nvidia-tegra.conf
-
-        echo "Installed modules:"
-        find /rootfs -name "*.ko" | sort
     test:
       - |
         # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
