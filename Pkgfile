@@ -30,7 +30,7 @@ vars:
   dosfstools_sha512: 3cc0808edb4432428df8a67da4bb314fd1f27adc4a05754c1a492091741a7b6875ebd9f6a509cc4c5ad85643fc40395b6e0cadee548b25cc439cc9b725980156
 
   # renovate: datasource=github-tags extractVersion=^drbd-(?<version>.*)$ depName=LINBIT/drbd
-  drbd_version: 9.3.1
+  drbd_version: 9.3.2
   drbd_sha256: 9bcc52e09fb888b5d1ceb0f87ddbc8393cb3d8740f3f9289e5bf7fcf1096f660
   drbd_sha512: 8cce0df8d4d98a90f3444ce5aadd8da8319c4676a1d584fc34c71e6b8ff6de4fcaef4a537985ea91ca8c1f85d5bb666cc76660f3f42fc13a13e923c0f332077f
 
@@ -66,7 +66,7 @@ vars:
   grub_sha512: 5008e3b70072798d2b34301219fe174cc6bcfead40a9ab25fe32f30c62a392ffb7bf2eb629d481f4a6c19c2925324af3f08d7043e62623e746be2d8b3cbd1182
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=hailo-ai/hailort-drivers
-  hailort_version: 4.23.0
+  hailort_version: 5.3.0
   hailort_sha256: 245c7157746c2fd48b2fab4a990c8fb3b786921dd72c9e5348f5b5619ee05ec3
   hailort_sha512: b5abdf3ca5cb4cbb9d3189ed6bae52d66e52dbce99ed1698ece8ff1f5f32db7560990e66bab740f2f0102e13175eb3fc0ae41162b75ee743684fb64ff845db07
   hailort_fw_sha256: 1ba9528972091ec17bebc0dc7ea2e6f4449efe70664890f6387ccbc7b60626ee
@@ -88,7 +88,7 @@ vars:
   iptables_sha512: 3aefd76ca60d00f46ba4d6f39cbcfdc60517d03b6714da25dcd67542f6f4eea8d82c4855bdd9124efe18b769f41951772b8340a6eda75b85f8dd52b2289b145b
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 7e54e75a2f2e9ca023f9ed1b3a42d6a40f9ba1e4
+  ipxe_ref: df4eec8cfb4fda2b4bc1ce87fd101b80205c1e92
   ipxe_sha256: 6b11fbb2b3783516d13e1ba4178c9913de434685041fd5aa402e38e638a56d8c
   ipxe_sha512: f399897a6d69d471bb4a9d9a5e78042a8c103dc5c7427ba2507b32727f7dc95e6983add48822a4ec7e3b0ae534812d65f7a68557b790946a2185c739f2874f8c
 
@@ -189,7 +189,7 @@ vars:
   linux_firmware_sha512: 71e038ee27ec7bfef9614834893f988ce6eacdba1c1e47d759e41a882d5fdd8adb77f9a65e9eedd115c41057962800df35b3db3b06ffa004b703731647d128ba
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
-  lvm2_version: 2_03_39
+  lvm2_version: 2_03_40
   lvm2_sha256: 23bc9067e28fe0d37b3cc441f2865b9e022ce3c624babe22918b8dd90c031ee8
   lvm2_sha512: 7d00f676af77f4921b10182b0c87420e196c1ec7ec6faad46fc475566b921c62b838ca29b06cddc907e6a4a1033f6ae5020abe64566fa11872eb836af6869988
 
@@ -204,14 +204,14 @@ vars:
   mtools_sha512: 30e75cd85916b7c5b81e667fec1e47f19c024a988a643e8fa8ddd4a20b96c58d29c528d033548f9a603119835e414ea6fc671b3dafa08f50b9192991276d2447
 
   # renovate: datasource=custom.nvidia-driver-lts depName=nvidia-driver-lts
-  nvidia_driver_lts_version: 580.126.20
+  nvidia_driver_lts_version: 580.159.03
   nvidia_driver_lts_arm64_sha256: fabf8df1db0c7146b032ead41ef4c350fe51f6fd816fa0f1da6173901627fe69
   nvidia_driver_lts_arm64_sha512: e1ce1705a53a0139446b0347d32a249ab617e9b00e215afe56860c7ddc6d83c561dcd8421655dff2283f53b1ff920ac0f8e242e40b5154e7b1dd2865731a296d
   nvidia_driver_lts_amd64_sha256: 81f53cda334f2e59610ec0237149d829f3e1be96ed20113998801445fc96cdf6
   nvidia_driver_lts_amd64_sha512: 47554e18cc7508cc67a38d0a0b6ef056899a421d8b3c93829eb8c91a4a6ba788d7ecbe4b7358b8d083a49022a3c8ecea2b01c3b17f1a6c7713bb1c0f09308566
 
   # renovate: datasource=custom.nvidia-driver-production depName=nvidia-driver-production
-  nvidia_driver_production_version: 595.58.03
+  nvidia_driver_production_version: 595.71.05
   nvidia_driver_production_arm64_sha256: 8d93da9dc25fc64dea72582bf0f0ef1971971783243bd4167215322c2229a303
   nvidia_driver_production_arm64_sha512: b00c79c5820bb39f12eb19bb70a1803d80461086f53cfab627a442f48f05a19c8e00c955f898f74ea70aca925d1ff82ca145f8283d0836af0f08ab2dc5344bf5
   nvidia_driver_production_amd64_sha256: b9d37e76ec810456d877ba63cffdc470f0e73f706ebd97a37faee02b7c64f52f
@@ -238,7 +238,7 @@ vars:
   glib_sha512: ceead8d88720db17dc6bbff7aff14f261f90afc5e8261448aae0657f89b5fcc616cf62f4b049be88a4ddd3f50a869bbcdb66b29777da4969a47987828ecac280
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
-  qemu_version: 10.2.2
+  qemu_version: 11.0.0
   qemu_sha256: 784b296ff29c1417aa72323abcb2d2ea9ab9771724f577dcd785c3b04f21e176
   qemu_sha512: c5409530505c2d1e69a80f1750e377261cea8fee42516a0a89d0343b19d55f9d33579cef181d7cc04d51519e50a55dff1b89175e7685bb803468c8ce03929591
 
@@ -280,7 +280,7 @@ vars:
 
   # NOTE: v4 requires autoconf-archive
   # renovate: datasource=git-tags depName=https://gitlab.com/apparmor/apparmor.git
-  apparmor_version: v3.1.7
+  apparmor_version: v5.0.0
   apparmor_sha256: 64494bd99fa6547a9cbdb4fc6bc732451a02dd19e6eb70eab977b239632151eb
   apparmor_sha512: cfd6b0afb98d4559c16a6a2e23ca16ee9d86325fc6059313df5d3e8feba3d398f96a5754d3880dd2cafb2e7b1a06bd789d62cd36aaf993e46290f6311bb49dac
 
