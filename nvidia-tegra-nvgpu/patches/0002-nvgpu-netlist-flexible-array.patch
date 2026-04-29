@@ -1,0 +1,11 @@
+--- a/drivers/gpu/nvgpu/common/netlist/netlist_priv.h	2026-04-27 22:24:52
++++ b/drivers/gpu/nvgpu/common/netlist/netlist_priv.h	2026-04-27 22:25:25
+@@ -113,7 +113,7 @@
+ 
+ struct netlist_image {
+ 	struct netlist_image_header header;
+-	struct netlist_region regions[1];
++	struct netlist_region regions[];
+ };
+ 
+ struct netlist_gr_ucode {

@@ -1,0 +1,337 @@
+name: nvidia-tegra-nvgpu-pkg
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: kernel-build
+  - image: "{{ .LLVM_IMAGE }}:{{ .TOOLS_REV }}"
+steps:
+  - sources:
+      # OE4T patched nvgpu - supports kernel 6.x (fixes platform_driver.remove, hrtimer, struct fd)
+      - url: https://github.com/OE4T/linux-nvgpu/archive/{{ .oe4t_nvgpu_commit }}.tar.gz
+        destination: nvgpu.tar.gz
+        sha256: "{{ .oe4t_nvgpu_sha256 }}"
+        sha512: "{{ .oe4t_nvgpu_sha512 }}"
+      # OE4T patched nvidia-oot - patches-r36.5 branch (kernel 6.18 compat: __assign_str,
+      # f_count->f_ref, __alloc_pages_bulk 5-arg, and all earlier 6.x fixes)
+      - url: https://github.com/OE4T/linux-nv-oot/archive/{{ .oe4t_nv_oot_commit }}.tar.gz
+        destination: nvidia-oot.tar.gz
+        sha256: "{{ .oe4t_nv_oot_sha256 }}"
+        sha512: "{{ .oe4t_nv_oot_sha512 }}"
+      # OE4T patched hwpm - supports kernel 6.x (fixes platform_driver.remove, MODULE_IMPORT_NS)
+      - url: https://github.com/OE4T/linux-hwpm/archive/{{ .oe4t_hwpm_commit }}.tar.gz
+        destination: hwpm.tar.gz
+        sha256: "{{ .oe4t_hwpm_sha256 }}"
+        sha512: "{{ .oe4t_hwpm_sha512 }}"
+      # nvhost-ctrl-shim source is embedded in this package (see nvhost_ctrl_shim.c)
+      # and made available at /pkg/nvhost_ctrl_shim.c by bldr at build time.
+    env:
+      ARCH: arm64
+      LLVM: "1"
+      LLVM_IAS: "1"
+    prepare:
+      - |
+        echo "Extracting OE4T patched OOT module sources..."
+        mkdir -p /oot-src/nvgpu /oot-src/nvidia-oot /oot-src/hwpm
+        tar xzf nvgpu.tar.gz -C /oot-src/nvgpu --strip-components=1
+        tar xzf nvidia-oot.tar.gz -C /oot-src/nvidia-oot --strip-components=1
+        tar xzf hwpm.tar.gz -C /oot-src/hwpm --strip-components=1
+        echo "Sources extracted:"
+        ls /oot-src/
+        # nvhost-ctrl-shim C source (embedded in this package, available at /pkg/)
+        mkdir -p /oot-src/nvhost-ctrl-shim
+        cp /pkg/nvhost_ctrl_shim.c /oot-src/nvhost-ctrl-shim/nvhost_ctrl_shim.c
+        echo "nvhost-ctrl-shim source ready ($(wc -l < /oot-src/nvhost-ctrl-shim/nvhost_ctrl_shim.c) lines)"
+    build:
+      - |
+        echo "Building NVIDIA conftest (kernel compat detection)..."
+        mkdir -p /oot-src/out/nvidia-conftest/nvidia /oot-src/out/nvidia-linux-header
+
+        # conftest scripts are in nvidia-oot
+        cp -av /oot-src/nvidia-oot/scripts/conftest/* /oot-src/out/nvidia-conftest/nvidia/
+
+        make -j $(nproc) ARCH=arm64 \
+          src=/oot-src/out/nvidia-conftest/nvidia \
+          obj=/oot-src/out/nvidia-conftest/nvidia \
+          LLVM=1 \
+          NV_KERNEL_SOURCES=/src \
+          NV_KERNEL_OUTPUT=/src \
+          -f /oot-src/out/nvidia-conftest/nvidia/Makefile
+        echo "conftest done."
+      - |
+        /pkg/scripts/fixup.sh
+      - |
+        # ── Cross-compiler mismatch fix: Clang wrapper ────────────────────────────
+        # Strips GCC-only flags before passing to clang (source-independent fix).
+        mkdir -p /usr/local/bin
+        cp /pkg/scripts/clang-oot /usr/local/bin/clang-oot
+        chmod +x /usr/local/bin/clang-oot
+        echo "clang-oot wrapper installed"
+
+        NVIDIA_OOT=/oot-src/nvidia-oot
+        NVIDIA_CONFTEST=/oot-src/out/nvidia-conftest
+        touch /oot-src/out/nvidia-linux-header/Module.symvers.nvidia
+
+        # ── OOT host1x: HOST1X_SYNCPT_GPU support + syncpt[0] id=0 fix ──────────────
+        echo "=== Building OOT host1x ==="
+        make -j $(nproc) ARCH=arm64 \
+          -C /src \
+          M=${NVIDIA_OOT}/drivers/gpu/host1x \
+          CC=/usr/local/bin/clang-oot \
+          CONFIG_TEGRA_OOT_MODULE=m \
+          srctree.nvidia-oot=${NVIDIA_OOT} \
+          srctree.nvconftest=${NVIDIA_CONFTEST} \
+          LLVM=1 \
+          modules 2>&1 | tee /tmp/build-host1x.log; [[ ${PIPESTATUS[0]} -eq 0 ]] && echo "host1x: OK" || { echo "host1x: BUILD FAILED (see errors above)"; exit 1; }
+        cat ${NVIDIA_OOT}/drivers/gpu/host1x/Module.symvers \
+          >> /oot-src/out/nvidia-linux-header/Module.symvers.nvidia 2>/dev/null || true
+
+        # ── mc-utils ──────────────────────────────────────────────────────────────────
+        echo "=== Building mc-utils ==="
+        make -j $(nproc) ARCH=arm64 \
+          -C /src \
+          M=${NVIDIA_OOT}/drivers/platform/tegra/mc-utils \
+          CC=/usr/local/bin/clang-oot \
+          CONFIG_TEGRA_OOT_MODULE=m \
+          srctree.nvidia-oot=${NVIDIA_OOT} \
+          srctree.nvconftest=${NVIDIA_CONFTEST} \
+          LLVM=1 \
+          modules 2>&1 | tee /tmp/build-mc-utils.log; [[ ${PIPESTATUS[0]} -eq 0 ]] && echo "mc-utils: OK" || { echo "mc-utils: BUILD FAILED (see errors above)"; exit 1; }
+        cat ${NVIDIA_OOT}/drivers/platform/tegra/mc-utils/Module.symvers \
+          >> /oot-src/out/nvidia-linux-header/Module.symvers.nvidia 2>/dev/null || true
+
+        # ── host1x-fence ─────────────────────────────────────────────────────────────
+        echo "=== Building OOT host1x-fence ==="
+        make -j $(nproc) ARCH=arm64 \
+          -C /src \
+          M=${NVIDIA_OOT}/drivers/gpu/host1x-fence \
+          CC=/usr/local/bin/clang-oot \
+          CONFIG_TEGRA_OOT_MODULE=m \
+          srctree.nvidia-oot=${NVIDIA_OOT} \
+          srctree.nvconftest=${NVIDIA_CONFTEST} \
+          LLVM=1 \
+          KBUILD_EXTRA_SYMBOLS=/oot-src/out/nvidia-linux-header/Module.symvers.nvidia \
+          modules 2>&1 | tee /tmp/build-host1x-fence.log; [[ ${PIPESTATUS[0]} -eq 0 ]] && echo "host1x-fence: OK" || { echo "host1x-fence: BUILD FAILED (see errors above)"; exit 1; }
+        cat ${NVIDIA_OOT}/drivers/gpu/host1x-fence/Module.symvers \
+          >> /oot-src/out/nvidia-linux-header/Module.symvers.nvidia 2>/dev/null || true
+
+        # ── nvhost-ctrl-shim: /dev/nvhost-ctrl for JetPack 6 CUDA runtime ────────────
+        # Bridges NVHOST_IOCTL_CTRL_SYNC_FENCE_CREATE / SYNC_FILE_EXTRACT to the OOT host1x
+        # syncpoint API so libnvrm_host1x.so uses hardware syncpoint interrupts for
+        # cudaStreamSynchronize instead of CPU semaphore polling. Symbol deps: host1x.ko only.
+        echo "=== Building nvhost-ctrl-shim ==="
+        SHIM_DIR=/oot-src/nvhost-ctrl-shim
+        printf 'obj-m += nvhost_ctrl_shim.o\nccflags-y += -I$(src)/../nvidia-oot/drivers/gpu/host1x/include\n' \
+          > "${SHIM_DIR}/Makefile"
+        echo "nvhost-ctrl-shim: source ready ($(wc -l < "${SHIM_DIR}/nvhost_ctrl_shim.c") lines)"
+        make -j$(nproc) ARCH=arm64 \
+          -C /src \
+          M="${SHIM_DIR}" \
+          CC=/usr/local/bin/clang-oot \
+          LLVM=1 \
+          KBUILD_EXTRA_SYMBOLS=/oot-src/out/nvidia-linux-header/Module.symvers.nvidia \
+          modules 2>&1 | tee /tmp/build-nvhost-ctrl-shim.log
+        [[ ${PIPESTATUS[0]} -eq 0 ]] && echo "nvhost-ctrl-shim: OK" \
+          || { echo "=== nvhost-ctrl-shim BUILD FAILED ==="; cat /tmp/build-nvhost-ctrl-shim.log; exit 1; }
+        cat "${SHIM_DIR}/Module.symvers" \
+          >> /oot-src/out/nvidia-linux-header/Module.symvers.nvidia 2>/dev/null || true
+
+        # ── nvmap ─────────────────────────────────────────────────────────────────────
+        echo "=== Building nvmap ==="
+        make -j $(nproc) ARCH=arm64 \
+          -C /src \
+          M=${NVIDIA_OOT}/drivers/video/tegra/nvmap \
+          CC=/usr/local/bin/clang-oot \
+          CONFIG_TEGRA_OOT_MODULE=m \
+          srctree.nvidia-oot=${NVIDIA_OOT} \
+          srctree.nvconftest=${NVIDIA_CONFTEST} \
+          LLVM=1 \
+          NVMAP_CONFIG=y \
+          NVMAP_CONFIG_LOADABLE_MODULE=y \
+          NVMAP_CONFIG_PAGE_POOLS=y \
+          NVMAP_CONFIG_HANDLE_AS_ID=n \
+          NVMAP_CONFIG_SCIIPC=n \
+          modules 2>&1 | tee /tmp/build-nvmap.log; [[ ${PIPESTATUS[0]} -eq 0 ]] && echo "nvmap: OK" || { echo "nvmap: BUILD FAILED (see errors above)"; exit 1; }
+        cat ${NVIDIA_OOT}/drivers/video/tegra/nvmap/Module.symvers \
+          >> /oot-src/out/nvidia-linux-header/Module.symvers.nvidia 2>/dev/null || true
+
+        # ── governor_pod_scaling ──────────────────────────────────────────────────────
+        echo "=== Building governor-pod-scaling ==="
+        make -j $(nproc) ARCH=arm64 \
+          -C /src \
+          M=${NVIDIA_OOT}/drivers/devfreq \
+          CC=/usr/local/bin/clang-oot \
+          CONFIG_TEGRA_OOT_MODULE=m \
+          srctree.nvidia-oot=${NVIDIA_OOT} \
+          srctree.nvconftest=${NVIDIA_CONFTEST} \
+          LLVM=1 \
+          modules 2>&1 | tee /tmp/build-governor.log; [[ ${PIPESTATUS[0]} -eq 0 ]] && echo "governor-pod-scaling: OK" || { echo "governor-pod-scaling: BUILD FAILED (see errors above)"; exit 1; }
+        cat ${NVIDIA_OOT}/drivers/devfreq/Module.symvers \
+          >> /oot-src/out/nvidia-linux-header/Module.symvers.nvidia 2>/dev/null || true
+
+        echo "=== nvidia-oot dependency modules done ==="
+        echo "Symbols exported so far:"
+        cat /oot-src/out/nvidia-linux-header/Module.symvers.nvidia | awk '{print $2}' | sort
+      - |
+        echo "Generating nvidia-linux-headers..."
+        cp -av /oot-src/nvidia-oot/include /oot-src/out/nvidia-linux-header/
+        cat /src/Module.symvers \
+          /oot-src/out/nvidia-linux-header/Module.symvers.nvidia 2>/dev/null \
+          > /oot-src/out/nvidia-linux-header/Module.symvers
+      - |
+        echo "Building nvgpu module (OE4T patches-r36.5)..."
+        # clang-oot wrapper already installed by the earlier build step — reuse it.
+        grep -rl "NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS" /oot-src/nvgpu/drivers/gpu/nvgpu/ \
+          | xargs -r sed -i "s|#if defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)|#if 1 /* force: kernel 6.3+ */|g"
+        sed -i '1s|^|ccflags-y += -Wno-implicit-fallthrough -Wno-parentheses-equality -Wno-incompatible-function-pointer-types -Wno-sometimes-uninitialized\n|' \
+          /oot-src/nvgpu/drivers/gpu/nvgpu/Makefile
+        grep -rl "class_create(THIS_MODULE," /oot-src/nvgpu/drivers/gpu/nvgpu/ \
+          | xargs -r sed -i 's/class_create(THIS_MODULE, /class_create(/g'
+        # nvgpu source patches (applied via standard patch tool)
+        patch -p1 -d /oot-src/nvgpu \
+          < /pkg/patches/0001-nvgpu-syncpt-retry-errata-id0.patch
+        patch -p1 -d /oot-src/nvgpu \
+          < /pkg/patches/0002-nvgpu-netlist-flexible-array.patch
+        make -j $(nproc) ARCH=arm64 \
+          -C /src \
+          M=/oot-src/nvgpu/drivers/gpu/nvgpu \
+          CC=/usr/local/bin/clang-oot \
+          CONFIG_TEGRA_OOT_MODULE=m \
+          CONFIG_GK20A=m \
+          CONFIG_TEGRA_GK20A_NVHOST=y \
+          CONFIG_TEGRA_GK20A_NVHOST_HOST1X=y \
+          CONFIG_TEGRA_HWPM=n \
+          srctree.nvgpu=/oot-src/nvgpu \
+          srctree.nvidia=/oot-src/nvidia-oot \
+          srctree.nvconftest=/oot-src/out/nvidia-conftest \
+          LLVM=1 \
+          KBUILD_EXTRA_SYMBOLS=/oot-src/out/nvidia-linux-header/Module.symvers.nvidia \
+          KBUILD_MODPOST_WARN=1 \
+          modules
+        echo "nvgpu done."
+    install:
+      - |
+        NVIDIA_OOT=/oot-src/nvidia-oot
+        NVIDIA_CONFTEST=/oot-src/out/nvidia-conftest
+        SHIM_DIR=/oot-src/nvhost-ctrl-shim
+        echo "Installing kernel modules..."
+
+        mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+        cp /src/modules.order /src/modules.builtin /src/modules.builtin.modinfo \
+          /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/
+
+        # OOT host1x → kernel/drivers/gpu/host1x/ (shadows in-tree host1x.ko;
+        # provides HOST1X_SYNCPT_GPU that nvgpu's CONFIG_TEGRA_GK20A_NVHOST=y requires)
+        make -j$(nproc) ARCH=arm64 -C /src \
+          M=${NVIDIA_OOT}/drivers/gpu/host1x \
+          CC=/usr/local/bin/clang-oot \
+          CONFIG_TEGRA_OOT_MODULE=m \
+          srctree.nvidia-oot=${NVIDIA_OOT} \
+          srctree.nvconftest=${NVIDIA_CONFTEST} \
+          LLVM=1 \
+          INSTALL_MOD_PATH=/rootfs/usr \
+          INSTALL_MOD_DIR=kernel/drivers/gpu/host1x \
+          INSTALL_MOD_STRIP=1 \
+          CONFIG_MODULE_SIG_ALL=y \
+          modules_install
+
+        # host1x-fence → extra/nvidia-tegra
+        make -j$(nproc) ARCH=arm64 -C /src \
+          M=${NVIDIA_OOT}/drivers/gpu/host1x-fence \
+          CC=/usr/local/bin/clang-oot \
+          CONFIG_TEGRA_OOT_MODULE=m \
+          srctree.nvidia-oot=${NVIDIA_OOT} \
+          srctree.nvconftest=${NVIDIA_CONFTEST} \
+          LLVM=1 \
+          INSTALL_MOD_PATH=/rootfs/usr \
+          INSTALL_MOD_DIR=extra/nvidia-tegra \
+          INSTALL_MOD_STRIP=1 \
+          CONFIG_MODULE_SIG_ALL=y \
+          modules_install
+
+        # nvhost-ctrl-shim → extra/nvidia-tegra
+        make -j$(nproc) ARCH=arm64 -C /src \
+          M=${SHIM_DIR} \
+          CC=/usr/local/bin/clang-oot \
+          LLVM=1 \
+          INSTALL_MOD_PATH=/rootfs/usr \
+          INSTALL_MOD_DIR=extra/nvidia-tegra \
+          INSTALL_MOD_STRIP=1 \
+          CONFIG_MODULE_SIG_ALL=y \
+          modules_install
+
+        # nvmap → extra/nvidia-tegra
+        make -j$(nproc) ARCH=arm64 -C /src \
+          M=${NVIDIA_OOT}/drivers/video/tegra/nvmap \
+          CC=/usr/local/bin/clang-oot \
+          CONFIG_TEGRA_OOT_MODULE=m \
+          srctree.nvidia-oot=${NVIDIA_OOT} \
+          srctree.nvconftest=${NVIDIA_CONFTEST} \
+          LLVM=1 \
+          NVMAP_CONFIG=y \
+          NVMAP_CONFIG_LOADABLE_MODULE=y \
+          NVMAP_CONFIG_PAGE_POOLS=y \
+          NVMAP_CONFIG_HANDLE_AS_ID=n \
+          NVMAP_CONFIG_SCIIPC=n \
+          INSTALL_MOD_PATH=/rootfs/usr \
+          INSTALL_MOD_DIR=extra/nvidia-tegra \
+          INSTALL_MOD_STRIP=1 \
+          CONFIG_MODULE_SIG_ALL=y \
+          modules_install
+
+        # mc-utils → extra/nvidia-tegra
+        make -j$(nproc) ARCH=arm64 -C /src \
+          M=${NVIDIA_OOT}/drivers/platform/tegra/mc-utils \
+          CC=/usr/local/bin/clang-oot \
+          CONFIG_TEGRA_OOT_MODULE=m \
+          srctree.nvidia-oot=${NVIDIA_OOT} \
+          srctree.nvconftest=${NVIDIA_CONFTEST} \
+          LLVM=1 \
+          INSTALL_MOD_PATH=/rootfs/usr \
+          INSTALL_MOD_DIR=extra/nvidia-tegra \
+          INSTALL_MOD_STRIP=1 \
+          CONFIG_MODULE_SIG_ALL=y \
+          modules_install
+
+        # governor_pod_scaling → extra/nvidia-tegra
+        make -j$(nproc) ARCH=arm64 -C /src \
+          M=${NVIDIA_OOT}/drivers/devfreq \
+          CC=/usr/local/bin/clang-oot \
+          CONFIG_TEGRA_OOT_MODULE=m \
+          srctree.nvidia-oot=${NVIDIA_OOT} \
+          srctree.nvconftest=${NVIDIA_CONFTEST} \
+          LLVM=1 \
+          INSTALL_MOD_PATH=/rootfs/usr \
+          INSTALL_MOD_DIR=extra/nvidia-tegra \
+          INSTALL_MOD_STRIP=1 \
+          CONFIG_MODULE_SIG_ALL=y \
+          modules_install
+
+        # nvgpu → extra/nvidia-tegra
+        make -j$(nproc) ARCH=arm64 -C /src \
+          M=/oot-src/nvgpu/drivers/gpu/nvgpu \
+          CC=/usr/local/bin/clang-oot \
+          CONFIG_TEGRA_OOT_MODULE=m \
+          CONFIG_GK20A=m \
+          CONFIG_TEGRA_GK20A_NVHOST=y \
+          CONFIG_TEGRA_GK20A_NVHOST_HOST1X=y \
+          CONFIG_TEGRA_HWPM=n \
+          srctree.nvgpu=/oot-src/nvgpu \
+          srctree.nvidia=${NVIDIA_OOT} \
+          srctree.nvconftest=/oot-src/out/nvidia-conftest \
+          LLVM=1 \
+          INSTALL_MOD_PATH=/rootfs/usr \
+          INSTALL_MOD_DIR=extra/nvidia-tegra \
+          INSTALL_MOD_STRIP=1 \
+          CONFIG_MODULE_SIG_ALL=y \
+          modules_install
+
+    test:
+      - |
+        # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
+        find /rootfs/usr/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
+      - |
+        fhs-validator /rootfs
+finalize:
+  - from: /rootfs
+    to: /
