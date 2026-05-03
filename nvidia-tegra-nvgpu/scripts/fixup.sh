@@ -5,15 +5,6 @@ set -euo pipefail
 
 NVIDIA_OOT=/oot-src/nvidia-oot
 
-# ── GCC plugin latent_entropy fix ────────────────────────────────────────────
-# CONFIG_GCC_PLUGIN_LATENT_ENTROPY injects a global 'latent_entropy' variable
-# via a GCC plugin. Clang doesn't run the plugin → 'latent_entropy' is undeclared
-# → linux/random.h:24 compile error for ALL OOT modules.
-# Fix: strip the macro from auto.conf and autoconf.h before any OOT build.
-sed -i '/CONFIG_GCC_PLUGIN_LATENT_ENTROPY/d' /src/include/config/auto.conf 2>/dev/null || true
-sed -i '/CONFIG_GCC_PLUGIN_LATENT_ENTROPY/d' /src/include/generated/autoconf.h 2>/dev/null || true
-echo "Removed CONFIG_GCC_PLUGIN_LATENT_ENTROPY (Clang compat fix)"
-
 # OOT host1x: add conftest + nvidia-oot includes (exports host1x_fence_extract)
 printf 'ccflags-y += -I$(srctree.nvconftest)\n' \
   >> ${NVIDIA_OOT}/drivers/gpu/host1x/Makefile
@@ -36,24 +27,6 @@ grep -rl "NV_BUS_TYPE_STRUCT_MATCH_HAS_CONST_DRV_ARG" ${NVIDIA_OOT}/drivers/gpu/
 grep -rl "NV_BUS_TYPE_STRUCT_UEVENT_HAS_CONST_DEV_ARG" ${NVIDIA_OOT}/drivers/gpu/host1x/ \
   | xargs -r sed -i "s|#if defined(NV_BUS_TYPE_STRUCT_UEVENT_HAS_CONST_DEV_ARG)|#if 1 /* force: kernel 6.x+ */|g"
 echo "Patched OOT host1x: forced conftest macro code paths for kernel 6.18"
-
-# host1x syncpt.c: permanently reserve syncpt id=0 so host1x_syncpt_alloc never returns it.
-# GA10b has NVGPU_ERRATA_SYNCPT_INVALID_ID_0: nvgpu rejects id=0 → channel init fails → error 999.
-# OOT host1x (ccf7646c) marks syncpt[0] with name="reserved" but does NOT set kref=1, so the
-# alloc loop (which skips syncpts where kref_read(&sp->ref) != 0) still returns id=0.
-# Fix: add kref_init(&syncpt[0].ref) before the name assignment, matching what newer OE4T
-# commits already do (e.g. 6e071c0). Guard is idempotent — safe even if already present.
-SYNCPT_C=${NVIDIA_OOT}/drivers/gpu/host1x/syncpt.c
-if grep -q 'syncpt\[0\]\.name = kstrdup' "${SYNCPT_C}" 2>/dev/null; then
-  if ! grep -q 'kref_init.*syncpt\[0\]' "${SYNCPT_C}" 2>/dev/null; then
-    sed -i 's/\(syncpt\[0\]\.name = kstrdup("reserved", GFP_KERNEL);\)/kref_init(\&syncpt[0].ref);\n\t\t\1/' "${SYNCPT_C}"
-    echo "Patched host1x syncpt.c: added kref_init(&syncpt[0].ref) — id=0 permanently reserved"
-  else
-    echo "host1x syncpt.c: kref_init(&syncpt[0].ref) already present — no patch needed"
-  fi
-else
-  echo "WARNING: host1x syncpt.c pattern not found — syncpt id=0 reservation patch skipped"
-fi
 
 # host1x-fence: remove -Werror, add conftest + nvidia-oot includes
 sed -i 's|ccflags-y += -Werror||g' \
