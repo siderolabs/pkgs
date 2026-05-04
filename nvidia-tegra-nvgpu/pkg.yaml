@@ -181,10 +181,14 @@ steps:
       - |
         echo "Building nvgpu module (OE4T patches-r36.5)..."
         # clang-oot wrapper already installed by the earlier build step — reuse it.
+        # vm_flags_set() added in 6.3 (commit d0e9fe1)
         grep -rl "NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS" /oot-src/nvgpu/drivers/gpu/nvgpu/ \
-          | xargs -r sed -i "s|#if defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)|#if 1 /* force: kernel 6.3+ */|g"
+          | xargs -r sed -i "s|#if defined(NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS)|#if LINUX_VERSION_CODE >= KERNEL_VERSION(6,3,0)|g"
         sed -i '1s|^|ccflags-y += -Wno-implicit-fallthrough -Wno-parentheses-equality -Wno-incompatible-function-pointer-types -Wno-sometimes-uninitialized\n|' \
           /oot-src/nvgpu/drivers/gpu/nvgpu/Makefile
+        # Force-include version.h for LINUX_VERSION_CODE guard above (vm_flags_set).
+        printf 'ccflags-y += -include $(srctree)/include/generated/uapi/linux/version.h\n' \
+          >> /oot-src/nvgpu/drivers/gpu/nvgpu/Makefile
         grep -rl "class_create(THIS_MODULE," /oot-src/nvgpu/drivers/gpu/nvgpu/ \
           | xargs -r sed -i 's/class_create(THIS_MODULE, /class_create(/g'
         # nvgpu source patches (applied via standard patch tool)
