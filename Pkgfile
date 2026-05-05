@@ -30,9 +30,9 @@ vars:
   dosfstools_sha512: 3cc0808edb4432428df8a67da4bb314fd1f27adc4a05754c1a492091741a7b6875ebd9f6a509cc4c5ad85643fc40395b6e0cadee548b25cc439cc9b725980156
 
   # renovate: datasource=github-tags extractVersion=^drbd-(?<version>.*)$ depName=LINBIT/drbd
-  drbd_version: 9.3.1
-  drbd_sha256: 9bcc52e09fb888b5d1ceb0f87ddbc8393cb3d8740f3f9289e5bf7fcf1096f660
-  drbd_sha512: 8cce0df8d4d98a90f3444ce5aadd8da8319c4676a1d584fc34c71e6b8ff6de4fcaef4a537985ea91ca8c1f85d5bb666cc76660f3f42fc13a13e923c0f332077f
+  drbd_version: 9.3.2
+  drbd_sha256: 5ad57634d4b6c118e92080ab5b66e01969ebb251d9ca01562d23598bf3b166fe
+  drbd_sha512: fdd7dc5076c26903b218cf44771c80ffc0a5575546f15c5b7da2a6093fe589a87702f91e335fd7da7a51de97b907461482f4bb2e28998663921e934be12c1849
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git
   e2fsprogs_version: v1.47.4
