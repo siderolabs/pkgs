@@ -1,0 +1,97 @@
+From 1ee4716a5a28eaef81ae1f280d983258bee49623 Mon Sep 17 00:00:00 2001
+From: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 13 Mar 2026 10:45:50 +0200
+Subject: PCI: Fix premature removal from realloc_head list during resource
+ assignment
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+reassign_resources_sorted() checks for two things:
+
+a) Resource assignment failures for mandatory resources by checking if the
+   resource remains unassigned, which are known to always repeat, and does
+   not attempt to assign them again.
+
+b) That resource is not among the ones being processed/assigned at this
+   stage, leading to skip processing such resources in
+   reassign_resources_sorted() as well (resource assignment progresses
+   one PCI hierarchy level at a time).
+
+The problem here is that a) is checked before b), but b) also implies the
+resource is not being assigned yet, making also a) true. As a) only skips
+resource assignment but still removes the resource from realloc_head, the
+later stages that would need to process the information in realloc_head
+cannot obtain the optional size information anymore. This leads to
+considering only non-optional part for bridge windows deeper in the PCI
+hierarchy.
+
+This problem has been observed during rescan (add_size is not considered
+while attempting assignment for 0000:e2:00.0 indicating the corresponding
+entry was removed from realloc_head while processing resource assignments
+for 0000:e1):
+
+  pci_bus 0000:e1: scanning bus
+  ...
+  pci 0000:e3:01.0: bridge window [mem 0x800000000-0x1000ffffff 64bit pref] to [bus e4] add_size 60c000000 add_align 800000000
+  pci 0000:e3:01.0: bridge window [mem 0x00100000-0x000fffff] to [bus e4] add_size 200000 add_align 200000
+  pci 0000:e3:02.0: disabling bridge window [mem 0x00000000-0x000fffff 64bit pref] to [bus e5] (unused)
+  pci 0000:e2:00.0: bridge window [mem 0x800000000-0x1000ffffff 64bit pref] to [bus e3-e5] add_size 60c000000 add_align 800000000
+  pci 0000:e2:00.0: bridge window [mem 0x00100000-0x001fffff] to [bus e3-e5] add_size 200000 add_align 200000
+  pcieport 0000:e1:02.0: bridge window [io  size 0x2000]: can't assign; no space
+  pcieport 0000:e1:02.0: bridge window [io  size 0x2000]: failed to assign
+  pcieport 0000:e1:02.0: bridge window [io  0x1000-0x2fff]: resource restored
+  pcieport 0000:e1:02.0: bridge window [io  0x1000-0x2fff]: resource restored
+  pcieport 0000:e1:02.0: bridge window [io  size 0x2000]: can't assign; no space
+  pcieport 0000:e1:02.0: bridge window [io  size 0x2000]: failed to assign
+  pci 0000:e2:00.0: bridge window [mem 0x28f000000000-0x28f800ffffff 64bit pref]: assigned
+
+Fixes: 96336ec70264 ("PCI: Perform reset_resource() and build fail list in sync")
+Reported-by: Peter Nisbet <peter.nisbet@intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Tested-by: Peter Nisbet <peter.nisbet@intel.com>
+Link: https://patch.msgid.link/20260313084551.1934-1-ilpo.jarvinen@linux.intel.com
+
+[YANG JOO WOONG: backport to v6.18.24 — adjust hunk locations for
+v6.18 line numbers; res_to_dev_res() helper does not exist in
+v6.18, equivalent inline list_for_each_entry pattern preserved.
+Verified on ASUS X99-E WS + dual Radeon AI PRO R9700 (RDNA 4).]
+Signed-off-by: YANG JOO WOONG <yjw.cpa@gmail.com>
+---
+ drivers/pci/setup-bus.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -423,14 +423,6 @@ static void reassign_resources_sorted(struct list_head *realloc_head,
+ 		dev = add_res->dev;
+ 		idx = pci_resource_num(dev, res);
+
+-		/*
+-		 * Skip resource that failed the earlier assignment and is
+-		 * not optional as it would just fail again.
+-		 */
+-		if (!res->parent && resource_size(res) &&
+-		    !pci_resource_is_optional(dev, idx))
+-			goto out;
+-
+ 		/* Skip this resource if not found in head list */
+ 		list_for_each_entry(dev_res, head, list) {
+ 			if (dev_res->res == res) {
+@@ -441,6 +433,14 @@ static void reassign_resources_sorted(struct list_head *realloc_head,
+ 		if (!found_match) /* Just skip */
+ 			continue;
+
++		/*
++		 * Skip resource that failed the earlier assignment and is
++		 * not optional as it would just fail again.
++		 */
++		if (!res->parent && resource_size(res) &&
++		    !pci_resource_is_optional(dev, idx))
++			goto out;
++
+ 		res_name = pci_resource_name(dev, idx);
+ 		add_size = add_res->add_size;
+ 		align = add_res->min_align;
