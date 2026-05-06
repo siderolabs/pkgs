@@ -13,11 +13,12 @@ steps:
     prepare:
       - |
         tar -xf qemu.tar.xz --strip-components=1
-
+      - |
         ./configure \
           --prefix=/usr \
           --without-default-features \
           --disable-system \
+          --disable-download \
           --disable-user \
           --disable-linux-user \
           --disable-bsd-user \
