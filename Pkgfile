@@ -19,6 +19,11 @@ vars:
   containerd_sha256: 915ef1d9fab5fbd8e3726bfb80c901fd87aa25e938bed5194df132853036ed58
   containerd_sha512: d7c26fd6fd46dd4380652a501b16a8afc478a66f287825df5224048894f02465770d5e89e52ea7366c1ea4013547be94af066dac33419320257bdd4761a48160
 
+  # renovate: datasource=github-tags depName=kdave/btrfs-progs
+  btrfsprogs_version: 6.19.1
+  btrfsprogs_sha256: bb27e1ec54e7c3c0b7b2e596f853a73c07a3d72f21bc94042073c24dbf045796
+  btrfsprogs_sha512: ece500bf512a7970bd6a611c4f74aa3f7285eb55b86987fb8a21bc82cb7d0b1e6b683d02efc34ec8c4ff7f6d620b5ec12ef277af0d6d831586f9f70087355ca9
+
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
   cryptsetup_version: 2.8.6
   cryptsetup_sha256: 4f0fffbffc4edeab6994db6062e47c841c8c1679fc9010bf4d03c707514dacd4

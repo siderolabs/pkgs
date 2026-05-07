@@ -49,6 +49,7 @@ COMMON_ARGS += $(BUILD_ARGS)
 # targets defines all the available targets
 
 TARGETS = apparmor
+TARGETS += btrfsprogs
 TARGETS += ca-certificates
 TARGETS += cni
 TARGETS += containerd
