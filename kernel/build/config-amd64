@@ -5497,9 +5497,16 @@ CONFIG_I2C_HID=y
 #
 # USB HID support
 #
-CONFIG_USB_HID=y
+CONFIG_USB_HID=m
 # CONFIG_HID_PID is not set
 # CONFIG_USB_HIDDEV is not set
+
+#
+# USB HID Boot Protocol drivers
+#
+# CONFIG_USB_KBD is not set
+# CONFIG_USB_MOUSE is not set
+# end of USB HID Boot Protocol drivers
 # end of USB HID support
 
 CONFIG_USB_OHCI_LITTLE_ENDIAN=y
@@ -5556,7 +5563,7 @@ CONFIG_USB_UHCI_HCD=m
 #
 # USB Device Class drivers
 #
-CONFIG_USB_ACM=y
+CONFIG_USB_ACM=m
 # CONFIG_USB_PRINTER is not set
 CONFIG_USB_WDM=m
 # CONFIG_USB_TMC is not set
@@ -5564,7 +5571,7 @@ CONFIG_USB_WDM=m
 #
 # NOTE: USB_STORAGE depends on SCSI but BLK_DEV_SD may also be needed; see USB_STORAGE Help for more info
 #
-CONFIG_USB_STORAGE=y
+CONFIG_USB_STORAGE=m
 # CONFIG_USB_STORAGE_DEBUG is not set
 # CONFIG_USB_STORAGE_REALTEK is not set
 # CONFIG_USB_STORAGE_DATAFAB is not set
@@ -5579,7 +5586,7 @@ CONFIG_USB_STORAGE=y
 # CONFIG_USB_STORAGE_KARMA is not set
 # CONFIG_USB_STORAGE_CYPRESS_ATACB is not set
 # CONFIG_USB_STORAGE_ENE_UB6250 is not set
-CONFIG_USB_UAS=y
+CONFIG_USB_UAS=m
 
 #
 # USB Imaging devices
