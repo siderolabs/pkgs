@@ -1,0 +1,60 @@
+From a27adeab1b08fac9ff3978d745caa536a458430b Mon Sep 17 00:00:00 2001
+From: Lukasz Raczylo <lukasz@raczylo.com>
+Date: Fri, 15 May 2026 13:47:20 +0100
+Subject: [PATCH 2/3] net: macb: insert PCIe read barrier before TX completion
+ descriptor check
+
+macb_tx_poll() runs with TCOMP masked, drains the TX ring, then
+calls napi_complete_done() and re-enables TCOMP via IER.  An
+existing comment in the function notes that completions raised
+while TCOMP is masked do not re-fire on IER re-enable, and
+mitigates this by calling macb_tx_complete_pending(), which
+inspects driver-visible ring state (descriptor->ctrl, after
+rmb()) and reschedules NAPI if a completion is observable in
+memory.
+
+On PCIe-attached parts (BCM2712 + RP1 PCIe south bridge on
+Raspberry Pi 5 is the case I have in front of me), the
+descriptor DMA write that sets TX_USED may not have retired to
+system memory at the point macb_tx_complete_pending() runs.  The
+rmb() synchronises the CPU view of earlier CPU writes; it is
+not sufficient to retire an in-flight peripheral DMA write.
+
+Add a side-effect-free MMIO read between the IER write and the
+macb_tx_complete_pending() check.  The read functions as an
+architected PCIe read barrier for earlier peripheral-originated
+DMA writes on the same path, so any in-flight TX_USED update
+retires to system memory before the descriptor read.
+
+The register chosen is IMR (the read-only interrupt mask
+mirror); reading it has no side effects on either read-clear or
+W1C ISR silicon (it is not the ISR).
+
+Link: https://github.com/cilium/cilium/issues/43198
+Link: https://bugs.launchpad.net/ubuntu/+source/linux-raspi/+bug/2133877
+Signed-off-by: Lukasz Raczylo <lukasz@raczylo.com>
+---
+ drivers/net/ethernet/cadence/macb_main.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index fa80236dd..23120fc7c 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -1868,6 +1868,13 @@ static int macb_tx_poll(struct napi_struct *napi, int budget)
+ 		 * actions if an interrupt is raised just after enabling them,
+ 		 * but this should be harmless.
+ 		 */
++		/* PCIe read barrier: flush any in-flight peripheral DMA
++		 * writes (descriptor TX_USED updates) so the subsequent
++		 * macb_tx_complete_pending() check observes them.  IMR is
++		 * the read-only interrupt mask mirror; the read has no
++		 * side effects on either read-clear or W1C ISR silicon.
++		 */
++		(void)queue_readl(queue, IMR);
+ 		if (macb_tx_complete_pending(queue)) {
+ 			queue_writel(queue, IDR, MACB_BIT(TCOMP));
+ 			if (bp->caps & MACB_CAPS_ISR_CLEAR_ON_WRITE)
+-- 
+2.54.0
+
