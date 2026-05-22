@@ -21,7 +21,6 @@ IGNORE_VIOLATIONS = {
     'CONFIG_BINFMT_MISC', # build as module, can only be loaded explicitly
     'CONFIG_WERROR', # breaks downstream kernel modules build such as drbd
     'CONFIG_DEBUG_VIRTUAL', # disabled due to performance reasons
-    'CONFIG_STATIC_USERMODEHELPER', # disabled until further research is done, see https://github.com/siderolabs/pkgs/issues/918
     'CONFIG_LOCK_DOWN_KERNEL_FORCE_CONFIDENTIALITY', # disabled until further research is done, see https://github.com/siderolabs/pkgs/issues/918
     'CONFIG_RANDSTRUCT_FULL', # disabled due to performance reasons
     'CONFIG_RANDSTRUCT_PERFORMANCE', # disabled due to performance reasons
