@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.18.32 Kernel Configuration
+# Linux/arm64 6.18.33 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 22.1.5"
 CONFIG_GCC_VERSION=0
@@ -2977,7 +2977,6 @@ CONFIG_NET_VENDOR_FREESCALE=y
 # CONFIG_FSL_PQ_MDIO is not set
 # CONFIG_FSL_XGMAC_MDIO is not set
 # CONFIG_GIANFAR is not set
-# CONFIG_FSL_DPAA2_SWITCH is not set
 # CONFIG_FSL_ENETC is not set
 # CONFIG_NXP_ENETC4 is not set
 # CONFIG_FSL_ENETC_VF is not set
