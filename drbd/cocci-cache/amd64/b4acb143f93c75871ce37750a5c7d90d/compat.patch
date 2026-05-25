@@ -1,0 +1,287 @@
+--- drbd_transport_tcp.c
++++ /tmp/cocci-output-1452-ec3f3d-drbd_transport_tcp.c
+@@ -494,15 +494,15 @@ static int dtt_try_connect(struct dtt_pa
+ 	*  a free one dynamically.
+ 	*/
+ 	what = "bind before connect";
+-	err = socket->ops->bind(socket, (struct sockaddr_unsized *) &my_addr,
+-			path->path.my_addr_len);
++	err = socket->ops->bind(socket, (struct sockaddr *) &my_addr,
++				path->path.my_addr_len);
+ 	if (err < 0)
+ 		goto out;
+ 
+ 	/* connect may fail, peer not yet available.
+ 	 * stay C_CONNECTING, don't go Disconnecting! */
+ 	what = "connect";
+-	err = socket->ops->connect(socket, (struct sockaddr_unsized *) &peer_addr,
++	err = socket->ops->connect(socket, (struct sockaddr *) &peer_addr,
+ 				   path->path.peer_addr_len, 0);
+ 	if (err < 0) {
+ 		switch (err) {
+@@ -1030,7 +1030,8 @@ static int dtt_init_listener(struct drbd
+ 	addr_len = addr->sa_family == AF_INET6 ? sizeof(struct sockaddr_in6)
+ 		: sizeof(struct sockaddr_in);
+ 
+-	err = s_listen->ops->bind(s_listen, (struct sockaddr_unsized *)&my_addr, addr_len);
++	err = s_listen->ops->bind(s_listen, (struct sockaddr *)&my_addr,
++				  addr_len);
+ 	if (err < 0) {
+ 		what = "bind before listen";
+ 		goto out;
+--- drbd_transport_rdma.c
++++ /tmp/cocci-output-1452-d119aa-drbd_transport_rdma.c
+@@ -3178,9 +3178,9 @@ static int dtr_send_page(struct drbd_tra
+ 			kfree(tx_desc);
+ 			return -ENOMEM;
+ 		}
+-		from = kmap_local_page(caller_page);
++		from = kmap(caller_page);
+ 		memcpy(page_address(page), from + offset, size);
+-		kunmap_local(from);
++		kunmap(caller_page);
+ 		offset = 0;
+ 	}
+ 
+--- drbd_transport_lb-tcp.c
++++ /tmp/cocci-output-1452-6864a7-drbd_transport_lb-tcp.c
+@@ -458,7 +458,7 @@ dtl_recv(struct drbd_transport *transpor
+ static int
+ _dtl_recv_page(struct dtl_transport *dtl_transport, struct page *page, int size)
+ {
+-	void *data = kmap_local_page(page);
++	void *data = kmap(page);
+ 	void *pos = data;
+ 	struct dtl_flow *flow;
+ 	int err;
+@@ -477,7 +477,7 @@ _dtl_recv_page(struct dtl_transport *dtl
+ 	}
+ 	err = pos - data;
+ out:
+-	kunmap_local(data);
++	kunmap(page);
+ 	return err;
+ }
+ 
+@@ -620,13 +620,14 @@ dtl_try_connect(struct drbd_transport *t
+ 	 * a free one dynamically.
+ 	 */
+ 	what = "bind before connect";
+-	err = sock->ops->bind(sock, (struct sockaddr_unsized *) &my_addr, path->path.my_addr_len);
++	err = sock->ops->bind(sock, (struct sockaddr *) &my_addr,
++			      path->path.my_addr_len);
+ 	if (err < 0)
+ 		goto out;
+ 
+ 	/* connect may fail, peer not yet available. stay C_CONNECTING */
+ 	what = "connect";
+-	err = sock->ops->connect(sock, (struct sockaddr_unsized *) &peer_addr,
++	err = sock->ops->connect(sock, (struct sockaddr *) &peer_addr,
+ 				   path->path.peer_addr_len, 0);
+ 	if (err < 0) {
+ 		switch (err) {
+@@ -1075,7 +1076,8 @@ static int dtl_init_listener(struct drbd
+ 	addr_len = addr->sa_family == AF_INET6 ? sizeof(struct sockaddr_in6)
+ 		: sizeof(struct sockaddr_in);
+ 
+-	err = s_listen->ops->bind(s_listen, (struct sockaddr_unsized *)&my_addr, addr_len);
++	err = s_listen->ops->bind(s_listen, (struct sockaddr *)&my_addr,
++				  addr_len);
+ 	if (err < 0) {
+ 		what = "bind before listen";
+ 		goto out;
+--- drbd_req.c
++++ /tmp/cocci-output-1452-83730b-drbd_req.c
+@@ -146,7 +146,7 @@ int w_queue_peer_ack(struct drbd_work *w
+ 
+ 	list_for_each_entry_safe(req, tmp, &work_list, list) {
+ 		struct drbd_peer_ack *peer_ack =
+-			kzalloc_obj(struct drbd_peer_ack);
++			kzalloc_obj(struct drbd_peer_ack, GFP_KERNEL);
+ 
+ 		peer_ack->resource = resource;
+ 		INIT_LIST_HEAD(&peer_ack->list);
+--- drbd_receiver.c
++++ /tmp/cocci-output-1452-3b43bd-drbd_receiver.c
+@@ -5684,7 +5684,7 @@ static int receive_protocol(struct drbd_
+ 		}
+ 	}
+ 
+-	new_net_conf = kmalloc_obj(struct net_conf);
++	new_net_conf = kmalloc_obj(struct net_conf, GFP_KERNEL);
+ 	if (!new_net_conf)
+ 		goto disconnect;
+ 
+@@ -5863,7 +5863,8 @@ static int receive_SyncParam(struct drbd
+ 		}
+ 
+ 		if (verify_tfm || csums_tfm) {
+-			new_net_conf = kzalloc_obj(struct net_conf);
++			new_net_conf = kzalloc_obj(struct net_conf,
++						   GFP_KERNEL);
+ 			if (!new_net_conf)
+ 				goto disconnect;
+ 
+@@ -6146,7 +6147,8 @@ static int receive_sizes(struct drbd_con
+ 		if (my_usize != p_usize) {
+ 			struct disk_conf *old_disk_conf, *new_disk_conf;
+ 
+-			new_disk_conf = kzalloc_obj(struct disk_conf);
++			new_disk_conf = kzalloc_obj(struct disk_conf,
++						    GFP_KERNEL);
+ 			if (!new_disk_conf) {
+ 				err = -ENOMEM;
+ 				goto out;
+@@ -7470,7 +7472,7 @@ drbd_commit_size_change(struct drbd_devi
+ 		drbd_info(device, "New u_size %llu sectors\n",
+ 			  (unsigned long long)tr->user_size);
+ 
+-		new_disk_conf = kzalloc_obj(struct disk_conf);
++		new_disk_conf = kzalloc_obj(struct disk_conf, GFP_KERNEL);
+ 		if (!new_disk_conf) {
+ 			device->ldev->disk_conf->disk_size = tr->user_size;
+ 			goto cont;
+--- drbd_nl.c
++++ /tmp/cocci-output-1452-4b0eeb-drbd_nl.c
+@@ -416,7 +416,7 @@ static int drbd_pre_doit(const struct ge
+ 	unsigned int flags;
+ 	int err;
+ 
+-	adm_ctx = kzalloc_obj(struct drbd_config_context);
++	adm_ctx = kzalloc_obj(struct drbd_config_context, GFP_KERNEL);
+ 	if (!adm_ctx)
+ 		return -ENOMEM;
+ 
+@@ -2516,7 +2516,7 @@ static int drbd_adm_disk_opts(struct sk_
+ 		goto out;
+ 	}
+ 
+-	new_disk_conf = kmalloc_obj(struct disk_conf);
++	new_disk_conf = kmalloc_obj(struct disk_conf, GFP_KERNEL);
+ 	if (!new_disk_conf) {
+ 		retcode = ERR_NOMEM;
+ 		goto fail;
+@@ -3318,14 +3318,14 @@ static int drbd_adm_attach(struct sk_buf
+ 	}
+ 
+ 	/* allocation not in the IO path, drbdsetup context */
+-	nbc = kzalloc_obj(struct drbd_backing_dev);
++	nbc = kzalloc_obj(struct drbd_backing_dev, GFP_KERNEL);
+ 	if (!nbc) {
+ 		retcode = ERR_NOMEM;
+ 		goto fail;
+ 	}
+ 	spin_lock_init(&nbc->md.uuid_lock);
+ 
+-	new_disk_conf = kzalloc_obj(struct disk_conf);
++	new_disk_conf = kzalloc_obj(struct disk_conf, GFP_KERNEL);
+ 	if (!new_disk_conf) {
+ 		retcode = ERR_NOMEM;
+ 		goto fail;
+@@ -4192,7 +4192,7 @@ static int drbd_adm_net_opts(struct sk_b
+ 		goto out_no_adm_mutex;
+ 	}
+ 
+-	new_net_conf = kzalloc_obj(struct net_conf);
++	new_net_conf = kzalloc_obj(struct net_conf, GFP_KERNEL);
+ 	if (!new_net_conf) {
+ 		retcode = ERR_NOMEM;
+ 		goto out;
+@@ -4357,7 +4357,8 @@ static int drbd_adm_peer_device_opts(str
+ 	}
+ 	mutex_lock(&adm_ctx->resource->conf_update);
+ 
+-	new_peer_device_conf = kzalloc_obj(struct peer_device_conf);
++	new_peer_device_conf = kzalloc_obj(struct peer_device_conf,
++					   GFP_KERNEL);
+ 	if (!new_peer_device_conf)
+ 		goto fail;
+ 
+@@ -4448,7 +4449,7 @@ int drbd_create_peer_device_default_conf
+ 	struct peer_device_conf *conf;
+ 	int err;
+ 
+-	conf = kzalloc_obj(*conf);
++	conf = kzalloc_obj(*conf, GFP_KERNEL);
+ 	if (!conf)
+ 		return -ENOMEM;
+ 
+@@ -4601,7 +4602,7 @@ static int adm_new_connection(struct drb
+ 	struct drbd_transport *transport;
+ 
+ 	/* allocation not in the IO path, drbdsetup / netlink process context */
+-	new_net_conf = kzalloc_obj(*new_net_conf);
++	new_net_conf = kzalloc_obj(*new_net_conf, GFP_KERNEL);
+ 	if (!new_net_conf)
+ 		return ERR_NOMEM;
+ 
+@@ -5515,7 +5516,7 @@ static int drbd_adm_resize(struct sk_buf
+ 	u_size = rcu_dereference(device->ldev->disk_conf)->disk_size;
+ 	rcu_read_unlock();
+ 	if (u_size != (sector_t)rs.resize_size) {
+-		new_disk_conf = kmalloc_obj(struct disk_conf);
++		new_disk_conf = kmalloc_obj(struct disk_conf, GFP_KERNEL);
+ 		if (!new_disk_conf) {
+ 			retcode = ERR_NOMEM;
+ 			goto fail_ldev;
+--- drbd_main.c
++++ /tmp/cocci-output-1452-a5e39a-drbd_main.c
+@@ -3737,7 +3737,7 @@ struct drbd_resource *drbd_create_resour
+ {
+ 	struct drbd_resource *resource;
+ 
+-	resource = kzalloc_obj(struct drbd_resource);
++	resource = kzalloc_obj(struct drbd_resource, GFP_KERNEL);
+ 	if (!resource)
+ 		goto fail;
+ 	resource->name = kstrdup(name, GFP_KERNEL);
+@@ -3822,7 +3822,7 @@ struct drbd_connection *drbd_create_conn
+ 	if (drbd_alloc_send_buffers(connection))
+ 		goto fail;
+ 
+-	connection->current_epoch = kzalloc_obj(struct drbd_epoch);
++	connection->current_epoch = kzalloc_obj(struct drbd_epoch, GFP_KERNEL);
+ 	if (!connection->current_epoch)
+ 		goto fail;
+ 
+@@ -3984,7 +3984,7 @@ struct drbd_peer_device *create_peer_dev
+ 	struct drbd_peer_device *peer_device;
+ 	int err;
+ 
+-	peer_device = kzalloc_obj(struct drbd_peer_device);
++	peer_device = kzalloc_obj(struct drbd_peer_device, GFP_KERNEL);
+ 	if (!peer_device)
+ 		return NULL;
+ 
+@@ -4103,7 +4103,7 @@ enum drbd_ret_code drbd_create_device(st
+ 		return ERR_MINOR_OR_VOLUME_EXISTS;
+ 
+ 	/* GFP_KERNEL, we are outside of all write-out paths */
+-	device = kzalloc_obj(struct drbd_device);
++	device = kzalloc_obj(struct drbd_device, GFP_KERNEL);
+ 	if (!device)
+ 		return ERR_NOMEM;
+ 	kref_init(&device->kref);
+--- drbd_debugfs.c
++++ /tmp/cocci-output-1452-d31e62-drbd_debugfs.c
+@@ -1955,6 +1955,9 @@ static const struct file_operations drbd
+ 
+ static int drbd_compat_show(struct seq_file *m, void *ignored)
+ {
++	seq_puts(m, "alloc_obj_default_gfp__no_present\n");
++	seq_puts(m, "kmap_local_page__no_present\n");
++	seq_puts(m, "struct_sockaddr_unsized__no_present\n");
+ 	return 0;
+ }
+ 
+--- drbd_bitmap.c
++++ /tmp/cocci-output-1452-b06c19-drbd_bitmap.c
+@@ -415,7 +415,7 @@ struct drbd_bitmap *drbd_bm_alloc(unsign
+ 	if (max_peers < 1 || max_peers > DRBD_PEERS_MAX)
+ 		return NULL;
+ 
+-	b = kzalloc_obj(struct drbd_bitmap);
++	b = kzalloc_obj(struct drbd_bitmap, GFP_KERNEL);
+ 	if (!b)
+ 		return NULL;
+ 
