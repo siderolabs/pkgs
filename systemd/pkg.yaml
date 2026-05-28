@@ -11,6 +11,8 @@ steps:
         sha512: "{{ .systemd_sha512 }}"
     env:
       SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
+      CFLAGS: "-O2 -g0" # reset the CFLAGS to avoid arch-specific optimizations
+      CXXFLAGS: "-O2 -g0" # allow systemd-boot to boot on any micro-architecture, and Talos will report a proper error later
     prepare:
       - |
         mkdir -p /tmp/systemd
