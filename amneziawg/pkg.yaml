@@ -1,0 +1,64 @@
+name: amneziawg-pkg
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: kernel-build
+  - image: "{{ .LLVM_IMAGE }}:{{ .TOOLS_REV }}"
+steps:
+  - sources:
+      - url: https://github.com/amnezia-vpn/amneziawg-linux-kernel-module/archive/refs/tags/v{{ .amneziawg_version }}.tar.gz
+        destination: amneziawg.tar.gz
+        sha256: "{{ .amneziawg_sha256 }}"
+        sha512: "{{ .amneziawg_sha512 }}"
+      - url: https://github.com/amnezia-vpn/amneziawg-tools/archive/refs/tags/v{{ .amneziawg_tools_version }}.tar.gz
+        destination: amneziawg-tools.tar.gz
+        sha256: "{{ .amneziawg_tools_sha256 }}"
+        sha512: "{{ .amneziawg_tools_sha512 }}"
+    env:
+      LLVM: 1
+    prepare:
+      - |
+        mkdir -p kmod tools
+        tar -xzf amneziawg.tar.gz --strip-components=1 -C kmod
+        tar -xzf amneziawg-tools.tar.gz --strip-components=1 -C tools
+  - network: none
+    env:
+      LLVM: 1
+    build:
+      # Out-of-tree kernel module against the kernel-build stage.
+      - |
+        make -j $(nproc) -C kmod/src KERNELDIR=/src LLVM=1
+      # Statically-linked `awg` userspace control tool (no runtime libs, so it
+      # drops straight into a scratch extension rootfs). Upstream's Makefile
+      # builds the binary as `wg`; it's renamed to `awg` on install.
+      - |
+        make -j $(nproc) -C tools/src CC="cc -static" WITH_BASHCOMPLETION=no WITH_WGQUICK=no WITH_SYSTEMDUNITS=no
+  - network: none
+    install:
+      # Module: install + sign with the kernel build's signing key.
+      - |
+        KREL=$(cat /src/include/config/kernel.release)
+        mkdir -p /rootfs/usr/lib/modules/${KREL}/
+        cp /src/modules.order /rootfs/usr/lib/modules/${KREL}/
+        cp /src/modules.builtin /rootfs/usr/lib/modules/${KREL}/
+        cp /src/modules.builtin.modinfo /rootfs/usr/lib/modules/${KREL}/
+        make -C /src M=$(pwd)/kmod/src modules_install \
+          DESTDIR=/rootfs \
+          INSTALL_MOD_PATH=/rootfs/usr \
+          INSTALL_MOD_DIR=extras \
+          INSTALL_MOD_STRIP=1 \
+          CONFIG_MODULE_SIG_ALL=y
+      # awg userspace tool.
+      - |
+        mkdir -p /rootfs/usr/bin
+        cp tools/src/wg /rootfs/usr/bin/awg
+        chmod 0755 /rootfs/usr/bin/awg
+    test:
+      - |
+        find /rootfs/usr/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
+      - |
+        fhs-validator /rootfs
+finalize:
+  - from: /rootfs
+    to: /
