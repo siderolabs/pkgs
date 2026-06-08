@@ -35,6 +35,7 @@ IGNORE_VIOLATIONS = {
     'CONFIG_IOMMU_DEFAULT_DMA_STRICT', # performance impact https://github.com/siderolabs/talos/issues/9531
     'CONFIG_PROC_MEM_NO_FORCE', # might break some applications, so instead we will enforce in the kernel arg 'proc_mem.force_override=never' (https://github.com/a13xp0p0v/kernel-hardening-checker/pull/201)
     'CONFIG_MODULE_SIG_FORCE', # see https://github.com/siderolabs/talos/issues/11989
+    'CONFIG_PAGE_TABLE_CHECK_ENFORCED', # enforced check panics with kernel BUG at mm/page_table_check.c:143, off by default but opt-in via page_table_check=on (https://github.com/siderolabs/talos/issues/13496)
 }
 
 """
