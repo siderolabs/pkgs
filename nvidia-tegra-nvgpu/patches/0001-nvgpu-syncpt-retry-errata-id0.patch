@@ -1,0 +1,60 @@
+--- a/drivers/gpu/nvgpu/os/linux/nvhost_host1x.c	2026-04-27 22:24:47
++++ b/drivers/gpu/nvgpu/os/linux/nvhost_host1x.c	2026-04-27 22:25:13
+@@ -14,6 +14,7 @@
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
+ 
++#include <linux/delay.h>
+ #include <linux/dma-fence.h>
+ #include <linux/file.h>
+ #include <linux/host1x-next.h>
+@@ -237,17 +238,41 @@
+ u32 nvgpu_nvhost_get_syncpt_client_managed(struct nvgpu_nvhost_dev *nvhost_dev,
+ 					   const char *syncpt_name)
+ {
+-	struct host1x_syncpt *sp;
++	struct host1x_syncpt *sp = NULL;
+ 	struct host1x *host1x;
++	int retry;
+ 
+-	host1x = platform_get_drvdata(nvhost_dev->host1x_pdev);
+-	if (!host1x)
+-		return 0;
+-
+-	sp = host1x_syncpt_alloc(host1x, HOST1X_SYNCPT_CLIENT_MANAGED | HOST1X_SYNCPT_GPU,
+-				 syncpt_name);
+-	if (!sp)
++	/*
++	 * GA10B ERRATA_SYNCPT_INVALID_ID_0: nvgpu rejects syncpt id=0.
++	 * During ~1-2ms after the first kernel submit, host1x_syncpt_alloc
++	 * may return NULL or id=0, causing CUDA error 999 on
++	 * cudaStreamSynchronize. Retry up to 5ms.
++	 */
++	for (retry = 0; retry < 5; retry++) {
++		host1x = platform_get_drvdata(nvhost_dev->host1x_pdev);
++		if (!host1x) {
++			pr_warn_ratelimited("nvgpu: host1x not ready, syncpt retry %d/5\n",
++					    retry + 1);
++			msleep(1);
++			continue;
++		}
++		sp = host1x_syncpt_alloc(host1x,
++					 HOST1X_SYNCPT_CLIENT_MANAGED | HOST1X_SYNCPT_GPU,
++					 syncpt_name);
++		if (sp && host1x_syncpt_id(sp) != 0U)
++			break;
++		if (sp) {
++			host1x_syncpt_put(sp);
++			sp = NULL;
++		}
++		pr_warn_ratelimited("nvgpu: syncpt_alloc returned id=0 or NULL, retry %d/5\n",
++				    retry + 1);
++		msleep(1);
++	}
++	if (!sp) {
++		pr_err_ratelimited("nvgpu: get_syncpt_client_managed: failed after retries\n");
+ 		return 0;
++	}
+ 
+ 	return host1x_syncpt_id(sp);
+ }
