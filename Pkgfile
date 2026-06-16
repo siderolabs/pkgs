@@ -203,13 +203,12 @@ vars:
   mtools_sha256: 10cd1111da87bf2400a380c1639a6cba8bfb937a24f9c51f5f88d393ae5f6f76
   mtools_sha512: 30e75cd85916b7c5b81e667fec1e47f19c024a988a643e8fa8ddd4a20b96c58d29c528d033548f9a603119835e414ea6fc671b3dafa08f50b9192991276d2447
 
-  # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/linux-x86_64/
-  # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_lts_version: 580.159.04
-  nvidia_driver_lts_arm64_sha256: eeb51796977c9358560b6325a1e5c4c85be2e0b7f2f75459f3e74bd18eb6e02f
-  nvidia_driver_lts_arm64_sha512: 017132495714b48e89c5acebe38d6bb9a53abfa2642c9f959209c0679c4ba837932e9c9a174a3eb5d20474a56e81dbaef659c641c12f8331451d400727858682
-  nvidia_driver_lts_amd64_sha256: 8dec63c2f25406c3d6b5c0030ca4b8acaec6dbc16ef71a5504774765f0a5a1c7
-  nvidia_driver_lts_amd64_sha512: ebbca43850bd6274619fcf02de6e3b205120e1430cb0fb536b608fde71e7762d7ae76b64a29d6a42e8f008b981610cf9611a3ff62fabce123b46128ffb219165
+  # renovate: datasource=custom.nvidia-driver-lts depName=nvidia-driver-lts
+  nvidia_driver_lts_version: 580.167.08
+  nvidia_driver_lts_arm64_sha256: ed3c0e64461e58dbb62215ee4083ddcf7787c22580aa72b71c72461eb5da8984
+  nvidia_driver_lts_arm64_sha512: 91e22527941ce3ddd00b9845ed5b98f07dd326bff719bbfbc1e28b595c1b750d429f69a55d3c13a443698d2553617072ab03900fd66f8ff7d3a7432fbeabc6e1
+  nvidia_driver_lts_amd64_sha256: 78de655fc3175928e8ee697f6d923f762b1056e4f543659e491d703103299f9a
+  nvidia_driver_lts_amd64_sha512: cbcb5735b6540db63b4e82fc40d6a5fa458df95628156f79546ba2f0dc45125b79e6209555c2f8139d7f37a9d6001b38e96bcb0cab26f14f54785ae9b14e08f0
 
   # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/linux-x86_64/
   # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
