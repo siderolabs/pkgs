@@ -282,6 +282,14 @@ vars:
   zfs_version: 2.4.2
   zfs_sha256: 7e260d0e6af295bea4c5e241cac0a1aef07b58d8dd8035f7898ade3b1bbec78f
   zfs_sha512: 833cc076ae65a4ac6acc27c6c62f60568af0c291b9a1091a1835543861a291606e314b09ca14558cbed11239bb613e3f1f7f9e7fedeea6635e27aacde8c22378
+  # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=amnezia-vpn/amneziawg-linux-kernel-module
+  amneziawg_version: 1.0.20260329
+  amneziawg_sha256: 9bc6779711559a298f7c8ec1f5ca33ea151166f409b748cd761866a05b4bd39f
+  amneziawg_sha512: 7ceda29b2280ee101fdda5428e5136f823032cb6e663f23816d43ded7c0199cfcc3c3a301cadb5817a6d94650a49e13fd9e0dcb74b3ba8e5fbb2df13fc87a233
+  # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=amnezia-vpn/amneziawg-tools
+  amneziawg_tools_version: 1.0.20260223
+  amneziawg_tools_sha256: ab09cfafe6c1e9a6260964a8ba5cb2d657cc23862eb0c29253305e532ac40a16
+  amneziawg_tools_sha512: 591afaef659e26be16c8d883da8d8ff026f855f60c9887440b566ef18b9948ca57754673d833f27e77d8c05f7e354f37b49adc9f5467334eeb7eda7165960c54
 
   # NOTE: v4 requires autoconf-archive
   # renovate: datasource=git-tags depName=https://gitlab.com/apparmor/apparmor.git
