@@ -7,7 +7,7 @@ dependencies:
 steps:
   - sources:
       # sync with commit in build
-      - url: https://github.com/opencontainers/runc/releases/download/{{ .runc_version }}/runc.tar.xz
+      - url: https://github.com/opencontainers/runc/releases/download/{{ .runc_version }}/runc-{{ .runc_version | trimPrefix "v" }}.tar.xz
         destination: runc.tar.xz
         sha256: "{{ .runc_sha256 }}"
         sha512: "{{ .runc_sha512 }}"
@@ -25,7 +25,16 @@ steps:
 
         ldflags="-w -s -buildid="
 
-        make COMMIT_NO= COMMIT={{ .runc_ref }} EXTRA_FLAGS="-a" EXTRA_LDFLAGS="${ldflags}" static
+        # runc 1.5 enables the `libpathrs` build tag by default, which links the
+        # external Rust libpathrs C library (via pkg-config) for path safety. We
+        # don't have a libpathrs/Rust toolchain, so we drop the tag with
+        # RUNC_BUILDTAGS="-libpathrs"; runc falls back to the pure-Go pathrs-lite.
+        #
+        # https://github.com/opencontainers/runc#build-tags
+        # 
+        # We will switch to libpathrs after https://github.com/siderolabs/toolchain/issues/206
+
+        make COMMIT={{ .runc_ref }} RUNC_BUILDTAGS="-libpathrs" EXTRA_FLAGS="-a" EXTRA_LDFLAGS="${ldflags}" static
     install:
       - |
         cd runc
@@ -34,6 +43,21 @@ steps:
         mv runc /rootfs/usr/bin/runc
         chmod +x /rootfs/usr/bin/runc
     test:
+      - |
+        set -e
+
+        runc=/rootfs/usr/bin/runc
+
+        # binary runs and reports the expected version and embedded commit, and
+        # (being built with the seccomp tag) prints a libseccomp line
+        version="$("${runc}" --version)"
+        echo "${version}"
+        echo "${version}" | grep -q '{{ .runc_version | trimPrefix "v" }}'
+        echo "${version}" | grep -q '{{ .runc_ref }}'
+        echo "${version}" | grep -q '^libseccomp:'
+
+        # `features` reports seccomp support (also exercises more of the binary)
+        "${runc}" features | grep -q '"seccomp"'
       - |
         fhs-validator /rootfs
     sbom:

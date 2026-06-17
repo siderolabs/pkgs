@@ -177,7 +177,7 @@ vars:
   libpopt_sha256: c25a4838fc8e4c1c8aacb8bd620edb3084a3d63bf8987fdad3ca2758c63240f9
   libpopt_sha512: 5d1b6a15337e4cd5991817c1957f97fc4ed98659870017c08f26f754e34add31d639d55ee77ca31f29bb631c0b53368c1893bd96cf76422d257f7997a11f6466
 
-  # NOTE: let's keep this in sync with runc: https://github.com/opencontainers/runc/blob/release-1.4/script/release_build.sh#L22
+  # NOTE: let's keep this in sync with runc: https://github.com/opencontainers/runc/blob/release-1.5/script/release_build.sh#L22
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=seccomp/libseccomp
   libseccomp_version: 2.6.0
   libseccomp_sha256: 83b6085232d1588c379dc9b9cae47bb37407cf262e6e74993c61ba72d2a784dc
@@ -248,10 +248,10 @@ vars:
   qemu_sha512: 50fdc0bef3b179d8858ea07656244257b46475ec8bcd8b5a428f8dec3cae7f4a6ba8ba621a0a965ddacae314890191a3a9c58e16752bd3bf0ef78aaf6aa659eb
 
   # renovate: datasource=github-tags depName=opencontainers/runc
-  runc_version: v1.4.3
-  runc_ref: bb14dabeb7185bb72c8c86735d090dcb20f36587
-  runc_sha256: 13b8b214419e26466a2e0802a098f0759ef2b942880ec242786338b3b7534445
-  runc_sha512: 0ae5ec39ca626b11bf221412b485e1b43a3f2c2fb07015893198afab176f4e4673c60e1553b60ab37bc4d2ecebabd99a95c58e4b07bef9fa90a63c0e6e09c7ff
+  runc_version: v1.5.0-rc.3
+  runc_ref: b33d1c260533c0e012610557e614f82449fa435a
+  runc_sha256: 5a290d298715e662a211a95a1c536c29facaa49cdde60263200fabece7cdb79b
+  runc_sha512: 16540aa8c5dd1a831c7d07c35805937e2a3fa6f715724a1a5d3589d1c16a8983d5dbd0ae1328a7274929109838f776a5b922d67c60f0dc231f7555f8257814eb
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
   socat_version: 1.8.1.1
