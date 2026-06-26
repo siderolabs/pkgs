@@ -3,6 +3,7 @@ variant: scratch
 shell: /bin/bash
 dependencies:
   - stage: base
+  - stage: libucontext
 steps:
   - sources:
       - url: https://github.com/systemd/systemd/archive/refs/tags/v{{ .systemd_version }}.tar.gz

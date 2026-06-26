@@ -38,6 +38,7 @@ spec:
     - libseccomp
     - libselinux
     - libsepol
+    - libucontext
     - liburcu
     - linux-firmware
     - lvm2

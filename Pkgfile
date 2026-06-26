@@ -3,9 +3,9 @@
 format: v1alpha2
 
 vars:
-  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.14.0-alpha.0-10-gef6c712
+  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.14.0-alpha.0-11-g8f8a35d
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.14.0-alpha.0-17-g0f1c859
+  TOOLS_REV: v1.14.0-alpha.0-18-g878f1db
   LLVM_IMAGE: ghcr.io/siderolabs/llvm
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
@@ -15,7 +15,7 @@ vars:
 
   # renovate: datasource=github-tags depName=containerd/containerd
   containerd_version: v2.3.2
-  containerd_ref: 64b425cf570b3b8dd1d4cc46da7c1fce65c6651a
+  containerd_ref: fff62f14765df376e5fc36f5a8f8e795b5670f61
   containerd_sha256: 1a215ae4acb184192668b21f8b8375ceb6e86f8832a97fe6f7ab53ad79bb2cee
   containerd_sha512: 2ce4744e0a93917fa45c2930c22853315577f217fe66d4761a96f4289241cdc930b52e8f646a28e0277747396f031964085c03885824a2f12dd6950ab651b348
 
@@ -50,9 +50,9 @@ vars:
   ena_sha512: 5273dc9f92d554791d02362686c4cfd9898ec60b677d0168b73da369d956b391de4183292c42296bf8f7fa70ae1acb66d78842e9239037caf100a1bc9cd1ebeb
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
-  systemd_version: 260.2
-  systemd_sha256: 71a9ed11cf773478b0d7a16cd96e39ca3c3939ab37ed9a8ee814c31ea9b4f2b5
-  systemd_sha512: 63d15da49e7580952a48a0b50df20c1b398e4b77edf259510b0cdb9022e919387baadf2190194a50f1f582b83e0768c13997a4189cf0fb6a61b65015496d9c80
+  systemd_version: 261.1
+  systemd_sha256: f9b9da1103d1714703503d1746971ccbeeae945663ef3ede3b7348169b5df064
+  systemd_sha512: 5dbf8b902fbed6e719367266da658b46ed55e76c93b7aa48ebaf9daca36cb19261ebd45cb97139c51227022a8ca3d07da360953bd9b0aebb429dce6d111f7e5c
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
   flannel_cni_version: v1.9.1-flannel1
@@ -93,9 +93,9 @@ vars:
   iptables_sha512: 3aefd76ca60d00f46ba4d6f39cbcfdc60517d03b6714da25dcd67542f6f4eea8d82c4855bdd9124efe18b769f41951772b8340a6eda75b85f8dd52b2289b145b
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 06f36026d6c18b70d7ae6e0fb512e81b9312390d
-  ipxe_sha256: 20bcead389c91ec04c39194996e22c40fe1ea963c2030fdfe48571cb5d1b572a
-  ipxe_sha512: 5493cf1ed7194cfeed1133a3aedcdb45daac8078595a736ae7d921819d752b6f19fb044a349b322ddfaa628e6cb1e9f72763414be9102936a56c3a0e65979808
+  ipxe_ref: 902014c57abb31ed963ece5c4e86c06da3f72c2a
+  ipxe_sha256: 95d8bb94719bf7ddfca707e5bfb4190b012754575bed1a36c82eb32a05718e1b
+  ipxe_sha512: 2757df67b9b46a19e25d6a5e47929327e55d757d6a546bec42f67da372ecd50295fbd677e4fb75fc41cd56ad73d874c21d6006836f9d3a9980fc605a32ac24cf
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: 0b9aebf818145f772407135b79418958c1ec5ed1
@@ -113,9 +113,9 @@ vars:
   libaio_sha512: 65c30a102433bf8386581b03fc706d84bd341be249fbdee11a032b237a7b239e8c27413504fef15e2797b1acd67f752526637005889590ecb380e2e120ab0b71
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=libarchive/libarchive
-  libarchive_version: 3.8.7
-  libarchive_sha256: d3a8ba457ae25c27c84fd2830a2efdcc5b1d40bf585d4eb0d35f47e99e5d4774
-  libarchive_sha512: 0673accf9ac6ede2d1c7e68419d00898f35e43130c5ec6b5fcdea85d174d8b0cc56d1d609bd5533370c3cca5f6ddd5b59fc153f2dadea2b4b5c2421a574ea352
+  libarchive_version: 3.8.8
+  libarchive_sha256: 3873a88801da067d0528a989af06877710529d50ee8fe6f3970cbb4302efb918
+  libarchive_sha512: 6952aaa3f7aa275b1a678c03b3ca3a50111a1305f0eb50362b8a85599f1c13a0c771530c7caea6ddcc3c8ceead4c206abca851d8b2c4b64968773d8fd6fc64de
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.savannah.gnu.org/attr.git
   libattr_version: 2.5.2
@@ -183,6 +183,11 @@ vars:
   libseccomp_sha256: 83b6085232d1588c379dc9b9cae47bb37407cf262e6e74993c61ba72d2a784dc
   libseccomp_sha512: 9039478656d9b670af2ff4cb67b6b1fa315821e59d2f82ba6247e988859ddc7e3d15fea159eccca161bf2890828bb62aa6ab4d6b7ff55f27a9d6bd9532eeee1b
 
+  # renovate: datasource=github-tags extractVersion=^libucontext-(?<version>.*)$ depName=kaniini/libucontext
+  libucontext_version: 1.5.1
+  libucontext_sha256: 228925a4427339283b79b5ba1357ec11a7dea32ec46bd191a88c0542eb13e679
+  libucontext_sha512: 157b7771d913362baa2d1da733be89c06f2054a0b06b75a85a517eb29f922d73a477d091039379b546d6666491ed2f380c6d5a72a294c55e26e4581bb02c7752
+
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=urcu/userspace-rcu
   liburcu_version: 0.15.6
   liburcu_sha256: 850b192096eb11ebf2c70e8f97bc7da7479ee41da1bebeb44e3986908bac414f
@@ -233,14 +238,14 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/portworx/px-fuse.git
-  px_fuse_ref: 6c31bb5022ef0bf4e120ce1a0abc5dd40ce7c74d
-  px_fuse_sha256: ae7e306b1c1303ea22ed57af8cef8fd5898187ad03b15884596be95a6283736c
-  px_fuse_sha512: a1e115b002b8f39d19933ffe2daa65024ac4f215da8dc0ea387622ed787d3ff04ad8fc1a244919bfaf9aee0e5e225de0d65f12eaf5d638a8c32d1112077cf0ec
+  px_fuse_ref: be462e1841067208569aed2413e23b53a496843b
+  px_fuse_sha256: 2bd90775d79a6b23ac5ac5b68c11d82cb28552f582f6058bcde2e784bfd55644
+  px_fuse_sha512: a07fbb0c47e0f017b7974b2e64f2cf0c30962a39e0651889deefdc0bae511ce4cee251955eec73108bf85ee7a5111ebf30d16a3ef5ea5742be24739af1bf6b3f
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
-  glib_version: 2.89.0
-  glib_sha256: 205bf5dab175de68f11e33be7bb36d4ad4c5a5097d8c0c88a8682b257b6293dc
-  glib_sha512: e1a824855243eedfabbfe607a11814a5d4e73317b272b4850fe9d3c0981632893d76d3e0769eb8819f7291464486de4d0939b32836f7bdad669abbbd1855d9bd
+  glib_version: 2.89.1
+  glib_sha256: 74447129c31afe141810f995626e8b99ab677413dae76ee3cf5a9cc6e75a486e
+  glib_sha512: da7232cd7818f8ba15ff5d18e9d44474a17fbc7dd8ab643a540aa73ce1d7246420c7a228e0e22d6d76ef12ba643189ecd437331421837f9b75749a9c90996e94
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
   qemu_version: 11.0.1
@@ -254,9 +259,9 @@ vars:
   runc_sha512: 16540aa8c5dd1a831c7d07c35805937e2a3fa6f715724a1a5d3589d1c16a8983d5dbd0ae1328a7274929109838f776a5b922d67c60f0dc231f7555f8257814eb
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
-  socat_version: 1.8.1.1
-  socat_sha256: f68b602c80e94b4b7498d74ec408785536fe33534b39467977a82ab2f7f01ddb
-  socat_sha512: 6235c03187724d57bd98b572780ba8c8648fd2530abc206964666191d48683c7a796499620f7499c688cd11010cdc6f5c7706ac6487ef3ecaba75ca16300cbb7
+  socat_version: 1.8.1.3
+  socat_sha256: 06602ffd591e98c75b3dc1d66f0f19136cc666b0b2d95caad987d6ab2cb28097
+  socat_sha512: cd5f88a347fc7ea9431e235d7151d2007cd37143132eea625f7520b68e703e4c95f99fe6959869b3f0300633f039f666850cf3b0e26d43affd540967a119a3f3
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/awslabs/tc-redirect-tap.git
   tc_redirect_tap_ref: 34bf829e9a5c99df47318c7feeb637576df239fc
@@ -269,9 +274,9 @@ vars:
   tenstorrent_sha512: d0aa2c07287654ecbed0e10b659bb7a6c3427a9cf355031c76d7e60f327f5166158dd647681d01acc92bd695c1b32daccdbce171eb199db05e9d5f0518b2d79f
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/Xilinx/dma_ip_drivers.git
-  xdma_driver_ref: f09dce768433b2809e7aa6b9d41779265357a2b4
-  xdma_driver_sha256: 6d10ab68523c36dd882f0937217114101558cd29d93f984913c7098d6beaa8a8
-  xdma_driver_sha512: 12267bf0ec40cc1667867564345113d4b1f808ad1a5d1deb292f4d597b916e18b92b7935175ab48497ba6218d2feeae9b7fe618d08553496b57cbc62bdefa386
+  xdma_driver_ref: c15887db54801f4be959515b66d5d371508cc6a6
+  xdma_driver_sha256: ff49ffd0e5d0f081535dac1245bcee1933408c8080c81c78590a670ef2df7804
+  xdma_driver_sha512: f1e645c58c3a096896498a3c8acbc159787d2621cc71a0caddb3b6380a21c5750fa3308d3d0c74f27a59c777aaaea739213599e59db6a6bf22ba0f3c9c51b947
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
   xfsprogs_version: 7.0.1
