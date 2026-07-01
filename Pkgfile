@@ -203,6 +203,11 @@ vars:
   lvm2_sha256: d58011b845df8ec13816ca13ea6c39d4cb3d038cd2d7d387acdf5681ad7d6637
   lvm2_sha512: 60c75a0e9b808f5070e3b34f74f876c4ebfc98ab51a7f8bc71b15d9d90499843933ed72b0fda1b70f8fe13e879393748f9667ce51b285b52a8ddc79321fd6db9
 
+  # renovate: datasource=github-releases extractVersion=^mdadm-(?<version>.*)$ depName=md-raid-utilities/mdadm
+  mdadm_version: 4.6
+  mdadm_sha256: 202a7525e6f2b44395a9ef2c561082c7d6d8204e9addfe3f6268bfb141efc093
+  mdadm_sha512: bbcd13fa56951d6b70630616612f0dc6258f6a697a782d46a7577a039ada29f9d470cd5f73a3f8a672d5c5318dc7a93a55cd6bedcc99db399165cf84b1443c4b
+
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=Mellanox/mstflint
   mellanox_mstflint_version: 4.34.1-4
   mellanox_mstflint_sha256: 6c3ae532de23461c357830880d228ed40c7fe6429a8fee897fea88babe0a4776
