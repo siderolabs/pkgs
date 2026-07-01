@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.24.0-labs
+# syntax=docker/dockerfile:1.25.0-labs
 #
 # Generates DRBD's kernel compatibility patches (cocci_cache) out of band, so
 # the drbd-pkg build does not need network access or Coccinelle/Ocaml at build
@@ -37,7 +37,7 @@ ARG TOOLS_IMG=scratch
 FROM ${LLVM_IMG} AS llvm
 FROM ${TOOLS_IMG} AS tools
 
-FROM docker.io/library/fedora:42 AS gen
+FROM docker.io/library/fedora:45 AS gen
 ENV LC_ALL=C \
     LANG=C \
     SPAAS=false \
