@@ -42,4 +42,4 @@ steps:
         - GPL-2.0-or-later
 finalize:
   - from: /rootfs
-    to: /rootfs
+    to: /
