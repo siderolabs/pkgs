@@ -4,6 +4,13 @@ shell: /bin/bash
 dependencies:
   - stage: base
   - stage: libseccomp
+  # libpathrs is built (and linked into runc) only on x86_64. The aarch64 rustc
+  # image can't build it yet (a musl TLS bug crashes the cross-built aarch64
+  # rustc), so arm64 runc uses the pure-Go pathrs-lite fallback instead (see the
+  # RUNC_BUILDTAGS="-libpathrs" in the build step).
+  # {{ if ne .ARCH "aarch64" }} YAML comment, but the Go template is evaluated by bldr
+  - stage: libpathrs
+  # {{ end }}
 steps:
   - sources:
       # sync with commit in build
@@ -25,16 +32,20 @@ steps:
 
         ldflags="-w -s -buildid="
 
-        # runc 1.5 enables the `libpathrs` build tag by default, which links the
-        # external Rust libpathrs C library (via pkg-config) for path safety. We
-        # don't have a libpathrs/Rust toolchain, so we drop the tag with
-        # RUNC_BUILDTAGS="-libpathrs"; runc falls back to the pure-Go pathrs-lite.
+        # runc 1.5's default build tags (seccomp urfave_cli_no_docs libpathrs)
+        # link the Rust libpathrs C library (via `pkg-config: pathrs`) for
+        # hardened, race-free path resolution. On x86_64 we build libpathrs as a
+        # static library in the `libpathrs` stage (its libpathrs.a/pathrs.h/
+        # pathrs.pc land on PKG_CONFIG_PATH) and keep the default tags.
+        #
+        # On aarch64 the rustc image can't build libpathrs yet (a musl TLS bug
+        # crashes the cross-built aarch64 rustc), so we drop the tag with
+        # RUNC_BUILDTAGS="-libpathrs" and runc uses its pure-Go pathrs-lite
+        # fallback. Switch arm64 to libpathrs once the toolchain is fixed.
         #
         # https://github.com/opencontainers/runc#build-tags
-        # 
-        # We will switch to libpathrs after https://github.com/siderolabs/toolchain/issues/206
 
-        make COMMIT={{ .runc_ref }} RUNC_BUILDTAGS="-libpathrs" EXTRA_FLAGS="-a" EXTRA_LDFLAGS="${ldflags}" static
+        make COMMIT={{ .runc_ref }} {{ if eq .ARCH "aarch64" }}RUNC_BUILDTAGS="-libpathrs" {{ end }}EXTRA_FLAGS="-a" EXTRA_LDFLAGS="${ldflags}" static
     install:
       - |
         cd runc
@@ -49,12 +60,14 @@ steps:
         runc=/rootfs/usr/bin/runc
 
         # binary runs and reports the expected version and embedded commit, and
-        # (being built with the seccomp tag) prints a libseccomp line
+        # (built with the seccomp tag) prints a libseccomp line; on x86_64 it also
+        # prints a libpathrs line (libpathrs is not linked on aarch64).
         version="$("${runc}" --version)"
         echo "${version}"
         echo "${version}" | grep -q '{{ .runc_version | trimPrefix "v" }}'
         echo "${version}" | grep -q '{{ .runc_ref }}'
         echo "${version}" | grep -q '^libseccomp:'
+        {{ if ne .ARCH "aarch64" }}echo "${version}" | grep -q '^libpathrs:'{{ end }}
 
         # `features` reports seccomp support (also exercises more of the binary)
         "${runc}" features | grep -q '"seccomp"'

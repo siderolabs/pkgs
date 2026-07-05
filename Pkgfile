@@ -3,10 +3,11 @@
 format: v1alpha2
 
 vars:
-  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.14.0-alpha.0-11-g8f8a35d
+  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.14.0-alpha.0-12-g4012a7d
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.14.0-alpha.0-18-g878f1db
+  TOOLS_REV: v1.14.0-alpha.0-19-g5326524
   LLVM_IMAGE: ghcr.io/siderolabs/llvm
+  RUSTC_IMAGE: ghcr.io/siderolabs/rustc:v1.14.0-alpha.0
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.9.1
@@ -171,6 +172,12 @@ vars:
   xz_version: 5.8.3
   xz_sha256: fff1ffcf2b0da84d308a14de513a1aa23d4e9aa3464d17e64b9714bfdd0bbfb6
   xz_sha512: c288f436b211031ca122e9169d85403d4ab8b0500a6542b2d9ba101587e04a4358ab5509f5d15cc7899f1ab3e0118567866ca0508f880007b4af802dedd7068d
+
+  # NOTE: keep in sync with the libpathrs version required by runc: https://github.com/opencontainers/runc/blob/release-1.5/script/build-libpathrs.sh
+  # renovate: datasource=github-releases depName=cyphar/libpathrs
+  libpathrs_version: v0.2.5
+  libpathrs_sha256: f8f4a9419eb839cd5decbd120b65f0495bf6eac07155477fe39a8c2a23da589d
+  libpathrs_sha512: 009a6aa91d4ef5ccae011f39def4cf7ffc626fd7def9e9cbcf7c827d813215811719c44674e68192d3f4770c7968f2e7de7c13b27c7e53807f0aa0f4ba5c428f
 
   # renovate: datasource=github-releases extractVersion=^popt-(?<version>.*)-release$ depName=rpm-software-management/popt
   libpopt_version: 1.19
