@@ -3,9 +3,9 @@
 format: v1alpha2
 
 vars:
-  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.14.0-alpha.0-12-g4012a7d
+  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.14.0-alpha.0-13-g77ec5b2
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.14.0-alpha.0-19-g5326524
+  TOOLS_REV: v1.14.0-alpha.0-20-g7079a8a
   LLVM_IMAGE: ghcr.io/siderolabs/llvm
   RUSTC_IMAGE: ghcr.io/siderolabs/rustc:v1.14.0-alpha.0
 
