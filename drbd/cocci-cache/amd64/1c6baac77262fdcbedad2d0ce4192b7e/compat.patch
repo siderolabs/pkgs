@@ -1,6 +1,6 @@
 --- drbd_transport_tcp.c
-+++ /tmp/cocci-output-1452-ec3f3d-drbd_transport_tcp.c
-@@ -494,15 +494,15 @@ static int dtt_try_connect(struct dtt_pa
++++ /tmp/cocci-output-1422-95f575-drbd_transport_tcp.c
+@@ -511,15 +511,15 @@ static int dtt_try_connect(struct dtt_pa
  	*  a free one dynamically.
  	*/
  	what = "bind before connect";
@@ -18,8 +18,8 @@
 +	err = socket->ops->connect(socket, (struct sockaddr *) &peer_addr,
  				   path->path.peer_addr_len, 0);
  	if (err < 0) {
- 		switch (err) {
-@@ -1030,7 +1030,8 @@ static int dtt_init_listener(struct drbd
+ 		err = dtt_socket_err_to_eagain(err);
+@@ -1065,7 +1065,8 @@ static int dtt_init_listener(struct drbd
  	addr_len = addr->sa_family == AF_INET6 ? sizeof(struct sockaddr_in6)
  		: sizeof(struct sockaddr_in);
  
@@ -29,9 +29,24 @@
  	if (err < 0) {
  		what = "bind before listen";
  		goto out;
+@@ -1560,12 +1561,12 @@ static int dtt_send_page(struct drbd_tra
+ 			struct page *p = page + (offset >> PAGE_SHIFT);
+ 			unsigned int poff = offset & ~PAGE_MASK;
+ 			unsigned int chunk = min_t(int, len, PAGE_SIZE - poff);
+-			void *addr = kmap_local_page(p);
++			void *addr = kmap(p);
+ 			struct kvec iov = { .iov_base = addr + poff, .iov_len = chunk };
+ 
+ 			iov_iter_kvec(&msg.msg_iter, ITER_SOURCE, &iov, 1, chunk);
+ 			sent = sock_sendmsg(socket, &msg);
+-			kunmap_local(addr);
++			kunmap(p);
+ 		} else {
+ 			bvec_set_page(&bvec, page, len, offset);
+ 			iov_iter_bvec(&msg.msg_iter, ITER_SOURCE, &bvec, 1, len);
 --- drbd_transport_rdma.c
-+++ /tmp/cocci-output-1452-d119aa-drbd_transport_rdma.c
-@@ -3178,9 +3178,9 @@ static int dtr_send_page(struct drbd_tra
++++ /tmp/cocci-output-1422-48a93d-drbd_transport_rdma.c
+@@ -3185,9 +3185,9 @@ static int dtr_send_page(struct drbd_tra
  			kfree(tx_desc);
  			return -ENOMEM;
  		}
@@ -44,8 +59,8 @@
  	}
  
 --- drbd_transport_lb-tcp.c
-+++ /tmp/cocci-output-1452-6864a7-drbd_transport_lb-tcp.c
-@@ -458,7 +458,7 @@ dtl_recv(struct drbd_transport *transpor
++++ /tmp/cocci-output-1422-e5479a-drbd_transport_lb-tcp.c
+@@ -530,7 +530,7 @@ dtl_recv(struct drbd_transport *transpor
  static int
  _dtl_recv_page(struct dtl_transport *dtl_transport, struct page *page, int size)
  {
@@ -54,7 +69,7 @@
  	void *pos = data;
  	struct dtl_flow *flow;
  	int err;
-@@ -477,7 +477,7 @@ _dtl_recv_page(struct dtl_transport *dtl
+@@ -549,7 +549,7 @@ _dtl_recv_page(struct dtl_transport *dtl
  	}
  	err = pos - data;
  out:
@@ -63,7 +78,7 @@
  	return err;
  }
  
-@@ -620,13 +620,14 @@ dtl_try_connect(struct drbd_transport *t
+@@ -694,7 +694,8 @@ dtl_try_connect(struct drbd_transport *t
  	 * a free one dynamically.
  	 */
  	what = "bind before connect";
@@ -73,14 +88,16 @@
  	if (err < 0)
  		goto out;
  
- 	/* connect may fail, peer not yet available. stay C_CONNECTING */
- 	what = "connect";
+@@ -703,7 +704,7 @@ dtl_try_connect(struct drbd_transport *t
+ 	mutex_lock(&dtl_transport->connecting_socket_mutex);
+ 	dtl_transport->connecting_socket = sock;
+ 	mutex_unlock(&dtl_transport->connecting_socket_mutex);
 -	err = sock->ops->connect(sock, (struct sockaddr_unsized *) &peer_addr,
 +	err = sock->ops->connect(sock, (struct sockaddr *) &peer_addr,
  				   path->path.peer_addr_len, 0);
- 	if (err < 0) {
- 		switch (err) {
-@@ -1075,7 +1076,8 @@ static int dtl_init_listener(struct drbd
+ 	mutex_lock(&dtl_transport->connecting_socket_mutex);
+ 	dtl_transport->connecting_socket = NULL;
+@@ -1171,7 +1172,8 @@ static int dtl_init_listener(struct drbd
  	addr_len = addr->sa_family == AF_INET6 ? sizeof(struct sockaddr_in6)
  		: sizeof(struct sockaddr_in);
  
@@ -90,9 +107,20 @@
  	if (err < 0) {
  		what = "bind before listen";
  		goto out;
+--- drbd_sender.c
++++ /tmp/cocci-output-1422-d90dbd-drbd_sender.c
+@@ -835,7 +835,7 @@ struct fifo_buffer *fifo_alloc(unsigned
+ {
+ 	struct fifo_buffer *fb;
+ 
+-	fb = kzalloc_flex(*fb, values, fifo_size, GFP_NOIO);
++	fb = kzalloc(struct_size(fb, values, fifo_size), GFP_NOIO);
+ 	if (!fb)
+ 		return NULL;
+ 
 --- drbd_req.c
-+++ /tmp/cocci-output-1452-83730b-drbd_req.c
-@@ -146,7 +146,7 @@ int w_queue_peer_ack(struct drbd_work *w
++++ /tmp/cocci-output-1422-1ce017-drbd_req.c
+@@ -143,7 +143,7 @@ int w_queue_peer_ack(struct drbd_work *w
  
  	list_for_each_entry_safe(req, tmp, &work_list, list) {
  		struct drbd_peer_ack *peer_ack =
@@ -102,8 +130,8 @@
  		peer_ack->resource = resource;
  		INIT_LIST_HEAD(&peer_ack->list);
 --- drbd_receiver.c
-+++ /tmp/cocci-output-1452-3b43bd-drbd_receiver.c
-@@ -5684,7 +5684,7 @@ static int receive_protocol(struct drbd_
++++ /tmp/cocci-output-1422-80c669-drbd_receiver.c
+@@ -5888,7 +5888,7 @@ static int receive_protocol(struct drbd_
  		}
  	}
  
@@ -112,7 +140,7 @@
  	if (!new_net_conf)
  		goto disconnect;
  
-@@ -5863,7 +5863,8 @@ static int receive_SyncParam(struct drbd
+@@ -6067,7 +6067,8 @@ static int receive_SyncParam(struct drbd
  		}
  
  		if (verify_tfm || csums_tfm) {
@@ -122,7 +150,7 @@
  			if (!new_net_conf)
  				goto disconnect;
  
-@@ -6146,7 +6147,8 @@ static int receive_sizes(struct drbd_con
+@@ -6350,7 +6351,8 @@ static int receive_sizes(struct drbd_con
  		if (my_usize != p_usize) {
  			struct disk_conf *old_disk_conf, *new_disk_conf;
  
@@ -132,7 +160,7 @@
  			if (!new_disk_conf) {
  				err = -ENOMEM;
  				goto out;
-@@ -7470,7 +7472,7 @@ drbd_commit_size_change(struct drbd_devi
+@@ -7698,7 +7700,7 @@ drbd_commit_size_change(struct drbd_devi
  		drbd_info(device, "New u_size %llu sectors\n",
  			  (unsigned long long)tr->user_size);
  
@@ -142,8 +170,8 @@
  			device->ldev->disk_conf->disk_size = tr->user_size;
  			goto cont;
 --- drbd_nl.c
-+++ /tmp/cocci-output-1452-4b0eeb-drbd_nl.c
-@@ -416,7 +416,7 @@ static int drbd_pre_doit(const struct ge
++++ /tmp/cocci-output-1422-f46448-drbd_nl.c
+@@ -433,7 +433,7 @@ static int drbd_pre_doit(const struct ge
  	unsigned int flags;
  	int err;
  
@@ -152,7 +180,7 @@
  	if (!adm_ctx)
  		return -ENOMEM;
  
-@@ -2516,7 +2516,7 @@ static int drbd_adm_disk_opts(struct sk_
+@@ -2534,7 +2534,7 @@ static int drbd_adm_disk_opts(struct sk_
  		goto out;
  	}
  
@@ -161,7 +189,7 @@
  	if (!new_disk_conf) {
  		retcode = ERR_NOMEM;
  		goto fail;
-@@ -3318,14 +3318,14 @@ static int drbd_adm_attach(struct sk_buf
+@@ -3348,14 +3348,14 @@ static int drbd_adm_attach(struct sk_buf
  	}
  
  	/* allocation not in the IO path, drbdsetup context */
@@ -178,7 +206,7 @@
  	if (!new_disk_conf) {
  		retcode = ERR_NOMEM;
  		goto fail;
-@@ -4192,7 +4192,7 @@ static int drbd_adm_net_opts(struct sk_b
+@@ -4238,7 +4238,7 @@ static int drbd_adm_net_opts(struct sk_b
  		goto out_no_adm_mutex;
  	}
  
@@ -187,7 +215,7 @@
  	if (!new_net_conf) {
  		retcode = ERR_NOMEM;
  		goto out;
-@@ -4357,7 +4357,8 @@ static int drbd_adm_peer_device_opts(str
+@@ -4403,7 +4403,8 @@ static int drbd_adm_peer_device_opts(str
  	}
  	mutex_lock(&adm_ctx->resource->conf_update);
  
@@ -197,7 +225,7 @@
  	if (!new_peer_device_conf)
  		goto fail;
  
-@@ -4448,7 +4449,7 @@ int drbd_create_peer_device_default_conf
+@@ -4494,7 +4495,7 @@ int drbd_create_peer_device_default_conf
  	struct peer_device_conf *conf;
  	int err;
  
@@ -206,7 +234,7 @@
  	if (!conf)
  		return -ENOMEM;
  
-@@ -4601,7 +4602,7 @@ static int adm_new_connection(struct drb
+@@ -4649,7 +4650,7 @@ static int adm_new_connection(struct drb
  	struct drbd_transport *transport;
  
  	/* allocation not in the IO path, drbdsetup / netlink process context */
@@ -215,7 +243,7 @@
  	if (!new_net_conf)
  		return ERR_NOMEM;
  
-@@ -5515,7 +5516,7 @@ static int drbd_adm_resize(struct sk_buf
+@@ -5597,7 +5598,7 @@ static int drbd_adm_resize(struct sk_buf
  	u_size = rcu_dereference(device->ldev->disk_conf)->disk_size;
  	rcu_read_unlock();
  	if (u_size != (sector_t)rs.resize_size) {
@@ -225,8 +253,8 @@
  			retcode = ERR_NOMEM;
  			goto fail_ldev;
 --- drbd_main.c
-+++ /tmp/cocci-output-1452-a5e39a-drbd_main.c
-@@ -3737,7 +3737,7 @@ struct drbd_resource *drbd_create_resour
++++ /tmp/cocci-output-1422-fe9582-drbd_main.c
+@@ -3787,7 +3787,7 @@ struct drbd_resource *drbd_create_resour
  {
  	struct drbd_resource *resource;
  
@@ -235,7 +263,7 @@
  	if (!resource)
  		goto fail;
  	resource->name = kstrdup(name, GFP_KERNEL);
-@@ -3822,7 +3822,7 @@ struct drbd_connection *drbd_create_conn
+@@ -3872,7 +3872,7 @@ struct drbd_connection *drbd_create_conn
  	if (drbd_alloc_send_buffers(connection))
  		goto fail;
  
@@ -244,7 +272,7 @@
  	if (!connection->current_epoch)
  		goto fail;
  
-@@ -3984,7 +3984,7 @@ struct drbd_peer_device *create_peer_dev
+@@ -4036,7 +4036,7 @@ struct drbd_peer_device *create_peer_dev
  	struct drbd_peer_device *peer_device;
  	int err;
  
@@ -253,7 +281,7 @@
  	if (!peer_device)
  		return NULL;
  
-@@ -4103,7 +4103,7 @@ enum drbd_ret_code drbd_create_device(st
+@@ -4155,7 +4155,7 @@ enum drbd_ret_code drbd_create_device(st
  		return ERR_MINOR_OR_VOLUME_EXISTS;
  
  	/* GFP_KERNEL, we are outside of all write-out paths */
@@ -263,19 +291,20 @@
  		return ERR_NOMEM;
  	kref_init(&device->kref);
 --- drbd_debugfs.c
-+++ /tmp/cocci-output-1452-d31e62-drbd_debugfs.c
-@@ -1955,6 +1955,9 @@ static const struct file_operations drbd
++++ /tmp/cocci-output-1422-1f7e07-drbd_debugfs.c
+@@ -1984,6 +1984,10 @@ static const struct file_operations drbd
  
  static int drbd_compat_show(struct seq_file *m, void *ignored)
  {
 +	seq_puts(m, "alloc_obj_default_gfp__no_present\n");
++	seq_puts(m, "kzalloc_flex__no_present\n");
 +	seq_puts(m, "kmap_local_page__no_present\n");
 +	seq_puts(m, "struct_sockaddr_unsized__no_present\n");
  	return 0;
  }
  
 --- drbd_bitmap.c
-+++ /tmp/cocci-output-1452-b06c19-drbd_bitmap.c
++++ /tmp/cocci-output-1422-8c24fb-drbd_bitmap.c
 @@ -415,7 +415,7 @@ struct drbd_bitmap *drbd_bm_alloc(unsign
  	if (max_peers < 1 || max_peers > DRBD_PEERS_MAX)
  		return NULL;
