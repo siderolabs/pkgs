@@ -15,10 +15,10 @@ vars:
   cni_sha512: 5811fb14786f1f9d9e40741ce337449ce329e14e04213bc660102eb470150f24026e59caec480572e37d0e3e6e6518737f3cc7ac462c47034d0737283ec532f9
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v2.3.2
-  containerd_ref: fff62f14765df376e5fc36f5a8f8e795b5670f61
-  containerd_sha256: 1a215ae4acb184192668b21f8b8375ceb6e86f8832a97fe6f7ab53ad79bb2cee
-  containerd_sha512: 2ce4744e0a93917fa45c2930c22853315577f217fe66d4761a96f4289241cdc930b52e8f646a28e0277747396f031964085c03885824a2f12dd6950ab651b348
+  containerd_version: v2.3.3
+  containerd_ref: aad11006b869517fcd3009450b6f82da282e1a9b
+  containerd_sha256: fcff2096ef20f1bc1d939bc55a8b831ea3eface574463fd7dc770b33ffe317b2
+  containerd_sha512: a2a8a30d5251b5d0f9be75f44972509e05ce2b206c3b488b8fb15828e44982aeec6c54cfb65ddc3309c974293496f77b096f0c2ee541b3ece8ef81f36abec6b8
 
   # renovate: datasource=github-tags depName=kdave/btrfs-progs
   btrfsprogs_version: 6.19.1
@@ -46,9 +46,9 @@ vars:
   e2fsprogs_sha512: 923c1ba52cf48557e190ee936be47ff3e43e4798950499e3c663f0f077470caefbb69ee845ebe1f969b3e7c1bb0c22e507188f1daca24649c54c5843c835b2f9
 
   # renovate: datasource=github-releases extractVersion=^ena_linux_(?<version>.*)$ depName=amzn/amzn-drivers
-  ena_version: 2.17.0
-  ena_sha256: dc225c396843970309946ba9291b2678b04de28218a314ba837880b412124762
-  ena_sha512: 5273dc9f92d554791d02362686c4cfd9898ec60b677d0168b73da369d956b391de4183292c42296bf8f7fa70ae1acb66d78842e9239037caf100a1bc9cd1ebeb
+  ena_version: 2.17.2
+  ena_sha256: bda1caa39324f2b0af94694a3d48b90c81ddefbe0bdcdf2e87491e0b4225bdc9
+  ena_sha512: e6e14de0308a592b6bac472e5d790abb1b0d857326d734a0dc586a3a983bb239eb1488928cacb6fa7b45233b333b61cb18389d560aaac8960ddebab07cd122a6
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
   systemd_version: 261.1
@@ -56,10 +56,10 @@ vars:
   systemd_sha512: 5dbf8b902fbed6e719367266da658b46ed55e76c93b7aa48ebaf9daca36cb19261ebd45cb97139c51227022a8ca3d07da360953bd9b0aebb429dce6d111f7e5c
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
-  flannel_cni_version: v1.9.1-flannel1
-  flannel_cni_ref: 4c87e5d413198ceede07f8ef6f828357ebbd00c0
-  flannel_cni_sha256: 6401ccc2abe9c8e49a4f393d3c9c93f9d51287f7e7e7ac2658fc5ae0095d53d9
-  flannel_cni_sha512: 299ba3917588715a1bad3a36c23f96b2d29a23837711f7c9a6526f799078af16ba93a71d9c562c3cad305081f9ef21bddb764d7098e24dbd16e83856effdac39
+  flannel_cni_version: v1.9.1-flannel2
+  flannel_cni_ref: d7127da72160b326ddb6f750ea4211e446579a2a
+  flannel_cni_sha256: 568809672085277cccf5b245eff3d42dc64c5229e4d068e6520f80193d37bac2
+  flannel_cni_sha512: 4c695c9eb675a77e6fff80480723601cb3a54911673ab0e809b1385fe670323884c7eab97f209cdcc94917fad320403c34f3fcd54a7da183437604cd60393ecd
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/google/gasket-driver.git
   gasket_driver_ref: 5815ee3908a46a415aac616ac7b9aedcb98a504c
@@ -79,9 +79,9 @@ vars:
   hailort_fw_sha512: 6280e4bddc120ab6e9a4a4fdac529816ee1f94d343e0e0ef6c36fd474b579f85032e22b24a8f758b23028d429ef5936780fa07ed3c0abc512f5fd72985fc982c
 
   # renovate: datasource=github-releases depName=intel/isa-l
-  igzip_version: 2.32.0
-  igzip_sha256: 7a194ff80d0f7e20615c497654e8a51b0184d0c79e2e265c7f555f52a26a05a4
-  igzip_sha512: e09f6e6f39d60b06b7a62d0e5c0be5e86b26efc375235e84f7c9aa85f4706883e7f0b40cc9cbced4ac27db2f19ac9c36f45b93454652a36fe46aa297200d4aeb
+  igzip_version: 2.32.1
+  igzip_sha256: d9f7179ab0e14a3db9b610fac22793854a1435e8423ec9ce07f4cbedc5f92f5e
+  igzip_sha512: f9da6ec16919b52492f7001b4e8047b16c0af8ffb82fd8f98ffb85293167ea8e8f016a0b0dc11d1b3f6c7a0ee08d271084faf0d98b0f46c8e22abb531273555f
 
   # renovate: datasource=github-releases extractVersion=^IPMITOOL_(?<version>.*)$ depName=ipmitool/ipmitool
   ipmitool_version: 1_8_19
@@ -149,9 +149,9 @@ vars:
   libjson_c_sha512: 4763f2352414dac3599bc2183b4fa57dbfaac0ca24de890097bd7d0bdda93c91efa280f6566e949e6d94212ef39a63fc76c5f9d0c54ff3d04b13c859717dba5a
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=akheron/jansson
-  libjansson_version: 2.15.0
-  libjansson_sha256: a7eac7765000373165f9373eb748be039c10b2efc00be9af3467ec92357d8954
-  libjansson_sha512: bbe041dbd231b236f2c30ee6ed712bb2a3614b3897ffe0d9d1560aae5f594f3df10500f9d04930b62fe9eb8552f2d301d41832aa6010541cf4f42a4d021eab82
+  libjansson_version: 2.15.1
+  libjansson_sha256: f9aa4b3ec8496fee69db94f06f3d76fd4a26b012ee9bf1e917078c2cd2841881
+  libjansson_sha512: 0ce117ff1108622ce47a671ee27e0362834bcd9665d408f455fc3c6b68816a51d9fffa5e23faf8cefcdb1a9d9be89ad08076afd02530f665d6fa622b6d9f153d
 
   # renovate: datasource=git-tags extractVersion=^libmnl-(?<version>.*)$ depName=git://git.netfilter.org/libmnl
   libmnl_version: 1.0.5
@@ -260,9 +260,9 @@ vars:
   glib_sha512: da7232cd7818f8ba15ff5d18e9d44474a17fbc7dd8ab643a540aa73ce1d7246420c7a228e0e22d6d76ef12ba643189ecd437331421837f9b75749a9c90996e94
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
-  qemu_version: 11.0.1
-  qemu_sha256: 0d235f5820278d914a3155ec27af8e4258d697ea892895570807d69c0cb8cd64
-  qemu_sha512: 50fdc0bef3b179d8858ea07656244257b46475ec8bcd8b5a428f8dec3cae7f4a6ba8ba621a0a965ddacae314890191a3a9c58e16752bd3bf0ef78aaf6aa659eb
+  qemu_version: 11.0.2
+  qemu_sha256: 3745f6ea88e2e87fe0dc838b2b1d4e0a770bf48e01a1d5a186842a1fff76ccf5
+  qemu_sha512: 23d64d05381eaefc8894bb0ece2213d068594b42600931c4b32eb7a5c851e0539977449fb0f9940f58af6489bb15aa2dc8f27472e4fa2d7de8983232136eed00
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.5.0
