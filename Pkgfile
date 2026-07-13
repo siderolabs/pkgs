@@ -72,11 +72,11 @@ vars:
   grub_sha512: 5008e3b70072798d2b34301219fe174cc6bcfead40a9ab25fe32f30c62a392ffb7bf2eb629d481f4a6c19c2925324af3f08d7043e62623e746be2d8b3cbd1182
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=hailo-ai/hailort-drivers
-  hailort_version: 4.23.0
-  hailort_sha256: 245c7157746c2fd48b2fab4a990c8fb3b786921dd72c9e5348f5b5619ee05ec3
-  hailort_sha512: b5abdf3ca5cb4cbb9d3189ed6bae52d66e52dbce99ed1698ece8ff1f5f32db7560990e66bab740f2f0102e13175eb3fc0ae41162b75ee743684fb64ff845db07
-  hailort_fw_sha256: 1ba9528972091ec17bebc0dc7ea2e6f4449efe70664890f6387ccbc7b60626ee
-  hailort_fw_sha512: 6280e4bddc120ab6e9a4a4fdac529816ee1f94d343e0e0ef6c36fd474b579f85032e22b24a8f758b23028d429ef5936780fa07ed3c0abc512f5fd72985fc982c
+  hailort_version: 4.24.0
+  hailort_sha256: 6ed54bdb80b97fa2ac7e0dee2102a9b609b2b9a4d12dbae4c190ad769c7bc636
+  hailort_sha512: ce73660a8be5b5cb253f892b70411136e4efa6cb8e5a3a6f019489033034dd52c69cac06b06813287c02af7d7813e2fd7dccb72e93cf816104d0767efcd2aa48
+  hailort_fw_sha256: 3ebeb209987bb0e484353be23774d3893908de84069016c4e37361c871d8433a
+  hailort_fw_sha512: 53ffd641086e7bc1298e6b41c7204199e49e595feeb06bcfa339c15e4a73de6133e59293cf3f5dfdd72b052f2c829fc5ad93da5d325ed084b702e450f999594c
 
   # renovate: datasource=github-releases depName=intel/isa-l
   igzip_version: 2.32.1
@@ -94,9 +94,9 @@ vars:
   iptables_sha512: 3aefd76ca60d00f46ba4d6f39cbcfdc60517d03b6714da25dcd67542f6f4eea8d82c4855bdd9124efe18b769f41951772b8340a6eda75b85f8dd52b2289b145b
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 902014c57abb31ed963ece5c4e86c06da3f72c2a
-  ipxe_sha256: 95d8bb94719bf7ddfca707e5bfb4190b012754575bed1a36c82eb32a05718e1b
-  ipxe_sha512: 2757df67b9b46a19e25d6a5e47929327e55d757d6a546bec42f67da372ecd50295fbd677e4fb75fc41cd56ad73d874c21d6006836f9d3a9980fc605a32ac24cf
+  ipxe_ref: dcdba1814239cd891090fb3aea009c736987d66a
+  ipxe_sha256: e82fb710b9cd33615f26fba229b37064e4f45396db3f7c00830962242a0473c7
+  ipxe_sha512: 129e23842b2b6172731ec88916f72697fbe2475ec241a4af1c4e0882abc80da3d1b183ec62f295c37e2817fb267fd971526aa1eb444ded54b6f178a79a6f477a
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: 0b9aebf818145f772407135b79418958c1ec5ed1
@@ -119,9 +119,9 @@ vars:
   libarchive_sha512: 6952aaa3f7aa275b1a678c03b3ca3a50111a1305f0eb50362b8a85599f1c13a0c771530c7caea6ddcc3c8ceead4c206abca851d8b2c4b64968773d8fd6fc64de
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.savannah.gnu.org/attr.git
-  libattr_version: 2.5.2
-  libattr_sha256: f2e97b0ab7ce293681ab701915766190d607a1dba7fae8a718138150b700a70b
-  libattr_sha512: f587ea544effb7cfed63b3027bf14baba2c2dbe3a9b6c0c45fc559f7e8cb477b3e9a4a826eae30f929409468c50d11f3e7dc6d2500f41e1af8662a7e96a30ef3
+  libattr_version: 2.6.0
+  libattr_sha256: 6c8a2148a7b85043b68492bce43316b0e2e214fc4e628c7ede078e76e216330b
+  libattr_sha512: 870d0c34fbaa7520aad058ecd6509fe8eddd17430781a16d1e80484d4947307a7c641f0449183cbac1da611a85f82c9bee2d2d7bff76170fc2195b123100d22e
 
   # renovate: datasource=github-releases extractVersion=^r(?<version>.*)$ depName=benhoyt/inih
   libinih_version: 62
@@ -144,9 +144,9 @@ vars:
   libisofs_sha512: c36a81c47516f6374e65863e8e4374ece3a14cf0cfc15ab381338c5df122835d66494b139223217278434baca07dae0a4bc8c1e8c00dae131ded1c5672808cc7
 
   # renovate: datasource=github-tags extractVersion=^json-c-(?<version>.*)-.*$ depName=json-c/json-c
-  libjson_c_version: 0.18
-  libjson_c_sha256: 876ab046479166b869afc6896d288183bbc0e5843f141200c677b3e8dfb11724
-  libjson_c_sha512: 4763f2352414dac3599bc2183b4fa57dbfaac0ca24de890097bd7d0bdda93c91efa280f6566e949e6d94212ef39a63fc76c5f9d0c54ff3d04b13c859717dba5a
+  libjson_c_version: 0.19
+  libjson_c_sha256: 37ad0249902e301bd9052bf712e511fcc6acff4ecaad4b5900aad9ce564e26de
+  libjson_c_sha512: e373559ab029deada3a3b350f626d8975ef6ebb7b40d50a8b4d0284323368b13f6976d3611f52e34d0a824134ea6d0519d56041140e5d1911c0fbc1b84167f37
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=akheron/jansson
   libjansson_version: 2.15.1
@@ -286,9 +286,9 @@ vars:
   tenstorrent_sha512: d0aa2c07287654ecbed0e10b659bb7a6c3427a9cf355031c76d7e60f327f5166158dd647681d01acc92bd695c1b32daccdbce171eb199db05e9d5f0518b2d79f
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/Xilinx/dma_ip_drivers.git
-  xdma_driver_ref: c15887db54801f4be959515b66d5d371508cc6a6
-  xdma_driver_sha256: ff49ffd0e5d0f081535dac1245bcee1933408c8080c81c78590a670ef2df7804
-  xdma_driver_sha512: f1e645c58c3a096896498a3c8acbc159787d2621cc71a0caddb3b6380a21c5750fa3308d3d0c74f27a59c777aaaea739213599e59db6a6bf22ba0f3c9c51b947
+  xdma_driver_ref: 4df2c8228ef300642a5013364a665ab988751c95
+  xdma_driver_sha256: 978c25c1928f83e3ed9e0f27b5bf965154fce02394ba6a3151ff98e5fa569e97
+  xdma_driver_sha512: 1eca05c05876d026eb53ea07cd9c5685e2d01e0f75316435305dda8f03e3d0c5e059ab5b7e5c6374857542d855d1ad063645b8795b874ace66cbb9d352fe91d2
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
   xfsprogs_version: 7.0.1

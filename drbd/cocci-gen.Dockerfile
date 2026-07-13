@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.24.0-labs
+# syntax=docker/dockerfile:1.25.0-labs
 #
 # Generates DRBD's kernel compatibility patches (cocci_cache) out of band, so
 # the drbd-pkg build does not need network access or Coccinelle/Ocaml at build
