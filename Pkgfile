@@ -3,7 +3,7 @@
 format: v1alpha2
 
 vars:
-  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.12.0-11-gce759f6
+  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.12.0-14-g82698c2
   TOOLS_PREFIX: ghcr.io/siderolabs/
   TOOLS_REV: v1.12.0-16-g7b9cec2
 
