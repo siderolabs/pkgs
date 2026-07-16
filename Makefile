@@ -27,7 +27,7 @@ SOURCE_DATE_EPOCH := $(shell git log $(INITIAL_COMMIT_SHA) --pretty=%ct)
 
 # sync bldr image with pkgfile
 
-BLDR_RELEASE := v0.6.1
+BLDR_RELEASE := v0.5.6
 BLDR_IMAGE := ghcr.io/siderolabs/bldr:$(BLDR_RELEASE)
 BLDR := docker run --rm --user $(shell id -u):$(shell id -g) --volume $(PWD):/src --entrypoint=/bldr $(BLDR_IMAGE) --root=/src
 
@@ -280,4 +280,3 @@ renovate-local:  ## runs renovate locally to check syntax and test configuration
 		-e RENOVATE_PLATFORM=local \
 		-e RENOVATE_DRY_RUN=full \
 	renovate/renovate
-
