@@ -1,0 +1,120 @@
+--- drbd_transport_tcp.c
++++ /tmp/cocci-output-1418-85711a-drbd_transport_tcp.c
+@@ -511,15 +511,15 @@ static int dtt_try_connect(struct dtt_pa
+ 	*  a free one dynamically.
+ 	*/
+ 	what = "bind before connect";
+-	err = socket->ops->bind(socket, (struct sockaddr_unsized *) &my_addr,
+-			path->path.my_addr_len);
++	err = socket->ops->bind(socket, (struct sockaddr *) &my_addr,
++				path->path.my_addr_len);
+ 	if (err < 0)
+ 		goto out;
+ 
+ 	/* connect may fail, peer not yet available.
+ 	 * stay C_CONNECTING, don't go Disconnecting! */
+ 	what = "connect";
+-	err = socket->ops->connect(socket, (struct sockaddr_unsized *) &peer_addr,
++	err = socket->ops->connect(socket, (struct sockaddr *) &peer_addr,
+ 				   path->path.peer_addr_len, 0);
+ 	if (err < 0) {
+ 		err = dtt_socket_err_to_eagain(err);
+@@ -1065,7 +1065,8 @@ static int dtt_init_listener(struct drbd
+ 	addr_len = addr->sa_family == AF_INET6 ? sizeof(struct sockaddr_in6)
+ 		: sizeof(struct sockaddr_in);
+ 
+-	err = s_listen->ops->bind(s_listen, (struct sockaddr_unsized *)&my_addr, addr_len);
++	err = s_listen->ops->bind(s_listen, (struct sockaddr *)&my_addr,
++				  addr_len);
+ 	if (err < 0) {
+ 		what = "bind before listen";
+ 		goto out;
+@@ -1560,12 +1561,12 @@ static int dtt_send_page(struct drbd_tra
+ 			struct page *p = page + (offset >> PAGE_SHIFT);
+ 			unsigned int poff = offset & ~PAGE_MASK;
+ 			unsigned int chunk = min_t(int, len, PAGE_SIZE - poff);
+-			void *addr = kmap_local_page(p);
++			void *addr = kmap(p);
+ 			struct kvec iov = { .iov_base = addr + poff, .iov_len = chunk };
+ 
+ 			iov_iter_kvec(&msg.msg_iter, ITER_SOURCE, &iov, 1, chunk);
+ 			sent = sock_sendmsg(socket, &msg);
+-			kunmap_local(addr);
++			kunmap(p);
+ 		} else {
+ 			bvec_set_page(&bvec, page, len, offset);
+ 			iov_iter_bvec(&msg.msg_iter, ITER_SOURCE, &bvec, 1, len);
+--- drbd_transport_rdma.c
++++ /tmp/cocci-output-1418-b26116-drbd_transport_rdma.c
+@@ -3185,9 +3185,9 @@ static int dtr_send_page(struct drbd_tra
+ 			kfree(tx_desc);
+ 			return -ENOMEM;
+ 		}
+-		from = kmap_local_page(caller_page);
++		from = kmap(caller_page);
+ 		memcpy(page_address(page), from + offset, size);
+-		kunmap_local(from);
++		kunmap(caller_page);
+ 		offset = 0;
+ 	}
+ 
+--- drbd_transport_lb-tcp.c
++++ /tmp/cocci-output-1418-eead29-drbd_transport_lb-tcp.c
+@@ -530,7 +530,7 @@ dtl_recv(struct drbd_transport *transpor
+ static int
+ _dtl_recv_page(struct dtl_transport *dtl_transport, struct page *page, int size)
+ {
+-	void *data = kmap_local_page(page);
++	void *data = kmap(page);
+ 	void *pos = data;
+ 	struct dtl_flow *flow;
+ 	int err;
+@@ -549,7 +549,7 @@ _dtl_recv_page(struct dtl_transport *dtl
+ 	}
+ 	err = pos - data;
+ out:
+-	kunmap_local(data);
++	kunmap(page);
+ 	return err;
+ }
+ 
+@@ -694,7 +694,8 @@ dtl_try_connect(struct drbd_transport *t
+ 	 * a free one dynamically.
+ 	 */
+ 	what = "bind before connect";
+-	err = sock->ops->bind(sock, (struct sockaddr_unsized *) &my_addr, path->path.my_addr_len);
++	err = sock->ops->bind(sock, (struct sockaddr *) &my_addr,
++			      path->path.my_addr_len);
+ 	if (err < 0)
+ 		goto out;
+ 
+@@ -703,7 +704,7 @@ dtl_try_connect(struct drbd_transport *t
+ 	mutex_lock(&dtl_transport->connecting_socket_mutex);
+ 	dtl_transport->connecting_socket = sock;
+ 	mutex_unlock(&dtl_transport->connecting_socket_mutex);
+-	err = sock->ops->connect(sock, (struct sockaddr_unsized *) &peer_addr,
++	err = sock->ops->connect(sock, (struct sockaddr *) &peer_addr,
+ 				   path->path.peer_addr_len, 0);
+ 	mutex_lock(&dtl_transport->connecting_socket_mutex);
+ 	dtl_transport->connecting_socket = NULL;
+@@ -1171,7 +1172,8 @@ static int dtl_init_listener(struct drbd
+ 	addr_len = addr->sa_family == AF_INET6 ? sizeof(struct sockaddr_in6)
+ 		: sizeof(struct sockaddr_in);
+ 
+-	err = s_listen->ops->bind(s_listen, (struct sockaddr_unsized *)&my_addr, addr_len);
++	err = s_listen->ops->bind(s_listen, (struct sockaddr *)&my_addr,
++				  addr_len);
+ 	if (err < 0) {
+ 		what = "bind before listen";
+ 		goto out;
+--- drbd_debugfs.c
++++ /tmp/cocci-output-1418-891198-drbd_debugfs.c
+@@ -1984,6 +1984,8 @@ static const struct file_operations drbd
+ 
+ static int drbd_compat_show(struct seq_file *m, void *ignored)
+ {
++	seq_puts(m, "kmap_local_page__no_present\n");
++	seq_puts(m, "struct_sockaddr_unsized__no_present\n");
+ 	return 0;
+ }
+ 
