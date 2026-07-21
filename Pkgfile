@@ -5,9 +5,9 @@ format: v1alpha2
 vars:
   TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.14.0-alpha.0-14-gef85c3f
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.14.0-alpha.0-25-g2723c06
+  TOOLS_REV: v1.14.0-alpha.0-26-g08071b1
   LLVM_IMAGE: ghcr.io/siderolabs/llvm
-  RUSTC_IMAGE: ghcr.io/siderolabs/rustc:v1.14.0-alpha.0-1-gf539b56
+  RUSTC_IMAGE: ghcr.io/siderolabs/rustc:v1.14.0-alpha.0-2-g6264bae
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.9.1
@@ -94,9 +94,9 @@ vars:
   iptables_sha512: 3aefd76ca60d00f46ba4d6f39cbcfdc60517d03b6714da25dcd67542f6f4eea8d82c4855bdd9124efe18b769f41951772b8340a6eda75b85f8dd52b2289b145b
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: c208006f785be7b9168e4c3d0b9c5a1bd91f4e88
-  ipxe_sha256: 01bfe77b62f5d203b84dc62c7d3cebc686183934fe228859198fae8676410543
-  ipxe_sha512: af55972c9794d086da24ae5d932eefeefc6123a3a80f0fd176cbec3b1e1fa9751dcb5eb1e171123bbf3a56e4284d5769922b8d404db8fbc2244418135b8cae97
+  ipxe_ref: bb4b3b1c195e0f0ec63a716531ff7d7cbc326f13
+  ipxe_sha256: bb6161f530ecfc6a65e74f5adbad7c70cc8bbdc9e0c8522d0df21240ee158a81
+  ipxe_sha512: dfaf49d699623d384adc04c3737d9abb6ee13054e1c6783ea175f735bc0829f2c08b244706a215382ca8b812975e59889e809ac72c0bf33996706b847a542fef
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: 0b9aebf818145f772407135b79418958c1ec5ed1
@@ -250,9 +250,9 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/portworx/px-fuse.git
-  px_fuse_ref: be462e1841067208569aed2413e23b53a496843b
-  px_fuse_sha256: 2bd90775d79a6b23ac5ac5b68c11d82cb28552f582f6058bcde2e784bfd55644
-  px_fuse_sha512: a07fbb0c47e0f017b7974b2e64f2cf0c30962a39e0651889deefdc0bae511ce4cee251955eec73108bf85ee7a5111ebf30d16a3ef5ea5742be24739af1bf6b3f
+  px_fuse_ref: 8b52ef67d261369cbc93f132db299e5dcf64ad7c
+  px_fuse_sha256: 63eba2b1926ba81169a5cb26db986106ef4a32da3bef4ffd506ffff7fc5c65c3
+  px_fuse_sha512: 93e42d93264d499074ed01ad6eb6e5b8ce9a006fcae71ac7039343ac10a7180c91a3e345d870214e75f5681944345995294fcbd5f42992b9648b868c2e272675
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
   glib_version: 2.89.2
@@ -281,19 +281,19 @@ vars:
   tc_redirect_tap_sha512: 017d01fef1d6cddc2b53d6516acf7c8b61c7864c6c3708e7adaf73c5413f43b1495679249379e7a46de639a24e66643daf659565d0135a61b36246df4edc7936
 
   # renovate: datasource=github-releases extractVersion=^ttkmd-(?<version>.*)$ depName=tenstorrent/tt-kmd
-  tenstorrent_version: 2.9.0
-  tenstorrent_sha256: 857946abe4aa1d8700fc3c76117bb701ad1e532d1d6f714838a1923626b15f84
-  tenstorrent_sha512: d0aa2c07287654ecbed0e10b659bb7a6c3427a9cf355031c76d7e60f327f5166158dd647681d01acc92bd695c1b32daccdbce171eb199db05e9d5f0518b2d79f
+  tenstorrent_version: 2.10.0
+  tenstorrent_sha256: 26a0980688abc7bcc5b89c8c22777e3dead2c59b4244b780d968580eae727d55
+  tenstorrent_sha512: eb36b04dc5416e262fbe5195249a26de1351d8921055d568abc97b6e84d556e959236db8cc3a05aa8c571334d8cd00077e02e2b200ce0c629e2858a4234831d8
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/Xilinx/dma_ip_drivers.git
-  xdma_driver_ref: 4df2c8228ef300642a5013364a665ab988751c95
-  xdma_driver_sha256: 978c25c1928f83e3ed9e0f27b5bf965154fce02394ba6a3151ff98e5fa569e97
-  xdma_driver_sha512: 1eca05c05876d026eb53ea07cd9c5685e2d01e0f75316435305dda8f03e3d0c5e059ab5b7e5c6374857542d855d1ad063645b8795b874ace66cbb9d352fe91d2
+  xdma_driver_ref: 8721136e74a66500b02d16cb41922d966139cd46
+  xdma_driver_sha256: b228eb88ef54a3ca11cde87951de395ad5e3172b2a72e060d2aad29547f87360
+  xdma_driver_sha512: 5f2c94f5770dda5536fb5f22bea75d56cfb10c51a28e493f40a243ccc039287aa9f1545bf4c11713c4ff2c9c663ee6ee8adeb146a4e2545e710f6b2a39d2a1e5
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
-  xfsprogs_version: 7.1.0
-  xfsprogs_sha256: 0484d08e411a1d1d10339b7342c32d24e40beb1b1fc332b92aefb65004e90bdb
-  xfsprogs_sha512: 9c22478bd5734a7463fde334ebe222c1871348a68f8f871fb94ec0b50d5ee9b54791b8f24a290c679af54e15481a0b035fb6eceb617a484b19f5f583477ea438
+  xfsprogs_version: 7.1.1
+  xfsprogs_sha256: 063edc31ba8e85c95c7faf9be465a04898bba7c6e622fdd9b146eed4ca5415e8
+  xfsprogs_sha512: 5c6e2a57a8f2e04a50cf5a085509a229f7a858a5807d85d807deeef1013d6dbbc1d701da4adb010dec5e251774b6b32e28496309bd11b4e6ebcbc09999f04cd5
 
   # renovate: datasource=github-tags extractVersion=^zfs-(?<version>.*)$ depName=openzfs/zfs
   zfs_version: 2.4.3
