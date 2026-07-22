@@ -26,9 +26,9 @@ vars:
   btrfsprogs_sha512: ece500bf512a7970bd6a611c4f74aa3f7285eb55b86987fb8a21bc82cb7d0b1e6b683d02efc34ec8c4ff7f6d620b5ec12ef277af0d6d831586f9f70087355ca9
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
-  cryptsetup_version: 2.8.6
-  cryptsetup_sha256: 4f0fffbffc4edeab6994db6062e47c841c8c1679fc9010bf4d03c707514dacd4
-  cryptsetup_sha512: 513298954c87938ead3898a1fd89b2e58154437ac7537ead2fb913c5337ad02b8750f97293439b7ddc6cc74c169c7c7ee5eaeca57a36289a324a951b200d6dc3
+  cryptsetup_version: 2.8.7
+  cryptsetup_sha256: a06d2418182e6c86695e75b9df48bc74a56ff24ec7dcbe8ab93c753e2d47b20d
+  cryptsetup_sha512: dad83bca2b53c38b0ddd8e5a1b1def7fa28ab2d00313ae69c8c229dcb73fcbb810592a05d9121c794b903a4bb140064ed33d73b5c2ff61ce4db2346174a195d5
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=dosfstools/dosfstools
   dosfstools_version: 4.2
