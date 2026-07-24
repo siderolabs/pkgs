@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.18.39 Kernel Configuration
+# Linux/arm64 6.18.40 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 22.1.8"
 CONFIG_GCC_VERSION=0
@@ -5961,6 +5961,7 @@ CONFIG_SND_PCM_TIMER=y
 #
 # HD-Audio
 #
+# CONFIG_SND_HDA_INTEL is not set
 # CONFIG_SND_HDA_TEGRA is not set
 # CONFIG_SND_HDA_ACPI is not set
 # end of HD-Audio
@@ -9961,7 +9962,6 @@ CONFIG_CRYPTO_AES_ARM64_CE_CCM=y
 CONFIG_CRYPTO_HW=y
 CONFIG_CRYPTO_DEV_ALLWINNER=y
 CONFIG_CRYPTO_DEV_SUN4I_SS=y
-# CONFIG_CRYPTO_DEV_SUN4I_SS_PRNG is not set
 # CONFIG_CRYPTO_DEV_SUN4I_SS_DEBUG is not set
 CONFIG_CRYPTO_DEV_SUN8I_CE=y
 # CONFIG_CRYPTO_DEV_SUN8I_CE_DEBUG is not set
