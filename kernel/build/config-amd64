@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 6.18.41 Kernel Configuration
+# Linux/x86 6.18.42 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 22.1.8"
 CONFIG_GCC_VERSION=0
@@ -4923,6 +4923,7 @@ CONFIG_VIDEO=y
 # CONFIG_AUXDISPLAY is not set
 # CONFIG_AGP is not set
 CONFIG_INTEL_GTT=m
+CONFIG_GPU_BUDDY=y
 CONFIG_DRM=y
 
 #
