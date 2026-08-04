@@ -5,6 +5,14 @@ set -euo pipefail
 
 NVIDIA_OOT=/oot-src/nvidia-oot
 
+# CONFIG_GCC_PLUGIN_LATENT_ENTROPY injects a global 'latent_entropy' variable via
+# a GCC plugin. These modules are built with Clang, which does not run the plugin,
+# so the symbol is undeclared and linux/random.h fails to compile for every OOT
+# module. Drop the macro before any module build. No-op when it is not set.
+sed -i '/CONFIG_GCC_PLUGIN_LATENT_ENTROPY/d' /src/include/config/auto.conf 2>/dev/null || true
+sed -i '/CONFIG_GCC_PLUGIN_LATENT_ENTROPY/d' /src/include/generated/autoconf.h 2>/dev/null || true
+echo "Removed CONFIG_GCC_PLUGIN_LATENT_ENTROPY (Clang compat)"
+
 # OOT host1x: add conftest + nvidia-oot includes (exports host1x_fence_extract)
 printf 'ccflags-y += -I$(srctree.nvconftest)\n' \
   >> ${NVIDIA_OOT}/drivers/gpu/host1x/Makefile

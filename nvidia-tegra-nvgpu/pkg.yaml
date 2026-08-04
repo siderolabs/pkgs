@@ -53,7 +53,9 @@ steps:
           -f /oot-src/out/nvidia-conftest/nvidia/Makefile
         echo "conftest done."
       - |
-        /pkg/scripts/fixup.sh
+        # Invoked through bash so the build does not depend on the file mode
+        # surviving the trip into /pkg.
+        bash /pkg/scripts/fixup.sh
       - |
         # ── Cross-compiler mismatch fix: Clang wrapper ────────────────────────────
         # Strips GCC-only flags before passing to clang (source-independent fix).
