@@ -76,6 +76,12 @@ spec:
       - nonfree-kmod-nvidia-lts-pkg
       - nonfree-kmod-nvidia-production-pkg
   reproducibleTargetName: reproducibility
+  extraBuildArgs:
+    - GNU_MIRROR_URL
+  makefile:
+    extraVariables:
+      - name: GNU_MIRROR_URL
+        defaultValue: https://mirrors.kernel.org
 ---
 kind: auto.CustomSteps
 spec:
