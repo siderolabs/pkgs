@@ -27,6 +27,8 @@ steps:
       - |
         mkdir -p /nvidia-driver
         tar xf nvidia.tar.xz -C /nvidia-driver --strip-components=1
+
+        patch -d /nvidia-driver -p1 < /pkg/patches/0001-support-pci-resize-resource-exclude-bars.patch
       - |
         mkdir -p /gdrcopy
         tar xf gdrcopy.tar.gz -C /gdrcopy --strip-components=1
