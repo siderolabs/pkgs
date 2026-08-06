@@ -93,9 +93,9 @@ vars:
   ipxe_sha512: 8c103d3d9debe277333d8c3e0d935d76968a197aad6891e4b6491dc6378555ba359249e04381e6895f68296898dbdc2cf022b43e0b2108b779c88fe769fee4ba
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
-  kspp_ref: e354f6ab5279f9cfa8bfdd7e13e454ccf69209f9
-  kspp_sha256: 640b25473f86557d082f680b0f57653a69f4146e97825673bf582f9a4c8b7739
-  kspp_sha512: 82dae1debbe94a3f82766a8cdbfe59ff8698d433175803458499b76c50b47b89e9280b677a9f16b2a44711badd6f4001aba951a41722a74dd51c03a18b8b9219
+  kspp_ref: 5b77d399781cb5aebf6e419d8f55e9813c6874f4
+  kspp_sha256: 68ccfb39a6d78a94b2baa1dfad9580d86350fb81ce3b21ed639406530a3dd3c4
+  kspp_sha512: 085366adc1ee4f1361354f23355594aa1b27c38dac36038a255b7d84fb21860589cb846c48460b2f5b41045e9073b4dba7d3b2d4e20dc1e1d5ed6944c03bc56c
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
   linux_version: 6.18.42
@@ -108,9 +108,9 @@ vars:
   libaio_sha512: 65c30a102433bf8386581b03fc706d84bd341be249fbdee11a032b237a7b239e8c27413504fef15e2797b1acd67f752526637005889590ecb380e2e120ab0b71
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=libarchive/libarchive
-  libarchive_version: 3.8.7
-  libarchive_sha256: d3a8ba457ae25c27c84fd2830a2efdcc5b1d40bf585d4eb0d35f47e99e5d4774
-  libarchive_sha512: 0673accf9ac6ede2d1c7e68419d00898f35e43130c5ec6b5fcdea85d174d8b0cc56d1d609bd5533370c3cca5f6ddd5b59fc153f2dadea2b4b5c2421a574ea352
+  libarchive_version: 3.8.9
+  libarchive_sha256: 888c934f9d95648ecb9163dc8e23ab80a476ecb81a8f1154704a227b5b676dde
+  libarchive_sha512: f37425417a9e3fdc194a2b892137452ddba6601c69e822598692d4d776c573a90e70aac4598d47c915615facc45d0c83fc46c24856ddf04afd7494b63bb9f137
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.savannah.gnu.org/attr.git
   libattr_version: 2.5.2
@@ -204,19 +204,18 @@ vars:
   mtools_sha512: 30e75cd85916b7c5b81e667fec1e47f19c024a988a643e8fa8ddd4a20b96c58d29c528d033548f9a603119835e414ea6fc671b3dafa08f50b9192991276d2447
 
   # renovate: datasource=custom.nvidia-driver-lts depName=nvidia-driver-lts
-  nvidia_driver_lts_version: 580.173.02
-  nvidia_driver_lts_arm64_sha256: 5b79c3c161089776dcda061f1a2a7aefd0377c99d846682249e65f6333b1f357
-  nvidia_driver_lts_arm64_sha512: 8a00c3182ef2310b403b67852918fb38cdd89bf92846d627c3bc77c7108c230262d794388ab75bbedab8f0f0a9b8e43cb26dabe5267e441d9423b64ae71f8a0f
-  nvidia_driver_lts_amd64_sha256: 18e19ffca091473ac5e81c63436ef2911dd2485be4b8770c2ee124ece3a3a5f7
-  nvidia_driver_lts_amd64_sha512: b10f678dc08812a5dfa45dfb041107062e0c61d087b2637ac1d46bda36f5ddf70025a274594cd4ddda9e9961c13e3cb79fcfd3b8f35cb95de09fee40c0b1b928
+  nvidia_driver_lts_version: 580.178.04
+  nvidia_driver_lts_arm64_sha256: 8e55dfbe85b1aa9fbd2e323ed203470ebf6001f614d1f8cb4fa0671ea979a557
+  nvidia_driver_lts_arm64_sha512: 05fac615240326349e2cc3c999f1a0d2181a0cc88ece6f28b964a16ef70f9d23cc7b4c76cb478a4345f0587de5e9f43a746f7070a8babee91fb9803a9e938fe2
+  nvidia_driver_lts_amd64_sha256: 269bfbc57d176ea21eede622a5c638c84354ed70ffcc3d092679ce10d3fef409
+  nvidia_driver_lts_amd64_sha512: 4cab88f79734f32bbf3a2bdf988bb30585f15802063f9244b209c57735cf44cd8275f07886a919736a644166467db1f0ff6bcfe861ebd9c689d4833a0ccd2645
 
-  # NOTE: Use the version that's also available under fabricmanager at https://developer.download.nvidia.com/compute/nvidia-driver/redist/fabricmanager/linux-x86_64/
-  # renovate: datasource=github-releases extractVersion=^\d+\.(?<version>\d+\.\d+)$ depName=nvidia/open-gpu-kernel-modules
-  nvidia_driver_production_version: 595.71.05
-  nvidia_driver_production_arm64_sha256: 9f6df120c3e89f9cd54693b86c5fd54815890b564ad412969b9787e64b3a9ab4
-  nvidia_driver_production_arm64_sha512: 5607de521ca8fd416beaf704b924977803c25ed7b7f2816dcbdcf7c2a9117901f3bd7f9976925409778b0e8ac4c2750352031f33ca5ae50438411e4a6bb85779
-  nvidia_driver_production_amd64_sha256: 0cb57021f3858ca6565ac9eaf087aaa80d942ee8bfe8a220eec100e1489bc726
-  nvidia_driver_production_amd64_sha512: 5c4c2fb02f9b222da318668e0d5e93fd4fae81744e610490cb967e78cf61af8c7a8f5244f87d2967ba83b7be66b230d3b2bbafeff63790bcc77f4befdc089f99
+  # renovate: datasource=custom.nvidia-driver-production depName=nvidia-driver-production
+  nvidia_driver_production_version: 595.91.07
+  nvidia_driver_production_arm64_sha256: f0833df649a72c7cb675a179add564b8f8ed76c2e83faa9f1161f101d82b4fd3
+  nvidia_driver_production_arm64_sha512: 1ad7b483dd576ed49ade0427232b3259cccd030a3d8e937110ec3f850fcd84e7004a563761144f2420bf54e96686ab26e758e857e5b95e2ee80786856ab10607
+  nvidia_driver_production_amd64_sha256: 93e0487897e843be767a3d259dffea8ac32dffff846e83df8d3abbf30be754ae
+  nvidia_driver_production_amd64_sha512: a7cb28e9025218ea72bb868b3927f5ef08f790a9427de13db2678c3488dce689c6dde788f1162eeb809d99b43ee3b44ebe8688c63033a481d8973b328189d274
 
   # renovate: datasource=github-releases depName=vmware/open-vmdk
   open_vmdk_version: v0.3.13
