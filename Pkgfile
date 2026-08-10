@@ -104,9 +104,9 @@ vars:
   kspp_sha512: 085366adc1ee4f1361354f23355594aa1b27c38dac36038a255b7d84fb21860589cb846c48460b2f5b41045e9073b4dba7d3b2d4e20dc1e1d5ed6944c03bc56c
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.18.43
-  linux_sha256: a1aeb926c7c4a1564368200b1082e45bb958007682d804aff88abbc3a7a47b5d
-  linux_sha512: 77393001f6635e04c41bf28b8b4305b0c17339d7e70c753f73f45ada6758b3dd461cd975b3ad18123aa9e391f100b3bf8995d0b296db7cba05f9548adf636532
+  linux_version: 6.18.44
+  linux_sha256: 0f72d938f06828e82c90405174fe572287db7bfe089e2fc46572a99a7f240d43
+  linux_sha512: cb710375eb0dccdb8ac49db46517556b9e6d56d7ed5430336158cc63b6104366672964737508819ef49de03c9a7a02079027f2271748c6677bc7c32944631589
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
