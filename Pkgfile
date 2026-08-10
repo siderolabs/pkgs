@@ -56,10 +56,10 @@ vars:
   systemd_sha512: 876f043970cb65b39ae15fba39f23bf94c7c3d80569503d6e8ea2c8013c30ee40ce43cb55cbcb1cf14d5c3021aafc09c0f67473bbf742d8964bf9fa30693b971
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
-  flannel_cni_version: v1.9.1-flannel2
+  flannel_cni_version: v1.9.1-flannel3
   flannel_cni_ref: d7127da72160b326ddb6f750ea4211e446579a2a
-  flannel_cni_sha256: 568809672085277cccf5b245eff3d42dc64c5229e4d068e6520f80193d37bac2
-  flannel_cni_sha512: 4c695c9eb675a77e6fff80480723601cb3a54911673ab0e809b1385fe670323884c7eab97f209cdcc94917fad320403c34f3fcd54a7da183437604cd60393ecd
+  flannel_cni_sha256: 23ed19c545ab63eabf899e70abd8a4ae161cf6a2700926259c6b59381d9df171
+  flannel_cni_sha512: 70db3836fa2595373fda10cede31b022a40da9857ea99f155e6cbb9f516849951b5177cf97526bc608b53aa4ddbd585b58320a757d6c6d2c1a2257a8b43a86d2
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/google/gasket-driver.git
   gasket_driver_ref: 5815ee3908a46a415aac616ac7b9aedcb98a504c
@@ -94,14 +94,14 @@ vars:
   iptables_sha512: 3aefd76ca60d00f46ba4d6f39cbcfdc60517d03b6714da25dcd67542f6f4eea8d82c4855bdd9124efe18b769f41951772b8340a6eda75b85f8dd52b2289b145b
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: bb4b3b1c195e0f0ec63a716531ff7d7cbc326f13
-  ipxe_sha256: bb6161f530ecfc6a65e74f5adbad7c70cc8bbdc9e0c8522d0df21240ee158a81
-  ipxe_sha512: dfaf49d699623d384adc04c3737d9abb6ee13054e1c6783ea175f735bc0829f2c08b244706a215382ca8b812975e59889e809ac72c0bf33996706b847a542fef
+  ipxe_ref: 8baf1cda7762b6ee880502ac1d6f507a22959a36
+  ipxe_sha256: dca956be7d6773624cf88223191ba784048d16f3a1ad3c640eaa4d3fbdfd7a4c
+  ipxe_sha512: 39f095cf4899b6f0a6eefa6d81f21a11bc647b7246bf140580dbd7346f0de8021a8ef538a48074a766a62ce7f0dc4071496eb9aadf86679e927df7be34618b09
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
-  kspp_ref: 5b77d399781cb5aebf6e419d8f55e9813c6874f4
-  kspp_sha256: 68ccfb39a6d78a94b2baa1dfad9580d86350fb81ce3b21ed639406530a3dd3c4
-  kspp_sha512: 085366adc1ee4f1361354f23355594aa1b27c38dac36038a255b7d84fb21860589cb846c48460b2f5b41045e9073b4dba7d3b2d4e20dc1e1d5ed6944c03bc56c
+  kspp_ref: 1315e5b97c07fed42ea00f6f9602553c0609a615
+  kspp_sha256: 0dc61ebf01f0dd1d0d2204432235fb2470bcf2ec020172c30a9d1c14f103f032
+  kspp_sha512: 2b40c41ed0347a339053aef61c838b5131dd583fb0d1ac8f3361040361ba868724ad16dfdc13023ff2b0f51f32c0aba605316d5d76f9fc6c1d50d90b4ceedead
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
   linux_version: 6.18.44
@@ -206,9 +206,9 @@ vars:
   linux_firmware_sha512: 6a508096dae9b9d8918aea9cb636205e58d08b1f31650900288541f9f330ee1cadeed30ba6cf10b810b5b18dc7b891967c2753342f8a127deb7bb10803c96e97
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
-  lvm2_version: 2_03_41
-  lvm2_sha256: d58011b845df8ec13816ca13ea6c39d4cb3d038cd2d7d387acdf5681ad7d6637
-  lvm2_sha512: 60c75a0e9b808f5070e3b34f74f876c4ebfc98ab51a7f8bc71b15d9d90499843933ed72b0fda1b70f8fe13e879393748f9667ce51b285b52a8ddc79321fd6db9
+  lvm2_version: 2_03_42
+  lvm2_sha256: 352703ef5b72ebb22d4f250284a29b89fe64d4049c6bf64c693f9af486c8081e
+  lvm2_sha512: 0d65f37521eb6a472011aee52a72a4e65a14ce71050aac04451a01f84e177282d6a4bdc3db0807f360101824a399803bedb93aa1c6dc894c0ae8347a35a68f29
 
   # renovate: datasource=github-releases extractVersion=^mdadm-(?<version>.*)$ depName=md-raid-utilities/mdadm
   mdadm_version: 4.6
@@ -250,19 +250,19 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/portworx/px-fuse.git
-  px_fuse_ref: 8b52ef67d261369cbc93f132db299e5dcf64ad7c
-  px_fuse_sha256: 63eba2b1926ba81169a5cb26db986106ef4a32da3bef4ffd506ffff7fc5c65c3
-  px_fuse_sha512: 93e42d93264d499074ed01ad6eb6e5b8ce9a006fcae71ac7039343ac10a7180c91a3e345d870214e75f5681944345995294fcbd5f42992b9648b868c2e272675
+  px_fuse_ref: 296b36714ef6f2d867a3bd6e7e39a73db9bcaa3e
+  px_fuse_sha256: b661de74e15098b100051fb83474c7acd581f93deff2570174f7a839c957315e
+  px_fuse_sha512: 544d2297b96330b16d06b2b51971b253382ea32d3ded3fa157e99fc8a7c7baac90d3f060803c07e0c3839a73826ed0440270027b99a075c88feabe6ebed5f207
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
-  glib_version: 2.89.2
-  glib_sha256: 894fd527e305041f7723071297d79a78af4719dbd0d8fb77f6b1a85c9f5475b9
-  glib_sha512: 5fffc076934e5825e1003f30c337c706145ac8e6e5ee4f541c47805cc148a030c80fc7b9bb4114ae7c33359da3f8dc8f943dcdf0f4fbde2dd7ee66c0bbe4975e
+  glib_version: 2.89.3
+  glib_sha256: 09fd1e99f991067749ad66090e482ec4bd6514ad53abb4e9fbbdc2a4d2753532
+  glib_sha512: af6ba2f0832916e92338b809b7f4b34e0b02d58d68f216c2dfe9cb0e7b8944d70116a81e1e58fc0f18abceff168d2367817fd4d2ee3e0674dcbb83edc430ed6e
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
-  qemu_version: 11.0.2
-  qemu_sha256: 3745f6ea88e2e87fe0dc838b2b1d4e0a770bf48e01a1d5a186842a1fff76ccf5
-  qemu_sha512: 23d64d05381eaefc8894bb0ece2213d068594b42600931c4b32eb7a5c851e0539977449fb0f9940f58af6489bb15aa2dc8f27472e4fa2d7de8983232136eed00
+  qemu_version: 11.0.3
+  qemu_sha256: da5fcffc32762820568b828ed430a728864d34d50b6d2f30358597760cbb0523
+  qemu_sha512: fea9ccafc5ed7184d9501eac05af96ce9fa46e7b70cfcbbddb989673a98f7c827286bbbc38d9944f4fbe115f99472f1e6fcfb74a451768a7a3dcdc6dd0e3e989
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.5.1
