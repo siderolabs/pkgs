@@ -250,9 +250,9 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/portworx/px-fuse.git
-  px_fuse_ref: 296b36714ef6f2d867a3bd6e7e39a73db9bcaa3e
-  px_fuse_sha256: b661de74e15098b100051fb83474c7acd581f93deff2570174f7a839c957315e
-  px_fuse_sha512: 544d2297b96330b16d06b2b51971b253382ea32d3ded3fa157e99fc8a7c7baac90d3f060803c07e0c3839a73826ed0440270027b99a075c88feabe6ebed5f207
+  px_fuse_ref: 3b3f794c628a165cae9fd1bb6e83379b60b9cc4e
+  px_fuse_sha256: 02c81f9c8075828056cfaec4523920ecf5548349b587172bc95d9e044cdc14df
+  px_fuse_sha512: 62b5414ef76d5aff91aa7a6ec986f562a152032560e2c12caf68513d758ba8dbd4ae3157814f60d4f40de2a35dc92fb03e288ad396034c23a68388af54791aa4
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
   glib_version: 2.89.3
