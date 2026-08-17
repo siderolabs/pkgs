@@ -3,9 +3,9 @@
 format: v1alpha2
 
 vars:
-  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.13.0-3-gc4993d7
+  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.13.0-4-gd4c09bb
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.13.0-8-gc2844e6
+  TOOLS_REV: v1.13.0-9-ga201d19
   LLVM_IMAGE: ghcr.io/siderolabs/llvm
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
@@ -14,10 +14,10 @@ vars:
   cni_sha512: 5811fb14786f1f9d9e40741ce337449ce329e14e04213bc660102eb470150f24026e59caec480572e37d0e3e6e6518737f3cc7ac462c47034d0737283ec532f9
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v2.2.6
-  containerd_ref: 11ce9d5f3c68c941867e82890e93e815c1304f1b
-  containerd_sha256: 98992d2d2a652bcfaef0186d218c5ff254ba97ea1dd73425fe29be7036b3ac35
-  containerd_sha512: 42b5d0916a4d60413d582893904fd4313e2164fc78c3b7ac35806a258c4a3e5f4bdbcfb20ce9a5e924b5ad7215a2637bb5355126e3d88a115a8e248e0568fd81
+  containerd_version: v2.2.7
+  containerd_ref: 7835c8dfefceee63b1a4f9e84e015ddc8434fdc3
+  containerd_sha256: ea5954b342114fc07bbdcc1b4c0456459f6e807d2f53273559fcdb9030268a99
+  containerd_sha512: a4be7b1fc66e7a173cd141aabe257bf38f651d93376000ef07ecadb42e2c12babfef02c54487bc74352f89083949458b503728f8f32fb0453e6ab2459df73cd7
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
   cryptsetup_version: 2.8.6
@@ -50,10 +50,10 @@ vars:
   systemd_sha512: cb76b3a11b400fea94de2be74bcd9178b2e986c1965cbc19824114fe14fdd9b6aed43ae325cf5bc505efa1333adc71e131e0a8b54519e6741baa090392bf0a98
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
-  flannel_cni_version: v1.9.1-flannel1
+  flannel_cni_version: v1.9.1-flannel3
   flannel_cni_ref: 4c87e5d413198ceede07f8ef6f828357ebbd00c0
-  flannel_cni_sha256: 6401ccc2abe9c8e49a4f393d3c9c93f9d51287f7e7e7ac2658fc5ae0095d53d9
-  flannel_cni_sha512: 299ba3917588715a1bad3a36c23f96b2d29a23837711f7c9a6526f799078af16ba93a71d9c562c3cad305081f9ef21bddb764d7098e24dbd16e83856effdac39
+  flannel_cni_sha256: 23ed19c545ab63eabf899e70abd8a4ae161cf6a2700926259c6b59381d9df171
+  flannel_cni_sha512: 70db3836fa2595373fda10cede31b022a40da9857ea99f155e6cbb9f516849951b5177cf97526bc608b53aa4ddbd585b58320a757d6c6d2c1a2257a8b43a86d2
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/google/gasket-driver.git
   gasket_driver_ref: 5815ee3908a46a415aac616ac7b9aedcb98a504c
