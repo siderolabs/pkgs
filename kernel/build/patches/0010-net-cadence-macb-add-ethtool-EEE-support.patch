@@ -1,0 +1,71 @@
+From 61332b78761cb1638e2bf29273050cf009fbbc0e Mon Sep 17 00:00:00 2001
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Date: Wed, 4 Mar 2026 11:54:30 +0100
+Subject: [PATCH 3/5] net: cadence: macb: add ethtool EEE support
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Implement get_eee and set_eee ethtool ops for GEM as simple passthroughs
+to phylink_ethtool_get_eee() and phylink_ethtool_set_eee().
+
+No MACB_CAPS_EEE guard is needed: phylink returns -EOPNOTSUPP from both
+ops when mac_supports_eee is false, which is the case when
+lpi_capabilities and lpi_interfaces are not populated. Those fields are
+only set when MACB_CAPS_EEE is present (previous patch), so phylink
+already handles the unsupported case correctly.
+
+Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+Reviewed-by: Théo Lebrun <theo.lebrun@bootlin.com>
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+Link: https://patch.msgid.link/20260304105432.631186-4-nb@tipi-net.de
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+---
+[ Talos backport note (not part of the upstream commit message):
+  Cherry-picked from mainline commit 61332b78761c ("net: cadence: macb:
+  add ethtool EEE support"), merged in Linux 7.1, onto 6.18.41.
+
+  One context conflict was resolved.  The gem_ethtool_ops hunk did not
+  apply because 6.18.41 has neither .get_rx_ring_count nor .nway_reset
+  in that initialiser; both were added after 6.18.  The .get_eee /
+  .set_eee entries are appended after .set_rxnfc instead, which is the
+  same position relative to the end of the struct.  The two new
+  functions are byte-for-byte identical to upstream. ]
+
+  drivers/net/ethernet/cadence/macb_main.c | 16 ++++++++++++++++
+  1 file changed, 16 insertions(+)
+
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index cebca23..04791fd 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -4281,6 +4281,20 @@ static const struct ethtool_ops macb_ethtool_ops = {
+ 	.set_ringparam		= macb_set_ringparam,
+ };
+ 
++static int macb_get_eee(struct net_device *dev, struct ethtool_keee *eee)
++{
++	struct macb *bp = netdev_priv(dev);
++
++	return phylink_ethtool_get_eee(bp->phylink, eee);
++}
++
++static int macb_set_eee(struct net_device *dev, struct ethtool_keee *eee)
++{
++	struct macb *bp = netdev_priv(dev);
++
++	return phylink_ethtool_set_eee(bp->phylink, eee);
++}
++
+ static const struct ethtool_ops gem_ethtool_ops = {
+ 	.get_regs_len		= macb_get_regs_len,
+ 	.get_regs		= macb_get_regs,
+@@ -4301,6 +4315,8 @@ static const struct ethtool_ops gem_ethtool_ops = {
+ 	.set_ringparam		= macb_set_ringparam,
+ 	.get_rxnfc			= gem_get_rxnfc,
+ 	.set_rxnfc			= gem_set_rxnfc,
++	.get_eee		= macb_get_eee,
++	.set_eee		= macb_set_eee,
+ };
+ 
+ static int macb_ioctl(struct net_device *dev, struct ifreq *rq, int cmd)

@@ -20,6 +20,8 @@ steps:
         patch -p1 < /pkg/patches/https.patch
         # TODO: remove once ipxe release compiles file on gcc-12
         patch -p3 < /pkg/patches/silence-gcc-12-spurious-warnings.patch
+        # TODO: remove once ipxe release no longer warns on newer binutils
+        patch -p3 < /pkg/patches/no-fatal-assembler-warnings.patch
 
         # ref: https://github.com/siderolabs/sidero/issues/806
         {{ if eq .ARCH "aarch64" }}

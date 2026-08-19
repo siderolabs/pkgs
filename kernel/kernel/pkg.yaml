@@ -35,9 +35,11 @@ steps:
             ;;
         esac
 
+        cp System.map /rootfs/boot/System.map
+
         export KERNELRELEASE=$(cat include/config/kernel.release)
         make -j $(nproc) modules_install INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_STRIP=1
-        depmod -b /rootfs/usr $KERNELRELEASE
+        depmod -b /rootfs/usr -F /rootfs/boot/System.map --errsyms -w $KERNELRELEASE
         unlink /rootfs/usr/lib/modules/$KERNELRELEASE/build
     sbom:
       outputPath: /rootfs/usr/share/spdx/kernel.spdx.json

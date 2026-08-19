@@ -1,0 +1,86 @@
+name: libpathrs
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  # CA certificates so cargo can verify TLS when fetching crates from crates.io.
+  - stage: ca-certificates
+  # rustc is dynamically linked against LLVM's shared library (libLLVM.so),
+  # which ships in the llvm image; without it `rustc -vV` fails to load.
+  - image: "{{ .LLVM_IMAGE }}:{{ .TOOLS_REV }}"
+  - image: "{{ .RUSTC_IMAGE }}"
+steps:
+  - sources:
+      - url: https://github.com/cyphar/libpathrs/releases/download/{{ .libpathrs_version }}/libpathrs-{{ .libpathrs_version | trimPrefix "v" }}.tar.xz
+        destination: libpathrs.tar.xz
+        sha256: "{{ .libpathrs_sha256 }}"
+        sha512: "{{ .libpathrs_sha512 }}"
+  - network: default
+    env:
+      # cargo/libcurl needs an explicit CA bundle; ca-certificates ships it at a
+      # non-standard path (no .crt suffix) that curl won't auto-discover.
+      CARGO_HTTP_CAINFO: /etc/ssl/certs/ca-certificates
+      SSL_CERT_FILE: /etc/ssl/certs/ca-certificates
+    prepare:
+      - |
+        tar -xJf libpathrs.tar.xz --strip-components=1
+
+        # Drop the cargo workspace members (contrib/fake-enosys, e2e-tests): they
+        # are dev/test crates we don't build, and cargo would otherwise try to
+        # build and resolve their dependencies too. The [workspace] table is the
+        # last block in Cargo.toml, so we can strip it to EOF.
+        sed -i '/^\[workspace\]/,$d' Cargo.toml
+
+        # Download the crate dependencies while network is available; the build
+        # step below runs with `network: none` and cargo `--offline`.
+        cargo fetch
+  - network: none
+    build:
+      - |
+        # Build only the C static library (staticlib). We intentionally do not
+        # run `make release` because that also builds the cdylib (libpathrs.so),
+        # which links with lld (`-fuse-ld=lld`) and produces a shared object we
+        # don't ship. runc links libpathrs statically, so the .a is all we need.
+        #
+        # This mirrors the staticlib recipe from libpathrs' Makefile:
+        #   * --features=capi exposes the C API,
+        #   * RUSTFLAGS="-C panic=abort" avoids the unwinder (no libgcc_s dep),
+        #   * with-crate-type.sh flips [lib] crate-type to staticlib (MSRV<1.64).
+        LIBPATHRS_CAPI_BUILDMODE=staticlib \
+          ./hack/with-crate-type.sh --crate-type=staticlib \
+          env RUSTFLAGS="-C panic=abort" \
+          cargo build --features=capi --release --offline
+    install:
+      - |
+        # install.sh stages libpathrs.a + pathrs.h + a pathrs.pc with the real
+        # install paths baked in. --disable-dynamic skips the (unbuilt) .so.
+        ./install.sh \
+          --prefix=/usr \
+          --libdir=/usr/lib \
+          --enable-static \
+          --disable-dynamic \
+          DESTDIR=/rootfs
+    test:
+      - |
+        set -e
+        # static library, header and pkg-config metadata must be present, and
+        # no shared object must be shipped
+        test -f /rootfs/usr/lib/libpathrs.a
+        test -f /rootfs/usr/include/pathrs.h
+        test -f /rootfs/usr/lib/pkgconfig/pathrs.pc
+        ! ls /rootfs/usr/lib/libpathrs.so* 2>/dev/null
+        # pkg-config resolves the module
+        PKG_CONFIG_PATH=/rootfs/usr/lib/pkgconfig pkg-config --exists pathrs
+      - |
+        fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/libpathrs.spdx.json
+      version: "{{ .libpathrs_version }}"
+      cpes:
+        - cpe:2.3:a:cyphar:libpathrs:{{ .libpathrs_version }}:*:*:*:*:*:*:*
+      licenses:
+        - MPL-2.0
+        - LGPL-3.0-or-later
+finalize:
+  - from: /rootfs
+    to: /

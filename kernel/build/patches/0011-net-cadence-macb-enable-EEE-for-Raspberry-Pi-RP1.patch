@@ -1,0 +1,65 @@
+From 92ba3307431a1756a3c8094787527a38ce19623d Mon Sep 17 00:00:00 2001
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Date: Wed, 4 Mar 2026 11:54:31 +0100
+Subject: [PATCH 4/5] net: cadence: macb: enable EEE for Raspberry Pi RP1
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Set MACB_CAPS_EEE for the Raspberry Pi 5 RP1 southbridge
+(Cadence GEM_GXL rev 0x00070109 paired with BCM54213PE PHY).
+
+EEE has been verified on RP1 hardware: the LPI counter registers
+at 0x270-0x27c return valid data, the TXLPIEN bit in NCR (bit 19)
+controls LPI transmission correctly, and ethtool --show-eee reports
+the negotiated state after link-up.
+
+Other GEM variants that share the same LPI register layout (SAMA5D2,
+SAME70, PIC32CZ) can be enabled by adding MACB_CAPS_EEE to their
+respective config entries once tested.
+
+Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+Reviewed-by: Théo Lebrun <theo.lebrun@bootlin.com>
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+Link: https://patch.msgid.link/20260304105432.631186-5-nb@tipi-net.de
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+---
+[ Talos backport note (not part of the upstream commit message):
+  Cherry-picked from mainline commit 92ba3307431a ("net: cadence: macb:
+  enable EEE for Raspberry Pi RP1"), merged in Linux 7.1, onto 6.18.41.
+
+  One context conflict was resolved.  Upstream extends a .caps field
+  ending in MACB_CAPS_GEM_HAS_PTP, but in this tree
+  0001-net-macb-flush-PCIe-posted-write-after-TSTART-doorbe.patch has
+  already appended MACB_CAPS_PCIE_POSTED_WRITES to
+  raspberrypi_rp1_config.  MACB_CAPS_EEE is appended after it, so the
+  combined result is:
+
+      MACB_CAPS_GIGABIT_MODE_AVAILABLE | MACB_CAPS_CLK_HW_CHG |
+      MACB_CAPS_JUMBO | MACB_CAPS_GEM_HAS_PTP |
+      MACB_CAPS_PCIE_POSTED_WRITES | MACB_CAPS_EEE
+
+  Note for reviewers: applied with GNU patch's default fuzz factor, the
+  unmodified upstream hunk applies *successfully* to mpfs_config
+  (Microchip PolarFire SoC) roughly 40 lines earlier, which shares the
+  trailing "MACB_CAPS_GEM_HAS_PTP," context line.  That would enable EEE
+  on the wrong SoC, leave RP1 untouched, and exit 0.  The rebased hunk
+  in this patch has exact context and cannot fuzz-match elsewhere. ]
+
+  drivers/net/ethernet/cadence/macb_main.c | 3 ++-
+  1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index 04791fd..bc14e16 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -5728,7 +5728,8 @@ static const struct macb_config raspberrypi_rp1_config = {
+ 	.caps = MACB_CAPS_GIGABIT_MODE_AVAILABLE | MACB_CAPS_CLK_HW_CHG |
+ 		MACB_CAPS_JUMBO |
+ 		MACB_CAPS_GEM_HAS_PTP |
+-		MACB_CAPS_PCIE_POSTED_WRITES,
++		MACB_CAPS_PCIE_POSTED_WRITES |
++		MACB_CAPS_EEE,
+ 	.dma_burst_length = 16,
+ 	.clk_init = macb_clk_init,
+ 	.init = macb_init,

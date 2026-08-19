@@ -22,6 +22,10 @@ steps:
         destination: gdrcopy.tar.gz
         sha256: "{{ .gdrcopy_sha256 }}"
         sha512: "{{ .gdrcopy_sha512 }}"
+      - url: https://github.com/NVIDIA/gds-nvidia-fs/archive/refs/tags/{{ .gds_nvidia_fs_version }}.tar.gz
+        destination: gds-nvidia-fs.tar.gz
+        sha256: "{{ .gds_nvidia_fs_sha256 }}"
+        sha512: "{{ .gds_nvidia_fs_sha512 }}"
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
       LLVM: 1
@@ -32,6 +36,9 @@ steps:
       - |
         mkdir -p /gdrcopy
         tar xf gdrcopy.tar.gz -C /gdrcopy --strip-components=1
+      - |
+        mkdir -p /gds-nvidia-fs
+        tar xf gds-nvidia-fs.tar.gz -C /gds-nvidia-fs --strip-components=1
     build:
       - |
         cd /nvidia-driver/kernel-open
@@ -47,6 +54,33 @@ steps:
           HAVE_VM_FLAGS_SET=y \
           HAVE_PROC_OPS=y \
           KDIR=/src
+      - |
+        cd /gds-nvidia-fs/src
+
+        # gds-nvidia-fs (GPUDirect Storage) build dir is hardcoded to
+        # /lib/modules/$KVER/build in both its Makefile and configure script;
+        # point that at the kernel sources copied to /src.
+        KVER=$(cat /src/include/config/kernel.release)
+        mkdir -p /lib/modules/${KVER}
+        ln -sf /src /lib/modules/${KVER}/build
+
+        # Generate config-host.h (kernel feature probes).
+        ./configure ${KVER}
+
+        # Build directly via kbuild, bypassing the Makefile's `module` target
+        # (which hardcodes an empty KBUILD_EXTRA_SYMBOLS and a nvidia.ko lookup):
+        # feed it the NVIDIA driver sources (nv-p2p.h) and the nvidia_p2p_*
+        # symbol versions from the open driver build above.
+        # -Wno-strict-prototypes: nvfs has K&R-style `void foo()` declarations
+        # that clang otherwise promotes to errors via the kernel's -Werror.
+        make LD=ld.lld OBJDUMP=llvm-objdump -j $(nproc) -C /src M=/gds-nvidia-fs/src modules \
+          KDIR=/src \
+          NVIDIA_SRC_DIR=/nvidia-driver/kernel-open/nvidia \
+          KBUILD_EXTRA_SYMBOLS=/nvidia-driver/kernel-open/Module.symvers \
+          KCPPFLAGS="-DCONFIG_NVFS_STATS=y -DGDS_VERSION=$(cat GDS_VERSION) -DNVFS_ENABLE_KERN_RDMA_SUPPORT -DNVFS_BATCH_SUPPORT=y" \
+          KCFLAGS="-Wno-strict-prototypes" \
+          CONFIG_NVFS_STATS=y \
+          CONFIG_NVFS_BATCH_SUPPORT=y
     install:
       - |
         cd /nvidia-driver/kernel-open
@@ -62,6 +96,11 @@ steps:
 
         # Install the gdrdrv kernel module
         make -C /src M=/gdrcopy/src/gdrdrv modules_install INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1
+      - |
+        cd /gds-nvidia-fs/src
+
+        # Install the nvidia-fs kernel module
+        make -C /src M=/gds-nvidia-fs/src modules_install INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=extras INSTALL_MOD_STRIP=1
     test:
       - |
         # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping

@@ -1,0 +1,56 @@
+name: btrfsprogs
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: util-linux
+  - stage: zlib
+  - stage: zstd
+steps:
+  - sources:
+      - url: https://www.kernel.org/pub/linux/kernel/people/kdave/btrfs-progs/btrfs-progs-v{{ .btrfsprogs_version }}.tar.xz
+        destination: btrfs-progs.tar.xz
+        sha256: "{{ .btrfsprogs_sha256 }}"
+        sha512: "{{ .btrfsprogs_sha512 }}"
+    env:
+      PKG_CONFIG_PATH: /usr/lib/pkgconfig
+    prepare:
+      - |
+        tar -xJf btrfs-progs.tar.xz --strip-components=1
+
+        ./configure \
+          --prefix=/usr \
+          --sbindir=/usr/bin \
+          --disable-documentation \
+          --disable-python \
+          --disable-convert \
+          --disable-lzo \
+          --disable-libudev \
+          --disable-backtrace \
+          --disable-shared \
+          --with-crypto=builtin
+    build:
+      - |
+        make -j $(nproc)
+    install:
+      - |
+        make install DESTDIR=/rootfs
+        # man, locale and headers
+        rm -rf /rootfs/usr/share
+        rm -rf /rootfs/usr/include
+        # static libs and pkgconfig
+        rm -rf /rootfs/usr/lib
+    test:
+      - |
+        fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/btrfsprogs.spdx.json
+      version: {{ .btrfsprogs_version }}
+      cpes:
+        - cpe:2.3:a:btrfs-progs_project:btrfs-progs:{{ .btrfsprogs_version }}:*:*:*:*:*:*:*
+      licenses:
+        - GPL-2.0-only
+        - LGPL-2.1-or-later
+finalize:
+  - from: /rootfs
+    to: /

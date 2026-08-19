@@ -1,0 +1,15 @@
+diff --git a/roms/ipxe/src/Makefile.housekeeping b/roms/ipxe/src/Makefile.housekeeping
+--- a/roms/ipxe/src/Makefile.housekeeping
++++ b/roms/ipxe/src/Makefile.housekeeping
+@@ -503,7 +503,10 @@
+ #
+ ifneq ($(NO_WERROR),1)
+ CFLAGS		+= -Werror
+-ASFLAGS		+= --fatal-warnings
++# Newer binutils warns about the ".note.GNU-stack" section type declared
++# in our .S files.  Keep those warnings visible, but do not make them
++# fatal: gas has no selective override, and --fatal-warnings resets any
++# earlier --no-warn, so the warnings cannot be inhibited individually.
+ HOST_CFLAGS	+= -Werror
+ endif
+ 

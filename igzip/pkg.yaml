@@ -23,7 +23,8 @@ steps:
         ./autogen.sh
       - |
         ./configure \
-          --prefix=/usr
+          --prefix=/usr \
+          --enable-programs
     build:
       - |
         make -j $(nproc)

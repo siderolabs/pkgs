@@ -21,7 +21,6 @@ IGNORE_VIOLATIONS = {
     'CONFIG_BINFMT_MISC', # build as module, can only be loaded explicitly
     'CONFIG_WERROR', # breaks downstream kernel modules build such as drbd
     'CONFIG_DEBUG_VIRTUAL', # disabled due to performance reasons
-    'CONFIG_STATIC_USERMODEHELPER', # disabled until further research is done, see https://github.com/siderolabs/pkgs/issues/918
     'CONFIG_LOCK_DOWN_KERNEL_FORCE_CONFIDENTIALITY', # disabled until further research is done, see https://github.com/siderolabs/pkgs/issues/918
     'CONFIG_RANDSTRUCT_FULL', # disabled due to performance reasons
     'CONFIG_RANDSTRUCT_PERFORMANCE', # disabled due to performance reasons
@@ -37,6 +36,7 @@ IGNORE_VIOLATIONS = {
     'CONFIG_PROC_MEM_NO_FORCE', # might break some applications, so instead we will enforce in the kernel arg 'proc_mem.force_override=never' (https://github.com/a13xp0p0v/kernel-hardening-checker/pull/201)
     'CONFIG_GCC_PLUGIN_LATENT_ENTROPY', # doesn't seem very relevant, entropy is low quality, and not available in Clang, https://github.com/torvalds/linux/blob/37a93dd5c49b5fda807fd204edf2547c3493319c/scripts/gcc-plugins/Kconfig#L25-L33
     'CONFIG_MODULE_SIG_FORCE', # see https://github.com/siderolabs/talos/issues/11989
+    'CONFIG_IOMMU_DEFAULT_DMA_LAZY', # performance impact, we can reconsider later
 }
 
 """

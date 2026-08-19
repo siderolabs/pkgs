@@ -4,6 +4,7 @@ shell: /bin/bash
 dependencies:
   - stage: base
   - stage: libaio
+  - stage: libucontext
   - stage: systemd-udevd
 steps:
   - sources:
@@ -12,7 +13,7 @@ steps:
         sha256: "{{ .lvm2_sha256 }}"
         sha512: "{{ .lvm2_sha512 }}"
     env:
-      LIBS: -lcap
+      LIBS: -lcap -lucontext
     prepare:
       - |
         tar -xzf lvm2.tar.gz --strip-components=1
@@ -66,7 +67,7 @@ steps:
         fhs-validator /rootfs
     sbom:
       outputPath: /rootfs/usr/share/spdx/lvm2.spdx.json
-      version: {{ .lvm2_version | replace "_" "." }}
+      version: '{{ .lvm2_version | replace "_" "." }}'
       cpes:
         - cpe:2.3:a:heinz_mauelshagen:lvm2:{{ .lvm2_version | replace "_" "." }}:*:*:*:*:*:*:*
         - cpe:2.3:a:redhat:lvm2:{{ .lvm2_version | replace "_" "." }}:*:*:*:*:*:*:*

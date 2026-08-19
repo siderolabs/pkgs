@@ -25,6 +25,8 @@ dependencies:
     to: /rootfs
   - stage: apparmor
     to: /rootfs
+  - stage: btrfsprogs
+    to: /rootfs
   - stage: cni
     to: /rootfs
   - stage: containerd

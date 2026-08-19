@@ -6,7 +6,7 @@ dependencies:
   - stage: kernel-prepare
 steps:
   - env:
-      ARCH: {{ if eq .ARCH "aarch64" }}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }} 
+      ARCH: {{ if eq .ARCH "aarch64" }}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
     build:
       - |
         cd /src
@@ -16,6 +16,7 @@ steps:
           NO_JEVENTS=1 \
           PYTHON=false \
           PYTHON_CONFIG=false \
+          WERROR=0 \
           LDFLAGS=-static
   - install:
       - |

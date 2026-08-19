@@ -1,5 +1,5 @@
 diff --git a/integration/image_pull_timeout_test.go b/integration/image_pull_timeout_test.go
-index c70fa9717..3fe3e1cb7 100644
+index fc909533b..e9486d18c 100644
 --- a/integration/image_pull_timeout_test.go
 +++ b/integration/image_pull_timeout_test.go
 @@ -93,7 +93,7 @@ func testCRIImagePullTimeoutBySlowCommitWriter(t *testing.T, useLocal bool) {
@@ -30,12 +30,12 @@ index c70fa9717..3fe3e1cb7 100644
  		assert.Equal(t, context.Canceled, errors.Unwrap(err), "[%v] expected canceled error, but got (%v)", idx, err)
  		assert.True(t, mirrorSrv.limiter.clearHitCircuitBreaker(), "[%v] expected to hit circuit breaker", idx)
 diff --git a/internal/cri/server/container_status_test.go b/internal/cri/server/container_status_test.go
-index aad56f56a..8d08d4b7a 100644
+index a35dda2ce..ac6a52f32 100644
 --- a/internal/cri/server/container_status_test.go
 +++ b/internal/cri/server/container_status_test.go
-@@ -302,7 +302,7 @@ func (s *fakeImageService) ImageFSPaths() map[string]string { return make(map[st
- 
- func (s *fakeImageService) DisableSnapshotAnnotations() bool { return false }
+@@ -388,7 +388,7 @@ func (s *fakeImageService) Config() criconfig.ImageConfig {
+ 	return criconfig.ImageConfig{}
+ }
  
 -func (s *fakeImageService) PullImage(context.Context, string, func(string) (string, string, error), *runtime.PodSandboxConfig, string) (string, error) {
 +func (s *fakeImageService) PullImage(context.Context, string, func(string) (string, string, error), *runtime.AuthConfig, *runtime.PodSandboxConfig, string) (string, error) {
@@ -43,7 +43,7 @@ index aad56f56a..8d08d4b7a 100644
  }
  
 diff --git a/internal/cri/server/images/image_pull.go b/internal/cri/server/images/image_pull.go
-index d94b47be7..a30d2ce3d 100644
+index 5889f6f16..4667a7442 100644
 --- a/internal/cri/server/images/image_pull.go
 +++ b/internal/cri/server/images/image_pull.go
 @@ -113,14 +113,14 @@ func (c *GRPCCRIImageService) PullImage(ctx context.Context, r *runtime.PullImag
@@ -322,37 +322,24 @@ index 000000000..440e1481f
 +
 +	return digestedImageRef, nil
 +}
-diff --git a/internal/cri/server/podsandbox/controller.go b/internal/cri/server/podsandbox/controller.go
-index e3828bc0b..c0344a712 100644
---- a/internal/cri/server/podsandbox/controller.go
-+++ b/internal/cri/server/podsandbox/controller.go
-@@ -121,7 +121,7 @@ type RuntimeService interface {
- type ImageService interface {
- 	LocalResolve(refOrID string) (imagestore.Image, error)
- 	GetImage(id string) (imagestore.Image, error)
--	PullImage(ctx context.Context, name string, creds func(string) (string, string, error), sc *runtime.PodSandboxConfig, runtimeHandler string) (string, error)
-+	PullImage(ctx context.Context, name string, creds func(string) (string, string, error), ac *runtime.AuthConfig, sc *runtime.PodSandboxConfig, runtimeHandler string) (string, error)
- 	RuntimeSnapshotter(ctx context.Context, ociRuntime criconfig.Runtime) string
- 	PinnedImage(string) string
- 	DisableSnapshotAnnotations() bool
-diff --git a/internal/cri/server/podsandbox/sandbox_run.go b/internal/cri/server/podsandbox/sandbox_run.go
-index 15fd3398f..d08ebfcb4 100644
---- a/internal/cri/server/podsandbox/sandbox_run.go
-+++ b/internal/cri/server/podsandbox/sandbox_run.go
-@@ -331,7 +331,7 @@ func (c *Controller) ensureImageExists(ctx context.Context, ref string, config *
+diff --git a/internal/cri/server/sandbox_run.go b/internal/cri/server/sandbox_run.go
+index 5298f8c78..73bc479d6 100644
+--- a/internal/cri/server/sandbox_run.go
++++ b/internal/cri/server/sandbox_run.go
+@@ -410,7 +410,7 @@ func (c *criService) ensurePauseImageExists(ctx context.Context, config *runtime
+ 		return fmt.Errorf("failed to get image %q: %w", ref, err)
  	}
- 	// Pull image to ensure the image exists
- 	// TODO: Cleaner interface
--	imageID, err := c.imageService.PullImage(ctx, ref, nil, config, runtimeHandler)
-+	imageID, err := c.imageService.PullImage(ctx, ref, nil, nil, config, runtimeHandler)
+ 
+-	_, err = c.ImageService.PullImage(ctx, ref, nil, config, runtimeHandler)
++	_, err = c.ImageService.PullImage(ctx, ref, nil, nil, config, runtimeHandler)
  	if err != nil {
- 		return nil, fmt.Errorf("failed to pull image %q: %w", ref, err)
+ 		return fmt.Errorf("failed to pull image %q: %w", ref, err)
  	}
 diff --git a/internal/cri/server/service.go b/internal/cri/server/service.go
-index 87eb02e42..a707f5ea5 100644
+index 43d36bde9..e721cc81e 100644
 --- a/internal/cri/server/service.go
 +++ b/internal/cri/server/service.go
-@@ -96,7 +96,7 @@ type RuntimeService interface {
+@@ -99,7 +99,7 @@ type RuntimeService interface {
  type ImageService interface {
  	RuntimeSnapshotter(ctx context.Context, ociRuntime criconfig.Runtime) string
  

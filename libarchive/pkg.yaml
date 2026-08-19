@@ -5,7 +5,7 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      - url: https://www.libarchive.org/downloads/libarchive-{{ .libarchive_version }}.tar.xz
+      - url: https://github.com/libarchive/libarchive/releases/download/v{{ .libarchive_version }}/libarchive-{{ .libarchive_version }}.tar.xz
         destination: libarchive.tar.xz
         sha256: "{{ .libarchive_sha256 }}"
         sha512: "{{ .libarchive_sha512 }}"
