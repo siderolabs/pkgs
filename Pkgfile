@@ -3,11 +3,11 @@
 format: v1alpha2
 
 vars:
-  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.15.0-alpha.0-1-g27982e4
+  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.15.0-alpha.0-3-g2f1a147
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.15.0-alpha.0-1-gfd531a3
+  TOOLS_REV: v1.15.0-alpha.0-2-gd102f15
   LLVM_IMAGE: ghcr.io/siderolabs/llvm
-  RUSTC_IMAGE: ghcr.io/siderolabs/rustc:v1.14.0
+  RUSTC_IMAGE: ghcr.io/siderolabs/rustc:v1.15.0-alpha.0
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
   cni_version: v1.9.1
@@ -57,7 +57,7 @@ vars:
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
   flannel_cni_version: v1.9.1-flannel3
-  flannel_cni_ref: d7127da72160b326ddb6f750ea4211e446579a2a
+  flannel_cni_ref: b380f201008e9bed159703846cf10d3c50b4f9ce
   flannel_cni_sha256: 23ed19c545ab63eabf899e70abd8a4ae161cf6a2700926259c6b59381d9df171
   flannel_cni_sha512: 70db3836fa2595373fda10cede31b022a40da9857ea99f155e6cbb9f516849951b5177cf97526bc608b53aa4ddbd585b58320a757d6c6d2c1a2257a8b43a86d2
 
