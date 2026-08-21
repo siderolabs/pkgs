@@ -37,7 +37,7 @@ ARG TOOLS_IMG=scratch
 FROM ${LLVM_IMG} AS llvm
 FROM ${TOOLS_IMG} AS tools
 
-FROM docker.io/library/fedora:42 AS gen
+FROM docker.io/library/fedora:45 AS gen
 ENV LC_ALL=C \
     LANG=C \
     SPAAS=false \
