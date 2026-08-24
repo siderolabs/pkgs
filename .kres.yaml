@@ -10,11 +10,17 @@ spec:
     - containerd
     - cpio
     - cryptsetup
+    - curl
     - dosfstools
+    - dtc
     - e2fsprogs
+    - elfutils
     - fhs
     - flannel-cni
+    - gcc-runtime
     - glib
+    - gmp
+    - gnutls
     - grub
     - igzip
     - ipmitool
@@ -24,8 +30,10 @@ spec:
     - libaio
     - libarchive
     - libattr
+    - libbpf
     - libburn
     - libcap
+    - libffi
     - libinih
     - libisoburn
     - libisofs
@@ -38,13 +46,18 @@ spec:
     - libseccomp
     - libselinux
     - libsepol
+    - libtasn1
     - libucontext
+    - libunistring
     - liburcu
     - linux-firmware
     - lvm2
     - mdadm-pkg
     - mtools
     - musl
+    - musl-fts
+    - musl-obstack
+    - nettle
     - nftables
     - openssl
     - open-vmdk

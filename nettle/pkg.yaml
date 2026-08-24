@@ -1,0 +1,14 @@
+name: nettle
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - image: "{{ .TOOLS_PREFIX }}tools-nettle:{{ .TOOLS_REV }}"
+    to: /rootfs
+steps:
+  - test:
+      - |
+        fhs-validator /rootfs
+finalize:
+  - from: /rootfs
+    to: /

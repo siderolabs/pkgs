@@ -1,0 +1,17 @@
+name: libunistring
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - image: "{{ .TOOLS_PREFIX }}tools-libunistring:{{ .TOOLS_REV }}"
+    to: /rootfs
+steps:
+  - install:
+      - |
+        rm -rf /rootfs/usr/share/doc /rootfs/usr/share/info
+  - test:
+      - |
+        fhs-validator /rootfs
+finalize:
+  - from: /rootfs
+    to: /
