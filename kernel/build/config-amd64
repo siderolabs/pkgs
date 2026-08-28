@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 6.18.47 Kernel Configuration
+# Linux/x86 6.18.48 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 22.1.2"
 CONFIG_GCC_VERSION=0
@@ -7095,7 +7095,7 @@ CONFIG_CRYPTO_ARC4=y
 CONFIG_CRYPTO_CHACHA20=y
 CONFIG_CRYPTO_CBC=y
 CONFIG_CRYPTO_CTR=y
-# CONFIG_CRYPTO_CTS is not set
+CONFIG_CRYPTO_CTS=y
 CONFIG_CRYPTO_ECB=y
 # CONFIG_CRYPTO_HCTR2 is not set
 # CONFIG_CRYPTO_LRW is not set
