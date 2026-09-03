@@ -1,0 +1,90 @@
+From: Andrey Smirnov <andrey.smirnov@siderolabs.com>
+Date: Thu, 3 Sep 2026 12:00:00 +0400
+Subject: [PATCH] security/lockdown: lock down the kernel in EFI Secure Boot
+ mode
+
+Upstream offers no way to enter lockdown only when the machine was booted
+with UEFI Secure Boot enabled: the default level is a build-time choice
+(LOCK_DOWN_KERNEL_FORCE_*) which applies to every boot, so a single kernel
+image cannot be `none` when booted without Secure Boot and `integrity` when
+booted with it.  Forcing `integrity` unconditionally is not an option, as it
+would also require a signed kernel image for kexec on non-Secure Boot
+installs.
+
+Distributions carry an out-of-tree patch for this (originally by David
+Howells), keyed off an EFI_SECURE_BOOT flag which is itself out of tree and
+is only plumbed into the kernel proper via boot_params on x86.
+
+Do the same thing arch-generically instead: once EFI runtime services are
+up, read the `SecureBoot`/`SetupMode` EFI variables using the helper already
+in <linux/efi.h> and raise lockdown to integrity if Secure Boot is enabled.
+As `lock_kernel_down()` never lowers the level, an explicit
+`lockdown=confidentiality` on the kernel command line still wins.
+
+Signed-off-by: Andrey Smirnov <andrey.smirnov@siderolabs.com>
+---
+diff --git a/security/lockdown/Kconfig b/security/lockdown/Kconfig
+index e84ddf4..a02aec3 100644
+--- a/security/lockdown/Kconfig
++++ b/security/lockdown/Kconfig
+@@ -45,3 +45,18 @@ config LOCK_DOWN_KERNEL_FORCE_CONFIDENTIALITY
+ 	 disabled.
+ 
+ endchoice
++
++config LOCK_DOWN_IN_EFI_SECURE_BOOT
++	bool "Lock down the kernel in EFI Secure Boot mode"
++	default n
++	depends on SECURITY_LOCKDOWN_LSM
++	depends on EFI
++	help
++	  UEFI Secure Boot provides a mechanism for ensuring that the firmware
++	  will only load signed bootloaders and kernels.  Secure boot mode may
++	  be determined from EFI variables provided by the system firmware if
++	  not indicated by the boot parameters.
++
++	  Enabling this option turns on the kernel lockdown feature in
++	  integrity mode if the kernel was booted on a platform with UEFI
++	  Secure Boot enabled.
+diff --git a/security/lockdown/lockdown.c b/security/lockdown/lockdown.c
+index cf83afa..da8b89a 100644
+--- a/security/lockdown/lockdown.c
++++ b/security/lockdown/lockdown.c
+@@ -10,6 +10,7 @@
+  * 2 of the Licence, or (at your option) any later version.
+  */
+ 
++#include <linux/efi.h>
+ #include <linux/security.h>
+ #include <linux/export.h>
+ #include <linux/lsm_hooks.h>
+@@ -93,6 +94,29 @@ static int __init lockdown_lsm_init(void)
+ 	return 0;
+ }
+ 
++#ifdef CONFIG_LOCK_DOWN_IN_EFI_SECURE_BOOT
++/*
++ * Raise the lockdown level to integrity when the machine was booted with UEFI
++ * Secure Boot enabled.
++ *
++ * This runs once EFI runtime services are available (efisubsys_init() is a
++ * subsys_initcall), which is still well before userspace is started.
++ */
++static int __init lockdown_efi_secure_boot(void)
++{
++	if (!efi_enabled(EFI_BOOT) ||
++	    !efi_rt_services_supported(EFI_RT_SUPPORTED_GET_VARIABLE))
++		return 0;
++
++	if (efi_get_secureboot_mode(efi.get_variable) == efi_secureboot_mode_enabled)
++		lock_kernel_down("EFI Secure Boot mode", LOCKDOWN_INTEGRITY_MAX);
++
++	return 0;
++}
++
++late_initcall(lockdown_efi_secure_boot);
++#endif
++
+ static ssize_t lockdown_read(struct file *filp, char __user *buf, size_t count,
+ 			     loff_t *ppos)
+ {
