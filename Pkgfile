@@ -49,10 +49,10 @@ vars:
   systemd_sha512: f627e14e19b9ebc1686cad48d674fe7f69964b4d894e0253f9f47eeba3d6feabd1b19de54bdd8d4c2d21993865262830440a809f03d246ffa397320c94c7e46b
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
-  flannel_cni_version: v1.9.1-flannel1
-  flannel_cni_ref: 4c87e5d413198ceede07f8ef6f828357ebbd00c0
-  flannel_cni_sha256: 6401ccc2abe9c8e49a4f393d3c9c93f9d51287f7e7e7ac2658fc5ae0095d53d9
-  flannel_cni_sha512: 299ba3917588715a1bad3a36c23f96b2d29a23837711f7c9a6526f799078af16ba93a71d9c562c3cad305081f9ef21bddb764d7098e24dbd16e83856effdac39
+  flannel_cni_version: v1.9.1-flannel3
+  flannel_cni_ref: b380f201008e9bed159703846cf10d3c50b4f9ce
+  flannel_cni_sha256: 23ed19c545ab63eabf899e70abd8a4ae161cf6a2700926259c6b59381d9df171
+  flannel_cni_sha512: 70db3836fa2595373fda10cede31b022a40da9857ea99f155e6cbb9f516849951b5177cf97526bc608b53aa4ddbd585b58320a757d6c6d2c1a2257a8b43a86d2
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/google/gasket-driver.git
   gasket_driver_ref: 5815ee3908a46a415aac616ac7b9aedcb98a504c
