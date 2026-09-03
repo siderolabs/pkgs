@@ -72,7 +72,7 @@ vars:
   grub_sha512: 5008e3b70072798d2b34301219fe174cc6bcfead40a9ab25fe32f30c62a392ffb7bf2eb629d481f4a6c19c2925324af3f08d7043e62623e746be2d8b3cbd1182
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=hailo-ai/hailort-drivers
-  hailort_version: 4.24.0
+  hailort_version: 5.4.0
   hailort_sha256: 6ed54bdb80b97fa2ac7e0dee2102a9b609b2b9a4d12dbae4c190ad769c7bc636
   hailort_sha512: ce73660a8be5b5cb253f892b70411136e4efa6cb8e5a3a6f019489033034dd52c69cac06b06813287c02af7d7813e2fd7dccb72e93cf816104d0767efcd2aa48
   hailort_fw_sha256: 3ebeb209987bb0e484353be23774d3893908de84069016c4e37361c871d8433a
@@ -94,12 +94,12 @@ vars:
   iptables_sha512: 3aefd76ca60d00f46ba4d6f39cbcfdc60517d03b6714da25dcd67542f6f4eea8d82c4855bdd9124efe18b769f41951772b8340a6eda75b85f8dd52b2289b145b
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: e6d0a97c05d238c17eeae5116cb6e9c0fc9fdb56
+  ipxe_ref: 0a1d5fae46dd71ce0f7532e2b63f9538acefecab
   ipxe_sha256: 2602ec3d74d4686e8857413508df1e4ea2a9c66a287e43b176836e8d20d6fbc9
   ipxe_sha512: 5318923fc2aa64225ed268052048454b9d9a73a5cd0a254358fafbf539da9bea6b8f712e2b8651e5b6cf532c827617c9f46996da80813aad94c7ab8c7c65ca4a
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
-  kspp_ref: 1315e5b97c07fed42ea00f6f9602553c0609a615
+  kspp_ref: 8ac6a59e3fb67a88de7b1276e137b6c39bff70a3
   kspp_sha256: 0dc61ebf01f0dd1d0d2204432235fb2470bcf2ec020172c30a9d1c14f103f032
   kspp_sha512: 2b40c41ed0347a339053aef61c838b5131dd583fb0d1ac8f3361040361ba868724ad16dfdc13023ff2b0f51f32c0aba605316d5d76f9fc6c1d50d90b4ceedead
 
@@ -186,7 +186,7 @@ vars:
 
   # NOTE: let's keep this in sync with runc: https://github.com/opencontainers/runc/blob/release-1.5/script/release_build.sh#L22
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=seccomp/libseccomp
-  libseccomp_version: 2.6.0
+  libseccomp_version: 2.6.1
   libseccomp_sha256: 83b6085232d1588c379dc9b9cae47bb37407cf262e6e74993c61ba72d2a784dc
   libseccomp_sha512: 9039478656d9b670af2ff4cb67b6b1fa315821e59d2f82ba6247e988859ddc7e3d15fea159eccca161bf2890828bb62aa6ab4d6b7ff55f27a9d6bd9532eeee1b
 
@@ -250,17 +250,17 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/portworx/px-fuse.git
-  px_fuse_ref: 3b3f794c628a165cae9fd1bb6e83379b60b9cc4e
+  px_fuse_ref: 89758677301c91c9667559bb0a6b553f61ab17c1
   px_fuse_sha256: 02c81f9c8075828056cfaec4523920ecf5548349b587172bc95d9e044cdc14df
   px_fuse_sha512: 62b5414ef76d5aff91aa7a6ec986f562a152032560e2c12caf68513d758ba8dbd4ae3157814f60d4f40de2a35dc92fb03e288ad396034c23a68388af54791aa4
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
-  glib_version: 2.89.3
+  glib_version: 2.89.4
   glib_sha256: 09fd1e99f991067749ad66090e482ec4bd6514ad53abb4e9fbbdc2a4d2753532
   glib_sha512: af6ba2f0832916e92338b809b7f4b34e0b02d58d68f216c2dfe9cb0e7b8944d70116a81e1e58fc0f18abceff168d2367817fd4d2ee3e0674dcbb83edc430ed6e
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
-  qemu_version: 11.1.0
+  qemu_version: 11.1.1
   qemu_sha256: 6ee1d1a61f68212476b27108c26da5f449dc09b626d42f8279ba0dc2e08fa858
   qemu_sha512: 17009c49b1a4f35b150f98c7c3955cb44bf9c63593f124276b328da97568f600724b8f26759fbac88e96e814bda389491713e34b3aae53fa515277f5a868ea5a
 
@@ -281,12 +281,12 @@ vars:
   tc_redirect_tap_sha512: 017d01fef1d6cddc2b53d6516acf7c8b61c7864c6c3708e7adaf73c5413f43b1495679249379e7a46de639a24e66643daf659565d0135a61b36246df4edc7936
 
   # renovate: datasource=github-releases extractVersion=^ttkmd-(?<version>.*)$ depName=tenstorrent/tt-kmd
-  tenstorrent_version: 2.10.0
+  tenstorrent_version: 2.11.0
   tenstorrent_sha256: 26a0980688abc7bcc5b89c8c22777e3dead2c59b4244b780d968580eae727d55
   tenstorrent_sha512: eb36b04dc5416e262fbe5195249a26de1351d8921055d568abc97b6e84d556e959236db8cc3a05aa8c571334d8cd00077e02e2b200ce0c629e2858a4234831d8
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/Xilinx/dma_ip_drivers.git
-  xdma_driver_ref: 8721136e74a66500b02d16cb41922d966139cd46
+  xdma_driver_ref: b8466090b4e812e191da9e9305ffb11cb7ace768
   xdma_driver_sha256: b228eb88ef54a3ca11cde87951de395ad5e3172b2a72e060d2aad29547f87360
   xdma_driver_sha512: 5f2c94f5770dda5536fb5f22bea75d56cfb10c51a28e493f40a243ccc039287aa9f1545bf4c11713c4ff2c9c663ee6ee8adeb146a4e2545e710f6b2a39d2a1e5
 
@@ -302,7 +302,7 @@ vars:
 
   # NOTE: v4 requires autoconf-archive
   # renovate: datasource=git-tags depName=https://gitlab.com/apparmor/apparmor.git
-  apparmor_version: v3.1.7
+  apparmor_version: v5.0.2
   apparmor_sha256: 64494bd99fa6547a9cbdb4fc6bc732451a02dd19e6eb70eab977b239632151eb
   apparmor_sha512: cfd6b0afb98d4559c16a6a2e23ca16ee9d86325fc6059313df5d3e8feba3d398f96a5754d3880dd2cafb2e7b1a06bd789d62cd36aaf993e46290f6311bb49dac
 
