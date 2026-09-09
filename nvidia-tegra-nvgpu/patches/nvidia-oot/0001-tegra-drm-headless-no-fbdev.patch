@@ -1,0 +1,29 @@
+tegra-drm: build headless, without fbdev emulation
+
+The kernel config has CONFIG_DRM_FBDEV_EMULATION=y, which the module
+inherits through autoconf.h and cannot undefine via ccflags. fbdev.c
+relies on drm_fb_helper internals that changed heavily between 6.0 and
+6.18 and is not needed for a render node, so always take the stub path.
+
+diff --git a/drivers/gpu/drm/tegra/drm.h b/drivers/gpu/drm/tegra/drm.h
+index 147ce75..1224e96 100644
+--- a/drivers/gpu/drm/tegra/drm.h
++++ b/drivers/gpu/drm/tegra/drm.h
+@@ -228,7 +228,7 @@ struct drm_framebuffer *tegra_fb_create(struct drm_device *drm,
+ 					const struct drm_mode_fb_cmd2 *cmd);
+ 
+ #if defined(NV_DRM_DRIVER_HAS_FBDEV_PROBE) /* Linux v6.13 */
+-#ifdef CONFIG_DRM_FBDEV_EMULATION
++#if 0 /* fbdev not needed for headless CUDA */
+ int tegra_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
+ 				   struct drm_fb_helper_surface_size *sizes);
+ #define TEGRA_FBDEV_DRIVER_OPS \
+@@ -238,7 +238,7 @@ int tegra_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
+ 	.fbdev_probe = NULL
+ #endif
+ #else
+-#ifdef CONFIG_DRM_FBDEV_EMULATION
++#if 0 /* fbdev not needed for headless CUDA */
+ void tegra_fbdev_setup(struct drm_device *drm);
+ #else
+ static inline void tegra_fbdev_setup(struct drm_device *drm)
