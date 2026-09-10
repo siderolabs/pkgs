@@ -26,9 +26,9 @@ vars:
   btrfsprogs_sha512: ece500bf512a7970bd6a611c4f74aa3f7285eb55b86987fb8a21bc82cb7d0b1e6b683d02efc34ec8c4ff7f6d620b5ec12ef277af0d6d831586f9f70087355ca9
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
-  cryptsetup_version: 2.8.7
-  cryptsetup_sha256: a06d2418182e6c86695e75b9df48bc74a56ff24ec7dcbe8ab93c753e2d47b20d
-  cryptsetup_sha512: dad83bca2b53c38b0ddd8e5a1b1def7fa28ab2d00313ae69c8c229dcb73fcbb810592a05d9121c794b903a4bb140064ed33d73b5c2ff61ce4db2346174a195d5
+  cryptsetup_version: 2.8.8
+  cryptsetup_sha256: 4cdc4f46a6d41b856a36392a38fa302bab2a1b530e32d9fc010eb3a704f3e984
+  cryptsetup_sha512: 66a1ff97858ff394e95fd85aabfc413e288aaa418e4ddb2c3027fbbf0ea1682a2c4039b7b873e2029661994b16122f6cfe14b95c9313a8d5dca9065d69ab9843
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=dosfstools/dosfstools
   dosfstools_version: 4.2
@@ -46,9 +46,9 @@ vars:
   e2fsprogs_sha512: 923c1ba52cf48557e190ee936be47ff3e43e4798950499e3c663f0f077470caefbb69ee845ebe1f969b3e7c1bb0c22e507188f1daca24649c54c5843c835b2f9
 
   # renovate: datasource=github-releases extractVersion=^ena_linux_(?<version>.*)$ depName=amzn/amzn-drivers
-  ena_version: 2.17.2
-  ena_sha256: bda1caa39324f2b0af94694a3d48b90c81ddefbe0bdcdf2e87491e0b4225bdc9
-  ena_sha512: e6e14de0308a592b6bac472e5d790abb1b0d857326d734a0dc586a3a983bb239eb1488928cacb6fa7b45233b333b61cb18389d560aaac8960ddebab07cd122a6
+  ena_version: 2.17.3
+  ena_sha256: 6df53099b206a2071da6abc4a4e941793f905081de5f0de9e8a79876f2a2bb18
+  ena_sha512: c1b7ab655581dc139614fd4b0e7a9d72ede192b4cd1ad5d9711c3726491bf5a7302434757bfc3bc79100ce73ad184b7a68e51e3d516171635a99570be68afa5b
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
   systemd_version: 261.2
@@ -94,14 +94,14 @@ vars:
   iptables_sha512: 3aefd76ca60d00f46ba4d6f39cbcfdc60517d03b6714da25dcd67542f6f4eea8d82c4855bdd9124efe18b769f41951772b8340a6eda75b85f8dd52b2289b145b
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: e6d0a97c05d238c17eeae5116cb6e9c0fc9fdb56
-  ipxe_sha256: 2602ec3d74d4686e8857413508df1e4ea2a9c66a287e43b176836e8d20d6fbc9
-  ipxe_sha512: 5318923fc2aa64225ed268052048454b9d9a73a5cd0a254358fafbf539da9bea6b8f712e2b8651e5b6cf532c827617c9f46996da80813aad94c7ab8c7c65ca4a
+  ipxe_ref: ff6e52063e0b37062394fe37b9788af25175e7af
+  ipxe_sha256: 2e1f568d69c7e5152e16ca77d56ce42916a6295bd1c31d32154115f5cfc9a309
+  ipxe_sha512: 8e6f29ed4b7be6440028f20872c751092d6a1dfa42f2df76368ed801b37760efab1a91cc085c17022e590fed57faedf41facfadb3e3334672f41d0755df3a6e1
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
-  kspp_ref: 1315e5b97c07fed42ea00f6f9602553c0609a615
-  kspp_sha256: 0dc61ebf01f0dd1d0d2204432235fb2470bcf2ec020172c30a9d1c14f103f032
-  kspp_sha512: 2b40c41ed0347a339053aef61c838b5131dd583fb0d1ac8f3361040361ba868724ad16dfdc13023ff2b0f51f32c0aba605316d5d76f9fc6c1d50d90b4ceedead
+  kspp_ref: 27f7bdad8a324b6c7f5b3f2b29945cd941b0b683
+  kspp_sha256: 006f777e48aa634d239f0be5532bba6e5199c14734c373c4a9e3ca01b4c9e564
+  kspp_sha512: 4ac80aeb156c7e395c0197f74a5e9a302d68e7169ca7740f7a1b4627219dfff306f3ad492dbdd33120ca66d9e26b355db40c1756da33ab1d34564d1d4659f723
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
   linux_version: 6.18.50
@@ -169,9 +169,9 @@ vars:
   nftables_sha512: 8d0a833d0ae2b6ac82e0da8bb74ffb69679e49a938b86a75d4ee3d81343400a95fe064cf95d60d22df30370779e524b31497a9c89a516d9bff645f3f83bb6bb1
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=tukaani-project/xz
-  xz_version: 5.8.3
-  xz_sha256: fff1ffcf2b0da84d308a14de513a1aa23d4e9aa3464d17e64b9714bfdd0bbfb6
-  xz_sha512: c288f436b211031ca122e9169d85403d4ab8b0500a6542b2d9ba101587e04a4358ab5509f5d15cc7899f1ab3e0118567866ca0508f880007b4af802dedd7068d
+  xz_version: 5.8.4
+  xz_sha256: 4ce24038fd4221e0d13bc1a2de7a4db56e90b92b3bf75321f6c14be73f65de4b
+  xz_sha512: 6ade85c1bcff651cdb9543d0b9e7d932c50c9a45e362ada3ef5edf173cd6fb18786f24bc73058db37440f3d92d2178a4e24448f725f4f22146c9a63ed15be432
 
   # NOTE: keep in sync with the libpathrs version required by runc: https://github.com/opencontainers/runc/blob/release-1.5/script/build-libpathrs.sh
   # renovate: datasource=github-releases depName=cyphar/libpathrs
@@ -250,9 +250,9 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/portworx/px-fuse.git
-  px_fuse_ref: 3b3f794c628a165cae9fd1bb6e83379b60b9cc4e
-  px_fuse_sha256: 02c81f9c8075828056cfaec4523920ecf5548349b587172bc95d9e044cdc14df
-  px_fuse_sha512: 62b5414ef76d5aff91aa7a6ec986f562a152032560e2c12caf68513d758ba8dbd4ae3157814f60d4f40de2a35dc92fb03e288ad396034c23a68388af54791aa4
+  px_fuse_ref: 89758677301c91c9667559bb0a6b553f61ab17c1
+  px_fuse_sha256: 1a24955834383d98002924962e763ffee57c979e3ce9e020aac3663743f4eb32
+  px_fuse_sha512: 5161f530319323d05034b34f1b14eabb8291be6f37b21ef43c59753b00b89537dc3db914afbed6961e433084359fcc13855a38b9e37b720bd234f4b0ddd684ce
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
   glib_version: 2.89.3
@@ -260,9 +260,9 @@ vars:
   glib_sha512: af6ba2f0832916e92338b809b7f4b34e0b02d58d68f216c2dfe9cb0e7b8944d70116a81e1e58fc0f18abceff168d2367817fd4d2ee3e0674dcbb83edc430ed6e
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
-  qemu_version: 11.1.0
-  qemu_sha256: 6ee1d1a61f68212476b27108c26da5f449dc09b626d42f8279ba0dc2e08fa858
-  qemu_sha512: 17009c49b1a4f35b150f98c7c3955cb44bf9c63593f124276b328da97568f600724b8f26759fbac88e96e814bda389491713e34b3aae53fa515277f5a868ea5a
+  qemu_version: 11.1.1
+  qemu_sha256: 079ffbff8a7111bbc89022107cbabf3bbfd614d5fc9d7cc675991196aca12482
+  qemu_sha512: f30b36800b44ac0370e63341a8c5591019648a78d5929e18b0177873c0b6e4a0cbbddc069337cb06a3b5d20d15779c9b9786d0a92073c421fb07ae14a67d4646
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.5.1
@@ -281,14 +281,14 @@ vars:
   tc_redirect_tap_sha512: 017d01fef1d6cddc2b53d6516acf7c8b61c7864c6c3708e7adaf73c5413f43b1495679249379e7a46de639a24e66643daf659565d0135a61b36246df4edc7936
 
   # renovate: datasource=github-releases extractVersion=^ttkmd-(?<version>.*)$ depName=tenstorrent/tt-kmd
-  tenstorrent_version: 2.10.0
-  tenstorrent_sha256: 26a0980688abc7bcc5b89c8c22777e3dead2c59b4244b780d968580eae727d55
-  tenstorrent_sha512: eb36b04dc5416e262fbe5195249a26de1351d8921055d568abc97b6e84d556e959236db8cc3a05aa8c571334d8cd00077e02e2b200ce0c629e2858a4234831d8
+  tenstorrent_version: 2.11.0
+  tenstorrent_sha256: 379f16f2011afbdc759a07f5a9396b917282a50d4af7e2b96ecdff7ed1b2b945
+  tenstorrent_sha512: f882a3b2c29dba74a097e860c34cfaeaea07bd25d60f3fb2dbea8d99047bb1b5beabe2c7c90f8d34119b350a20cc3ae7f5f068237db2f02bbd77fa6f7903f915
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/Xilinx/dma_ip_drivers.git
-  xdma_driver_ref: 8721136e74a66500b02d16cb41922d966139cd46
-  xdma_driver_sha256: b228eb88ef54a3ca11cde87951de395ad5e3172b2a72e060d2aad29547f87360
-  xdma_driver_sha512: 5f2c94f5770dda5536fb5f22bea75d56cfb10c51a28e493f40a243ccc039287aa9f1545bf4c11713c4ff2c9c663ee6ee8adeb146a4e2545e710f6b2a39d2a1e5
+  xdma_driver_ref: b8466090b4e812e191da9e9305ffb11cb7ace768
+  xdma_driver_sha256: a9a3dc3f1caac53896f2a93714791a4dee55d27cd05ec4dfa7e43f149a3a26e2
+  xdma_driver_sha512: f79396d7c82ca8d9f55187eae7ef63402b6a2aca9587bea84dacae00beb725366d5dedb717879b6ed7fe306fc7b653bc08bb28f98cd2e214aa347a0db928bae5
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
   xfsprogs_version: 7.1.1
