@@ -72,7 +72,7 @@ vars:
   grub_sha512: 5008e3b70072798d2b34301219fe174cc6bcfead40a9ab25fe32f30c62a392ffb7bf2eb629d481f4a6c19c2925324af3f08d7043e62623e746be2d8b3cbd1182
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=hailo-ai/hailort-drivers
-  hailort_version: 4.24.0
+  hailort_version: 5.4.0
   hailort_sha256: 6ed54bdb80b97fa2ac7e0dee2102a9b609b2b9a4d12dbae4c190ad769c7bc636
   hailort_sha512: ce73660a8be5b5cb253f892b70411136e4efa6cb8e5a3a6f019489033034dd52c69cac06b06813287c02af7d7813e2fd7dccb72e93cf816104d0767efcd2aa48
   hailort_fw_sha256: 3ebeb209987bb0e484353be23774d3893908de84069016c4e37361c871d8433a
@@ -186,7 +186,7 @@ vars:
 
   # NOTE: let's keep this in sync with runc: https://github.com/opencontainers/runc/blob/release-1.5/script/release_build.sh#L22
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=seccomp/libseccomp
-  libseccomp_version: 2.6.0
+  libseccomp_version: 2.6.1
   libseccomp_sha256: 83b6085232d1588c379dc9b9cae47bb37407cf262e6e74993c61ba72d2a784dc
   libseccomp_sha512: 9039478656d9b670af2ff4cb67b6b1fa315821e59d2f82ba6247e988859ddc7e3d15fea159eccca161bf2890828bb62aa6ab4d6b7ff55f27a9d6bd9532eeee1b
 
@@ -201,7 +201,7 @@ vars:
   liburcu_sha512: 53c28821dabfc1e8803c4299f6a9e589c9949d0062dd8aaa4aabb6d77641dfbd2b2c035c50680991d9f228499c12b9b23469044726a6ffce5e84f21f17cabff3
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20260810
+  linux_firmware_version: 20260910
   linux_firmware_sha256: b78dd0475df5aabafe1e515dc988b17de8c5f5afce16573453275f5f855a2cb2
   linux_firmware_sha512: e287507d8b89d2f936e9313128ca35e86c101ff907e6b2255403d00e1f4bc0c48b45493a608fd61f160baea17d808c09d3c3d4cdacccf3a02826b8834c81989f
 
@@ -255,7 +255,7 @@ vars:
   px_fuse_sha512: 5161f530319323d05034b34f1b14eabb8291be6f37b21ef43c59753b00b89537dc3db914afbed6961e433084359fcc13855a38b9e37b720bd234f4b0ddd684ce
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
-  glib_version: 2.89.3
+  glib_version: 2.90.0
   glib_sha256: 09fd1e99f991067749ad66090e482ec4bd6514ad53abb4e9fbbdc2a4d2753532
   glib_sha512: af6ba2f0832916e92338b809b7f4b34e0b02d58d68f216c2dfe9cb0e7b8944d70116a81e1e58fc0f18abceff168d2367817fd4d2ee3e0674dcbb83edc430ed6e
 
@@ -302,7 +302,7 @@ vars:
 
   # NOTE: v4 requires autoconf-archive
   # renovate: datasource=git-tags depName=https://gitlab.com/apparmor/apparmor.git
-  apparmor_version: v3.1.7
+  apparmor_version: v5.0.2
   apparmor_sha256: 64494bd99fa6547a9cbdb4fc6bc732451a02dd19e6eb70eab977b239632151eb
   apparmor_sha512: cfd6b0afb98d4559c16a6a2e23ca16ee9d86325fc6059313df5d3e8feba3d398f96a5754d3880dd2cafb2e7b1a06bd789d62cd36aaf993e46290f6311bb49dac
 
