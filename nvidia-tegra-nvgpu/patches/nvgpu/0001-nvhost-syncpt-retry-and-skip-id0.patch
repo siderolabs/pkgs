@@ -1,0 +1,77 @@
+nvgpu: make host1x syncpoint allocation robust on GA10B
+
+Two fixes for CUDA error 999 on the first cudaStreamSynchronize():
+1. Retry host1x_syncpt_alloc() for up to 5 ms; it returns NULL during
+   the short async GR init window after the first kernel submit.
+2. Never hand out syncpt id 0. Without a "gpu" syncpt pool in the DT,
+   host1x allocates id 0 first, which GA10B rejects
+   (NVGPU_ERRATA_SYNCPT_INVALID_ID_0).
+
+diff --git a/drivers/gpu/nvgpu/os/linux/nvhost_host1x.c b/drivers/gpu/nvgpu/os/linux/nvhost_host1x.c
+index 945fff7..bf88a52 100644
+--- a/drivers/gpu/nvgpu/os/linux/nvhost_host1x.c
++++ b/drivers/gpu/nvgpu/os/linux/nvhost_host1x.c
+@@ -1,3 +1,4 @@
++#include <linux/delay.h>
+ /*
+  * Copyright (c) 2020-2022, NVIDIA CORPORATION.  All rights reserved.
+  *
+@@ -237,17 +238,50 @@ void nvgpu_nvhost_syncpt_put_ref_ext(struct nvgpu_nvhost_dev *nvhost_dev,
+ u32 nvgpu_nvhost_get_syncpt_client_managed(struct nvgpu_nvhost_dev *nvhost_dev,
+ 					   const char *syncpt_name)
+ {
+-	struct host1x_syncpt *sp;
++	struct host1x_syncpt *sp = NULL;
+ 	struct host1x *host1x;
++	int retry;
+ 
+-	host1x = platform_get_drvdata(nvhost_dev->host1x_pdev);
+-	if (!host1x)
+-		return 0;
+-
+-	sp = host1x_syncpt_alloc(host1x, HOST1X_SYNCPT_CLIENT_MANAGED | HOST1X_SYNCPT_GPU,
+-				 syncpt_name);
+-	if (!sp)
++	/*
++	 * During the ~1-2 ms async GR init window after the first kernel submit,
++	 * host1x_syncpt_alloc() can return NULL. Returning 0 here makes channel
++	 * sync creation fail (GA10B rejects syncpt id 0) and CUDA reports error 999
++	 * on the first cudaStreamSynchronize(). Retry briefly to cover the window.
++	 */
++	for (retry = 0; retry < 5; retry++) {
++		host1x = platform_get_drvdata(nvhost_dev->host1x_pdev);
++		if (!host1x) {
++			pr_warn_ratelimited("nvgpu: host1x not ready, syncpt retry %d/5\n", retry + 1);
++			msleep(1);
++			continue;
++		}
++		sp = host1x_syncpt_alloc(host1x,
++				HOST1X_SYNCPT_CLIENT_MANAGED | HOST1X_SYNCPT_GPU,
++				syncpt_name);
++		if (sp)
++			break;
++		pr_warn_ratelimited("nvgpu: syncpt_alloc NULL, retry %d/5\n", retry + 1);
++		msleep(1);
++	}
++	if (!sp) {
++		pr_err_ratelimited("nvgpu: get_syncpt_client_managed: failed after retries\n");
+ 		return 0;
++	}
++	/*
++	 * GA10B (NVGPU_ERRATA_SYNCPT_INVALID_ID_0) rejects syncpt id 0. Without a
++	 * "gpu" syncpt pool in the DT, host1x hands out id 0 first. Hold it and
++	 * allocate again so the GPU gets id >= 1; the Tegra234 syncpt shim covers
++	 * all 1024 ids, so any non-zero id is GPU-signable.
++	 */
++	if (host1x_syncpt_id(sp) == 0U) {
++		struct host1x_syncpt *sp_skip = sp;
++		sp = host1x_syncpt_alloc(host1x,
++				HOST1X_SYNCPT_CLIENT_MANAGED | HOST1X_SYNCPT_GPU,
++				syncpt_name);
++		host1x_syncpt_put(sp_skip);
++		if (!sp)
++			return 0;
++	}
+ 
+ 	return host1x_syncpt_id(sp);
+ }
