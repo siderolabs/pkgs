@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.18.50 Kernel Configuration
+# Linux/arm64 6.18.51 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 22.1.8"
 CONFIG_GCC_VERSION=0
@@ -8333,7 +8333,6 @@ CONFIG_IMX9_BLK_CTRL=y
 #
 CONFIG_MTK_SCPSYS=y
 CONFIG_MTK_SCPSYS_PM_DOMAINS=y
-# CONFIG_AIROHA_CPU_PM_DOMAIN is not set
 # end of MediaTek PM Domains
 
 #
