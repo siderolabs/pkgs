@@ -7,6 +7,14 @@ dependencies:
 steps:
   - env:
       ARCH: {{ if eq .ARCH "aarch64" }}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+    prepare:
+      - |
+        cd /src
+
+        for patch in $(find /pkg/patches -type f -name "*.patch" | sort); do
+          patch -p1 < $patch || (echo "Failed to apply patch $patch" && exit 1)
+          echo "Applied patch $patch"
+        done
     build:
       - |
         cd /src
