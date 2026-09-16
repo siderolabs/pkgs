@@ -48,6 +48,7 @@ IGNORE_VIOLATIONS_BY_ARCH = {
         'CONFIG_LSM_MMAP_MIN_ADDR', # on arm64, this can be set only to 32768: https://cateee.net/lkddb/web-lkddb/LSM_MMAP_MIN_ADDR.html
         'CONFIG_RODATA_FULL_DEFAULT_ENABLED', # removed in 6.18
         'CONFIG_KASAN_HW_TAGS', # incompatible with OpenZFS and NVIDIA due to 'GPL-incompatible module nvidia.ko uses GPL-only symbol 'kasan_flag_enabled''
+        'CONFIG_ARM64_BTI_KERNEL', # disabled upstream in 6.18.52 for clang >= 21, https://github.com/llvm/llvm-project/issues/215547
     },
     'amd64': {
         'CONFIG_CFI_AUTO_DEFAULT', # Disabled due to issues with GPL-incompatible modules
@@ -79,11 +80,11 @@ def main():
     if not violations:
         sys.exit(0)
 
-    print('{:^45}|{:^13}|{:^10}|{:^20}'.format('option name', 'desired val', 'decision', 'reason'))
+    print('{:^45}|{:^13}|{:^10}|{:^20}'.format('option name', 'expected', 'decision', 'reason'))
     print('=' * 91)
 
     for item in violations:
-        print('{:<45}|{:^13}|{:^10}|{:^20}'.format(item["option_name"], item["desired_val"], item["decision"],item["reason"]))
+        print('{:<45}|{:^13}|{:^10}|{:^20}'.format(item["option_name"], item["expected"], item["decision"],item["reason"]))
 
     sys.exit(1)
 

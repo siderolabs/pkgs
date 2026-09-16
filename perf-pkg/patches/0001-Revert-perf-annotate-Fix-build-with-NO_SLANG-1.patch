@@ -1,0 +1,59 @@
+From: Andrey Smirnov <andrey.smirnov@siderolabs.com>
+Subject: [PATCH] Revert "perf annotate: Fix build with NO_SLANG=1"
+
+This reverts commit e97bd4417010c648acf9b1e509cfb77fc506e09e, which landed
+in v6.18.52 as a backport of upstream 0e6c07a3c30c.
+
+That commit adds a `u64 al_addr` parameter to the NO_SLANG stubs of
+`hist_entry__tui_annotate()` / `__hist_entry__tui_annotate()`, because
+upstream commit cd3466cd2639 ("perf c2c: Add annotation support to perf c2c
+report") had already added the same parameter to the real implementations
+and to every call site.
+
+cd3466cd2639 was *not* backported to 6.18.y, so in v6.18.52 the stubs take
+one argument more than the real declarations a few lines above them and one
+more than the only call site:
+
+  builtin-annotate.c:523:31: error: too few arguments to function
+      'hist_entry__tui_annotate'; expected 4, have 3
+
+perf-pkg builds without slang (no slang-devel in the toolchain), so it takes
+the stub path and fails to build. The slang path is unaffected, which is why
+this went unnoticed upstream.
+
+`NO_ADDR` is introduced by the same commit and is unused anywhere else in
+v6.18.52, so it is removed together with the stub signature change.
+
+Temporary: drop this once 6.18.y either backports cd3466cd2639 or reverts
+e97bd4417010, whichever comes first.
+
+--- a/tools/perf/util/hist.h
++++ b/tools/perf/util/hist.h
+@@ -708,8 +708,6 @@
+ 	bool			valid;
+ 	struct hist_entry	he;
+ };
+-
+-#define NO_ADDR 0
+ 
+ #ifdef HAVE_SLANG_SUPPORT
+ #include "../ui/keysyms.h"
+@@ -748,16 +746,14 @@
+ static inline int __hist_entry__tui_annotate(struct hist_entry *he __maybe_unused,
+ 					     struct map_symbol *ms __maybe_unused,
+ 					     struct evsel *evsel __maybe_unused,
+-					     struct hist_browser_timer *hbt __maybe_unused,
+-					     u64 al_addr __maybe_unused)
++					     struct hist_browser_timer *hbt __maybe_unused)
+ {
+ 	return 0;
+ }
+ 
+ static inline int hist_entry__tui_annotate(struct hist_entry *he __maybe_unused,
+ 					   struct evsel *evsel __maybe_unused,
+-					   struct hist_browser_timer *hbt __maybe_unused,
+-					   u64 al_addr __maybe_unused)
++					   struct hist_browser_timer *hbt __maybe_unused)
+ {
+ 	return 0;
+ }
