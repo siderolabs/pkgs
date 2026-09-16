@@ -1,0 +1,7 @@
+Patches applied to the (otherwise unpatched) kernel sources from `kernel-prepare` before building `tools/perf`.
+
+These are strictly temporary build fixes for the `perf` userspace tool — kernel patches belong in `kernel/build/patches` instead, which `perf-pkg` does not see (it depends on `kernel-prepare`, while those are applied in `kernel-build`).
+
+| Patch file | Description | Upstream status | Link |
+|------------|-------------|-----------------|------|
+| `0001-Revert-perf-annotate-Fix-build-with-NO_SLANG-1.patch` | Reverts the 6.18.52 backport of "perf annotate: Fix build with NO_SLANG=1", which adds a `u64 al_addr` argument to the `NO_SLANG` stubs of `hist_entry__tui_annotate()` without the prerequisite `cd3466cd2639` ("perf c2c: Add annotation support to perf c2c report") that adds the same argument to the real implementations and call sites. 6.18.y took only the fix, so the stubs no longer match `builtin-annotate.c` and the slang-less `perf` build fails. Drop once 6.18.y backports `cd3466cd2639` or reverts the fix | Backport bug in 6.18.52; not reported upstream | [`e97bd4417010`](https://git.kernel.org/stable/c/e97bd4417010c648acf9b1e509cfb77fc506e09e) (6.18.52), [`0e6c07a3c30c`](https://git.kernel.org/torvalds/c/0e6c07a3c30cdc4509fc5e7dc490d4cc6e5c241a) (mainline), [`cd3466cd2639`](https://git.kernel.org/torvalds/c/cd3466cd2639783da563253f1f9e3fb2ba936317) (missing prerequisite) |
