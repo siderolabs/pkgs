@@ -36,9 +36,9 @@ vars:
   dosfstools_sha512: 3cc0808edb4432428df8a67da4bb314fd1f27adc4a05754c1a492091741a7b6875ebd9f6a509cc4c5ad85643fc40395b6e0cadee548b25cc439cc9b725980156
 
   # renovate: datasource=github-tags extractVersion=^drbd-(?<version>.*)$ depName=LINBIT/drbd
-  drbd_version: 9.3.3
-  drbd_sha256: a7bfb016070c31df1c738569ca8cc5e5fc337dd449147f7bf62e746d87d38f21
-  drbd_sha512: 43ec4762b778ded9b45856fe6073c0a85f71a5994074868e53bbd31d231b16b06c0f038a63a8387e6db01bd16463e083c44f86dd48796bf81ef9d83009d6681f
+  drbd_version: 9.3.4
+  drbd_sha256: a2de4b7ffc43fdabad01b0bf7283b910eb6401b0f788e33a65ae94fc0588545c
+  drbd_sha512: 17c06d5d9d8d8563e34cd8796334754fbfc52821a06eba0779b3ce9cc06c458623f639079316c65fe09bc2a953ce8ae5e10be0c7e4dfcc4797427e085bdfdf1c
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git
   e2fsprogs_version: v1.47.4
@@ -201,9 +201,9 @@ vars:
   liburcu_sha512: 53c28821dabfc1e8803c4299f6a9e589c9949d0062dd8aaa4aabb6d77641dfbd2b2c035c50680991d9f228499c12b9b23469044726a6ffce5e84f21f17cabff3
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20260810
-  linux_firmware_sha256: b78dd0475df5aabafe1e515dc988b17de8c5f5afce16573453275f5f855a2cb2
-  linux_firmware_sha512: e287507d8b89d2f936e9313128ca35e86c101ff907e6b2255403d00e1f4bc0c48b45493a608fd61f160baea17d808c09d3c3d4cdacccf3a02826b8834c81989f
+  linux_firmware_version: 20260916
+  linux_firmware_sha256: 5f129e0d520b9e4e7e019130ba1cd18ab0ff59e9664ea1230532ce174e940ca1
+  linux_firmware_sha512: e459f57702301cb9b97bbb7e7d2cdd20687618d0a9cfed12ffebe2055edac8bb097f0a58cc20438647ff99fce64e1f54e22fa4b7e1597f58e42fb055107a9032
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
   lvm2_version: 2_03_42
