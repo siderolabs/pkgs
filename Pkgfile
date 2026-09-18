@@ -15,8 +15,8 @@ vars:
   cni_sha512: 5811fb14786f1f9d9e40741ce337449ce329e14e04213bc660102eb470150f24026e59caec480572e37d0e3e6e6518737f3cc7ac462c47034d0737283ec532f9
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v2.3.5
-  containerd_ref: 1294c24a7da8e5a793ed378161673abe94118892
+  containerd_version: v2.4.0
+  containerd_ref: a7fe631d96c08fb14cf8eff0afdc280e99c30a94
   containerd_sha256: a99a4dca98061064ff4cb35d27d1ec2345717e9108c822329fcec91dc72bff96
   containerd_sha512: 87255f36b2b2fb5fc2cb7abaadae33c2ea85b5f7a1259c8c52cc3cf3efffa64525886a220eadf804b7c6414babe7310d39fddc6a24e79b707770fb621323f5c8
 
@@ -36,7 +36,7 @@ vars:
   dosfstools_sha512: 3cc0808edb4432428df8a67da4bb314fd1f27adc4a05754c1a492091741a7b6875ebd9f6a509cc4c5ad85643fc40395b6e0cadee548b25cc439cc9b725980156
 
   # renovate: datasource=github-tags extractVersion=^drbd-(?<version>.*)$ depName=LINBIT/drbd
-  drbd_version: 9.3.3
+  drbd_version: 9.3.4
   drbd_sha256: a7bfb016070c31df1c738569ca8cc5e5fc337dd449147f7bf62e746d87d38f21
   drbd_sha512: 43ec4762b778ded9b45856fe6073c0a85f71a5994074868e53bbd31d231b16b06c0f038a63a8387e6db01bd16463e083c44f86dd48796bf81ef9d83009d6681f
 
@@ -51,7 +51,7 @@ vars:
   ena_sha512: c1b7ab655581dc139614fd4b0e7a9d72ede192b4cd1ad5d9711c3726491bf5a7302434757bfc3bc79100ce73ad184b7a68e51e3d516171635a99570be68afa5b
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
-  systemd_version: 261.2
+  systemd_version: 261.3
   systemd_sha256: ed1059ff964f5df35b6056434cc17cc83f86dc913f10489948a0b19b6081c5ec
   systemd_sha512: 876f043970cb65b39ae15fba39f23bf94c7c3d80569503d6e8ea2c8013c30ee40ce43cb55cbcb1cf14d5c3021aafc09c0f67473bbf742d8964bf9fa30693b971
 
@@ -72,7 +72,7 @@ vars:
   grub_sha512: 5008e3b70072798d2b34301219fe174cc6bcfead40a9ab25fe32f30c62a392ffb7bf2eb629d481f4a6c19c2925324af3f08d7043e62623e746be2d8b3cbd1182
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=hailo-ai/hailort-drivers
-  hailort_version: 4.24.0
+  hailort_version: 5.4.0
   hailort_sha256: 6ed54bdb80b97fa2ac7e0dee2102a9b609b2b9a4d12dbae4c190ad769c7bc636
   hailort_sha512: ce73660a8be5b5cb253f892b70411136e4efa6cb8e5a3a6f019489033034dd52c69cac06b06813287c02af7d7813e2fd7dccb72e93cf816104d0767efcd2aa48
   hailort_fw_sha256: 3ebeb209987bb0e484353be23774d3893908de84069016c4e37361c871d8433a
@@ -94,12 +94,12 @@ vars:
   iptables_sha512: 3aefd76ca60d00f46ba4d6f39cbcfdc60517d03b6714da25dcd67542f6f4eea8d82c4855bdd9124efe18b769f41951772b8340a6eda75b85f8dd52b2289b145b
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: ff6e52063e0b37062394fe37b9788af25175e7af
+  ipxe_ref: f095adbed2c5d2e4e0a178b2f604344f30dd2513
   ipxe_sha256: 2e1f568d69c7e5152e16ca77d56ce42916a6295bd1c31d32154115f5cfc9a309
   ipxe_sha512: 8e6f29ed4b7be6440028f20872c751092d6a1dfa42f2df76368ed801b37760efab1a91cc085c17022e590fed57faedf41facfadb3e3334672f41d0755df3a6e1
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
-  kspp_ref: 27f7bdad8a324b6c7f5b3f2b29945cd941b0b683
+  kspp_ref: eddca02d7629e5775e5e35dfd23ba42340b1c75a
   kspp_sha256: 006f777e48aa634d239f0be5532bba6e5199c14734c373c4a9e3ca01b4c9e564
   kspp_sha512: 4ac80aeb156c7e395c0197f74a5e9a302d68e7169ca7740f7a1b4627219dfff306f3ad492dbdd33120ca66d9e26b355db40c1756da33ab1d34564d1d4659f723
 
@@ -159,12 +159,12 @@ vars:
   libmnl_sha512: 16fa48e74c9da7724a85c655dfb0abd8369392627934639d65de951543e1447ac3e048d231248f1ce8861443c2ef62654a85a81feeedbbffaf2e5744f6cf4c9f
 
   # renovate: datasource=git-tags extractVersion=^libnftnl-(?<version>.*)$ depName=git://git.netfilter.org/libnftnl.git
-  libnftnl_version: 1.3.1
+  libnftnl_version: 1.3.2
   libnftnl_sha256: 607da28dba66fbdeccf8ef1395dded9077e8d19f2995f9a4d45a9c2f0bcffba8
   libnftnl_sha512: a4e689b003cc2ae2ecf203335265f337d6de7a50af5410d649a567535c109d08ee9dbae9e8572b1af8c67f09ea27877ca059e04ed3b1c12183ef7b4185bdd10f
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.netfilter.org/nftables.git
-  nftables_version: 1.1.6
+  nftables_version: 1.1.7
   nftables_sha256: 372931bda8556b310636a2f9020adc710f9bab66f47efe0ce90bff800ac2530c
   nftables_sha512: 8d0a833d0ae2b6ac82e0da8bb74ffb69679e49a938b86a75d4ee3d81343400a95fe064cf95d60d22df30370779e524b31497a9c89a516d9bff645f3f83bb6bb1
 
@@ -186,7 +186,7 @@ vars:
 
   # NOTE: let's keep this in sync with runc: https://github.com/opencontainers/runc/blob/release-1.5/script/release_build.sh#L22
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=seccomp/libseccomp
-  libseccomp_version: 2.6.0
+  libseccomp_version: 2.6.1
   libseccomp_sha256: 83b6085232d1588c379dc9b9cae47bb37407cf262e6e74993c61ba72d2a784dc
   libseccomp_sha512: 9039478656d9b670af2ff4cb67b6b1fa315821e59d2f82ba6247e988859ddc7e3d15fea159eccca161bf2890828bb62aa6ab4d6b7ff55f27a9d6bd9532eeee1b
 
@@ -196,12 +196,12 @@ vars:
   libucontext_sha512: 4c6fac619ba9b41a49ee6f3286fce77b1f1d0e7a03899c9bfa778d2fcdded72d3a8f54f2dc819be942f59dcc2457fd59441794c5898fce72e976c27aa2c07145
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=urcu/userspace-rcu
-  liburcu_version: 0.15.6
+  liburcu_version: 0.15.7
   liburcu_sha256: 850b192096eb11ebf2c70e8f97bc7da7479ee41da1bebeb44e3986908bac414f
   liburcu_sha512: 53c28821dabfc1e8803c4299f6a9e589c9949d0062dd8aaa4aabb6d77641dfbd2b2c035c50680991d9f228499c12b9b23469044726a6ffce5e84f21f17cabff3
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20260810
+  linux_firmware_version: 20260916
   linux_firmware_sha256: b78dd0475df5aabafe1e515dc988b17de8c5f5afce16573453275f5f855a2cb2
   linux_firmware_sha512: e287507d8b89d2f936e9313128ca35e86c101ff907e6b2255403d00e1f4bc0c48b45493a608fd61f160baea17d808c09d3c3d4cdacccf3a02826b8834c81989f
 
@@ -255,7 +255,7 @@ vars:
   px_fuse_sha512: 5161f530319323d05034b34f1b14eabb8291be6f37b21ef43c59753b00b89537dc3db914afbed6961e433084359fcc13855a38b9e37b720bd234f4b0ddd684ce
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
-  glib_version: 2.89.3
+  glib_version: 2.90.0
   glib_sha256: 09fd1e99f991067749ad66090e482ec4bd6514ad53abb4e9fbbdc2a4d2753532
   glib_sha512: af6ba2f0832916e92338b809b7f4b34e0b02d58d68f216c2dfe9cb0e7b8944d70116a81e1e58fc0f18abceff168d2367817fd4d2ee3e0674dcbb83edc430ed6e
 
@@ -291,7 +291,7 @@ vars:
   xdma_driver_sha512: f79396d7c82ca8d9f55187eae7ef63402b6a2aca9587bea84dacae00beb725366d5dedb717879b6ed7fe306fc7b653bc08bb28f98cd2e214aa347a0db928bae5
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
-  xfsprogs_version: 7.1.1
+  xfsprogs_version: 7.2.0
   xfsprogs_sha256: 063edc31ba8e85c95c7faf9be465a04898bba7c6e622fdd9b146eed4ca5415e8
   xfsprogs_sha512: 5c6e2a57a8f2e04a50cf5a085509a229f7a858a5807d85d807deeef1013d6dbbc1d701da4adb010dec5e251774b6b32e28496309bd11b4e6ebcbc09999f04cd5
 
@@ -302,7 +302,7 @@ vars:
 
   # NOTE: v4 requires autoconf-archive
   # renovate: datasource=git-tags depName=https://gitlab.com/apparmor/apparmor.git
-  apparmor_version: v3.1.7
+  apparmor_version: v5.0.2
   apparmor_sha256: 64494bd99fa6547a9cbdb4fc6bc732451a02dd19e6eb70eab977b239632151eb
   apparmor_sha512: cfd6b0afb98d4559c16a6a2e23ca16ee9d86325fc6059313df5d3e8feba3d398f96a5754d3880dd2cafb2e7b1a06bd789d62cd36aaf993e46290f6311bb49dac
 
@@ -312,7 +312,7 @@ vars:
   gdrcopy_sha512: c717f118eff8cd5a8dc35613c3881818f8b71dc493461dd0151ce7c882f8e2c2d852e22733fab4e2bec57219e10eec874c11b4fad90dd4815ae572840ed19d28
 
   # renovate: datasource=github-releases depName=NVIDIA/gds-nvidia-fs
-  gds_nvidia_fs_version: v2.29.4
+  gds_nvidia_fs_version: v2.30.2
   gds_nvidia_fs_sha256: 6936aeacfb519a1d6fe66e16281799c20ffe177c2022f831d29f90895f11e339
   gds_nvidia_fs_sha512: c946689b37e1bdcc1835d9500a44f31973a25a630e37fb7e0b02dd9e046849e46a698a2fa6408dfd0a3abe52173970db049c7a38514f01d61ee73185071c072a
 labels:
