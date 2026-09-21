@@ -1,0 +1,39 @@
+name: json-glib
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: glib
+steps:
+  - sources:
+      - url: https://download.gnome.org/sources/json-glib/{{ regexReplaceAll "\\.[0-9]+$" .json_glib_version "" }}/json-glib-{{ .json_glib_version }}.tar.xz
+        destination: json-glib.tar.xz
+        sha256: "{{ .json_glib_sha256 }}"
+        sha512: "{{ .json_glib_sha512 }}"
+    prepare:
+      - |
+        tar -xf json-glib.tar.xz --strip-components=1
+
+        meson setup build \
+            --prefix=/usr \
+            --libdir=/usr/lib \
+            --buildtype=plain \
+            --wrap-mode=nodownload \
+            -Dintrospection=disabled \
+            -Ddocumentation=disabled \
+            -Dtests=false \
+            -Dconformance=false \
+            -Dinstalled_tests=false \
+            -Dnls=disabled
+    build:
+      - |
+        meson compile -C build
+    install:
+      - |
+        DESTDIR=/rootfs meson install --no-rebuild -C build
+    test:
+      - |
+        fhs-validator /rootfs
+finalize:
+  - from: /rootfs
+    to: /

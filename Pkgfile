@@ -275,6 +275,21 @@ vars:
   socat_sha256: 06602ffd591e98c75b3dc1d66f0f19136cc666b0b2d95caad987d6ab2cb28097
   socat_sha512: cd5f88a347fc7ea9431e235d7151d2007cd37143132eea625f7520b68e703e4c95f99fe6959869b3f0300633f039f666850cf3b0e26d43affd540967a119a3f3
 
+  # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/json-glib.git
+  json_glib_version: 1.10.8
+  json_glib_sha256: 55c5c141a564245b8f8fbe7698663c87a45a7333c2a2c56f06f811ab73b212dd
+  json_glib_sha512: f4ba8660b586a4e738803e4dbfdfcd34fa7ceba9189e7bf3f2b50e21f4d4886f99535ceb3453c89b1d1ae8d96bf4168a135b73b7e1a2dbc46b19e9b710ad56a1
+
+  # renovate: datasource=github-releases depName=stefanberger/libtpms
+  libtpms_version: v0.10.2
+  libtpms_sha256: edac03680f8a4a1c5c1d609a10e3f41e1a129e38ff5158f0c8deaedc719fb127
+  libtpms_sha512: e30297289a03d4fefb2cdf44654d6f77719a021deb9b721f08d4a23e20706b903ef5e979ba05ad333d052cf35681ba5e143fb883bed0dc37626eca2807d0c01f
+
+  # renovate: datasource=github-releases depName=stefanberger/swtpm
+  swtpm_version: v0.10.2
+  swtpm_sha256: f61cf6f1e9bbcb4cefb30b70cafaf1c4df54c6961e65cfa63830e8ad0e220134
+  swtpm_sha512: 412034286eab4245127cf063ec637e3ca8cabcd8b58692d55b4eab49f4e9519da3107c104b771d2a097a09ffacd78aa825d0882558eff3128d7f4d2af7871574
+
   # renovate: datasource=git-refs versioning=git depName=https://github.com/awslabs/tc-redirect-tap.git
   tc_redirect_tap_ref: 34bf829e9a5c99df47318c7feeb637576df239fc
   tc_redirect_tap_sha256: 2a01f8bd6fabc13c604a7cc9be2a6a7050d48ddbcc2d036b743e0ec63be693a2
