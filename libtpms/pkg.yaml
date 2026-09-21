@@ -1,0 +1,33 @@
+name: libtpms
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: https://github.com/stefanberger/libtpms/archive/refs/tags/{{ .libtpms_version }}.tar.gz
+        destination: libtpms.tar.gz
+        sha256: "{{ .libtpms_sha256 }}"
+        sha512: "{{ .libtpms_sha512 }}"
+    prepare:
+      - |
+        tar -xzf libtpms.tar.gz --strip-components=1
+
+        NOCONFIGURE=1 ./autogen.sh
+
+        ./configure \
+            --prefix=/usr \
+            --with-openssl
+    build:
+      - |
+        make -j $(nproc)
+    install:
+      - |
+        make install DESTDIR=/rootfs
+        rm -rf /rootfs/usr/share
+    test:
+      - |
+        fhs-validator /rootfs
+finalize:
+  - from: /rootfs
+    to: /

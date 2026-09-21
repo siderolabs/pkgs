@@ -1,0 +1,41 @@
+name: swtpm
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: glib
+  - stage: json-glib
+  - stage: libseccomp
+  - stage: libtpms
+steps:
+  - sources:
+      - url: https://github.com/stefanberger/swtpm/archive/refs/tags/{{ .swtpm_version }}.tar.gz
+        destination: swtpm.tar.gz
+        sha256: "{{ .swtpm_sha256 }}"
+        sha512: "{{ .swtpm_sha512 }}"
+    env:
+      BUILD_DATE: "1"
+    prepare:
+      - |
+        tar -xzf swtpm.tar.gz --strip-components=1
+
+        NOCONFIGURE=1 ./autogen.sh
+
+        ./configure \
+            --prefix=/usr \
+            --without-cuse \
+            --without-selinux \
+            --disable-tests
+    build:
+      - |
+        make -j $(nproc)
+    install:
+      - |
+        make install DESTDIR=/rootfs
+        rm -rf /rootfs/usr/share/man /rootfs/usr/libexec/installed-tests
+    test:
+      - |
+        fhs-validator /rootfs
+finalize:
+  - from: /rootfs
+    to: /
