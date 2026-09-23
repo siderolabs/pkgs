@@ -34,6 +34,12 @@ steps:
     test:
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/json-glib.spdx.json
+      version: {{ .json_glib_version }}
+      # No JSON-GLib CPE was found in Grype or the NVD dictionary.
+      licenses:
+        - LGPL-2.1-or-later
 finalize:
   - from: /rootfs
     to: /
