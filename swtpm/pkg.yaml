@@ -36,6 +36,13 @@ steps:
     test:
       - |
         fhs-validator /rootfs
+    sbom:
+      outputPath: /rootfs/usr/share/spdx/swtpm.spdx.json
+      version: {{ .swtpm_version | trimPrefix "v" }}
+      cpes:
+        - cpe:2.3:a:swtpm_project:swtpm:{{ .swtpm_version | trimPrefix "v" }}:*:*:*:*:*:*:*
+      licenses:
+        - BSD-3-Clause
 finalize:
   - from: /rootfs
     to: /

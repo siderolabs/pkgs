@@ -1,4 +1,4 @@
-# syntax = ghcr.io/siderolabs/bldr:v0.6.3
+# syntax = ghcr.io/siderolabs/bldr:v0.6.4
 
 format: v1alpha2
 
@@ -73,8 +73,8 @@ vars:
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=hailo-ai/hailort-drivers
   hailort_version: 4.24.0
-  hailort_sha256: 6ed54bdb80b97fa2ac7e0dee2102a9b609b2b9a4d12dbae4c190ad769c7bc636
-  hailort_sha512: ce73660a8be5b5cb253f892b70411136e4efa6cb8e5a3a6f019489033034dd52c69cac06b06813287c02af7d7813e2fd7dccb72e93cf816104d0767efcd2aa48
+  hailort_sha256: 13b7d7dd8c70be52c772c00c8205e9e5cf191038826eaef35a6388aca1abed56
+  hailort_sha512: 063e5f2d1c2e4128c2a0abb192a1c7cab8ca5d18fbd38039a48d2d5de307f0af6b1e253f862da7263ecb047e56588ce664e5b72678a4be6cd8786e5801297b97
   hailort_fw_sha256: 3ebeb209987bb0e484353be23774d3893908de84069016c4e37361c871d8433a
   hailort_fw_sha512: 53ffd641086e7bc1298e6b41c7204199e49e595feeb06bcfa339c15e4a73de6133e59293cf3f5dfdd72b052f2c829fc5ad93da5d325ed084b702e450f999594c
 
