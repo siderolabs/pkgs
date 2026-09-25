@@ -15,10 +15,10 @@ vars:
   cni_sha512: 5811fb14786f1f9d9e40741ce337449ce329e14e04213bc660102eb470150f24026e59caec480572e37d0e3e6e6518737f3cc7ac462c47034d0737283ec532f9
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v2.3.5
-  containerd_ref: 1294c24a7da8e5a793ed378161673abe94118892
-  containerd_sha256: a99a4dca98061064ff4cb35d27d1ec2345717e9108c822329fcec91dc72bff96
-  containerd_sha512: 87255f36b2b2fb5fc2cb7abaadae33c2ea85b5f7a1259c8c52cc3cf3efffa64525886a220eadf804b7c6414babe7310d39fddc6a24e79b707770fb621323f5c8
+  containerd_version: v2.3.6
+  containerd_ref: ee2735368117d2eb259779949d5e75cdafec9761
+  containerd_sha256: b4b407c64e11a22549b14c47857ac0e02e9f47f8cfc28924e9aa04a0adcaa883
+  containerd_sha512: 47e13e5442fbf25f37faca76882aad58a927ff2fc0cdb5cd41b1ab75204a5e02269220709da5b1c0a4dd588d5a8b61132219c83eabd3bd7a4a64e6ff7f22ac72
 
   # renovate: datasource=github-tags depName=kdave/btrfs-progs
   btrfsprogs_version: 6.19.1
