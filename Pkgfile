@@ -15,8 +15,8 @@ vars:
   cni_sha512: 5811fb14786f1f9d9e40741ce337449ce329e14e04213bc660102eb470150f24026e59caec480572e37d0e3e6e6518737f3cc7ac462c47034d0737283ec532f9
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v2.3.6
-  containerd_ref: ee2735368117d2eb259779949d5e75cdafec9761
+  containerd_version: v2.4.1
+  containerd_ref: f2551031d7276a770f65f98c9b52e57e7dad07e8
   containerd_sha256: b4b407c64e11a22549b14c47857ac0e02e9f47f8cfc28924e9aa04a0adcaa883
   containerd_sha512: 47e13e5442fbf25f37faca76882aad58a927ff2fc0cdb5cd41b1ab75204a5e02269220709da5b1c0a4dd588d5a8b61132219c83eabd3bd7a4a64e6ff7f22ac72
 
@@ -72,7 +72,7 @@ vars:
   grub_sha512: 5008e3b70072798d2b34301219fe174cc6bcfead40a9ab25fe32f30c62a392ffb7bf2eb629d481f4a6c19c2925324af3f08d7043e62623e746be2d8b3cbd1182
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=hailo-ai/hailort-drivers
-  hailort_version: 4.24.0
+  hailort_version: 5.4.0
   hailort_sha256: 13b7d7dd8c70be52c772c00c8205e9e5cf191038826eaef35a6388aca1abed56
   hailort_sha512: 063e5f2d1c2e4128c2a0abb192a1c7cab8ca5d18fbd38039a48d2d5de307f0af6b1e253f862da7263ecb047e56588ce664e5b72678a4be6cd8786e5801297b97
   hailort_fw_sha256: 3ebeb209987bb0e484353be23774d3893908de84069016c4e37361c871d8433a
@@ -94,7 +94,7 @@ vars:
   iptables_sha512: 3aefd76ca60d00f46ba4d6f39cbcfdc60517d03b6714da25dcd67542f6f4eea8d82c4855bdd9124efe18b769f41951772b8340a6eda75b85f8dd52b2289b145b
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 65450656e502c2456b9b32b9dff09152f2a754b8
+  ipxe_ref: 744cdb451ef28bc894df72b6b40fdf1fda04acfc
   ipxe_sha256: 9a8ffddaba22720da86fce8cb003fe190fbb4937f1998dd072342c95d444e799
   ipxe_sha512: 63100b7d89630da41e561706b827a70e3cdaef32b5bf18d3b23d74440c0082b25defda7ef537a28f78fccd89d6005f82d4aa170f78f01b139f9d3a7c4dce6390
 
@@ -104,7 +104,7 @@ vars:
   kspp_sha512: 55f35ce46a0d44746780b9e47fef0d6383096ef519686022afdfdaae571a7d8749c02f45a0c6e9f07c36a4e8f51dc05b4e49131354eab8c892fc2690274face4
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.18.53
+  linux_version: 6.18.54
   linux_sha256: 4d6fba95c2244b08a7b4144a4d38b9be4fb31abb5e7682ae40bb5cb11374cfe0
   linux_sha512: 32a6bf142a85bdcd2467a80c0f00666096d59f23ee7fc073afe564e216442ff9905da4361a04bb00ca962d2d636f37d5347e791bc90fc92fe839eb009111096f
 
@@ -250,7 +250,7 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/portworx/px-fuse.git
-  px_fuse_ref: 89758677301c91c9667559bb0a6b553f61ab17c1
+  px_fuse_ref: d4d955b49212896b2533883970c570c1bcd4a394
   px_fuse_sha256: 1a24955834383d98002924962e763ffee57c979e3ce9e020aac3663743f4eb32
   px_fuse_sha512: 5161f530319323d05034b34f1b14eabb8291be6f37b21ef43c59753b00b89537dc3db914afbed6961e433084359fcc13855a38b9e37b720bd234f4b0ddd684ce
 
@@ -317,7 +317,7 @@ vars:
 
   # NOTE: v4 requires autoconf-archive
   # renovate: datasource=git-tags depName=https://gitlab.com/apparmor/apparmor.git
-  apparmor_version: v3.1.7
+  apparmor_version: v5.0.2
   apparmor_sha256: 64494bd99fa6547a9cbdb4fc6bc732451a02dd19e6eb70eab977b239632151eb
   apparmor_sha512: cfd6b0afb98d4559c16a6a2e23ca16ee9d86325fc6059313df5d3e8feba3d398f96a5754d3880dd2cafb2e7b1a06bd789d62cd36aaf993e46290f6311bb49dac
 
