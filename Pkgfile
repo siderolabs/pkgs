@@ -104,9 +104,9 @@ vars:
   kspp_sha512: 55f35ce46a0d44746780b9e47fef0d6383096ef519686022afdfdaae571a7d8749c02f45a0c6e9f07c36a4e8f51dc05b4e49131354eab8c892fc2690274face4
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.18.53
-  linux_sha256: 4d6fba95c2244b08a7b4144a4d38b9be4fb31abb5e7682ae40bb5cb11374cfe0
-  linux_sha512: 32a6bf142a85bdcd2467a80c0f00666096d59f23ee7fc073afe564e216442ff9905da4361a04bb00ca962d2d636f37d5347e791bc90fc92fe839eb009111096f
+  linux_version: 6.18.54
+  linux_sha256: 9df30b02dd8102bbd0be52556288ef6889ddbe7f1ddb96fbf847d0becf3eacac
+  linux_sha512: 37b4d8f6334345b769d2eccfb9a93e9d401b89ec582215d6a7035c94045ffc926fd332760d29e126285869c0b36c7d7c65a75c380d06ceb46bc15913a36009e3
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
@@ -265,10 +265,10 @@ vars:
   qemu_sha512: f30b36800b44ac0370e63341a8c5591019648a78d5929e18b0177873c0b6e4a0cbbddc069337cb06a3b5d20d15779c9b9786d0a92073c421fb07ae14a67d4646
 
   # renovate: datasource=github-tags depName=opencontainers/runc
-  runc_version: v1.5.1
-  runc_ref: 8f2685a471d3347a686ad3909783d8aafc6bb208
-  runc_sha256: db743b39fd7de8da88adce5a61a54529a494928cd59227fffb622f5cb4ba6ef9
-  runc_sha512: bffbbd64d7990e591d980de370795b48cf4c27f7b50a8227065f8ff83d82fc22652ac848f231f1cc0f7cbab2082cb74cd2fc7196bcddcd145fd4326582dcc296
+  runc_version: v1.5.2
+  runc_ref: 29dd3dc2b13b4123162e5fe132504bb4b15569f1
+  runc_sha256: 46eba094e45fc37d96a1b1dc150971fe8d076d6e23bae09dd35443141bed31a1
+  runc_sha512: b7323cd1b2bdc0d12f172c4ce2957d31845a4c97390e0ec0d3333bb766ef117f25c47cd4546ab22b0287a8e6da816100638636379bdd044634599a6918a9cb77
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
   socat_version: 1.8.1.3
