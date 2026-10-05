@@ -1,4 +1,4 @@
-name: hailort-pkg
+name: hailort-v4-pkg
 variant: scratch
 shell: /bin/bash
 dependencies:
@@ -7,15 +7,15 @@ dependencies:
   - image: "{{ .LLVM_IMAGE }}:{{ .TOOLS_REV }}"
 steps:
   - sources:
-      - url: https://github.com/hailo-ai/hailort-drivers/archive/refs/tags/v{{ .hailort_version }}.tar.gz
+      - url: https://github.com/hailo-ai/hailort-drivers/archive/refs/tags/v{{ .hailort_v4_version }}.tar.gz
         destination: hailort-driver.tar.gz
-        sha256: "{{ .hailort_sha256 }}"
-        sha512: "{{ .hailort_sha512 }}"
+        sha256: "{{ .hailort_v4_sha256 }}"
+        sha512: "{{ .hailort_v4_sha512 }}"
 
-      - url: https://hailo-hailort.s3.eu-west-2.amazonaws.com/Hailo8/{{ .hailort_version }}/FW/hailo8_fw.{{ .hailort_version }}.bin
+      - url: https://hailo-hailort.s3.eu-west-2.amazonaws.com/Hailo8/{{ .hailort_v4_version }}/FW/hailo8_fw.{{ .hailort_v4_version }}.bin
         destination: hailo8_fw.bin
-        sha256: "{{ .hailort_fw_sha256 }}"
-        sha512: "{{ .hailort_fw_sha512 }}"
+        sha256: "{{ .hailort_v4_fw_sha256 }}"
+        sha512: "{{ .hailort_v4_fw_sha512 }}"
     env:
       ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
       LLVM: 1

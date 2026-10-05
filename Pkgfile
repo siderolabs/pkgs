@@ -71,12 +71,19 @@ vars:
   grub_sha256: bc8d3c73535b8838d8c8e2654d73edc4e6ae8c8acdb45d5df5dc9a1547446d43
   grub_sha512: 5008e3b70072798d2b34301219fe174cc6bcfead40a9ab25fe32f30c62a392ffb7bf2eb629d481f4a6c19c2925324af3f08d7043e62623e746be2d8b3cbd1182
 
-  # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=hailo-ai/hailort-drivers
-  hailort_version: 4.24.0
-  hailort_sha256: 13b7d7dd8c70be52c772c00c8205e9e5cf191038826eaef35a6388aca1abed56
-  hailort_sha512: 063e5f2d1c2e4128c2a0abb192a1c7cab8ca5d18fbd38039a48d2d5de307f0af6b1e253f862da7263ecb047e56588ce664e5b72678a4be6cd8786e5801297b97
-  hailort_fw_sha256: 3ebeb209987bb0e484353be23774d3893908de84069016c4e37361c871d8433a
-  hailort_fw_sha512: 53ffd641086e7bc1298e6b41c7204199e49e595feeb06bcfa339c15e4a73de6133e59293cf3f5dfdd72b052f2c829fc5ad93da5d325ed084b702e450f999594c
+  # renovate: datasource=github-releases extractVersion=^v(?<version>4\..+)$ depName=hailo-ai/hailort-drivers
+  hailort_v4_version: 4.24.0
+  hailort_v4_sha256: 13b7d7dd8c70be52c772c00c8205e9e5cf191038826eaef35a6388aca1abed56
+  hailort_v4_sha512: 063e5f2d1c2e4128c2a0abb192a1c7cab8ca5d18fbd38039a48d2d5de307f0af6b1e253f862da7263ecb047e56588ce664e5b72678a4be6cd8786e5801297b97
+  hailort_v4_fw_sha256: 3ebeb209987bb0e484353be23774d3893908de84069016c4e37361c871d8433a
+  hailort_v4_fw_sha512: 53ffd641086e7bc1298e6b41c7204199e49e595feeb06bcfa339c15e4a73de6133e59293cf3f5dfdd72b052f2c829fc5ad93da5d325ed084b702e450f999594c
+
+  # renovate: datasource=github-releases extractVersion=^v(?<version>5\..+)$ depName=hailo-ai/hailort-drivers
+  hailort_v5_version: 5.4.0
+  hailort_v5_sha256: 9ea3d5cf3ce7af30253896f127f67ecb1677faecd25f9c4ff199ca1a722fc63a
+  hailort_v5_sha512: 123e4e084f7f756fba446d81b7b655ecc594b9704d48ed9c65e923867eb97b696636f1325fd62ae592a9c497dc466df4c7122943ca76708c8bee82533aa8a58f
+  hailort_v5_hailo10h_fw_sha256: 569444739a9262fd70fb62ae3f4f9be3f649685166d0b09af6063d7a4dc11bf9
+  hailort_v5_hailo10h_fw_sha512: 87437747ea1255f965132cfc9c407b9b72c385ae4fbef77b458ac22bb64b2a7f3a25edd58a3d39702128e5f1eb741c6785fcc825f2960f409326c5775a046426
 
   # renovate: datasource=github-releases depName=intel/isa-l
   igzip_version: 2.32.1
