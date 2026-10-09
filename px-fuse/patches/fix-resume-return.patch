@@ -1,0 +1,24 @@
+pxd_request_resume no longer assigns rc after switching to pxd_resume_io.
+Return success after resuming I/O instead of returning an uninitialized value.
+
+diff --git a/pxd_fastpath.c b/pxd_fastpath.c
+--- a/pxd_fastpath.c
++++ b/pxd_fastpath.c
+@@ -660,8 +660,6 @@
+ // external request to resume IO on fastpath device
+ int pxd_request_resume(struct pxd_device *pxd_dev)
+ {
+-	int rc;
+-
+ 	if (atomic_cmpxchg(&pxd_dev->fp.app_suspend, 1, 0) != 1) {
+ 		return -EINVAL;
+ 	}
+@@ -668,7 +666,7 @@
+ 
+ 	pxd_resume_io(pxd_dev);
+ 	printk(KERN_NOTICE"device %llu resumed IO from userspace\n", pxd_dev->dev_id);
+-	return rc;
++	return 0;
+ }
+ 
+ /*

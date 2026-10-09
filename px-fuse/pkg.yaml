@@ -19,6 +19,7 @@ steps:
         tar xf px-fuse.tar.gz --strip-components=1
       - |
         patch -p1 < /pkg/patches/prototypes.patch
+        patch -p1 < /pkg/patches/fix-resume-return.patch
       - |
         autoreconf
         ./configure
