@@ -1,0 +1,44 @@
+name: hailort-v5-pkg
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: kernel-build
+  - image: "{{ .LLVM_IMAGE }}:{{ .TOOLS_REV }}"
+steps:
+  - sources:
+      - url: https://github.com/hailo-ai/hailort-drivers/archive/refs/tags/v{{ .hailort_v5_version }}.tar.gz
+        destination: hailort-driver.tar.gz
+        sha256: "{{ .hailort_v5_sha256 }}"
+        sha512: "{{ .hailort_v5_sha512 }}"
+
+      - url: https://hailo-hailort.s3.eu-west-2.amazonaws.com/Hailo10H/{{ .hailort_v5_version }}/FW/hailo10h_fw.tar.gz
+        destination: hailo10h_fw.tar.gz
+        sha256: "{{ .hailort_v5_hailo10h_fw_sha256 }}"
+        sha512: "{{ .hailort_v5_hailo10h_fw_sha512 }}"
+    env:
+      ARCH: {{ if eq .ARCH "aarch64"}}arm64{{ else if eq .ARCH "x86_64" }}x86_64{{ else }}unsupported{{ end }}
+      LLVM: 1
+    prepare:
+      - |
+        tar xf hailort-driver.tar.gz --strip-components=1
+      - |
+        mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/ /rootfs/usr/lib/firmware/hailo/hailo10h/
+    build:
+      - |
+        cd linux/pcie
+        make -j $(nproc) KERNEL_DIR=/src/ all
+    install:
+      - |
+        tar xf hailo10h_fw.tar.gz -C /rootfs/usr/lib/firmware/hailo/hailo10h/
+        cd linux/pcie
+        make -j $(nproc) -C /src M=$(pwd) modules_install INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=kernel/drivers/misc INSTALL_MOD_STRIP=1
+    test:
+      - |
+        # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
+        find /rootfs/usr/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
+      - |
+        fhs-validator /rootfs
+finalize:
+  - from: /rootfs
+    to: /

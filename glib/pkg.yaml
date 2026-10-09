@@ -34,8 +34,10 @@ steps:
       - |
         DESTDIR=/rootfs ninja -C _build install
 
-        # we only need the headers and libs
-        rm -rf /rootfs/usr/{bin,share}
+        # Keep the enum generator for downstream library builds.
+        find /rootfs/usr/bin -mindepth 1 -maxdepth 1 \
+            ! -name glib-mkenums -exec rm -rf {} +
+        rm -rf /rootfs/usr/share
     test:
       - |
         fhs-validator /rootfs
