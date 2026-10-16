@@ -1,16 +1,6 @@
 --- drbd_transport_tcp.c
-+++ /tmp/cocci-output-1448-4fa510-drbd_transport_tcp.c
-@@ -513,15 +513,15 @@ static int dtt_try_connect(struct dtt_pa
- 	*  a free one dynamically.
- 	*/
- 	what = "bind before connect";
--	err = socket->ops->bind(socket, (struct sockaddr_unsized *) &my_addr,
--			path->path.my_addr_len);
-+	err = socket->ops->bind(socket, (struct sockaddr *) &my_addr,
-+				path->path.my_addr_len);
- 	if (err < 0)
- 		goto out;
- 
++++ /tmp/cocci-output-1446-cf86ba-drbd_transport_tcp.c
+@@ -521,7 +521,7 @@ static int dtt_try_connect(struct dtt_pa
  	/* connect may fail, peer not yet available.
  	 * stay C_CONNECTING, don't go Disconnecting! */
  	what = "connect";
@@ -19,17 +9,7 @@
  				   path->path.peer_addr_len, 0);
  	if (err < 0) {
  		err = dtt_socket_err_to_eagain(err);
-@@ -1079,7 +1079,8 @@ static int dtt_init_listener(struct drbd
- 	addr_len = addr->sa_family == AF_INET6 ? sizeof(struct sockaddr_in6)
- 		: sizeof(struct sockaddr_in);
- 
--	err = s_listen->ops->bind(s_listen, (struct sockaddr_unsized *)&my_addr, addr_len);
-+	err = s_listen->ops->bind(s_listen, (struct sockaddr *)&my_addr,
-+				  addr_len);
- 	if (err < 0) {
- 		what = "bind before listen";
- 		goto out;
-@@ -1574,12 +1575,12 @@ static int dtt_send_page(struct drbd_tra
+@@ -1574,12 +1574,12 @@ static int dtt_send_page(struct drbd_tra
  			struct page *p = page + (offset >> PAGE_SHIFT);
  			unsigned int poff = offset & ~PAGE_MASK;
  			unsigned int chunk = min_t(int, len, PAGE_SIZE - poff);
@@ -45,7 +25,7 @@
  			bvec_set_page(&bvec, page, len, offset);
  			iov_iter_bvec(&msg.msg_iter, ITER_SOURCE, &bvec, 1, len);
 --- drbd_transport_rdma.c
-+++ /tmp/cocci-output-1448-89b041-drbd_transport_rdma.c
++++ /tmp/cocci-output-1446-4d98cc-drbd_transport_rdma.c
 @@ -3135,9 +3135,9 @@ static int dtr_send_page(struct drbd_tra
  			kfree(tx_desc);
  			return -ENOMEM;
@@ -59,7 +39,7 @@
  	}
  
 --- drbd_transport_lb-tcp.c
-+++ /tmp/cocci-output-1448-60b886-drbd_transport_lb-tcp.c
++++ /tmp/cocci-output-1446-bbd8d3-drbd_transport_lb-tcp.c
 @@ -535,7 +535,7 @@ dtl_recv(struct drbd_transport *transpor
  static int
  _dtl_recv_page(struct dtl_transport *dtl_transport, struct page *page, int size)
@@ -78,17 +58,7 @@
  	return err;
  }
  
-@@ -760,7 +760,8 @@ dtl_try_connect(struct drbd_transport *t
- 	 * a free one dynamically.
- 	 */
- 	what = "bind before connect";
--	err = sock->ops->bind(sock, (struct sockaddr_unsized *) &my_addr, path->path.my_addr_len);
-+	err = sock->ops->bind(sock, (struct sockaddr *) &my_addr,
-+			      path->path.my_addr_len);
- 	if (err < 0)
- 		goto out;
- 
-@@ -770,7 +771,7 @@ dtl_try_connect(struct drbd_transport *t
+@@ -770,7 +770,7 @@ dtl_try_connect(struct drbd_transport *t
  	 */
  	what = "connect";
  	dtl_hook_connecting_socket(dtl_transport, sock, true);
@@ -97,24 +67,13 @@
  				   path->path.peer_addr_len, O_NONBLOCK);
  	if (err == -EINPROGRESS)
  		err = dtl_wait_connected(dtl_transport, sock, connect_int * HZ);
-@@ -1238,7 +1239,8 @@ static int dtl_init_listener(struct drbd
- 	addr_len = addr->sa_family == AF_INET6 ? sizeof(struct sockaddr_in6)
- 		: sizeof(struct sockaddr_in);
- 
--	err = s_listen->ops->bind(s_listen, (struct sockaddr_unsized *)&my_addr, addr_len);
-+	err = s_listen->ops->bind(s_listen, (struct sockaddr *)&my_addr,
-+				  addr_len);
- 	if (err < 0) {
- 		what = "bind before listen";
- 		goto out;
 --- drbd_debugfs.c
-+++ /tmp/cocci-output-1448-5701a6-drbd_debugfs.c
-@@ -2002,6 +2002,8 @@ static const struct file_operations drbd
++++ /tmp/cocci-output-1446-72b7b0-drbd_debugfs.c
+@@ -2002,6 +2002,7 @@ static const struct file_operations drbd
  
  static int drbd_compat_show(struct seq_file *m, void *ignored)
  {
 +	seq_puts(m, "kmap_local_page__no_present\n");
-+	seq_puts(m, "struct_sockaddr_unsized__no_present\n");
  	return 0;
  }
  
