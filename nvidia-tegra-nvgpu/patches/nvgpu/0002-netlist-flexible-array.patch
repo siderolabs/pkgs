@@ -1,0 +1,19 @@
+nvgpu: netlist regions as flexible array member
+
+regions[1] is indexed by the region count from the firmware header, so
+UBSAN flags every access with index >= 1. A flexible array member has the
+same layout and silences the false positive.
+
+diff --git a/drivers/gpu/nvgpu/common/netlist/netlist_priv.h b/drivers/gpu/nvgpu/common/netlist/netlist_priv.h
+index 0ad50e2..b224ed9 100644
+--- a/drivers/gpu/nvgpu/common/netlist/netlist_priv.h
++++ b/drivers/gpu/nvgpu/common/netlist/netlist_priv.h
+@@ -113,7 +113,7 @@ struct netlist_image_header {
+ 
+ struct netlist_image {
+ 	struct netlist_image_header header;
+-	struct netlist_region regions[1];
++	struct netlist_region regions[];
+ };
+ 
+ struct netlist_gr_ucode {
