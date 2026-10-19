@@ -22,6 +22,8 @@ steps:
         patch -p1 </pkg/patches/no-llseek.patch
         # Linux 6.13+ support: https://github.com/google/gasket-driver/pull/40
         patch -p1 </pkg/patches/module-import-ns.patch
+        # Linux 7.1+ renamed zap_vma_ptes() to zap_special_vma_range()
+        patch -p1 </pkg/patches/zap-special-vma-range.patch
     build:
       - |
         cd src

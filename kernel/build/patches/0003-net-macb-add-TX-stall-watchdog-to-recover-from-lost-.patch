@@ -1,7 +1,7 @@
-From 3666d28a1a4ad8d21dd7ad2d4d654dc4fd719ec7 Mon Sep 17 00:00:00 2001
+From 3b65480f8eb8b287078f08c7f13bb145948e421b Mon Sep 17 00:00:00 2001
 From: Lukasz Raczylo <lukasz@raczylo.com>
 Date: Fri, 15 May 2026 13:49:03 +0100
-Subject: [PATCH 3/3] net: macb: add TX stall watchdog to recover from lost
+Subject: [PATCH 3/5] net: macb: add TX stall watchdog to recover from lost
  TCOMP interrupts
 
 On PCIe-attached macb instances (BCM2712 + RP1 PCIe south bridge
@@ -38,16 +38,17 @@ Link: https://github.com/cilium/cilium/issues/43198
 Link: https://bugs.launchpad.net/ubuntu/+source/linux-raspi/+bug/2133877
 Link: https://github.com/raspberrypi/linux/pull/7340
 Signed-off-by: Lukasz Raczylo <lukasz@raczylo.com>
+Signed-off-by: x <a@b>
 ---
  drivers/net/ethernet/cadence/macb.h      | 10 ++++
  drivers/net/ethernet/cadence/macb_main.c | 73 ++++++++++++++++++++++++
  2 files changed, 83 insertions(+)
 
 diff --git a/drivers/net/ethernet/cadence/macb.h b/drivers/net/ethernet/cadence/macb.h
-index bc2225956..a24bf5ba2 100644
+index 0d2457246..fcf66d91f 100644
 --- a/drivers/net/ethernet/cadence/macb.h
 +++ b/drivers/net/ethernet/cadence/macb.h
-@@ -1264,6 +1264,16 @@ struct macb_queue {
+@@ -1279,6 +1279,16 @@ struct macb_queue {
  	dma_addr_t		tx_ring_dma;
  	struct work_struct	tx_error_task;
  	bool			txubr_pending;
@@ -65,19 +66,19 @@ index bc2225956..a24bf5ba2 100644
  
  	dma_addr_t		rx_ring_dma;
 diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 23120fc7c..4feb475f7 100644
+index f98628a6a..b946ebb94 100644
 --- a/drivers/net/ethernet/cadence/macb_main.c
 +++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -1371,6 +1371,8 @@ static int macb_tx_complete(struct macb_queue *queue, int budget)
+@@ -1474,6 +1474,8 @@ static int macb_tx_complete(struct macb_queue *queue, int budget)
  				  packets, bytes);
  
  	queue->tx_tail = tail;
 +	if (packets)
 +		queue->tx_stall_tail_moved = true;
- 	if (__netif_subqueue_stopped(bp->dev, queue_index) &&
+ 	if (__netif_subqueue_stopped(bp->netdev, q) &&
  	    CIRC_CNT(queue->tx_head, queue->tx_tail,
  		     bp->tx_ring_size) <= MACB_TX_WAKEUP_THRESH(bp))
-@@ -1887,6 +1889,71 @@ static int macb_tx_poll(struct napi_struct *napi, int budget)
+@@ -2004,6 +2006,71 @@ static int macb_tx_poll(struct napi_struct *napi, int budget)
  	return work_done;
  }
  
@@ -115,13 +116,13 @@ index 23120fc7c..4feb475f7 100644
 +	bool stalled = false;
 +	unsigned long flags;
 +
-+	if (!netif_running(bp->dev))
++	if (!netif_running(bp->netdev))
 +		return;
 +
 +	/* No carrier => no completion is possible.  Skip the check
 +	 * but keep the watchdog ticking for when carrier comes up.
 +	 */
-+	if (!netif_carrier_ok(bp->dev))
++	if (!netif_carrier_ok(bp->netdev))
 +		goto reschedule;
 +
 +	spin_lock_irqsave(&queue->tx_ptr_lock, flags);
@@ -134,7 +135,7 @@ index 23120fc7c..4feb475f7 100644
 +
 +	if (stalled) {
 +		if (printk_ratelimit())
-+			netdev_warn(bp->dev,
++			netdev_warn(bp->netdev,
 +				    "TX stall detected on queue %u (tail=%u head=%u); re-kicking TSTART\n",
 +				    (unsigned int)(queue - bp->queues),
 +				    cur_tail, cur_head);
@@ -149,7 +150,7 @@ index 23120fc7c..4feb475f7 100644
  static void macb_hresp_error_task(struct work_struct *work)
  {
  	struct macb *bp = from_work(bp, work, hresp_err_bh_work);
-@@ -3109,6 +3176,9 @@ static int macb_open(struct net_device *dev)
+@@ -3208,6 +3275,9 @@ static int macb_open(struct net_device *netdev)
  	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
  		napi_enable(&queue->napi_rx);
  		napi_enable(&queue->napi_tx);
@@ -159,15 +160,15 @@ index 23120fc7c..4feb475f7 100644
  	}
  
  	macb_init_hw(bp);
-@@ -3155,6 +3225,7 @@ static int macb_close(struct net_device *dev)
+@@ -3258,6 +3328,7 @@ static int macb_close(struct net_device *netdev)
  	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
  		napi_disable(&queue->napi_rx);
  		napi_disable(&queue->napi_tx);
 +		cancel_delayed_work_sync(&queue->tx_stall_watchdog_work);
- 		netdev_tx_reset_queue(netdev_get_tx_queue(dev, q));
+ 		netdev_tx_reset_queue(netdev_get_tx_queue(netdev, q));
  	}
  
-@@ -4685,6 +4756,8 @@ static int macb_init(struct platform_device *pdev)
+@@ -4831,6 +4902,8 @@ static int macb_init_dflt(struct platform_device *pdev)
  		}
  
  		INIT_WORK(&queue->tx_error_task, macb_tx_error_task);
@@ -177,5 +178,5 @@ index 23120fc7c..4feb475f7 100644
  	}
  
 -- 
-2.54.0
+2.56.0
 

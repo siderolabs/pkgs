@@ -23,6 +23,9 @@ steps:
       - |
         tar xf hailort-driver.tar.gz --strip-components=1
       - |
+        # Linux 7.x removed strncpy()
+        patch -p1 </pkg/patches/strscpy.patch
+      - |
         mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/ /rootfs/usr/lib/firmware/hailo/hailo10h/
     build:
       - |

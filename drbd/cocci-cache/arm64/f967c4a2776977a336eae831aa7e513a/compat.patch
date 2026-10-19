@@ -1,14 +1,5 @@
 --- drbd_transport_tcp.c
-+++ /tmp/cocci-output-1448-cd38ae-drbd_transport_tcp.c
-@@ -521,7 +521,7 @@ static int dtt_try_connect(struct dtt_pa
- 	/* connect may fail, peer not yet available.
- 	 * stay C_CONNECTING, don't go Disconnecting! */
- 	what = "connect";
--	err = socket->ops->connect(socket, (struct sockaddr_unsized *) &peer_addr,
-+	err = socket->ops->connect(socket, (struct sockaddr *) &peer_addr,
- 				   path->path.peer_addr_len, 0);
- 	if (err < 0) {
- 		err = dtt_socket_err_to_eagain(err);
++++ /tmp/cocci-output-1430-4032a8-drbd_transport_tcp.c
 @@ -1574,12 +1574,12 @@ static int dtt_send_page(struct drbd_tra
  			struct page *p = page + (offset >> PAGE_SHIFT);
  			unsigned int poff = offset & ~PAGE_MASK;
@@ -25,7 +16,7 @@
  			bvec_set_page(&bvec, page, len, offset);
  			iov_iter_bvec(&msg.msg_iter, ITER_SOURCE, &bvec, 1, len);
 --- drbd_transport_rdma.c
-+++ /tmp/cocci-output-1448-c66667-drbd_transport_rdma.c
++++ /tmp/cocci-output-1430-96ff07-drbd_transport_rdma.c
 @@ -3135,9 +3135,9 @@ static int dtr_send_page(struct drbd_tra
  			kfree(tx_desc);
  			return -ENOMEM;
@@ -39,7 +30,7 @@
  	}
  
 --- drbd_transport_lb-tcp.c
-+++ /tmp/cocci-output-1448-009187-drbd_transport_lb-tcp.c
++++ /tmp/cocci-output-1430-886ebf-drbd_transport_lb-tcp.c
 @@ -535,7 +535,7 @@ dtl_recv(struct drbd_transport *transpor
  static int
  _dtl_recv_page(struct dtl_transport *dtl_transport, struct page *page, int size)
@@ -58,17 +49,8 @@
  	return err;
  }
  
-@@ -770,7 +770,7 @@ dtl_try_connect(struct drbd_transport *t
- 	 */
- 	what = "connect";
- 	dtl_hook_connecting_socket(dtl_transport, sock, true);
--	err = sock->ops->connect(sock, (struct sockaddr_unsized *) &peer_addr,
-+	err = sock->ops->connect(sock, (struct sockaddr *) &peer_addr,
- 				   path->path.peer_addr_len, O_NONBLOCK);
- 	if (err == -EINPROGRESS)
- 		err = dtl_wait_connected(dtl_transport, sock, connect_int * HZ);
 --- drbd_debugfs.c
-+++ /tmp/cocci-output-1448-a605b6-drbd_debugfs.c
++++ /tmp/cocci-output-1430-0c433b-drbd_debugfs.c
 @@ -2002,6 +2002,7 @@ static const struct file_operations drbd
  
  static int drbd_compat_show(struct seq_file *m, void *ignored)

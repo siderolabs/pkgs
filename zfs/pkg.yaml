@@ -18,6 +18,11 @@ steps:
       - |
         tar -xzf zfs.tar.gz --strip-components=1
 
+        # Linux 7.3 support, backported from master (https://github.com/openzfs/zfs/issues/19032)
+        for patch in $(find /pkg/patches -type f -name "*.patch" | sort); do
+          patch -p1 < $patch || (echo "Failed to apply patch $patch" && exit 1)
+        done
+
         ./autogen.sh
         ./configure --with-config=kernel --with-linux=/src KERNEL_LLVM=1
     build:

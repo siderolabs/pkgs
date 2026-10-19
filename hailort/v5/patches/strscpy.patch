@@ -1,0 +1,22 @@
+Linux 7.x removed strncpy(), use strscpy() instead.
+
+--- a/common/pcie_common.c
++++ b/common/pcie_common.c
+@@ -385,7 +385,7 @@
+         if (file->flags & HAILO_FILE_F_DYNAMIC_NAME) {
+             hailo_resolve_dtb_filename(filename, resources->sku_id, file->filename);
+         } else {
+-            strncpy(filename, file->filename, FW_FILENAME_MAX_LEN - 1);
++            strscpy(filename, file->filename, FW_FILENAME_MAX_LEN);
+             filename[FW_FILENAME_MAX_LEN - 1] = '\0';
+         }
+ 
+@@ -1154,7 +1154,7 @@
+         if (file->flags & HAILO_FILE_F_DYNAMIC_NAME) {
+             hailo_resolve_dtb_filename(filename, resources->sku_id, file->filename);
+         } else {
+-            strncpy(filename, file->filename, FW_FILENAME_MAX_LEN - 1);
++            strscpy(filename, file->filename, FW_FILENAME_MAX_LEN);
+             filename[FW_FILENAME_MAX_LEN - 1] = '\0';
+         }
+ 

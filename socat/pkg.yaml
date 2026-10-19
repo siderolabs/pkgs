@@ -16,6 +16,7 @@ steps:
         tar -xzf socat.tar.gz --strip-components=1
 
         patch -p1 < /pkg/patches/use-linux-headers.patch
+        patch -p1 < /pkg/patches/openssl4-fixes.patch
 
         ./configure \
             --prefix=/usr

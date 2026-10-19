@@ -1,0 +1,16 @@
+Linux 7.1 renamed zap_vma_ptes() to zap_special_vma_range().
+
+--- a/src/gasket_core.c
++++ b/src/gasket_core.c
+@@ -920,7 +920,11 @@
+ 	 *
+ 	 * Next multiple of y: ceil_div(x, y) * y
+ 	 */
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(7, 1, 0)
++	zap_special_vma_range(vma, vma->vm_start + virt_offset,
++#else
+ 	zap_vma_ptes(vma, vma->vm_start + virt_offset,
++#endif
+ 		     DIV_ROUND_UP(mappable_region.length_bytes, PAGE_SIZE) *
+ 		     PAGE_SIZE);
+ 	return 0;

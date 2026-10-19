@@ -1,7 +1,7 @@
-From 0ee595ef700d4f8dee3efe3b992f31ad8ee9e7af Mon Sep 17 00:00:00 2001
+From 5237b271393f240aebe67b2bd63a7e4225a9dc2d Mon Sep 17 00:00:00 2001
 From: Lukasz Raczylo <lukasz@raczylo.com>
-Date: Fri, 15 May 2026 13:46:37 +0100
-Subject: [PATCH 1/3] net: macb: flush PCIe posted write after TSTART doorbell
+Date: Mon, 19 Oct 2026 12:19:44 +0400
+Subject: [PATCH 1/5] net: macb: flush PCIe posted write after TSTART doorbell
  (PCIe-only)
 
 macb_start_xmit() and macb_tx_restart() kick transmission by
@@ -28,31 +28,32 @@ raspberrypi_rp1_config.
 Link: https://github.com/cilium/cilium/issues/43198
 Link: https://bugs.launchpad.net/ubuntu/+source/linux-raspi/+bug/2133877
 Signed-off-by: Lukasz Raczylo <lukasz@raczylo.com>
+Signed-off-by: x <a@b>
 ---
  drivers/net/ethernet/cadence/macb.h      |  4 ++++
  drivers/net/ethernet/cadence/macb_main.c | 13 ++++++++++++-
  2 files changed, 16 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/cadence/macb.h b/drivers/net/ethernet/cadence/macb.h
-index 0830c4897..bc2225956 100644
+index d6931c41f..0d2457246 100644
 --- a/drivers/net/ethernet/cadence/macb.h
 +++ b/drivers/net/ethernet/cadence/macb.h
-@@ -769,6 +769,10 @@
- #define MACB_CAPS_NEED_TSUCLK			0x00000400
- #define MACB_CAPS_QUEUE_DISABLE			0x00000800
- #define MACB_CAPS_QBV				0x00001000
+@@ -785,6 +785,10 @@
+ #define MACB_CAPS_USRIO_HAS_MII			BIT(26)
+ #define MACB_CAPS_USRIO_HAS_REFCLK_SOURCE	BIT(27)
+ #define MACB_CAPS_USRIO_HAS_TSUCLK_SOURCE	BIT(28)
 +/* Register writes are posted on the parent fabric and need a non-posted
 + * read-back to guarantee delivery.  Currently set only on RP1.
 + */
-+#define MACB_CAPS_PCIE_POSTED_WRITES		0x00002000
- #define MACB_CAPS_PCS				0x01000000
- #define MACB_CAPS_HIGH_SPEED			0x02000000
- #define MACB_CAPS_CLK_HW_CHG			0x04000000
++#define MACB_CAPS_PCIE_POSTED_WRITES		BIT(29)
+ 
+ /* LSO settings */
+ #define MACB_LSO_UFO_ENABLE			0x01
 diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 17d4a3e03..fa80236dd 100644
+index 261a7e875..74bc7256c 100644
 --- a/drivers/net/ethernet/cadence/macb_main.c
 +++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -1807,6 +1807,13 @@ static void macb_tx_restart(struct macb_queue *queue)
+@@ -1925,6 +1925,13 @@ static void macb_tx_restart(struct macb_queue *queue)
  
  	spin_lock(&bp->lock);
  	macb_writel(bp, NCR, macb_readl(bp, NCR) | MACB_BIT(TSTART));
@@ -66,9 +67,9 @@ index 17d4a3e03..fa80236dd 100644
  	spin_unlock(&bp->lock);
  
  out_tx_ptr_unlock:
-@@ -2481,6 +2488,9 @@ static netdev_tx_t macb_start_xmit(struct sk_buff *skb, struct net_device *dev)
- 
+@@ -2587,6 +2594,9 @@ static netdev_tx_t macb_start_xmit(struct sk_buff *skb,
  	spin_lock(&bp->lock);
+ 	macb_tx_lpi_wake(bp);
  	macb_writel(bp, NCR, macb_readl(bp, NCR) | MACB_BIT(TSTART));
 +	/* Flush PCIe posted-write queue; see comment in macb_tx_restart(). */
 +	if (bp->caps & MACB_CAPS_PCIE_POSTED_WRITES)
@@ -76,16 +77,16 @@ index 17d4a3e03..fa80236dd 100644
  	spin_unlock(&bp->lock);
  
  	if (CIRC_SPACE(queue->tx_head, queue->tx_tail, bp->tx_ring_size) < 1)
-@@ -5474,7 +5484,8 @@ static const struct macb_config versal_config = {
- static const struct macb_config raspberrypi_rp1_config = {
- 	.caps = MACB_CAPS_GIGABIT_MODE_AVAILABLE | MACB_CAPS_CLK_HW_CHG |
+@@ -5745,7 +5755,8 @@ static const struct macb_config raspberrypi_rp1_config = {
  		MACB_CAPS_JUMBO |
--		MACB_CAPS_GEM_HAS_PTP,
-+		MACB_CAPS_GEM_HAS_PTP |
+ 		MACB_CAPS_GEM_HAS_PTP |
+ 		MACB_CAPS_EEE |
+-		MACB_CAPS_USRIO_HAS_MII,
++		MACB_CAPS_USRIO_HAS_MII |
 +		MACB_CAPS_PCIE_POSTED_WRITES,
  	.dma_burst_length = 16,
- 	.clk_init = macb_clk_init,
- 	.init = macb_init,
+ 	.usrio = &at91_default_usrio,
+ 	.jumbo_max_len = 10240,
 -- 
-2.54.0
+2.56.0
 

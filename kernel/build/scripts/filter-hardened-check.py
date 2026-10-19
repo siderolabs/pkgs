@@ -37,6 +37,7 @@ IGNORE_VIOLATIONS = {
     'CONFIG_GCC_PLUGIN_LATENT_ENTROPY', # doesn't seem very relevant, entropy is low quality, and not available in Clang, https://github.com/torvalds/linux/blob/37a93dd5c49b5fda807fd204edf2547c3493319c/scripts/gcc-plugins/Kconfig#L25-L33
     'CONFIG_MODULE_SIG_FORCE', # see https://github.com/siderolabs/talos/issues/11989
     'CONFIG_IOMMU_DEFAULT_DMA_LAZY', # performance impact, we can reconsider later
+    'CONFIG_RANDOM_KMALLOC_CACHES', # renamed in 7.3 to 'CONFIG_KMALLOC_PARTITION_CACHES' (enabled, KMALLOC_PARTITION_TYPED mode)
 }
 
 """
@@ -49,6 +50,7 @@ IGNORE_VIOLATIONS_BY_ARCH = {
         'CONFIG_RODATA_FULL_DEFAULT_ENABLED', # removed in 6.18
         'CONFIG_KASAN_HW_TAGS', # incompatible with OpenZFS and NVIDIA due to 'GPL-incompatible module nvidia.ko uses GPL-only symbol 'kasan_flag_enabled''
         'CONFIG_ARM64_BTI_KERNEL', # disabled upstream in 6.18.52 for clang >= 21, https://github.com/llvm/llvm-project/issues/215547
+        'CONFIG_ARM64_PAN', # removed in 7.x, PAN support is now unconditional
     },
     'amd64': {
         'CONFIG_CFI_AUTO_DEFAULT', # Disabled due to issues with GPL-incompatible modules
