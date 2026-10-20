@@ -3,9 +3,9 @@
 format: v1alpha2
 
 vars:
-  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.13.0-6-g3d4094f
+  TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.13.0-8-g4a2f0ee
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.13.0-14-gb912600
+  TOOLS_REV: v1.13.0-16-g38b4a6e
   LLVM_IMAGE: ghcr.io/siderolabs/llvm
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
@@ -14,10 +14,10 @@ vars:
   cni_sha512: 5811fb14786f1f9d9e40741ce337449ce329e14e04213bc660102eb470150f24026e59caec480572e37d0e3e6e6518737f3cc7ac462c47034d0737283ec532f9
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v2.2.9
-  containerd_ref: 86634a5422440012fc33aeec903f53acfe68be3e
-  containerd_sha256: 88b04bbe85132024d15ca0b00a59d2bcc830f4f878b63070f9ee826028683c47
-  containerd_sha512: 70b6d186018de94807cdbaedcd09135c63193986db5caa8ca9f97cb874db4e9d80bb3a2f458fa4ee33394afa363a8f22448200a1bbdd3023307adaee9ac3496c
+  containerd_version: v2.2.10
+  containerd_ref: 991ca6a8ca58b47346a42093210099e090bc6c1f
+  containerd_sha256: c01bdaa4182601a448440a8f639cad483a9378292c193c5c906052e792740305
+  containerd_sha512: ef7875e1c1108e99177f09b0919ce4d8506d6097cba924f8f038e925e914561249825949c9d3ba846d39b1a04cef7dc3b44e618d94e842cddec12b9fded88b1a
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
   cryptsetup_version: 2.8.6
