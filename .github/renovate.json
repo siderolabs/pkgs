@@ -15,6 +15,12 @@
                 "{\"releases\": $.*[type=\"lts branch\"].driver_info.{\"version\": release_version}}"
             ]
         },
+        "nvidia-driver-new-feature": {
+            "defaultRegistryUrlTemplate": "https://docs.nvidia.com/datacenter/tesla/drivers/releases.json",
+            "transformTemplates": [
+                "{\"releases\": $.*[type=\"new feature branch\"].driver_info.{\"version\": release_version}}"
+            ]
+        },
         "nvidia-driver-production": {
             "defaultRegistryUrlTemplate": "https://docs.nvidia.com/datacenter/tesla/drivers/releases.json",
             "transformTemplates": [
@@ -30,7 +36,7 @@
                 "/Pkgfile/"
             ],
             "matchStrings": [
-                "# renovate: datasource=(?<datasource>.*?)(?:\\s+extractVersion=(?<extractVersion>.+?))?(?:\\s+versioning=(?<versioning>.+?))?\\s+depName=(?<depName>.+?)?\\s(?:.*_(?:version|VERSION):\\s+(?<currentValue>.*))?(?:(\\s)?.*_(?:ref|REF):\\s+(?<currentDigest>.*))?"
+                "# renovate: datasource=(?<datasource>.*?)(?:\\s+extractVersion=(?<extractVersion>.+?))?(?:\\s+versioning=(?<versioning>.+?))?\\s+depName=(?<depName>.+?)?\\s(?:.*_(?:version|VERSION):\\s+\"?(?<currentValue>[^\"\\s]+)\"?)?(?:(\\s)?.*_(?:ref|REF):\\s+(?<currentDigest>.*))?"
             ]
         },
         {
@@ -70,7 +76,7 @@
             ]
         },
         {
-            "allowedVersions": "< 6.19",
+            "allowedVersions": "< 7.4",
             "matchPackageNames": [
                 "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
             ]
@@ -92,6 +98,7 @@
             "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.?(?<patch>\\d+)?$",
             "matchPackageNames": [
                 "nvidia-driver-lts",
+                "nvidia-driver-new-feature",
                 "nvidia-driver-production",
                 "dosfstools/dosfstools",
                 "git://git.savannah.gnu.org/grub.git",
