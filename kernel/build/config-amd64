@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 6.18.57 Kernel Configuration
+# Linux/x86 6.18.58 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 22.1.8"
 CONFIG_GCC_VERSION=0
@@ -5953,7 +5953,7 @@ CONFIG_EDAC_I5100=m
 CONFIG_EDAC_I7300=m
 CONFIG_EDAC_SBRIDGE=m
 CONFIG_EDAC_SKX=m
-# CONFIG_EDAC_I10NM is not set
+CONFIG_EDAC_I10NM=m
 # CONFIG_EDAC_PND2 is not set
 CONFIG_EDAC_IGEN6=m
 CONFIG_RTC_LIB=y
