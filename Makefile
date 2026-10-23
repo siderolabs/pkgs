@@ -141,6 +141,7 @@ TARGETS += mellanox-mstflint-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-lts-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-new-feature-pkg
 TARGETS += nvidia-open-gpu-kernel-modules-production-pkg
+TARGETS += nvidia-tegra-nvgpu-pkg
 TARGETS += px-fuse-pkg
 TARGETS += tenstorrent-pkg
 TARGETS += xdma-driver-pkg
