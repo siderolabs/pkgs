@@ -15,8 +15,8 @@ vars:
   cni_sha512: 5811fb14786f1f9d9e40741ce337449ce329e14e04213bc660102eb470150f24026e59caec480572e37d0e3e6e6518737f3cc7ac462c47034d0737283ec532f9
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v2.3.7
-  containerd_ref: 6f589cf13dc01a5b493911355427e05b2ff005d7
+  containerd_version: v2.4.2
+  containerd_ref: b7a25261e029d68978bbf290df0a62fc819b3c51
   containerd_sha256: 5d973b7d239de0e4cb72f6d4bad348a1540a80f394beb03f84a868714b06706c
   containerd_sha512: e8bc6bfab5a016d460e63c58d19a1c33b0b2f1f04af3ae959d07d7e239d9cfd5e8f33056823efd6cd22d6db49453d1d5bc7743e6d30c4eaf373c6bf1fbf1a89a
 
@@ -51,7 +51,7 @@ vars:
   ena_sha512: 6171486481d725d7637baeaca379758dd6300c5dc843260dc259a918accdcb5616333061c313feafb07304f896cce599e99b3b7fda72418f0c4ee675b2edfd60
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
-  systemd_version: 262
+  systemd_version: 262.1
   systemd_sha256: 6aa77506c0644aa67f940a48e3d3a7368601f787e4f249139516d353f107bcab
   systemd_sha512: 4765e29d37c716dbe629d88bf1ed07b857d373333e64966832039c0031aa46ed7e76efd7b112eb199508adffc8afbf185b3360c9a66d100da052c407bd3f02d5
 
@@ -101,7 +101,7 @@ vars:
   iptables_sha512: 3aefd76ca60d00f46ba4d6f39cbcfdc60517d03b6714da25dcd67542f6f4eea8d82c4855bdd9124efe18b769f41951772b8340a6eda75b85f8dd52b2289b145b
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 719a85cfccb1f71cd18c7825e42ebbc322e6eaff
+  ipxe_ref: 70f39d5b0dcf427d0dd143bf5f55c82df401c486
   ipxe_sha256: 3ced182fa7425f45a5b7390ae8602578d207a0a3f3c613298f2638570a67208c
   ipxe_sha512: 95f413f74953ef1ef43c0264ce31a0341c75e0f882e44c9257ec250fed345df17af14473df6bd393d838759dab37c03fe720b51ef837f2bb42e6753127bcd87a
 
@@ -121,7 +121,7 @@ vars:
   libaio_sha512: 65c30a102433bf8386581b03fc706d84bd341be249fbdee11a032b237a7b239e8c27413504fef15e2797b1acd67f752526637005889590ecb380e2e120ab0b71
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=libarchive/libarchive
-  libarchive_version: 3.8.9
+  libarchive_version: 3.8.10
   libarchive_sha256: 888c934f9d95648ecb9163dc8e23ab80a476ecb81a8f1154704a227b5b676dde
   libarchive_sha512: f37425417a9e3fdc194a2b892137452ddba6601c69e822598692d4d776c573a90e70aac4598d47c915615facc45d0c83fc46c24856ddf04afd7494b63bb9f137
 
@@ -208,7 +208,7 @@ vars:
   liburcu_sha512: d5c0496fc2cd74c7fdf1b4ccbcd72012436bfbcb87ba167de42a9a8080ec0c01ee9c4f03948b13c6400b32fd3c4e3aaf62d6c35f7f223e7e0eb180608baf54d8
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20260916
+  linux_firmware_version: 20261019
   linux_firmware_sha256: 5f129e0d520b9e4e7e019130ba1cd18ab0ff59e9664ea1230532ce174e940ca1
   linux_firmware_sha512: e459f57702301cb9b97bbb7e7d2cdd20687618d0a9cfed12ffebe2055edac8bb097f0a58cc20438647ff99fce64e1f54e22fa4b7e1597f58e42fb055107a9032
 
@@ -233,14 +233,14 @@ vars:
   mtools_sha512: 30e75cd85916b7c5b81e667fec1e47f19c024a988a643e8fa8ddd4a20b96c58d29c528d033548f9a603119835e414ea6fc671b3dafa08f50b9192991276d2447
 
   # renovate: datasource=custom.nvidia-driver-lts depName=nvidia-driver-lts
-  nvidia_driver_lts_version: 580.178.04
+  nvidia_driver_lts_version: 580.196.07
   nvidia_driver_lts_arm64_sha256: 8e55dfbe85b1aa9fbd2e323ed203470ebf6001f614d1f8cb4fa0671ea979a557
   nvidia_driver_lts_arm64_sha512: 05fac615240326349e2cc3c999f1a0d2181a0cc88ece6f28b964a16ef70f9d23cc7b4c76cb478a4345f0587de5e9f43a746f7070a8babee91fb9803a9e938fe2
   nvidia_driver_lts_amd64_sha256: 269bfbc57d176ea21eede622a5c638c84354ed70ffcc3d092679ce10d3fef409
   nvidia_driver_lts_amd64_sha512: 4cab88f79734f32bbf3a2bdf988bb30585f15802063f9244b209c57735cf44cd8275f07886a919736a644166467db1f0ff6bcfe861ebd9c689d4833a0ccd2645
 
   # renovate: datasource=custom.nvidia-driver-production depName=nvidia-driver-production
-  nvidia_driver_production_version: 595.91.07
+  nvidia_driver_production_version: 595.112.07
   nvidia_driver_production_arm64_sha256: f0833df649a72c7cb675a179add564b8f8ed76c2e83faa9f1161f101d82b4fd3
   nvidia_driver_production_arm64_sha512: 1ad7b483dd576ed49ade0427232b3259cccd030a3d8e937110ec3f850fcd84e7004a563761144f2420bf54e96686ab26e758e857e5b95e2ee80786856ab10607
   nvidia_driver_production_amd64_sha256: 93e0487897e843be767a3d259dffea8ac32dffff846e83df8d3abbf30be754ae
@@ -264,7 +264,7 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/portworx/px-fuse.git
-  px_fuse_ref: b9636ca93ec981f826476235e414ff4d34a93cc1
+  px_fuse_ref: 80a472b147b59614a77cd60f390a9044a7d8d37b
   px_fuse_sha256: eea614f793b1a04252aa64d4aa8f9fd616c92333931d210e2f8620b7e0601488
   px_fuse_sha512: b597289e694ee8a729cccebe298c653830247debfcb346f99f0de1e4496fac6a10851306b8e9067676377ccc689af316f9791d387d4fc4c135ab448d8fc46cf0
 
@@ -315,12 +315,12 @@ vars:
   tenstorrent_sha512: f882a3b2c29dba74a097e860c34cfaeaea07bd25d60f3fb2dbea8d99047bb1b5beabe2c7c90f8d34119b350a20cc3ae7f5f068237db2f02bbd77fa6f7903f915
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/Xilinx/dma_ip_drivers.git
-  xdma_driver_ref: b8466090b4e812e191da9e9305ffb11cb7ace768
+  xdma_driver_ref: a918c5196a09f95756af244a607d543d9dce5bfb
   xdma_driver_sha256: a9a3dc3f1caac53896f2a93714791a4dee55d27cd05ec4dfa7e43f149a3a26e2
   xdma_driver_sha512: f79396d7c82ca8d9f55187eae7ef63402b6a2aca9587bea84dacae00beb725366d5dedb717879b6ed7fe306fc7b653bc08bb28f98cd2e214aa347a0db928bae5
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
-  xfsprogs_version: 7.2.0
+  xfsprogs_version: 7.2.1
   xfsprogs_sha256: 501dfa363cd8e19997a4a1a71f70ded88241b45e9db233e8875c23b80520cc83
   xfsprogs_sha512: 3a7e3f4582c44a94a4b8fa8b8b795f0018207d92df3a9ff8334e7300307ddd293c4caaed8c7c4061b6b9d7c626b0e0d9da03a53fac029433444deaf4b6abd144
 
@@ -331,7 +331,7 @@ vars:
 
   # NOTE: v4 requires autoconf-archive
   # renovate: datasource=git-tags depName=https://gitlab.com/apparmor/apparmor.git
-  apparmor_version: v3.1.7
+  apparmor_version: v5.0.2
   apparmor_sha256: 64494bd99fa6547a9cbdb4fc6bc732451a02dd19e6eb70eab977b239632151eb
   apparmor_sha512: cfd6b0afb98d4559c16a6a2e23ca16ee9d86325fc6059313df5d3e8feba3d398f96a5754d3880dd2cafb2e7b1a06bd789d62cd36aaf993e46290f6311bb49dac
 
@@ -341,7 +341,7 @@ vars:
   gdrcopy_sha512: c717f118eff8cd5a8dc35613c3881818f8b71dc493461dd0151ce7c882f8e2c2d852e22733fab4e2bec57219e10eec874c11b4fad90dd4815ae572840ed19d28
 
   # renovate: datasource=github-releases depName=NVIDIA/gds-nvidia-fs
-  gds_nvidia_fs_version: v2.30.2
+  gds_nvidia_fs_version: v2.31.5
   gds_nvidia_fs_sha256: 4a73e61c93656e51852458db24cd1e9143a09b531f9cfe670346900561ce5aa3
   gds_nvidia_fs_sha512: 8c59dcf7dba4cd9cc4b177d14b0de94c81fcdcfc45163391530ed437765d2fec95c615a676e900ecafe1627d2dec5f2b4eb176b3c33c957dfbe50605c4290272
 labels:
