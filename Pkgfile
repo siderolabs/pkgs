@@ -121,9 +121,9 @@ vars:
   libaio_sha512: 65c30a102433bf8386581b03fc706d84bd341be249fbdee11a032b237a7b239e8c27413504fef15e2797b1acd67f752526637005889590ecb380e2e120ab0b71
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=libarchive/libarchive
-  libarchive_version: 3.8.9
-  libarchive_sha256: 888c934f9d95648ecb9163dc8e23ab80a476ecb81a8f1154704a227b5b676dde
-  libarchive_sha512: f37425417a9e3fdc194a2b892137452ddba6601c69e822598692d4d776c573a90e70aac4598d47c915615facc45d0c83fc46c24856ddf04afd7494b63bb9f137
+  libarchive_version: 3.8.10
+  libarchive_sha256: 56cad765459d5ee25a3b761f90c47d99379d28297fbfb72d908880d6b875fb96
+  libarchive_sha512: ebf22fbfbf8d99a1cc06dd8dd29a76e2a0f7f6217b369aa1279be2a2e049ca240a0f62f59845f4e7caced54ddc289c105b3fc19755db85d339be5367317ccd75
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.savannah.gnu.org/attr.git
   libattr_version: 2.6.0
@@ -208,9 +208,9 @@ vars:
   liburcu_sha512: d5c0496fc2cd74c7fdf1b4ccbcd72012436bfbcb87ba167de42a9a8080ec0c01ee9c4f03948b13c6400b32fd3c4e3aaf62d6c35f7f223e7e0eb180608baf54d8
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20260916
-  linux_firmware_sha256: 5f129e0d520b9e4e7e019130ba1cd18ab0ff59e9664ea1230532ce174e940ca1
-  linux_firmware_sha512: e459f57702301cb9b97bbb7e7d2cdd20687618d0a9cfed12ffebe2055edac8bb097f0a58cc20438647ff99fce64e1f54e22fa4b7e1597f58e42fb055107a9032
+  linux_firmware_version: 20261019
+  linux_firmware_sha256: 1e80b924afc2e78096361d58953a281f6fa8a5f6a7622f9a053004ff9cb9ac09
+  linux_firmware_sha512: 5e70bdba8854e5c5995435bf16831e39e3a218b632fc05ab637599b796c696c84de453eb897cd9e5d9b48717e2b1292038c82c08213e47f5d09e8069aa6aea06
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
   lvm2_version: 2_03_43
