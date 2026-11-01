@@ -114,9 +114,9 @@ vars:
   libaio_sha512: 65c30a102433bf8386581b03fc706d84bd341be249fbdee11a032b237a7b239e8c27413504fef15e2797b1acd67f752526637005889590ecb380e2e120ab0b71
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=libarchive/libarchive
-  libarchive_version: 3.8.10
-  libarchive_sha256: 56cad765459d5ee25a3b761f90c47d99379d28297fbfb72d908880d6b875fb96
-  libarchive_sha512: ebf22fbfbf8d99a1cc06dd8dd29a76e2a0f7f6217b369aa1279be2a2e049ca240a0f62f59845f4e7caced54ddc289c105b3fc19755db85d339be5367317ccd75
+  libarchive_version: 3.8.11
+  libarchive_sha256: a3dc0872b1b39da34dc18ef1b944f0f11ffd37425d70ae04be679279f1cf43d2
+  libarchive_sha512: 7e9145c51d389ae5fa4e64c9a791dcbe4960ae064ebefa40d73d6079180af17795d7d0f9dffc939f9d050b9be2669f45115bb89a9466f43617e731edab57ccf1
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.savannah.gnu.org/attr.git
   libattr_version: 2.6.0
@@ -206,9 +206,9 @@ vars:
   linux_firmware_sha512: 5e70bdba8854e5c5995435bf16831e39e3a218b632fc05ab637599b796c696c84de453eb897cd9e5d9b48717e2b1292038c82c08213e47f5d09e8069aa6aea06
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
-  lvm2_version: 2_03_42
-  lvm2_sha256: 352703ef5b72ebb22d4f250284a29b89fe64d4049c6bf64c693f9af486c8081e
-  lvm2_sha512: 0d65f37521eb6a472011aee52a72a4e65a14ce71050aac04451a01f84e177282d6a4bdc3db0807f360101824a399803bedb93aa1c6dc894c0ae8347a35a68f29
+  lvm2_version: 2_03_44
+  lvm2_sha256: 42f829927d2d459f5733fcdb38a5bf2455a8b84072193092450a9c69d6596eca
+  lvm2_sha512: 6dea4cb0d21fff65a8c84ac6cf00a1080547a19c88bab8b2203888c7fb9428447373e33f78566a7abdaf93778ee1d2459c74b545537f9c4a818bc128e4297013
 
   # renovate: datasource=github-releases extractVersion=^mdadm-(?<version>.*)$ depName=md-raid-utilities/mdadm
   mdadm_version: 4.6
@@ -260,9 +260,9 @@ vars:
   glib_sha512: af6ba2f0832916e92338b809b7f4b34e0b02d58d68f216c2dfe9cb0e7b8944d70116a81e1e58fc0f18abceff168d2367817fd4d2ee3e0674dcbb83edc430ed6e
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=https://github.com/qemu/qemu.git
-  qemu_version: 11.1.0
-  qemu_sha256: 6ee1d1a61f68212476b27108c26da5f449dc09b626d42f8279ba0dc2e08fa858
-  qemu_sha512: 17009c49b1a4f35b150f98c7c3955cb44bf9c63593f124276b328da97568f600724b8f26759fbac88e96e814bda389491713e34b3aae53fa515277f5a868ea5a
+  qemu_version: 11.1.3
+  qemu_sha256: 5a8289c7940dc77d3873c81a6c29ba3afe1446fc9d36e77fa1658cdbecb84b22
+  qemu_sha512: 6bcade0af849e6a7f124e2b07d07e8a6e1fd160dcdc7f3c9c968cbdbc8922b2ddfa68493105ac14516f8eea83db6ef4dba07cc6776a61aa023508b31e53b9ef7
 
   # renovate: datasource=github-tags depName=opencontainers/runc
   runc_version: v1.5.2
