@@ -1,0 +1,36 @@
+tegra-drm: update the headless build for current DRM headers
+
+Include drm_print.h explicitly rather than relying on transitive includes.
+The atomic check callback now receives a drm_atomic_commit.
+
+diff --git a/drivers/gpu/drm/tegra/drm.c b/drivers/gpu/drm/tegra/drm.c
+--- a/drivers/gpu/drm/tegra/drm.c
++++ b/drivers/gpu/drm/tegra/drm.c
+@@ -33,6 +33,7 @@
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_framebuffer.h>
+ #include <drm/drm_ioctl.h>
++#include <drm/drm_print.h>
+ #include <drm/drm_prime.h>
+ #include <drm/drm_vblank.h>
+ #include <drm/tegra_drm-next.h>
+@@ -57,7 +58,7 @@
+ #define CDMA_GATHER_FETCHES_MAX_NB 16383
+ 
+ static int tegra_atomic_check(struct drm_device *drm,
+-			      struct drm_atomic_state *state)
++			      struct drm_atomic_commit *state)
+ {
+ 	int err;
+ 
+diff --git a/drivers/gpu/drm/tegra/fb.c b/drivers/gpu/drm/tegra/fb.c
+--- a/drivers/gpu/drm/tegra/fb.c
++++ b/drivers/gpu/drm/tegra/fb.c
+@@ -14,6 +14,7 @@
+ #include <drm/drm_framebuffer.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_modeset_helper.h>
++#include <drm/drm_print.h>
+ 
+ #include "drm.h"
+ #include "gem.h"

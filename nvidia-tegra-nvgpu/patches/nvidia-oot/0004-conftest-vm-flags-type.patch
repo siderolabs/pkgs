@@ -1,0 +1,24 @@
+conftest: test vm_flags constness without relying on __vm_flags
+
+The VMA flags conversion removed __vm_flags while keeping vm_flags const.
+Check the pointer type instead of the presence of the old backing member.
+Otherwise the probe selects direct writes to a read-only member.
+
+diff --git a/scripts/conftest/conftest.sh b/scripts/conftest/conftest.sh
+--- a/scripts/conftest/conftest.sh
++++ b/scripts/conftest/conftest.sh
+@@ -6233,9 +6233,11 @@
+             #
+             CODE="
+             #include <linux/mm_types.h>
+-            int conftest_vm_area_struct_has_const_vm_flags(void) {
+-                return offsetof(struct vm_area_struct, __vm_flags);
+-            }"
++            _Static_assert(__builtin_types_compatible_p(
++                __typeof__(&((struct vm_area_struct *)0)->vm_flags),
++                const vm_flags_t *),
++                \"vm_flags is not const\");
++            "
+ 
+             compile_check_conftest "$CODE" "NV_VM_AREA_STRUCT_HAS_CONST_VM_FLAGS" "" "types"
+         ;;
