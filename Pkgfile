@@ -5,7 +5,7 @@ format: v1alpha2
 vars:
   TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.15.0-alpha.0-12-g0f41276
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.15.0-alpha.0-16-g54f72f9
+  TOOLS_REV: v1.15.0-alpha.0-17-g960cf75
   LLVM_IMAGE: ghcr.io/siderolabs/llvm
   RUSTC_IMAGE: ghcr.io/siderolabs/rustc:v1.15.0-alpha.0-5-g5263a0f
 
@@ -79,11 +79,11 @@ vars:
   hailort_v4_fw_sha512: 53ffd641086e7bc1298e6b41c7204199e49e595feeb06bcfa339c15e4a73de6133e59293cf3f5dfdd72b052f2c829fc5ad93da5d325ed084b702e450f999594c
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>5\..+)$ depName=hailo-ai/hailort-drivers
-  hailort_v5_version: 5.4.0
-  hailort_v5_sha256: 9ea3d5cf3ce7af30253896f127f67ecb1677faecd25f9c4ff199ca1a722fc63a
-  hailort_v5_sha512: 123e4e084f7f756fba446d81b7b655ecc594b9704d48ed9c65e923867eb97b696636f1325fd62ae592a9c497dc466df4c7122943ca76708c8bee82533aa8a58f
-  hailort_v5_hailo10h_fw_sha256: 569444739a9262fd70fb62ae3f4f9be3f649685166d0b09af6063d7a4dc11bf9
-  hailort_v5_hailo10h_fw_sha512: 87437747ea1255f965132cfc9c407b9b72c385ae4fbef77b458ac22bb64b2a7f3a25edd58a3d39702128e5f1eb741c6785fcc825f2960f409326c5775a046426
+  hailort_v5_version: 5.5.0
+  hailort_v5_sha256: 93d74efbf1e0451beecf240b17eb412d24048c78a97882a480d81478c0653c94
+  hailort_v5_sha512: b8a2f221fa80c69eb463d5398a05a05ff2fba2d853caef575e71a0d4042622fc530d7807411421fda703232f39ae10184647abc4f1682718ddecf25ab64af113
+  hailort_v5_hailo10h_fw_sha256: 4194522c75c4a7dce2c1aebe61c5d8aff2f354b3dde07c466113087394533fca
+  hailort_v5_hailo10h_fw_sha512: a4f47c3997fde5dc4eaa5ccd926d0a03bb9bfc5edde8a8a28dcbd73a8cb5ae1087492b485ccb8a5e3447b66cd0a3c7d598f40a4e474ec09ef0a719a366936ad9
 
   # renovate: datasource=github-releases depName=intel/isa-l
   igzip_version: 2.32.1
@@ -101,9 +101,9 @@ vars:
   iptables_sha512: 3aefd76ca60d00f46ba4d6f39cbcfdc60517d03b6714da25dcd67542f6f4eea8d82c4855bdd9124efe18b769f41951772b8340a6eda75b85f8dd52b2289b145b
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 39a440d082a65a5b8e11e734cd6caf0991b70771
-  ipxe_sha256: a03d85e4c7f9704b8c9001d84dd33a51dc7d98ef9d465988ef4dc82aeff1a87a
-  ipxe_sha512: 2730b0d91c87109d2c7ab3a82a74fe88111e21ff76aa56c4ff8a6e5a24ce9fc1345ac11d4baf7c00669f1c3d60dcdfb2c5b9eb9bdf93900802e251f20d9e5afd
+  ipxe_ref: cb2378d6dc43dfabaf31eb9ddec93166d6e9fa60
+  ipxe_sha256: 260651bbe5c7420ab79cd94c53bd4ec9303da586e798574dbbf2fecc0a085ef0
+  ipxe_sha512: 4cdf15f10ad468dbfc8d8ea8f79d26af259db6d9d989685724593d4b97b97390ddb80d2b59bde293c09d38e49195393be030a095c15074d49ebd5c0acdc02e98
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: b2acfd4f8fba4e91996224b29c992cf83be30904
@@ -131,9 +131,9 @@ vars:
   libattr_sha512: 870d0c34fbaa7520aad058ecd6509fe8eddd17430781a16d1e80484d4947307a7c641f0449183cbac1da611a85f82c9bee2d2d7bff76170fc2195b123100d22e
 
   # renovate: datasource=github-releases extractVersion=^r(?<version>.*)$ depName=benhoyt/inih
-  libinih_version: 62
-  libinih_sha256: 9c15fa751bb8093d042dae1b9f125eb45198c32c6704cd5481ccde460d4f8151
-  libinih_sha512: 206ddfaa55d29396c3a44f8d1dfcf578c5ebf892e81fe875cd6b4ec2af5cccf400ca13fc6585b6d8232bd122bd8aef7522bfc83898b5609b29c20bad9390ee02
+  libinih_version: 63
+  libinih_sha256: 5d7967de62c5bfdc4f9f5ab06ce44c9e498bae021c7dac5792c0696e76aa9963
+  libinih_sha512: 0aede2f2dbb70e6ee855743045d423a0f399c6361f84813be5b912ca84b4dfe40013857b91390d9b156f8bc53067582ea66e6c7de339f4b0fb7436b10143a059
 
   # renovate: datasource=git-tags extractVersion=^release-(?<version>.*)$ depName=https://dev.lovelyhq.com/libburnia/libburn.git
   libburn_version: 1.5.8
@@ -310,9 +310,9 @@ vars:
   tc_redirect_tap_sha512: 017d01fef1d6cddc2b53d6516acf7c8b61c7864c6c3708e7adaf73c5413f43b1495679249379e7a46de639a24e66643daf659565d0135a61b36246df4edc7936
 
   # renovate: datasource=github-releases extractVersion=^ttkmd-(?<version>.*)$ depName=tenstorrent/tt-kmd
-  tenstorrent_version: 2.11.0
-  tenstorrent_sha256: 379f16f2011afbdc759a07f5a9396b917282a50d4af7e2b96ecdff7ed1b2b945
-  tenstorrent_sha512: f882a3b2c29dba74a097e860c34cfaeaea07bd25d60f3fb2dbea8d99047bb1b5beabe2c7c90f8d34119b350a20cc3ae7f5f068237db2f02bbd77fa6f7903f915
+  tenstorrent_version: 2.12.0
+  tenstorrent_sha256: d47d82bc2b1e5183d9c70e46cc534c81f229c6672a161cfe4a582ec4e1ea1340
+  tenstorrent_sha512: 88353188ce2f8f24bb62e042d4e69e6236de84b14811ee7519a195289c713b586c17c820bd97dbd70d0101ae577940f37962f59fcb8f5c4bd98a10e394629712
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/Xilinx/dma_ip_drivers.git
   xdma_driver_ref: a918c5196a09f95756af244a607d543d9dce5bfb

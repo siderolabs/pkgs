@@ -23,19 +23,14 @@ steps:
       - |
         tar xf hailort-driver.tar.gz --strip-components=1
       - |
-        # Linux 7.x removed strncpy()
-        patch -p1 </pkg/patches/strscpy.patch
-      - |
         mkdir -p /rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)/ /rootfs/usr/lib/firmware/hailo/hailo10h/
     build:
       - |
-        cd linux/pcie
-        make -j $(nproc) KERNEL_DIR=/src/ all
+        make -j $(nproc) KERNEL_DIR=/src/ pcie
     install:
       - |
         tar xf hailo10h_fw.tar.gz -C /rootfs/usr/lib/firmware/hailo/hailo10h/
-        cd linux/pcie
-        make -j $(nproc) -C /src M=$(pwd) modules_install INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=kernel/drivers/misc INSTALL_MOD_STRIP=1
+        make -j $(nproc) -C /src M=$(pwd) HAILO_DRIVER=pcie modules_install INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=kernel/drivers/misc INSTALL_MOD_STRIP=1
     test:
       - |
         # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
