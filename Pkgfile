@@ -15,8 +15,8 @@ vars:
   cni_sha512: 5811fb14786f1f9d9e40741ce337449ce329e14e04213bc660102eb470150f24026e59caec480572e37d0e3e6e6518737f3cc7ac462c47034d0737283ec532f9
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v2.3.7
-  containerd_ref: 6f589cf13dc01a5b493911355427e05b2ff005d7
+  containerd_version: v2.4.2
+  containerd_ref: b7a25261e029d68978bbf290df0a62fc819b3c51
   containerd_sha256: 5d973b7d239de0e4cb72f6d4bad348a1540a80f394beb03f84a868714b06706c
   containerd_sha512: e8bc6bfab5a016d460e63c58d19a1c33b0b2f1f04af3ae959d07d7e239d9cfd5e8f33056823efd6cd22d6db49453d1d5bc7743e6d30c4eaf373c6bf1fbf1a89a
 
@@ -51,7 +51,7 @@ vars:
   ena_sha512: 6171486481d725d7637baeaca379758dd6300c5dc843260dc259a918accdcb5616333061c313feafb07304f896cce599e99b3b7fda72418f0c4ee675b2edfd60
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
-  systemd_version: 262.1
+  systemd_version: 262.2
   systemd_sha256: 100fc873b848b9b0297d8a705e8e2ed326256c8483d9960ee1ffe264c8a5c3e3
   systemd_sha512: a4d696dc03d096b815b6780f910fab4e79e01b8414b26529a8585b437b27a50b10c1082e534f1cdcb8bbec330a2af0f98fdcacf189e75f64a157c8bbc4774976
 
@@ -101,7 +101,7 @@ vars:
   iptables_sha512: 3aefd76ca60d00f46ba4d6f39cbcfdc60517d03b6714da25dcd67542f6f4eea8d82c4855bdd9124efe18b769f41951772b8340a6eda75b85f8dd52b2289b145b
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: cb2378d6dc43dfabaf31eb9ddec93166d6e9fa60
+  ipxe_ref: 00bdfda1ae91751bda458041624278908efe17e5
   ipxe_sha256: 260651bbe5c7420ab79cd94c53bd4ec9303da586e798574dbbf2fecc0a085ef0
   ipxe_sha512: 4cdf15f10ad468dbfc8d8ea8f79d26af259db6d9d989685724593d4b97b97390ddb80d2b59bde293c09d38e49195393be030a095c15074d49ebd5c0acdc02e98
 
@@ -233,7 +233,7 @@ vars:
   mtools_sha512: 30e75cd85916b7c5b81e667fec1e47f19c024a988a643e8fa8ddd4a20b96c58d29c528d033548f9a603119835e414ea6fc671b3dafa08f50b9192991276d2447
 
   # renovate: datasource=custom.nvidia-driver-lts depName=nvidia-driver-lts
-  nvidia_driver_lts_version: 580.196.07
+  nvidia_driver_lts_version: 620.70.06
   nvidia_driver_lts_arm64_sha256: 0e88699e3fd99d9ea082a18d646553cbb3247220a54a868338e7df1a1e6aef1f
   nvidia_driver_lts_arm64_sha512: e011d7aa03edec14b416e3d2f97a6426efb8e1ab0f4d73a0098ca310a597dbcc19797e97d99e60f61178aae119377928f77988ddd75765375057d25fea87b8ab
   nvidia_driver_lts_amd64_sha256: 8e2e71cc51a366331b7318b9b1d9d516918d1f46949baf722882ac77b7264df2
@@ -264,7 +264,7 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/portworx/px-fuse.git
-  px_fuse_ref: 80a472b147b59614a77cd60f390a9044a7d8d37b
+  px_fuse_ref: d87193e0eeaff563426c79de5dabdedfcbc98633
   px_fuse_sha256: 4de4d1b181e3d7ecc03ed551f2652286bfc5f10037b16789b917e14791e7ce14
   px_fuse_sha512: 99b8163d34664d89821bf49406150dd1805b1c006de7f2c04c972e1579743be94e3a86d3ee4a8ab1bef34d7488c92592c3114a36b8416092b8afde4bbeffabdc
 
@@ -331,7 +331,7 @@ vars:
 
   # NOTE: v4 requires autoconf-archive
   # renovate: datasource=git-tags depName=https://gitlab.com/apparmor/apparmor.git
-  apparmor_version: v3.1.7
+  apparmor_version: v5.0.2
   apparmor_sha256: 64494bd99fa6547a9cbdb4fc6bc732451a02dd19e6eb70eab977b239632151eb
   apparmor_sha512: cfd6b0afb98d4559c16a6a2e23ca16ee9d86325fc6059313df5d3e8feba3d398f96a5754d3880dd2cafb2e7b1a06bd789d62cd36aaf993e46290f6311bb49dac
 
