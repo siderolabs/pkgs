@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.18.58 Kernel Configuration
+# Linux/arm64 6.18.63 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 22.1.8"
 CONFIG_GCC_VERSION=0
@@ -3905,7 +3905,6 @@ CONFIG_TCG_TIS_SPI=y
 # CONFIG_TCG_TIS_I2C_ATMEL is not set
 # CONFIG_TCG_TIS_I2C_INFINEON is not set
 # CONFIG_TCG_TIS_I2C_NUVOTON is not set
-# CONFIG_TCG_ATMEL is not set
 # CONFIG_TCG_INFINEON is not set
 # CONFIG_TCG_XEN is not set
 CONFIG_TCG_CRB=y
@@ -7468,7 +7467,6 @@ CONFIG_UIO_PCI_GENERIC=m
 # CONFIG_UIO_NETX is not set
 # CONFIG_UIO_MF624 is not set
 # CONFIG_UIO_HV_GENERIC is not set
-# CONFIG_UIO_PCI_GENERIC_SVA is not set
 CONFIG_VFIO=m
 CONFIG_VFIO_DEVICE_CDEV=y
 CONFIG_VFIO_GROUP=y
