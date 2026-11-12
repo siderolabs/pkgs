@@ -1,0 +1,103 @@
+nvgpu: update thermal GPIO and clock-provider APIs
+
+Use a managed GPIO descriptor for the thermal interrupt and release
+the device-tree reference on both success and failure. Adapt the old
+clock rounding helper to determine_rate, preserving negative errors
+and its selected parent rate.
+
+diff --git a/drivers/gpu/nvgpu/os/linux/module.c b/drivers/gpu/nvgpu/os/linux/module.c
+index ae083a0..e004196 100644
+--- a/drivers/gpu/nvgpu/os/linux/module.c
++++ b/drivers/gpu/nvgpu/os/linux/module.c
+@@ -26,7 +26,8 @@
+ #include <linux/platform/tegra/common.h>
+ #endif
+ #include <linux/pci.h>
+-#include <linux/of_gpio.h>
++#include <linux/of.h>
++#include <linux/gpio/consumer.h>
+ 
+ #include <uapi/linux/nvgpu.h>
+ #ifdef CONFIG_NVGPU_TEGRA_FUSE
+@@ -405,7 +406,8 @@ static irqreturn_t therm_irq(int irq, void *dev_id)
+ static int nvgpu_request_therm_irq(struct nvgpu_os_linux *l)
+ {
+ 	struct device_node *np;
+-	int ret = 0, gpio, index = 0;
++	struct gpio_desc *gpio;
++	int ret = 0, index = 0;
+ 	u32 irq_flags = IRQ_TYPE_NONE;
+ 	u32 event_delay = 10U;
+ 
+@@ -417,13 +419,22 @@ static int nvgpu_request_therm_irq(struct nvgpu_os_linux *l)
+ 		return -ENOENT;
+ 	}
+ 
+-	gpio = of_get_named_gpio(np, "nvgpu-therm-gpios", index);
+-	if (gpio < 0) {
+-		nvgpu_err(&l->g, "failed to get GPIO %d ", gpio);
+-		return gpio;
++	gpio = devm_fwnode_gpiod_get_index(l->dev, of_fwnode_handle(np),
++			"nvgpu-therm", index, GPIOD_ASIS, "dgpu_therm");
++	if (IS_ERR(gpio)) {
++		ret = PTR_ERR(gpio);
++		nvgpu_err(&l->g, "failed to get GPIO %d", ret);
++		of_node_put(np);
++		return ret;
+ 	}
+ 
+-	l->thermal_alert.therm_alert_irq = gpio_to_irq(gpio);
++	ret = gpiod_to_irq(gpio);
++	if (ret < 0) {
++		devm_gpiod_put(l->dev, gpio);
++		of_node_put(np);
++		return ret;
++	}
++	l->thermal_alert.therm_alert_irq = ret;
+ 
+ 	if (of_property_read_u32(np, "alert-interrupt-level", &irq_flags))
+ 		nvgpu_info(&l->g, "Missing interrupt-level "
+@@ -432,6 +443,7 @@ static int nvgpu_request_therm_irq(struct nvgpu_os_linux *l)
+ 		nvgpu_info(&l->g, "Missing event-interval "
+ 				"prop using %d seconds ", event_delay);
+ 
++	of_node_put(np);
+ 	l->thermal_alert.event_delay = event_delay;
+ 
+ 	if (!l->thermal_alert.workqueue) {
+
+diff --git a/drivers/gpu/nvgpu/os/linux/platform_gk20a_tegra.c b/drivers/gpu/nvgpu/os/linux/platform_gk20a_tegra.c
+index 3ad53e4..ffaa1d1 100644
+--- a/drivers/gpu/nvgpu/os/linux/platform_gk20a_tegra.c
++++ b/drivers/gpu/nvgpu/os/linux/platform_gk20a_tegra.c
+@@ -797,11 +797,17 @@ static int gm20b_gpcclk_set_rate_ops(struct clk_hw *hw, unsigned long rate,
+ 	return gm20b_gpcclk_set_rate(clk, rate, parent_rate);
+ }
+ 
+-static long gm20b_round_rate_ops(struct clk_hw *hw, unsigned long rate,
+-			     unsigned long *parent_rate)
++static int gm20b_determine_rate_ops(struct clk_hw *hw,
++				    struct clk_rate_request *req)
+ {
+ 	struct clk_gk20a *clk = clk_gk20a_from_hw(hw);
+-	return gm20b_round_rate(clk, rate, parent_rate);
++	long rate = gm20b_round_rate(clk, req->rate, &req->best_parent_rate);
++
++	if (rate < 0)
++		return rate;
++
++	req->rate = rate;
++	return 0;
+ }
+ 
+ static const struct clk_ops gm20b_clk_ops = {
+@@ -810,7 +816,7 @@ static const struct clk_ops gm20b_clk_ops = {
+ 	.is_prepared = gm20b_clk_is_prepared_ops,
+ 	.recalc_rate = gm20b_recalc_rate_ops,
+ 	.set_rate = gm20b_gpcclk_set_rate_ops,
+-	.round_rate = gm20b_round_rate_ops,
++	.determine_rate = gm20b_determine_rate_ops,
+ };
+ 
+ static int gm20b_register_gpcclk(struct gk20a *g)
+
