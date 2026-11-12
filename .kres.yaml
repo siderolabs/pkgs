@@ -98,7 +98,6 @@ spec:
     - zfs-pkg
   additionalTargets:
     nonfree:
-      - nonfree-kmod-nvidia-lts-pkg
       - nonfree-kmod-nvidia-production-pkg
   reproducibleTargetName: reproducibility
   extraBuildArgs:

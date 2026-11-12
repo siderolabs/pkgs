@@ -10,9 +10,9 @@ vars:
   RUSTC_IMAGE: ghcr.io/siderolabs/rustc:v1.15.0-alpha.0-5-g5263a0f
 
   # renovate: datasource=github-releases depName=containernetworking/plugins
-  cni_version: v1.9.1
-  cni_sha256: 34bd82d47e981940751619c9cc44c095bb90bfcaf8d71865cbb822c37690a764
-  cni_sha512: 5811fb14786f1f9d9e40741ce337449ce329e14e04213bc660102eb470150f24026e59caec480572e37d0e3e6e6518737f3cc7ac462c47034d0737283ec532f9
+  cni_version: v1.10.0
+  cni_sha256: 15a36f0a88e90704126d2d523a9704c4cab2439a4a19c9ac23961b31c2a311c6
+  cni_sha512: 4bb740af43b40a233b030212f5a04a61ffa5a649c55d76b4e25ab063e10b4ca888e4c5938ea39dc13cf3cf474fe0a49074e1372aa8b962ce5207e8629eff6bde
 
   # renovate: datasource=github-tags depName=containerd/containerd
   containerd_version: v2.3.7
@@ -51,9 +51,9 @@ vars:
   ena_sha512: 6171486481d725d7637baeaca379758dd6300c5dc843260dc259a918accdcb5616333061c313feafb07304f896cce599e99b3b7fda72418f0c4ee675b2edfd60
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=systemd/systemd
-  systemd_version: 262.1
-  systemd_sha256: 100fc873b848b9b0297d8a705e8e2ed326256c8483d9960ee1ffe264c8a5c3e3
-  systemd_sha512: a4d696dc03d096b815b6780f910fab4e79e01b8414b26529a8585b437b27a50b10c1082e534f1cdcb8bbec330a2af0f98fdcacf189e75f64a157c8bbc4774976
+  systemd_version: 262.2
+  systemd_sha256: 116432ee9dce9bfef4c7da7963c6de41899ab44197f2876ee99545707a5c7c1f
+  systemd_sha512: 111da2e78c999f299c40532a69d5ea7aa564e9f761e889d781777c90f771770767ba5625b79d7b4ae179830b191cae2f80dca85799dd5ad973144e82d0b3735d
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
   flannel_cni_version: v1.9.1-flannel3
@@ -101,9 +101,9 @@ vars:
   iptables_sha512: 3aefd76ca60d00f46ba4d6f39cbcfdc60517d03b6714da25dcd67542f6f4eea8d82c4855bdd9124efe18b769f41951772b8340a6eda75b85f8dd52b2289b145b
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: cb2378d6dc43dfabaf31eb9ddec93166d6e9fa60
-  ipxe_sha256: 260651bbe5c7420ab79cd94c53bd4ec9303da586e798574dbbf2fecc0a085ef0
-  ipxe_sha512: 4cdf15f10ad468dbfc8d8ea8f79d26af259db6d9d989685724593d4b97b97390ddb80d2b59bde293c09d38e49195393be030a095c15074d49ebd5c0acdc02e98
+  ipxe_ref: fc23df6fb245eec9f68d5ae3f95469875c3dcade
+  ipxe_sha256: 25e65654e9ac59d3908ebf5904ca8f3d63261968f537d8458fb202d0dc63da9f
+  ipxe_sha512: 57c51a66422d758c12d58820bcd9d7d46431ec24b81b2889455529f25fc23282943423cd24d3ce0eccca95ba4feb5ca6c0b9ea6f2334d72a3e6350bbe60a57f5
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: b2acfd4f8fba4e91996224b29c992cf83be30904
@@ -233,11 +233,11 @@ vars:
   mtools_sha512: 30e75cd85916b7c5b81e667fec1e47f19c024a988a643e8fa8ddd4a20b96c58d29c528d033548f9a603119835e414ea6fc671b3dafa08f50b9192991276d2447
 
   # renovate: datasource=custom.nvidia-driver-lts depName=nvidia-driver-lts
-  nvidia_driver_lts_version: 580.196.07
-  nvidia_driver_lts_arm64_sha256: 0e88699e3fd99d9ea082a18d646553cbb3247220a54a868338e7df1a1e6aef1f
-  nvidia_driver_lts_arm64_sha512: e011d7aa03edec14b416e3d2f97a6426efb8e1ab0f4d73a0098ca310a597dbcc19797e97d99e60f61178aae119377928f77988ddd75765375057d25fea87b8ab
-  nvidia_driver_lts_amd64_sha256: 8e2e71cc51a366331b7318b9b1d9d516918d1f46949baf722882ac77b7264df2
-  nvidia_driver_lts_amd64_sha512: 8e75c75160bfb4ed1bedfdfcd3def0d11afd396dadacda87b34f3eb60a4f49368dae651666b6cc2f17b7d1b57702d89cb29cafb1948423336a6d728f1207a3fc
+  nvidia_driver_lts_version: 620.70.06
+  nvidia_driver_lts_arm64_sha256: 9d70f61eece458222fe38bb30f852122b6b197be015c50ccfcd48c6f9665e92d
+  nvidia_driver_lts_arm64_sha512: cea59a85672715401f8ca751cd1a6dd884954e7f8382076c399867eceb4a8e6d4d2f41990cd30556ca82ab632e21ae0d31ecf3d0b84d95cfc1ac179632f0ad16
+  nvidia_driver_lts_amd64_sha256: 780b169105c440a91310f7d2c986199237370f4888fc9ed8ff955de6511236e1
+  nvidia_driver_lts_amd64_sha512: f938ca46ccef3a9fa0344fe80d8e3f725c37a71398c5c9850d3794ebeb4efe37c41f5087d9ca85a226bbb3a8da1e93ad1c057240c63cedf7b7ca8a5849bbeb43
 
   # renovate: datasource=custom.nvidia-driver-production depName=nvidia-driver-production
   nvidia_driver_production_version: 595.112.07
@@ -264,9 +264,9 @@ vars:
   pigz_sha512: ae3d9d593e1645d65f9ab77aa828600c9af4bb30d0a073da7ae3dd805e65b87efaf6a0efb980f2d0168e475ae506eba194547d6479956dabb9d88293a9078a7f
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/portworx/px-fuse.git
-  px_fuse_ref: 80a472b147b59614a77cd60f390a9044a7d8d37b
-  px_fuse_sha256: 4de4d1b181e3d7ecc03ed551f2652286bfc5f10037b16789b917e14791e7ce14
-  px_fuse_sha512: 99b8163d34664d89821bf49406150dd1805b1c006de7f2c04c972e1579743be94e3a86d3ee4a8ab1bef34d7488c92592c3114a36b8416092b8afde4bbeffabdc
+  px_fuse_ref: d87193e0eeaff563426c79de5dabdedfcbc98633
+  px_fuse_sha256: db627af52fa7b63113488940b9fc2d56b49182de21da49e18b6e470834d2577e
+  px_fuse_sha512: e09ae048eed906e1983810e47cdfbf0c7077597f9632160701df78b5fd76afe4b249e42f65d2ed6088e3ebedb0531c1a5275d73b591c8d8f5a17d461dfde2e54
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
   glib_version: 2.90.1
@@ -279,10 +279,10 @@ vars:
   qemu_sha512: 6bcade0af849e6a7f124e2b07d07e8a6e1fd160dcdc7f3c9c968cbdbc8922b2ddfa68493105ac14516f8eea83db6ef4dba07cc6776a61aa023508b31e53b9ef7
 
   # renovate: datasource=github-tags depName=opencontainers/runc
-  runc_version: v1.5.2
-  runc_ref: 29dd3dc2b13b4123162e5fe132504bb4b15569f1
-  runc_sha256: 46eba094e45fc37d96a1b1dc150971fe8d076d6e23bae09dd35443141bed31a1
-  runc_sha512: b7323cd1b2bdc0d12f172c4ce2957d31845a4c97390e0ec0d3333bb766ef117f25c47cd4546ab22b0287a8e6da816100638636379bdd044634599a6918a9cb77
+  runc_version: v1.5.3
+  runc_ref: 46365c62967c76a765a5e347f48f0c7b3b571fe9
+  runc_sha256: b46692550bfd6a6d69e15068d153446dfd401810809eecb767481fba90561b59
+  runc_sha512: d10d1dd8eafb72b16c7fb54f1b60549dd1475c4e3e47f51363eab700281243bc980cc967a20c1d8dec038a94a893f8a1b00eb0c6aec7bbd2052aaa2e5331f403
 
   # renovate: datasource=git-tags extractVersion=^tag-(?<version>.*)$ depName=git://repo.or.cz/socat.git
   socat_version: 1.8.1.3

@@ -9,9 +9,13 @@ steps:
         destination: cni-plugins.tar.gz
         sha256: "{{ .cni_sha256 }}"
         sha512: "{{ .cni_sha512 }}"
+  - network: default
     prepare:
       - |
         tar -xzf cni-plugins.tar.gz --strip-components=1
+      - |
+        go mod download
+  - network: none
     build:
       - |
         CGO_ENABLED=0 GOFLAGS="-ldflags=-s" bash ./build_linux.sh
