@@ -15,8 +15,8 @@ vars:
   cni_sha512: 4bb740af43b40a233b030212f5a04a61ffa5a649c55d76b4e25ab063e10b4ca888e4c5938ea39dc13cf3cf474fe0a49074e1372aa8b962ce5207e8629eff6bde
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v2.3.7
-  containerd_ref: 6f589cf13dc01a5b493911355427e05b2ff005d7
+  containerd_version: v2.4.2
+  containerd_ref: b7a25261e029d68978bbf290df0a62fc819b3c51
   containerd_sha256: 5d973b7d239de0e4cb72f6d4bad348a1540a80f394beb03f84a868714b06706c
   containerd_sha512: e8bc6bfab5a016d460e63c58d19a1c33b0b2f1f04af3ae959d07d7e239d9cfd5e8f33056823efd6cd22d6db49453d1d5bc7743e6d30c4eaf373c6bf1fbf1a89a
 
@@ -101,7 +101,7 @@ vars:
   iptables_sha512: 3aefd76ca60d00f46ba4d6f39cbcfdc60517d03b6714da25dcd67542f6f4eea8d82c4855bdd9124efe18b769f41951772b8340a6eda75b85f8dd52b2289b145b
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: fc23df6fb245eec9f68d5ae3f95469875c3dcade
+  ipxe_ref: b1b2d63b85a33a568aba92434d638f01197cbd7a
   ipxe_sha256: 25e65654e9ac59d3908ebf5904ca8f3d63261968f537d8458fb202d0dc63da9f
   ipxe_sha512: 57c51a66422d758c12d58820bcd9d7d46431ec24b81b2889455529f25fc23282943423cd24d3ce0eccca95ba4feb5ca6c0b9ea6f2334d72a3e6350bbe60a57f5
 
@@ -331,7 +331,7 @@ vars:
 
   # NOTE: v4 requires autoconf-archive
   # renovate: datasource=git-tags depName=https://gitlab.com/apparmor/apparmor.git
-  apparmor_version: v3.1.7
+  apparmor_version: v5.0.2
   apparmor_sha256: 64494bd99fa6547a9cbdb4fc6bc732451a02dd19e6eb70eab977b239632151eb
   apparmor_sha512: cfd6b0afb98d4559c16a6a2e23ca16ee9d86325fc6059313df5d3e8feba3d398f96a5754d3880dd2cafb2e7b1a06bd789d62cd36aaf993e46290f6311bb49dac
 
