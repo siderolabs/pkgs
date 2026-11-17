@@ -1,8 +1,16 @@
-# Original file https://github.com/canonical/cloud-init/blob/main/udev/66-azure-ephemeral.rules
-# Skip all partitions symlinks. It uses by cloud-init (fstab mount paths) only.
+# SCSI rules: original file https://github.com/canonical/cloud-init/blob/main/udev/66-azure-ephemeral.rules
+# Skip all partitions symlinks of the SCSI rules. It uses by cloud-init (fstab mount paths) only.
+#
+# Remote NVMe rules: remote NVMe part of https://github.com/Azure/azure-vm-utils/blob/21a769e063b0ef141b645c5934cb26975b8668ff/udev/80-azure-disk.rules.
+# Synced with that commit (latest change to the file as of azure-vm-utils v0.8.0); diff upstream against it when updating.
+# Upstream computes the data disk LUN (nsid - 2) with a /bin/sh PROGRAM, hence one rule per LUN (Azure allows 64 data disks).
 #
 # Azure specific rules
-ACTION=="add|change", SUBSYSTEM=="block", ENV{ID_VENDOR}=="Msft", ENV{ID_MODEL}=="Virtual_Disk", GOTO="azure_disk"
+ACTION!="add|change", GOTO="azure_end"
+SUBSYSTEM!="block", GOTO="azure_end"
+
+ENV{ID_VENDOR}=="Msft", ENV{ID_MODEL}=="Virtual_Disk", GOTO="azure_disk"
+KERNEL=="nvme*", ATTRS{nsid}=="?*", ENV{ID_MODEL}=="MSFT NVMe Accelerator v1.0", GOTO="azure_disk_nvme_remote_v1"
 GOTO="azure_end"
 
 LABEL="azure_disk"
@@ -24,5 +32,85 @@ GOTO="azure_end"
 # Create the symlinks
 LABEL="azure_names"
 ENV{DEVTYPE}=="disk", SYMLINK+="disk/azure/$env{fabric_name}"
+GOTO="azure_end"
+
+LABEL="azure_disk_nvme_remote_v1"
+# Azure hosts will retry remote I/O requests for up to 120 seconds.  If I/O times out for longer than that, host will reboot OS.
+# Set timeout for remote disks to 240 seconds, giving host time to handle the retry or reboot the VM.
+ENV{DEVTYPE}=="disk", ATTRS{nsid}=="?*", ATTR{queue/io_timeout}="240000"
+
+# For remote disks, namespace ID=1 is OS disk, ID=2+ are data disks with customer-configured lun=ID-2 (e.g. lun=0 will have nsid=2).
+ATTRS{nsid}=="1", ENV{AZURE_DISK_TYPE}="os", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="2", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="0", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="3", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="1", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="4", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="2", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="5", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="3", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="6", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="4", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="7", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="5", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="8", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="6", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="9", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="7", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="10", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="8", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="11", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="9", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="12", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="10", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="13", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="11", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="14", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="12", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="15", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="13", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="16", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="14", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="17", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="15", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="18", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="16", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="19", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="17", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="20", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="18", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="21", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="19", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="22", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="20", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="23", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="21", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="24", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="22", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="25", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="23", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="26", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="24", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="27", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="25", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="28", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="26", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="29", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="27", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="30", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="28", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="31", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="29", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="32", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="30", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="33", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="31", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="34", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="32", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="35", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="33", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="36", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="34", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="37", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="35", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="38", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="36", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="39", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="37", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="40", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="38", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="41", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="39", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="42", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="40", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="43", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="41", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="44", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="42", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="45", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="43", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="46", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="44", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="47", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="45", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="48", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="46", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="49", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="47", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="50", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="48", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="51", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="49", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="52", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="50", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="53", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="51", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="54", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="52", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="55", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="53", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="56", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="54", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="57", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="55", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="58", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="56", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="59", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="57", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="60", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="58", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="61", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="59", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="62", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="60", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="63", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="61", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="64", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="62", GOTO="azure_disk_symlink"
+ATTRS{nsid}=="65", ENV{AZURE_DISK_TYPE}="data", ENV{AZURE_DISK_LUN}="63", GOTO="azure_disk_symlink"
+GOTO="azure_end"
+
+LABEL="azure_disk_symlink"
+ENV{DEVTYPE}=="disk", ENV{AZURE_DISK_TYPE}=="os", SYMLINK+="disk/azure/$env{AZURE_DISK_TYPE}"
+ENV{DEVTYPE}=="disk", ENV{AZURE_DISK_TYPE}=="?*", ENV{AZURE_DISK_LUN}=="?*", SYMLINK+="disk/azure/$env{AZURE_DISK_TYPE}/by-lun/$env{AZURE_DISK_LUN}"
+ENV{DEVTYPE}=="partition", ENV{AZURE_DISK_TYPE}=="os", SYMLINK+="disk/azure/$env{AZURE_DISK_TYPE}-part%n"
+ENV{DEVTYPE}=="partition", ENV{AZURE_DISK_TYPE}=="?*", ENV{AZURE_DISK_LUN}=="?*", SYMLINK+="disk/azure/$env{AZURE_DISK_TYPE}/by-lun/$env{AZURE_DISK_LUN}-part%n"
 
 LABEL="azure_end"
