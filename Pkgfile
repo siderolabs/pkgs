@@ -56,10 +56,10 @@ vars:
   systemd_sha512: 111da2e78c999f299c40532a69d5ea7aa564e9f761e889d781777c90f771770767ba5625b79d7b4ae179830b191cae2f80dca85799dd5ad973144e82d0b3735d
 
   # renovate: datasource=github-releases depName=flannel-io/cni-plugin
-  flannel_cni_version: v1.9.1-flannel3
-  flannel_cni_ref: b380f201008e9bed159703846cf10d3c50b4f9ce
-  flannel_cni_sha256: 23ed19c545ab63eabf899e70abd8a4ae161cf6a2700926259c6b59381d9df171
-  flannel_cni_sha512: 70db3836fa2595373fda10cede31b022a40da9857ea99f155e6cbb9f516849951b5177cf97526bc608b53aa4ddbd585b58320a757d6c6d2c1a2257a8b43a86d2
+  flannel_cni_version: v1.10.0-flannel1
+  flannel_cni_ref: ab4936db3d76442ff83f13f3d4968f10425a2be8
+  flannel_cni_sha256: b1a71414443dc1890655857695db4260966b4588022ab4e3dd364e99b1f272d7
+  flannel_cni_sha512: 1506c6e17e495325edeba3174e4c303046b5e569615b6a28d3b6e188fb2404b981c82668d838a6bfe86e47af156c51be0ac8bca33145a46b6b30a1453c124fef
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/google/gasket-driver.git
   gasket_driver_ref: 5815ee3908a46a415aac616ac7b9aedcb98a504c
@@ -101,9 +101,9 @@ vars:
   iptables_sha512: 3aefd76ca60d00f46ba4d6f39cbcfdc60517d03b6714da25dcd67542f6f4eea8d82c4855bdd9124efe18b769f41951772b8340a6eda75b85f8dd52b2289b145b
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: fc23df6fb245eec9f68d5ae3f95469875c3dcade
-  ipxe_sha256: 25e65654e9ac59d3908ebf5904ca8f3d63261968f537d8458fb202d0dc63da9f
-  ipxe_sha512: 57c51a66422d758c12d58820bcd9d7d46431ec24b81b2889455529f25fc23282943423cd24d3ce0eccca95ba4feb5ca6c0b9ea6f2334d72a3e6350bbe60a57f5
+  ipxe_ref: cb7718c14ae680f084398aa94b34ed285d5b011f
+  ipxe_sha256: dba61aec2da3592f60e3dfe7d1bd7a6acb589ed1868450d2b2af0cf29aba9962
+  ipxe_sha512: 961c501962be9f9a71005173b65c56263f99df2747fdee42e9ee4ee6c46bd4d02dd73811855fdebac8540ade51dd073c1412d0f2105c04f2f446eb11372e1a4c
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: b2acfd4f8fba4e91996224b29c992cf83be30904
@@ -111,9 +111,9 @@ vars:
   kspp_sha512: 55f35ce46a0d44746780b9e47fef0d6383096ef519686022afdfdaae571a7d8749c02f45a0c6e9f07c36a4e8f51dc05b4e49131354eab8c892fc2690274face4
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 7.3.4
-  linux_sha256: b11b6df8295e8e991ff040b71aaa4994a8b55caa23b6b092907f195b5840fd1f
-  linux_sha512: db5508c3cf8b613b4680022eb785c036bcf8a5c952f8d0b2f3c2c7dc16779cf8bd954e0bca0b0b52451bac61430a687ae73205574f002f3b60de886640ebb9b0
+  linux_version: 7.3.5
+  linux_sha256: 8f293f83d54f0b7b9be56863ebc5e4ea79d73e530b4ae55c572be97ef39f0990
+  linux_sha512: 46beb756fee4bd95180afabedcc9426c9bf5edf1420de9fa126ba398a9cb8917859cc41503b64e3f74b966dc46892e8794d3afb009ad05f08ebafde231e9bd29
 
   # renovate: datasource=git-tags extractVersion=^libaio-(?<version>.*)$ depName=https://pagure.io/libaio.git
   libaio_version: 0.3.113
@@ -320,9 +320,9 @@ vars:
   xdma_driver_sha512: 6f2496fd1089050f77e31e8d575598d693672885da5a444b41cfb980be48ec9d2b9e926b2582958a74e3dbf002d6858785449a3170e49c845eae7b1e93b102b7
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git
-  xfsprogs_version: 7.2.1
-  xfsprogs_sha256: c45f5fd81fdebcdae61938fcfdff86c9960b39fc89a06df633730d93876cd27d
-  xfsprogs_sha512: c8d0779b50cb06df17ef24be48e878649fd5aa5e789806cc965655e93d695fe5751d0e606f288accea6f7c673bf8647b8e8f8e12f420d50cbdede84de79634fc
+  xfsprogs_version: 7.3.0
+  xfsprogs_sha256: 310c11e9e1d336064921cc123de5c84a331d5abe3c3b82aeadb89a191d34b449
+  xfsprogs_sha512: 870bd21240d4b8d28dca57293061e6544c4261c0253b7cda66e56f55e052f08442574e0805abc49f3dc6b9a149d29e526bab0d7e1473e56ba5d47ed714a868f2
 
   # renovate: datasource=github-tags extractVersion=^zfs-(?<version>.*)$ depName=openzfs/zfs
   zfs_version: 2.4.4

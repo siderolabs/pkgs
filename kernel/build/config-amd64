@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 7.3.4 Kernel Configuration
+# Linux/x86 7.3.5 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 23.1.5"
 CONFIG_GCC_VERSION=0
