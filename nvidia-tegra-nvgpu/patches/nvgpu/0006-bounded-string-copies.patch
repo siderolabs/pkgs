@@ -1,0 +1,190 @@
+nvgpu: replace remaining kernel strncpy calls
+
+Preserve bounded-copy and zero-padding semantics with memset, strnlen
+and memcpy. Keep explicit terminators at callers that truncate strings.
+The PMU format-prefix copy has a known length and needs no padding.
+
+diff --git a/drivers/gpu/nvgpu/os/linux/os_sched.c b/drivers/gpu/nvgpu/os/linux/os_sched.c
+index bafeeae..91524f8 100644
+--- a/drivers/gpu/nvgpu/os/linux/os_sched.c
++++ b/drivers/gpu/nvgpu/os/linux/os_sched.c
+@@ -36,7 +36,8 @@ void nvgpu_get_thread_name(char *dest)
+ 	char buf[TASK_COMM_LEN];
+ 
+ 	get_task_comm(buf, current);
+-	strncpy(dest, buf, TASK_COMM_LEN);
++	memset(dest, 0, TASK_COMM_LEN);
++	memcpy(dest, buf, strnlen(buf, TASK_COMM_LEN));
+ 	/* Ensure buffer is null terminated */
+ 	dest[TASK_COMM_LEN-1] = '\0';
+ }
+
+diff --git a/nvsched/src/domain.c b/nvsched/src/domain.c
+index 5ff0d75..215d1ad 100644
+--- a/nvsched/src/domain.c
++++ b/nvsched/src/domain.c
+@@ -41,7 +41,8 @@ struct nvs_domain *nvs_domain_create(struct nvs_sched *sched,
+ 
+ 	nvs_memset(dom, 0, sizeof(*dom));
+ 
+-	strncpy(dom->name, name, sizeof(dom->name) - 1);
++	memset(dom->name, 0, sizeof(dom->name) - 1);
++	memcpy(dom->name, name, strnlen(name, sizeof(dom->name) - 1));
+ 	dom->timeslice_ns     = timeslice;
+ 	dom->preempt_grace_ns = preempt_grace;
+ 	dom->priv             = priv;
+
+diff --git a/drivers/gpu/nvgpu/common/vgpu/ecc_vgpu.c b/drivers/gpu/nvgpu/common/vgpu/ecc_vgpu.c
+index e65ac43..442dec8 100644
+--- a/drivers/gpu/nvgpu/common/vgpu/ecc_vgpu.c
++++ b/drivers/gpu/nvgpu/common/vgpu/ecc_vgpu.c
+@@ -69,8 +69,8 @@ int vgpu_ecc_get_info(struct gk20a *g)
+ 
+ 	for (i = 0; i < count; i++) {
+ 		stats[i].ecc_id = entry[i].ecc_id;
+-		(void) strncpy(stats[i].name, entry[i].name,
+-			NVGPU_ECC_STAT_NAME_MAX_SIZE);
++		memset(stats[i].name, 0, NVGPU_ECC_STAT_NAME_MAX_SIZE);
++		memcpy(stats[i].name, entry[i].name, strnlen(entry[i].name, NVGPU_ECC_STAT_NAME_MAX_SIZE));
+ 	}
+ 
+ 	priv->ecc_stats = stats;
+
+diff --git a/drivers/gpu/nvgpu/common/ecc.c b/drivers/gpu/nvgpu/common/ecc.c
+index 4cb5e7e..9926346 100644
+--- a/drivers/gpu/nvgpu/common/ecc.c
++++ b/drivers/gpu/nvgpu/common/ecc.c
+@@ -62,7 +62,8 @@ int nvgpu_ecc_counter_init(struct gk20a *g,
+ 		return -ENOMEM;
+ 	}
+ 
+-	(void)strncpy(stat->name, name, NVGPU_ECC_STAT_NAME_MAX_SIZE - 1U);
++	memset(stat->name, 0, NVGPU_ECC_STAT_NAME_MAX_SIZE - 1U);
++	memcpy(stat->name, name, strnlen(name, NVGPU_ECC_STAT_NAME_MAX_SIZE - 1U));
+ 	nvgpu_ecc_stat_add(g, stat);
+ 	*statp = stat;
+ 	return 0;
+
+diff --git a/drivers/gpu/nvgpu/hal/fifo/channel_gk20a_fusa.c b/drivers/gpu/nvgpu/hal/fifo/channel_gk20a_fusa.c
+index 3bd679d..385eb50 100644
+--- a/drivers/gpu/nvgpu/hal/fifo/channel_gk20a_fusa.c
++++ b/drivers/gpu/nvgpu/hal/fifo/channel_gk20a_fusa.c
+@@ -104,8 +104,8 @@ void gk20a_channel_read_state(struct gk20a *g, u32 runlist_id, u32 chid,
+ 		(status_v == ccsr_channel_status_on_eng_pending_acquire_v());
+ 
+ 	/* Copy at the most NVGPU_CHANNEL_STATUS_STRING_LENGTH characters */
+-	(void) strncpy(state->status_string, ccsr_chan_status_str[status_v],
+-		NVGPU_CHANNEL_STATUS_STRING_LENGTH - 1U);
++	memset(state->status_string, 0, NVGPU_CHANNEL_STATUS_STRING_LENGTH - 1U);
++	memcpy(state->status_string, ccsr_chan_status_str[status_v], strnlen(ccsr_chan_status_str[status_v], NVGPU_CHANNEL_STATUS_STRING_LENGTH - 1U));
+ 
+ 	state->status_string[NVGPU_CHANNEL_STATUS_STRING_LENGTH - 1U] = '\0';
+ }
+
+diff --git a/drivers/gpu/nvgpu/common/sync/channel_user_syncpt.c b/drivers/gpu/nvgpu/common/sync/channel_user_syncpt.c
+index 86f0723..eb78e64 100644
+--- a/drivers/gpu/nvgpu/common/sync/channel_user_syncpt.c
++++ b/drivers/gpu/nvgpu/common/sync/channel_user_syncpt.c
+@@ -36,7 +36,8 @@ static int user_sync_build_debug_name(struct nvgpu_channel *ch,
+ 	struct gk20a *g = ch->g;
+ 	int n;
+ 
+-	(void)strncpy(buf, g->name, capacity);
++	memset(buf, 0, capacity);
++	memcpy(buf, g->name, strnlen(g->name, capacity));
+ 	capacity = nvgpu_safe_sub_u64(capacity, strlen(g->name));
+ 
+ 	(void)strncat(buf, "_", capacity);
+
+diff --git a/drivers/gpu/nvgpu/common/mm/vm.c b/drivers/gpu/nvgpu/common/mm/vm.c
+index 594fd2e..f5e7f28 100644
+--- a/drivers/gpu/nvgpu/common/mm/vm.c
++++ b/drivers/gpu/nvgpu/common/mm/vm.c
+@@ -796,8 +796,8 @@ int nvgpu_vm_do_init(struct mm_gk20a *mm,
+ 	}
+ 
+ 	/* Initialize the page table data structures. */
+-	(void) strncpy(vm->name, name,
+-		       min(strlen(name), (size_t)(sizeof(vm->name)-1ULL)));
++	memset(vm->name, 0, min(strlen(name), (size_t)(sizeof(vm->name)-1ULL)));
++	memcpy(vm->name, name, strnlen(name, min(strlen(name), (size_t)(sizeof(vm->name)-1ULL))));
+ 	if (!nvgpu_is_legacy_vgpu(g)) {
+ 		err = nvgpu_gmmu_init_page_table(vm);
+ 		if (err != 0) {
+
+diff --git a/drivers/gpu/nvgpu/os/linux/debug_pmu.c b/drivers/gpu/nvgpu/os/linux/debug_pmu.c
+index ea25d57..8962a19 100644
+--- a/drivers/gpu/nvgpu/os/linux/debug_pmu.c
++++ b/drivers/gpu/nvgpu/os/linux/debug_pmu.c
+@@ -332,7 +332,7 @@ static int falc_trace_show(struct seq_file *s, void *data)
+ 		while (nvgpu_find_hex_in_string((trace+i+20+m), g, &k)) {
+ 			if (k >= 40)
+ 				break;
+-			(void) strncpy(part_str, (trace+i+20+m), k);
++			memcpy(part_str, (trace+i+20+m), k);
+ 			part_str[k] = 0;
+ 			seq_printf(s, "%s0x%x", part_str,
+ 					trace1[(i / 4) + 1 + l]);
+
+diff --git a/drivers/gpu/nvgpu/os/linux/ioctl_nvs.c b/drivers/gpu/nvgpu/os/linux/ioctl_nvs.c
+index a0e87f0..ea742e2 100644
+--- a/drivers/gpu/nvgpu/os/linux/ioctl_nvs.c
++++ b/drivers/gpu/nvgpu/os/linux/ioctl_nvs.c
+@@ -438,7 +438,8 @@ static int nvgpu_nvs_ioctl_query_domains_locked(
+ 
+ 			(void)memset(&dom, 0, sizeof(dom));
+ 
+-			strncpy(dom.name, nvs_dom->name, sizeof(dom.name) - 1);
++			memset(dom.name, 0, sizeof(dom.name) - 1);
++			memcpy(dom.name, nvs_dom->name, strnlen(nvs_dom->name, sizeof(dom.name) - 1));
+ 			dom.timeslice_ns     = nvs_dom->timeslice_ns;
+ 			dom.preempt_grace_ns = nvs_dom->preempt_grace_ns;
+ 			dom.subscheduler     = nvgpu_dom->subscheduler;
+
+diff --git a/drivers/gpu/nvgpu/common/mm/allocators/nvgpu_allocator.c b/drivers/gpu/nvgpu/common/mm/allocators/nvgpu_allocator.c
+index c19dc6a..d30506c 100644
+--- a/drivers/gpu/nvgpu/common/mm/allocators/nvgpu_allocator.c
++++ b/drivers/gpu/nvgpu/common/mm/allocators/nvgpu_allocator.c
+@@ -173,7 +173,8 @@ int nvgpu_alloc_common_init(struct nvgpu_allocator *a, struct gk20a *g,
+ 	a->priv = priv;
+ 	a->debug = dbg;
+ 
+-	(void) strncpy(a->name, name, sizeof(a->name));
++	memset(a->name, 0, sizeof(a->name));
++	memcpy(a->name, name, strnlen(name, sizeof(a->name)));
+ 	a->name[sizeof(a->name) - 1U] = '\0';
+ 
+ 	return 0;
+
+diff --git a/drivers/gpu/nvgpu/common/fifo/channel.c b/drivers/gpu/nvgpu/common/fifo/channel.c
+index 70d2d4a..cee82b9 100644
+--- a/drivers/gpu/nvgpu/common/fifo/channel.c
++++ b/drivers/gpu/nvgpu/common/fifo/channel.c
+@@ -2289,8 +2289,8 @@ void nvgpu_channel_debug_dump_all(struct gk20a *g,
+ 		} else {
+ 			domain_name = "(no tsg)";
+ 		}
+-		(void)strncpy(info->nvs_domain_name, domain_name,
+-				sizeof(info->nvs_domain_name) - 1U);
++		memset(info->nvs_domain_name, 0, sizeof(info->nvs_domain_name) - 1U);
++		memcpy(info->nvs_domain_name, domain_name, strnlen(domain_name, sizeof(info->nvs_domain_name) - 1U));
+ 
+ #ifdef CONFIG_NVGPU_SW_SEMAPHORE
+ 		if (hw_sema != NULL) {
+
+diff --git a/drivers/gpu/nvgpu/common/mm/allocators/page_allocator.c b/drivers/gpu/nvgpu/common/mm/allocators/page_allocator.c
+index 077a012..d1ce4d4 100644
+--- a/drivers/gpu/nvgpu/common/mm/allocators/page_allocator.c
++++ b/drivers/gpu/nvgpu/common/mm/allocators/page_allocator.c
+@@ -1121,8 +1121,8 @@ int nvgpu_page_allocator_init(struct gk20a *g, struct nvgpu_allocator *na,
+ 		}
+ 	}
+ 
+-	(void) strncpy(buddy_name, name,
+-				(sizeof(buddy_name)) - (sizeof("-src")));
++	memset(buddy_name, 0, (sizeof(buddy_name)) - (sizeof("-src")));
++	memcpy(buddy_name, name, strnlen(name, (sizeof(buddy_name)) - (sizeof("-src"))));
+ 	(void) strcat(buddy_name, "-src");
+ 
+ 	err = nvgpu_buddy_allocator_init(g, &a->source_allocator, NULL,
+

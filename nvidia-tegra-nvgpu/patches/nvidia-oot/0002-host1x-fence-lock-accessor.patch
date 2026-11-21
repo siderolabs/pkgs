@@ -1,0 +1,32 @@
+host1x-fence: use the dma-fence lock accessor
+
+The dma-fence inline-lock rework removed fence->lock. Use the accessor
+so callback synchronization works with either inline or external locks.
+
+Reference: https://github.com/torvalds/linux/commit/1f32f310a13c9fb67a9993ab67f596b3f960206f
+
+diff --git a/drivers/gpu/host1x-fence/dev.c b/drivers/gpu/host1x-fence/dev.c
+--- a/drivers/gpu/host1x-fence/dev.c
++++ b/drivers/gpu/host1x-fence/dev.c
+@@ -214,8 +214,8 @@
+ 			pfd_fence->callback_set = false;
+ 		}
+ 		/*The lock/unlock just ensures that the callback execution has finished*/
+-		spin_lock(pfd_fence->fence->lock);
+-		spin_unlock(pfd_fence->fence->lock);
++		spin_lock(dma_fence_spinlock(pfd_fence->fence));
++		spin_unlock(dma_fence_spinlock(pfd_fence->fence));
+ 
+ 		dma_fence_put(pfd_fence->fence);
+ 		kfree(pfd_fence);
+@@ -249,8 +249,8 @@
+ 				pfd_fence->callback_set = false;
+ 			}
+ 			/*The lock/unlock just ensures that the callback execution has finished*/
+-			spin_lock(pfd_fence->fence->lock);
+-			spin_unlock(pfd_fence->fence->lock);
++			spin_lock(dma_fence_spinlock(pfd_fence->fence));
++			spin_unlock(dma_fence_spinlock(pfd_fence->fence));
+ 
+ 			dma_fence_put(pfd_fence->fence);
+ 			list_del(&pfd_fence->list);

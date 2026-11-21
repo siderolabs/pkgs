@@ -1,0 +1,18 @@
+nvgpu: copy the PMU trace prefix without strncpy
+
+The parser finds the next format marker and bounds its offset below the
+size of part_str. Copy that prefix directly and retain the explicit NUL
+terminator. This avoids the removed kernel strncpy interface.
+
+diff --git a/drivers/gpu/nvgpu/common/pmu/pmu_debug.c b/drivers/gpu/nvgpu/common/pmu/pmu_debug.c
+--- a/drivers/gpu/nvgpu/common/pmu/pmu_debug.c
++++ b/drivers/gpu/nvgpu/common/pmu/pmu_debug.c
+@@ -93,7 +93,7 @@
+ 			if (k >= 40U) {
+ 				break;
+ 			}
+-			(void)strncpy(part_str, (trace+i+20+m), k);
++			nvgpu_memcpy(part_str, (trace+i+20+m), k);
+ 			part_str[k] = '\0';
+ 			(void)nvgpu_strnadd_u32(hex_str,
+ 					trace1[(i / 4U) + 1U + l],
