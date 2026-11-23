@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 6.18.63 Kernel Configuration
+# Linux/x86 6.18.65 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 22.1.8"
 CONFIG_GCC_VERSION=0
@@ -2448,7 +2448,6 @@ CONFIG_SATA_AHCI=m
 CONFIG_SATA_MOBILE_LPM_POLICY=0
 # CONFIG_SATA_AHCI_PLATFORM is not set
 # CONFIG_AHCI_DWC is not set
-# CONFIG_SATA_INIC162X is not set
 # CONFIG_SATA_ACARD_AHCI is not set
 # CONFIG_SATA_SIL24 is not set
 CONFIG_ATA_SFF=y
