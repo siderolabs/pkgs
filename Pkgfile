@@ -193,9 +193,9 @@ vars:
 
   # NOTE: let's keep this in sync with runc: https://github.com/opencontainers/runc/blob/release-1.5/script/release_build.sh#L22
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=seccomp/libseccomp
-  libseccomp_version: 2.6.1
-  libseccomp_sha256: 501f66c667225d53791b97e1d7cf85ab764c297d04881f60f38f451c4b0ee1be
-  libseccomp_sha512: 468404874ee013177f048611a4fefef87f4ee01b83d991f8bf9026c8fdb8506badd613e0355ad8222c5a7f51162b6829de6d72fc53222a56e0e123d5e85f73c4
+  libseccomp_version: 2.6.2
+  libseccomp_sha256: 6b845d352c6d7887d8d134c43d86850d40f5dcee11ad1675c18197ae4d869d42
+  libseccomp_sha512: fffad60003ba2e098d0a3e7df6bf194eaf38fd597b0711c02c9c52e5263f680a1effbc34e11d9b200691b60784e911fc08c21f0b478f964cc185e8a1c86f9bd8
 
   # renovate: datasource=github-tags extractVersion=^libucontext-(?<version>.*)$ depName=kaniini/libucontext
   libucontext_version: 1.5.2
