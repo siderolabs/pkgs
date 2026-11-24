@@ -101,9 +101,9 @@ vars:
   iptables_sha512: 3aefd76ca60d00f46ba4d6f39cbcfdc60517d03b6714da25dcd67542f6f4eea8d82c4855bdd9124efe18b769f41951772b8340a6eda75b85f8dd52b2289b145b
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: cb7718c14ae680f084398aa94b34ed285d5b011f
-  ipxe_sha256: dba61aec2da3592f60e3dfe7d1bd7a6acb589ed1868450d2b2af0cf29aba9962
-  ipxe_sha512: 961c501962be9f9a71005173b65c56263f99df2747fdee42e9ee4ee6c46bd4d02dd73811855fdebac8540ade51dd073c1412d0f2105c04f2f446eb11372e1a4c
+  ipxe_ref: 91b90344b594198c4f0f4ee49cbbb6713503fb53
+  ipxe_sha256: 172b764390c253335b452d6f7dbb18e4b5f653497027d7bf28995e099027bd47
+  ipxe_sha512: 86e46fb1d43331f33e125b87512f9e9f0776e69bd3c93be2e6d1471785d9917036bbe390dd394cf50d0a900437726fa10aee18cc0129681760280c9c070a2dfb
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: b2acfd4f8fba4e91996224b29c992cf83be30904
