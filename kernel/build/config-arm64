@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 7.3.5 Kernel Configuration
+# Linux/arm64 7.3.6 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 23.1.5"
 CONFIG_GCC_VERSION=0
@@ -5705,6 +5705,7 @@ CONFIG_DRM_AMDGPU=m
 # Display Engine Configuration
 #
 CONFIG_DRM_AMD_DC=y
+CONFIG_DRM_AMD_DC_DCE=y
 # end of Display Engine Configuration
 
 # CONFIG_HSA_AMD is not set

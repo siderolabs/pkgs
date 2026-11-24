@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 7.3.5 Kernel Configuration
+# Linux/x86 7.3.6 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 23.1.5"
 CONFIG_GCC_VERSION=0
@@ -5109,6 +5109,7 @@ CONFIG_DRM_AMDGPU_USERPTR=y
 CONFIG_DRM_AMD_DC=y
 CONFIG_DRM_AMD_DC_FP=y
 # CONFIG_DRM_AMD_DC_SI is not set
+CONFIG_DRM_AMD_DC_DCE=y
 # CONFIG_DRM_AMD_SECURE_DISPLAY is not set
 # end of Display Engine Configuration
 
