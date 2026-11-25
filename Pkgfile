@@ -208,9 +208,9 @@ vars:
   liburcu_sha512: d5c0496fc2cd74c7fdf1b4ccbcd72012436bfbcb87ba167de42a9a8080ec0c01ee9c4f03948b13c6400b32fd3c4e3aaf62d6c35f7f223e7e0eb180608baf54d8
 
   # renovate: datasource=git-tags depName=git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-  linux_firmware_version: 20261019
-  linux_firmware_sha256: 1e80b924afc2e78096361d58953a281f6fa8a5f6a7622f9a053004ff9cb9ac09
-  linux_firmware_sha512: 5e70bdba8854e5c5995435bf16831e39e3a218b632fc05ab637599b796c696c84de453eb897cd9e5d9b48717e2b1292038c82c08213e47f5d09e8069aa6aea06
+  linux_firmware_version: 20261124
+  linux_firmware_sha256: 2bc15eee320f92faa27f7587edd018b8d316d663e08dc49d84c7367e625add3a
+  linux_firmware_sha512: 83b2135e9bce7ccd9c5ffa26b183ca096f1c148986b27e6ecb9ff850de9274f7829e802c540845797caf3031982ba58b9875d23268e062e95d4877368cbf7866
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://sourceware.org/git/lvm2.git
   lvm2_version: 2_03_44
