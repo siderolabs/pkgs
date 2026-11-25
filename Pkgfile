@@ -5,7 +5,7 @@ format: v1alpha2
 vars:
   TOOLCHAIN_MUSL_IMAGE: ghcr.io/siderolabs/toolchain-musl:v1.15.0-alpha.0-13-g9c41dd7
   TOOLS_PREFIX: ghcr.io/siderolabs/
-  TOOLS_REV: v1.15.0-alpha.0-19-gddb73ab
+  TOOLS_REV: v1.15.0-alpha.0-20-g8bb1115
   LLVM_IMAGE: ghcr.io/siderolabs/llvm
   RUSTC_IMAGE: ghcr.io/siderolabs/rustc:v1.15.0-alpha.0-5-g5263a0f
 
@@ -26,9 +26,9 @@ vars:
   btrfsprogs_sha512: ece500bf512a7970bd6a611c4f74aa3f7285eb55b86987fb8a21bc82cb7d0b1e6b683d02efc34ec8c4ff7f6d620b5ec12ef277af0d6d831586f9f70087355ca9
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/utils/cryptsetup/cryptsetup.git
-  cryptsetup_version: 2.8.8
-  cryptsetup_sha256: 4cdc4f46a6d41b856a36392a38fa302bab2a1b530e32d9fc010eb3a704f3e984
-  cryptsetup_sha512: 66a1ff97858ff394e95fd85aabfc413e288aaa418e4ddb2c3027fbbf0ea1682a2c4039b7b873e2029661994b16122f6cfe14b95c9313a8d5dca9065d69ab9843
+  cryptsetup_version: 2.8.9
+  cryptsetup_sha256: c9b565f853e85e5915275cf33662160d599bd946592b551dab5100d0d5866bcf
+  cryptsetup_sha512: ed4646906699e3e228b2dba000b0637f57710f30cd3dfb5d2aac35fa81b2ea8cae424dacb2e9c1f136a76d7d65e6a13c59ce392426c60893396ead00a6a60fb5
 
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=dosfstools/dosfstools
   dosfstools_version: 4.2
@@ -101,9 +101,9 @@ vars:
   iptables_sha512: 3aefd76ca60d00f46ba4d6f39cbcfdc60517d03b6714da25dcd67542f6f4eea8d82c4855bdd9124efe18b769f41951772b8340a6eda75b85f8dd52b2289b145b
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: 91b90344b594198c4f0f4ee49cbbb6713503fb53
-  ipxe_sha256: 172b764390c253335b452d6f7dbb18e4b5f653497027d7bf28995e099027bd47
-  ipxe_sha512: 86e46fb1d43331f33e125b87512f9e9f0776e69bd3c93be2e6d1471785d9917036bbe390dd394cf50d0a900437726fa10aee18cc0129681760280c9c070a2dfb
+  ipxe_ref: b847e5f0734f6130c6ee1a4cacdcff508e7aaa3e
+  ipxe_sha256: 51128fd87e2d3004a1a970f53391e67f4bbe6fedb1123996bde05d9726377d9d
+  ipxe_sha512: cf3881b6bde993a3b8b29462def693d5817e51f76c8a97628d0944847d651a27004f965bc907983690fe2883c27468c232bc39740e4bee670d2f408253dae042
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/a13xp0p0v/kernel-hardening-checker.git
   kspp_ref: b2acfd4f8fba4e91996224b29c992cf83be30904
@@ -233,18 +233,18 @@ vars:
   mtools_sha512: 30e75cd85916b7c5b81e667fec1e47f19c024a988a643e8fa8ddd4a20b96c58d29c528d033548f9a603119835e414ea6fc671b3dafa08f50b9192991276d2447
 
   # renovate: datasource=custom.nvidia-driver-lts depName=nvidia-driver-lts
-  nvidia_driver_lts_version: 620.70.06
-  nvidia_driver_lts_arm64_sha256: 9d70f61eece458222fe38bb30f852122b6b197be015c50ccfcd48c6f9665e92d
-  nvidia_driver_lts_arm64_sha512: cea59a85672715401f8ca751cd1a6dd884954e7f8382076c399867eceb4a8e6d4d2f41990cd30556ca82ab632e21ae0d31ecf3d0b84d95cfc1ac179632f0ad16
-  nvidia_driver_lts_amd64_sha256: 780b169105c440a91310f7d2c986199237370f4888fc9ed8ff955de6511236e1
-  nvidia_driver_lts_amd64_sha512: f938ca46ccef3a9fa0344fe80d8e3f725c37a71398c5c9850d3794ebeb4efe37c41f5087d9ca85a226bbb3a8da1e93ad1c057240c63cedf7b7ca8a5849bbeb43
+  nvidia_driver_lts_version: 620.70.10
+  nvidia_driver_lts_arm64_sha256: 08c383f08b24325e0edd40eb53b806001a01f20d4f53c02c7b80dae0047d2c8c
+  nvidia_driver_lts_arm64_sha512: 86dc5ed7d1e0d3b70b36537cc3e72a150c1bf396b38fe4a9d4bfa230f484c1833dde4b532d671d901ef53513c331340db798bfe685f2e6bc98e23aaabf552ebf
+  nvidia_driver_lts_amd64_sha256: 98c017b1659d4449d0ebbfe8c94b7ddd5064ada89e0ce9b0a3b5c858c2eb011b
+  nvidia_driver_lts_amd64_sha512: b66e855ea93e288de24214bcd8c058eebc89e85a06edfc94fea2001f427fcc9ac2d40ea7630a51cc24dd7ccb7af6678806ad321cd41c541a73960f888615f9fc
 
   # renovate: datasource=custom.nvidia-driver-production depName=nvidia-driver-production
-  nvidia_driver_production_version: 595.112.07
-  nvidia_driver_production_arm64_sha256: 686e073b3e38e698353ddaed68495fc000c76ce1a5d75a70a7eacee6f763e4c8
-  nvidia_driver_production_arm64_sha512: c97d1d3a04eac0026db6db5e88df85f35dd013ca87fc60e1c59bd54409a5383ccf033549a23d1191059415bba76a32d3daed51a19978b9bc055bc114c5173398
-  nvidia_driver_production_amd64_sha256: 3ea206a1f7536703bec86fa83708dcbe153aada74f63c83ebeb5bc3995508f49
-  nvidia_driver_production_amd64_sha512: d5c63603800ffd4e77b8a3579cc07999a47e543578a3e9688ca9d0c8d12cffb2159e239dddbbee1b11f828f2a26d8fe4f21afa56b62386c0fa793450e457fd90
+  nvidia_driver_production_version: 595.112.13
+  nvidia_driver_production_arm64_sha256: da9b4ab74acd0807dfe1ab8a28d39a6e2ac03c1513088c8f382534a7b45fece6
+  nvidia_driver_production_arm64_sha512: fe6418986b1f5a55c2628067719df1ee99b6e725c49072412e24685652c3e0a81f2fce888b578da6fbda3b3dcb4c1bc26f5562c027262cebd4c7e0cb0976d018
+  nvidia_driver_production_amd64_sha256: c8efa0d98c73aafd926f2e4a15934cc128d042afe4c5f154c0e184b42a7fb897
+  nvidia_driver_production_amd64_sha512: 406b430de9f9fe2b42cede1f5d9c2e98c7c8cebc946d4053f029743c0b21179bdac50e6bb25feba2760a3d37a1bf3a75035ae8f79e4b7aff586ea66fb5e47881
 
   # renovate: datasource=custom.nvidia-driver-new-feature depName=nvidia-driver-new-feature
   nvidia_driver_new_feature_version: 615.71.10
