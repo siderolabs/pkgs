@@ -1,0 +1,63 @@
+From: Alexander Schwankner <mrmoor4@googlemail.com>
+Date: Wed, 25 Nov 2026 15:00:00 +0100
+Subject: [PATCH] soc/tegra: fuse: read the platform from HIDREV on TF-A based
+ SoCs
+
+Since 8b8ee2e56f95 ("soc/tegra: Use ARM SMCCC to get chip ID, revision,
+and platform info") the platform comes from bits [15:8] of the SMCCC SoC
+revision. The TF-A firmware on Tegra194 and Tegra234 puts the HIDREV
+major revision there ((major << 8) | minor, 0x401 on Orin), so the
+kernel reports the platform as "Asim QT" and tegra_is_silicon() returns
+false. On Jetson Orin the nvgpu driver then runs about 7x slower.
+
+Read the platform from HIDREV again on Tegra210, Tegra186, Tegra194 and
+Tegra234, and keep SMCCC for Tegra241 and later. Chip ID and revision
+still come from SMCCC.
+
+Fixes: 8b8ee2e56f95 ("soc/tegra: Use ARM SMCCC to get chip ID, revision, and platform info")
+Signed-off-by: Alexander Schwankner <mrmoor4@googlemail.com>
+---
+ drivers/soc/tegra/fuse/tegra-apbmisc.c | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
+
+--- a/drivers/soc/tegra/fuse/tegra-apbmisc.c
++++ b/drivers/soc/tegra/fuse/tegra-apbmisc.c
+@@ -78,15 +78,35 @@
+ 		return TEGRA_SMCCC_MINOR_REV(revision);
+ #endif
+ 	return (tegra_read_chipid() >> 16) & 0xf;
++
++}
++
++#if IS_ENABLED(CONFIG_HAVE_ARM_SMCCC_DISCOVERY)
++/*
++ * The TF-A firmware on these SoCs implements the SMCCC SoC ID call, but it
++ * reports the major revision in bits [15:8] of the SoC revision rather than
++ * the platform. Their platform has to be read from HIDREV instead.
++ */
++static bool tegra_smccc_has_platform(void)
++{
++	switch (tegra_get_chip_id()) {
++	case TEGRA210:
++	case TEGRA186:
++	case TEGRA194:
++	case TEGRA234:
++		return false;
++	}
+ 
++	return true;
+ }
++#endif
+ 
+ u8 tegra_get_platform(void)
+ {
+ #if IS_ENABLED(CONFIG_HAVE_ARM_SMCCC_DISCOVERY)
+ 	s32 revision = arm_smccc_get_soc_id_revision();
+ 
+-	if (revision >= 0)
++	if (revision >= 0 && tegra_smccc_has_platform())
+ 		return TEGRA_SMCCC_PLATFORM(revision);
+ #endif
+ 	return (tegra_read_chipid() >> 20) & 0xf;
+-- 
+2.51.0
