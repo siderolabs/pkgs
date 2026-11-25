@@ -1,0 +1,48 @@
+nvgpu: replace the remaining kernel strncpy calls
+
+Linux 7.2 removed strncpy. This covers the three calls in the Linux
+build that 0002 does not touch. Bounded-copy and zero-padding semantics
+are preserved: the nvsched domain and the vGPU ECC stats are zeroed
+first, the PMU trace copy has a known length.
+
+diff --git a/drivers/gpu/nvgpu/common/vgpu/ecc_vgpu.c b/drivers/gpu/nvgpu/common/vgpu/ecc_vgpu.c
+index 6ee9a27..1506edc 100644
+--- a/drivers/gpu/nvgpu/common/vgpu/ecc_vgpu.c
++++ b/drivers/gpu/nvgpu/common/vgpu/ecc_vgpu.c
+@@ -47,8 +47,8 @@ int vgpu_ecc_get_info(struct gk20a *g)
+ 
+ 	for (i = 0; i < count; i++) {
+ 		stats[i].ecc_id = entry[i].ecc_id;
+-		(void) strncpy(stats[i].name, entry[i].name,
+-			NVGPU_ECC_STAT_NAME_MAX_SIZE);
++		memset(stats[i].name, 0, NVGPU_ECC_STAT_NAME_MAX_SIZE);
++		memcpy(stats[i].name, entry[i].name, strnlen(entry[i].name, NVGPU_ECC_STAT_NAME_MAX_SIZE));
+ 	}
+ 
+ 	priv->ecc_stats = stats;
+diff --git a/drivers/gpu/nvgpu/os/linux/debug_pmu.c b/drivers/gpu/nvgpu/os/linux/debug_pmu.c
+index 2efe45b..d48c1c3 100644
+--- a/drivers/gpu/nvgpu/os/linux/debug_pmu.c
++++ b/drivers/gpu/nvgpu/os/linux/debug_pmu.c
+@@ -749,7 +749,7 @@ static int falc_trace_show(struct seq_file *s, void *data)
+ 		while (nvgpu_find_hex_in_string((trace+i+20+m), g, &k)) {
+ 			if (k >= 40)
+ 				break;
+-			(void) strncpy(part_str, (trace+i+20+m), k);
++			memcpy(part_str, (trace+i+20+m), k);
+ 			part_str[k] = 0;
+ 			seq_printf(s, "%s0x%x", part_str,
+ 					trace1[(i / 4) + 1 + l]);
+diff --git a/nvsched/src/domain.c b/nvsched/src/domain.c
+index b88a7de..3d2b763 100644
+--- a/nvsched/src/domain.c
++++ b/nvsched/src/domain.c
+@@ -22,7 +22,7 @@ struct nvs_domain *nvs_domain_create(struct nvs_sched *sched,
+ 
+ 	(void)nvs_memset(dom, 0, sizeof(*dom));
+ 
+-	(void)strncpy(dom->name, name, sizeof(dom->name) - 1U);
++	(void)memcpy(dom->name, name, strnlen(name, sizeof(dom->name) - 1U));
+ 	dom->timeslice_ns     = timeslice;
+ 	dom->preempt_grace_ns = preempt_grace;
+ 	dom->priv             = priv;

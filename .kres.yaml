@@ -92,6 +92,7 @@ spec:
     - nvidia-open-gpu-kernel-modules-lts-pkg
     - nvidia-open-gpu-kernel-modules-new-feature-pkg
     - nvidia-open-gpu-kernel-modules-production-pkg
+    - nvidia-tegra-nvgpu-pkg
     - px-fuse-pkg
     - tenstorrent-pkg
     - xdma-driver-pkg

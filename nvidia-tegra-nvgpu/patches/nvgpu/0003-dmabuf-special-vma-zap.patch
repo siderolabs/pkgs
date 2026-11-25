@@ -1,0 +1,44 @@
+nvgpu: use the special-VMA range zap API
+
+zap_special_vma_range replaces zap_vma_ptes and retains the range and
+special-mapping checks. Keep the existing mmap write lock around it.
+
+diff --git a/drivers/gpu/nvgpu/os/linux/dmabuf_nvs.c b/drivers/gpu/nvgpu/os/linux/dmabuf_nvs.c
+index 79aa425..c688660 100644
+--- a/drivers/gpu/nvgpu/os/linux/dmabuf_nvs.c
++++ b/drivers/gpu/nvgpu/os/linux/dmabuf_nvs.c
+@@ -47,12 +47,8 @@ static int zap_vma_entries(struct gk20a *g, struct vm_area_struct *vma)
+ 		down_write(&vma->vm_mm->mmap_sem);
+ 	#endif
+ 
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 18, 0)
+-		zap_vma_ptes(vma, vma->vm_start, vma->vm_end - vma->vm_start);
+-#else
+-		err = zap_vma_ptes(vma, vma->vm_start,
+-				   vma->vm_end - vma->vm_start);
+-#endif
++	zap_special_vma_range(vma, vma->vm_start,
++			      vma->vm_end - vma->vm_start);
+ 
+ 	#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 8, 0)
+ 		mmap_write_unlock(vma->vm_mm);
+diff --git a/drivers/gpu/nvgpu/os/linux/ioctl_ctrl.c b/drivers/gpu/nvgpu/os/linux/ioctl_ctrl.c
+index 58d1925..4f25c15 100644
+--- a/drivers/gpu/nvgpu/os/linux/ioctl_ctrl.c
++++ b/drivers/gpu/nvgpu/os/linux/ioctl_ctrl.c
+@@ -3238,13 +3238,9 @@ static int alter_usermode_mapping(struct gk20a *g,
+ 	}
+ 
+ 	if (poweroff) {
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 18, 0)
+-		zap_vma_ptes(vma, vma->vm_start, vma->vm_end - vma->vm_start);
++		zap_special_vma_range(vma, vma->vm_start,
++				      vma->vm_end - vma->vm_start);
+ 		err = 0;
+-#else
+-		err = zap_vma_ptes(vma, vma->vm_start,
+-				   vma->vm_end - vma->vm_start);
+-#endif
+ 		if (err == 0) {
+ 			priv->usermode_vma.vma_mapped = false;
+ 		} else {

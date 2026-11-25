@@ -1,0 +1,20 @@
+tegra-drm: take drm_timeout_abs_to_jiffies() from drm_timeout.h
+
+drm_timeout_abs_to_jiffies() moved from drm_utils.h to the new
+drm_timeout.h in ae72b9c39d28 ("drm: Move drm_timeout_abs_to_jiffies()
+to drm_timeout.c"), which was backported to Linux 7.3.6. The in-tree
+tegra-drm uapi.c switched its include in the same commit.
+
+diff --git a/drivers/gpu/drm/tegra/uapi.c b/drivers/gpu/drm/tegra/uapi.c
+index 605c2c4..f0f9c37 100644
+--- a/drivers/gpu/drm/tegra/uapi.c
++++ b/drivers/gpu/drm/tegra/uapi.c
+@@ -8,7 +8,7 @@
+ 
+ #include <drm/drm_drv.h>
+ #include <drm/drm_file.h>
+-#include <drm/drm_utils.h>
++#include <drm/drm_timeout.h>
+ 
+ #include "drm.h"
+ #include "uapi.h"

@@ -1,0 +1,66 @@
+nvgpu: use a GPIO descriptor for the thermal interrupt
+
+of_get_named_gpio() and <linux/of_gpio.h> were removed in Linux 7.1.
+Use a managed GPIO descriptor for the thermal interrupt and release the
+device-tree reference on both success and failure.
+
+diff --git a/drivers/gpu/nvgpu/os/linux/module.c b/drivers/gpu/nvgpu/os/linux/module.c
+index 16b8732..67eba8c 100644
+--- a/drivers/gpu/nvgpu/os/linux/module.c
++++ b/drivers/gpu/nvgpu/os/linux/module.c
+@@ -26,7 +26,8 @@
+ #include <linux/platform/tegra/common.h>
+ #endif
+ #include <linux/pci.h>
+-#include <linux/of_gpio.h>
++#include <linux/of.h>
++#include <linux/gpio/consumer.h>
+ 
+ #include <uapi/linux/nvgpu.h>
+ #ifdef CONFIG_NVGPU_TEGRA_FUSE
+@@ -461,7 +462,8 @@ static irqreturn_t therm_irq(int irq, void *dev_id)
+ static int nvgpu_request_therm_irq(struct nvgpu_os_linux *l)
+ {
+ 	struct device_node *np;
+-	int ret = 0, gpio, index = 0;
++	struct gpio_desc *gpio;
++	int ret = 0, index = 0;
+ 	u32 irq_flags = IRQ_TYPE_NONE;
+ 	u32 event_delay = 10U;
+ 
+@@ -473,13 +475,22 @@ static int nvgpu_request_therm_irq(struct nvgpu_os_linux *l)
+ 		return -ENOENT;
+ 	}
+ 
+-	gpio = of_get_named_gpio(np, "nvgpu-therm-gpios", index);
+-	if (gpio < 0) {
+-		nvgpu_err(&l->g, "failed to get GPIO %d ", gpio);
+-		return gpio;
++	gpio = devm_fwnode_gpiod_get_index(l->dev, of_fwnode_handle(np),
++			"nvgpu-therm", index, GPIOD_ASIS, "dgpu_therm");
++	if (IS_ERR(gpio)) {
++		ret = PTR_ERR(gpio);
++		nvgpu_err(&l->g, "failed to get GPIO %d", ret);
++		of_node_put(np);
++		return ret;
+ 	}
+ 
+-	l->thermal_alert.therm_alert_irq = gpio_to_irq(gpio);
++	ret = gpiod_to_irq(gpio);
++	if (ret < 0) {
++		devm_gpiod_put(l->dev, gpio);
++		of_node_put(np);
++		return ret;
++	}
++	l->thermal_alert.therm_alert_irq = ret;
+ 
+ 	if (of_property_read_u32(np, "alert-interrupt-level", &irq_flags))
+ 		nvgpu_info(&l->g, "Missing interrupt-level "
+@@ -488,6 +499,7 @@ static int nvgpu_request_therm_irq(struct nvgpu_os_linux *l)
+ 		nvgpu_info(&l->g, "Missing event-interval "
+ 				"prop using %d seconds ", event_delay);
+ 
++	of_node_put(np);
+ 	l->thermal_alert.event_delay = event_delay;
+ 
+ 	if (!l->thermal_alert.workqueue) {

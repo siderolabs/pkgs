@@ -1,0 +1,183 @@
+name: nvidia-tegra-nvgpu-pkg
+variant: scratch
+shell: /bin/bash
+# Tegra is ARM64-only; leave other architectures empty for multi-platform builds.
+# {{ if eq .ARCH "aarch64" }}
+dependencies:
+  - stage: base
+  - stage: kernel-build
+  - image: "{{ .LLVM_IMAGE }}:{{ .TOOLS_REV }}"
+steps:
+  - sources:
+      # NVIDIA Jetson Linux r39.2.1 (JetPack 7.2) out-of-tree GPU stack for Jetson Orin,
+      # straight from NVIDIA's gitlab (tag jetson_39.2.1).
+      - url: https://gitlab.com/nvidia/nv-tegra/tegra/kernel-src/linux-nvgpu/-/archive/{{ .tegra_nvgpu_ref }}/linux-nvgpu-{{ .tegra_nvgpu_ref }}.tar.gz
+        destination: nvgpu.tar.gz
+        sha256: "{{ .tegra_nvgpu_sha256 }}"
+        sha512: "{{ .tegra_nvgpu_sha512 }}"
+      - url: https://gitlab.com/nvidia/nv-tegra/linux-nv-oot/-/archive/{{ .tegra_nv_oot_ref }}/linux-nv-oot-{{ .tegra_nv_oot_ref }}.tar.gz
+        destination: nvidia-oot.tar.gz
+        sha256: "{{ .tegra_nv_oot_sha256 }}"
+        sha512: "{{ .tegra_nv_oot_sha512 }}"
+      - url: https://gitlab.com/nvidia/nv-tegra/linux-hwpm/-/archive/{{ .tegra_hwpm_ref }}/linux-hwpm-{{ .tegra_hwpm_ref }}.tar.gz
+        destination: hwpm.tar.gz
+        sha256: "{{ .tegra_hwpm_sha256 }}"
+        sha512: "{{ .tegra_hwpm_sha512 }}"
+    env:
+      ARCH: arm64
+      LLVM: "1"
+      LLVM_IAS: "1"
+      # conftest compiles its probes with $CC (Makefile default: cc = GCC). Probing
+      # Clang-built kernel headers with GCC fails wholesale, which leaves every NV_*
+      # macro undefined and selects the wrong code paths. The kernel build itself
+      # ignores CC because LLVM=1 selects clang.
+      CC: clang
+      # NVIDIA's top-level Makefiles add these include paths for every module; the
+      # module directories are built individually here, so pass them globally.
+      # The same goes for the two defines nvidia-oot/drivers/gpu/Makefile exports when any
+      # of the Tegra SoC options is on: without CONFIG_DRM_TEGRA_HAVE_DISPLAY, struct
+      # host1x_info has no reserve_vblank_syncpts field and host1x/dev.c does not compile.
+      KCFLAGS: >-
+        -I/oot-src/out/nvidia-conftest
+        -I/oot-src/nvidia-oot/include
+        -I/oot-src/nvidia-oot/drivers/video/tegra/nvmap/include
+        -DCONFIG_HOST1X_HAVE_SYNCPT_BASE
+        -DCONFIG_DRM_TEGRA_HAVE_DISPLAY
+      # Common make arguments for every out-of-tree module directory. -Werror is
+      # dropped from NVIDIA's Makefiles because Clang warns where GCC does not.
+      # CONFIG_HOST1X_HAVE_SYNCPT_BASE / CONFIG_DRM_TEGRA_HAVE_DISPLAY are the make-variable
+      # side of the defines above (host1x adds mipi.o, the tegra_mipi_driver dev.c
+      # registers, only when CONFIG_DRM_TEGRA_HAVE_DISPLAY is set).
+      OOT_MAKE: >-
+        CONFIG_TEGRA_OOT_MODULE=m ccflags-remove-y=-Werror LLVM=1
+        CONFIG_HOST1X_HAVE_SYNCPT_BASE=y CONFIG_DRM_TEGRA_HAVE_DISPLAY=y
+        srctree.nvidia-oot=/oot-src/nvidia-oot srctree.nvidia=/oot-src/nvidia-oot
+        srctree.hwpm=/oot-src/hwpm srctree.nvconftest=/oot-src/out/nvidia-conftest
+        KBUILD_EXTRA_SYMBOLS=/oot-src/out/Module.symvers.nvidia
+    prepare:
+      - |
+        for t in nvgpu nvidia-oot hwpm; do
+          mkdir -p /oot-src/$t
+          tar xzf $t.tar.gz -C /oot-src/$t --strip-components=1
+        done
+        # patches/<tree>/*.patch applies to /oot-src/<tree>
+        for p in /pkg/patches/*/*.patch; do t=${p%/*}; patch -p1 -d /oot-src/${t##*/} < $p; done
+    build:
+      - |
+        # conftest probes the kernel API and writes conftest/*.h, which selects the
+        # code paths in every module (see CC above). Its Makefile hardcodes -Werror,
+        # which turns Clang-only warnings into failed probes and leaves NV_* macros
+        # missing.
+        CONFTEST=/oot-src/out/nvidia-conftest/nvidia
+        mkdir -p $CONFTEST
+        cp -a /oot-src/nvidia-oot/scripts/conftest/. $CONFTEST/
+        sed -i 's/ -Werror / /' $CONFTEST/Makefile
+        # Match Kbuild's anonymous tagged struct support for kernel headers.
+        make -j$(nproc) -f $CONFTEST/Makefile src=$CONFTEST obj=$CONFTEST \
+          NV_KERNEL_SOURCES=/src NV_KERNEL_OUTPUT=/src EXTRA_CFLAGS=-fms-anonymous-structs
+        # a probe every 6.3+ kernel must pass: fails the build if conftest is broken
+        grep -rq '#define NV_IOMMU_MAP_HAS_GFP_ARG' $CONFTEST/conftest/
+      - |
+        OOT=/oot-src/nvidia-oot
+        SYMS=/oot-src/out/Module.symvers.nvidia
+        : > $SYMS
+
+        # Build one module directory against the kernel and add its exported symbols
+        # for the directories that follow, so the order below matters. Per-directory
+        # arguments come after $OOT_MAKE so they can override it (the last assignment wins).
+        oot() {
+          make -j$(nproc) -C /src M=$1 $OOT_MAKE "${@:2}" modules
+          cat $1/Module.symvers >> $SYMS
+        }
+
+        # nvgpu, tegra-drm, nvmap and mc-utils call the hypervisor helpers
+        # (is_tegra_hypervisor_mode, tegra_hv_ivc_*, ...) that NVIDIA's kernel has built in.
+        # tegra_hv.ko exports them (inert on bare metal) and needs NVIDIA's extended IVC API
+        # from ivc_ext.ko on top of the in-tree tegra-ivc. Only these two modules of their
+        # directories are built.
+        oot $OOT/drivers/firmware/tegra obj-m=ivc_ext.o
+        oot $OOT/drivers/virt/tegra obj-m=tegra_hv.o
+        oot $OOT/drivers/gpu/host1x
+        oot $OOT/drivers/platform/tegra/mc-utils
+        oot $OOT/drivers/gpu/host1x-nvhost
+        oot $OOT/drivers/gpu/host1x-fence
+        oot /oot-src/hwpm/drivers/tegra/hwpm
+        # Headless: no fbdev (the kernel config has it enabled, so it must be forced off) and
+        # no display code (dc, hub, sor, ...). The Orin display is driven by nvdisplay, not by
+        # tegra-drm. CONFIG_DRM_TEGRA_HAVE_DISPLAY only guards tegra-drm internals and one
+        # host1x prototype, so tegra-drm leaves it off while host1x keeps it.
+        oot $OOT/drivers/gpu/drm/tegra CONFIG_DRM_FBDEV_EMULATION=n \
+          CONFIG_DRM_TEGRA_HAVE_DISPLAY= KCFLAGS="${KCFLAGS/-DCONFIG_DRM_TEGRA_HAVE_DISPLAY/}"
+        # No handle-as-id and no NvSciIpc (not wanted on bare metal). Without NvSciIpc,
+        # nvmap_sci_ipc.c is not built; patch nvidia-oot/0002 supplies no-op stubs for the
+        # two IVC functions it would define.
+        oot $OOT/drivers/video/tegra/nvmap NVMAP_CONFIG_HANDLE_AS_ID=n NVMAP_CONFIG_SCIIPC=n
+        oot $OOT/drivers/devfreq
+        # syncpoints through the out-of-tree host1x (the kernel has neither GRHOST nor HOST1X_NEXT)
+        oot /oot-src/nvgpu/drivers/gpu/nvgpu \
+          CONFIG_TEGRA_GK20A_NVHOST=y CONFIG_TEGRA_GK20A_NVHOST_HOST1X=y
+
+        # Every undefined symbol of every module must be exported by the kernel (including its
+        # in-tree modules) or by one of the modules built above.
+        awk -F'\t' '{print $2}' /src/Module.symvers $SYMS | sort -u > /tmp/known-symbols
+        fail=0
+        for ko in $(find /oot-src -name '*.ko' | sort); do
+          llvm-nm -u "$ko" | awk '$1 == "U" {print $2}' | sort -u | comm -23 - /tmp/known-symbols > /tmp/unresolved || true
+          if [ -s /tmp/unresolved ]; then
+            echo "UNRESOLVED symbols in ${ko##*/}:"; sed 's/^/    /' /tmp/unresolved; fail=1
+          fi
+        done
+        [ "$fail" = 0 ] || { echo "ERROR: unresolved module symbols"; exit 1; }
+    install:
+      - |
+        OOT=/oot-src/nvidia-oot
+        MOD=/rootfs/usr/lib/modules/$(cat /src/include/config/kernel.release)
+        mkdir -p $MOD
+        cp /src/modules.order /src/modules.builtin /src/modules.builtin.modinfo $MOD/
+
+        # Modules are stripped after signing, see
+        # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
+        oot_install() {
+          make -j$(nproc) -C /src M=$1 $OOT_MAKE "${@:3}" \
+            INSTALL_MOD_PATH=/rootfs/usr INSTALL_MOD_DIR=$2 \
+            INSTALL_MOD_STRIP=1 CONFIG_MODULE_SIG_ALL=y modules_install
+        }
+
+        # host1x and tegra-drm are installed at the in-tree paths they shadow. depmod
+        # resolves kernel/drivers/gpu/drm/tegra/tegra-drm.ko against
+        # kernel/drivers/gpu/host1x/host1x.ko, so installing only under extra/ leaves
+        # modprobe pointing at the vanilla tegra-drm.ko, which then fails with
+        # "tegra_drm: disagrees about version of symbol host1x_job_alloc".
+        oot_install $OOT/drivers/gpu/host1x kernel/drivers/gpu/host1x
+        oot_install $OOT/drivers/gpu/drm/tegra kernel/drivers/gpu/drm/tegra CONFIG_DRM_FBDEV_EMULATION=n \
+          CONFIG_DRM_TEGRA_HAVE_DISPLAY= KCFLAGS="${KCFLAGS/-DCONFIG_DRM_TEGRA_HAVE_DISPLAY/}"
+        oot_install $OOT/drivers/firmware/tegra extra/nvidia-tegra obj-m=ivc_ext.o
+        oot_install $OOT/drivers/virt/tegra extra/nvidia-tegra obj-m=tegra_hv.o
+        oot_install $OOT/drivers/gpu/host1x-nvhost extra/nvidia-tegra
+        oot_install $OOT/drivers/gpu/host1x-fence extra/nvidia-tegra
+        oot_install /oot-src/hwpm/drivers/tegra/hwpm extra/nvidia-tegra
+        oot_install $OOT/drivers/video/tegra/nvmap extra/nvidia-tegra NVMAP_CONFIG_HANDLE_AS_ID=n NVMAP_CONFIG_SCIIPC=n
+        oot_install $OOT/drivers/platform/tegra/mc-utils extra/nvidia-tegra
+        oot_install $OOT/drivers/devfreq extra/nvidia-tegra
+        oot_install /oot-src/nvgpu/drivers/gpu/nvgpu extra/nvidia-tegra \
+          CONFIG_TEGRA_GK20A_NVHOST=y CONFIG_TEGRA_GK20A_NVHOST_HOST1X=y
+
+        # Load order, mirroring the symbol dependencies: tegra_hv -> ivc_ext; host1x-nvhost and
+        # host1x-fence -> host1x, host1x-fence also uses host1x-nvhost; tegra-drm -> host1x,
+        # nvhwpm, tegra_hv; nvmap and mc-utils -> tegra_hv; nvgpu -> tegra_hv, nvmap,
+        # host1x-fence, mc-utils. tegra-drm registers /dev/dri/renderD128, which libcuda
+        # requires to enumerate the iGPU.
+        mkdir -p /rootfs/usr/lib/modprobe.d
+        cat > /rootfs/usr/lib/modprobe.d/nvidia-tegra.conf <<'CONF'
+        softdep tegra_hv pre: ivc_ext
+        softdep host1x-nvhost pre: host1x
+        softdep host1x-fence pre: host1x host1x-nvhost
+        softdep nvmap pre: tegra_hv
+        softdep mc-utils pre: tegra_hv
+        softdep tegra-drm pre: tegra_hv host1x host1x-nvhost host1x-fence nvhwpm
+        softdep nvgpu pre: tegra_hv host1x host1x-nvhost host1x-fence nvmap tegra-drm mc-utils
+        CONF
+finalize:
+  - from: /rootfs
+    to: /
+# {{ end }}

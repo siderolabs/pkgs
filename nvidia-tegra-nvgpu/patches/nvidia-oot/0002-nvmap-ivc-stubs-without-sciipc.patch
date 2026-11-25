@@ -1,0 +1,42 @@
+nvmap: stub the IVC queue functions when built without NvSciIpc
+
+nvmap_init.c and nvmap_handle.c call nvmap_init_ivc_queue(),
+nvmap_deinit_ivc_queue() and nvmap_decrement_handle_refcount_by_ivm_id()
+unconditionally, but they live in nvmap_sci_ipc.c, which is only built
+with NVMAP_CONFIG_SCIIPC. This package builds nvmap with
+NVMAP_CONFIG_SCIIPC=n (NVIDIA's default is y), because NvSciIpc is not
+used on bare metal, and nvmap.ko was left with undefined symbols.
+Provide inline no-op stubs, like the existing nvmap_sci_ipc_init()
+fallback.
+
+--- a/drivers/video/tegra/nvmap/nvmap_handle.h
++++ b/drivers/video/tegra/nvmap/nvmap_handle.h
+@@ -381,11 +381,28 @@
+ 				u32 *h,
+ 				bool is_inter_vm);
+ 
++#ifdef NVMAP_CONFIG_SCIIPC
+ int nvmap_decrement_handle_refcount_by_ivm_id(u64 ivm_id, u64 vm_id);
+ 
+ int nvmap_init_ivc_queue(struct device *dev);
+ 
+ void nvmap_deinit_ivc_queue(void);
++#else
++/* nvmap_sci_ipc.c is not built without NvSciIpc; nothing to talk to on bare metal */
++static inline int nvmap_decrement_handle_refcount_by_ivm_id(u64 ivm_id, u64 vm_id)
++{
++	return 0;
++}
++
++static inline int nvmap_init_ivc_queue(struct device *dev)
++{
++	return 0;
++}
++
++static inline void nvmap_deinit_ivc_queue(void)
++{
++}
++#endif
+ 
+ struct nvmap_handle *nvmap_handle_get_from_fd(int fd);
+ 

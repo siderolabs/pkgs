@@ -340,6 +340,23 @@ vars:
   gdrcopy_sha256: 806d6d3a3dabb966cb699ca6f9f035ab333a43ac8c24838f8589f0ad6b1ceae9
   gdrcopy_sha512: 2b6b1ceedf02f3fac1772cbd5735add64d67a3703f1e5ae4d097c4cbf8b7497d8af861762d2bc4776593dacb331dc0212fae5760e8e411c34123e6948d510b74
 
+  # NVIDIA Jetson Linux r39.2.1 (JetPack 7.2) kernel module sources for Jetson Orin (Tegra234 / GA10B)
+  # renovate: datasource=git-tags versioning=regex:^jetson_(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)$ depName=https://gitlab.com/nvidia/nv-tegra/tegra/kernel-src/linux-nvgpu.git
+  tegra_nvgpu_version: jetson_39.2.1
+  tegra_nvgpu_ref: fc23d33512d3bf1361b201e31406c47762102429
+  tegra_nvgpu_sha256: 5291c81113b607479d6f3a089105b78d549c23ebd1df82ee09055400b22ff03f
+  tegra_nvgpu_sha512: 8f0e3e677a6a3d9b9121e6713965daf1a0e69f0fbf3056a9d3625e94bfa9742ebca60f75bee5306698a7714c60b3eeddfd5a2d13a46c41c078824d924e15ca25
+  # renovate: datasource=git-tags versioning=regex:^jetson_(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)$ depName=https://gitlab.com/nvidia/nv-tegra/linux-nv-oot.git
+  tegra_nv_oot_version: jetson_39.2.1
+  tegra_nv_oot_ref: e71bacb7c611f880c5f341263967f13de54de3a9
+  tegra_nv_oot_sha256: 80cdea02475ecc94f98bb1a9de81315a1d7f7985d99cba14621c1198ccdd1362
+  tegra_nv_oot_sha512: 9189f0580f0ff7d7f46464b519c4705f8ffa7195c4db2b9fb7c7aafb578a545399e56aa8710943216c603e9a55bad228d8cdf4da06b25cb77c9f4355938186e0
+  # renovate: datasource=git-tags versioning=regex:^jetson_(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)$ depName=https://gitlab.com/nvidia/nv-tegra/linux-hwpm.git
+  tegra_hwpm_version: jetson_39.2.1
+  tegra_hwpm_ref: 80b966b1bdc20f896cc9625a84708cbbe4638e38
+  tegra_hwpm_sha256: 98db24aba32e1140233b0793621a4758dc4f4688670041c12b81c1861a42231a
+  tegra_hwpm_sha512: 91444234ef00704dfa11ca9855f7639382ac87c4b4bfb10eaa153dd108d99034a5d494c10e804f2217c52c8135507d876270ddba362cdf586a59a9c9b3e6b226
+
   # renovate: datasource=github-releases depName=NVIDIA/gds-nvidia-fs
   gds_nvidia_fs_version: v2.31.5
   gds_nvidia_fs_sha256: 63df520c725d9430a2de91d9c6d3f7fe9371b7d0154e392c90850c1776627533
