@@ -356,6 +356,12 @@ vars:
   tegra_hwpm_ref: 80b966b1bdc20f896cc9625a84708cbbe4638e38
   tegra_hwpm_sha256: 98db24aba32e1140233b0793621a4758dc4f4688670041c12b81c1861a42231a
   tegra_hwpm_sha512: 91444234ef00704dfa11ca9855f7639382ac87c4b4bfb10eaa153dd108d99034a5d494c10e804f2217c52c8135507d876270ddba362cdf586a59a9c9b3e6b226
+  # GA10B GPU firmware from NVIDIA's Jetson Linux apt repository (component "som").
+  # It must come from the same Jetson Linux release as tegra_nvgpu_version, because
+  # nvgpu and its PMU/GSP/ACR firmware must match. The build fails if they differ.
+  tegra_l4t_firmware_version: 39.2.2-20261112230500
+  tegra_l4t_firmware_sha256: 6f3c0239523aec6c2d385f24e856fdeaba0673df14592b22a29d1b1bfcf38630
+  tegra_l4t_firmware_sha512: ad9462cc860e3afb90c27f1311b0cee766dc8dda14d17f8c606956def4135d8840c8530a0d7121b8035d82a96811e39bca8b1c862e584678a8f883393ef09cf5
 
   # renovate: datasource=github-releases depName=NVIDIA/gds-nvidia-fs
   gds_nvidia_fs_version: v2.31.5
