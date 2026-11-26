@@ -130,6 +130,12 @@
             ]
         },
         {
+            "versioning": "regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.?(?<patch>\\d+)?$",
+            "matchPackageNames": [
+                "NVIDIA/gdrcopy"
+            ]
+        },
+        {
             "versioning": "regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.?(?<patch>\\d+)?\\.?-flannel(?<build>\\d+)?$",
             "matchPackageNames": [
                 "flannel-io/cni-plugin"
