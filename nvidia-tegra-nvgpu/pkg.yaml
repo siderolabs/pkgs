@@ -9,8 +9,8 @@ dependencies:
   - image: "{{ .LLVM_IMAGE }}:{{ .TOOLS_REV }}"
 steps:
   - sources:
-      # NVIDIA Jetson Linux r39.2.1 (JetPack 7.2) out-of-tree GPU stack for Jetson Orin,
-      # straight from NVIDIA's gitlab (tag jetson_39.2.1).
+      # NVIDIA Jetson Linux r39.2.2 (JetPack 7.2) out-of-tree GPU stack for Jetson Orin,
+      # straight from NVIDIA's gitlab (tag jetson_39.2.2_GA).
       - url: https://gitlab.com/nvidia/nv-tegra/tegra/kernel-src/linux-nvgpu/-/archive/{{ .tegra_nvgpu_ref }}/linux-nvgpu-{{ .tegra_nvgpu_ref }}.tar.gz
         destination: nvgpu.tar.gz
         sha256: "{{ .tegra_nvgpu_sha256 }}"
@@ -23,6 +23,11 @@ steps:
         destination: hwpm.tar.gz
         sha256: "{{ .tegra_hwpm_sha256 }}"
         sha512: "{{ .tegra_hwpm_sha512 }}"
+      # GA10B firmware (nvgpu loads it from nvidia/ga10b/)
+      - url: https://repo.download.nvidia.com/jetson/som/pool/main/n/nvidia-l4t-firmware/nvidia-l4t-firmware_{{ .tegra_l4t_firmware_version }}_arm64.deb
+        destination: nvidia-l4t-firmware.deb
+        sha256: "{{ .tegra_l4t_firmware_sha256 }}"
+        sha512: "{{ .tegra_l4t_firmware_sha512 }}"
     env:
       ARCH: arm64
       LLVM: "1"
@@ -62,6 +67,22 @@ steps:
         done
         # patches/<tree>/*.patch applies to /oot-src/<tree>
         for p in /pkg/patches/*/*.patch; do t=${p%/*}; patch -p1 -d /oot-src/${t##*/} < $p; done
+
+        # The GA10B firmware must come from the same Jetson Linux release as nvgpu.
+        release={{ .tegra_nvgpu_version }}; release=${release#jetson_}; release=${release%_GA}
+        case "{{ .tegra_l4t_firmware_version }}" in
+          "$release"-*) ;;
+          *) echo "GA10B firmware {{ .tegra_l4t_firmware_version }} is not from Jetson Linux $release" >&2; exit 1 ;;
+        esac
+        # Take the firmware and its license from the .deb. The wildcards work with any
+        # data.tar compression and with or without the "./" prefix in member names.
+        mkdir -p /oot-src/l4t-firmware/deb
+        ar x --output=/oot-src/l4t-firmware/deb nvidia-l4t-firmware.deb
+        tar -xf /oot-src/l4t-firmware/deb/data.tar.* -C /oot-src/l4t-firmware/deb --wildcards \
+          '*lib/firmware/nvidia/ga10b/*' '*usr/share/doc/nvidia-l4t-firmware/copyright'
+        fw=$(find /oot-src/l4t-firmware/deb -type d -path '*/lib/firmware/nvidia/ga10b')
+        mv "$fw" /oot-src/l4t-firmware/ga10b
+        mv /oot-src/l4t-firmware/deb/*usr/share/doc/nvidia-l4t-firmware/copyright /oot-src/l4t-firmware/copyright
     build:
       - |
         # conftest probes the kernel API and writes conftest/*.h, which selects the
@@ -162,6 +183,13 @@ steps:
         oot_install /oot-src/nvgpu/drivers/gpu/nvgpu extra/nvidia-tegra \
           CONFIG_TEGRA_GK20A_NVHOST=y CONFIG_TEGRA_GK20A_NVHOST_HOST1X=y
 
+        # GA10B firmware: nvgpu requests nvidia/ga10b/<file> first. The NVIDIA license
+        # allows redistribution with an open source kernel if the license is given to
+        # each recipient, so it is installed next to the firmware.
+        mkdir -p /rootfs/usr/lib/firmware/nvidia
+        cp -a /oot-src/l4t-firmware/ga10b /rootfs/usr/lib/firmware/nvidia/
+        cp /oot-src/l4t-firmware/copyright /rootfs/usr/lib/firmware/nvidia/ga10b/LICENSE.nvidia-l4t-firmware
+
         # Load order, mirroring the symbol dependencies: tegra_hv -> ivc_ext; host1x-nvhost and
         # host1x-fence -> host1x, host1x-fence also uses host1x-nvhost; tegra-drm -> host1x,
         # nvhwpm, tegra_hv; nvmap and mc-utils -> tegra_hv; nvgpu -> tegra_hv, nvmap,
@@ -177,6 +205,12 @@ steps:
         softdep tegra-drm pre: tegra_hv host1x host1x-nvhost host1x-fence nvhwpm
         softdep nvgpu pre: tegra_hv host1x host1x-nvhost host1x-fence nvmap tegra-drm mc-utils
         CONF
+    test:
+      - |
+        # https://www.kernel.org/doc/html/v4.15/admin-guide/module-signing.html#signed-modules-and-stripping
+        find /rootfs/usr/lib/modules -name '*.ko' -exec grep -FL '~Module signature appended~' {} \+
+      - |
+        fhs-validator /rootfs
 finalize:
   - from: /rootfs
     to: /
