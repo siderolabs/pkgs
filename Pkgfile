@@ -15,8 +15,8 @@ vars:
   cni_sha512: 4bb740af43b40a233b030212f5a04a61ffa5a649c55d76b4e25ab063e10b4ca888e4c5938ea39dc13cf3cf474fe0a49074e1372aa8b962ce5207e8629eff6bde
 
   # renovate: datasource=github-tags depName=containerd/containerd
-  containerd_version: v2.3.7
-  containerd_ref: 6f589cf13dc01a5b493911355427e05b2ff005d7
+  containerd_version: v2.4.2
+  containerd_ref: b7a25261e029d68978bbf290df0a62fc819b3c51
   containerd_sha256: 5d973b7d239de0e4cb72f6d4bad348a1540a80f394beb03f84a868714b06706c
   containerd_sha512: e8bc6bfab5a016d460e63c58d19a1c33b0b2f1f04af3ae959d07d7e239d9cfd5e8f33056823efd6cd22d6db49453d1d5bc7743e6d30c4eaf373c6bf1fbf1a89a
 
@@ -101,7 +101,7 @@ vars:
   iptables_sha512: 3aefd76ca60d00f46ba4d6f39cbcfdc60517d03b6714da25dcd67542f6f4eea8d82c4855bdd9124efe18b769f41951772b8340a6eda75b85f8dd52b2289b145b
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: b847e5f0734f6130c6ee1a4cacdcff508e7aaa3e
+  ipxe_ref: 21f9cda4d5fdaa3ccb211bdc1e19ecad391fd6af
   ipxe_sha256: 51128fd87e2d3004a1a970f53391e67f4bbe6fedb1123996bde05d9726377d9d
   ipxe_sha512: cf3881b6bde993a3b8b29462def693d5817e51f76c8a97628d0944847d651a27004f965bc907983690fe2883c27468c232bc39740e4bee670d2f408253dae042
 
@@ -269,7 +269,7 @@ vars:
   px_fuse_sha512: e09ae048eed906e1983810e47cdfbf0c7077597f9632160701df78b5fd76afe4b249e42f65d2ed6088e3ebedb0531c1a5275d73b591c8d8f5a17d461dfde2e54
 
   # renovate: datasource=git-tags depName=https://gitlab.gnome.org/GNOME/glib.git
-  glib_version: 2.90.1
+  glib_version: 2.91.0
   glib_sha256: 93c941aa17d5eb1d53fe838365f29a8b4e539c222a256d974ec8f30fc413e396
   glib_sha512: d2d76deaad64e307034b09635c64a60537b0d625d1695b314bc33e9e3c9b20284270d2105333474eb1fbe5afcaa814d4c52ded3a1c2a46b4b2652f7b66a211c3
 
@@ -331,7 +331,7 @@ vars:
 
   # NOTE: v4 requires autoconf-archive
   # renovate: datasource=git-tags depName=https://gitlab.com/apparmor/apparmor.git
-  apparmor_version: v3.1.7
+  apparmor_version: v5.0.2
   apparmor_sha256: 64494bd99fa6547a9cbdb4fc6bc732451a02dd19e6eb70eab977b239632151eb
   apparmor_sha512: cfd6b0afb98d4559c16a6a2e23ca16ee9d86325fc6059313df5d3e8feba3d398f96a5754d3880dd2cafb2e7b1a06bd789d62cd36aaf993e46290f6311bb49dac
 
@@ -347,8 +347,8 @@ vars:
   tegra_nvgpu_sha256: 5291c81113b607479d6f3a089105b78d549c23ebd1df82ee09055400b22ff03f
   tegra_nvgpu_sha512: 8f0e3e677a6a3d9b9121e6713965daf1a0e69f0fbf3056a9d3625e94bfa9742ebca60f75bee5306698a7714c60b3eeddfd5a2d13a46c41c078824d924e15ca25
   # renovate: datasource=git-tags versioning=regex:^jetson_(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)$ depName=https://gitlab.com/nvidia/nv-tegra/linux-nv-oot.git
-  tegra_nv_oot_version: jetson_39.2.1
-  tegra_nv_oot_ref: e71bacb7c611f880c5f341263967f13de54de3a9
+  tegra_nv_oot_version: jetson_39.2.2
+  tegra_nv_oot_ref: 8842cfcc8acc2b7ce3aa3bb6c7b764f867eb95ae
   tegra_nv_oot_sha256: 80cdea02475ecc94f98bb1a9de81315a1d7f7985d99cba14621c1198ccdd1362
   tegra_nv_oot_sha512: 9189f0580f0ff7d7f46464b519c4705f8ffa7195c4db2b9fb7c7aafb578a545399e56aa8710943216c603e9a55bad228d8cdf4da06b25cb77c9f4355938186e0
   # renovate: datasource=git-tags versioning=regex:^jetson_(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)$ depName=https://gitlab.com/nvidia/nv-tegra/linux-hwpm.git
