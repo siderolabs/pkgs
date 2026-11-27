@@ -9,8 +9,8 @@ dependencies:
   - image: "{{ .LLVM_IMAGE }}:{{ .TOOLS_REV }}"
 steps:
   - sources:
-      # NVIDIA Jetson Linux r39.2.1 (JetPack 7.2) out-of-tree GPU stack for Jetson Orin,
-      # straight from NVIDIA's gitlab (tag jetson_39.2.1).
+      # NVIDIA Jetson Linux r39.2.2 (JetPack 7.2) out-of-tree GPU stack for Jetson Orin,
+      # straight from NVIDIA's gitlab (tag jetson_39.2.2_GA).
       - url: https://gitlab.com/nvidia/nv-tegra/tegra/kernel-src/linux-nvgpu/-/archive/{{ .tegra_nvgpu_ref }}/linux-nvgpu-{{ .tegra_nvgpu_ref }}.tar.gz
         destination: nvgpu.tar.gz
         sha256: "{{ .tegra_nvgpu_sha256 }}"
