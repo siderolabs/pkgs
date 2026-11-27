@@ -340,19 +340,19 @@ vars:
   gdrcopy_sha256: 806d6d3a3dabb966cb699ca6f9f035ab333a43ac8c24838f8589f0ad6b1ceae9
   gdrcopy_sha512: 2b6b1ceedf02f3fac1772cbd5735add64d67a3703f1e5ae4d097c4cbf8b7497d8af861762d2bc4776593dacb331dc0212fae5760e8e411c34123e6948d510b74
 
-  # NVIDIA Jetson Linux r39.2.1 (JetPack 7.2) kernel module sources for Jetson Orin (Tegra234 / GA10B)
-  # renovate: datasource=git-tags versioning=regex:^jetson_(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)$ depName=https://gitlab.com/nvidia/nv-tegra/tegra/kernel-src/linux-nvgpu.git
-  tegra_nvgpu_version: jetson_39.2.1
-  tegra_nvgpu_ref: fc23d33512d3bf1361b201e31406c47762102429
-  tegra_nvgpu_sha256: 5291c81113b607479d6f3a089105b78d549c23ebd1df82ee09055400b22ff03f
-  tegra_nvgpu_sha512: 8f0e3e677a6a3d9b9121e6713965daf1a0e69f0fbf3056a9d3625e94bfa9742ebca60f75bee5306698a7714c60b3eeddfd5a2d13a46c41c078824d924e15ca25
-  # renovate: datasource=git-tags versioning=regex:^jetson_(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)$ depName=https://gitlab.com/nvidia/nv-tegra/linux-nv-oot.git
-  tegra_nv_oot_version: jetson_39.2.1
-  tegra_nv_oot_ref: e71bacb7c611f880c5f341263967f13de54de3a9
-  tegra_nv_oot_sha256: 80cdea02475ecc94f98bb1a9de81315a1d7f7985d99cba14621c1198ccdd1362
-  tegra_nv_oot_sha512: 9189f0580f0ff7d7f46464b519c4705f8ffa7195c4db2b9fb7c7aafb578a545399e56aa8710943216c603e9a55bad228d8cdf4da06b25cb77c9f4355938186e0
-  # renovate: datasource=git-tags versioning=regex:^jetson_(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)$ depName=https://gitlab.com/nvidia/nv-tegra/linux-hwpm.git
-  tegra_hwpm_version: jetson_39.2.1
+  # NVIDIA Jetson Linux r39.2.2 (JetPack 7.2) kernel module sources for Jetson Orin (Tegra234 / GA10B)
+  # renovate: datasource=git-tags versioning=regex:^jetson_(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)(_GA)?$ depName=https://gitlab.com/nvidia/nv-tegra/tegra/kernel-src/linux-nvgpu.git
+  tegra_nvgpu_version: jetson_39.2.2_GA
+  tegra_nvgpu_ref: 3ffa9bea6b9651bc511195192d8a302f3ca1c81d
+  tegra_nvgpu_sha256: ceb99c0b7e853836c38d9262e549ec03be39164a963c752eb808696a4f9d11d5
+  tegra_nvgpu_sha512: 312ab2e963b0643d4a950405e073926e93154bed6d755a795181f8b86503d6edd842e542baaf0539d38e563bae7d9e0dc3d6f3526c8d90bb0631ddc5241f7d4d
+  # renovate: datasource=git-tags versioning=regex:^jetson_(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)(_GA)?$ depName=https://gitlab.com/nvidia/nv-tegra/linux-nv-oot.git
+  tegra_nv_oot_version: jetson_39.2.2_GA
+  tegra_nv_oot_ref: ec90ce136485a62264975d20a150d6d6c29d3caa
+  tegra_nv_oot_sha256: 5a873311a358a580c62ac5414e5c6a66fbf646d2f0865c8998d934ee3e92a472
+  tegra_nv_oot_sha512: 4ea8fe454701c9ac25c17269f0600002db31258e16e64a89d29399b28e6b1bb356a946d9222630c7e0bfbb1ea1501c60a461ee63e043c0f8feae500cb19986ff
+  # renovate: datasource=git-tags versioning=regex:^jetson_(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)(_GA)?$ depName=https://gitlab.com/nvidia/nv-tegra/linux-hwpm.git
+  tegra_hwpm_version: jetson_39.2.2_GA
   tegra_hwpm_ref: 80b966b1bdc20f896cc9625a84708cbbe4638e38
   tegra_hwpm_sha256: 98db24aba32e1140233b0793621a4758dc4f4688670041c12b81c1861a42231a
   tegra_hwpm_sha512: 91444234ef00704dfa11ca9855f7639382ac87c4b4bfb10eaa153dd108d99034a5d494c10e804f2217c52c8135507d876270ddba362cdf586a59a9c9b3e6b226
