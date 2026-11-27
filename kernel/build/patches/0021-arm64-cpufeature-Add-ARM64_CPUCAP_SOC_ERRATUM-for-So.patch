@@ -1,0 +1,118 @@
+From: Catalin Marinas <catalin.marinas@arm.com>
+Date: Sat, 10 Oct 2026 01:19:45 +0800
+Subject: [PATCH] arm64: cpufeature: Add ARM64_CPUCAP_SOC_ERRATUM for SoC-level
+ errata
+
+Add a new capability type for SoC-level (not CPU-level) errata. Unlike
+CPU errata which need to be checked on every CPU, SoC errata are probed
+once on the boot CPU and the result applies to all CPUs. Secondary
+and late CPUs skip the matches() check but still get cpu_enable() called.
+
+This avoids redundant probing on secondary and late CPUs for errata
+that are SoC-wide properties, not per-CPU.
+
+Convert ARM64_ERRATUM_4311569 from ARM64_CPUCAP_SYSTEM_FEATURE to
+ARM64_CPUCAP_SOC_ERRATUM since it is a SoC-level property already
+determined at boot. This changes its scope from SCOPE_SYSTEM to
+SCOPE_BOOT_CPU, so the workaround is now enabled before the secondary
+CPUs are brought up. This is safe as the erratum is enabled via an
+early_param, parsed before the boot CPU capabilities are detected.
+
+Co-developed-by: Peng Fan <peng.fan@nxp.com>
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
+---
+ arch/arm64/include/asm/cpufeature.h | 24 ++++++++++++++++++++++++
+ arch/arm64/kernel/cpu_errata.c      |  2 +-
+ arch/arm64/kernel/cpufeature.c      |  5 ++++-
+ 3 files changed, 29 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/include/asm/cpufeature.h b/arch/arm64/include/asm/cpufeature.h
+index 4f04ad82ea34..cbbc350bf335 100644
+--- a/arch/arm64/include/asm/cpufeature.h
++++ b/arch/arm64/include/asm/cpufeature.h
+@@ -187,6 +187,10 @@ extern struct arm64_ftr_reg arm64_ftr_reg_ctrel0;
+  *	b) SCOPE_LOCAL_CPU, SCOPE_SYSTEM: All CPUs hotplugged on by the
+  *	user after the kernel boot are verified against the capability.
+  *
++ *    SCOPE_BOOT_CPU and SCOPE_SYSTEM capabilities with
++ *    ARM64_CPUCAP_PROBE_ONCE are not matched again on these CPUs. They
++ *    take the state already detected, so there cannot be a conflict.
++ *
+  *    If there is a conflict, the kernel takes an action, based on the
+  *    severity (e.g, a CPU could be prevented from booting or cause a
+  *    kernel panic). The CPU is allowed to "affect" the state of the
+@@ -266,6 +270,13 @@ extern struct arm64_ftr_reg arm64_ftr_reg_ctrel0;
+ #define SCOPE_BOOT_CPU				ARM64_CPUCAP_SCOPE_BOOT_CPU
+ #define SCOPE_ALL				ARM64_CPUCAP_SCOPE_MASK
+ 
++/*
++ * matches() is called only once, when the capability is detected, and the
++ * result applies to all CPUs. Secondary and late CPUs are not checked for
++ * conflicts but cpu_enable() is still called on each of them. It has no
++ * effect on SCOPE_LOCAL_CPU capabilities.
++ */
++#define ARM64_CPUCAP_PROBE_ONCE			((u16)BIT(3))
+ /*
+  * Is it permitted for a late CPU to have this capability when system
+  * hasn't already enabled it ?
+@@ -293,6 +304,13 @@ extern struct arm64_ftr_reg arm64_ftr_reg_ctrel0;
+  */
+ #define ARM64_CPUCAP_LOCAL_CPU_ERRATUM		\
+ 	(ARM64_CPUCAP_SCOPE_LOCAL_CPU | ARM64_CPUCAP_OPTIONAL_FOR_LATE_CPU)
++/*
++ * SoC (not CPU) errata workarounds. The erratum is probed once on the boot
++ * CPU, before the secondary CPUs are brought up, and no secondary or late CPU
++ * can conflict with it.
++ */
++#define ARM64_CPUCAP_SOC_ERRATUM			\
++	(ARM64_CPUCAP_SCOPE_BOOT_CPU | ARM64_CPUCAP_PROBE_ONCE)
+ /*
+  * CPU feature detected at boot time based on system-wide value of a
+  * feature. It is safe for a late CPU to have this feature even though
+@@ -414,6 +432,12 @@ static inline bool cpucap_match_all_early_cpus(const struct arm64_cpu_capabiliti
+ 	return cap->type & ARM64_CPUCAP_MATCH_ALL_EARLY_CPUS;
+ }
+ 
++static inline bool cpucap_probe_once(const struct arm64_cpu_capabilities *cap)
++{
++	return (cap->type & ARM64_CPUCAP_PROBE_ONCE) &&
++	       !(cap->type & ARM64_CPUCAP_SCOPE_LOCAL_CPU);
++}
++
+ /*
+  * Generic helper for handling capabilities with multiple (match,enable) pairs
+  * of call backs, sharing the same capability bit.
+diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
+index e0c09402540c..a418e240ccce 100644
+--- a/arch/arm64/kernel/cpu_errata.c
++++ b/arch/arm64/kernel/cpu_errata.c
+@@ -986,7 +986,7 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
+ #ifdef CONFIG_ARM64_ERRATUM_4311569
+ 	{
+ 		.capability = ARM64_WORKAROUND_4311569,
+-		.type = ARM64_CPUCAP_SYSTEM_FEATURE,
++		.type = ARM64_CPUCAP_SOC_ERRATUM,
+ 		.matches = need_arm_si_l1_workaround_4311569,
+ 	},
+ #endif
+diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
+index 3ae3ad1a1cdf..910ded5ce512 100644
+--- a/arch/arm64/kernel/cpufeature.c
++++ b/arch/arm64/kernel/cpufeature.c
+@@ -3694,8 +3694,11 @@ static void verify_local_cpu_caps(u16 scope_mask)
+ 		if (!caps || !(caps->type & scope_mask))
+ 			continue;
+ 
+-		cpu_has_cap = caps->matches(caps, SCOPE_LOCAL_CPU);
+ 		system_has_cap = cpus_have_cap(caps->capability);
++		if (cpucap_probe_once(caps))
++			cpu_has_cap = system_has_cap;
++		else
++			cpu_has_cap = caps->matches(caps, SCOPE_LOCAL_CPU);
+ 
+ 		if (system_has_cap) {
+ 			/*
+-- 
+2.56.1
+
