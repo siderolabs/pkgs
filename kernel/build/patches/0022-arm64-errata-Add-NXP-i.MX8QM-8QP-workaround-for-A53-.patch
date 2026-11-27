@@ -1,0 +1,368 @@
+From: Peng Fan <peng.fan@nxp.com>
+Date: Sat, 10 Oct 2026 01:19:46 +0800
+Subject: [PATCH] arm64: errata: Add NXP i.MX8QM/8QP workaround for A53 cache
+ coherency issue
+
+According to NXP errata document IMX8_1N94W[1], the i.MX8QuadMax and
+i.MX8QuadPlus SoCs suffer from a cache coherency issue (ERR050104). The
+upper bits, above bit 35, of the ARADDR and ACADDR buses within the Arm
+A53 subsystem have been incorrectly connected. This causes some TLBI and
+IC maintenance operations exchanged between the A53 and A72 core
+clusters to be corrupted.
+
+The workaround requires:
+
+  - Downgrading targeted TLBI operations to broadcast-all variants.
+    Instead of patching the low-level __TLBI_1 macro (which causes
+    excessive over-invalidation), redirect high-level TLB flush
+    functions (flush_tlb_mm, __do_flush_tlb_range,
+    flush_tlb_kernel_range, __flush_tlb_kernel_pgtable) to use VMALLE1IS
+    via alternatives.
+
+  - Upgrading IC IVAU to IC IALLUIS for both kernel (via ALTERNATIVE in
+    invalidate_icache_by_line) and EL0 userspace (via trap-and-upgrade
+    in user_cache_maint_handler with SCTLR_EL1.UCI=0).
+
+  - Disabling KVM since correct TLB maintenance cannot be guaranteed
+    for guests.
+
+  - No need to touch SMMU Broadcast TLB Maintenance (BTM) since the
+    arm-smmu driver does not use it.
+
+SoC detection uses devicetree compatible string "fsl,imx8qm" or
+"fsl,imx8qp" since the boot CPU MIDR_EL1 (0x410fd034) and AIDR_EL1 (0)
+are not unique to these SoCs.
+
+[1] https://www.nxp.com/docs/en/errata/IMX8_1N94W.pdf
+
+[ Reworked per review feedback from Will Deacon and Mark Rutland:
+  - Move TLBI workaround from __TLBI_1 macro to high-level flush
+    functions to avoid excessive over-invalidation
+  - Add kernel IC IVAU upgrade via ALTERNATIVE in assembler.h
+  - Add cpucap_is_possible() entry for compile-time elimination]
+
+Tested-by: Franz Schnyder <franz.schnyder@toradex.com> # Toradex Apalis iMX8QM
+Co-developed-by: Ivan T. Ivanov <iivanov@suse.de>
+Signed-off-by: Ivan T. Ivanov <iivanov@suse.de>
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+[catalin.marinas@arm.com: Kconfig and errata text, sysreg_clear_set(), of_machine_compatible_match()]
+Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
+---
+ Documentation/arch/arm64/silicon-errata.rst |  2 +
+ arch/arm64/Kconfig                          | 22 ++++++++
+ arch/arm64/include/asm/assembler.h          |  5 ++
+ arch/arm64/include/asm/cpucaps.h            |  2 +
+ arch/arm64/include/asm/kvm_host.h           |  2 +
+ arch/arm64/include/asm/tlbflush.h           | 62 +++++++++++++--------
+ arch/arm64/kernel/cpu_errata.c              | 38 +++++++++++++
+ arch/arm64/kernel/traps.c                   |  2 +
+ arch/arm64/kvm/arm.c                        |  5 ++
+ arch/arm64/tools/cpucaps                    |  1 +
+ 10 files changed, 117 insertions(+), 24 deletions(-)
+
+diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
+index 95faec78b7f7..fe44d96e7967 100644
+--- a/Documentation/arch/arm64/silicon-errata.rst
++++ b/Documentation/arch/arm64/silicon-errata.rst
+@@ -330,6 +330,8 @@ stable kernels.
+ +----------------+-----------------+-----------------+-----------------------------+
+ | Freescale/NXP  | LS2080A/LS1043A | A-008585        | FSL_ERRATUM_A008585         |
+ +----------------+-----------------+-----------------+-----------------------------+
++| Freescale/NXP  | i.MX 8QM/8QP    | ERR050104       | NXP_IMX8QM_ERRATUM_ERR050104|
+++----------------+-----------------+-----------------+-----------------------------+
+ +----------------+-----------------+-----------------+-----------------------------+
+ | Hisilicon      | Hip0{5,6,7}     | #161010101      | HISILICON_ERRATUM_161010101 |
+ +----------------+-----------------+-----------------+-----------------------------+
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index 70994918fab5..fa4cdd84f4fd 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -1486,6 +1486,28 @@ config ROCKCHIP_ERRATUM_3588001
+ 
+ 	  If unsure, say Y.
+ 
++config NXP_IMX8QM_ERRATUM_ERR050104
++	bool "NXP iMX8QM/QP ERR050104: broken cache/TLB invalidation broadcast"
++	default y
++	help
++	  On iMX8QM (QuadMax) and iMX8QP (QuadPlus), address bits above bit 35
++	  in the A53 subsystem ARADDR and ACADDR buses are incorrectly
++	  connected. This corrupts targeted TLBI and IC broadcasts exchanged
++	  between the A53 and A72 core clusters.
++
++	  Work around this by redirecting targeted TLBI operations to
++	  broadcast-all variants (VMALLE1IS) in the high-level TLB flush
++	  functions, upgrading IC IVAU to IC IALLUIS for both kernel and
++	  user-space, and disabling KVM since correct TLB maintenance
++	  cannot be guaranteed for guests.
++
++	  The user-space IC IVAU is upgraded by trapping it to the kernel
++	  (SCTLR_EL1.UCI cleared). This also traps the user DC CVAU, DC CVAC,
++	  DC CVAP, DC CVADP and DC CIVAC instructions, making user cache
++	  maintenance slower on the affected SoCs.
++
++	  If unsure, say Y.
++
+ config SOCIONEXT_SYNQUACER_PREITS
+ 	bool "Socionext Synquacer: Workaround for GICv3 pre-ITS"
+ 	default y
+diff --git a/arch/arm64/include/asm/assembler.h b/arch/arm64/include/asm/assembler.h
+index 0b58b550e8dc..43c13700f17d 100644
+--- a/arch/arm64/include/asm/assembler.h
++++ b/arch/arm64/include/asm/assembler.h
+@@ -451,6 +451,10 @@ alternative_else_nop_endif
+  * 	Corrupts:	tmp1, tmp2
+  */
+ 	.macro invalidate_icache_by_line start, end, tmp1, tmp2, fixup
++alternative_if ARM64_WORKAROUND_NXP_ERR050104
++	ic	ialluis
++	b	.Licache_done\@
++alternative_else_nop_endif
+ 	icache_line_size \tmp1, \tmp2
+ 	sub	\tmp2, \tmp1, #1
+ 	bic	\tmp2, \start, \tmp2
+@@ -459,6 +463,7 @@ alternative_else_nop_endif
+ 	add	\tmp2, \tmp2, \tmp1
+ 	cmp	\tmp2, \end
+ 	b.lo	.Licache_op\@
++.Licache_done\@:
+ 	dsb	ish
+ 	isb
+ 
+diff --git a/arch/arm64/include/asm/cpucaps.h b/arch/arm64/include/asm/cpucaps.h
+index 76350b38f0d7..0c3bfbe99aad 100644
+--- a/arch/arm64/include/asm/cpucaps.h
++++ b/arch/arm64/include/asm/cpucaps.h
+@@ -66,6 +66,8 @@ cpucap_is_possible(const unsigned int cap)
+ 		return IS_ENABLED(CONFIG_ARM64_ERRATUM_3194386);
+ 	case ARM64_WORKAROUND_4193714:
+ 		return IS_ENABLED(CONFIG_ARM64_ERRATUM_4193714);
++	case ARM64_WORKAROUND_NXP_ERR050104:
++		return IS_ENABLED(CONFIG_NXP_IMX8QM_ERRATUM_ERR050104);
+ 	case ARM64_MPAM:
+ 		/*
+ 		 * KVM MPAM support doesn't rely on the host kernel supporting MPAM.
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index d7caf8c4a11e..0f04c65a71e5 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -73,8 +73,10 @@ enum kvm_mode {
+ };
+ #ifdef CONFIG_KVM
+ enum kvm_mode kvm_get_mode(void);
++void kvm_force_disabled(void);
+ #else
+ static inline enum kvm_mode kvm_get_mode(void) { return KVM_MODE_NONE; };
++static inline void kvm_force_disabled(void) { };
+ #endif
+ 
+ extern unsigned int __ro_after_init kvm_sve_max_vl;
+diff --git a/arch/arm64/include/asm/tlbflush.h b/arch/arm64/include/asm/tlbflush.h
+index 14a78ac0f800..a05520d3a013 100644
+--- a/arch/arm64/include/asm/tlbflush.h
++++ b/arch/arm64/include/asm/tlbflush.h
+@@ -378,9 +378,13 @@ static inline void flush_tlb_mm(struct mm_struct *mm)
+ 	unsigned long asid;
+ 
+ 	dsb(ishst);
+-	asid = __TLBI_VADDR(0, ASID(mm));
+-	__tlbi(aside1is, asid);
+-	__tlbi_user(aside1is, asid);
++	if (alternative_has_cap_unlikely(ARM64_WORKAROUND_NXP_ERR050104)) {
++		__tlbi(vmalle1is);
++	} else {
++		asid = __TLBI_VADDR(0, ASID(mm));
++		__tlbi(aside1is, asid);
++		__tlbi_user(aside1is, asid);
++	}
+ 	__tlbi_sync_s1ish(mm);
+ 	mmu_notifier_arch_invalidate_secondary_tlbs(mm, 0, -1UL);
+ }
+@@ -580,23 +584,28 @@ static __always_inline void __do_flush_tlb_range(struct vm_area_struct *vma,
+ 
+ 	asid = ASID(mm);
+ 
+-	switch (flags & (TLBF_NOWALKCACHE | TLBF_NOBROADCAST)) {
+-	case TLBF_NONE:
+-		__flush_s1_tlb_range_op(vae1is, start, pages, stride,
+-					asid, tlb_level);
+-		break;
+-	case TLBF_NOWALKCACHE:
+-		__flush_s1_tlb_range_op(vale1is, start, pages, stride,
+-					asid, tlb_level);
+-		break;
+-	case TLBF_NOBROADCAST:
+-		/* Combination unused */
+-		BUG();
+-		break;
+-	case TLBF_NOWALKCACHE | TLBF_NOBROADCAST:
+-		__flush_s1_tlb_range_op(vale1, start, pages, stride,
+-					asid, tlb_level);
+-		break;
++	if (alternative_has_cap_unlikely(ARM64_WORKAROUND_NXP_ERR050104) &&
++	    !(flags & TLBF_NOBROADCAST)) {
++		__tlbi(vmalle1is);
++	} else {
++		switch (flags & (TLBF_NOWALKCACHE | TLBF_NOBROADCAST)) {
++		case TLBF_NONE:
++			__flush_s1_tlb_range_op(vae1is, start, pages, stride,
++						asid, tlb_level);
++			break;
++		case TLBF_NOWALKCACHE:
++			__flush_s1_tlb_range_op(vale1is, start, pages, stride,
++						asid, tlb_level);
++			break;
++		case TLBF_NOBROADCAST:
++			/* Combination unused */
++			BUG();
++			break;
++		case TLBF_NOWALKCACHE | TLBF_NOBROADCAST:
++			__flush_s1_tlb_range_op(vale1, start, pages, stride,
++						asid, tlb_level);
++			break;
++		}
+ 	}
+ 
+ 	if (!(flags & TLBF_NONOTIFY))
+@@ -657,7 +666,8 @@ static inline void flush_tlb_kernel_range(unsigned long start, unsigned long end
+ 	end = round_up(end, stride);
+ 	pages = (end - start) >> PAGE_SHIFT;
+ 
+-	if (__flush_tlb_range_limit_excess(pages, stride)) {
++	if (alternative_has_cap_unlikely(ARM64_WORKAROUND_NXP_ERR050104) ||
++	    __flush_tlb_range_limit_excess(pages, stride)) {
+ 		flush_tlb_all();
+ 		return;
+ 	}
+@@ -675,10 +685,14 @@ static inline void flush_tlb_kernel_range(unsigned long start, unsigned long end
+  */
+ static inline void __flush_tlb_kernel_pgtable(unsigned long kaddr)
+ {
+-	unsigned long addr = __TLBI_VADDR(kaddr, 0);
+-
+ 	dsb(ishst);
+-	__tlbi(vaae1is, addr);
++	if (alternative_has_cap_unlikely(ARM64_WORKAROUND_NXP_ERR050104)) {
++		__tlbi(vmalle1is);
++	} else {
++		unsigned long addr = __TLBI_VADDR(kaddr, 0);
++
++		__tlbi(vaae1is, addr);
++	}
+ 	__tlbi_sync_s1ish_kernel();
+ 	isb();
+ }
+diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
+index a418e240ccce..38abd123c740 100644
+--- a/arch/arm64/kernel/cpu_errata.c
++++ b/arch/arm64/kernel/cpu_errata.c
+@@ -6,6 +6,7 @@
+  */
+ 
+ #include <linux/arm-smccc.h>
++#include <linux/of.h>
+ #include <linux/types.h>
+ #include <linux/cpu.h>
+ #include <asm/cpu.h>
+@@ -13,6 +14,7 @@
+ #include <asm/cpufeature.h>
+ #include <asm/fpsimd.h>
+ #include <asm/kvm_asm.h>
++#include <asm/kvm_host.h>
+ #include <asm/smp_plat.h>
+ 
+ static u64 target_impl_cpu_num;
+@@ -203,6 +205,33 @@ cpu_enable_cache_maint_trap(const struct arm64_cpu_capabilities *__unused)
+ 	sysreg_clear_set(sctlr_el1, SCTLR_EL1_UCI, 0);
+ }
+ 
++#ifdef CONFIG_NXP_IMX8QM_ERRATUM_ERR050104
++static bool
++is_imx8qm_soc(const struct arm64_cpu_capabilities *entry, int scope)
++{
++	static const char * const compats[] = {
++		"fsl,imx8qm",
++		"fsl,imx8qp",
++		NULL
++	};
++
++	return of_machine_compatible_match(compats);
++}
++
++static void
++cpu_enable_imx8qm_err050104(const struct arm64_cpu_capabilities *__unused)
++{
++	/* Trap the EL0 IC IVAU so that it can be upgraded to IC IALLUIS */
++	sysreg_clear_set(sctlr_el1, SCTLR_EL1_UCI, 0);
++
++	/*
++	 * TLB maintenance cannot be guaranteed correct for guests, so
++	 * disable KVM as if kvm-arm.mode=none was passed on the command line.
++	 */
++	kvm_force_disabled();
++}
++#endif
++
+ #define CAP_MIDR_RANGE(model, v_min, r_min, v_max, r_max)	\
+ 	.matches = is_affected_midr_range,			\
+ 	.midr_range = MIDR_RANGE(model, v_min, r_min, v_max, r_max)
+@@ -1045,6 +1074,15 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
+ 		.type = ARM64_CPUCAP_SYSTEM_FEATURE,
+ 		.matches = has_broken_gic_v3_seis,
+ 	},
++#ifdef CONFIG_NXP_IMX8QM_ERRATUM_ERR050104
++	{
++		.desc = "NXP erratum ERR050104",
++		.capability = ARM64_WORKAROUND_NXP_ERR050104,
++		.type = ARM64_CPUCAP_SOC_ERRATUM,
++		.matches = is_imx8qm_soc,
++		.cpu_enable = cpu_enable_imx8qm_err050104,
++	},
++#endif
+ 	{
+ 	}
+ };
+diff --git a/arch/arm64/kernel/traps.c b/arch/arm64/kernel/traps.c
+index 914282016069..d6391ab20db3 100644
+--- a/arch/arm64/kernel/traps.c
++++ b/arch/arm64/kernel/traps.c
+@@ -586,6 +586,8 @@ static void user_cache_maint_handler(unsigned long esr, struct pt_regs *regs)
+ 		break;
+ 	case ESR_ELx_SYS64_ISS_CRM_IC_IVAU:	/* IC IVAU */
+ 		__user_cache_maint("ic ivau", address, ret);
++		if (cpus_have_final_cap(ARM64_WORKAROUND_NXP_ERR050104) && !ret)
++			asm volatile("ic ialluis");
+ 		break;
+ 	default:
+ 		force_signal_inject(SIGILL, ILL_ILLOPC, regs->pc, 0);
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index 9b773ab0b51d..2ddb67081c85 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -3174,6 +3174,11 @@ static int __init early_kvm_mode_cfg(char *arg)
+ }
+ early_param("kvm-arm.mode", early_kvm_mode_cfg);
+ 
++void kvm_force_disabled(void)
++{
++	kvm_mode = KVM_MODE_NONE;
++}
++
+ static int __init early_kvm_wfx_trap_policy_cfg(char *arg, enum kvm_wfx_trap_policy *p)
+ {
+ 	if (!arg)
+diff --git a/arch/arm64/tools/cpucaps b/arch/arm64/tools/cpucaps
+index 58b6c084f9f2..20cc185649f9 100644
+--- a/arch/arm64/tools/cpucaps
++++ b/arch/arm64/tools/cpucaps
+@@ -124,6 +124,7 @@ WORKAROUND_DEVICE_LOAD_ACQUIRE
+ WORKAROUND_DISABLE_CNP
+ WORKAROUND_GICv3_BROKEN_SEIS
+ WORKAROUND_NVIDIA_OLYMPUS_1027
++WORKAROUND_NXP_ERR050104
+ WORKAROUND_PMUV3_IMPDEF_TRAPS
+ WORKAROUND_QCOM_FALKOR_E1003
+ WORKAROUND_QCOM_ORYON_CNTVOFF
+-- 
+2.56.1
+
